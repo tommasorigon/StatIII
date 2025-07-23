@@ -32,6 +32,7 @@ This is the website of the **Statistica III** course (6 CFU) of the "*Corso di L
 
 ### Required
 
+- Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://doi.org/10.1007/978-88-470-3995-7_10). Springer.
     
 ### Optional 
 
@@ -51,24 +52,32 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) |  |
 | **Linear models: miscellanea** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) | [Code A](code/un_A.R) |
 | *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
+| Lab 1 | | | |
 | | **GENERALIZED LINEAR MODELS** | | |
 | **Exponential dispersion families** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
-| **Estimation (IRLS)** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
-| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
-| **Inference** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
-| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
-| **Model checking, diagnostic, model selection** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
-| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
+| **Estimation (IRLS)** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_B_slides.html)| [Code C](code/un_B.R) |
+| *Exercises* | [Exercises C](exe/exe_B.html) |  |  |
+| **Inference** | [Unit D](slides/un_B.html) | [Slides Unit D](slides/un_B_slides.html)| [Code D](code/un_D.R) |
+| *Exercises* | [Exercises D](exe/exe_B.html) |  |  |
+| **Model checking, diagnostic, model selection** | [Unit E](slides/un_B.html) | [Slides Unit E](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| *Exercises* | [Exercises E](exe/exe_B.html) |  |  |
+| Lab 2 | | | |
+| *Exercises* | [Exercises E](exe/exe_B.html) |  |  |
 | | **NOTABLE MODELS** | | |
-| **Binary regression** | [Unit C] | [Slides Unit C] | [Code C] |
+| **Binary regression** | [Unit F] | [Slides Unit F] | [Code F] |
+| Lab 3 | | | |
+| Lab 4 | | | |
 | *Exercises* | [Exercises C] |  |  |
 | **Poisson regression** | [Unit D] | [Slides Unit D] | [Code D] |
+| Lab 5 | | | |
 | *Exercises* | [Exercises D] |  |  |
 | **Contingency tables and log-linear models** | [Unit E] | [Slides Unit E] | [Code E] |
+| Lab 6 | | | |
 | *Exercises* | [Exercises E] |  |  |
 | | **ADVANCED TOPICS** | | |
 | **Quasi-likelihoods** | [Unit F] | [Slides Unit F] | [Code F] |
+| Lab 7 | | | |
 | *Exercises* | [Exercises F] |  |  |
 
 <!-- ## Exam -->
