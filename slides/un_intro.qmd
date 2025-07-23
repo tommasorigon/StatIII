@@ -1,0 +1,400 @@
+---
+title: "Introduction"
+subtitle: "Statistical Inference - PhD EcoStatData"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+filters: 
+  - remove-pause.lua
+nocite: |
+  @Birnbaum1962 @Cajal1916
+format:
+  revealjs:
+    auto-stretch: true
+    center: true
+    html-math-method: katex
+    transition: none
+    output-file: un_intro_slides.html
+    slide-number: true
+    callout-appearance: minimal
+    code-line-numbers: true
+    theme: [default, ../template.css] # alternative themes (subset): default, night, dark
+    embed-resources: false
+    echo: false
+    fig-dpi: 200
+    # incremental: true  # Remove comment if you like incremental bullet points
+    logo: img/logoB.png
+    footer: "[Home page](https://tommasorigon.github.io/InferentialStat)"
+    highlight-style: github
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    toc-location: right
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](../index.html)
+
+::: columns
+::: {.column width="35%"}
+![](img/cox.jpg){width=3in}
+
+::: {style="font-size: 80%;"}
+*"I would like to think of myself as a scientist, who happens largely to specialise in the use of statistics."*
+
+[Sir David Cox](https://royalsocietypublishing.org/doi/10.1098/rsbm.2023.0052#:~:text=David%20described%20himself%20as%20a,of%20his%20interest%20in%20applications.){.grey} (1924-2022)
+:::
+:::
+
+::: {.column width="65%"}
+- This course will cover the following [topics]{.orange}:
+    - Point estimation
+    - Exponential families
+    - Generalized linear models
+    - ...and more advanced topics
+- This is a [Ph.D.-level]{.blue} course, so it is assumed that you have already been exposed to all these topics to some extent.
+
+- We aim to (briefly!) touch upon many [key concepts]{.blue} of [classical statistical inference]{.orange} from the [20th century]{.blue}.
+
+- Fundamental topics such as [hypothesis testing]{.blue} are not covered here, as they are addressed in another module.
+
+- To introduce the main ideas, I will borrow the words of @Davison2001 --- a source you are [encouraged to read!]{.orange}
+:::
+:::
+
+
+## Statistics of the 20th century 
+
+![](img/Davison1.png){width=7in fig-align=center}
+
+- [Biometrika]{.orange} is among the most prestigious journals in Statistics. Past editors include Karl Pearson, Sir David Cox, and Anthony Davison.
+
+## Foundations and Bayesian statistics 
+
+![](img/Davison2.png){width=7in fig-align=center}
+
+
+## Principles: sufficiency, conditionality and likelihoods
+
+![](img/Davison3.png){width=7in fig-align=center}
+
+![](img/Davison3_5.png){width=7in fig-align=center}
+
+
+![](img/Davison4.png){width=7in fig-align=center}
+
+## Likelihood
+
+![](img/Davison5.png){width=7in fig-align=center}
+
+- The study of the [likelihood]{.orange} has gone [far beyond]{.blue} the classical [textbook]{.blue} description. Specialized topics that have attracted considerable attention include:
+  - Likelihood ratio tests and their large-sample properties  
+  - Conditional and marginal likelihoods  
+  - Modified profile likelihoods  
+  - Restricted maximum likelihood  
+
+## Estimating functions
+
+![](img/Davison6.png){width=7in fig-align=center}
+
+## Generalized linear models 
+
+![](img/Davison7.png){width=7in fig-align=center}
+
+![](img/Davison7_5.png){width=7in fig-align=center}
+
+## Quasi likelihoods
+
+![](img/Davison8.png){width=7in fig-align=center}
+
+## Nonparametric (local) models
+
+![](img/Davison9.png){width=7in fig-align=center}
+
+## Bayesian methods
+
+![](img/Davison10.png){width=6in fig-align=center}
+
+![](img/Davison11.png){width=6in fig-align=center}
+
+![](img/Davison11_5.png){width=6in fig-align=center}
+
+<!-- ## Other topics -->
+
+<!-- - Davison's paper covers many other topics beyond the scope of this overview, including: -->
+
+<!-- - [Model selection]{.blue}: information criteria such as AIC and its variants; [robustness]{.orange} and model diagnostics. -->
+
+<!-- - [Computational methods]{.grey}: simulation techniques including Markov Chain Monte Carlo; analytical approximations such as saddlepoint and Laplace methods. -->
+
+<!-- - [Missing data]{.blue}, counterfactual reasoning, and causal inference frameworks. -->
+
+<!-- - [Specialized modeling]{.orange}: approaches for longitudinal and clustered data, multivariate analysis, factor modelling, graphical models, and spatial statistics. -->
+
+## Prerequisite of this course
+
+- As mentioned, it is assumed that you have already been exposed to courses on statistical inference before.
+
+- [Propedeutical]{.blue} topics that I will [not]{.orange} discuss here are:
+  - Asymptotic probability theory, $O_p(\cdot)$ and $o_p(\cdot)$ notations
+  - Likelihood function: definition and basic properties
+  - Sufficiency, ancillarity, Fisher factorization theorem, minimality
+  - Tests based on the likelihood (likelihood ratio, score test, Wald test), asymptotically equivalent forms, confidence intervals
+  - Linear models, ordinary least squares, exact normal theory
+
+- If you are unfamiliar with any of these, please have a look at Chap. 2 and Chap. 3 of @Pace1997, and @Davison2003.
+
+## Statistical Inference
+
+- The key assumption is that [observations]{.orange} $y_1,\dots, y_n$, seen as realizations of the [random variables]{.blue} $(Y_1,\dots,Y_n) \sim P_\theta$, provide information about the [generating process]{.orange} $P_\theta(\cdot)$.
+
+- We assume that $P_\theta$ is only partially known; that is, it belongs to a [model class]{.orange} specified by the tuple
+$$
+(\mathcal{Y}, P_\theta, \Theta),
+$$
+where $\mathcal{Y}$ is the [sample space]{.blue}, $P_\theta$ is a [probability measure]{.grey} over $\mathcal{Y}$ indexed by $\theta \in \Theta$, and $\Theta$ is the [parameter space]{.orange}.
+
+- In this course, we focus on the [parametric case]{.orange}, where $\Theta \subseteq \mathbb{R}^p$. Hence, $\theta \in \Theta$ is a vector-valued [parameter]{.orange} that we aim to infer from the data.
+
+- If instead $\Theta$ is not a subset of $\mathbb{R}^p$, then we are in the domain of [nonparametric statistics]{.blue}.
+
+- A basic requirement is [identifiability]{.blue}, meaning that
+$$
+\text{if} \quad \theta_1 \neq \theta_2, \qquad P_{\theta_1} \neq P_{\theta_2},
+$$
+that is, there exists a measurable set $A \in \mathcal{B}(\mathcal{Y})$ such that $P_{\theta_1}(A) \neq P_{\theta_2}(A)$.
+
+
+## Dominated statistical models
+
+- We will focus on [dominated families]{.orange} of distributions, namely we assume there exist a measure $\nu(\mathrm{d}\bm{y})$ over $\mathcal{B}(\mathcal{Y})$ such that $P_\theta$ is absolutely continuous w.r.t. $\nu$ for all $\theta \in \Theta$, that is
+$$
+\forall A\in \mathcal{B}(\mathcal{Y}) \quad \text{ such that } \quad \nu(A) = 0 \quad\implies \quad P_\theta(A) = 0.
+$$
+- [Radon-Nikodym]{.grey} theorem then ensures there exists a [probability density]{.blue} $f(\bm{y}; \theta)$ such that
+$$
+P_\theta(A) = \int_A f(\bm{y}; \theta)\nu(\mathrm{d}\bm{y}).
+$$
+If $\mathcal{Y} \subseteq \mathbb{R}^d$, then $\nu$ is typically the [Lebesgue measure]{.blue} or the [counting measure]{.orange}. 
+
+- A [dominated statistical model]{.orange} is therefore identified by the following class of densities:
+$$
+\mathcal{F} = \{f(\cdot;\theta) : \theta \in \Theta \subseteq \mathbb{R}^p\},
+$$
+or more precisely by the tuple $(\mathcal{Y}, f(\cdot;\theta), \Theta)$, with $\Theta \subseteq \mathbb{R}^p$. We will only consider the dominated case in this course. 
+
+## Likelihood function
+
+- Let $\mathcal{F}$ be a [dominated (parametric) statistical model]{.blue} and $\bm{y} = (y_1,\dots,y_n) \in \mathcal{Y}$ the observed data. Let $c  = c(\bm{y}) > 0$ be a positive [arbitrary constant]{.orange}, the function $L : \Theta \to \mathbb{R}^+$ defined as
+$$
+L(\theta) = L(\theta;\bm{y}) = c(\bm{y}) f(\bm{y}; \theta), \qquad \theta \in \Theta,
+$$
+is called [likelihood function]{.orange}. The log-likelihood function is $\ell(\theta) := \log{L(\theta)}$. 
+
+- Some authors set $c = 1$, but this is [debatable]{.orange}. Indeed, defining the likelihood [up to a multiplicative factor]{.blue} can be justified in multiple ways:
+
+- Intuitively, when comparing the coherency of two statistical models with the observed data, we only care about ratios of the form $L(\theta_1;\bm{y}) / L(\theta_2;\bm{y})$ where the constant simplifies. 
+
+- Moreover, this definition does not depend on the choice of the dominating measure $\nu$. 
+
+- In particular, the likelihood is [invariant]{.blue} under [one-to-one transformations]{.orange} of the data, as the jacobian of the transformation can be incorporated into $c(\bm{y})$.
+
+- This is also the [original definition]{.grey} provided by [Fisher]{.grey} in 1922!
+
+## Textbooks
+
+- We will use multiple textbooks throughout this course --- some more specialized than others. Please treat them as reference materials to consult as needed.
+
+- Roughly speaking, they can be organized as follows:
+
+  - [General references]{.blue}: @Casella2002, @Davison2003, and @Pace1997 
+  - [Point estimation]{.grey}: @Lehmann1998  and @Keener2010 
+  - [Exponential families]{.orange}: @Pace1997
+  - [Asymptotic statistics]{.blue}: @vandervaart1998 
+  - [Generalized linear models]{.grey}: @Agresti2015, @McCullagh1989
+
+- The book by @Davison2003 is perhaps the most accessible among the listed texts. You are encouraged to refer to it if you need to review or catch up on prerequisite material.
+
+- In addition, specialized articles and resources will be discussed throughout the course to complement the textbook material.
+
+## The future
+
+![](img/Davison12.png){width=8in fig-align=center}
+
+![](img/Davison13.png){width=8in fig-align=center}
+
+
+
+## Cynical and questionable advice for a young investigator
+
+1. Strive to [publish]{.blue} in [top statistical journals]{.orange}, such as: *Annals of Statistics, Biometrika, Journal of the American Statistical Association, Journal of the Royal Statistical Society: Series B*.
+
+1. However, keep in mind that both [quality]{.blue} and [quantity]{.orange} matter. Aim to have at least 2–4 submitted or published papers by the end of your Ph.D. --- the more, the better.
+
+2. Focus on a [niche trending topic]{.orange}. Make sure you are part of a [large]{.blue} and [established group]{.blue} of researchers who actively promote the topic you are working on.
+
+3. Become an [expert]{.blue} in your niche, and learn how to [write]{.blue} about it and promote it effectively. In a nutshell, [learn]{.orange} how to [play the game]{.orange}.
+
+4. Closely follow the [suggestions]{.blue} of your [advisor]{.blue} --- they know better than you how to navigate the system and can guide you through many political and scientific challenges.
+
+5. [Do not wast time]{.orange} on activities that do not produce papers. This include:
+    - Teaching to undergraduate students
+    - Disseminating your work to the broader community, beyond academia
+    - Studying topics unrelated to your niche area
+
+## Deconstructing the cynical advice
+
+- The former is a list of concrete recommendations (easier said than done, especially about publishing on top journals) that may help you secure a [permanent position]{.blue} in [academia]{.blue}. 
+
+- I [do not fully agree]{.orange} with those rules: there is more to pursuing a Ph.D. than just "getting a job." 
+
+- These suggestions may change over time and do not necessarily apply to other fields.  Moreover, keep in mind academia, in the [short period]{.orange}, is also a [game of chance]{.blue}.
+
+- I recognize their [effectiveness]{.blue}, but there are, I think, some [uncomfortable]{.orange} consequences. 
+
+:::callout-warning
+
+- These rules may lead to an [unhealthy competition]{.orange} among peers, who struggle to [publish or perish]{.blue}, which has [negative psychological]{.orange} effects and it favors [incremental]{.orange} contributions. 
+
+- Even if they work in the [short period]{.orange}, in the [long run]{.blue}, if the niche you decided to focus on is declining, transitioning towards different topics is hard if have not studied anything else. 
+
+- If the academic system rewards specialization, why study [classical statistics]{.orange} or other topics at all? What about the role of Universities in [preserving]{.blue} and [disseminating knowledge]{.blue}?
+
+- These suggestions apply to academia and do not consider [working]{.blue} in [industry]{.blue} after the Ph.D., which is what many (most?) Ph.D. students will do.
+:::
+
+## Advice for a young investigator
+
+::: columns
+::: {.column width="25%"}
+![](img/advice.jpg){width=3in}
+
+::: {style="font-size: 80%;"}
+[Santiago Ramon Y Cajal]{.grey} (1852–1934)
+:::
+:::
+
+::: {.column width="75%"}
+- The former list of practical advice is probably [effective]{.orange} but [questionable]{.orange}. For sure, it lacks [perspective]{.blue}.
+
+- In looking for [principles]{.blue} defining a [good researcher]{.orange}, I once again need to borrow the words of somebody else.
+
+- [Santiago Ramón y Cajal]{.grey}  is a fascinating personalities in science. He was one of the most important [neuroanatomist]{.blue} of his century. 
+
+- Cajal was also a [thoughtful]{.orange} and inspired [teacher]{.orange}. 
+
+- "The advice" became vehicle for Cajal to write down the thoughts and anecdotes he would give to students and colleagues about how to make [important original contributions]{.blue} in any branch of [science]{.orange}.
+
+- This book was written in 1898. The world was different, and so was academia. Yet, the book feels remarkably [modern]{.blue}.
+
+:::
+:::
+
+
+## Introduction
+
+:::callout-tip
+#### On general philosophical principles
+::: {style="font-size: 80%;"}
+*It is important to note that the most brilliant discoveries have not relied on a formal knowledge of logic. Instead, their discoverers have had an [acute inner logic]{.blue} that generates ideas [...]*
+
+*Let me assert without further ado that [there are no rules of logic]{.orange} for [making discoveries]{.blue} [...]*
+
+*Must we therefore abandon any attempt to instruct and educate about the process of scientific research? Shall we leave the beginner to his own devices, confused and abandoned, struggling without guidance or advice along a path strewn with difficulties and dangers?*
+
+*Definitely not. In fact, just the opposite --- we believe that by [abandoning]{.orange} the [ethereal realm of philosophical principles]{.orange} and abstract methods we can descend to the [solid ground]{.blue} of [experimental science]{.blue}, as well as to the sphere of ethical considerations involved in the process of inquiry. In taking this course, simple, genuinely useful advice for the novice can be found.*
+:::
+:::
+
+## Beginner traps
+
+:::callout-tip
+#### Undue admiration of authority
+
+::: {style="font-size: 80%;"}
+*I believe that [excessive admiration]{.orange} for the work of [great minds]{.blue} is one of the most [unfortunate preoccupations]{.orange} of intellectual youth --- along with a conviction that certain problems cannot be attacked, let alone solved, because of one’s relatively limited abilities.*
+
+*Inordinate respect for genius is based on a commendable sense of fairness and modesty that is difficult to censure. However, when foremost in the mind of a novice, it [cripples initiative]{.orange} and prevents the formulation of [original work]{.blue}. Defect for defect, arrogance is preferable to diffidence, boldness measures its strengths and conquers or is conquered, and undue modesty flees from battle, condemned to [shameful inactivity]{.orange}. [...]*
+
+*Far from humbling one’s self before the great authorities of science, those beginning research must understand that [...] their destiny is to [grow a little]{.blue} at the [expense of the great one]{.orange}'s reputation. [...]*
+
+*By way of classic examples, recall Galileo refuting [Aristotle’s view of gravity](https://en.wikipedia.org/wiki/Aristotelian_physics), Copernicus tearing down [Ptolemy’s system of the universe](https://en.wikipedia.org/wiki/Geocentric_model), Lavoisier destroying Stahl’s concept of [phlogiston](https://en.wikipedia.org/wiki/Phlogiston_theory), and Virchow refuting the idea of [spontaneous generation](https://en.wikipedia.org/wiki/Spontaneous_generation) held by Schwann, Schleiden, and Robin. [...]*
+
+*It could be said that in our times, when so many idols have been dethroned and so many illusions destroyed or forgotten, there is little need for resorting to a [critical sense]{.blue} and [spirit of doubt]{.orange}. [...] However, old habits die hard --- too often one still encounters the pupils of illustrious men wasting their talents on [defending the errors]{.orange} of their [teachers]{.orange}, rather than using them to solve new problems.*
+:::
+:::
+
+## Beginner traps
+
+:::callout-tip
+#### The most important problems are already solved
+
+::: {style="font-size: 80%;"}
+*Here is another [false concept]{.orange} often heard from the lips of the newly graduated:* "Everything of major importance in the various areas of science has already been clarified. What difference does it make if I add some minor detail or gather up what is left in some field where more diligent observers have already collected the abundant, ripe grain. Science won’t change  its  perspective  because of my work, and my name will never emerge from obscurity." 
+
+*This is often [indolence masquerading as modesty]{.orange}. [...]*
+
+*Instead, bear in mind that even in our own time science is often built on the [ruins of theories]{.blue} once thought to be [indestructible]{.blue}. It is important to realize that if certain areas of science appear to be quite [mature]{.blue}, [others]{.orange} are in the process of [development]{.orange}, and yet others remain to be born. [...]*
+
+*It is fair to say that, in general, no problems have been exhausted; instead, men have been exhausted by the problems. [...] [Fresh talent]{.blue} approaching the analysis of a problem [without prejudice]{.blue} will always see new possibilities --- some aspect not considered by those who believe that a subject is fully understood. Our knowledge is so fragmentary that unexpected findings appear in even the most fully explored topics.*
+
+:::
+:::
+
+## Beginner traps
+
+:::callout-tip
+#### Preoccupation  with  applied  science
+::: {style="font-size: 80%;"}
+*Another corruption of thought that is important to battle at all costs is the false distinction between* [theoretical]{.orange} *and* [applied]{.blue} *science, with accompanying [praise of the latter]{.blue} and [deprecation]{.orange} of the [former]{.orange}.*
+
+*This lack of appreciation is definitely shared by the [average citizen]{.grey}, often including lawyers, writers, industrialists, and [unfortunately]{.orange} even distinguished [statesmen]{.orange}, whose initiatives can have serious consequences for the cultural development of their nation. [...]*
+
+*People with little understanding fail to observe the [mysterious threads]{.orange} that bind the factory to the laboratory, just as the stream is connected with its source. Like the man in the street, they believe in good faith that scholars may be divided into two groups --- those who waste time speculating about unfruitful lines of pure science, and those who know how to find data that can be applied immediately to the advancement and comfort of life.*
+
+*Is it really necessary to dwell on such an [absurd point of view]{.blue}? Does anyone lack the common sense to understand that [applications]{.blue} derive immediately from the [discovery of fundamental principles]{.orange} and new data? [...]*
+
+*For the present, let us cultivate [science for its own sake]{.blue}, without considering its [applications]{.orange}. They will always come, whether in years or perhaps even in centuries. It matters very little whether scientific truth is used by our sons or by our grandsons. [...] Accept the view that [nothing]{.orange} in nature is [useless]{.orange}, even from the human point of view. Even in the rare instance where it may not be possible to use particular scientific breakthroughs for our comfort and benefit, there is one positive benefit --- the noble satisfaction of our curiosity and the incomparable gratification and feeling of power that accompany the solving of a difficult problem.*
+:::
+:::
+
+## Beginner traps
+
+:::callout-tip
+#### Perceived lack of ability
+::: {style="font-size: 80%;"}
+*Some people claim a [lack of ability for science]{.blue} to justify failure and discouragement. [...] but the great majority of those professing incompetence really so? Might they exaggerate how difficult the task will be, and [underestimate their own abilities]{.orange}? I believe that this is often the case. [...]*
+
+*As many teachers and thinkers have noted, discoveries are [not]{.orange} the fruit of [outstanding talent]{.orange}, but rather of [common sense]{.blue} enhanced and strengthened by [technical education]{.blue} and a habit of [thinking about scientific problems]{.blue}. [...]*
+
+*What we refer to as a great and special talent usually implies superiority that is [expeditious]{.orange} rather than [qualitative]{.blue}. In other words, it simply means doing quickly and with brilliant success what ordinary intellects carry out slowly [but well]{.blue}.*
+
+*Instead of distinguishing between mediocre and great minds, it would be preferable and more correct in most instances to classify them as slow and facile. The latter are certainly more brilliant and stimulating --- there is no substitute for them in conversation, oratory, and journalism, that is, in all lines of work where time is a decisive factor. However, in scientific undertakings the slow prove to be as useful as the fast because scientists like artists are judged by the [quality of what they produce]{.blue}, [not]{.orange} by the [speed of production]{.orange}.*
+:::
+:::
+
+## References {.unnumbered}
+
+::: {#refs}
+:::

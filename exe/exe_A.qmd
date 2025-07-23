@@ -1,0 +1,214 @@
+---
+title: "Exercises A"
+subtitle: "Statistical Inference - Ph.D. in Economics, Statistics, and Data Science"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Preliminaries
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Problem 2, pag. 156]{.blue} 
+
+![](img/Davison2.png)
+![](img/Davison2bis.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Exercise 8, pag. 109]{.blue}
+
+![](img/Davison8.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.6]{.orange}
+
+![](img/Casella7_6.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Problem 11, pag. 159]{.blue}
+
+![](img/Davison11.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.10]{.orange}
+
+![](img/Casella7_10.png)
+:::
+
+## Risk, losses, Bayes estimation, and shrinkage
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.62]{.orange}
+
+![](img/Casella7_62.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.63]{.orange}
+
+![](img/Casella7_63.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.65]{.orange}
+
+![](img/Casella7_65.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Problem 2, pag 636]{.blue}
+
+![](img/Davison2_636.png)
+:::
+
+
+## Unbiasedness and efficiency
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Problem 1, pag. 156]{.blue}
+
+![](img/Davison1.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.44]{.orange}
+
+![](img/Casella7_44.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.46]{.orange}
+
+![](img/Casella7_46.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.48]{.orange}
+
+![](img/Casella7_48.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.57]{.orange}
+
+![](img/Casella7_57.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 7.66]{.orange}
+
+![](img/Casella7_66.png)
+:::
+
+
+## Asymptotics
+
+::: {.callout-note collapse=true}
+#### [Casella & Berger (2002), Exercise 10.9]{.orange}
+
+![](img/Casella10_9.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Exercise 5, pag. 125]{.blue}
+
+![](img/Davison5_125.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Exercise 5, pag. 149]{.blue}
+
+![](img/Davison5_149.png)
+:::
+
+::: {.callout-note collapse=true}
+#### **Young and Smith (2008), Exercise 8.10, pag. 139**
+
+![](img/YoungSmith8_10.png)
+:::
+
+## Robustness
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Exercise 2, pag. 324]{.blue}
+
+![](img/Davison2_325_1.png)
+![](img/Davison2_325_2.png)
+
+Recalling that
+
+![](img/Davison2_325_3.png)
+![](img/Davison2_325_4.png)
+:::
+
+::: {.callout-note collapse=true}
+#### [Davison (2003), Exercise 6, pag. 325]{.blue}
+
+![](img/Davison6_325.png)
+
+Recalling that
+
+![](img/Davison7_20.png)
+:::
+
+## Recap (ITA)
+
+These exercises are taken from the book by [Adimari and Pauli (2012)](https://moodle2.units.it/pluginfile.php/428460/mod_resource/content/2/AdimariPauli.pdf). They are in italian, but hopefully you can understand them. If not, just upload the picture on ChatGPT.
+
+::: {.callout-note collapse=true}
+#### **Adimari & Pauli (2012), Exercise 12**
+![](img/Adimari12.png)
+![](img/Adimari12bis.png)
+:::
+
+::: {.callout-note collapse=true}
+#### **Adimari & Pauli (2012), Exercise 28 (You can skip point a.)**
+![](img/Adimari28.png)
+:::
+
+::: {.callout-note collapse=true}
+#### **Adimari & Pauli (2012), Exercise 56**
+![](img/Adimari56.png)
+:::
+
+::: {.callout-note collapse=true}
+#### **Adimari & Pauli (2012), Exercise 58**
+![](img/Adimari58.png)
+:::
+
+::: {.callout-note collapse=true}
+#### **Adimari & Pauli (2012), Exercise 70**
+![](img/Adimari70.png)
+:::

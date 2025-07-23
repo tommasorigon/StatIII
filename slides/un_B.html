@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tommaso Rigon">
+
+<title>Exponential families</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="un_B_files/libs/clipboard/clipboard.min.js"></script>
+<script src="un_B_files/libs/quarto-html/quarto.js"></script>
+<script src="un_B_files/libs/quarto-html/popper.min.js"></script>
+<script src="un_B_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="un_B_files/libs/quarto-html/anchor.min.js"></script>
+<link href="un_B_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="un_B_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="un_B_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="un_B_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="un_B_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#one-parameter-exponential-families" id="toc-one-parameter-exponential-families" class="nav-link" data-scroll-target="#one-parameter-exponential-families">One-parameter exponential families</a>
+  <ul class="collapse">
+  <li><a href="#exponential-tilting" id="toc-exponential-tilting" class="nav-link" data-scroll-target="#exponential-tilting">Exponential tilting</a></li>
+  <li><a href="#natural-exponential-family-of-order-one" id="toc-natural-exponential-family-of-order-one" class="nav-link" data-scroll-target="#natural-exponential-family-of-order-one">Natural exponential family of order one</a></li>
+  <li><a href="#moment-generating-function" id="toc-moment-generating-function" class="nav-link" data-scroll-target="#moment-generating-function">Moment generating function</a></li>
+  <li><a href="#cumulant-generating-function" id="toc-cumulant-generating-function" class="nav-link" data-scroll-target="#cumulant-generating-function">Cumulant generating function</a></li>
+  <li><a href="#example-uniform-distribution" id="toc-example-uniform-distribution" class="nav-link" data-scroll-target="#example-uniform-distribution">Example: uniform distribution 📖</a></li>
+  <li><a href="#example-poisson-distribution" id="toc-example-poisson-distribution" class="nav-link" data-scroll-target="#example-poisson-distribution">Example: Poisson distribution 📖</a></li>
+  <li><a href="#example-exponential-family-generated-by-a-gaussian" id="toc-example-exponential-family-generated-by-a-gaussian" class="nav-link" data-scroll-target="#example-exponential-family-generated-by-a-gaussian">Example: exponential family generated by a Gaussian 📖</a></li>
+  <li><a href="#closure-under-exponential-tilting" id="toc-closure-under-exponential-tilting" class="nav-link" data-scroll-target="#closure-under-exponential-tilting">Closure under exponential tilting 📖</a></li>
+  <li><a href="#moments-and-cumulants" id="toc-moments-and-cumulants" class="nav-link" data-scroll-target="#moments-and-cumulants">Moments and cumulants</a></li>
+  <li><a href="#mean-value-mapping-i" id="toc-mean-value-mapping-i" class="nav-link" data-scroll-target="#mean-value-mapping-i">Mean value mapping I</a></li>
+  <li><a href="#mean-value-mapping-ii" id="toc-mean-value-mapping-ii" class="nav-link" data-scroll-target="#mean-value-mapping-ii">Mean value mapping II</a></li>
+  <li><a href="#mean-value-mapping-iii" id="toc-mean-value-mapping-iii" class="nav-link" data-scroll-target="#mean-value-mapping-iii">Mean value mapping III 📖</a></li>
+  <li><a href="#a-non-regular-and-non-steep-exponential-family" id="toc-a-non-regular-and-non-steep-exponential-family" class="nav-link" data-scroll-target="#a-non-regular-and-non-steep-exponential-family">A non regular and non steep exponential family</a></li>
+  <li><a href="#variance-function-i" id="toc-variance-function-i" class="nav-link" data-scroll-target="#variance-function-i">Variance function I 📖</a></li>
+  <li><a href="#variance-function-ii" id="toc-variance-function-ii" class="nav-link" data-scroll-target="#variance-function-ii">Variance function II 📖</a></li>
+  <li><a href="#well-known-exponential-families" id="toc-well-known-exponential-families" class="nav-link" data-scroll-target="#well-known-exponential-families">Well-known exponential families</a></li>
+  <li><a href="#quadratic-variance-functions" id="toc-quadratic-variance-functions" class="nav-link" data-scroll-target="#quadratic-variance-functions">Quadratic variance functions</a></li>
+  <li><a href="#a-general-definition-of-exponential-families-i" id="toc-a-general-definition-of-exponential-families-i" class="nav-link" data-scroll-target="#a-general-definition-of-exponential-families-i">A general definition of exponential families I</a></li>
+  <li><a href="#a-general-definition-of-exponential-families-ii" id="toc-a-general-definition-of-exponential-families-ii" class="nav-link" data-scroll-target="#a-general-definition-of-exponential-families-ii">A general definition of exponential families II</a></li>
+  </ul></li>
+  <li><a href="#multiparameter-exponential-families" id="toc-multiparameter-exponential-families" class="nav-link" data-scroll-target="#multiparameter-exponential-families">Multiparameter exponential families</a>
+  <ul class="collapse">
+  <li><a href="#natural-exponential-families-of-order-p" id="toc-natural-exponential-families-of-order-p" class="nav-link" data-scroll-target="#natural-exponential-families-of-order-p">Natural exponential families of order <span class="math inline">p</span></a></li>
+  <li><a href="#example-multinomial-distribution-i" id="toc-example-multinomial-distribution-i" class="nav-link" data-scroll-target="#example-multinomial-distribution-i">Example: multinomial distribution I 📖</a></li>
+  <li><a href="#example-multinomial-distribution-ii" id="toc-example-multinomial-distribution-ii" class="nav-link" data-scroll-target="#example-multinomial-distribution-ii">Example: multinomial distribution II 📖</a></li>
+  <li><a href="#example-independent-exponential-families" id="toc-example-independent-exponential-families" class="nav-link" data-scroll-target="#example-independent-exponential-families">Example: independent exponential families 📖</a></li>
+  <li><a href="#mean-value-mapping-and-other-properties" id="toc-mean-value-mapping-and-other-properties" class="nav-link" data-scroll-target="#mean-value-mapping-and-other-properties">Mean value mapping and other properties</a></li>
+  <li><a href="#independence-of-the-components" id="toc-independence-of-the-components" class="nav-link" data-scroll-target="#independence-of-the-components">Independence of the components</a></li>
+  <li><a href="#marginal-and-conditional-distributions" id="toc-marginal-and-conditional-distributions" class="nav-link" data-scroll-target="#marginal-and-conditional-distributions">Marginal and conditional distributions</a></li>
+  <li><a href="#conditional-likelihoods" id="toc-conditional-likelihoods" class="nav-link" data-scroll-target="#conditional-likelihoods">Conditional likelihoods</a></li>
+  <li><a href="#a-general-definition-of-exponential-families-i-1" id="toc-a-general-definition-of-exponential-families-i-1" class="nav-link" data-scroll-target="#a-general-definition-of-exponential-families-i-1">A general definition of exponential families I</a></li>
+  <li><a href="#curved-exponential-families" id="toc-curved-exponential-families" class="nav-link" data-scroll-target="#curved-exponential-families">Curved exponential families</a></li>
+  <li><a href="#a-general-definition-of-exponential-families-ii-1" id="toc-a-general-definition-of-exponential-families-ii-1" class="nav-link" data-scroll-target="#a-general-definition-of-exponential-families-ii-1">A general definition of exponential families II</a></li>
+  <li><a href="#example-gamma-distribution" id="toc-example-gamma-distribution" class="nav-link" data-scroll-target="#example-gamma-distribution">Example: gamma distribution 📖</a></li>
+  <li><a href="#example-von-mises-distribution-i" id="toc-example-von-mises-distribution-i" class="nav-link" data-scroll-target="#example-von-mises-distribution-i">Example: von Mises distribution I</a></li>
+  <li><a href="#example-von-mises-distribution-ii" id="toc-example-von-mises-distribution-ii" class="nav-link" data-scroll-target="#example-von-mises-distribution-ii">Example: von Mises distribution II</a></li>
+  <li><a href="#example-wind-direction-in-venice-i" id="toc-example-wind-direction-in-venice-i" class="nav-link" data-scroll-target="#example-wind-direction-in-venice-i">Example: wind direction in Venice I</a></li>
+  <li><a href="#example-wind-direction-in-venice-ii" id="toc-example-wind-direction-in-venice-ii" class="nav-link" data-scroll-target="#example-wind-direction-in-venice-ii">Example: wind direction in Venice II</a></li>
+  <li><a href="#example-wind-direction-in-venice-iii" id="toc-example-wind-direction-in-venice-iii" class="nav-link" data-scroll-target="#example-wind-direction-in-venice-iii">Example: wind direction in Venice III</a></li>
+  </ul></li>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference">Inference</a>
+  <ul class="collapse">
+  <li><a href="#independent-sampling-sufficiency-and-completeness" id="toc-independent-sampling-sufficiency-and-completeness" class="nav-link" data-scroll-target="#independent-sampling-sufficiency-and-completeness">Independent sampling, sufficiency and completeness</a></li>
+  <li><a href="#sufficiency-and-completeness" id="toc-sufficiency-and-completeness" class="nav-link" data-scroll-target="#sufficiency-and-completeness">Sufficiency and completeness</a></li>
+  <li><a href="#likelihood-quantities" id="toc-likelihood-quantities" class="nav-link" data-scroll-target="#likelihood-quantities">Likelihood quantities</a></li>
+  <li><a href="#existence-of-the-maximum-likelihood" id="toc-existence-of-the-maximum-likelihood" class="nav-link" data-scroll-target="#existence-of-the-maximum-likelihood">Existence of the maximum likelihood</a></li>
+  <li><a href="#likelihood-quantities-mean-parametrization" id="toc-likelihood-quantities-mean-parametrization" class="nav-link" data-scroll-target="#likelihood-quantities-mean-parametrization">Likelihood quantities: mean parametrization 📖</a></li>
+  <li><a href="#maximum-likelihood-mean-parametrization" id="toc-maximum-likelihood-mean-parametrization" class="nav-link" data-scroll-target="#maximum-likelihood-mean-parametrization">Maximum likelihood: mean parametrization</a></li>
+  <li><a href="#example-binomial-distribution" id="toc-example-binomial-distribution" class="nav-link" data-scroll-target="#example-binomial-distribution">Example: binomial distribution 📖</a></li>
+  <li><a href="#example-von-mises-distribution-iii" id="toc-example-von-mises-distribution-iii" class="nav-link" data-scroll-target="#example-von-mises-distribution-iii">Example: von Mises distribution III 📖</a></li>
+  <li><a href="#example-wind-direction-in-venice-iv" id="toc-example-wind-direction-in-venice-iv" class="nav-link" data-scroll-target="#example-wind-direction-in-venice-iv">Example: wind direction in Venice IV</a></li>
+  <li><a href="#example-wind-direction-in-venice-v" id="toc-example-wind-direction-in-venice-v" class="nav-link" data-scroll-target="#example-wind-direction-in-venice-v">Example: wind direction in Venice V</a></li>
+  <li><a href="#asymptotic-theory-remarks" id="toc-asymptotic-theory-remarks" class="nav-link" data-scroll-target="#asymptotic-theory-remarks">Asymptotic theory: remarks</a></li>
+  <li><a href="#wald-inequality-a-direct-proof" id="toc-wald-inequality-a-direct-proof" class="nav-link" data-scroll-target="#wald-inequality-a-direct-proof">Wald inequality: a direct proof 📖</a></li>
+  </ul></li>
+  <li><a href="#references-and-study-material" id="toc-references-and-study-material" class="nav-link" data-scroll-target="#references-and-study-material">References and study material</a>
+  <ul class="collapse">
+  <li><a href="#main-references" id="toc-main-references" class="nav-link" data-scroll-target="#main-references">Main references</a></li>
+  <li><a href="#morris1982" id="toc-morris1982" class="nav-link" data-scroll-target="#morris1982"><span class="citation" data-cites="Morris1982">Morris (1982)</span></a></li>
+  <li><a href="#jorgensen1987" id="toc-jorgensen1987" class="nav-link" data-scroll-target="#jorgensen1987"><span class="citation" data-cites="Jorgensen1987">Jorgensen (1987)</span></a></li>
+  <li><a href="#diaconis1979" id="toc-diaconis1979" class="nav-link" data-scroll-target="#diaconis1979"><span class="citation" data-cites="Diaconis1979">Diaconis and Ylvisaker (1979)</span></a></li>
+  <li><a href="#consonni1992" id="toc-consonni1992" class="nav-link" data-scroll-target="#consonni1992"><span class="citation" data-cites="Consonni1992">Consonni and Veronese (1992)</span></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_B_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+</div>
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exponential families</h1>
+<p class="subtitle lead">Statistical Inference - PhD EcoStatData</p>
+</div>
+
+
+<div class="quarto-title-meta-author column-page-left">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><span class="orange">Tommaso Rigon</span> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <em>Università degli Studi di Milano-Bicocca</em>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta column-page-left">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="homepage" class="level2">
+<h2 class="anchored" data-anchor-id="homepage"><a href="../index.html">Homepage</a></h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img src="img/gaussian.png" class="img-fluid"></p>
+<!-- *"Pluralitas non est ponenda sine necessitate."* -->
+<!-- [William of Ockham]{.grey} -->
+</div><div class="column" style="width:70%;">
+<ul>
+<li><p>This unit will cover the following <span class="orange">topics</span>:</p>
+<ul>
+<li>One-parameter and multiparameter exponential families</li>
+<li>Likelihood, inference, sufficiency and completeness</li>
+</ul></li>
+<li><p>The <span class="orange">prime role</span> of <span class="orange">exponential families</span> in the theory of statistical inference was first emphasized by <span class="citation" data-cites="Fisher1934">Fisher (<a href="#ref-Fisher1934" role="doc-biblioref">1934</a>)</span>.</p></li>
+<li><p>Most <span class="blue">well-known</span> <span class="blue">distributions</span>—such as Gaussian, Poisson, Binomial, and Gamma—are instances of exponential families.</p></li>
+<li><p>Exponential families are the distributions typically considered when presenting the usual “regularity conditions”.</p></li>
+</ul>
+</div><ul>
+<li>With a few minor exceptions, this presentation will closely follow Chapters 5 and 6 of <span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/EF.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:6in"></p>
+</figure>
+</div>
+<ul>
+<li>Figure 1 of <span class="citation" data-cites="Efron2023">Efron (<a href="#ref-Efron2023" role="doc-biblioref">2023</a>)</span>. Three level of statistical modeling.</li>
+</ul>
+</section>
+<section id="one-parameter-exponential-families" class="level1 page-columns page-full">
+<h1>One-parameter exponential families</h1>
+<section id="exponential-tilting" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-tilting">Exponential tilting</h2>
+<ul>
+<li><p>Let <span class="math inline">Y</span> be a <span class="orange">non-degenerate</span> random variable with <span class="blue">support</span> <span class="math inline">\mathcal{Y} \subseteq \mathbb{R}</span> and <span class="orange">density</span> <span class="math inline">f_0(y)</span> with respect to a dominating measure <span class="math inline">\nu(\mathrm{d}y)</span>.</p></li>
+<li><p>We aim at building a <span class="blue">parametric family</span> <span class="math inline">\mathcal{F} = \{f(;\theta) : \theta \in \Theta \subseteq \mathbb{R} \}</span> with common support <span class="math inline">\mathcal{Y}</span> such that <span class="math inline">f_0</span> is a special case, namely <span class="math inline">f_0 \in \mathcal{F}</span>.</p></li>
+<li><p>A strategy for doing this is called <span class="orange">exponential tilting</span>, namely we could set <span class="math display">
+f(y; \theta) \propto e^{\theta y}f_0(y).
+</span> Thus, if <span class="math inline">f(y;\theta)</span> is generated via exponential tilting, then <span class="math inline">f(y; 0) = e^0 f_0(y) = f_0(y)</span>.</p></li>
+<li><p>Let us define the mapping <span class="math inline">M_0:\mathbb{R}\rightarrow (0,\infty]</span> <span class="math display">
+M_0(\theta):=\int_\mathcal{Y}e^{\theta y}f_0(y)\nu(\mathrm{d}y), \qquad \theta \in \mathbb{R}.
+</span> If <span class="math inline">M_0(\theta)</span> is <span class="orange">finite</span> in a neighborhood of the origin, it is the <span class="blue">moment generating function</span> of <span class="math inline">Y</span>.</p></li>
+<li><p>Moreover, we define the set <span class="math inline">\tilde{\Theta} \subseteq \mathbb{R}</span> as the set of all <span class="math inline">\theta</span> such that <span class="math inline">M_0(\theta)</span> is finite, i.e. <span class="math display">
+\tilde{\Theta} = \{\theta \in \mathbb{R} : M_0(\theta) &lt; \infty\}.
+</span></p></li>
+</ul>
+</section>
+<section id="natural-exponential-family-of-order-one" class="level2">
+<h2 class="anchored" data-anchor-id="natural-exponential-family-of-order-one">Natural exponential family of order one</h2>
+<ul>
+<li>The mapping <span class="math inline">K(\theta) = K_0(\theta) = \log{M_0(\theta)}</span> is the <span class="blue">cumulant generating function</span> of <span class="math inline">f_0</span>. It is <span class="orange">finite</span> if and only if <span class="math inline">M_0(\theta)</span> is finite.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The parametric family generated via <span class="orange">exponential tilting</span> of <span class="math inline">f_0</span> <span class="math display">
+\mathcal{F}_{\text{ne}}^1 = \left\{f(y;\theta) = \frac{e^{\theta y}f_0(y)}{M_0(\theta)} = f_0(y)\exp\{\theta y - K(\theta)\}, \quad y \in \mathcal{Y}, \theta \in \tilde{\Theta} \right\},
+</span> is called a <span class="orange">natural exponential family</span> of order one, and <span class="math inline">\tilde{\Theta} = \{\theta \in \mathbb{R} : K(\theta) &lt; \infty\}</span> is the <span class="blue">natural parameter space</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The natural parameter space <span class="math inline">\tilde{\Theta}</span> is the <span class="orange">widest possible</span> and must be an <span class="orange">interval</span>; see exercises. The family <span class="math inline">\mathcal{F}_{\text{ne}}^1</span> is said to be <span class="blue">full</span>, whereas a subfamily of <span class="math inline">\mathcal{F}_{\text{ne}}^1</span> with <span class="math inline">\Theta \subseteq \tilde{\Theta}</span> is <span class="blue">non-full</span>.</p></li>
+<li><p>By definition, all the densities <span class="math inline">f(y;\theta) \in \mathcal{F}_{\text{ne}}^1</span> have the <span class="blue">same support</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>A natural exponential family of order one, <span class="math inline">\mathcal{F}_{\text{ne}}^1</span>, is said to be <span class="orange">regular</span> if <span class="math inline">\tilde{\Theta}</span> is open.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="moment-generating-function" class="level2">
+<h2 class="anchored" data-anchor-id="moment-generating-function">Moment generating function</h2>
+<ul>
+<li>In regular problems, the functions <span class="math inline">M_0(\theta)</span> and <span class="math inline">K_0(\theta)</span> associated to a r.v. <span class="math inline">Y</span> with density <span class="math inline">f_0</span> are <span class="orange">finite</span> in a neighbor of the origin. A <span class="blue">sufficient</span> condition is that <span class="math inline">\tilde{\Theta}</span> is an <span class="blue">open set</span> (regular <span class="math inline">\mathcal{F}_\text{en}^1</span>).</li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Suppose <span class="math inline">M_0(t) &lt; \infty</span> for any <span class="math inline">|t| &lt; t_0</span> and for some <span class="math inline">t_0 &gt; 0</span>. Then a standard result of probability theory (e.g. <span class="citation" data-cites="Billingsley1995">Billingsley (<a href="#ref-Billingsley1995" role="doc-biblioref">1995</a>)</span>, Section 21) implies:</p>
+<ul>
+<li><p>The random variable <span class="math inline">Y</span> has <span class="blue">finite moments</span> of all orders, i.e.&nbsp;<span class="math inline">\mu_k = \mathbb{E}(Y^k) &lt; \infty</span> for all <span class="math inline">k \geq 1</span>.</p></li>
+<li><p>The moments <span class="math inline">(\mu_k)_{k \ge 1}</span> and <span class="blue">moment generating function</span> <span class="math inline">M_0(t)</span> <span class="orange">uniquely characterize</span> the <span class="orange">law</span> of <span class="math inline">Y</span> and <span class="math inline">f_0</span>. Moreover, <span class="math inline">M_0(t)</span> admits a <span class="grey">Taylor expansion</span> around the origin: <span class="math display">
+M_0(t) = 1 +  \mu_1 t + \mu_2 \frac{t^2}{2!} + \mu_3 \frac{t^3}{3!} + \cdots = \sum_{k=0}^\infty \frac{t^k}{k!}\mu_k, \qquad |t| &lt; t_0.
+</span></p></li>
+<li><p>The moments <span class="math inline">\mu_k</span> equal the <span class="math inline">k</span>th derivative of <span class="math inline">M_0(t)</span> evaluated at the origin: <span class="math display">
+\mu_k = \mathbb{E}_\theta(Y^k) = \frac{\partial^k}{\partial t^k} M_0(t) \Big|_{t = 0}, \qquad k \ge 1.
+</span></p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="cumulant-generating-function" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="cumulant-generating-function">Cumulant generating function</h2>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Suppose <span class="math inline">K_0(t) = \log{M_0(t)} &lt; \infty</span> for any <span class="math inline">|t| &lt; t_0</span> and for some <span class="math inline">t_0 &gt; 0</span>. Then:</p>
+<ul>
+<li><p><span class="math inline">K_0</span> <span class="orange">uniquely characterizes</span> the law of <span class="math inline">Y</span> and it admits a <span class="grey">Taylor expansion</span> <span class="math display">
+K_0(t) = \kappa_1 t + \kappa_2 \frac{t^2}{2!} + \kappa_3 \frac{t^3}{3!} + \cdots = \sum_{k=1}^\infty \frac{t^k}{k!} \kappa_k, \qquad |t| &lt; t_0,
+</span> where the coefficients <span class="math inline">(\kappa_k)_{k \ge 1}</span> are the <span class="blue">cumulants</span> of <span class="math inline">Y</span>.</p></li>
+<li><p>The cumulants <span class="math inline">\kappa_k</span> equal the <span class="math inline">k</span>th derivative of <span class="math inline">K_0(t)</span> evaluated at the origin <span class="math display">
+\kappa_k = \frac{\partial^k}{\partial t^k} K_0(t) \Big|_{t = 0}, \qquad k \ge 1.
+</span> Moreover, it can be shown the following moment relationships hold: <span class="math display">
+\kappa_1 = \mathbb{E}_\theta(Y), \quad \kappa_2 = \text{var}_\theta(Y), \quad \kappa_3 = \mathbb{E}_\theta\{(Y - \mu_1)^3\}, \quad \kappa_4 = \mathbb{E}_\theta\{(Y - \mu_1)^4\} - 3\text{var}_\theta(Y)^2.
+</span></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Refer to <span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Section 3.2.5 for detailed derivations. Standardized cumulants <span class="math inline">\kappa_3/\kappa_2^{3/2}</span> and <span class="math inline">\kappa_4/\kappa_2^2</span> are the <span class="blue">skewness</span> and the (excess of) <span class="blue">kurtosis</span> of <span class="math inline">Y</span>.</p>
+</div></div></section>
+<section id="example-uniform-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="example-uniform-distribution">Example: uniform distribution 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y \sim \text{Unif}(0,1)</span> so that <span class="math inline">f_0(y) = 1</span> for <span class="math inline">y \in [0,1]</span>. The <span class="orange">exponential tilting</span> of <span class="math inline">f_0</span> gives <span class="math display">
+f(y; \theta) \propto e^{\theta y}f_0(y) = e^{\theta y}, \qquad y \in [0,1], \quad \theta \in \mathbb{R}.
+</span></p></li>
+<li><p>The normalizing constant, that is, the <span class="blue">moment generating function</span>, is <span class="math display">
+M_0(\theta)= \mathbb{E}(e^{\theta Y})  = \int_0^1 e^{\theta y} \mathrm{d}y = \frac{e^\theta}{\theta}\Big|_0^1 = \frac{e^\theta - 1}{\theta}, \qquad \theta \neq 0.
+</span> with <span class="math inline">M_0(0) = 1</span>. Note that <span class="math inline">M_0</span> is continuous since <span class="math inline">\lim_{\theta \to 0}(e^\theta - 1)/\theta = 1</span>.</p></li>
+<li><p>Consequently, we have <span class="math inline">M_0(\theta) &lt; \infty</span> for all <span class="math inline">\theta \in \mathbb{R}</span> and the <span class="orange">natural parameter space</span> is <span class="math inline">\tilde{\Theta} = \mathbb{R}</span>, which is an <span class="blue">open set</span>. The resulting density is <span class="math display">
+f(y; \theta) = \frac{\theta e^{\theta y}}{e^{\theta -1}} = \exp\{\theta y - K(\theta)\}, \qquad y \in [0, 1],
+</span> where <span class="math inline">K(\theta) = \log\{(e^\theta - 1)/\theta\}</span>.</p></li>
+<li><p>It <a href="https://math.stackexchange.com/questions/1008707/moment-generating-function-of-bounded-variables">holds in general</a> that <span class="math inline">\tilde{\Theta} = \mathbb{R}</span> whenever <span class="math inline">f_0</span> has <span class="blue">bounded support</span>; thus, the family is <span class="orange">regular</span>.</p></li>
+</ul>
+</section>
+<section id="example-poisson-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="example-poisson-distribution">Example: Poisson distribution 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y \sim \text{Poisson}(1)</span> so that <span class="math inline">f_0(y) = e^{-1}/y!</span> for <span class="math inline">y \in \mathbb{N}</span>. The <span class="orange">exponential tilting</span> of <span class="math inline">f_0</span> gives <span class="math display">
+f(y; \theta) \propto e^{\theta y}f_0(y) = \frac{e^{\theta y}e^{-1}}{y!}, \qquad y \in \mathbb{N}, \quad \theta \in \mathbb{R}.
+</span></p></li>
+<li><p>The normalizing constant, that is, the <span class="blue">moment generating function</span>, is <span class="math display">
+M_0(\theta)= \mathbb{E}(e^{\theta Y})  = e^{-1}\sum_{k=0}^\infty \frac{e^{\theta k}}{k!} = \exp\{e^\theta - 1\}, \qquad \theta \in \mathbb{R}.
+</span></p></li>
+<li><p>Consequently, we have <span class="math inline">M_0(\theta) &lt; \infty</span> for all <span class="math inline">\theta \in \mathbb{R}</span> and the <span class="orange">natural parameter space</span> is <span class="math inline">\tilde{\Theta} = \mathbb{R}</span>, which is an <span class="blue">open set</span>. The resulting density is <span class="math display">
+f(y; \theta) = \frac{e^{\theta y} e^{-1}}{y!}\frac{e^{-e^\theta}}{e^{-1}} = \frac{e^{-1}}{y!}\exp\{\theta y - (e^\theta - 1)\} = \frac{\lambda^y e^{\lambda}}{y!}, \qquad y \in \mathbb{N},
+</span> so that <span class="math inline">K(\theta) = e^\theta - 1</span> and having defined <span class="math inline">\lambda  = e^\theta</span>.</p></li>
+<li><p>In other words, the tilted density is again a Poisson distribution with mean <span class="math inline">e^\theta</span>.</p></li>
+</ul>
+</section>
+<section id="example-exponential-family-generated-by-a-gaussian" class="level2">
+<h2 class="anchored" data-anchor-id="example-exponential-family-generated-by-a-gaussian">Example: exponential family generated by a Gaussian 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y \sim \text{N}(0,1)</span> so that <span class="math inline">f_0(y) = 1/(\sqrt{2\pi})e^{-y^2/2}</span> for <span class="math inline">y \in \mathbb{R}</span>. The <span class="orange">exponential tilting</span> of <span class="math inline">f_0</span> gives <span class="math display">
+f(y; \theta) \propto e^{\theta y}f_0(y) = \frac{1}{\sqrt{2\pi}}e^{\theta y -y^2/2}, \qquad y,\theta \in \mathbb{R}.
+</span></p></li>
+<li><p>The normalizing constant, that is, the <span class="blue">moment generating function</span>, is <span class="math display">
+M_0(\theta)= \mathbb{E}(e^{\theta Y})  = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}e^{\theta y -y^2/2}\mathrm{d}y = e^{\theta^2/2}, \qquad \theta \in \mathbb{R}.
+</span></p></li>
+<li><p>Consequently, we have <span class="math inline">M_0(\theta) &lt; \infty</span> for all <span class="math inline">\theta \in \mathbb{R}</span> and the <span class="orange">natural parameter space</span> is <span class="math inline">\tilde{\Theta} = \mathbb{R}</span>, which is an <span class="blue">open set</span>. The resulting density is <span class="math display">
+f(y; \theta) = \frac{1}{\sqrt{2\pi}}e^{\theta y}e^{-y^2/2}e^{-\theta^2/2} = \frac{e^{-y^2/2}}{\sqrt{2\pi}}\exp\{\theta y - \theta^2/2\} = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(y - \theta)^2}, \qquad y \in \mathbb{R},
+</span> so that <span class="math inline">K(\theta) = \theta^2/2</span>.</p></li>
+<li><p>In other words, the tilted density is again a Gaussian distribution with mean <span class="math inline">\theta</span>.</p></li>
+</ul>
+</section>
+<section id="closure-under-exponential-tilting" class="level2">
+<h2 class="anchored" data-anchor-id="closure-under-exponential-tilting">Closure under exponential tilting 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">\mathcal{F}_{\text{ne}}^1</span> be an exponential family with <span class="blue">parameter</span> <span class="math inline">\psi</span> and <span class="orange">natural parameter space</span> <span class="math inline">\tilde{\Psi}</span>, with density <span class="math inline">f(y; \psi) = f_0(y)\exp\{\psi y - K(\psi)\}</span>. The <span class="orange">exponential tilting</span> of <span class="math inline">f(y; \psi)</span> gives <span class="math display">
+f(y; \theta, \psi) \propto e^{\theta y} f(y; \psi) \propto f_0(y) \exp\{(\theta + \psi)y\},
+</span> and the <span class="blue">normalizing constant</span> of <span class="math inline">f_0(y) \exp\{(\theta + \psi)y\}</span> is therefore<br>
+<span class="math display">
+\int_\mathcal{Y} f_0(y) \exp\{(\theta + \psi)y\} \, \nu(\mathrm{d}y) = M_0(\theta + \psi).
+</span></p></li>
+<li><p>Thus, for any <span class="math inline">\theta</span> and <span class="math inline">\psi</span> such that <span class="math inline">M_0(\theta + \psi) &lt; \infty</span>, the corresponding density is <span class="math display">
+f(y; \theta, \psi) = f_0(y) \exp\{(\theta + \psi)y - K(\theta + \psi)\},
+</span> which is again a <span class="blue">member</span> of the <span class="orange">exponential family</span> <span class="math inline">\mathcal{F}_{\text{ne}}^1</span>, with updated parameter <span class="math inline">\theta + \psi</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Exponential families are <span class="blue">closed</span> under <span class="orange">exponential tilting</span>, and <span class="math inline">\mathcal{F}_{\text{ne}}^1</span> can be thought of as being generated by any of its members.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="moments-and-cumulants" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="moments-and-cumulants">Moments and cumulants</h2>
+<ul>
+<li><p>The functions <span class="math inline">M_0(\theta)</span> and <span class="math inline">K(\theta) = K_0(\theta)</span> of a <span class="math inline">\mathcal{F}_\text{en}^1</span>, refer to the <span class="orange">baseline</span> density <span class="math inline">f_0(y)</span>. Indeed, for any fixed <span class="math inline">\theta</span>, the <span class="blue">moment generating function</span> of <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{en}^1</span> is <span class="math display">
+M_\theta(t) := \int_\mathcal{Y} e^{ty} f(y; \theta)\, \nu(\mathrm{d}y)
+= \frac{1}{M_0(\theta)} \int_\mathcal{Y} e^{(t + \theta)y} f_0(y)\, \nu(\mathrm{d}y)
+= \frac{M_0(t + \theta)}{M_0(\theta)}, \quad t + \theta \in \tilde{\Theta}.
+</span></p></li>
+<li><p>Consequently, the <span class="orange">cumulant generating function</span> of <span class="math inline">f(y; \theta)</span> relates to <span class="math inline">K_0</span> as follows: <span class="math display">
+K_\theta(t) = \log M_\theta(t) = K_0(t + \theta) - K_0(\theta), \quad t + \theta \in \tilde{\Theta}.
+</span></p></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Textbooks sometimes suppress additive constants in defining <span class="math inline">K_0(\theta)</span>, e.g.&nbsp;using <span class="math inline">e^\theta</span> instead of <span class="math inline">e^\theta-1</span>. This is inconsequential (constants cancel in <span class="math inline">K_\theta(t)</span>) but somewhat misleading.</p>
+</div></div><div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If <span class="math inline">\mathcal{F}_\text{en}^1</span> is a <span class="orange">regular</span> family, then <span class="math inline">\tilde{\Theta}</span> is an <span class="blue">open set</span>, and <span class="math inline">\tilde{\Theta} = \text{int}\:\tilde{\Theta}</span>, meaning that <span class="math inline">\theta</span> is always an <span class="blue">inner point</span> of <span class="math inline">\tilde{\Theta}</span>. Therefore, there exists a <span class="math inline">t_0</span> such that <span class="math inline">t + \theta \in \tilde{\Theta}</span> for all <span class="math inline">|t| &lt; t_0</span> implying that both <span class="math inline">M_\theta</span> and <span class="math inline">K_\theta</span> are <span class="orange">well-defined</span>.</p>
+<p>If <span class="math inline">\mathcal{F}_\text{en}^1</span> is <span class="orange">not</span> regular, then for <span class="math inline">M_\theta(t)</span> and <span class="math inline">K_\theta(t)</span> to be well-defined, we require that <span class="math inline">\theta</span> is <span class="orange">not</span> a <span class="blue">boundary point</span>; that is, <span class="math inline">\theta \in \text{int}\:\tilde{\Theta}</span>, meaning it belongs to the interior of <span class="math inline">\tilde{\Theta}</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="mean-value-mapping-i" class="level2">
+<h2 class="anchored" data-anchor-id="mean-value-mapping-i">Mean value mapping I</h2>
+<ul>
+<li><span class="blue">Moments</span> and <span class="orange">cumulants</span> exist for every <span class="math inline">\theta \in \text{int}\:\tilde{\Theta}</span>. In particular, the cumulants are <span class="math display">
+\kappa_k = \frac{\partial^k}{\partial t^k} K_\theta(t) \Big|_{t = 0} = \frac{\partial^k}{\partial t^k} \left[ K(t + \theta) - K(\theta) \right] \Big|_{t = 0} = \frac{\partial^k}{\partial \theta^k} K(\theta), \qquad k \ge 1.
+</span></li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let <span class="math inline">Y \sim f(y; \theta)</span>, with <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{en}^1</span>. The first two moments of <span class="math inline">Y</span> are obtained as: <span class="math display">
+\mu(\theta) := \mathbb{E}_\theta(Y) = \frac{\partial}{\partial \theta} K(\theta), \qquad \text{var}_\theta(Y) = \frac{\partial}{\partial \theta} \mu(\theta) = \frac{\partial^2}{\partial \theta^2} K(\theta),
+</span> We call <span class="math inline">\mu : \text{int}\:\tilde{\Theta} \to \mathbb{R}</span> the <span class="orange">mean value mapping</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>If <span class="math inline">f_0</span> is non-degenerate, then <span class="math inline">\text{var}_\theta(Y) &gt; 0</span>, implying that <span class="math inline">K(\theta)</span> is a <span class="blue">convex function</span>, and <span class="math inline">\mu(\theta)</span> is a <span class="orange">smooth</span> and <span class="orange">monotone increasing</span>, namely is a <span class="blue">one-to-one</span> map.</p></li>
+<li><p>Thus, if <span class="math inline">\mathcal{F}_\text{en}^1</span> is a <span class="orange">regular</span> exponential family, then <span class="math inline">\tilde{\Theta} = \text{int}\:\tilde{\Theta}</span> and <span class="math inline">\mu(\theta)</span> is a <span class="blue">reparametrization</span>.</p></li>
+</ul>
+</section>
+<section id="mean-value-mapping-ii" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="mean-value-mapping-ii">Mean value mapping II</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The mean value mapping has range <span class="math inline">\mathcal{M} = \text{Range}(\mu) = \{\mu(\theta) : \theta \in \text{int}\:\tilde{\Theta}\}</span>. The set <span class="math inline">\mathcal{M} \subseteq\mathbb{R}</span> is called <span class="blue">mean space</span> or <span class="orange">expectation space</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let <span class="math inline">C = C(\mathcal{Y})</span> be the <span class="blue">closed convex hull</span> of the sample space <span class="math inline">\mathcal{Y}</span>, which is the <span class="blue">smallest closed convex set</span> <span class="math inline">C \subseteq \mathbb{R}</span> <span class="orange">containing</span> <span class="math inline">\mathcal{Y}</span>, namely: <span class="math display">
+C(\mathcal{Y}) = \{ y \in \mathbb{R} : y = \lambda y_1 + (1 - \lambda)y_2, \quad 0 \le \lambda \le 1, \quad y_1,y_2 \in \mathcal{Y}\}.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Hence, if <span class="math inline">\mathcal{Y} = \{0, 1, \dots, N\}</span>, then <span class="math inline">C = [0,N]</span>. If <span class="math inline">\mathcal{Y} = \mathbb{N}</span>, then <span class="math inline">C = \mathbb{R}^+</span>. If <span class="math inline">\mathcal{Y} = \mathbb{R}</span>, then <span class="math inline">C = \mathbb{R}</span>.</p></li>
+<li><p>Because of the properties of expectations, <span class="math inline">\mu(\theta) \in \text{int}\:C(\mathcal{Y})</span> for all <span class="math inline">\theta \in \text{int}\:\tilde{\Theta}</span>, namely <span class="math display">
+\mathcal{M} \subseteq \text{int}\:C(\mathcal{Y}).
+</span> Indeed, <span class="math inline">\text{int}\:C(\mathcal{Y})</span> is an <span class="orange">open interval</span> whose extremes are the <span class="blue">infimum</span> and <span class="blue">supremum</span> of <span class="math inline">\mathcal{Y}</span>.</p></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Both definitions naturally generalize to the multivariate case when <span class="math inline">C, \mathcal{Y} \subseteq \mathbb{R}^p</span>, for <span class="math inline">p &gt; 1</span>.</p>
+</div></div></section>
+<section id="mean-value-mapping-iii" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="mean-value-mapping-iii">Mean value mapping III 📖</h2>
+<ul>
+<li><p>In a regular exponential family, the mean value mapping <span class="math inline">\mu(\theta)</span> is a <span class="orange">reparametrization</span>, meaning that for each <span class="math inline">\theta \in \tilde{\Theta}</span>, there exists a <span class="blue">unique</span> mean <span class="math inline">\mu \in \mathcal{M}</span> such that <span class="math inline">\mu = \mu(\theta)</span>.</p></li>
+<li><p>Moreover, in regular families, a much stronger result holds: for each value of <span class="math inline">y \in \text{int}\:C(\mathcal{Y})</span>, there exists a <span class="orange">unique</span> <span class="math inline">\theta \in \tilde{\Theta}</span> such that <span class="math inline">\mu(\theta) = y</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.1)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\mathcal{F}_\text{en}^1</span> is regular, then <span class="math inline">\Theta = \text{int}\:\tilde{\Theta} = \tilde{\Theta}</span> and <span class="math inline">\mathcal{M} = \text{int}\:C.</span></p>
+</div>
+</div>
+<ul>
+<li><p>This establishes a <span class="blue">duality</span> between the expectation space <span class="math inline">\mathcal{M}</span> and the sample space. Any value in <span class="math inline">\text{int}\:C</span> can be “reached”, that is, there exists a distribution <span class="math inline">f(y; \theta)</span> with that mean.</p></li>
+<li><p>This correspondence is crucial in maximum likelihood estimation and inference.</p></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>This theorem can actually be strengthened: a necessary and sufficient condition for <span class="math inline">\mathcal{M} = \text{int}\:C</span> is that the family <span class="math inline">\mathcal{F}_\text{en}^1</span> is <span class="orange">steep</span> (a regular family is also steep); see <span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>.</p>
+</div></div></section>
+<section id="a-non-regular-and-non-steep-exponential-family" class="level2">
+<h2 class="anchored" data-anchor-id="a-non-regular-and-non-steep-exponential-family">A non regular and non steep exponential family</h2>
+<ul>
+<li>Let us a consider an exponential family <span class="math inline">\mathcal{F}_\text{en}^1</span> generated by the density <span class="math display">
+f_0(y) = c \frac{e^{-|y|}}{1 + y^4}, \qquad y \in \mathbb{R}.
+</span> for some normalizing constant <span class="math inline">c &gt; 0</span>. The <span class="orange">exponential tilting</span> of <span class="math inline">f_0</span> gives <span class="math display">
+f(y; \theta) \propto e^{\theta y}f_0(y) \propto \frac{e^{-|y| + \theta y}}{1 + y^4}, \qquad y \in \mathbb{R}, \quad \theta \in \tilde{\Theta}.
+</span></li>
+<li>The function <span class="math inline">M_0(\theta)</span> is unavailable in closed form, however <span class="math inline">\tilde{\Theta} = [-1,1]</span> since <span class="math display">
+M_0(\theta) &lt; \infty, \qquad \theta \in  [-1, 1].
+</span></li>
+<li>Since <span class="math inline">\tilde{\Theta}</span> is a <span class="blue">closed set</span>, the exponential family is <span class="orange">not regular</span> (and is not steep either). In fact, one can show that <span class="math inline">\lim_{\theta \to 1} \mu(\theta) = a &lt; \infty</span>, implying that <span class="math display">
+\mathcal{M} = (-a, a), \qquad \text{ whereas } \qquad \text{int}\:C = \mathbb{R}.
+</span></li>
+<li>In other words, there are no values of <span class="math inline">\theta</span> such that <span class="math inline">\mu(\theta) = y</span> for any <span class="math inline">y &gt; a</span>, which implies, for instance, that the method of moments will encounter difficulties in estimating <span class="math inline">\theta</span>.</li>
+</ul>
+</section>
+<section id="variance-function-i" class="level2">
+<h2 class="anchored" data-anchor-id="variance-function-i">Variance function I 📖</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let <span class="math inline">Y \sim f(y; \theta)</span>, with <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{en}^1</span> and let <span class="math inline">\theta(\mu)</span> be the <span class="orange">inverse map</span> of <span class="math inline">\mu(\theta)</span>. The variance of <span class="math inline">Y</span> can be expressed as a function of <span class="math inline">\mu</span>: <span class="math display">
+V(\mu) := \text{var}_{\theta(\mu)}(Y) = \frac{\partial^2}{\partial \theta^2} K(\theta) \Big|_{\theta = \theta(\mu)}.
+</span> The function <span class="math inline">V : \mathcal{M} \to \mathbb{R}^+</span> is called the <span class="orange">variance function</span> of the exponential family <span class="math inline">\mathcal{F}_\text{en}^1</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The importance of the variance function <span class="math inline">V(\mu)</span> is related to the following <span class="blue">characterization</span> result due to <span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span>.</li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.2)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">Y</span> has a density that belongs to a <span class="math inline">\mathcal{F}_\text{en}^1</span>, then the <span class="orange">pair</span> <span class="math inline">(\mathcal{M}, V(\mu))</span> <span class="blue">uniquely</span> determine the natural parameter space <span class="math inline">\tilde{\Theta}</span> and the cumulant generating function <span class="math inline">K(\theta)</span>, and hence also <span class="math inline">f(y;\theta)</span>.</p>
+</div>
+</div>
+</section>
+<section id="variance-function-ii" class="level2">
+<h2 class="anchored" data-anchor-id="variance-function-ii">Variance function II 📖</h2>
+<ul>
+<li><p>The characterization theorem of <span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span> is <span class="blue">constructive</span> in nature, as its <span class="orange">proof</span> provides a practical way of determining <span class="math inline">K(\theta)</span> from <span class="math inline">(\mathcal{M}, V(\mu))</span>. In particular, the function <span class="math inline">K(\cdot)</span> must satisfy <span class="math display">
+K\left(\int_{\mu_0}^\mu \frac{1}{V(m)}\mathrm{d}m\right) = \int_{\mu_0}^\mu \frac{m}{V(m)}\mathrm{d}m,
+</span> where <span class="math inline">\mu_0</span> is an arbitrary point in <span class="math inline">\mathcal{M}</span>.</p></li>
+<li><p>For example, let <span class="math inline">\mathcal{M} = (0, \infty)</span> and <span class="math inline">V(\mu) = \mu^2</span>. Then, choosing <span class="math inline">\mu_0=1</span> gives <span class="math display">
+K\left(1 - \frac{1}{\mu}\right) = \log\mu,
+</span> and therefore <span class="math inline">\theta(\mu) = 1 - 1/\mu</span>, giving <span class="math inline">\tilde{\Theta} = (-\infty, 1)</span> and <span class="math inline">\mu(\theta) = (1 - \theta)^{-1}</span>. Hence we obtain <span class="math inline">K(\theta) = -\log(1 - \theta)</span>, which corresponds to the exponential density <span class="math inline">f_0(y) = e^{-y}</span>, for <span class="math inline">y &gt; 0</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In order to identify <span class="math inline">\mathcal{F}_\text{en}^1</span> <span class="orange">both</span> <span class="math inline">\mathcal{M}</span> and <span class="math inline">V(\mu)</span> must be known.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="well-known-exponential-families" class="level2">
+<h2 class="anchored" data-anchor-id="well-known-exponential-families">Well-known exponential families</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 33%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Notation</th>
+<th><span class="math inline">\text{N}(\psi, 1)</span></th>
+<th><span class="math inline">\text{Poisson}(\psi)</span></th>
+<th><span class="math inline">\text{Bin}(N, \psi)</span></th>
+<th><span class="math inline">\text{Gamma}(\nu,\psi), \nu &gt; 0</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\mathcal{Y}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">\mathbb{N}</span></td>
+<td><span class="math inline">\{0, 1, \dots, N\}</span></td>
+<td><span class="math inline">(0, \infty)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="orange">Natural param.</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\theta(\psi)</span></td>
+<td><span class="math inline">\psi</span></td>
+<td><span class="math inline">\log{\psi}</span></td>
+<td><span class="math inline">\log\{\psi/(1 - \psi)\}</span></td>
+<td><span class="math inline">-\psi</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">f_0(y)</span></td>
+<td><span class="math inline">(\sqrt{2\pi})^{-1}e^{-\frac{1}{2}y^2}</span></td>
+<td><span class="math inline">e^{-1}/ y!</span></td>
+<td><span class="math inline">\binom{N}{y}\left(\frac{1}{2}\right)^N</span></td>
+<td><span class="math inline">y^{\nu - 1}e^{-y}/\Gamma(\nu)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">K(\theta)</span></td>
+<td><span class="math inline">\theta^2/2</span></td>
+<td><span class="math inline">e^\theta-1</span></td>
+<td><span class="math inline">N \log(1 + e^\theta) - N\log{2}</span></td>
+<td><span class="math inline">-\nu \log(1-\theta)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\tilde{\Theta}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">(-\infty, 0)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="blue">Mean param.</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\mu(\theta)</span></td>
+<td><span class="math inline">\theta</span></td>
+<td><span class="math inline">e^\theta</span></td>
+<td><span class="math inline">N e^\theta/(1 + e^{\theta})</span></td>
+<td><span class="math inline">-\nu/\theta</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\mathcal{M}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">(0, \infty)</span></td>
+<td><span class="math inline">(0, N)</span></td>
+<td><span class="math inline">(0, \infty)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">V(\mu)</span></td>
+<td><span class="math inline">1</span></td>
+<td><span class="math inline">\mu</span></td>
+<td><span class="math inline">\mu(1 - \mu/ N)</span></td>
+<td><span class="math inline">\mu^2/\nu</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="quadratic-variance-functions" class="level2">
+<h2 class="anchored" data-anchor-id="quadratic-variance-functions">Quadratic variance functions</h2>
+<ul>
+<li><p>There is more in <span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span>’s paper. Specifically, he focused on a subclass of <span class="orange">quadratic</span> variance functions, which can be written as <span class="math display">
+V(\mu) = a + b\mu + c\mu^2,
+</span> for some known constants <span class="math inline">a</span>, <span class="math inline">b</span>, and <span class="math inline">c</span>.</p></li>
+<li><p><span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span> showed that, up to transformations such as convolution, there exist only <span class="blue">six families</span> within <span class="math inline">\mathcal{F}_\text{en}^1</span> that possess a <span class="orange">quadratic variance</span> function. These are: (i) the normal, (ii) the Poisson, (iii) the gamma, (iv) the binomial, (v) the negative binomial, and (vi) a sixth family.</p></li>
+<li><p>The sixth (less known) distribution is called the <span class="blue">generalized hyperbolic secant</span>, and it has density <span class="math display">
+f(y; \theta) = \frac{\exp\left\{\theta y - \log\cos{\theta}\right\}}{2\cosh(\pi y/2)}, \qquad y \in \mathbb{R}, \quad \theta \in (-\pi/2, \pi/2),
+</span> with <span class="orange">mean</span> function <span class="math inline">\mu(\theta) = \tan{\theta}</span> and <span class="blue">variance</span> function <span class="math inline">V(\mu) = \csc^2(\theta) = 1 + \mu^2</span>, and <span class="math inline">\mathcal{M} = \mathbb{R}</span>. It is also a <span class="orange">regular</span> exponential family.</p></li>
+</ul>
+</section>
+<section id="a-general-definition-of-exponential-families-i" class="level2">
+<h2 class="anchored" data-anchor-id="a-general-definition-of-exponential-families-i">A general definition of exponential families I</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let <span class="math inline">h(y) &gt; 0</span>, <span class="math inline">s(y)</span>, be real-valued functions not depending on <span class="math inline">\psi</span> and let <span class="math inline">\theta(\psi), G(\psi)</span> be real-valued functions not depending on <span class="math inline">y</span>. The parametric family <span class="math display">
+\mathcal{F}_{\text{e}}^1 = \left\{f(y;\psi) = h(y)\exp\{\theta(\psi) s(y) - G(\psi)\}, \quad y \in \mathcal{Y}\subseteq \mathbb{R}, \: \psi \in \Psi \right\},
+</span> is called a <span class="orange">exponential family</span> of order one, where the normalizing constant is <span class="math display">
+\exp{G(\psi)} = \int_\mathcal{Y} h(y) \exp\{\theta(\psi) s(y)\} \nu(\mathrm{d}y).
+</span> The family is <span class="blue">full</span> if the parameter space <span class="math inline">\Psi</span> is the widest possible <span class="math inline">\tilde{\Psi} = \{\psi \subseteq\mathbb{R}: G(\psi) &lt; \infty\}</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Suppose <span class="math inline">f(y; \psi) \in \mathcal{F}_\text{e}^1</span>. Then, the function <span class="math inline">\theta(\psi)</span> must be a <span class="blue">one-to-one</span> mapping, that is, a <span class="orange">reparametrization</span>, otherwise, the model would <span class="orange">not</span> be <span class="orange">identifiable</span>. Hence, we can write: <span class="math display">
+f(y; \psi) = h(y)\exp\{\theta(\psi) s(y) - \tilde{G}(\theta(\psi))\},
+</span> for some function <span class="math inline">\tilde{G}(\cdot)</span> such that <span class="math inline">G(\psi) = \tilde{G}(\theta(\psi))</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-general-definition-of-exponential-families-ii" class="level2">
+<h2 class="anchored" data-anchor-id="a-general-definition-of-exponential-families-ii">A general definition of exponential families II</h2>
+<ul>
+<li><p>When <span class="math inline">s(y)</span> is an arbitrary function of <span class="math inline">y</span>, then <span class="math inline">\mathcal{F}_\text{e}^1</span> is <span class="blue">broader</span> than <span class="math inline">\mathcal{F}_\text{en}^1</span>.</p></li>
+<li><p>Without loss of generality, we can focus on the natural parametrization <span class="math inline">\theta \in \Theta</span> and a density baseline <span class="math inline">h(y) = f_0(y)</span>, meaning that <span class="math inline">f(y;\theta) \in \mathcal{F}_\text{e}^1</span> can be written as <span class="math display">
+f(y; \theta) = f_0(y)\exp\{\theta s(y) - K(\theta)\},
+</span> because the general case would be a <span class="orange">reparametrization</span> of this one.</p></li>
+<li><p>Let <span class="math inline">Y \sim f(y; \theta)</span>, with <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{e}^1</span>. Then, the random variable <span class="math inline">S = s(Y)</span> has density <span class="math display">
+f_S(s; \psi) = \tilde{f}_0(s)\exp\{\theta s - K(\theta)\},
+</span> for some baseline density <span class="math inline">\tilde{f}_0(s)</span>, namely <span class="math inline">f_S(s; \psi) \in \mathcal{F}_\text{en}^1</span>. If in addition <span class="math inline">s(y)</span> is a <span class="orange">one-to-one</span> invertible mapping, this means <span class="math inline">Y = s^{-1}(S)</span> is just a transformation of an <span class="math inline">\mathcal{F}_\text{en}^1</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>A full exponential family <span class="math inline">\mathcal{F}_\text{e}^1</span> is, technically, a broader definition, but in practice it leads to a <span class="orange">reparametrization</span> of a natural exponential family <span class="math inline">\mathcal{F}_\text{en}^1</span> in a <span class="blue">transformed space</span> <span class="math inline">s(Y)</span>.</p>
+</div>
+</div>
+</div>
+<!-- ## Independent sampling -->
+<!-- - Let $Y_1,\dots,Y_n$ be iid random variables with density $f(y; \theta)$, where $f(y; \theta) \in \mathcal{F}_\text{e}^1$ is a full exponential family. , assume the density can be written as -->
+<!-- $$ -->
+<!-- f(y; \theta) = h(y)\exp\{\theta s(y) - G(\theta)\}, \qquad \theta \in \tilde{\Theta}. -->
+<!-- $$ -->
+<!-- - The [likelihood]{.blue} function is -->
+<!-- $$ -->
+<!-- L(\theta; \bm{y}) = \prod_{i=1}^n \exp\left\{\theta s(y_i) - G(\theta)\right\} = \exp\left\{\theta \sum_{i=1}^n s(y_i) - n G(\theta)\right\}, -->
+<!-- $$ -->
+<!-- from which we see that $s = \sum_{i=1}^n s(y_i)$ is the [minimal sufficient statistic]{.orange} for $\theta$. -->
+<!-- - Inference can therefore be based on the random variable $S = \sum_{i=1}^n s(Y_i)$, whose distribution is -->
+<!-- $$ -->
+<!-- f_S(s; \theta) = \tilde{f}_0(s)\exp\{\theta s - K(\theta)\}, -->
+<!-- $$ -->
+<!-- with $K(\theta) = n G(\theta)$ and for some density $\tilde{f}_0(s)$. That is, the distribution of the minimal sufficient statistic $f_S(s; \theta)$ is itself a [natural exponential family]{.blue} of order one. -->
+</section>
+</section>
+<section id="multiparameter-exponential-families" class="level1 page-columns page-full">
+<h1>Multiparameter exponential families</h1>
+<section id="natural-exponential-families-of-order-p" class="level2">
+<h2 class="anchored" data-anchor-id="natural-exponential-families-of-order-p">Natural exponential families of order <span class="math inline">p</span></h2>
+<ul>
+<li><p>Let <span class="math inline">Y</span> be a <span class="orange">non-degenerate</span> random variable with <span class="blue">support</span> <span class="math inline">\mathcal{Y} \subseteq \mathbb{R}^p</span> and <span class="orange">density</span> <span class="math inline">f_0(y)</span> with respect to a dominating measure <span class="math inline">\nu(\mathrm{d}y)</span>.</p></li>
+<li><p>Let us define the mapping <span class="math inline">M_0:\mathbb{R}^p\rightarrow (0,\infty]</span> <span class="math display">
+M_0(\theta):=\int_\mathcal{Y}e^{\theta^T y}f_0(y)\nu(\mathrm{d}y), \qquad \theta \in \mathbb{R}^p.
+</span></p></li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The parametric family generated via <span class="orange">exponential tilting</span> of a density <span class="math inline">f_0</span> <span class="math display">
+\mathcal{F}_{\text{ne}}^p = \left\{f(y;\theta) = \frac{e^{\theta^T y}f_0(y)}{M_0(\theta)} = f_0(y)\exp\{\theta^T y - K(\theta)\}, \quad y \in \mathcal{Y}\subseteq \mathbb{R}^p, \:\theta \in \tilde{\Theta} \right\},
+</span> is called a <span class="orange">natural exponential family</span> of order one, <span class="math inline">K(\theta) = \log M_0(\theta)</span> and <span class="math inline">\tilde{\Theta} = \{\theta \in \mathbb{R}^p : K(\theta) &lt; \infty\}</span> is the <span class="blue">natural parameter space</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The family <span class="math inline">\mathcal{F}_{\text{ne}}^p</span> is said to be <span class="blue">full</span>, whereas a subfamily of <span class="math inline">\mathcal{F}_{\text{ne}}^p</span> with <span class="math inline">\Theta \subseteq \tilde{\Theta}</span> is <span class="blue">non-full</span>. Moreover, the family <span class="math inline">\mathcal{F}_{\text{ne}}^p</span> is said to be <span class="orange">regular</span> if <span class="math inline">\tilde{\Theta}</span> is an open set.</li>
+</ul>
+</section>
+<section id="example-multinomial-distribution-i" class="level2">
+<h2 class="anchored" data-anchor-id="example-multinomial-distribution-i">Example: multinomial distribution I 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y = (Y_1,\dots,Y_{p-1}) \sim \text{Multinom}(N; 1/p,\dots,1/p)</span> be a <span class="orange">multinomial</span> random vector with <span class="blue">uniform probabilities</span>, so that its density <span class="math inline">f_0</span> is<br>
+<span class="math display">
+f_0(y) = \frac{N!}{y_1!\cdots y_p!}\left(\frac{1}{p}\right)^N, \qquad y = (y_1,\dots,y_{p-1}) \in \mathcal{Y} \subseteq \mathbb{R}^{p-1},
+</span> where <span class="math inline">\mathcal{Y} = \{(y_1,\dots,y_{p-1}) \in \{0,\dots,N\}^{p-1} : \sum_{j=1}^{p-1} y_j \le N\}</span>, having set <span class="math inline">y_p := N - \sum_{j=1}^{p-1} y_j</span>.</p></li>
+<li><p>The <span class="orange">exponential tilting</span> of <span class="math inline">f_0</span> yields <span class="math display">
+f(y; \theta) \propto f_0(y) e^{\theta^T y} = \frac{N!}{y_1!\cdots y_p!}\left(\frac{1}{p}\right)^N e^{\theta_1 y_1 + \cdots + \theta_{p-1} y_{p-1}}, \qquad y \in \mathcal{Y}, \;\theta \in \mathbb{R}^{p-1}.
+</span></p></li>
+<li><p>As a consequence of the <span class="orange">multinomial theorem</span>, the normalizing constant, that is, the <span class="blue">moment generating function</span>, is<br>
+<span class="math display">
+M_0(\theta) = \mathbb{E}\left(e^{\theta^T Y}\right) = \left(\frac{1}{p}\right)^N(1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}})^N.
+</span> Thus <span class="math inline">M_0(\theta) &lt; \infty</span> for all <span class="math inline">\theta \in \mathbb{R}^{p-1}</span> and the <span class="orange">natural parameter space</span> is the <span class="blue">open set</span> <span class="math inline">\tilde{\Theta} = \mathbb{R}^{p-1}</span>.</p></li>
+</ul>
+</section>
+<section id="example-multinomial-distribution-ii" class="level2">
+<h2 class="anchored" data-anchor-id="example-multinomial-distribution-ii">Example: multinomial distribution II 📖</h2>
+<ul>
+<li><p>The resulting <span class="orange">tilted</span> density is <span class="math display">
+f(y; \theta) = f_0(y)e^{\theta^Ty - K(\theta)} = \frac{N!}{y_1!\cdots y_p!}\frac{e^{\theta_1 y_1 + \cdots + \theta_{p-1}y_{p-1}}}{(1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}})^N},
+</span> where <span class="math inline">K(\theta) = \log{M_0(\theta)} = N\log(1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}}) - N\log{p}</span>.</p></li>
+<li><p>In other words, the tilted density is again a <span class="blue">multinomial</span> distribution with parameters <span class="math inline">N</span> and <span class="orange">probabilities</span> <span class="math inline">\pi_j = e^{\theta_j} / (1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}})</span>. In fact, we can write: <span class="math display">
+\begin{aligned}
+f(y; \theta) &amp;= \frac{N!}{y_1!\cdots y_p!}\frac{e^{\theta_1 y_1}  \cdots  e^{\theta_p y_p}}{(\sum_{j=1}^p e^{\theta_j})^{y_1} \cdots (\sum_{j=1}^p e^{\theta_j})^{y_p}} = \frac{N!}{y_1!\cdots y_p!} \prod_{j=1}^p\left(\frac{e^{\theta_j}}{\sum_{k=1}^p e^{\theta_k}}\right)^{y_j} \\
+&amp;= \frac{N!}{y_1!\cdots y_p!} \prod_{j=1}^p\pi_j^{y_j}.
+\end{aligned}
+</span> where we defined <span class="math inline">\theta_p := 0</span>, so that <span class="math inline">\sum_{j=1}^pe^{\theta_j} = 1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}}</span>, recalling that <span class="math inline">\sum_{j=1}^py_j = N</span>.</p></li>
+<li><p>The tilted density belongs to a regular <span class="blue">natural exponential family</span> <span class="math inline">\mathcal{F}_\text{en}^{p-1}</span> of <span class="orange">order</span> <span class="math inline">p-1</span>.</p></li>
+</ul>
+</section>
+<section id="example-independent-exponential-families" class="level2">
+<h2 class="anchored" data-anchor-id="example-independent-exponential-families">Example: independent exponential families 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y = (Y_1,\dots,Y_p)</span> be a random vector of <span class="blue">independent</span> random variables, each belonging to a <span class="orange">full natural exponential family</span> <span class="math inline">\mathcal{F}_\text{en}^1</span> of order 1, with density <span class="math display">
+f(y_j; \theta_j) = f_j(y_j)\exp\{\theta_j y_j - K_j(\theta_j)\}, \qquad \theta_j \in \tilde{\Theta}_j.
+</span></p></li>
+<li><p>Let <span class="math inline">\theta = (\theta_1,\dots,\theta_p)</span>. Because of independence, the <span class="blue">joint distribution</span> of <span class="math inline">Y</span> is <span class="math display">
+\begin{aligned}
+f(y;\theta) &amp;= \prod_{j=1}^p f(y_j;\theta_j) = \prod_{j=1}^p f_j(y_j)\exp\{\theta_j y_j - K_j(\theta_j)\} \\
+&amp;= \left[\prod_{j=1}^p f_j(y_j)\right] \exp\left\{\sum_{j=1}^p \theta_j y_j - \sum_{j=1}^p K_j(\theta_j)\right\} \\
+&amp;= f_0(y) \exp\{\theta^T y - K(\theta)\},
+\end{aligned}
+</span> where <span class="math inline">f_0(y) = \prod_{j=1}^p f_j(y_j)</span>, <span class="math inline">K(\theta) = \sum_{j=1}^p K_j(\theta_j)</span>, and the <span class="orange">natural parameter space</span> is <span class="math display">
+\tilde{\Theta} = \tilde{\Theta}_1 \times \cdots \times \tilde{\Theta}_p.
+</span></p></li>
+<li><p>Thus, <span class="math inline">f(y;\theta)</span> is an <span class="math inline">\mathcal{F}_\text{en}^p</span>, in which <span class="math inline">K(\theta)</span> is a <span class="blue">separable</span> function.</p></li>
+</ul>
+</section>
+<section id="mean-value-mapping-and-other-properties" class="level2">
+<h2 class="anchored" data-anchor-id="mean-value-mapping-and-other-properties">Mean value mapping and other properties</h2>
+<!-- - Properties of moments and cumulants in the one-parameter case carry over to the multi-parameter setting, with the obvious adjustments. -->
+<ul>
+<li><p>Let <span class="math inline">Y \sim f(y; \theta)</span>, with <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{en}^p</span>. The cumulant generating function is<br>
+<span class="math display">
+K_\theta(t) = \log M_\theta(t) = K_0(t + \theta) - K_0(\theta), \qquad t + \theta \in \tilde{\Theta}.
+</span> In particular, the first two moments of <span class="math inline">Y</span> are obtained as:<br>
+<span class="math display">
+\mu(\theta) := \mathbb{E}_\theta(Y) = \frac{\partial}{\partial \theta} K(\theta), \qquad \text{var}_\theta(Y) = \frac{\partial}{\partial \theta^\top} \mu(\theta) = \frac{\partial^2}{\partial \theta \partial \theta^\top} K(\theta),
+</span></p></li>
+<li><p>If <span class="math inline">f_0</span> is non-degenerate, then the <span class="blue">covariance matrix</span> <span class="math inline">\text{var}_\theta(Y)</span> is <span class="orange">positive definite</span>, implying that <span class="math inline">K(\theta)</span> is a <span class="blue">convex function</span>, and <span class="math inline">\mu(\theta)</span> is a <span class="orange">smooth</span> <span class="blue">one-to-one</span> map.</p></li>
+<li><p>The definitions of mean value mapping <span class="math inline">\mu(\theta)</span>, its range <span class="math inline">\mathcal{M}</span>, the convex hull <span class="math inline">C(\mathcal{Y})</span> of the sample space, and the variance function <span class="math inline">V(\mu)</span> also naturally extend to the multi-parameter setting.</p></li>
+<li><p>Refer to <span class="citation" data-cites="Jorgensen1987">Jorgensen (<a href="#ref-Jorgensen1987" role="doc-biblioref">1987</a>)</span> for an extension of the results of <span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span> about <span class="math inline">V(\mu)</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.3)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\mathcal{F}_\text{en}^p</span> is regular, then <span class="math inline">\mathcal{M} = \text{int}\:C.</span></p>
+</div>
+</div>
+</section>
+<section id="independence-of-the-components" class="level2">
+<h2 class="anchored" data-anchor-id="independence-of-the-components">Independence of the components</h2>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.4)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the natural observations of an <span class="math inline">\mathcal{F}_\text{en}^p</span> are <span class="blue">independent</span> for some <span class="math inline">\theta_0 \in \tilde{\Theta}</span>, then this is also true for every <span class="math inline">\theta \in \tilde{\Theta}</span>.</p>
+</div>
+</div>
+<ul>
+<li>This theorem essentially establishes that if the baseline density <span class="math inline">f_0(\cdot)</span> has independent components, then the exponential tilting preserves independence.</li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.5)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If, for every <span class="math inline">\theta \in \tilde{\Theta}</span>, the natural observations of a <span class="blue">regular</span> <span class="math inline">\mathcal{F}_\text{en}^p</span> are <span class="blue">uncorrelated</span>, then they are also <span class="orange">independent</span>.</p>
+</div>
+</div>
+<ul>
+<li><p>This generalizes a well-known fact about multivariate Gaussians, which are in fact an <span class="math inline">\mathcal{F}_\text{en}^p</span>.</p></li>
+<li><p>In practice, if the Hessian matrix of <span class="math inline">K(\theta)</span> is <span class="blue">diagonal</span>, then the natural observations are <span class="orange">independent</span>. This occurs whenever <span class="math inline">K(\theta)</span> is <span class="orange">separable</span>.</p></li>
+</ul>
+</section>
+<section id="marginal-and-conditional-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="marginal-and-conditional-distributions">Marginal and conditional distributions</h2>
+<ul>
+<li><p>Consider a <span class="math inline">\mathcal{F}_\text{en}^p</span> family, so that <span class="math inline">f(y; \theta) = f_0(y) \exp\{\theta^T y - K(\theta)\}</span>.</p></li>
+<li><p>Let <span class="math inline">y = (t, u)</span> be a <span class="blue">partition</span> of the natural observations <span class="math inline">y</span>, where <span class="math inline">t</span> has <span class="math inline">k</span> components and <span class="math inline">u</span> has <span class="math inline">p-k</span> components. Let us partition <span class="math inline">\theta</span> accordingly, so that <span class="math inline">\theta = (\tau, \zeta)</span> and <span class="math display">
+f(y; \tau, \zeta) = f_0(y) \exp\{\tau^T t + \zeta^T u - K(\tau, \zeta)\}, \qquad (\tau, \zeta) \in \tilde{\Theta}.
+</span></p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.6)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="i">
+<li><p>The family of <span class="blue">marginal</span> distributions of <span class="math inline">U</span> is an <span class="math inline">\mathcal{F}_\text{en}^{p-k}</span> for every fixed value of <span class="math inline">\tau</span> and <span class="math display">
+f_U(u; \tau, \zeta) = h_\tau(u) \exp\{\zeta^T u - K_\tau(\zeta)\}.
+</span></p></li>
+<li><p>The family of <span class="orange">conditional</span> distributions of <span class="math inline">T</span> given <span class="math inline">U = u</span> is an <span class="math inline">\mathcal{F}_\text{en}^k</span> and the conditional densities do not depend on <span class="math inline">\zeta</span>, that is <span class="math display">
+f_{T \mid U = u}(t; u, \tau) = h_u(t) \exp\{\tau^T t - K_u(\tau)\}, \quad \exp{K_u(\tau)} = \mathbb{E}_0\left(e^{\tau^T T} \mid U = u\right).
+</span></p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="conditional-likelihoods" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-likelihoods">Conditional likelihoods</h2>
+<ul>
+<li><p>The former result on marginal and conditional laws is not just an elegant probabilistic fact. Indeed, it has meaningful inferential applications.</p></li>
+<li><p>Often, we can split the parameter vector <span class="math inline">\theta</span> into a <span class="blue">parameter of interest</span> <span class="math inline">\tau</span> and a <span class="orange">nuisance parameter</span> <span class="math inline">\zeta</span>. We are not interested in learning <span class="math inline">\zeta</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The main idea relies on noticing that <span class="math inline">f_{T \mid U = u}(t; u, \tau) = h_u(t) \exp\{\tau^T t - K_u(\tau)\}</span> does not involve <span class="math inline">\zeta</span> and therefore we could define a <span class="orange">conditional likelihood</span> based on <span class="math inline">f_{T \mid U = u}</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>A practical drawback of this approach is that the conditional cumulant generating function <span class="math inline">K_u(\tau)</span> is not always available in closed form, albeit with notable exceptions.</p></li>
+<li><p>The approach is valid, in the sense that a likelihood based on <span class="math inline">f_{T \mid U = u}</span> is a <span class="blue">genuine likelihood</span>. On the other hand, note that the full likelihood would be based on <span class="math display">
+f(y; \tau, \zeta) = f_U(u; \tau, \zeta) \, f_{T \mid U = u}(t; u, \tau),
+</span> and thus the conditional likelihood is <span class="orange">discarding information</span>, that is, it neglects <span class="math inline">f_U(u; \tau, \zeta)</span>.</p></li>
+</ul>
+</section>
+<section id="a-general-definition-of-exponential-families-i-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-general-definition-of-exponential-families-i-1">A general definition of exponential families I</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let <span class="math inline">s_1(y), \dots, s_p(y)</span> and <span class="math inline">h(y) &gt; 0</span> be real-valued functions not depending on the parameter <span class="math inline">\psi</span>, and let <span class="math inline">\theta_1(\psi), \dots, \theta_p(\psi)</span>, <span class="math inline">G(\psi)</span> be real-valued functions not depending on <span class="math inline">y</span>. The family <span class="math display">
+\mathcal{F}_{\text{e}}^p = \left\{ f(y; \psi) = h(y) \exp\{\theta(\psi)^T s(y) - G(\psi)\}, \quad y \in \mathcal{Y} \subseteq \mathbb{R}^p, \: \psi \in \Psi \subseteq \mathbb{R}^q \right\},
+</span> is called an <span class="orange">exponential family</span> of order <span class="math inline">p</span>, where the normalizing constant is <span class="math display">
+\exp{G(\psi)} = \int_{\mathcal{Y}} h(y) \exp\{\theta(\psi)^T s(y)\} \nu(\mathrm{d}y).
+</span> The notation <span class="math inline">\mathcal{F}_\text{e}^p</span> is understood to indicate a <span class="blue">minimal representation</span>, i.e., such that there is <span class="orange">no linear dependence</span> between <span class="math inline">1, s_1(y), \dots, s_p(y)</span> or, equivalently, between <span class="math inline">1, \theta_1(\psi), \dots, \theta_p(\psi)</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>If <span class="math inline">q &gt; p</span>, then <span class="math inline">\psi</span> is <span class="orange">not identifiable</span> and this possibility should be discarded.</li>
+<li>If <span class="math inline">q = p</span>, then <span class="math inline">\theta(\psi)</span> must be a one-to-one mapping, i.e., a <span class="blue">reparametrization</span>, otherwise the model is again <span class="orange">not identifiable</span>.</li>
+<li>If <span class="math inline">q &lt; p</span>, we have a <span class="math inline">(p,q)</span>-<span class="blue">curved exponential family</span>, which corresponds to a <span class="orange">restriction</span> of the natural parameter space.</li>
+</ul>
+</section>
+<section id="curved-exponential-families" class="level2">
+<h2 class="anchored" data-anchor-id="curved-exponential-families">Curved exponential families</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/efron2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:6in"></p>
+</figure>
+</div>
+<ul>
+<li>Figure 4.1 of <span class="citation" data-cites="Efron2023">Efron (<a href="#ref-Efron2023" role="doc-biblioref">2023</a>)</span>, Chapter 4. Three levels of statistical modeling, now with a fourth level added representing curved exponential families.</li>
+</ul>
+</section>
+<section id="a-general-definition-of-exponential-families-ii-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-general-definition-of-exponential-families-ii-1">A general definition of exponential families II</h2>
+<ul>
+<li><p>We refer to <span class="citation" data-cites="Efron2023">Efron (<a href="#ref-Efron2023" role="doc-biblioref">2023</a>)</span>, Chapter 4, for a detailed discussion on curved exponential families. From now on, we will focus on the <span class="math inline">p = q</span> case.</p></li>
+<li><p>Without loss of generality, we can focus on the <span class="blue">natural parametrization</span> <span class="math inline">\theta \in \Theta \subseteq \mathbb{R}^p</span> and baseline density <span class="math inline">h(y) = f_0(y)</span>, meaning that <span class="math inline">f(y;\theta) \in \mathcal{F}_\text{e}^p</span> can be written as <span class="math display">
+f(y; \theta) = f_0(y)\exp\{\theta^T s(y) - K(\theta)\},
+</span> because the general case would be a <span class="orange">reparametrization</span> of this one.</p></li>
+<li><p>Let <span class="math inline">Y \sim f(y; \theta)</span>, with <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{e}^p</span>. Then, the <span class="blue">random vector</span> <span class="math inline">S = s(Y) = (s_1(Y), \dots, s_p(Y))</span> has density <span class="math display">
+f_S(s; \theta) = \tilde{f}_0(s)\exp\{\theta^T s - K(\theta)\},
+</span> for some baseline density <span class="math inline">\tilde{f}_0(s)</span>, namely <span class="math inline">f_S(s; \theta) \in \mathcal{F}_\text{en}^p</span>. If in addition <span class="math inline">s(y)</span> is a <span class="orange">one-to-one</span> invertible mapping, this means <span class="math inline">Y = s^{-1}(S)</span> is just a transformation of an <span class="math inline">\mathcal{F}_\text{en}^p</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>As in the single parameter case, a full exponential family <span class="math inline">\mathcal{F}_\text{e}^p</span> with <span class="math inline">p = q</span> in practice leads to a <span class="orange">reparametrization</span> of a natural exponential family <span class="math inline">\mathcal{F}_\text{en}^p</span> in a <span class="blue">transformed space</span> <span class="math inline">s(Y)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-gamma-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="example-gamma-distribution">Example: gamma distribution 📖</h2>
+<ul>
+<li><p>The family <span class="math inline">\text{Gamma}(\nu, \lambda)</span> with <span class="math inline">\nu,\lambda &gt; 0</span> is an <span class="math inline">\mathcal{F}_\text{e}^2</span>. In fact, its <span class="blue">density</span> is <span class="math display">
+\begin{aligned}
+f(y; \nu, \lambda) &amp;= \frac{\lambda^\nu}{\Gamma(\nu)}y^{\nu -1}e^{-\lambda y} = \frac{1}{y}\exp\{\nu\log{y} - \lambda y - \log\Gamma(\nu) + \nu\log{\lambda}\} \\
+&amp;= h(y)\exp\{\theta(\psi)^T s(y) - G(\psi)\}.
+\end{aligned}
+</span> where <span class="math inline">h(y) = y^{-1}</span>, the <span class="blue">sufficient statistic</span> <span class="math inline">s(y) = (s_1(y), s_2(y)) = (\log{y}, y)</span>, whereas the <span class="orange">natural parameters</span> and the cumulant generating function are <span class="math display">
+\theta(\psi) = (\theta_1(\psi), \theta_2(\psi)) = (\nu, -\lambda), \qquad G(\psi) = \log{\Gamma(\nu)} - \nu\log{\lambda},
+</span> having set <span class="math inline">\psi = (\nu, \lambda)</span>.</p></li>
+<li><p>As previously shown, this implies that the family <span class="math display">
+f(s; \theta) = \tilde{h}(s)\exp\{\theta^Ts - \log{\Gamma(\theta_1)} + \theta_1\log(-\theta_2)\}, \qquad \theta \in \tilde{\Theta},
+</span> is a regular <span class="orange">natural exponential family</span> of order 2, with some function <span class="math inline">\tilde{h}(s)</span>.</p></li>
+</ul>
+</section>
+<section id="example-von-mises-distribution-i" class="level2">
+<h2 class="anchored" data-anchor-id="example-von-mises-distribution-i">Example: von Mises distribution I</h2>
+<ul>
+<li><p>Let <span class="math inline">Y</span> be a random variable describing an <span class="blue">angle</span>, so that <span class="math inline">\mathcal{Y} = (0, 2\pi)</span>, and let us consider the <span class="orange">uniform density</span> on the <span class="blue">circle</span>, namely <span class="math display">
+f_0(y) = \frac{1}{2\pi}, \qquad y \in (0, 2\pi).
+</span></p></li>
+<li><p>We define a tilted density <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{e}^2</span> by considering <span class="math inline">s(y) = (\cos{y}, \sin{y})</span>, i.e., the <span class="orange">cartesian coordinates</span> of <span class="math inline">y</span>. This choice of <span class="math inline">s(y)</span> ensures the appealing property <span class="math inline">f(y;\theta) = f(y + 2k\pi;\theta)</span>.</p></li>
+<li><p>More precisely, let <span class="math inline">\theta = (\theta_1,\theta_2)</span> and define the parametric family of densities <span class="math display">
+f(y; \theta) = f_0(y)\exp\{\theta^Ts(y) - K(\theta)\}, \qquad \theta \in \tilde{\Theta},
+</span> where <span class="math inline">h(y) = 1/2\pi</span>. The normalizing constant has a “closed form” <span class="math display">
+\exp{K(\theta)} = \frac{1}{2\pi}\int_0^{2\pi}\exp\{\theta_1\cos(y) + \theta_2\sin(y)\}\mathrm{d}y = \mathcal{A}_0(||\theta||_2),
+</span> where <span class="math inline">\mathcal{A}_\nu(\cdot)</span> is known as the <span class="orange">modified Bessel function</span> of the first kind and order <span class="math inline">\nu</span>.</p></li>
+<li><p>It is easy to check that <span class="math inline">K(\theta) &lt; \infty</span> for all values of <span class="math inline">\theta \in \mathbb{R}^2</span>; therefore, <span class="math inline">\tilde{\Theta} = \mathbb{R}^2</span>. This completes the definition of what is known as the <span class="blue">von Mises</span> distribution.</p></li>
+</ul>
+</section>
+<section id="example-von-mises-distribution-ii" class="level2">
+<h2 class="anchored" data-anchor-id="example-von-mises-distribution-ii">Example: von Mises distribution II</h2>
+<ul>
+<li><p>Instead of the <span class="orange">natural parametrization</span>, it is often convenient to consider a <span class="blue">reparametrization</span> <span class="math inline">\psi =(\tau, \gamma)</span>, defined through the one-to-one mapping <span class="math display">
+\theta(\psi) = (\tau\cos{\gamma}, \tau\sin{\gamma}), \qquad \psi \in \tilde{\Psi} = (0, \infty) \times (0, 2\pi).
+</span></p></li>
+<li><p>Using this parametrization, thanks to well-known <span class="blue">trigonometric</span> relationships, we obtain the more familiar formulation of the von Mises distribution, which is <span class="math display">
+f(y; \psi) = h(y)\exp\{\theta(\psi)s(y) - G(\psi)\} = \frac{1}{2\pi \mathcal{A}_0(\tau)}e^{\tau\cos(y - \gamma)}, \qquad y \in (0, 2\pi),
+</span> so that <span class="math inline">\gamma \in (0,2\pi)</span> can be interpreted as the <span class="orange">location</span> and <span class="math inline">\tau &gt; 0</span> as the <span class="blue">precision</span>.</p></li>
+<li><p>We also note that the distribution of <span class="math inline">s(Y)</span> is a <span class="blue">regular</span> <span class="orange">natural exponential family</span> of order 2, with density <span class="math display">
+f_S(s; \theta) = \frac{1}{2\pi}\exp\{\theta^Ts - \log\mathcal{A}_0(||\theta||_2)\}, \qquad s \in \mathcal{S} = \{(s_1,s_2) \in \mathbb{R}^2 : s_1^2 + s_2^2 = 1\},
+</span> clarifying that <span class="math inline">S = s(Y)</span> is a random vector taking values on a <span class="orange">circle</span> with unit radius.</p></li>
+</ul>
+</section>
+<section id="example-wind-direction-in-venice-i" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="example-wind-direction-in-venice-i">Example: wind direction in Venice I</h2>
+<ul>
+<li><p>The von Mises distribution is sometimes regarded as the “Gaussian distribution for <span class="blue">circular data</span>”. To provide a concrete example, let us consider the <span class="orange">wind directions</span> measured from the <a href="https://www.comune.venezia.it/it/content/17-san-giorgio">San Giorgio meteorological station</a>, in Venice.</p></li>
+<li><p>Measurements are recorded every <span class="orange">5 minutes</span>, from 14-04-2025 to 18-04-2025, for a total of <span class="math inline">n = 1153</span>. The variable <code>wind_dir</code> is recorded in <span class="blue">degrees</span>, i.e., between 0 and 360.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   date                wind_dir `Wind speed`
+   &lt;dttm&gt;                 &lt;dbl&gt;        &lt;dbl&gt;
+ 1 2025-04-14 00:00:00      148          4.6
+ 2 2025-04-14 00:05:00      148          4.4
+ 3 2025-04-14 00:10:00      152          4.1
+ 4 2025-04-14 00:15:00      150          4.1
+ 5 2025-04-14 00:20:00      150          4  
+ 6 2025-04-14 00:25:00      148          3.8
+ 7 2025-04-14 00:30:00      151          3.3
+ 8 2025-04-14 00:35:00      145          3  
+ 9 2025-04-14 00:40:00      148          3.5
+10 2025-04-14 00:45:00      150          2.9</code></pre>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>The dataset is available <a href="../data/Stazione_SanGiorgio.csv">here</a>. The original source is the <a href="https://www.comune.venezia.it/it/content/dati-e-statistiche-">webpage of Venice municipality</a>.</p>
+</div></div></section>
+<section id="example-wind-direction-in-venice-ii" class="level2">
+<h2 class="anchored" data-anchor-id="example-wind-direction-in-venice-ii">Example: wind direction in Venice II</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_B_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="900"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>This is a somewhat <span class="orange">misleading</span> graphical representation of <span class="blue">wind directions</span> evolving over time. Indeed, the “spikes” are not real: the angles 1 and 359 are, in fact, very close.</li>
+</ul>
+</section>
+<section id="example-wind-direction-in-venice-iii" class="level2">
+<h2 class="anchored" data-anchor-id="example-wind-direction-in-venice-iii">Example: wind direction in Venice III</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_B_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>A better graphical representation of <span class="blue">wind directions</span> and <span class="orange">wind speed</span>, using Cartesian coordinates. From this wind rose, it is clear the winds were coming mostly from the east.</li>
+</ul>
+</section>
+</section>
+<section id="inference" class="level1">
+<h1>Inference</h1>
+<section id="independent-sampling-sufficiency-and-completeness" class="level2">
+<h2 class="anchored" data-anchor-id="independent-sampling-sufficiency-and-completeness">Independent sampling, sufficiency and completeness</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_1,\dots,Y_n</span> be iid random vectors with density <span class="math inline">f(y; \theta)</span>, where <span class="math inline">f(y; \theta) \in \mathcal{F}_\text{e}^p</span> and, without loss of generality, we let <span class="math inline">f(y; \theta) = f_0(y)\exp\{\theta^T s(y) - K(\theta)\}</span>. The <span class="blue">likelihood</span> function is <span class="math display">
+L(\theta; \bm{y}) = \prod_{i=1}^n \exp\left\{\theta^T s(y_i) - K(\theta)\right\} = \exp\left\{\theta^T \sum_{i=1}^n s(y_i) - n K(\theta)\right\},
+</span> from which we see that <span class="math inline">s = \sum_{i=1}^n s(y_i) = \left(\sum_{i=1}^n s_1(y_i), \dots, \sum_{i=1}^n s_p(y_i)\right)</span> is the <span class="orange">minimal sufficient statistic</span> as long as <span class="math inline">n \ge p</span>, which has <span class="blue">fixed dimension</span> <span class="math inline">p</span> whatever the sample size.</p></li>
+<li><p>Inference can therefore be based on the random vector <span class="math inline">S = \sum_{i=1}^n s(Y_i)</span>, whose distribution is <span class="math display">
+f_S(s; \theta) = \tilde{f}_0(s)\exp\{\theta^T s - \tilde{K}(\theta)\},
+</span> with <span class="math inline">\tilde{K}(\theta) = n K(\theta)</span> and for some density <span class="math inline">\tilde{f}_0(s)</span>. In other words, <span class="math inline">f_S(s; \theta) \in \mathcal{F}_\text{en}^p</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.7)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A sufficient statistic <span class="math inline">S</span> with distribution <span class="math inline">\mathcal{F}_\text{en}^p</span> is <span class="blue">complete</span>, provided that <span class="math inline">\text{int}\:\tilde{\Theta} \neq \emptyset</span>.</p>
+</div>
+</div>
+</section>
+<section id="sufficiency-and-completeness" class="level2">
+<h2 class="anchored" data-anchor-id="sufficiency-and-completeness">Sufficiency and completeness</h2>
+<ul>
+<li><p>Thus, the log-likelihood function, after a reduction via <span class="blue">sufficiency</span>, is <span class="math display">
+\ell(\theta) = \ell(\theta; s) = \theta^T s - n K(\theta), \qquad \theta \in \tilde{\Theta},
+</span> with <span class="math inline">S = \sum_{i=1}^n s(Y_i)</span> being distributed as a <span class="math inline">\mathcal{F}_\text{en}^p</span> with cumulant generating function <span class="math inline">n K(\theta)</span>, whereas each <span class="math inline">s(Y_i)</span> is distributed as a <span class="math inline">\mathcal{F}_\text{en}^p</span> with cumulant generating function <span class="math inline">K(\theta)</span>.</p></li>
+<li><p>The <span class="orange">completeness</span> of <span class="math inline">S</span> in exponential families is a classical result that enables the usage of the Rao-Blackwell-Lehmann-Scheffé theorem for finding the UMVUE.</p></li>
+<li><p>Moreover, the existence of a <span class="blue">minimal sufficient</span> statistic that performs a <span class="orange">non-trivial</span> <span class="blue">dimensionality reduction</span>, from <span class="math inline">n</span> to <span class="math inline">p</span> and with <span class="math inline">p \le n</span>, is a major simplification.</p></li>
+<li><p>This only occurs in exponential families, except for non-regular cases.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (Koopman-Pitman-Darmois, <span class="citation" data-cites="Robert1994">Robert (<a href="#ref-Robert1994" role="doc-biblioref">1994</a>)</span>, Theorem 3.3.3)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Under iid sampling, if a parametric family whose <span class="orange">support</span> does <span class="orange">not depend</span> on the <span class="orange">parameter</span> is such that there exists a <span class="blue">sufficient statistic</span> of <span class="blue">constant dimension</span> <span class="math inline">p</span>, then the family is <span class="math inline">\mathcal{F}_\text{e}^p</span>.</p>
+</div>
+</div>
+</section>
+<section id="likelihood-quantities" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-quantities">Likelihood quantities</h2>
+<ul>
+<li><p>After a sufficiency reduction, we get <span class="math inline">\ell(\theta) = \theta^T s - n K(\theta)</span>. Thus, the <span class="blue">score function</span> is <span class="math display">
+\ell^*(\theta) = s - n \frac{\partial}{\partial \theta}K(\theta) = s - n \mu(\theta),
+</span> where <span class="math inline">\mu(\theta) = \mathbb{E}_\theta(s(Y_1))</span> is the <span class="orange">mean value mapping</span> of each <span class="math inline">s(Y_i)</span> and <span class="math inline">n \mu(\theta) = \mathbb{E}(S)</span>.</p></li>
+<li><p>By direct calculation, we show that the <span class="blue">first Bartlett identity</span> holds, namely <span class="math display">
+\mathbb{E}_\theta(\ell^*(\theta; S)) = \mathbb{E}_\theta(S) - n\mu(\theta) = n\mu(\theta) - n\mu(\theta)= \bm{0}.
+</span> The <span class="orange">Fisher information</span> is straightforward to compute, being equal to <span class="math display">
+I(\theta) = \mathbb{E}_\theta(\ell^*(\theta)\ell^*(\theta)^T) = \mathbb{E}_\theta\{(S - n\mu(\theta))(S - n\mu(\theta))^T\} = \text{var}_\theta(S) = n \, \text{var}_\theta(s(Y_1)).
+</span></p></li>
+<li><p>Moreover, the <span class="blue">observed information</span> is <span class="math display">
+\mathcal{I}(\theta) = -\frac{\partial^2}{\partial \theta \partial \theta^T}\ell(\theta) = \frac{\partial^2}{\partial \theta \partial \theta^T}\tilde{K}(\theta)= n\frac{\partial^2}{\partial \theta \partial \theta^T}K(\theta)  = n \, \text{var}_\theta(s(Y_1)),
+</span> which proves the <span class="blue">second Bartlett identity</span> as an implication of the <span class="orange">remarkable</span> identity <span class="math inline">\mathcal{I}(\theta) = I(\theta)</span>, stronger than the usual <span class="math inline">I(\theta) = \mathbb{E}_\theta(\mathcal{I}(\theta))</span>. In fact, <span class="math inline">\mathcal{I}(\theta)</span> is <span class="blue">non-stochastic</span>.</p></li>
+</ul>
+</section>
+<section id="existence-of-the-maximum-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="existence-of-the-maximum-likelihood">Existence of the maximum likelihood</h2>
+<ul>
+<li>The maximum likelihood estimate <span class="math inline">\hat{\theta}</span>, if it exists, is the <span class="orange">unique</span> solution of the <span class="blue">score equation</span> <span class="math display">
+s - n \mu(\theta) = \bm{0}, \qquad \text{so that} \qquad \hat{\theta} = \mu^{-1}\left(\frac{s}{n}\right) = \mu^{-1}\left(\frac{1}{n}\sum_{i=1}^ns(y_i)\right).
+</span> It is unique because <span class="math inline">\ell(\theta)</span> is <span class="orange">concave</span> in <span class="math inline">\theta</span>, namely its second derivative is <span class="math display">
+\frac{\partial^2}{\partial \theta \partial \theta^T}\ell(\theta) = -\text{var}_\theta(S) &lt; 0, \qquad \theta \in \tilde{\Theta}.
+</span></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (<span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>, Theorem 5.8)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\mathcal{F}_\text{en}^p</span> is regular, then the maximum likelihood estimate <span class="math inline">\hat{\theta}</span> exists and is the unique solution of <span class="math inline">\ell^*(\theta) = \bm{0}</span> if and only if <span class="math inline">s \in \text{int}\:C(\mathcal{S})</span>, where <span class="math inline">C(\mathcal{S})</span> is the closed convex hull of the support of <span class="math inline">\mathcal{S}</span>.</p>
+</div>
+</div>
+<ul>
+<li>As a corollary, if <span class="math inline">\mathcal{F}_\text{en}^p</span> is regular, the MLE exists and is unique <span class="blue">with probability one</span> if and only if the boundary of <span class="math inline">C = C(\mathcal{S})</span> has probability <span class="math inline">0</span>. This is often violated when <span class="math inline">S</span> is <span class="orange">discrete</span>.</li>
+</ul>
+</section>
+<section id="likelihood-quantities-mean-parametrization" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-quantities-mean-parametrization">Likelihood quantities: mean parametrization 📖</h2>
+<ul>
+<li><p>Let us consider the <span class="blue">mean parametrization</span> <span class="math inline">\mu = \mu(\theta) = \mathbb{E}_\theta(s(Y_1))</span>, whose inverse is <span class="math inline">\theta = \theta(\mu)</span>. The log-likelihood is: <span class="math display">
+\ell(\mu) = \ell(\theta(\mu)) = \theta(\mu)^T s - n K(\theta(\mu)), \qquad \mu \in \mathcal{M}.
+</span></p></li>
+<li><p>Hence, using the <span class="orange">chain rule</span> of differentiation, we obtain the <span class="blue">score</span> <span class="math display">
+\ell^*(\mu) = \left(\frac{\partial}{\partial \mu}\theta(\mu)\right)(s - n \mu) = \text{var}_{\mu}(s(Y_1))^{-1}(s - n \mu),
+</span> where the last step follows from the properties of the derivatives of inverse functions.</p></li>
+<li><p>Thus, the <span class="blue">observed information</span> matrix for the mean parametrization is <span class="math display">
+\mathcal{I}_\mu(\mu) = -\frac{\partial^2}{\partial \mu \partial \mu^T}\ell(\mu) = -\left(\frac{\partial^2}{\partial \mu \partial \mu^T}\theta(\mu)\right)(s - n \mu) + n \, \text{var}_{\mu}(s(Y_1))^{-1},
+</span> whereas the <span class="orange">Fisher information</span> matrix for <span class="math inline">\mu</span> is <span class="math display">
+I_\mu(\mu) = \mathbb{E}_\mu(\mathcal{I}_\mu(\mu)) = n \, \text{var}_{\mu}(s(Y_1))^{-1} = n \, V(\mu)^{-1}.
+</span></p></li>
+</ul>
+</section>
+<section id="maximum-likelihood-mean-parametrization" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-likelihood-mean-parametrization">Maximum likelihood: mean parametrization</h2>
+<ul>
+<li><p>Thus, the maximum likelihood estimate of the <span class="orange">mean parametrization</span> <span class="math inline">\hat{\mu} = \mu(\hat{\theta})</span> is <span class="math display">
+\hat{\mu} = \frac{s}{n} = \frac{1}{n}\sum_{i=1}^ns(y_i).
+</span> This means <span class="math inline">\hat{\mu}</span> is both the <span class="orange">maximum likelihood</span> and the <span class="blue">method of moments</span> estimate of <span class="math inline">\mu</span>.</p></li>
+<li><p>It is also an <span class="blue">unbiased estimator</span>, because by definition <span class="math display">
+\mathbb{E}(\hat{\mu}) = \frac{1}{n}\sum_{i=1}^n\mathbb{E}_\mu(s(Y_i)) = \mathbb{E}_\theta(s(Y_1)) = \mu.
+</span></p></li>
+<li><p>Furthermore <span class="math inline">\hat{\mu}</span> is the <span class="orange">UMVUE</span> of <span class="math inline">\mu</span>. Indeed, we could first notice that <span class="math inline">\hat{\mu}</span> is a function of <span class="math inline">S</span>, which is a <span class="orange">complete</span> sufficient statistic Alternatively, we could note that the variance of <span class="math inline">\hat{\mu}</span> is <span class="math display">
+\text{var}_\mu(\hat{\mu}) = \frac{1}{n}\text{var}_\mu(s(Y_1))= \frac{1}{n}V(\mu) = \mathcal{I}_\mu(\mu)^{-1},
+</span> which corresponds to the <span class="blue">Cramer-Rao</span> lower bound.</p></li>
+</ul>
+<!-- ::: callout-tip -->
+<!-- The maximum likelihood estimate for $\hat{\theta}$ is typically [biased]{.blue}; therefore, it cannot be the [UMVUE]{.orange}, even though it depends on the complete sufficient statistic $S$. -->
+<!-- ::: -->
+</section>
+<section id="example-binomial-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="example-binomial-distribution">Example: binomial distribution 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_1,\dots,Y_n</span> be iid Bernoulli random variables with mean <span class="math inline">\mu \in (0,1)</span>, that is <span class="math inline">\text{pr}(Y_i = 1) = \mu</span>. Then, the log-likelihood function is <span class="math display">
+\ell(\mu) = \sum_{i=1}^n[y_i\log{\mu} + (1 - y_i)\log{(1 - \mu)}] = s \log{\mu} + (n - s)\log{(1 - \mu)},
+</span> with <span class="math inline">S = \sum_{i=1}^nY_i</span> being the <span class="orange">minimal sufficient</span> statistic and the <span class="blue">natural parametrization</span> is <span class="math inline">\theta(\mu) = \log{\mu/(1-\mu)}</span>. Note that <span class="math inline">S \sim \text{Binom}(n, \mu)</span>.</p></li>
+<li><p>The <span class="blue">variance function</span> is <span class="math inline">V(\mu) = \text{var}_\mu(Y_i)= \mu(1-\mu)</span>, so that the <span class="blue">score function</span> becomes <span class="math display">
+\ell^*(\mu) = \frac{s}{\mu} - \frac{n - s}{1 - \mu} = \frac{1}{V(\mu)}(s - n\mu),
+</span> leading to the well-known UMVUE maximum likelihood estimator <span class="math inline">\hat{\mu} = s/n</span>.</p></li>
+<li><p>Finally, the <span class="orange">observed information</span> and the <span class="blue">Fisher information</span> equal, respectively <span class="math display">
+\mathcal{I}_\mu(\mu) = \frac{s}{\mu^2} - \frac{n - s}{(1 - \mu)^2}, \qquad I_\mu(\mu) = \mathbb{E}_\mu(\mathcal{I}_\mu(\mu)) = \frac{n}{\mu(1 - \mu)} = \frac{n}{V(\mu)}.
+</span></p></li>
+</ul>
+</section>
+<section id="example-von-mises-distribution-iii" class="level2">
+<h2 class="anchored" data-anchor-id="example-von-mises-distribution-iii">Example: von Mises distribution III 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_1,\dots,Y_n</span> be iid random variables from a <span class="blue">Von-Mises</span> distribution with density <span class="math inline">f(y; \psi) = (2\pi\mathcal{A}_0(\tau))^{-1}\exp\{\tau\cos(y - \gamma)\}</span>, with <span class="math inline">y \in (0, 2\pi)</span>, therefore the <span class="orange">log-likelihood</span> is <span class="math display">
+\ell(\psi) = \tau\sum_{i=1}^n\cos(y_i - \gamma) - n\log{\mathcal{A}_0(\tau)}.
+</span></p></li>
+<li><p>The Jacobian of the log-likelihood is <span class="math display">
+\frac{\partial}{\partial \gamma} \ell(\psi) = \tau\sum_{i=1}^n\sin(y_i - \gamma), \quad\frac{\partial}{\partial \tau}\ell(\psi) = \sum_{i=1}^n\cos{(y_i - \gamma)} - n\frac{\mathcal{A_1(\tau)}}{\mathcal{A}_0(\tau)}.
+</span></p></li>
+<li><p>Thus, the <span class="blue">maximum likelihood estimate</span> <span class="math inline">(\hat{\gamma},\hat{\tau})</span> is the solution of the following equations <span class="math display">
+\tan(\hat{\gamma}) = \frac{\sum_{i=1}^n\sin{y_i}}{\sum_{i=1}^n\cos{y_i}}, \qquad \frac{1}{n}\sum_{i=1}^n\cos{(y_i - \hat{\gamma})} = \frac{\mathcal{A_1(\hat{\tau})}}{\mathcal{A}_0(\hat{\tau})}.
+</span> The estimate for <span class="math inline">\tau</span> can be obtained <span class="orange">numerically</span> e.g.&nbsp;using the <code>circular::A1inv</code> function.</p></li>
+</ul>
+</section>
+<section id="example-wind-direction-in-venice-iv" class="level2">
+<h2 class="anchored" data-anchor-id="example-wind-direction-in-venice-iv">Example: wind direction in Venice IV</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_B_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The <span class="orange">estimated</span> values are <span class="math inline">\hat{\gamma} = 1.375</span> (corresponding to about 79 degrees) and <span class="math inline">\hat{\tau} = 2.51</span>.</li>
+</ul>
+</section>
+<section id="example-wind-direction-in-venice-v" class="level2">
+<h2 class="anchored" data-anchor-id="example-wind-direction-in-venice-v">Example: wind direction in Venice V</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_B_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="asymptotic-theory-remarks" class="level2">
+<h2 class="anchored" data-anchor-id="asymptotic-theory-remarks">Asymptotic theory: remarks</h2>
+<ul>
+<li><p>Let us consider an iid sample from a model such that the minimal sufficient statistic belongs to a <span class="orange">regular exponential family</span> <span class="math inline">\mathcal{F}_\text{en}^p</span>, with natural parameter <span class="math inline">\theta \in \tilde{\Theta}</span>.</p></li>
+<li><p>It is straightforward to verify that the <span class="blue">regularity conditions</span> <span class="blue">A1–A6</span> from <a href="un_A.html">Unit A</a> are <span class="blue">all satisfied</span>. Thus, Theorem 5.1 of <span class="citation" data-cites="Lehmann1998">Lehmann and Casella (<a href="#ref-Lehmann1998" role="doc-biblioref">1998</a>)</span> applies directly.</p></li>
+<li><p>We also proved that, if the score function has a root, then the maximum likelihood estimate <span class="math inline">\hat{\theta}</span> exists and is the <span class="blue">unique solution</span> of <span class="math inline">\ell^*(\theta) = \mathbf{0}</span>, where <span class="math inline">\ell^*(\theta) = s - n \mu(\theta)</span>.</p></li>
+<li><p>The maximum likelihood estimate may fail to exist if <span class="math inline">s</span> lies on the boundary of <span class="math inline">C(\mathcal{S})</span>. However, as <span class="math inline">n \to \infty</span>, the probability that <span class="math inline">s</span> lies on the boundary of <span class="math inline">C(\mathcal{S})</span> tends to zero.</p></li>
+<li><p>Indeed, by the law of large numbers, <span class="math inline">S/n</span> converges almost surely to <span class="math inline">\mu(\theta) \in \mathcal{M} = \text{int}\:\mathcal{C}(S)</span>, implying that a unique root of the score function eventually exists with probability one.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If the observations are iid from a <span class="orange">regular</span> exponential family, the maximum likelihood estimator <span class="math inline">\hat{\theta}</span> is consistent and asymptotically normal for <span class="math inline">\theta</span>. By the <span class="blue">continuous mapping theorem</span>, this implies that <span class="math inline">\hat{\mu} = \mu(\hat{\theta})</span>, or any other <span class="orange">smooth reparametrization</span>, is a consistent estimator of <span class="math inline">\mu</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="wald-inequality-a-direct-proof" class="level2">
+<h2 class="anchored" data-anchor-id="wald-inequality-a-direct-proof">Wald inequality: a direct proof 📖</h2>
+<ul>
+<li><p>Let us recall that <span class="blue">Wald inequality</span> states that <span class="math display">
+\mathbb{E}_{\theta_0}\left(\ell(\theta; \bm{Y})\right) &lt; \mathbb{E}_{\theta_0}\left(\ell(\theta_0; \bm{Y})\right), \qquad \theta \neq \theta_0,
+</span> and the proof relies on the Kullback-Leibler divergence.</p></li>
+<li><p>Let us focus on the <span class="orange">univariate</span> case <span class="math inline">\Theta \subseteq \mathbb{R}</span>. It is instructive to provide a <span class="orange">direct proof</span> for exponential families, recalling that <span class="math inline">\ell(\theta_0\bm{Y}) = \theta S - n K(\theta)</span>.</p></li>
+<li><p>In the first place, note that <span class="math display">
+\mathbb{E}_{\theta_0}(\ell(\theta; \bm{Y})) = n \left[\theta \mu(\theta_0) - K(\theta)\right],
+</span> implying that Wald inequality holds true if and only if <span class="math display">
+\mu(\theta_0)\left(\theta_0 - \theta\right) &gt; K(\theta_0) - K(\theta), \qquad \theta \neq \theta_0.
+</span></p></li>
+<li><p>This is indeed the case, the above being a <a href="https://en.wikipedia.org/wiki/Convex_function">characterization</a> of <span class="orange">convexity</span> for <span class="math inline">K(\cdot)</span>, which we previously show having <span class="math inline">\partial^2 /\partial \theta^2 K(\theta) &gt; 0</span> for all <span class="math inline">\theta \in \tilde{\Theta}</span>. Moreover, recall that <span class="math inline">\mu(\theta) = \partial /\partial \theta K(\theta)</span>.</p></li>
+</ul>
+<!-- ## Consistency and normality: a direct proof -->
+<!-- ## Firth corrections -->
+</section>
+</section>
+<section id="references-and-study-material" class="level1">
+<h1>References and study material</h1>
+<section id="main-references" class="level2">
+<h2 class="anchored" data-anchor-id="main-references">Main references</h2>
+<ul>
+<li><span class="citation" data-cites="Pace1997">Pace and Salvan (<a href="#ref-Pace1997" role="doc-biblioref">1997</a>)</span>
+<ul>
+<li><span class="orange">Chapter 5</span> (<em>Exponential families</em>)</li>
+<li><span class="orange">Chapter 6</span> (<em>Exponential dispersion families</em>)</li>
+</ul></li>
+<li><span class="citation" data-cites="Davison2003">Davison (<a href="#ref-Davison2003" role="doc-biblioref">2003</a>)</span>
+<ul>
+<li><span class="blue">Chapter 5</span> (<em>Models</em>)</li>
+</ul></li>
+<li><span class="citation" data-cites="Efron2016">Efron and Hastie (<a href="#ref-Efron2016" role="doc-biblioref">2016</a>)</span>
+<ul>
+<li><span class="grey">Chapter 5</span> (<em>Parametric models and exponential families</em>)</li>
+</ul></li>
+<li><span class="citation" data-cites="Efron2023">Efron (<a href="#ref-Efron2023" role="doc-biblioref">2023</a>)</span>
+<ul>
+<li><span class="orange">Chapter 1</span> (<em>One-parameter exponential families</em>)</li>
+<li><span class="orange">Chapter 2</span> (<em>Multiparameter exponential families</em>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="morris1982" class="level2">
+<h2 class="anchored" data-anchor-id="morris1982"><span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img src="img/Morris.png" class="img-fluid"></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p><span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>, AoS)</span> is a <span class="blue">seminal</span> paper in the field of <span class="orange">exponential families</span>.</p></li>
+<li><p>It is a must-read, as it encompasses and overviews many of the results discussed in this unit.</p></li>
+<li><p>It also shows that exponential families with quadratic variance are <span class="blue">infinitely divisible</span>, provided that <span class="math inline">c \ge 0</span>.</p></li>
+<li><p>The paper covers several <span class="orange">advanced topics</span>, including:</p>
+<ul>
+<li>orthogonal polynomials;</li>
+<li>limiting results;</li>
+<li>large deviations;</li>
+<li>…and more.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="jorgensen1987" class="level2">
+<h2 class="anchored" data-anchor-id="jorgensen1987"><span class="citation" data-cites="Jorgensen1987">Jorgensen (<a href="#ref-Jorgensen1987" role="doc-biblioref">1987</a>)</span></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img src="img/Jorgensen.png" class="img-fluid"></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p><span class="citation" data-cites="Jorgensen1987">Jorgensen (<a href="#ref-Jorgensen1987" role="doc-biblioref">1987</a>, JRSSB)</span> is another <span class="blue">seminal</span> paper in the field of <span class="orange">exponential dispersion families</span>.</p></li>
+<li><p>It studies a multivariate extension of exponential dispersion models of <span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#ref-Nelder1972" role="doc-biblioref">1972</a>)</span>.</p></li>
+<li><p>It characterizes the entire class in terms of variance function, extending <span class="citation" data-cites="Morris1982">Morris (<a href="#ref-Morris1982" role="doc-biblioref">1982</a>)</span>.</p></li>
+<li><p>It also describes a notion of asymptotic normality called <span class="blue">small sample asymptotics</span>.</p></li>
+<li><p>It is a <span class="orange">read</span> paper and among the discussants we find, J.A. Nelder, A.C. Davison, C.N. Morris.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="diaconis1979" class="level2">
+<h2 class="anchored" data-anchor-id="diaconis1979"><span class="citation" data-cites="Diaconis1979">Diaconis and Ylvisaker (<a href="#ref-Diaconis1979" role="doc-biblioref">1979</a>)</span></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img src="img/Diaconis.png" class="img-fluid"></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p>Bayesian statistics also greatly benefits from the use of exponential families.</p></li>
+<li><p><span class="citation" data-cites="Diaconis1979">Diaconis and Ylvisaker (<a href="#ref-Diaconis1979" role="doc-biblioref">1979</a>, AoS)</span> is a <span class="blue">seminal paper</span> on the topic of <span class="orange">conjugate priors</span>.</p></li>
+<li><p>Broadly speaking, conjugate priors always exist for exponential families.</p></li>
+<li><p>These are known as the Diaconis–Ylvisaker conjugate priors.</p></li>
+<li><p>Classical priors such as beta–Bernoulli and Poisson–gamma are special cases.</p></li>
+<li><p>The posterior expectation under the mean parametrization is a <span class="blue">linear combination</span> of the data and the prior mean.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="consonni1992" class="level2">
+<h2 class="anchored" data-anchor-id="consonni1992"><span class="citation" data-cites="Consonni1992">Consonni and Veronese (<a href="#ref-Consonni1992" role="doc-biblioref">1992</a>)</span></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img src="img/Consonni.png" class="img-fluid"></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p><span class="citation" data-cites="Consonni1992">Consonni and Veronese (<a href="#ref-Consonni1992" role="doc-biblioref">1992</a>, JASA)</span> is another <span class="blue">Bayesian</span> contribution which refines the results of <span class="citation" data-cites="Diaconis1979">Diaconis and Ylvisaker (<a href="#ref-Diaconis1979" role="doc-biblioref">1979</a>)</span>.</p></li>
+<li><p>It investigates when a <span class="orange">conjugate prior</span> specified on the mean parameter <span class="math inline">\mu</span> of a natural exponential family leads to a linear posterior expectation of <span class="math inline">\mu</span>.</p></li>
+<li><p>The main result shows that this <span class="orange">posterior linearity</span> holds if and only if the <span class="orange">variance function</span> is <span class="blue">quadratic</span>.</p></li>
+<li><p>The paper also explores the <span class="blue">monotonicity</span> of the <span class="orange">posterior variance</span> of <span class="math inline">\mu</span> with respect to both the sample size and the prior sample size.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Billingsley1995" class="csl-entry" role="listitem">
+Billingsley, Patrick. 1995. <em><span>Probability And Measure</span></em>. Wiley.
+</div>
+<div id="ref-Consonni1992" class="csl-entry" role="listitem">
+Consonni, Guido, and Piero Veronese. 1992. <span>“Conjugate Priors for Exponential Families Having Quadratic Functions.”</span> <em>Journal of the American Statistical Association</em> 87 (420): 1123–27.
+</div>
+<div id="ref-Davison2003" class="csl-entry" role="listitem">
+Davison, A. C. 2003. <em><span>Statistical Models</span></em>. Cambridge University Press.
+</div>
+<div id="ref-Diaconis1979" class="csl-entry" role="listitem">
+Diaconis, Persi, and Donald Ylvisaker. 1979. <span>“<span class="nocase">Conjugate prior for exponential families</span>.”</span> <em>The Annals of Statistics</em> 7 (2): 269–92.
+</div>
+<div id="ref-Efron2023" class="csl-entry" role="listitem">
+Efron, Bradley. 2023. <em><span class="nocase">Exponential Families in Theory and Practice</span></em>. Cambridge University Press.
+</div>
+<div id="ref-Efron2016" class="csl-entry" role="listitem">
+Efron, Bradley, and Trevor Hastie. 2016. <em><span>Computer Age Statistical Inference</span></em>. Cambridge University Press.
+</div>
+<div id="ref-Fisher1934" class="csl-entry" role="listitem">
+Fisher, R. A. 1934. <span>“<span class="nocase">Two new properties of mathematical likelihood</span>.”</span> <em>Proceedings of the Royal Society of London. Series A</em> 144 (852): 285–307.
+</div>
+<div id="ref-Jorgensen1987" class="csl-entry" role="listitem">
+Jorgensen, Bert. 1987. <span>“<span class="nocase">Exponential dispersion model</span>.”</span> <em>Journal of the Royal Statistical Society. Series B: Methodological</em> 49 (2): 127–62.
+</div>
+<div id="ref-Lehmann1998" class="csl-entry" role="listitem">
+Lehmann, E. L., and G. Casella. 1998. <em><span class="nocase">Theory of Point Estimation, Second Edition</span></em>. Springer.
+</div>
+<div id="ref-Morris1982" class="csl-entry" role="listitem">
+Morris, Carl N. 1982. <span>“Natural Exponential Families with Quadratic Variance Functions.”</span> <em>Annals of Statistics</em> 10 (1): 65–80.
+</div>
+<div id="ref-Nelder1972" class="csl-entry" role="listitem">
+Nelder, J. A., and R. W. M. Wedderburn. 1972. <span>“<span class="nocase">Generalized linear models</span>.”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em> 135 (3): 370–84.
+</div>
+<div id="ref-Pace1997" class="csl-entry" role="listitem">
+Pace, Luigi, and Alessandra Salvan. 1997. <em><span class="nocase">Principles of statistical inference from a Neo-Fisherian perspective</span></em>. Vol. 4. Advanced Series on Statistical Science and Applied Probability. World Scientific.
+</div>
+<div id="ref-Robert1994" class="csl-entry" role="listitem">
+Robert, Christian P. 1994. <em><span class="nocase">The Bayesian Choice: from decision-theoretic foundations to computational implementation</span></em>. Springer.
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<script src="un_B_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

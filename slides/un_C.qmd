@@ -1,0 +1,102 @@
+---
+title: "Generalized linear models"
+subtitle: "Statistical Inference - PhD EcoStatData"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+filters: 
+  - remove-pause.lua
+format:
+  revealjs:
+    auto-stretch: true
+    center: true
+    html-math-method: katex
+    transition: none
+    output-file: un_C_slides.html
+    slide-number: true
+    callout-appearance: minimal
+    code-line-numbers: true
+    theme: [default, ../template.css] # alternative themes (subset): default, night, dark
+    embed-resources: false
+    echo: false
+    fig-dpi: 200
+    # incremental: true  # Remove comment if you like incremental bullet points
+    logo: img/logoB.png
+    footer: "[Home page](https://tommasorigon.github.io/InferentialStat)"
+    highlight-style: github
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    toc-location: right
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](../index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+knitr::purl("un_C.qmd", output = "../code/un_C.R", documentation = 0)
+styler:::style_file("../code/un_C.R")
+
+library(ggplot2)
+library(ggthemes)
+```
+
+::: columns
+::: {.column width="20%"}
+![](img/target.png)
+
+<!-- *"Pluralitas non est ponenda sine necessitate."* -->
+
+<!-- [William of Ockham]{.grey} -->
+:::
+
+::: {.column width="80%"}
+- This unit will cover the following [topics]{.orange}:
+
+:::
+
+- sdf
+:::
+
+# Likelihood and inference
+
+# Special models
+
+## Log-linear models and contingency tables
+
+## Logistic regression with paired data
+
+# Quasi likelihoods
+
+# Bias correction and robustness
+
+# Case study I
+
+# Case study II

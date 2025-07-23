@@ -1,0 +1,84 @@
+---
+title: "Exercises B"
+subtitle: "Statistical Inference - Ph.D. in Economics, Statistics, and Data Science"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Exercises
+
+
+
+:::{.callout-note collapse=true}
+#### [@Davison2003, Exercise 3, pag. 219]{.orange}
+
+![](img/Davison3_219.png)
+:::
+
+:::{.callout-warning collapse=true}
+#### [@Pace1997, Problem 5.14]{.orange}
+![](img/Pace5_14.png)
+:::
+
+:::{.callout-note collapse=true}
+#### [@Davison2003, Exercise 5, pag. 219]{.orange}
+
+![](img/Davison5_219.png)
+:::
+
+:::{.callout-note collapse=true}
+#### [@Davison2003, Exercise 6, pag. 219]{.orange}
+![](img/Davison6_220.png)
+:::
+
+
+:::{.callout-warning collapse=true}
+#### [@Pace1997, Problem 5.1]{.orange}
+
+It is evident that the natural parameter space is non-empty, because $0 \in \tilde{\Theta}$. Show that $\tilde{\Theta}$ is a [convex set]{.orange}, namely for all $\theta_1, \theta_2 \in \tilde{\Theta} \subseteq{\mathbb{R}}$
+$$
+\lambda \theta_1 + (1 - \lambda)\theta_2 \in \tilde{\Theta}, \qquad \text{for all }\quad 0 < \lambda < 1.
+$$
+Note that this implies $\tilde{\Theta}$ must be an [interval]{.blue}. [Hint]{.orange}: recall that if $\theta \in \tilde{\Theta}$ we have $M_0(\theta) < \infty$, thus combine the above equation with the inequality between the geometric and the arithmetic mean. 
+:::
+
+:::{.callout-warning collapse=true}
+#### [@Pace1997, Problem 5.6 and 5.7]{.orange}
+![](img/Pace5_6and5_7.png)
+:::
+
+
+:::{.callout-warning collapse=true}
+#### [@Pace1997, Problem 5.12]{.orange}
+![](img/Pace5_12.png)
+:::
+

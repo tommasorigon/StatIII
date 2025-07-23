@@ -1,0 +1,99 @@
+---
+title: "Statistica III (Generalized Linear Models)"
+subtitle: "CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+lang: en
+page-layout: full
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    fig-dpi: 250
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+This is the website of the **Statistica III** course (6 CFU) of the "*Corso di Laurea Triennale in Scienze Statistiche ed Economiche* (SSE)", Università degli Studi di Milano-Bicocca.
+
+## Teaching material
+
+### Required
+
+    
+### Optional 
+
+- Agresti, A. 2015. [*Foundations of Linear and Generalized Linear Models*](https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034). Wiley.
+
+- McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh). Second Edition. Springer.
+
+### Slides and lecture notes
+
+The slides are meant to be used in HTML. However, if you *really* want
+to convert the HTML slides into pdf files, you can [follow the
+instruction of the quarto
+documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf).
+
+| Topic | Notes | Slides | Code |
+|-------------------|------------------|------------------|------------------|
+| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) |  |
+| **Linear models: miscellanea** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) | [Code A](code/un_A.R) |
+| *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
+| | **GENERALIZED LINEAR MODELS** | | |
+| **Exponential dispersion families** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
+| **Estimation (IRLS)** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
+| **Inference** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
+| **Model checking, diagnostic, model selection** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
+| | **NOTABLE MODELS** | | |
+| **Binary regression** | [Unit C] | [Slides Unit C] | [Code C] |
+| *Exercises* | [Exercises C] |  |  |
+| **Poisson regression** | [Unit D] | [Slides Unit D] | [Code D] |
+| *Exercises* | [Exercises D] |  |  |
+| **Contingency tables and log-linear models** | [Unit E] | [Slides Unit E] | [Code E] |
+| *Exercises* | [Exercises E] |  |  |
+| | **ADVANCED TOPICS** | | |
+| **Quasi-likelihoods** | [Unit F] | [Slides Unit F] | [Code F] |
+| *Exercises* | [Exercises F] |  |  |
+
+<!-- ## Exam -->
+
+<!-- #### Mock exam -->
+
+<!-- An example of written examination is provided at [this link](exe/exe_exam.html).  -->
+
+<!-- ## Prerequisites -->
+
+<!-- Knowledge of the topics (i) linear algebra, (ii) linear models is highly recommended. -->
+
+<!-- Knowledge of topics covered in the courses Probability and Statistics M -->
+
+<!-- and Advanced Statistics M is also highly recommended. -->
+
+## Acknowledgments
+
+I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course. 
+
+I have made use of several other books, scientific articles, and
+datasets to complement the main textbooks. They are all cited at the end
+of each unit. Students are encouraged to consult the books: these slides
+are just a concise summary.
+
+All the mistakes still present are mine.
+
+------------------------------------------------------------------------
