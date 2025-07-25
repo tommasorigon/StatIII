@@ -33,13 +33,11 @@ This is the website of the **Statistica III** course (6 CFU) of the "*Corso di L
 ### Required
 
 - Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza*](https://link.springer.com/book/9788847001305). Springer
-
 - Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://doi.org/10.1007/978-88-470-3995-7_10). Springer.
     
 ### Optional 
 
 - Agresti, A. 2015. [*Foundations of Linear and Generalized Linear Models*](https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034). Wiley.
-
 - McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh). Second Edition. Springer.
 
 ### Slides and lecture notes
@@ -62,10 +60,9 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | *Exercises* | [Exercises C](exe/exe_B.html) |  |  |
 | **Inference** | [Unit D](slides/un_B.html) | [Slides Unit D](slides/un_B_slides.html)| [Code D](code/un_D.R) |
 | *Exercises* | [Exercises D](exe/exe_B.html) |  |  |
-| **Model checking, diagnostic, model selection** | [Unit E](slides/un_B.html) | [Slides Unit E](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| **Model checking, diagnostic, model selection** | [Unit E](slides/un_E.html) | [Slides Unit E](slides/un_B_slides.html)| [Code E](code/un_E.R) |
 | *Exercises* | [Exercises E](exe/exe_B.html) |  |  |
 | Lab 2 | | | |
-| *Exercises* | [Exercises E](exe/exe_B.html) |  |  |
 | | **NOTABLE MODELS** | | |
 | **Binary regression** | [Unit F] | [Slides Unit F] | [Code F] |
 | Lab 3 | | | |
