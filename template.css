@@ -7,7 +7,7 @@
 
 // fonts
 $font-family-sans-serif: "Nunito", sans-serif !default; 
-$presentation-font-size-root: 24px;
+$presentation-font-size-root: 25px;
 $presentation-font-smaller: 1;
 $code-block-font-size: 0.85em;
 
@@ -18,7 +18,7 @@ $presentation-heading-font: "Nunito", sans-serif !default;
 //$body-bg: #fff !default;
 //$body-color: #fff !default;
 //$selection-bg: #26351c !default;
-$link-color: #DF0606; 
+$link-color: #DF0606;
 $code-color: #DF0606;
 $code-bg: #fff !default;
 
@@ -41,10 +41,10 @@ ul li::before {
 }
 
 .math.inline {
-  font-size: 87%;
+  font-size: 90%;
 }
 .math.display {
-  font-size: 87%;
+  font-size: 90%;
 }
 
 .darkred{
