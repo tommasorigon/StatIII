@@ -31,10 +31,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="un_A_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="un_A_files/libs/quarto-html/anchor.min.js"></script>
 <link href="un_A_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="un_A_files/libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="un_A_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_A_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_A_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_A_files/libs/bootstrap/bootstrap-4dfd579cdd95ab47db07a8d06e52a451.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_A_files/libs/bootstrap/bootstrap-94e78e1b1088213de46704c5299739fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -115,14 +115,22 @@ window.Quarto = {
   <li><a href="#a-third-model-graphical-diagnostics" id="toc-a-third-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-third-model-graphical-diagnostics">A third model: graphical diagnostics</a></li>
   <li><a href="#comments-and-criticisms-2" id="toc-comments-and-criticisms-2" class="nav-link" data-scroll-target="#comments-and-criticisms-2">Comments and criticisms</a></li>
   </ul></li>
-  <li><a href="#on-the-assumptions-of-linear-models" id="toc-on-the-assumptions-of-linear-models" class="nav-link" data-scroll-target="#on-the-assumptions-of-linear-models">On the assumptions of linear models</a>
+  <li><a href="#limitations-and-simple-solutions" id="toc-limitations-and-simple-solutions" class="nav-link" data-scroll-target="#limitations-and-simple-solutions">Limitations and simple solutions</a>
   <ul class="collapse">
   <li><a href="#the-assumptions-of-a-linear-model" id="toc-the-assumptions-of-a-linear-model" class="nav-link" data-scroll-target="#the-assumptions-of-a-linear-model">The assumptions of a linear model</a></li>
   </ul></li>
+  <li><a href="#variable-transformations" id="toc-variable-transformations" class="nav-link" data-scroll-target="#variable-transformations">Variable transformations</a>
+  <ul class="collapse">
+  <li><a href="#non-linear-transformations" id="toc-non-linear-transformations" class="nav-link" data-scroll-target="#non-linear-transformations">Non-linear transformations</a></li>
+  <li><a href="#variance-stabilizing-transformations" id="toc-variance-stabilizing-transformations" class="nav-link" data-scroll-target="#variance-stabilizing-transformations">Variance stabilizing transformations</a></li>
+  <li><a href="#box-cox-transform" id="toc-box-cox-transform" class="nav-link" data-scroll-target="#box-cox-transform">Box-Cox transform</a></li>
+  </ul></li>
+  <li><a href="#robustness-of-ols-estimator" id="toc-robustness-of-ols-estimator" class="nav-link" data-scroll-target="#robustness-of-ols-estimator">Robustness of OLS estimator</a></li>
+  <li><a href="#weighted-least-squares" id="toc-weighted-least-squares" class="nav-link" data-scroll-target="#weighted-least-squares">Weighted least squares</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_A_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
 </div>
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -167,9 +175,10 @@ window.Quarto = {
 <ul>
 <li><p>This unit will cover the following <span class="orange">topics</span>:</p>
 <ul>
-<li>Linear models and the modeling process</li>
+<li>Recap: linear models and the modeling process</li>
 <li>Box-Cox transform, variance stabilizing transformations</li>
-<li>Robustness of OLS estimates, sandwich estimators</li>
+<li>Robustness of OLS estimates</li>
+<li>Weighted least squares, sandwich estimators</li>
 </ul></li>
 <li><p>A few <span class="blue">aspects</span> of linear models will be novel to most of you…</p></li>
 <li><p>… but you should be already <span class="orange">very familiar</span> with linear models!</p></li>
@@ -187,7 +196,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="750"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1250"></p>
 </figure>
 </div>
 </div>
@@ -216,7 +225,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1000"></p>
 </figure>
 </div>
 </div>
@@ -345,7 +354,7 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 <ul>
 <li><p>Let us additionally assume that the errors follow a Gaussian distribution: <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} N(0, \sigma^2)</span>.</p></li>
 <li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
-\hat{\beta} \sim N_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
 </span></p></li>
 <li><p>Hence, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> and its <span class="blue">variance</span> can be estimated by <span class="math display">
 \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
@@ -457,7 +466,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1170"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -469,7 +478,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1170"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -547,7 +556,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1170"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -559,7 +568,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1170"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -664,7 +673,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1170"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -709,12 +718,52 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 </ul>
 </section>
 </section>
-<section id="on-the-assumptions-of-linear-models" class="level1">
-<h1>On the assumptions of linear models</h1>
-<section id="the-assumptions-of-a-linear-model" class="level2">
+<section id="limitations-and-simple-solutions" class="level1 page-columns page-full">
+<h1>Limitations and simple solutions</h1>
+<section id="the-assumptions-of-a-linear-model" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-assumptions-of-a-linear-model">The assumptions of a linear model</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let us recap the classical assumptions of a linear model:</p>
+<ul>
+<li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\epsilon}</span> with <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\bm{Y}) = \bm{X}\beta</span>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+<li><p><strong>(A.2)</strong> <span class="orange">Homoschedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>.</p></li>
+<li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
+</ul>
+<p>It is also commonly asked that <span class="math inline">\text{rk}(\bm{X}) = p</span>, otherwise the model is not identifiable.</p>
+</div>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;If the intercept is included in <span class="math inline">\bm{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>.</p></div></div><ul>
+<li><p>The above assumptions are often taken a little bit <span class="blue">too seriously</span>. Before moving to GLMs, it is useful to review the implications of each assumption, and a few simple solutions.</p></li>
+<li><p>For example, if <strong>(A.1)</strong>-<strong>(A.2)</strong> are valid but <strong>(A.3)</strong> is not, then the OLS estimate will still “work”.</p></li>
+<li><p>Even if the data are <span class="orange">heroschedastic</span> the OLS estimator is still a very reasonable choice, but we need to “correct” the standard errors to account for that.</p></li>
+</ul>
 </section>
 </section>
+<section id="variable-transformations" class="level1">
+<h1>Variable transformations</h1>
+<section id="non-linear-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="non-linear-transformations">Non-linear transformations</h2>
+</section>
+<section id="variance-stabilizing-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="variance-stabilizing-transformations">Variance stabilizing transformations</h2>
+</section>
+<section id="box-cox-transform" class="level2">
+<h2 class="anchored" data-anchor-id="box-cox-transform">Box-Cox transform</h2>
+</section>
+</section>
+<section id="robustness-of-ols-estimator" class="level1">
+<h1>Robustness of OLS estimator</h1>
+</section>
+<section id="weighted-least-squares" class="level1">
+<h1>Weighted least squares</h1>
+</section>
+
 
 </main>
 <!-- /main column -->

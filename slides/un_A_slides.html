@@ -168,9 +168,10 @@
 <ul>
 <li><p>This unit will cover the following <span class="orange">topics</span>:</p>
 <ul>
-<li>Linear models and the modeling process</li>
+<li>Recap: linear models and the modeling process</li>
 <li>Box-Cox transform, variance stabilizing transformations</li>
-<li>Robustness of OLS estimates, sandwich estimators</li>
+<li>Robustness of OLS estimates</li>
+<li>Weighted least squares, sandwich estimators</li>
 </ul></li>
 <li><p>A few <span class="blue">aspects</span> of linear models will be novel to most of you…</p></li>
 <li><p>… but you should be already <span class="orange">very familiar</span> with linear models!</p></li>
@@ -350,7 +351,7 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 <ul>
 <li><p>Let us additionally assume that the errors follow a Gaussian distribution: <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} N(0, \sigma^2)</span>.</p></li>
 <li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
-\hat{\beta} \sim N_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
 </span></p></li>
 <li><p>Hence, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> and its <span class="blue">variance</span> can be estimated by <span class="math display">
 \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
@@ -694,14 +695,53 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 </ul>
 </section></section>
 <section>
-<section id="on-the-assumptions-of-linear-models" class="title-slide slide level1 center">
-<h1>On the assumptions of linear models</h1>
+<section id="limitations-and-simple-solutions" class="title-slide slide level1 center">
+<h1>Limitations and simple solutions</h1>
 
 </section>
 <section id="the-assumptions-of-a-linear-model" class="slide level2 center">
 <h2>The assumptions of a linear model</h2>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let us recap the classical assumptions of a linear model:</p>
+<ul>
+<li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\epsilon}</span> with <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\bm{Y}) = \bm{X}\beta</span>. <sup>1</sup></p></li>
+<li><p><strong>(A.2)</strong> <span class="orange">Homoschedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>.</p></li>
+<li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
+</ul>
+<p>It is also commonly asked that <span class="math inline">\text{rk}(\bm{X}) = p</span>, otherwise the model is not identifiable.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The above assumptions are often taken a little bit <span class="blue">too seriously</span>. Before moving to GLMs, it is useful to review the implications of each assumption, and a few simple solutions.</p></li>
+<li><p>For example, if <strong>(A.1)</strong>-<strong>(A.2)</strong> are valid but <strong>(A.3)</strong> is not, then the OLS estimate will still “work”.</p></li>
+<li><p>Even if the data are <span class="orange">heroschedastic</span> the OLS estimator is still a very reasonable choice, but we need to “correct” the standard errors to account for that.</p></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>If the intercept is included in <span class="math inline">\bm{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>.</p></li></ol></aside></section></section>
+<section>
+<section id="variable-transformations" class="title-slide slide level1 center">
+<h1>Variable transformations</h1>
 
+</section>
+<section id="variance-stabilizing-transformations" class="slide level2 center">
+<h2>Variance stabilizing transformations</h2>
+</section>
+<section id="box-cox-transform" class="slide level2 center">
+<h2>Box-Cox transform</h2>
 </section></section>
+<section id="robustness-of-ols-estimator" class="title-slide slide level1 center">
+<h1>Robustness of OLS estimator</h1>
+
+</section>
+
+<section id="weighted-least-squares" class="title-slide slide level1 center">
+<h1>Weighted least squares</h1>
+
+</section>
+
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="img/logoB.png" class="slide-logo"></p>

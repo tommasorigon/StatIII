@@ -71,9 +71,10 @@ Attributed to [Albert Einstein]{.grey}
 ::: {.column width="60%"}
 -   This unit will cover the following [topics]{.orange}:
 
-    -   Linear models and the modeling process
-    -   Box-Cox transform, variance stabilizing transformations
-    -   Robustness of OLS estimates, sandwich estimators
+    - Recap: linear models and the modeling process
+    - Box-Cox transform, variance stabilizing transformations
+    - Robustness of OLS estimates
+    - Weighted least squares, sandwich estimators
 
 -   A few [aspects]{.blue} of linear models will be novel to
     most of you...
@@ -304,7 +305,7 @@ estimate]{.orange} has an explicit solution: $$
 
 -   This implies that the [distribution]{.orange} of the
     [estimator]{.orange} $\hat{\beta}$ is $$
-    \hat{\beta} \sim N_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+    \hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
     $$
 
 -   Hence, the estimator $\hat{\beta}$ is [unbiased]{.orange} and its
@@ -592,7 +593,39 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)
     -   Variable description
         <http://azzalini.stat.unipd.it/Book-DM/auto.names>
         
-# On the assumptions of linear models
+# Limitations and simple solutions
 
 ## The assumptions of a linear model
+
+:::callout-tip
+Let us recap the classical assumptions of a linear model:
+
+  - **(A.1)** [Linear structure]{.blue}, namely $\bm{Y} = \bm{X}\beta + \bm{\epsilon}$ with $\mathbb{E}(\bm{\epsilon}) = 0$, implying $\mathbb{E}(\bm{Y}) = \bm{X}\beta$. [^err1] 
+  
+  - **(A.2)** [Homoschedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$.
+  
+  - **(A.3)** [Gaussianity]{.grey}, namely $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)$. In other words, the errors $\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)$ are iid Gaussian random variables with zero mean and variance $\sigma^2$.
+
+It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is not identifiable.
+:::
+
+- The above assumptions are often taken a little bit [too seriously]{.blue}. Before moving to GLMs, it is useful to review the implications of each assumption, and a few simple solutions.
+
+- For example, if **(A.1)**-**(A.2)** are valid but  **(A.3)** is not, then the OLS estimate will still "work".
+
+- Even if the data are [heroschedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that. 
+
+[^err1]: If the intercept is included in $\bm{X}$, the errors automatically satisfy the property $\mathbb{E}(\bm{\epsilon}) = 0$.
+
+# Variable transformations
+
+## Non-linear transformations
+
+## Variance stabilizing transformations
+
+## Box-Cox transform
+
+# Robustness of OLS estimator
+
+# Weighted least squares
 
