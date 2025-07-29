@@ -30,7 +30,7 @@ ggplot(data = auto, aes(x = engine.size, y = city.distance, col = fuel)) +
   ylab("Urban distance (km/L)")
 
 m1 <- lm(city.distance ~ engine.size + I(engine.size^2) + I(engine.size^3) + fuel, data = auto)
-kable(tidy(m1, conf.int = FALSE), digits = 3)
+# kable(tidy(m1, conf.int = FALSE), digits = 3)
 
 kable(glance(m1)[c(1, 3, 10)])
 
@@ -94,3 +94,18 @@ ggplot(data = augmented_m3, aes(x = .fitted, y = .resid, col = fuel)) +
 
 r.squared.original <- 1 - sum(mean((auto$city.distance - exp(predict(m3)))^2)) / sum(mean((auto$city.distance - mean(auto$city.distance))^2))
 kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)]))
+
+m_box <- lm(city.distance ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
+MASS::boxcox(m_box)
+
+m_box <- lm(I(1 / city.distance) ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
+
+augmented_m_box <- augment(m_box, data = auto)
+ggplot(data = augmented_m_box, aes(x = .fitted, y = .resid, col = fuel)) +
+  geom_point() +
+  geom_hline(aes(yintercept = 0), linetype = "dotted") +
+  theme_light() +
+  theme(legend.position = "right") +
+  scale_color_tableau(palette = "Color Blind") +
+  xlab("Fitted values") +
+  ylab("Residuals")
