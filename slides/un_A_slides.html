@@ -329,11 +329,9 @@ D(\beta) = (\bm{y} - \bm{X}\beta)^T(\bm{y} - \bm{X}\beta) = ||\bm{y} - \bm{X}\be
 <section id="linear-regression-estimation-ii" class="slide level2 center">
 <h2>Linear regression: estimation II</h2>
 <ul>
-<li><p>In matrix notation, the predicted values can be obtained as <span class="math display">
-\hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T.
-</span></p></li>
-<li><p><span class="math inline">\bm{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>.</p></li>
-<li><p>It can be shown that <span class="math inline">\text{tr}(\bm{H}) = \text{rk}(\bm{H}) = p</span>. Moreover, it holds <span class="math inline">\bm{H} = \bm{H}^T</span> and <span class="math inline">\bm{H}^2 = \bm{H}</span>.</p></li>
+<li>In matrix notation, the predicted values can be obtained as <span class="math display">
+\hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T,
+</span> where <span class="math inline">\bm{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\bm{H} = \bm{H}^T</span> and <span class="math inline">\bm{H}^2 = \bm{H}</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -344,6 +342,65 @@ D(\hat{\beta}) = ||\bm{y} - \hat{\bm{y}}||^2 = \bm{y}^T(I_n - \bm{H})\bm{y}.
 s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
 </span></p></li>
 </ul>
+</div>
+</section>
+<section id="linear-regression-diagnostic" class="slide level2 center">
+<h2>Linear regression: diagnostic</h2>
+<ul>
+<li><p>The diagonal elements <span class="math inline">h_{ii} \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
+\text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
+</span> The leverage <span class="math inline">h_{ii}</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_{ii}</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
+<li><p>Leverages appear also in the definition of <span class="orange">standardized residuals</span>: <span class="math display">
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
+</span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the <span class="orange">residuals</span>.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>An observation is <span class="blue">influent</span> if it has high leverage and residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
+</span> The Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
+</ul>
+</div>
+</section>
+<section id="leverages-outliers-and-influence-points" class="slide level2 center">
+<h2>Leverages, outliers and influence points</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Leverage, not outlier</a></li><li><a href="#tabset-1-2">Outlier, not leverage</a></li><li><a href="#tabset-1-3">Influence point (outlier and leverage)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="2500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="2500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" width="2500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="linear-regression-inference" class="slide level2 center">
@@ -466,11 +523,11 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <section id="a-first-model-fitted-values" class="slide level2 center">
 <h2>A first model: fitted values</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="a-first-model-graphical-diagnostics" class="slide level2 center">
 <h2>A first model: graphical diagnostics</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="comments-and-criticisms" class="slide level2 center">
 <h2>Comments and criticisms</h2>
 <ul>
@@ -550,11 +607,11 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <section id="second-model-fitted-values" class="slide level2 center">
 <h2>Second model: fitted values</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="second-model-graphical-diagnostics" class="slide level2 center">
 <h2>Second model: graphical diagnostics</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="comments-and-criticisms-1" class="slide level2 center">
 <h2>Comments and criticisms</h2>
 <ul>
@@ -655,7 +712,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <section id="a-third-model-graphical-diagnostics" class="slide level2 center">
 <h2>A third model: graphical diagnostics</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="comments-and-criticisms-2" class="slide level2 center">
 <h2>Comments and criticisms</h2>
 <ul>
@@ -865,7 +922,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <section id="box-cox-transform-for-the-auto-dataset" class="slide level2 center">
 <h2>Box-Cox transform for the auto dataset</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
 <li>The <span class="blue">Box-Cox transform</span> in the auto dataset suggests a <span class="orange">reciprocal</span> transformation: <span class="math display">
 \frac{1}{Y_i} = \beta_1 + \beta_2 x_i +  \beta_3 w_i + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
 </span> which is a good alternative to our model based on logarithms of <span class="math inline">y_i, x_i</span>, and <span class="math inline">w_i</span> (<span class="orange">but</span>…).</li>
@@ -874,7 +931,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <section id="a-fourth-model-graphical-diagnostics" class="slide level2 center">
 <h2>A fourth model: graphical diagnostics</h2>
 
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="variable-transformation-a-caveat" class="slide level2 center">
 <h2>Variable transformation: a caveat</h2>
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->

@@ -29,6 +29,28 @@ ggplot(data = auto, aes(x = engine.size, y = city.distance, col = fuel)) +
   xlab("Engine size (L)") +
   ylab("Urban distance (km/L)")
 
+x <- seq(0, 1, length = 30)
+set.seed(12)
+y <- 3 + 3 * x + rnorm(30, 0, 0.5)
+
+dcook <- cooks.distance(lm(c(y, 3 + 3 * 2) ~ c(x, 2)))
+plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 0.6")
+abline(lm(y ~ x), lty = "dashed")
+abline(lm(c(y, 3 + 3 * 2) ~ c(x, 2)), lty = "dashed", col = "red")
+points(2, 3 + 3 * 2, col = "red", pch = 16)
+
+dcook <- cooks.distance(lm(c(y, 10) ~ c(x, mean(x))))
+plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 0.42")
+abline(lm(y ~ x), lty = "dashed")
+abline(lm(c(y, 10) ~ c(x, mean(x))), lty = "dashed", col = "red")
+points(mean(x), 10, col = "red", pch = 16)
+
+dcook <- cooks.distance(lm(c(y, 4) ~ c(x, 2)))
+plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 9.88")
+abline(lm(y ~ x), lty = "dashed")
+abline(lm(c(y, 4) ~ c(x, 2)), lty = "dashed", col = "red")
+points(2, 4, col = "red", pch = 16)
+
 m1 <- lm(city.distance ~ engine.size + I(engine.size^2) + I(engine.size^3) + fuel, data = auto)
 # kable(tidy(m1, conf.int = FALSE), digits = 3)
 

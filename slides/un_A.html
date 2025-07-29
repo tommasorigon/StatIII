@@ -101,6 +101,8 @@ window.Quarto = {
   <li><a href="#matrix-notation" id="toc-matrix-notation" class="nav-link" data-scroll-target="#matrix-notation">Matrix notation</a></li>
   <li><a href="#linear-regression-estimation-i" id="toc-linear-regression-estimation-i" class="nav-link" data-scroll-target="#linear-regression-estimation-i">Linear regression: estimation I</a></li>
   <li><a href="#linear-regression-estimation-ii" id="toc-linear-regression-estimation-ii" class="nav-link" data-scroll-target="#linear-regression-estimation-ii">Linear regression: estimation II</a></li>
+  <li><a href="#linear-regression-diagnostic" id="toc-linear-regression-diagnostic" class="nav-link" data-scroll-target="#linear-regression-diagnostic">Linear regression: diagnostic</a></li>
+  <li><a href="#leverages-outliers-and-influence-points" id="toc-leverages-outliers-and-influence-points" class="nav-link" data-scroll-target="#leverages-outliers-and-influence-points">Leverages, outliers and influence points</a></li>
   <li><a href="#linear-regression-inference" id="toc-linear-regression-inference" class="nav-link" data-scroll-target="#linear-regression-inference">Linear regression: inference</a></li>
   <li><a href="#car-data-a-first-model" id="toc-car-data-a-first-model" class="nav-link" data-scroll-target="#car-data-a-first-model">Car data, a first model</a></li>
   <li><a href="#a-first-model-estimated-coefficients" id="toc-a-first-model-estimated-coefficients" class="nav-link" data-scroll-target="#a-first-model-estimated-coefficients">A first model: estimated coefficients</a></li>
@@ -346,11 +348,9 @@ Least square estimate (OLS)
 <section id="linear-regression-estimation-ii" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-estimation-ii">Linear regression: estimation II</h2>
 <ul>
-<li><p>In matrix notation, the predicted values can be obtained as <span class="math display">
-\hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T.
-</span></p></li>
-<li><p><span class="math inline">\bm{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>.</p></li>
-<li><p>It can be shown that <span class="math inline">\text{tr}(\bm{H}) = \text{rk}(\bm{H}) = p</span>. Moreover, it holds <span class="math inline">\bm{H} = \bm{H}^T</span> and <span class="math inline">\bm{H}^2 = \bm{H}</span>.</p></li>
+<li>In matrix notation, the predicted values can be obtained as <span class="math display">
+\hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T,
+</span> where <span class="math inline">\bm{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\bm{H} = \bm{H}^T</span> and <span class="math inline">\bm{H}^2 = \bm{H}</span>.</li>
 </ul>
 <ul>
 <li><p>The quantity <span class="math inline">D(\hat{\beta})</span> is the so-called <span class="blue">deviance</span>, which is equal to <span class="math display">
@@ -360,6 +360,63 @@ D(\hat{\beta}) = ||\bm{y} - \hat{\bm{y}}||^2 = \bm{y}^T(I_n - \bm{H})\bm{y}.
 s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
 </span></p></li>
 </ul>
+</section>
+<section id="linear-regression-diagnostic" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-diagnostic">Linear regression: diagnostic</h2>
+<ul>
+<li><p>The diagonal elements <span class="math inline">h_{ii} \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
+\text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
+</span> The leverage <span class="math inline">h_{ii}</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_{ii}</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
+<li><p>Leverages appear also in the definition of <span class="orange">standardized residuals</span>: <span class="math display">
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
+</span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the <span class="orange">residuals</span>.</p></li>
+</ul>
+<ul>
+<li>An observation is <span class="blue">influent</span> if it has high leverage and residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
+</span> The Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
+</ul>
+</section>
+<section id="leverages-outliers-and-influence-points" class="level2">
+<h2 class="anchored" data-anchor-id="leverages-outliers-and-influence-points">Leverages, outliers and influence points</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Leverage, not outlier</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Outlier, not leverage</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Influence point (outlier and leverage)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_A_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1750"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_A_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1750"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1750"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="linear-regression-inference" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-inference">Linear regression: inference</h2>
@@ -478,7 +535,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -490,7 +547,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -568,7 +625,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -580,7 +637,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -685,7 +742,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -777,11 +834,20 @@ Classical assumptions of a linear model
 <section id="variable-transformations" class="level2">
 <h2 class="anchored" data-anchor-id="variable-transformations">Variable transformations</h2>
 <ul>
-<li><p>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</p></li>
-<li><p>In other words, while the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
-g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p></li>
+<li>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</li>
 </ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>While the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
+g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p>
+</div>
+</div>
+</div>
 <ul>
 <li><p>This idea is conceptually <span class="blue">simple</span> and <span class="blue">powerful</span>. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain <span class="orange">linear in the parameters</span>.</p></li>
 <li><p>However, choosing <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> in practice is <span class="orange">not simple</span>. In our case study, we proceeded by trial and error and used <span class="blue">contextual information</span> to guide our final choice.</p></li>
@@ -829,17 +895,24 @@ g_{n_i}(y) = \sqrt{n_i}\arcsin\left(\frac{2 y}{n_i} - 1\right),
 </section>
 <section id="box-cox-transform" class="level2">
 <h2 class="anchored" data-anchor-id="box-cox-transform">Box-Cox transform</h2>
-<ul>
-<li><p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
-</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p></li>
-<li><p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p></li>
-</ul>
-<p>The main idea is to estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
-g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
-</span></p>
+</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
+<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
+</div>
+</div>
+</div>
 <ul>
-<li>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</li>
+<li><p>The main idea is to estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
+g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
+</span></p></li>
+<li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
 </ul>
 </section>
 <section id="profile-likelihood-for-lambda-derivation-i" class="level2">
@@ -878,7 +951,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -895,7 +968,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
 </figure>
 </div>
 </div>
@@ -904,20 +977,34 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <section id="variable-transformation-a-caveat" class="level2">
 <h2 class="anchored" data-anchor-id="variable-transformation-a-caveat">Variable transformation: a caveat</h2>
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
-<ul>
-<li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
 Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> Thus, the coefficients can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> in <span class="math inline">\tilde{\bm{x}}_j</span>, independently of the starting level.</li>
-</ul>
-<ul>
-<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
+</span> Thus, the coefficients can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> in <span class="math inline">\tilde{\bm{x}}_j</span>, independently of the starting level.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
-<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+   E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p>
+<p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
-</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
-</ul>
+</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="robustness-of-the-ols-estimator" class="level1">
@@ -943,7 +1030,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <h2 class="anchored" data-anchor-id="non-normality-of-the-errors-ii">Non-normality of the errors II</h2>
 <ul>
 <li><p>When the errors are non Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> does not follow anymore a Gaussian distribution.</p></li>
-<li><p>However, this is not very problematic in practice because a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
+<li><p>However, a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
 <li><p>Thus, when the sample size <span class="math inline">n</span> is large enough, then the following <span class="orange">approximation</span> holds <span class="math display">
 \hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
 </span> from which <span class="blue">confidence intervals</span> and <span class="blue">test statistics</span> can be obtained as usual. The approximation is <span class="orange">excellent</span> if the errors are <span class="blue">symmetric</span> around <span class="math inline">0</span>.</p></li>

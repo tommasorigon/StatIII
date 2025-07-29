@@ -275,14 +275,11 @@ estimate]{.orange} has an explicit solution: $$
 ## Linear regression: estimation II
 
 -   In matrix notation, the predicted values can be obtained as $$
-    \hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T.
+    \hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T,
     $$
+where $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
+    sometimes called [hat matrix]{.blue}. The matrix is idempotent, meaning that $\bm{H} = \bm{H}^T$ and $\bm{H}^2 = \bm{H}$.
 
--   $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
-    sometimes called [hat matrix]{.blue}.
-
--   It can be shown that $\text{tr}(\bm{H}) = \text{rk}(\bm{H}) = p$.
-    Moreover, it holds $\bm{H} = \bm{H}^T$ and $\bm{H}^2 = \bm{H}$.
 
 . . .
 
@@ -295,6 +292,73 @@ estimate]{.orange} has an explicit solution: $$
     $\sigma^2$ is obtained as follows: $$
     s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
     $$
+
+## Linear regression: diagnostic
+
+- The diagonal elements $h_{ii} \in [0, 1]$ of the matrix $\bm{H}$ are called [leverages]{.blue} and it holds
+$$
+\text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
+$$
+The leverage $h_{ii}$ determines the [precision]{.orange} with which $\hat{Y}_i$ predicts $Y_i$. For large $h_{ii}$ close to $1$, $\text{cor}(Y_i, \hat{Y}_i) \approx 1$, therefore changes of a single point $Y_i$ leads to significant changes in $\hat{Y}_i$.
+
+- Leverages appear also in the definition of [standardized residuals]{.orange}:
+$$
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
+$$
+where $r_i = y_i - \bm{x}_i^T\hat{\beta}$ are the [residuals]{.orange}.
+
+. . .
+ 
+- An observation is [influent]{.blue} if it has high leverage and residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
+$$
+p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
+$$
+The Cook's distance is considered relatively large when $d_i \ge 1$. 
+
+## Leverages, outliers and influence points
+
+::: {.panel-tabset}
+
+## Leverage, not outlier
+
+```{r}
+#| fig-align: center
+x <- seq(0, 1, length = 30)
+set.seed(12)
+y <- 3 + 3 * x + rnorm(30, 0, 0.5)
+
+dcook <- cooks.distance(lm(c(y, 3 + 3*2) ~ c(x, 2)))
+plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 0.6")
+abline(lm(y ~ x), lty = "dashed")
+abline(lm(c(y, 3 + 3*2) ~ c(x, 2)), lty = "dashed", col = "red")
+points(2, 3 + 3*2, col = "red", pch = 16)
+```
+
+## Outlier, not leverage
+
+```{r}
+#| fig-align: center
+dcook <- cooks.distance(lm(c(y, 10) ~ c(x, mean(x))))
+plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 0.42")
+abline(lm(y ~ x), lty = "dashed")
+abline(lm(c(y, 10) ~ c(x, mean(x))), lty = "dashed", col = "red")
+points(mean(x), 10, col = "red", pch = 16)
+```
+
+
+## Influence point (outlier and leverage)
+
+```{r}
+#| fig-align: center
+dcook <- cooks.distance(lm(c(y, 4) ~ c(x, 2)))
+plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 9.88")
+abline(lm(y ~ x), lty = "dashed")
+abline(lm(c(y, 4) ~ c(x, 2)), lty = "dashed", col = "red")
+points(2, 4, col = "red", pch = 16)
+```
+
+
+:::
 
 ## Linear regression: inference
 
