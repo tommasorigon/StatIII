@@ -297,6 +297,34 @@ where $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
     s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
     $$
 
+## Linear regression: inference
+
+- We suppose the errors $\bm{\epsilon}$ have zero mean $\mathbb{E}(\bm{\epsilon}) = 0$ and are [uncorrelated]{.orange} $\text{var}(\bm{\epsilon}) = \sigma^2I_n$.
+
+- Then, the estimator $\hat{\beta}$ is [unbiased]{.orange} $\mathbb{E}(\hat{\beta}) = \beta$ and its [variance]{.blue} is $\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}$. Since $\sigma^2$ is also unknown, we can estimate the variances of $\hat{\beta}$ using $$
+    \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
+    $$
+
+-   The [standard errors]{.orange} of the components of $\hat{\beta}$
+    correspond to the square root of the diagonal of the above
+    covariance matrix.
+    
+. . .    
+
+-   Let us additionally assume that the errors follow a Gaussian
+    distribution:
+    $\epsilon_i \overset{\text{iid}}{\sim} \text{N}(0, \sigma^2)$.
+
+-   This implies that the [distribution]{.orange} of the
+    [estimator]{.orange} $\hat{\beta}$ is $$
+    \hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+    $$
+
+-   Confidence interval and Wald's tests can be obtained through
+    classical inferential theory.
+
+
+
 ## Linear regression: diagnostic
 
 - The diagonal elements $h_{ii} \in [0, 1]$ of the matrix $\bm{H}$ are called [leverages]{.blue} and it holds
@@ -313,7 +341,7 @@ where $r_i = y_i - \bm{x}_i^T\hat{\beta}$ are the [residuals]{.orange}.
 
 . . .
  
-- An observation is [influent]{.blue} if it has high leverage and squared residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
+- An observation is [influent]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
 $$
 p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
 $$
@@ -364,34 +392,6 @@ points(2, 4, col = "red", pch = 16)
 
 :::
 
-## Linear regression: inference
-
--   Let us additionally assume that the errors follow a Gaussian
-    distribution:
-    $\epsilon_i \overset{\text{iid}}{\sim} N(0, \sigma^2)$.
-
--   This implies that the [distribution]{.orange} of the
-    [estimator]{.orange} $\hat{\beta}$ is $$
-    \hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
-    $$
-
--   Hence, the estimator $\hat{\beta}$ is [unbiased]{.orange} and its
-    [variance]{.blue} can be estimated by $$
-    \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
-    $$
-
--   The [standard errors]{.orange} of the components of $\hat{\beta}$
-    correspond to the square root of the diagonal of the above
-    covariance matrix.
-
-. . .
-
--   Confidence interval and Wald's tests can be obtained through
-    classical inferential theory.
-
-. . .
-
--   Ok, we are ready to get back to the original problem...
 
 ## Car data, a first model
 

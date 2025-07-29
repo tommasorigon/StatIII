@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="un_intro_files/libs/clipboard/clipboard.min.js"></script>
-<script src="un_intro_files/libs/quarto-html/tabby.min.js"></script>
-<script src="un_intro_files/libs/quarto-html/popper.min.js"></script>
-<script src="un_intro_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="un_intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="un_intro_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="un_intro_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="un_A_files/libs/clipboard/clipboard.min.js"></script>
+<script src="un_A_files/libs/quarto-html/tabby.min.js"></script>
+<script src="un_A_files/libs/quarto-html/popper.min.js"></script>
+<script src="un_A_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="un_A_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="un_A_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="un_A_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Tommaso Rigon">
-  <title>Introduction</title>
+  <title>Linear models and misspecification</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="un_intro_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="un_intro_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -49,11 +49,27 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="un_intro_files/libs/revealjs/dist/theme/quarto-52f9c9ea99cef3131c4880afbe91edc6.css">
-  <link href="un_intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="un_intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="un_intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="un_intro_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/theme/quarto-52f9c9ea99cef3131c4880afbe91edc6.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="un_A_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="un_A_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="un_A_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="un_A_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -147,7 +163,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Introduction</h1>
+  <h1 class="title">Linear models and misspecification</h1>
   <p class="subtitle">Statistics III - CdL SSE</p>
 
 <div class="quarto-title-authors">
@@ -165,68 +181,853 @@
 <section id="homepage" class="slide level2 center">
 <h2><a href="../index.html">Homepage</a></h2>
 <div class="columns">
-<div class="column" style="width:35%;">
-<p><img data-src="img/cox.jpg" style="width:3in"></p>
-<div style="font-size: 80%;">
-<p><em>“I would like to think of myself as a scientist, who happens largely to specialise in the use of statistics.”</em></p>
-<p><a href="https://royalsocietypublishing.org/doi/10.1098/rsbm.2023.0052#:~:text=David%20described%20himself%20as%20a,of%20his%20interest%20in%20applications." class="grey">Sir David Cox</a> (1924-2022)</p>
-</div>
-</div><div class="column" style="width:65%;">
+<div class="column" style="width:40%;">
+<p><img data-src="img/ABC.png"> <em>“Everything should be made as simple as possible, but not simpler”</em></p>
+<p>Attributed to <span class="grey">Albert Einstein</span></p>
+</div><div class="column" style="width:60%;">
 <ul>
-<li><p><em>Statistica III</em> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs), a broadly applicable <span class="orange">regression</span> technique.</p></li>
-<li><p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
+<li><p>This unit will cover the following <span class="orange">topics</span>:</p>
 <ul>
-<li><span class="blue">Simple linear regression</span>, from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, from <em>Analisi Statistica Multivariata</em>;</li>
-<li><span class="grey">R software</span>, from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
+<li>Recap: linear models and the modeling process</li>
+<li>Box-Cox transform, variance stabilizing transformations</li>
+<li>Robustness of OLS estimates, sandwich estimators</li>
+<li>Weighted least squares</li>
 </ul></li>
-<li><p>In <em>Statistica III</em> we extend linear models within a general, unified an elegant framework.</p></li>
-<li><p>Indeed, GLMs can be arguably regarded one of the most influential statistical ideas of the XX century.</p></li>
-<li><p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at the <span class="blue">M.Sc. at CLAMSES</span>. In <a href="https://tommasorigon.github.io/datamining/">Data Mining</a> I will cover penalized methods and nonparametric regression.</p></li>
+<li><p>The main theme is: what should we do when the <span class="blue">assumptions</span> of linear models are <span class="orange">violated</span>?</p></li>
+<li><p>We will push the linear model to its limit, using it even when is not supposed to work.</p></li>
+</ul>
+</div></div>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The content of this Unit is covered in <span class="orange">Chapter 1</span> of <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>. Alternatively, see <span class="blue">Chapter 2</span> of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span> or <span class="grey">Chapter 5</span> of <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<section id="old-friends-linear-models" class="title-slide slide level1 center">
+<h1>Old friends: linear models</h1>
+
+</section>
+<section id="car-data-diesel-or-gas" class="slide level2 center">
+<h2>Car data (<span class="blue">diesel</span> or <span class="orange">gas</span>)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-2-1.png" width="1500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>We consider data for <span class="math inline">n = 203</span> models of cars in circulation in 1985 in the USA.</li>
+<li>We want to <span class="blue">predict</span> the distance per unit of fuel as a function of the vehicle features.</li>
+<li>We consider the following <span class="orange">variables</span>:
+<ul>
+<li>The city distance per unit of fuel (km/L, <code>city.distance</code>)</li>
+<li>The engine size (L, <code>engine.size</code>)</li>
+<li>The number of cylinders (<code>n.cylinders</code>)</li>
+<li>The curb weight (kg, <code>curb.weight</code>)</li>
+<li>The fuel type (gasoline or diesel, <code>fuel</code>).</li>
+</ul></li>
 </ul>
 </div></div>
 </section>
-<section id="statistics-of-the-20th-century" class="slide level2 center">
-<h2>Statistics of the 20th century</h2>
-
-<img data-src="img/Davison1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:7in"><ul>
-<li><span class="orange">Biometrika</span> is among the most prestigious journals in Statistics. Past editors include Karl Pearson, Sir David Cox, and Anthony Davison.</li>
+<section id="linear-regression" class="slide level2 center">
+<h2>Linear regression</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-3-1.png" width="1000"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p>Let us consider the variables <code>city.distance</code> (<span class="math inline">y</span>), <code>engine.size</code> (<span class="math inline">x</span>) and <code>fuel</code> (<span class="math inline">z</span>).</p></li>
+<li><p>A <span class="blue">simple linear regression</span> <span class="math display">
+Y_i = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad i=1,\dots,n,
+</span> could be easily fit by least squares…</p></li>
+<li><p>… but the plot suggests that the relationship between <code>city.distance</code> and <code>engine.size</code> is <span class="orange">not</span> well approximated by a <span class="orange">linear</span> function.</p></li>
+<li><p>… and also that <code>fuel</code> has a non-negligible effect on the response.</p></li>
+</ul>
+</div></div>
+</section>
+<section id="regression-models" class="slide level2 center">
+<h2>Regression models</h2>
+<ul>
+<li class="fragment"><p>A <span class="orange">general</span> and <span class="orange">more flexible formulation</span> for modeling the relationship between a vector of <span class="blue">fixed covariates</span> <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T \in \mathbb{R}^p</span> and a random variable <span class="math inline">Y_i \in \mathbb{R}</span> is <span class="math display">
+Y_i = f(\bm{x}_i; \beta) + \epsilon_i, \qquad i=1,\dots,n,
+</span> where the “errors” <span class="math inline">\epsilon_i</span> are iid random variables, having zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
+<li class="fragment"><p>To estimate the unknown parameters <span class="math inline">\beta</span>, a possibility is to rely on the <span class="blue">least squares criterion</span>: we seek the <span class="orange">minimum</span> of the objective function <span class="math display">
+D(\beta) = \sum_{i=1}^n\{y_i - f(\bm{x}_i; \beta)\}^2,
+</span> using <span class="math inline">n</span> pairs of covariates <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T</span> and the observed realizations <span class="math inline">y_i</span> of the random variables <span class="math inline">Y_i</span>, for <span class="math inline">i = 1,\dots,n</span>. The <span class="orange">optimal value</span> is denoted by <span class="math inline">\hat{\beta}</span>.</p></li>
+<li class="fragment"><p>The <span class="blue">predicted values</span> are <span class="math inline">\hat{y}_i = \mathbb{E}(Y_i) = f(\bm{x}_i; \hat{\beta})</span>, for <span class="math inline">i=1,\dots,n.</span></p></li>
 </ul>
 </section>
-<section id="generalized-linear-models" class="slide level2 center">
-<h2>Generalized linear models</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/Davison7.png" class="quarto-figure quarto-figure-center" style="width:7in"></p>
-</figure>
+<section id="linear-models" class="slide level2 center">
+<h2>Linear models</h2>
+<ul>
+<li><p>Let us consider again the variables <code>city.distance</code> (<span class="math inline">y</span>), <code>engine.size</code> (<span class="math inline">x</span>) and <code>fuel</code> (<span class="math inline">z</span>).</p></li>
+<li><p>Which function <span class="math inline">f(x,z;\beta)</span> should we choose?</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>A first attempt is to consider a <span class="orange">polynomial term</span> combined with a <span class="blue">dummy variable</span> <span class="math display">
+f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z = \texttt{gas}),
+</span> which is a special instance of <span class="orange">linear model</span>.</li>
+</ul>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/Davison7_5.png" class="quarto-figure quarto-figure-center" style="width:7in"></p>
-</figure>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Definition (Linear model)</strong></p>
+</div>
+<div class="callout-content">
+<p>In a <span class="blue">linear model</span> the response variable <span class="math inline">Y_i</span> is related to the covariates through the function<span class="math display">
+    \mathbb{E}(Y_i) =f(\bm{x}_i; \beta) = \beta_1 x_{i1} + \cdots + \beta_p x_{ip} =\bm{x}_i^T\beta,
+    </span> where <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T</span> is a vector of <span class="orange">covariates</span> and <span class="math inline">\beta = (\beta_1,\dots,\beta_p)^T</span> is the corresponding vector of <span class="orange">coefficients</span>.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
-<section id="quasi-likelihoods" class="slide level2 center">
-<h2>Quasi likelihoods</h2>
+<section id="matrix-notation" class="slide level2 center">
+<h2>Matrix notation</h2>
+<ul>
+<li><p>The <span class="orange">response random variables</span> are collected in the random vector <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)^T</span>, whose <span class="blue">observed realization</span> is <span class="math inline">\bm{y} = (y_1,\dots,y_n)^T</span>.</p></li>
+<li><p>The <span class="blue">design matrix</span> is a <span class="math inline">n \times p</span> matrix, comprising the covariate’s values, defined by <span class="math display">
+\bm{X} =
+\begin{bmatrix}
+x_{11} &amp; \cdots &amp; x_{1p}\\
+\vdots &amp; \ddots &amp; \vdots \\
+x_{n1} &amp; \cdots &amp; x_{np}
+\end{bmatrix}.
+</span></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The <span class="math inline">j</span>th variable (column) is denoted with <span class="math inline">\tilde{\bm{x}}_j</span>, whereas the <span class="math inline">i</span>th observation (row) is <span class="math inline">\bm{x}_i</span>: <span class="math display">
+\bm{X} = (\tilde{\bm{x}}_1,\dots,\tilde{\bm{x}}_p) = (\bm{x}_1, \dots,\bm{x}_n)^T.
+</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Then, a <span class="blue">linear model</span> can be written using the <span class="orange">compact notation</span>: <span class="math display">
+\bm{Y} = \bm{X}\beta + \bm{\epsilon},
+</span> where <span class="math inline">\bm{\epsilon} = (\epsilon_1,\dots,\epsilon_n)^T</span> is a vector of iid error terms with zero mean and variance <span class="math inline">\sigma^2</span>.</li>
+</ul>
+</div>
+</section>
+<section id="linear-regression-estimation-i" class="slide level2 center">
+<h2>Linear regression: estimation I</h2>
+<ul>
+<li>The optimal set of coefficients <span class="math inline">\hat{\beta}</span> is the minimizer of the <span class="orange">least squared criterion</span> <span class="math display">
+D(\beta) = (\bm{y} - \bm{X}\beta)^T(\bm{y} - \bm{X}\beta) = ||\bm{y} - \bm{X}\beta||^2,
+</span> also known as <span class="orange">residual sum of squares (RSS)</span>, where <span class="math display">
+||\bm{y}|| = \sqrt{y_1^2 + \cdots + y_n^2},</span> denotes the <span class="blue">Euclidean norm</span>.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Least square estimate (OLS)</strong></p>
+</div>
+<div class="callout-content">
+<p>If the design matrix has <span class="blue">full rank</span>, that is, if <span class="math inline">\text{rk}(\bm{X}^T\bm{X}) = p</span>, then the <span class="orange">least square estimate</span> has an explicit solution: <span class="math display">
+    \hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T \bm{y}.
+    </span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-regression-estimation-ii" class="slide level2 center">
+<h2>Linear regression: estimation II</h2>
+<ul>
+<li>In matrix notation, the predicted values can be obtained as <span class="math display">
+\hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T,
+</span> where <span class="math inline">\bm{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\bm{H} = \bm{H}^T</span> and <span class="math inline">\bm{H}^2 = \bm{H}</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>The quantity <span class="math inline">D(\hat{\beta})</span> is the so-called <span class="blue">deviance</span>, which is equal to <span class="math display">
+D(\hat{\beta}) = ||\bm{y} - \hat{\bm{y}}||^2 = \bm{y}^T(I_n - \bm{H})\bm{y}.
+</span></p></li>
+<li><p>Moreover, a typical estimate for the <span class="orange">residual variance</span> <span class="math inline">\sigma^2</span> is obtained as follows: <span class="math display">
+s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
+</span></p></li>
+</ul>
+</div>
+</section>
+<section id="linear-regression-inference" class="slide level2 center">
+<h2>Linear regression: inference</h2>
+<ul>
+<li><p>We suppose the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
+<li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> using <span class="math display">
+  \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
+  </span></p></li>
+<li><p>The <span class="orange">standard errors</span> of the components of <span class="math inline">\hat{\beta}</span> correspond to the square root of the diagonal of the above covariance matrix.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Let us additionally assume that the errors follow a Gaussian distribution: <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} \text{N}(0, \sigma^2)</span>.</p></li>
+<li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
+\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+</span></p></li>
+<li><p>Confidence interval and Wald’s tests can be obtained through classical inferential theory.</p></li>
+</ul>
+</div>
+</section>
+<section id="linear-regression-diagnostic" class="slide level2 center">
+<h2>Linear regression: diagnostic</h2>
+<ul>
+<li><p>The diagonal elements <span class="math inline">h_{ii} \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
+\text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
+</span> The leverage <span class="math inline">h_{ii}</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_{ii}</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
+<li><p>Leverages also appear in the definition of <span class="blue">standardized residuals</span>: <span class="math display">
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
+</span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the <span class="orange">residuals</span>.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>An observation is <span class="blue">influent</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
+</span> Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
+</ul>
+</div>
+</section>
+<section id="leverages-outliers-and-influence-points" class="slide level2 center">
+<h2>Leverages, outliers and influence points</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Leverage, not outlier</a></li><li><a href="#tabset-1-2">Outlier, not leverage</a></li><li><a href="#tabset-1-3">Influence point (outlier and leverage)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="2500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="2500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="un_A_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" width="2500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="car-data-a-first-model" class="slide level2 center">
+<h2>Car data, a first model</h2>
+<ul>
+<li><p>Our first attempt for predicting <code>city.distance</code> (<span class="math inline">y</span>) via <code>engine.size</code> (<span class="math inline">x</span>) and <code>fuel</code> (<span class="math inline">z</span>) is: <span class="math display">
+  f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z = \texttt{gas}).
+  </span></p></li>
+<li><p>Indeed, by looking at the plot of the data, it is plausible that we need a <span class="orange">polynomial</span> of degree <span class="math inline">3</span> or <span class="math inline">4</span></p></li>
+<li><p>It is also clear from the plot that <code>fuel</code> is a relevant variable. Categorical variables are <span class="orange">encoded</span> using <span class="blue">indicator variables</span>.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>To evaluate the goodness of fit, we can calculate the <span class="orange">coefficient of determination</span>: <span class="math display">
+R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
+</span></li>
+</ul>
+</div>
+</section>
+<section id="a-first-model-estimated-coefficients" class="slide level2 center">
+<h2>A first model: estimated coefficients</h2>
+<ul>
+<li>We obtain the following <span class="orange">summary</span> for the regression coefficients <span class="math inline">\hat{\beta}</span>.</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>(Intercept)</code></td>
+<td style="text-align: right;">28.045</td>
+<td style="text-align: right;">3.076</td>
+<td style="text-align: right;">9.119</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>engine.size</code></td>
+<td style="text-align: right;">-10.980</td>
+<td style="text-align: right;">3.531</td>
+<td style="text-align: right;">-3.109</td>
+<td style="text-align: right;">0.002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>engine.size^2</code></td>
+<td style="text-align: right;">2.098</td>
+<td style="text-align: right;">1.271</td>
+<td style="text-align: right;">1.651</td>
+<td style="text-align: right;">0.100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>engine.size^3</code></td>
+<td style="text-align: right;">-0.131</td>
+<td style="text-align: right;">0.139</td>
+<td style="text-align: right;">-0.939</td>
+<td style="text-align: right;">0.349</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>fuel_gas</code></td>
+<td style="text-align: right;">-3.214</td>
+<td style="text-align: right;">0.427</td>
+<td style="text-align: right;">-7.523</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Moreover, the coefficient <span class="math inline">R^2</span> and the residual standard deviation <span class="math inline">s</span> are:</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">r.squared</th>
+<th style="text-align: right;">sigma</th>
+<th style="text-align: right;">deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.5973454</td>
+<td style="text-align: right;">1.790362</td>
+<td style="text-align: right;">634.6687</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="a-first-model-fitted-values" class="slide level2 center">
+<h2>A first model: fitted values</h2>
 
-<img data-src="img/Davison8.png" class="quarto-figure quarto-figure-center r-stretch" style="width:7in"></section>
-<section id="nelder1972" class="slide level2 center">
-<h2><span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#/references" role="doc-biblioref" onclick="">1972</a>)</span></h2>
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="a-first-model-graphical-diagnostics" class="slide level2 center">
+<h2>A first model: graphical diagnostics</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="comments-and-criticisms" class="slide level2 center">
+<h2>Comments and criticisms</h2>
+<ul>
+<li><p>Is this a good model?</p></li>
+<li><p>The overall fit <span class="blue">seems satisfactory</span> at first glance, especially if we aim at predicting the urban distance of cars when average engine size (i.e., between <span class="math inline">1.5L</span> and <span class="math inline">3L</span>).</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>However, the plot of the <span class="orange">residuals</span> <span class="math inline">r_i = y_i - \hat{y}_i</span> suggests that the homoscedasticity assumption, i.e.&nbsp;<span class="math inline">\text{var}(\epsilon_i) = \sigma^2</span>, might be violated.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p>Also, this model is unsuitable for <span class="orange">extrapolation</span>. Indeed:</p>
+<ul>
+<li>It has no grounding in physics or engineering, leading to difficulties when interpreting the trend and to paradoxical situations.</li>
+<li>For example, the curve of the set of gasoline cars shows a local minimum around <span class="math inline">4.6 L</span> and then rises again!</li>
+</ul></li>
+<li><p>It is plausible that we can find a better one, so what’s next?</p></li>
+</ul>
+</div>
 </section>
-<section id="textbooks" class="slide level2 center">
-<h2>Textbooks</h2>
+<section id="linear-models-and-non-linear-patterns" class="slide level2 center">
+<h2>Linear models and non-linear patterns</h2>
 <ul>
-<li><p>We will use multiple textbooks throughout this course — some more specialized than others. The textbooks</p>
+<li>A significant advantage of linear models is that they can describe non-linear relationships via <span class="blue">variable transformations</span> such as polynomials, logarithms, etc.</li>
+</ul>
+<div class="fragment">
 <ul>
-<li><p>The book by <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span> is the <span class="orange">main textbook</span>. The vast majority of the material in these slides is covered in the book, using a similar notation.</p></li>
-<li><p>The book by <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span></p></li>
-<li><p><span class="grey">Generalized linear models</span>: <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span></p></li>
+<li>This gives the statistician a lot of modeling flexibility. For instance, we could let: <span class="math display">
+\log{Y_i} = \beta_1 + \beta_2 \log{x_i} + \beta_3 I(z_i = \texttt{gas}) + \epsilon_i, \qquad i=1,\dots,n.
+</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>This specification is <span class="orange">linear in the parameters</span>, it fixes the domain issues, and it imposes a monotone relationship between engine size and consumption.</li>
+</ul>
+</div>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>(Intercept)</code></td>
+<td style="text-align: right;">3.060</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">64.865</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>log(engine.size)</code></td>
+<td style="text-align: right;">-0.682</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">-17.129</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>fuel_gas</code></td>
+<td style="text-align: right;">-0.278</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">-7.344</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="second-model-fitted-values" class="slide level2 center">
+<h2>Second model: fitted values</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="second-model-graphical-diagnostics" class="slide level2 center">
+<h2>Second model: graphical diagnostics</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="comments-and-criticisms-1" class="slide level2 center">
+<h2>Comments and criticisms</h2>
+<ul>
+<li>The <span class="blue">goodness of fit</span> indices are the following:</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">r.squared.original</th>
+<th style="text-align: right;">r.squared</th>
+<th style="text-align: right;">sigma</th>
+<th style="text-align: right;">deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.5847555</td>
+<td style="text-align: right;">0.6196093</td>
+<td style="text-align: right;">0.1600278</td>
+<td style="text-align: right;">5.121777</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>Do not mix <span class="blue">apple</span> and <span class="orange">oranges</span>! Compare <span class="math inline">R^2</span>s only if they refer to the same scale!</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>This second model is <span class="blue">more parsimonious</span>, and yet it reaches satisfactory predictive performance.</p></li>
+<li><p>It is also more coherent with the nature of the data: the predictions cannot be negative, and the relationship between engine size and the consumption is monotone.</p></li>
+<li><p>Yet, there is still some heteroscedasticity in the residuals — is this is due to a missing covariate that has not been included in the model?</p></li>
+</ul>
+</div>
+</section>
+<section id="a-third-model-additional-variables" class="slide level2 center">
+<h2>A third model: additional variables</h2>
+<ul>
+<li><p>Let us consider <span class="blue">two additional variables</span>: <code>curb.weight</code> (<span class="math inline">w</span>) and <code>n.cylinders</code> (<span class="math inline">v</span>).</p></li>
+<li><p>A richer model, therefore, could be: <span class="math display">
+\log{Y_i} = \beta_1 + \beta_2 \log{x_i} +  \beta_3 \log{w_i} + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
+  </span> for <span class="math inline">i=1,\dots,n</span>. The estimates are:</p></li>
+</ul>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>(Intercept)</code></td>
+<td style="text-align: right;">9.423</td>
+<td style="text-align: right;">0.482</td>
+<td style="text-align: right;">19.549</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>log(engine.size)</code></td>
+<td style="text-align: right;">-0.180</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-3.504</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>log(curb.weight)</code></td>
+<td style="text-align: right;">-0.943</td>
+<td style="text-align: right;">0.072</td>
+<td style="text-align: right;">-13.066</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>fuel_gas</code></td>
+<td style="text-align: right;">-0.353</td>
+<td style="text-align: right;">0.022</td>
+<td style="text-align: right;">-15.934</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>cylinders2_TRUE</code></td>
+<td style="text-align: right;">-0.481</td>
+<td style="text-align: right;">0.052</td>
+<td style="text-align: right;">-9.301</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="a-third-model-graphical-diagnostics" class="slide level2 center">
+<h2>A third model: graphical diagnostics</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="comments-and-criticisms-2" class="slide level2 center">
+<h2>Comments and criticisms</h2>
+<ul>
+<li>The goodness of fit greatly <span class="blue">improved</span>:</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">r.squared.original</th>
+<th style="text-align: right;">r.squared</th>
+<th style="text-align: right;">sigma</th>
+<th style="text-align: right;">deviance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.869048</td>
+<td style="text-align: right;">0.8819199</td>
+<td style="text-align: right;">0.0896089</td>
+<td style="text-align: right;">1.589891</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>In this third model, we handled the <span class="orange">outliers</span> appearing in the residual plots, which it turns out are identified by the group of cars having 2 cylinders.</p></li>
+<li><p>The diagnostic plots are also very much improved, although still not perfect.</p></li>
+<li><p>The estimates are coherent with our expectations, based on common knowledge. Have a look at the book (<span class="citation" data-cites="Azzalini2012">Azzalini and Scarpa (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span>) for a detailed explanation of <span class="math inline">\beta_4</span>!</p></li>
+<li><p>The car dataset is available from the textbook (A&amp;S) website:</p>
+<ul>
+<li>Dataset <a href="http://azzalini.stat.unipd.it/Book-DM/auto.dat" class="uri">http://azzalini.stat.unipd.it/Book-DM/auto.dat</a></li>
+<li>Variable description <a href="http://azzalini.stat.unipd.it/Book-DM/auto.names" class="uri">http://azzalini.stat.unipd.it/Book-DM/auto.names</a></li>
 </ul></li>
 </ul>
+</section></section>
+<section>
+<section id="misspecification-and-remedies" class="title-slide slide level1 center">
+<h1>Misspecification and remedies</h1>
+
 </section>
-<section id="exam" class="slide level2 center">
-<h2>Exam</h2>
+<section id="assumptions-and-misspecification" class="slide level2 center">
+<h2>Assumptions and misspecification</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Classical assumptions of a linear model</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\epsilon}</span> with <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\bm{Y}) = \bm{X}\beta</span>. <sup>1</sup></p></li>
+<li><p><strong>(A.2)</strong> <span class="orange">Homoschedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>.</p></li>
+<li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
+</ul>
+<p>It is also commonly asked that <span class="math inline">\text{rk}(\bm{X}) = p</span>, otherwise the model is not identifiable.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>If one of the above assumptions is violated, it is not necessarily a huge problem, because
+<ul>
+<li>the OLS estimator <span class="math inline">\hat{\beta}</span> is fairly <span class="orange">robust</span> to misspecification;</li>
+<li>simple <span class="blue">fixes</span> (variable transformations, standard error corrections) are available.</li>
+</ul></li>
+</ul>
+<!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
+<!-- - Even if the data are [heroschedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
+<aside><ol class="aside-footnotes"><li id="fn1"><p>If the intercept is included in <span class="math inline">\bm{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>.</p></li></ol></aside></section>
+<section id="robust-estimation-and-assumptions" class="slide level2 center">
+<h2>Robust estimation and assumptions</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/plane.png" class="quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+<ul>
+<li><p>A plane can still fly with one of its <span class="orange">engines on fire</span>, but this is hardly an appealing situation.</p></li>
+<li><p>Similarly, robust estimators may work under <span class="orange">model misspecification</span>, but this does not mean we should neglect <span class="blue">checking</span> whether the original <span class="blue">assumptions</span> hold.</p></li>
+</ul>
+</section>
+<section id="variable-transformations" class="slide level2 center">
+<h2>Variable transformations</h2>
+<ul>
+<li>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>While the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
+g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>This idea is conceptually <span class="blue">simple</span> and <span class="blue">powerful</span>. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain <span class="orange">linear in the parameters</span>.</p></li>
+<li><p>However, choosing <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> in practice is <span class="orange">not simple</span>. In our case study, we proceeded by trial and error and used <span class="blue">contextual information</span> to guide our final choice.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Regarding the functions <span class="math inline">h_j(\cdot)</span>, <span class="blue">polynomial</span> terms are a simple and common option. More advanced approaches based on <span class="orange">splines</span> will be discussed in <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</li>
+</ul>
+<!-- - Here we consider two general approaches for selecting the function $g(\cdot)$: variance stabilizing transformations and the Box-Cox transform.   -->
+</div>
+</section>
+<section id="variance-stabilizing-transformations-i" class="slide level2 center">
+<h2>Variance stabilizing transformations I</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
+Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
+</span> is <span class="blue">asymptotically Gaussian</span> for large values of <span class="math inline">\mu_i</span>. However, data are <span class="orange">heteroschedastic</span>.</p></li>
+<li><p>In modeling count data, we could transform the counts so that, at least <span class="orange">approximately</span>, the <span class="blue">variance</span> of <span class="math inline">g(Y_i)</span> is <span class="blue">constant</span> and ordinary least squares methods can be used.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>As an application of the <span class="blue">delta method</span>, the following linearization holds <span class="math display">
+g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\quad \text{var}\{g(Y_i)\} \approx g'(\mu_i)^2\text{var}(Y_i).
+</span> In the Poisson case <span class="math inline">\text{var}\{g(Y_i)\} \approx \mu_i \,g'(\mu_i)^2</span> and we would like this to be <span class="orange">constant</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The choice <span class="math inline">g(y) = \sqrt{y}</span>, called <span class="orange">variance stabilizing</span> transformation, gives <span class="math display">
+\text{var}(\sqrt{Y_i}) \approx \left(\frac{1}{2\sqrt{\mu_i}}\right)^2\mu_i = \frac{1}{4}.
+</span></li>
+</ul>
+</div>
+</section>
+<section id="variance-stabilizing-transformations-ii" class="slide level2 center">
+<h2>Variance stabilizing transformations II</h2>
+<!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
+<ul>
+<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, n_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">n_i</span>. For large values of <span class="math inline">n_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
+Y_i \,\dot{\sim}\, \text{N}(n_i \pi_i, n_i\pi_i(1 - \pi_i)).
+</span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = n_i \pi_i(1- \pi_i)</span>.</p></li>
+<li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
+g_{n_i}(y) = \sqrt{n_i}\arcsin\left(\frac{2 y}{n_i} - 1\right),
+</span> because in fact we have that <span class="math display">
+\text{var}(g_{n_i}(Y_i)) \approx \left(\frac{\sqrt{n_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{n_i}\right)^2 n_i \pi_i(1- \pi_i) = 1.
+</span></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>If the data are <span class="blue">gamma distributed</span>, the <span class="orange">variance stabilizing</span> transform is <span class="math inline">g(y) = \log{y}</span>.</li>
+</ul>
+</div>
+</section>
+<section id="box-cox-transform" class="slide level2 center">
+<h2>Box-Cox transform</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
+g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
+</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
+<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>We estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
+g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
+</span></p></li>
+<li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+<section id="profile-likelihood-for-lambda-derivation-i" class="slide level2 center">
+<h2>Profile likelihood for <span class="math inline">\lambda</span>: derivation I</h2>
+<ul>
+<li><p>The distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian: <span class="math display">
+f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
+</span></p></li>
+<li><p>The density of the <span class="orange">original data</span> is <span class="math inline">f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}</span> after accounting for the <span class="orange">Jacobian</span> of the transformation. The <span class="blue">log-likelihood</span> therefore is <span class="math display">
+\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
+</span></p></li>
+<li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
+\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
+</span></p></li>
+</ul>
+</section>
+<section id="profile-likelihood-for-lambda-derivation-ii" class="slide level2 center">
+<h2>Profile likelihood for <span class="math inline">\lambda</span>: derivation II</h2>
+<ul>
+<li><p>The <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span> admits a very simple expression, namely <span class="math display">
+\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
+</span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
+<li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Note that Box and Cox themselves suggested using this approach as an <span class="blue">exploratory tool</span>, rather than a formal inferential procedure.</p>
+<p>For instance,the optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> may be <span class="orange">hard to interpret</span> but it could be an indication that a square root transformation is appropriate.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="box-cox-transform-for-the-auto-dataset" class="slide level2 center">
+<h2>Box-Cox transform for the auto dataset</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<li>The <span class="blue">Box-Cox transform</span> in the auto dataset suggests a <span class="orange">reciprocal</span> transformation: <span class="math display">
+\frac{1}{Y_i} = \beta_1 + \beta_2 x_i +  \beta_3 w_i + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
+</span> which is a good alternative to our model based on logarithms of <span class="math inline">y_i, x_i</span>, and <span class="math inline">w_i</span> (<span class="orange">but</span>…).</li>
+</ul>
+</section>
+<section id="a-fourth-model-graphical-diagnostics" class="slide level2 center">
+<h2>A fourth model: graphical diagnostics</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="variable-transformation-a-caveat" class="slide level2 center">
+<h2>Variable transformation: a caveat</h2>
+<!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
+<ul>
+<li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
+Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+</span> Thus, the coefficient <span class="math inline">\beta_j</span> can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> <span class="math inline">x_{ij} \rightarrow x_{ij}+1</span> of the <span class="math inline">j</span>th covariate.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
+<span class="math display">
+E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
+<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
+</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="non-normality-of-the-errors-i" class="slide level2 center">
+<h2>Non-normality of the errors I</h2>
+<ul>
+<li><p>Let us consider the case in which assumptions <strong>(A.1)</strong>-<strong>(A.2)</strong> are <span class="blue">valid</span> but <strong>(A.3)</strong> <span class="orange">is not</span>, that is <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>, but <span class="math inline">\epsilon</span> does <span class="orange">not</span> follow <span class="orange">a Gaussian</span> distribution.</p></li>
+<li><p>For example, <span class="math inline">\epsilon_i</span> may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student’s t distribution, etc.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The OLS estimate <span class="math inline">\hat{\beta}</span> is <span class="orange">not</span> anymore the <span class="orange">maximum likelihood</span> estimator, but it <span class="blue">preserves</span> most of its <span class="blue">properties</span> and a <span class="blue">geometric interpretation</span>.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Under <strong>(A.1)</strong>-<strong>(A.2)</strong>, even without requring normality of the errors <strong>(A.3)</strong>, we obtain the usual formulas: <span class="math display">
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
+</span> Moreover, because of <span class="blue">Gauss-Markov</span> theorem, the OLS estimator <span class="math inline">\hat{\beta}</span> is the most <span class="orange">efficient</span> within the class of linear and unbiased estimators (<span class="blue">BLUE</span>) for any distribution of the errors <span class="math inline">\bm{\epsilon}</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>In fact, note that the <span class="orange">proof</span> of the Gauss-Markov theorem requires <strong>(A.1)</strong>-<strong>(A.2)</strong> but <span class="orange">not</span> <strong>(A.3)</strong>.</li>
+</ul>
+</div>
+</section>
+<section id="non-normality-of-the-errors-ii" class="slide level2 center">
+<h2>Non-normality of the errors II</h2>
+<ul>
+<li><p>When the errors are non Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> does not follow anymore a Gaussian distribution.</p></li>
+<li><p>However, a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
+<li><p>Thus, when the sample size <span class="math inline">n</span> is large enough, then the following <span class="orange">approximation</span> holds <span class="math display">
+\hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
+</span> from which <span class="blue">confidence intervals</span> and <span class="blue">test statistics</span> can be obtained as usual. The approximation is <span class="orange">excellent</span> if the errors are <span class="blue">symmetric</span> around <span class="math inline">0</span>.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><span class="blue">Non-normality</span> of the errors is <span class="orange">not a major concern</span>: the OLS estimator preserves most of its properties, including approximate normality for sufficiently large <span class="math inline">n</span>.</p>
+<p>There is often an <span class="orange">over-emphasis</span> on testing whether the residuals are Gaussian. However, even if normality is rejected, the practical implications are minimal.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="heteroschedasticity-of-the-errors" class="slide level2 center">
+<h2>Heteroschedasticity of the errors</h2>
+</section></section>
+<section>
+<section id="weighted-least-squares" class="title-slide slide level1 center">
+<h1>Weighted least squares</h1>
+
+</section>
+<section id="a-final-comment" class="slide level2 center">
+<h2>A final comment</h2>
 </section>
 <section id="references" class="slide level2 unnumbered smaller scrollable">
 <h2>References</h2>
@@ -237,18 +1038,16 @@ Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generaliz
 <div id="ref-Azzalini2008" class="csl-entry" role="listitem">
 Azzalini, A. (2008), <em>Inferenza statistica</em>, Springer Verlag.
 </div>
-<div id="ref-McCullagh1989" class="csl-entry" role="listitem">
-McCullagh, P., and Nelder, J. A. (1989), <em>Generalized linear models</em>, Chapman &amp; Hall/CRC.
-</div>
-<div id="ref-Nelder1972" class="csl-entry" role="listitem">
-Nelder, J. A., and Wedderburn, R. W. M. (1972), <span>“<span class="nocase">Generalized linear models</span>,”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em>, 135, 370–384.
+<div id="ref-Azzalini2012" class="csl-entry" role="listitem">
+Azzalini, A., and Scarpa, B. (2012), <em>Data analysis and data mining: An introduction</em>, Oxford University Press.
 </div>
 <div id="ref-Salvan2020" class="csl-entry" role="listitem">
 Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.
 </div>
 </div>
 
-</section>
+</section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="img/logoB.png" class="slide-logo"></p>
@@ -258,18 +1057,18 @@ Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati<
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="un_intro_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="un_A_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="un_intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="un_intro_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="un_intro_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="un_intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="un_intro_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="un_intro_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="un_intro_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="un_intro_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="un_A_files/libs/revealjs/plugin/zoom/zoom.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -446,6 +1245,44 @@ Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati<
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

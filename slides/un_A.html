@@ -121,9 +121,9 @@ window.Quarto = {
   <li><a href="#matrix-notation" id="toc-matrix-notation" class="nav-link" data-scroll-target="#matrix-notation">Matrix notation</a></li>
   <li><a href="#linear-regression-estimation-i" id="toc-linear-regression-estimation-i" class="nav-link" data-scroll-target="#linear-regression-estimation-i">Linear regression: estimation I</a></li>
   <li><a href="#linear-regression-estimation-ii" id="toc-linear-regression-estimation-ii" class="nav-link" data-scroll-target="#linear-regression-estimation-ii">Linear regression: estimation II</a></li>
+  <li><a href="#linear-regression-inference" id="toc-linear-regression-inference" class="nav-link" data-scroll-target="#linear-regression-inference">Linear regression: inference</a></li>
   <li><a href="#linear-regression-diagnostic" id="toc-linear-regression-diagnostic" class="nav-link" data-scroll-target="#linear-regression-diagnostic">Linear regression: diagnostic</a></li>
   <li><a href="#leverages-outliers-and-influence-points" id="toc-leverages-outliers-and-influence-points" class="nav-link" data-scroll-target="#leverages-outliers-and-influence-points">Leverages, outliers and influence points</a></li>
-  <li><a href="#linear-regression-inference" id="toc-linear-regression-inference" class="nav-link" data-scroll-target="#linear-regression-inference">Linear regression: inference</a></li>
   <li><a href="#car-data-a-first-model" id="toc-car-data-a-first-model" class="nav-link" data-scroll-target="#car-data-a-first-model">Car data, a first model</a></li>
   <li><a href="#a-first-model-estimated-coefficients" id="toc-a-first-model-estimated-coefficients" class="nav-link" data-scroll-target="#a-first-model-estimated-coefficients">A first model: estimated coefficients</a></li>
   <li><a href="#a-first-model-fitted-values" id="toc-a-first-model-fitted-values" class="nav-link" data-scroll-target="#a-first-model-fitted-values">A first model: fitted values</a></li>
@@ -389,6 +389,23 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 </span></p></li>
 </ul>
 </section>
+<section id="linear-regression-inference" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-inference">Linear regression: inference</h2>
+<ul>
+<li><p>We suppose the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
+<li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> using <span class="math display">
+  \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
+  </span></p></li>
+<li><p>The <span class="orange">standard errors</span> of the components of <span class="math inline">\hat{\beta}</span> correspond to the square root of the diagonal of the above covariance matrix.</p></li>
+</ul>
+<ul>
+<li><p>Let us additionally assume that the errors follow a Gaussian distribution: <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} \text{N}(0, \sigma^2)</span>.</p></li>
+<li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
+\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+</span></p></li>
+<li><p>Confidence interval and Wald’s tests can be obtained through classical inferential theory.</p></li>
+</ul>
+</section>
 <section id="linear-regression-diagnostic" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-diagnostic">Linear regression: diagnostic</h2>
 <ul>
@@ -400,7 +417,7 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 </span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the <span class="orange">residuals</span>.</p></li>
 </ul>
 <ul>
-<li>An observation is <span class="blue">influent</span> if it has high leverage and squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+<li>An observation is <span class="blue">influent</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
 p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
 </span> Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
 </ul>
@@ -445,25 +462,6 @@ p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 </div>
 </div>
-</section>
-<section id="linear-regression-inference" class="level2">
-<h2 class="anchored" data-anchor-id="linear-regression-inference">Linear regression: inference</h2>
-<ul>
-<li><p>Let us additionally assume that the errors follow a Gaussian distribution: <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} N(0, \sigma^2)</span>.</p></li>
-<li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
-\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
-</span></p></li>
-<li><p>Hence, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> and its <span class="blue">variance</span> can be estimated by <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
-</span></p></li>
-<li><p>The <span class="orange">standard errors</span> of the components of <span class="math inline">\hat{\beta}</span> correspond to the square root of the diagonal of the above covariance matrix.</p></li>
-</ul>
-<ul>
-<li>Confidence interval and Wald’s tests can be obtained through classical inferential theory.</li>
-</ul>
-<ul>
-<li>Ok, we are ready to get back to the original problem…</li>
-</ul>
 </section>
 <section id="car-data-a-first-model" class="level2">
 <h2 class="anchored" data-anchor-id="car-data-a-first-model">Car data, a first model</h2>
