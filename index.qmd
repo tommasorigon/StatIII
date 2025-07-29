@@ -55,13 +55,10 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | Lab 1 | | | |
 | | **GENERALIZED LINEAR MODELS** | | |
 | **Exponential dispersion families** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
-| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 | **Estimation (IRLS)** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_B_slides.html)| [Code C](code/un_B.R) |
-| *Exercises* | [Exercises C](exe/exe_B.html) |  |  |
 | **Inference** | [Unit D](slides/un_B.html) | [Slides Unit D](slides/un_B_slides.html)| [Code D](code/un_D.R) |
-| *Exercises* | [Exercises D](exe/exe_B.html) |  |  |
 | **Model checking, diagnostic, model selection** | [Unit E](slides/un_E.html) | [Slides Unit E](slides/un_B_slides.html)| [Code E](code/un_E.R) |
-| *Exercises* | [Exercises E](exe/exe_B.html) |  |  |
+| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 | Lab 2 | | | |
 | | **NOTABLE MODELS** | | |
 | **Binary regression** | [Unit F] | [Slides Unit F] | [Code F] |
