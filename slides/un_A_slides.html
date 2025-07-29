@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/theme/quarto-89b19fdd882adf062c6b5a5268a03a34.css">
+  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/theme/quarto-52f9c9ea99cef3131c4880afbe91edc6.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -717,7 +717,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 </div>
 </div>
 <ul>
-<li>The above assumptions are often taken a little <span class="blue">too seriously</span>. If one of them is violated, it is not necessarily a huge problem, because
+<li>If one of the above assumptions is violated, it is not necessarily a huge problem, because
 <ul>
 <li>the OLS estimator <span class="math inline">\hat{\beta}</span> is fairly <span class="orange">robust</span> to misspecification;</li>
 <li>simple <span class="blue">fixes</span> (variable transformations, standard error corrections) are available.</li>
@@ -741,11 +741,17 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <section id="variable-transformations" class="slide level2 center">
 <h2>Variable transformations</h2>
 <ul>
-<li><p>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</p></li>
-<li><p>In other words, while the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
-g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p></li>
+<li>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</li>
 </ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>While the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
+g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p>
+</div>
+</div>
+</div>
 <div class="fragment">
 <ul>
 <li><p>This idea is conceptually <span class="blue">simple</span> and <span class="blue">powerful</span>. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain <span class="orange">linear in the parameters</span>.</p></li>
@@ -803,18 +809,22 @@ g_{n_i}(y) = \sqrt{n_i}\arcsin\left(\frac{2 y}{n_i} - 1\right),
 </section>
 <section id="box-cox-transform" class="slide level2 center">
 <h2>Box-Cox transform</h2>
-<ul>
-<li><p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
-</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p></li>
-<li><p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p></li>
-</ul>
+</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
+<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
+</div>
+</div>
+</div>
 <div class="fragment">
-<p>The main idea is to estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
-g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
-</span></p>
 <ul>
-<li>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</li>
+<li><p>The main idea is to estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
+g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
+</span></p></li>
+<li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
 </ul>
 </div>
 </section>
@@ -825,6 +835,9 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
 </span></p></li>
 <li><p>The density of the <span class="orange">original data</span> is <span class="math inline">f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}</span> after accounting for the <span class="orange">Jacobian</span> of the transformation.</p></li>
+</ul>
+<div class="fragment">
+<ul>
 <li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
 \ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 </span></p></li>
@@ -832,6 +845,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 \hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
 </span></p></li>
 </ul>
+</div>
 </section>
 <section id="profile-likelihood-for-lambda-derivation-ii" class="slide level2 center">
 <h2>Profile likelihood for <span class="math inline">\lambda</span>: derivation II</h2>
@@ -864,21 +878,27 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <section id="variable-transformation-a-caveat" class="slide level2 center">
 <h2>Variable transformation: a caveat</h2>
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
-<ul>
-<li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
 Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> Thus, the coefficients can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> in <span class="math inline">\tilde{\bm{x}}_j</span>, independently of the starting level.</li>
-</ul>
-<div class="fragment">
-<ul>
-<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
+</span> Thus, the coefficients can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> in <span class="math inline">\tilde{\bm{x}}_j</span>, independently of the starting level.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
-<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+   E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p>
+<p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
-</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
-</ul>
+</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -911,7 +931,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <h2>Non-normality of the errors II</h2>
 <ul>
 <li><p>When the errors are non Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> does not follow anymore a Gaussian distribution.</p></li>
-<li><p>However, this is not very problematic in practice because a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
+<li><p>However, a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
 <li><p>Thus, when the sample size <span class="math inline">n</span> is large enough, then the following <span class="orange">approximation</span> holds <span class="math display">
 \hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
 </span> from which <span class="blue">confidence intervals</span> and <span class="blue">test statistics</span> can be obtained as usual. The approximation is <span class="orange">excellent</span> if the errors are <span class="blue">symmetric</span> around <span class="math inline">0</span>.</p></li>
@@ -919,8 +939,8 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p><span class="blue">Dropping normality</span> of the errors is <span class="orange">not a major concern</span>: the OLS estimator preserves most of its properties, including approximate normality for sufficiently large <span class="math inline">n</span>.</p>
-<p>In undergraduate courses there is often an <span class="orange">over-emphasis</span> on testing whether the residuals are Gaussian. This is likely an <span class="orange">overly conservative</span> approach: even if normality is rejected, the practical implications are minimal.</p>
+<p><span class="blue">Non-normality</span> of the errors is <span class="orange">not a major concern</span>: the OLS estimator preserves most of its properties, including approximate normality for sufficiently large <span class="math inline">n</span>.</p>
+<p>There is often an <span class="orange">over-emphasis</span> on testing whether the residuals are Gaussian. However, even if normality is rejected, the practical implications are minimal.</p>
 </div>
 </div>
 </div>

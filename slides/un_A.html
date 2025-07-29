@@ -34,7 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="un_A_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_A_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_A_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_A_files/libs/bootstrap/bootstrap-94e78e1b1088213de46704c5299739fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_A_files/libs/bootstrap/bootstrap-252358bd5e41c56bbae4a2085ac3f5af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -129,9 +129,11 @@ window.Quarto = {
   <li><a href="#a-fourth-model-graphical-diagnostics" id="toc-a-fourth-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-fourth-model-graphical-diagnostics">A fourth model: graphical diagnostics</a></li>
   <li><a href="#variable-transformation-a-caveat" id="toc-variable-transformation-a-caveat" class="nav-link" data-scroll-target="#variable-transformation-a-caveat">Variable transformation: a caveat</a></li>
   </ul></li>
-  <li><a href="#robustness-of-ols-estimator" id="toc-robustness-of-ols-estimator" class="nav-link" data-scroll-target="#robustness-of-ols-estimator">Robustness of OLS estimator</a>
+  <li><a href="#robustness-of-the-ols-estimator" id="toc-robustness-of-the-ols-estimator" class="nav-link" data-scroll-target="#robustness-of-the-ols-estimator">Robustness of the OLS estimator</a>
   <ul class="collapse">
-  <li><a href="#non-normality-of-the-errors" id="toc-non-normality-of-the-errors" class="nav-link" data-scroll-target="#non-normality-of-the-errors">Non-normality of the errors</a></li>
+  <li><a href="#non-normality-of-the-errors-i" id="toc-non-normality-of-the-errors-i" class="nav-link" data-scroll-target="#non-normality-of-the-errors-i">Non-normality of the errors I</a></li>
+  <li><a href="#non-normality-of-the-errors-ii" id="toc-non-normality-of-the-errors-ii" class="nav-link" data-scroll-target="#non-normality-of-the-errors-ii">Non-normality of the errors II</a></li>
+  <li><a href="#heteroschedasticity-of-the-errors" id="toc-heteroschedasticity-of-the-errors" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors">Heteroschedasticity of the errors</a></li>
   </ul></li>
   <li><a href="#weighted-least-squares" id="toc-weighted-least-squares" class="nav-link" data-scroll-target="#weighted-least-squares">Weighted least squares</a>
   <ul class="collapse">
@@ -192,8 +194,6 @@ window.Quarto = {
 </ul></li>
 <li><p>The main theme is: what should we do when the <span class="blue">assumptions</span> of linear models are <span class="orange">violated</span>?</p></li>
 <li><p>We will push the linear model to its limit, using it even when is not supposed to work.</p></li>
-<li><p>A few <span class="blue">aspects</span> will be novel to most of you…</p></li>
-<li><p>… but you should be already <span class="orange">very familiar</span> with linear models!</p></li>
 </ul>
 </div>
 </div>
@@ -753,13 +753,12 @@ Classical assumptions of a linear model
 </div>
 </div>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;If the intercept is included in <span class="math inline">\bm{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>.</p></div></div><ul>
-<li>The above assumptions are often taken a little <span class="blue">too seriously</span>. If one of them is violated, it is not necessarily a huge problem, because
+<li>If one of the above assumptions is violated, it is not necessarily a huge problem, because
 <ul>
 <li>the OLS estimator <span class="math inline">\hat{\beta}</span> is fairly <span class="orange">robust</span> to misspecification;</li>
 <li>simple <span class="blue">fixes</span> (variable transformations, standard error corrections) are available.</li>
 </ul></li>
 </ul>
-<!-- - For example, if **(A.1)**-**(A.2)** are valid but **(A.3)** is not, then the OLS estimate will still "work". -->
 <!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
 <!-- - Even if the data are [heroschedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
 </section>
@@ -850,6 +849,8 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
 </span></p></li>
 <li><p>The density of the <span class="orange">original data</span> is <span class="math inline">f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}</span> after accounting for the <span class="orange">Jacobian</span> of the transformation.</p></li>
+</ul>
+<ul>
 <li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
 \ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 </span></p></li>
@@ -909,7 +910,7 @@ Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad 
 </span> Thus, the coefficients can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> in <span class="math inline">\tilde{\bm{x}}_j</span>, independently of the starting level.</li>
 </ul>
 <ul>
-<li><p>In the case of transformations applied to the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However, it is not always possible to derive the mean of the original response <span class="math inline">\mathbb{E}(Y_i)</span>. In fact:<br>
+<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
 <span class="math display">
 E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
 </span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
@@ -919,10 +920,48 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </ul>
 </section>
 </section>
-<section id="robustness-of-ols-estimator" class="level1">
-<h1>Robustness of OLS estimator</h1>
-<section id="non-normality-of-the-errors" class="level2">
-<h2 class="anchored" data-anchor-id="non-normality-of-the-errors">Non-normality of the errors</h2>
+<section id="robustness-of-the-ols-estimator" class="level1">
+<h1>Robustness of the OLS estimator</h1>
+<section id="non-normality-of-the-errors-i" class="level2">
+<h2 class="anchored" data-anchor-id="non-normality-of-the-errors-i">Non-normality of the errors I</h2>
+<ul>
+<li><p>Let us consider the case in which assumptions <strong>(A.1)</strong>-<strong>(A.2)</strong> are <span class="blue">valid</span> but <strong>(A.3)</strong> <span class="orange">is not</span>, that is <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>, but <span class="math inline">\epsilon</span> does <span class="orange">not</span> follow <span class="orange">a Gaussian</span> distribution.</p></li>
+<li><p>For example, <span class="math inline">\epsilon_i</span> may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student’s t distribution, etc.</p></li>
+</ul>
+<ul>
+<li><p>The OLS estimate <span class="math inline">\hat{\beta}</span> is <span class="orange">not</span> anymore the <span class="orange">maximum likelihood</span> estimator, but it <span class="blue">preserves</span> most of its <span class="blue">properties</span> and a <span class="blue">geometric interpretation</span>.</p></li>
+<li><p>In particular, even without normality of the errors <strong>(A.3)</strong> we obtain the usual formulas: <span class="math display">
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
+</span></p></li>
+</ul>
+<ul>
+<li><p>Moreover, the OLS <span class="math inline">\hat{\beta}</span> remains the most <span class="orange">efficient</span> estimator within the class of linear and unbiased estimators (<span class="blue">BLUE</span>) for any distribution of the errors <span class="math inline">\bm{\epsilon}</span>.</p></li>
+<li><p>In fact, the proof of the <span class="blue">Gauss-Markov theorem</span> requires <strong>(A.1)</strong>-<strong>(A.2)</strong> but not <strong>(A.3)</strong>.</p></li>
+</ul>
+</section>
+<section id="non-normality-of-the-errors-ii" class="level2">
+<h2 class="anchored" data-anchor-id="non-normality-of-the-errors-ii">Non-normality of the errors II</h2>
+<ul>
+<li><p>When the errors are non Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> does not follow anymore a Gaussian distribution.</p></li>
+<li><p>However, this is not very problematic in practice because a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
+<li><p>Thus, when the sample size <span class="math inline">n</span> is large enough, then the following <span class="orange">approximation</span> holds <span class="math display">
+\hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
+</span> from which <span class="blue">confidence intervals</span> and <span class="blue">test statistics</span> can be obtained as usual. The approximation is <span class="orange">excellent</span> if the errors are <span class="blue">symmetric</span> around <span class="math inline">0</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="blue">Non-normality</span> of the errors is <span class="orange">not a major concern</span>: the OLS estimator preserves most of its properties, including approximate normality for sufficiently large <span class="math inline">n</span>.</p>
+<p>There is often an <span class="orange">over-emphasis</span> on testing whether the residuals are Gaussian. However, even if normality is rejected, the practical implications are minimal.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="heteroschedasticity-of-the-errors" class="level2">
+<h2 class="anchored" data-anchor-id="heteroschedasticity-of-the-errors">Heteroschedasticity of the errors</h2>
 </section>
 </section>
 <section id="weighted-least-squares" class="level1">
