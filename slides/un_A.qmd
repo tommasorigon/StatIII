@@ -78,12 +78,8 @@ Attributed to [Albert Einstein]{.grey}
     
 - The main theme is: what should we do when the [assumptions]{.blue} of linear models are [violated]{.orange}?
 
--   A few [aspects]{.blue} will be novel to
-    most of you...
+- We will push the linear model to its limit, using it even when is not supposed to work. 
 
--   ... but you should be already [very familiar]{.orange} with linear
-    models!
-  
 :::
 :::
 
@@ -616,7 +612,7 @@ It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is n
   - the OLS estimator $\hat{\beta}$ is fairly [robust]{.orange} to misspecification;
   - simple [fixes]{.blue} (variable transformations, standard error corrections) are available.
 
-<!-- - For example, if **(A.1)**-**(A.2)** are valid but **(A.3)** is not, then the OLS estimate will still "work". -->
+
 
 <!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
 
@@ -809,7 +805,7 @@ Thus, the coefficients can [no longer]{.orange} be [interpreted]{.orange} as the
 
 . . .
 
-- In the case of transformations applied to the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However, it is not always possible to derive the mean of the original response $\mathbb{E}(Y_i)$. In fact:  
+- In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However:  
 $$
    E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
 $$
@@ -821,9 +817,49 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 $$
 the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is the usual [mean]{.blue}.
 
-# Robustness of OLS estimator
+# Robustness of the OLS estimator
 
-## Non-normality of the errors
+## Non-normality of the errors I
+
+- Let us consider the case in which assumptions **(A.1)**-**(A.2)** are [valid]{.blue} but **(A.3)** [is not]{.orange}, that is $\mathbb{E}(\bm{\epsilon}) = 0$ and $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$, but $\epsilon$ does [not]{.orange} follow [a Gaussian]{.orange} distribution. 
+
+- For example, $\epsilon_i$ may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student's t distribution, etc. 
+
+. . .
+
+- The OLS estimate $\hat{\beta}$ is [not]{.orange} anymore the [maximum likelihood]{.orange} estimator, but it [preserves]{.blue} most of its [properties]{.blue} and a [geometric interpretation]{.blue}. 
+
+- In particular, even without normality of the errors **(A.3)** we obtain the usual formulas:
+$$
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
+$$
+
+. . .
+
+- Moreover, the OLS $\hat{\beta}$ remains the most [efficient]{.orange} estimator within the class of linear and unbiased estimators ([BLUE]{.blue}) for any distribution of the errors $\bm{\epsilon}$. 
+
+- In fact, the proof of the [Gauss-Markov theorem]{.blue} requires **(A.1)**-**(A.2)** but not **(A.3)**.
+
+
+## Non-normality of the errors II
+
+- When the errors are non Gaussian the [exact inferential results]{.blue} are not valid. In particular $\hat{\beta}$ does not follow anymore a Gaussian distribution.
+
+- However, this is not very problematic in practice because a [central limit theorem]{.orange} can be invoked under very mild conditions on the design matrix $\bm{X}$.
+
+- Thus, when the sample size $n$ is large enough, then the following [approximation]{.orange} holds
+$$
+\hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
+$$
+from which [confidence intervals]{.blue} and [test statistics]{.blue} can be obtained as usual. The approximation is [excellent]{.orange} if the errors are [symmetric]{.blue} around $0$. 
+
+:::callout-tip
+[Dropping normality]{.blue} of the errors is [not a major concern]{.orange}: the OLS estimator preserves most of its properties, including approximate normality for sufficiently large $n$.
+
+In undergraduate courses there is often an [over-emphasis]{.orange} on testing whether the residuals are Gaussian. This is likely an [overly conservative]{.orange} approach: even if normality is rejected, the practical implications are minimal.
+:::
+
+## Heteroschedasticity of the errors
 
 
 
