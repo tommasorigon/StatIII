@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="un_A_files/libs/clipboard/clipboard.min.js"></script>
@@ -130,9 +150,6 @@ window.Quarto = {
   <li><a href="#box-cox-transform-for-the-auto-dataset" id="toc-box-cox-transform-for-the-auto-dataset" class="nav-link" data-scroll-target="#box-cox-transform-for-the-auto-dataset">Box-Cox transform for the auto dataset</a></li>
   <li><a href="#a-fourth-model-graphical-diagnostics" id="toc-a-fourth-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-fourth-model-graphical-diagnostics">A fourth model: graphical diagnostics</a></li>
   <li><a href="#variable-transformation-a-caveat" id="toc-variable-transformation-a-caveat" class="nav-link" data-scroll-target="#variable-transformation-a-caveat">Variable transformation: a caveat</a></li>
-  </ul></li>
-  <li><a href="#robustness-of-the-ols-estimator" id="toc-robustness-of-the-ols-estimator" class="nav-link" data-scroll-target="#robustness-of-the-ols-estimator">Robustness of the OLS estimator</a>
-  <ul class="collapse">
   <li><a href="#non-normality-of-the-errors-i" id="toc-non-normality-of-the-errors-i" class="nav-link" data-scroll-target="#non-normality-of-the-errors-i">Non-normality of the errors I</a></li>
   <li><a href="#non-normality-of-the-errors-ii" id="toc-non-normality-of-the-errors-ii" class="nav-link" data-scroll-target="#non-normality-of-the-errors-ii">Non-normality of the errors II</a></li>
   <li><a href="#heteroschedasticity-of-the-errors" id="toc-heteroschedasticity-of-the-errors" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors">Heteroschedasticity of the errors</a></li>
@@ -140,6 +157,7 @@ window.Quarto = {
   <li><a href="#weighted-least-squares" id="toc-weighted-least-squares" class="nav-link" data-scroll-target="#weighted-least-squares">Weighted least squares</a>
   <ul class="collapse">
   <li><a href="#a-final-comment" id="toc-a-final-comment" class="nav-link" data-scroll-target="#a-final-comment">A final comment</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_A_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -199,6 +217,16 @@ window.Quarto = {
 </ul>
 </div>
 </div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The content of this Unit is covered in <span class="orange">Chapter 1</span> of <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span>. Alternatively, see <span class="blue">Chapter 2</span> of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span> or <span class="grey">Chapter 5</span> of <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#ref-Azzalini2008" role="doc-biblioref">2008</a>)</span>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="old-friends-linear-models" class="level1">
 <h1>Old friends: linear models</h1>
@@ -210,7 +238,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1250"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1500"></p>
 </figure>
 </div>
 </div>
@@ -367,14 +395,14 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 <li><p>The diagonal elements <span class="math inline">h_{ii} \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
 \text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
 </span> The leverage <span class="math inline">h_{ii}</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_{ii}</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
-<li><p>Leverages appear also in the definition of <span class="orange">standardized residuals</span>: <span class="math display">
+<li><p>Leverages also appear in the definition of <span class="blue">standardized residuals</span>: <span class="math display">
 \tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
 </span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the <span class="orange">residuals</span>.</p></li>
 </ul>
 <ul>
-<li>An observation is <span class="blue">influent</span> if it has high leverage and residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+<li>An observation is <span class="blue">influent</span> if it has high leverage and squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
 p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
-</span> The Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
+</span> Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
 </ul>
 </section>
 <section id="leverages-outliers-and-influence-points" class="level2">
@@ -778,7 +806,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <ul>
 <li><p>In this third model, we handled the <span class="orange">outliers</span> appearing in the residual plots, which it turns out are identified by the group of cars having 2 cylinders.</p></li>
 <li><p>The diagnostic plots are also very much improved, although still not perfect.</p></li>
-<li><p>The estimates are coherent with our expectations, based on common knowledge. Have a look at the textbook (A&amp;S) for a detailed explanation of <span class="math inline">\beta_4</span>!</p></li>
+<li><p>The estimates are coherent with our expectations, based on common knowledge. Have a look at the book (<span class="citation" data-cites="Azzalini2012">Azzalini and Scarpa (<a href="#ref-Azzalini2012" role="doc-biblioref">2012</a>)</span>) for a detailed explanation of <span class="math inline">\beta_4</span>!</p></li>
 <li><p>The car dataset is available from the textbook (A&amp;S) website:</p>
 <ul>
 <li>Dataset <a href="http://azzalini.stat.unipd.it/Book-DM/auto.dat" class="uri">http://azzalini.stat.unipd.it/Book-DM/auto.dat</a></li>
@@ -909,7 +937,7 @@ g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 </div>
 </div>
 <ul>
-<li><p>The main idea is to estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
+<li><p>We estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
 g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
 </span></p></li>
 <li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
@@ -921,10 +949,7 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 <li><p>The distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian: <span class="math display">
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
 </span></p></li>
-<li><p>The density of the <span class="orange">original data</span> is <span class="math inline">f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}</span> after accounting for the <span class="orange">Jacobian</span> of the transformation.</p></li>
-</ul>
-<ul>
-<li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
+<li><p>The density of the <span class="orange">original data</span> is <span class="math inline">f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}</span> after accounting for the <span class="orange">Jacobian</span> of the transformation. The <span class="blue">log-likelihood</span> therefore is <span class="math display">
 \ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 </span></p></li>
 <li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
@@ -940,10 +965,17 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 </span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
 <li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
 </ul>
-<ul>
-<li><p>Note that Box and Cox themselves suggested using this approach as an <span class="blue">exploratory tool</span>, rather than a formal inferential procedure.</p></li>
-<li><p>For instance,the optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> may be <span class="orange">hard to interpret</span> but it could be an indication that a square root transformation is appropriate.</p></li>
-</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Note that Box and Cox themselves suggested using this approach as an <span class="blue">exploratory tool</span>, rather than a formal inferential procedure.</p>
+<p>For instance,the optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> may be <span class="orange">hard to interpret</span> but it could be an indication that a square root transformation is appropriate.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="box-cox-transform-for-the-auto-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="box-cox-transform-for-the-auto-dataset">Box-Cox transform for the auto dataset</h2>
@@ -977,38 +1009,21 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <section id="variable-transformation-a-caveat" class="level2">
 <h2 class="anchored" data-anchor-id="variable-transformation-a-caveat">Variable transformation: a caveat</h2>
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
+<ul>
+<li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
 Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> Thus, the coefficients can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> in <span class="math inline">\tilde{\bm{x}}_j</span>, independently of the starting level.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
+</span> Thus, the coefficient <span class="math inline">\beta_j</span> can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> <span class="math inline">x_{ij} \rightarrow x_{ij}+1</span> of the <span class="math inline">j</span>th covariate.</li>
+</ul>
+<ul>
+<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-   E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p>
-<p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
+<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
-</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p>
-</div>
-</div>
-</div>
+</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
+</ul>
 </section>
-</section>
-<section id="robustness-of-the-ols-estimator" class="level1">
-<h1>Robustness of the OLS estimator</h1>
 <section id="non-normality-of-the-errors-i" class="level2">
 <h2 class="anchored" data-anchor-id="non-normality-of-the-errors-i">Non-normality of the errors I</h2>
 <ul>
@@ -1016,14 +1031,22 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <li><p>For example, <span class="math inline">\epsilon_i</span> may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student’s t distribution, etc.</p></li>
 </ul>
 <ul>
-<li><p>The OLS estimate <span class="math inline">\hat{\beta}</span> is <span class="orange">not</span> anymore the <span class="orange">maximum likelihood</span> estimator, but it <span class="blue">preserves</span> most of its <span class="blue">properties</span> and a <span class="blue">geometric interpretation</span>.</p></li>
-<li><p>In particular, even without normality of the errors <strong>(A.3)</strong> we obtain the usual formulas: <span class="math display">
-\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
-</span></p></li>
+<li>The OLS estimate <span class="math inline">\hat{\beta}</span> is <span class="orange">not</span> anymore the <span class="orange">maximum likelihood</span> estimator, but it <span class="blue">preserves</span> most of its <span class="blue">properties</span> and a <span class="blue">geometric interpretation</span>.</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Under <strong>(A.1)</strong>-<strong>(A.2)</strong>, even without requring normality of the errors <strong>(A.3)</strong>, we obtain the usual formulas: <span class="math display">
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
+</span> Moreover, because of <span class="blue">Gauss-Markov</span> theorem, the OLS estimator <span class="math inline">\hat{\beta}</span> is the most <span class="orange">efficient</span> within the class of linear and unbiased estimators (<span class="blue">BLUE</span>) for any distribution of the errors <span class="math inline">\bm{\epsilon}</span>.</p>
+</div>
+</div>
+</div>
 <ul>
-<li><p>Moreover, the OLS <span class="math inline">\hat{\beta}</span> remains the most <span class="orange">efficient</span> estimator within the class of linear and unbiased estimators (<span class="blue">BLUE</span>) for any distribution of the errors <span class="math inline">\bm{\epsilon}</span>.</p></li>
-<li><p>In fact, the proof of the <span class="blue">Gauss-Markov theorem</span> requires <strong>(A.1)</strong>-<strong>(A.2)</strong> but not <strong>(A.3)</strong>.</p></li>
+<li>In fact, note that the <span class="orange">proof</span> of the Gauss-Markov theorem requires <strong>(A.1)</strong>-<strong>(A.2)</strong> but <span class="orange">not</span> <strong>(A.3)</strong>.</li>
 </ul>
 </section>
 <section id="non-normality-of-the-errors-ii" class="level2">
@@ -1055,6 +1078,23 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <h1>Weighted least squares</h1>
 <section id="a-final-comment" class="level2">
 <h2 class="anchored" data-anchor-id="a-final-comment">A final comment</h2>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Agresti2015" class="csl-entry" role="listitem">
+Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
+</div>
+<div id="ref-Azzalini2008" class="csl-entry" role="listitem">
+Azzalini, A. (2008), <em>Inferenza statistica</em>, Springer Verlag.
+</div>
+<div id="ref-Azzalini2012" class="csl-entry" role="listitem">
+Azzalini, A., and Scarpa, B. (2012), <em>Data analysis and data mining: An introduction</em>, Oxford University Press.
+</div>
+<div id="ref-Salvan2020" class="csl-entry" role="listitem">
+Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.
+</div>
+</div>
 </section>
 </section>
 

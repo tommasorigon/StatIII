@@ -28,7 +28,7 @@ format:
     fig-dpi: 250
     # incremental: true  # Remove comment if you like incremental bullet points
     logo: img/logoB.png
-    footer: "[Home page](https://tommasorigon.github.io/datamining)"
+    footer: "[Home page](https://tommasorigon.github.io/StatIII)"
   html:
     html-math-method: katex
     echo: false
@@ -83,6 +83,10 @@ Attributed to [Albert Einstein]{.grey}
 :::
 :::
 
+:::callout-tip
+The content of this Unit is covered in [Chapter 1]{.orange} of @Salvan2020. Alternatively, see [Chapter 2]{.blue} of @Agresti2015 or [Chapter 5]{.grey} of @Azzalini2008.
+:::
+
 # Old friends: linear models
 
 ## Car data ([diesel]{.blue} or [gas]{.orange})
@@ -92,8 +96,8 @@ Attributed to [Albert Einstein]{.grey}
 ```{r}
 #| warning: false
 #| message: false
-#| fig-width: 5
-#| fig-height: 4.5
+#| fig-width: 6
+#| fig-height: 5.5
 library(tidyverse)
 library(broom)
 library(knitr)
@@ -301,7 +305,7 @@ $$
 $$
 The leverage $h_{ii}$ determines the [precision]{.orange} with which $\hat{Y}_i$ predicts $Y_i$. For large $h_{ii}$ close to $1$, $\text{cor}(Y_i, \hat{Y}_i) \approx 1$, therefore changes of a single point $Y_i$ leads to significant changes in $\hat{Y}_i$.
 
-- Leverages appear also in the definition of [standardized residuals]{.orange}:
+- Leverages also appear in the definition of [standardized residuals]{.blue}:
 $$
 \tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
 $$
@@ -309,11 +313,11 @@ where $r_i = y_i - \bm{x}_i^T\hat{\beta}$ are the [residuals]{.orange}.
 
 . . .
  
-- An observation is [influent]{.blue} if it has high leverage and residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
+- An observation is [influent]{.blue} if it has high leverage and squared residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
 $$
 p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
 $$
-The Cook's distance is considered relatively large when $d_i \ge 1$. 
+Cook's distance is considered relatively large when $d_i \ge 1$. 
 
 ## Leverages, outliers and influence points
 
@@ -643,12 +647,9 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)
     the residual plots, which it turns out are identified by the group
     of cars having 2 cylinders.
 
--   The diagnostic plots are also very much improved, although still not
-    perfect.
+-   The diagnostic plots are also very much improved, although still not perfect.
 
--   The estimates are coherent with our expectations, based on common
-    knowledge. Have a look at the textbook (A&S) for a detailed
-    explanation of $\beta_4$!
+-   The estimates are coherent with our expectations, based on common knowledge. Have a look at the book (@Azzalini2012) for a detailed explanation of $\beta_4$!
 
 -   The car dataset is available from the textbook (A&S) website:
 
@@ -780,7 +781,7 @@ The case $\lambda = 1$ corresponds to no transformation, $\lambda= 1/2$ to the s
 
 . . .
 
-- The main idea is to estimate $\lambda$ from the data using [maximum likelihood]{.orange}, so that the data themselves can inform us about the best transformation. We assume
+- We estimate $\lambda$ from the data using [maximum likelihood]{.orange}, so that the data themselves can inform us about the best transformation. We assume
 $$
 g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
 $$
@@ -794,11 +795,7 @@ $$
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
 $$
 
-- The density of the [original data]{.orange} is $f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}$ after accounting for the [Jacobian]{.orange} of the transformation. 
-
-. . .
-
-- The [log-likelihood]{.blue} therefore is
+- The density of the [original data]{.orange} is $f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}$ after accounting for the [Jacobian]{.orange} of the transformation. The [log-likelihood]{.blue} therefore is
 $$
 \ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 $$
@@ -821,9 +818,12 @@ which must be [numerically maximized]{.orange} over $\lambda$, e.g. using `optim
 
 . . .
 
-- Note that Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}, rather than a formal inferential procedure.
+:::callout-tip
+Note that Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}, rather than a formal inferential procedure.
 
-- For instance,the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could be an indication that a square root transformation is appropriate.
+For instance,the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could be an indication that a square root transformation is appropriate.
+:::
+
 
 ## Box-Cox transform for the auto dataset
 
@@ -865,30 +865,25 @@ ggplot(data = augmented_m_box, aes(x = .fitted, y = .resid, col = fuel)) +
 
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
 
-:::callout-tip
-In the case of transformations applied only to the [explanatory variables]{.blue}, the model is
+- In the case of transformations applied only to the [explanatory variables]{.blue}, the model is
 $$
 Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
 $$
-Thus, the coefficients can [no longer]{.orange} be [interpreted]{.orange} as the change in the mean of $Y_i$ corresponding to a [one-unit increase]{.blue} in $\tilde{\bm{x}}_j$, independently of the starting level.
-:::
+Thus, the coefficient $\beta_j$ can [no longer]{.orange} be [interpreted]{.orange} as the change in the mean of $Y_i$ corresponding to a [one-unit increase]{.blue} $x_{ij} \rightarrow x_{ij}+1$ of the $j$th covariate.
 
+. . .
 
-:::callout-tip
-In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However:  
+- In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However:  
 $$
    E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
 $$
 Thus $\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})$ is a [reasonable prediction]{.blue} for $Y_i$ and not an estimate for its mean.
 
-When $g(y) = \log{y}$ this difference can be made explicit, because we have 
+- When $g(y) = \log{y}$ this difference can be made explicit, because we have 
 $$
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
 $$
 the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is the usual [mean]{.blue}.
-:::
-
-# Robustness of the OLS estimator
 
 ## Non-normality of the errors I
 
@@ -900,16 +895,16 @@ the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is t
 
 - The OLS estimate $\hat{\beta}$ is [not]{.orange} anymore the [maximum likelihood]{.orange} estimator, but it [preserves]{.blue} most of its [properties]{.blue} and a [geometric interpretation]{.blue}. 
 
-- In particular, even without normality of the errors **(A.3)** we obtain the usual formulas:
+:::callout-tip
+Under **(A.1)**-**(A.2)**, even without requring normality of the errors **(A.3)**, we obtain the usual formulas:
 $$
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
 $$
+Moreover, because of [Gauss-Markov]{.blue} theorem, the OLS estimator $\hat{\beta}$ is the most [efficient]{.orange} within the class of linear and unbiased estimators ([BLUE]{.blue}) for any distribution of the errors $\bm{\epsilon}$. 
+:::
 
-. . .
 
-- Moreover, the OLS $\hat{\beta}$ remains the most [efficient]{.orange} estimator within the class of linear and unbiased estimators ([BLUE]{.blue}) for any distribution of the errors $\bm{\epsilon}$. 
-
-- In fact, the proof of the [Gauss-Markov theorem]{.blue} requires **(A.1)**-**(A.2)** but not **(A.3)**.
+- In fact, note that the [proof]{.orange} of the Gauss-Markov theorem requires **(A.1)**-**(A.2)** but [not]{.orange} **(A.3)**.
 
 
 ## Non-normality of the errors II
@@ -923,6 +918,8 @@ $$
 \hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
 $$
 from which [confidence intervals]{.blue} and [test statistics]{.blue} can be obtained as usual. The approximation is [excellent]{.orange} if the errors are [symmetric]{.blue} around $0$. 
+
+. . .
 
 :::callout-tip
 [Non-normality]{.blue} of the errors is [not a major concern]{.orange}: the OLS estimator preserves most of its properties, including approximate normality for sufficiently large $n$.
@@ -938,3 +935,7 @@ There is often an [over-emphasis]{.orange} on testing whether the residuals are 
 
 ## A final comment
 
+## References {.unnumbered}
+
+::: {#refs}
+:::
