@@ -57,6 +57,49 @@ div.csl-indent {
 <link href="un_intro_files/libs/bootstrap/bootstrap-252358bd5e41c56bbae4a2085ac3f5af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -70,9 +113,10 @@ div.csl-indent {
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
   <li><a href="#statistics-of-the-20th-century" id="toc-statistics-of-the-20th-century" class="nav-link" data-scroll-target="#statistics-of-the-20th-century">Statistics of the 20th century</a></li>
+  <li><a href="#early-ideas" id="toc-early-ideas" class="nav-link" data-scroll-target="#early-ideas">Early ideas</a></li>
+  <li><a href="#early-ideas-ii" id="toc-early-ideas-ii" class="nav-link" data-scroll-target="#early-ideas-ii">Early ideas II</a></li>
   <li><a href="#generalized-linear-models" id="toc-generalized-linear-models" class="nav-link" data-scroll-target="#generalized-linear-models">Generalized linear models</a></li>
   <li><a href="#quasi-likelihoods" id="toc-quasi-likelihoods" class="nav-link" data-scroll-target="#quasi-likelihoods">Quasi likelihoods</a></li>
-  <li><a href="#nelder1972" id="toc-nelder1972" class="nav-link" data-scroll-target="#nelder1972"><span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (1972)</span></a></li>
   <li><a href="#textbooks" id="toc-textbooks" class="nav-link" data-scroll-target="#textbooks">Textbooks</a></li>
   <li><a href="#exam" id="toc-exam" class="nav-link" data-scroll-target="#exam">Exam</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -133,9 +177,9 @@ div.csl-indent {
 <li><span class="grey">Linear models</span>, from <em>Analisi Statistica Multivariata</em>;</li>
 <li><span class="grey">R software</span>, from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
 </ul></li>
-<li><p>In <em>Statistica III</em> we extend linear models within a general, unified an elegant framework.</p></li>
-<li><p>Indeed, GLMs can be arguably regarded one of the most influential statistical ideas of the XX century.</p></li>
+<li><p>In <em>Statistica III</em> we extend linear models within a unified and elegant framework.</p></li>
 <li><p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at the <span class="blue">M.Sc. at CLAMSES</span>. In <a href="https://tommasorigon.github.io/datamining/">Data Mining</a> I will cover penalized methods and nonparametric regression.</p></li>
+<li><p>Indeed, GLMs can be arguably regarded one of the most influential statistical ideas of the XX century.</p></li>
 </ul>
 </div>
 </div>
@@ -151,43 +195,107 @@ div.csl-indent {
 <li><span class="orange">Biometrika</span> is among the most prestigious journals in Statistics. Past editors include Karl Pearson, Sir David Cox, and Anthony Davison.</li>
 </ul>
 </section>
+<section id="early-ideas" class="level2">
+<h2 class="anchored" data-anchor-id="early-ideas">Early ideas</h2>
+<ul>
+<li><p>Classical linear models and least squares began with the work of <span class="orange">Gauss</span> and <span class="blue">Legendre</span> who applied the method to astronomical data.</p></li>
+<li><p>Their idea, in modern terms, was to <span class="blue">predict the mean</span> of a normal, or Gaussian, distribution as a function of a <span class="orange">covariate</span>: <span class="math display">
+\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i, \qquad i=1,\dots,n.
+</span></p></li>
+</ul>
+<ul>
+<li><p>As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle <span class="blue">proportion data</span> of the form <span class="math inline">Y_i / m</span>.</p></li>
+<li><p>Through some modeling and calculus, Fisher derived a <span class="blue">binomial</span> model for <span class="math inline">Y_i</span>, with <span class="math display">
+\mathbb{E}(Y_i/m) = \pi_i
+= 1 - \exp\{-\exp(\beta_1 + \beta_2 x_i)\},
+\qquad i = 1, \dots, n.
+</span> where <span class="math inline">\pi_i \in (0, 1)</span> is the <span class="orange">probability of success</span> of a binomial distribution.</p></li>
+<li><p>The corresponding inverse relationship is known as the <span class="orange">complementary log-log</span> link function: <span class="math display">
+\beta_1 + \beta_2 x_i = \log\{-\log(1-\pi_i)\}.
+</span></p></li>
+</ul>
+</section>
+<section id="early-ideas-ii" class="level2">
+<h2 class="anchored" data-anchor-id="early-ideas-ii">Early ideas II</h2>
+<ul>
+<li>In the <span class="blue">probit model</span>, developed by Bliss (1935), a <span class="blue">Binomial</span> model for <span class="math inline">Y_i</span> is specified with <span class="math display">
+\mathbb{E}(Y_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
+</span> where <span class="math inline">\Phi(x)</span> is the cumulative distribution function of a Gaussian distribution.</li>
+</ul>
+<ul>
+<li><p>Dyke and Patterson (1952) also considered the case of modelling proportions, but specified <span class="math display">
+\mathbb{E}(Y_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
+</span></p></li>
+<li><p>The corresponding inverse relationship is known as the <span class="orange">logit</span> link function: <span class="math display">
+\beta_1 + \beta_2 x_i = \text{logit}(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right).
+</span> In fact, this approach is currently known as <span class="blue">logistic regression</span>.</p></li>
+</ul>
+<ul>
+<li>See Chapter 1 of <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#ref-McCullagh1989" role="doc-biblioref">1989</a>)</span> for a more exhaustive <span class="blue">historical</span> account, including early ideas about the <span class="orange">Poisson</span> distribution, the multinomial, and more.</li>
+</ul>
+</section>
 <section id="generalized-linear-models" class="level2">
 <h2 class="anchored" data-anchor-id="generalized-linear-models">Generalized linear models</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/Davison7.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:7in"></p>
+<p><img src="img/Davison7.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:6.5in"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/Davison7_5.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:7in"></p>
+<p><img src="img/Davison7_5.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:6.5in"></p>
 </figure>
 </div>
+<ul>
+<li>The <span class="orange">pivotal paper</span> by <span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#ref-Nelder1972" role="doc-biblioref">1972</a>)</span> unified all these approaches.</li>
+</ul>
 </section>
 <section id="quasi-likelihoods" class="level2">
 <h2 class="anchored" data-anchor-id="quasi-likelihoods">Quasi likelihoods</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/Davison8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:7in"></p>
+<p><img src="img/Davison8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:6.5in"></p>
 </figure>
 </div>
 </section>
-<section id="nelder1972" class="level2">
-<h2 class="anchored" data-anchor-id="nelder1972"><span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#ref-Nelder1972" role="doc-biblioref">1972</a>)</span></h2>
-</section>
 <section id="textbooks" class="level2">
 <h2 class="anchored" data-anchor-id="textbooks">Textbooks</h2>
-<ul>
-<li><p>We will use multiple textbooks throughout this course — some more specialized than others. The textbooks</p>
-<ul>
-<li><p>The book by <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span> is the <span class="orange">main textbook</span>. The vast majority of the material in these slides is covered in the book, using a similar notation.</p></li>
-<li><p>The book by <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#ref-Azzalini2008" role="doc-biblioref">2008</a>)</span></p></li>
-<li><p><span class="grey">Generalized linear models</span>: <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>, <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#ref-McCullagh1989" role="doc-biblioref">1989</a>)</span></p></li>
-</ul></li>
-</ul>
+<p>We will use several textbooks throughout this course — some more specialized than others. They are listed in order of importance:</p>
+<ol type="1">
+<li>The book by <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span>, <span class="blue">in Italian</span>, is the <span class="orange">main textbook</span>. Most of the material covered in these slides can be found there. I will also try to follow its notation as closely as possible.</li>
+</ol>
+<ol start="2" type="1">
+<li>The book by <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#ref-Azzalini2008" role="doc-biblioref">2008</a>)</span>, <span class="blue">in Italian</span>, is more concise but very enjoyable to read. I highly recommend browsing through it.</li>
+</ol>
+<ol start="3" type="1">
+<li>The book by <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>, <span class="orange">in English</span>, is comprehensive and extremely well-written. It was the one I consulted most while preparing this course. Its only “drawback” is that it is in English.</li>
+</ol>
+<ol start="4" type="1">
+<li>The book by <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#ref-McCullagh1989" role="doc-biblioref">1989</a>)</span>, <span class="orange">in English</span>, is an <span class="orange">advanced and authoritative textbook</span> intended for experienced statisticians (at least at the M.Sc. level). Feel free to explore it out of curiosity, but it is not a main reference.</li>
+</ol>
 </section>
 <section id="exam" class="level2">
 <h2 class="anchored" data-anchor-id="exam">Exam</h2>
+<ul>
+<li>The written exam has two parts, held on the same day:
+<ul>
+<li><span class="orange">Theory and exercises</span>: questions to assess understanding of concepts<br>
+and the ability to correctly set up a statistical model.<br>
+</li>
+<li><span class="blue">Data set analysis</span>: applied analysis of a dataset using R.</li>
+</ul></li>
+<li>The <span class="grey">overall mark</span> is the average of the two parts.
+<ul>
+<li>You must pass both parts (each <span class="math inline">\geq 18</span>).</li>
+</ul></li>
+<li>The <span class="orange">oral exam</span> is optional:
+<ul>
+<li>Can be requested by the student or the teacher<br>
+</li>
+<li>Final mark = average of written and oral marks</li>
+</ul></li>
+<li>The exam is <span class="orange">closed-book and closed-notes</span>, except for the <span class="blue">R scripts</span> provided at the beginning of the test.</li>
+</ul>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>

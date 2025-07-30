@@ -821,7 +821,7 @@ which must be [numerically maximized]{.orange} over $\lambda$, e.g. using `optim
 . . .
 
 :::callout-tip
-Note that Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}. For instance, the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could indicate that a square root transformation is appropriate.
+Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}. For instance, the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could indicate that a square root transformation is appropriate.
 :::
 
 

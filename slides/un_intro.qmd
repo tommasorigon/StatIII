@@ -69,11 +69,11 @@ editor_options:
   - [Linear models]{.grey}, from _Analisi Statistica Multivariata_;
   - [R software]{.grey}, from [_Analisi Statistica Multivariata_](https://tommasorigon.github.io/introR/).
   
-- In _Statistica III_ we extend linear models within a general, unified an elegant framework. 
-
-- Indeed, GLMs can be arguably regarded one of the most influential statistical ideas of the XX century.
+- In _Statistica III_ we extend linear models within a unified and elegant framework. 
 
 - Regression is such an important topic that the [tour]{.orange} will [continue]{.orange} at the [M.Sc. at CLAMSES]{.blue}. In [Data Mining](https://tommasorigon.github.io/datamining/) I will cover penalized methods and nonparametric regression.
+
+- Indeed, GLMs can be arguably regarded one of the most influential statistical ideas of the XX century.
 :::
 :::
 
@@ -83,31 +83,103 @@ editor_options:
 
 - [Biometrika]{.orange} is among the most prestigious journals in Statistics. Past editors include Karl Pearson, Sir David Cox, and Anthony Davison.
 
+## Early ideas
+
+- Classical linear models and least squares began with the work of [Gauss]{.orange} and [Legendre]{.blue} who applied the method to astronomical data. 
+
+- Their idea, in modern terms, was to [predict the mean]{.blue} of a normal, or Gaussian, distribution as a function of a [covariate]{.orange}: 
+$$
+\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i, \qquad i=1,\dots,n.
+$$
+
+. . .
+
+- As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle [proportion data]{.blue} of the form $Y_i / m$.
+
+- Through some modeling and calculus, Fisher derived a [binomial]{.blue} model for $Y_i$, with
+$$
+\mathbb{E}(Y_i/m) = \pi_i 
+= 1 - \exp\{-\exp(\beta_1 + \beta_2 x_i)\}, 
+\qquad i = 1, \dots, n.
+$$
+where $\pi_i \in (0, 1)$ is the [probability of success]{.orange} of a binomial distribution. 
+
+- The corresponding inverse relationship is known as the [complementary log-log]{.orange} link function: 
+$$
+\beta_1 + \beta_2 x_i = \log\{-\log(1-\pi_i)\}.
+$$
+
+## Early ideas II
+
+- In the [probit model]{.blue}, developed by Bliss (1935), a [Binomial]{.blue} model for $Y_i$ is specified with
+$$
+\mathbb{E}(Y_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
+$$
+where $\Phi(x)$ is the cumulative distribution function of a Gaussian distribution. 
+
+. . .
+
+- Dyke and Patterson (1952) also considered the case of modelling proportions, but specified
+$$
+\mathbb{E}(Y_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
+$$
+
+- The corresponding inverse relationship is known as the [logit]{.orange} link function: 
+$$
+\beta_1 + \beta_2 x_i = \text{logit}(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right).
+$$
+In fact, this approach is currently known as [logistic regression]{.blue}. 
+
+. . .
+
+- See Chapter 1 of @McCullagh1989 for a more exhaustive [historical]{.blue} account, including early ideas about the [Poisson]{.orange} distribution, the multinomial, and more. 
+
 ## Generalized linear models 
 
-![](img/Davison7.png){width=7in fig-align=center}
+![](img/Davison7.png){width=6.5in fig-align=center}
 
-![](img/Davison7_5.png){width=7in fig-align=center}
+![](img/Davison7_5.png){width=6.5in fig-align=center}
+
+- The [pivotal paper]{.orange} by @Nelder1972 unified all these approaches. 
 
 ## Quasi likelihoods
 
-![](img/Davison8.png){width=7in fig-align=center}
-
-## @Nelder1972
+![](img/Davison8.png){width=6.5in fig-align=center}
 
 ## Textbooks
 
-- We will use multiple textbooks throughout this course --- some more specialized than others. The textbooks
+We will use several textbooks throughout this course — some more specialized than others. They are listed in order of importance: 
 
-  - The book by @Salvan2020 is the [main textbook]{.orange}. The vast majority of the material in these slides is covered in the book, using a similar notation.
-  
-  - The book by @Azzalini2008
+1. The book by @Salvan2020, [in Italian]{.blue}, is the [main textbook]{.orange}. Most of the material covered in these slides can be found there. I will also try to follow its notation as closely as possible.  
 
-  - [Generalized linear models]{.grey}: @Agresti2015, @McCullagh1989
+. . .
+
+2. The book by @Azzalini2008, [in Italian]{.blue}, is more concise but very enjoyable to read. I highly recommend browsing through it.  
+
+. . .
+
+3. The book by @Agresti2015, [in English]{.orange}, is comprehensive and extremely well-written. It was the one I consulted most while preparing this course. Its only "drawback" is that it is in English.  
+
+. . .
+
+4. The book by @McCullagh1989, [in English]{.orange}, is an [advanced and authoritative textbook]{.orange}   intended for experienced statisticians (at least at the M.Sc. level). Feel free to explore it out of curiosity, but it is not a main reference.
 
 
 ## Exam
 
+- The written exam has two parts, held on the same day:  
+  - [Theory and exercises]{.orange}: questions to assess understanding of concepts  
+    and the ability to correctly set up a statistical model.  
+  - [Data set analysis]{.blue}: applied analysis of a dataset using R.  
+
+- The [overall mark]{.grey} is the average of the two parts.  
+  - You must pass both parts (each $\geq 18$).  
+
+- The [oral exam]{.orange} is optional:  
+  - Can be requested by the student or the teacher  
+  - Final mark = average of written and oral marks  
+
+- The exam is [closed-book and closed-notes]{.orange}, except for the [R scripts]{.blue} provided at the beginning of the test.
 
 
 ## References {.unnumbered}
