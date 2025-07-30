@@ -943,11 +943,13 @@ $$
 $$
 where $\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)$ is a diagonal matrix with positive entries. 
 
+. . .
+
 - The OLS estimator is still [unbiased]{.orange}, with a [modified covariance]{.blue} structure[^diagonal] 
 $$
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
 $$
-If in addition we assume Gaussianity of the errors, that is $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W})$, then
+If in addition we assume Gaussianity of the errors, that is $\bm{\epsilon} \sim \text{N}_n(0,\bm{\Sigma})$, then
 $$
 \beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
 $$

@@ -1025,15 +1025,19 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <section id="heteroschedasticity-of-the-errors-i" class="slide level2 center">
 <h2>Heteroschedasticity of the errors I</h2>
 <ul>
-<li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoschedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroschedastic errors</span>: <span class="math display">
+<li>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoschedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroschedastic errors</span>: <span class="math display">
 \text{var}(\bm{\epsilon}) = \bm{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
-</span> where <span class="math inline">\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> is a diagonal matrix with positive entries.</p></li>
-<li><p>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<sup>1</sup> <span class="math display">
-\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
-</span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W})</span>, then <span class="math display">
-\beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
-</span> Under suitable but mild conditions on <span class="math inline">\bm{X}</span> and <span class="math inline">\bm{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
+</span> where <span class="math inline">\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> is a diagonal matrix with positive entries.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<sup>1</sup> <span class="math display">
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
+</span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\bm{\Sigma})</span>, then <span class="math display">
+\beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
+</span> Under suitable but mild conditions on <span class="math inline">\bm{X}</span> and <span class="math inline">\bm{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</li>
+</ul>
+</div>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>These results are valid even when the matrix <span class="math inline">\bm{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></li></ol></aside></section>
 <section id="heteroschedasticity-of-the-errors-ii" class="slide level2 center">
 <h2>Heteroschedasticity of the errors II</h2>

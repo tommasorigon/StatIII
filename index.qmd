@@ -61,7 +61,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 | Lab 2 | | | |
 | | **NOTABLE MODELS** | | |
-| **Binary regression** | [Unit F] | [Slides Unit F] | [Code F] |
+| **Binary and binomial regression** | [Unit F] | [Slides Unit F] | [Code F] |
 | Lab 3 | | | |
 | Lab 4 | | | |
 | *Exercises* | [Exercises C] |  |  |
