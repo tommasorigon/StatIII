@@ -350,12 +350,13 @@ Cook's distance is considered relatively large when $d_i \ge 1$.
 
 ## Leverages, outliers and influence points
 
-::: {.panel-tabset}
-
-## Leverage, not outlier
 
 ```{r}
 #| fig-align: center
+#| fig-width: 11
+#| fig-height: 4
+
+par(mfrow = c(1, 3))
 x <- seq(0, 1, length = 30)
 set.seed(12)
 y <- 3 + 3 * x + rnorm(30, 0, 0.5)
@@ -365,34 +366,24 @@ plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance 
 abline(lm(y ~ x), lty = "dashed")
 abline(lm(c(y, 3 + 3*2) ~ c(x, 2)), lty = "dashed", col = "red")
 points(2, 3 + 3*2, col = "red", pch = 16)
-```
 
-## Outlier, not leverage
 
-```{r}
-#| fig-align: center
 dcook <- cooks.distance(lm(c(y, 10) ~ c(x, mean(x))))
 plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 0.42")
 abline(lm(y ~ x), lty = "dashed")
 abline(lm(c(y, 10) ~ c(x, mean(x))), lty = "dashed", col = "red")
 points(mean(x), 10, col = "red", pch = 16)
-```
 
 
-## Influence point (outlier and leverage)
-
-```{r}
-#| fig-align: center
 dcook <- cooks.distance(lm(c(y, 4) ~ c(x, 2)))
 plot(x, y, xlim = c(0, 2.3), ylim = c(2, 12), pch = 16, main = "Cook's distance = 9.88")
 abline(lm(y ~ x), lty = "dashed")
 abline(lm(c(y, 4) ~ c(x, 2)), lty = "dashed", col = "red")
 points(2, 4, col = "red", pch = 16)
+par(mfrow = c(1, 1))
 ```
 
-
-:::
-
+- [Left plot]{.orange}: leverage, not outlier. [Central plot]{.blue}: outlier, not leverage. [Right plot]{.grey}: influence point = leverage + outlier.
 
 ## Car data, a first model
 
