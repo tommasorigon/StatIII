@@ -904,7 +904,7 @@ the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is t
 - The OLS estimate $\hat{\beta}$ is [not]{.orange} anymore the [maximum likelihood]{.orange} estimator, but it [preserves]{.blue} most of its [properties]{.blue} and a [geometric interpretation]{.blue}. 
 
 :::callout-tip
-Under **(A.1)**-**(A.2)**, even without requring normality of the errors **(A.3)**, we obtain the usual formulas:
+Under **(A.1)**-**(A.2)**, even without requiring normality of the errors **(A.3)**, we obtain the usual formulas:
 $$
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
 $$
