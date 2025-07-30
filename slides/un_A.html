@@ -145,17 +145,17 @@ window.Quarto = {
   <li><a href="#variance-stabilizing-transformations-i" id="toc-variance-stabilizing-transformations-i" class="nav-link" data-scroll-target="#variance-stabilizing-transformations-i">Variance stabilizing transformations I</a></li>
   <li><a href="#variance-stabilizing-transformations-ii" id="toc-variance-stabilizing-transformations-ii" class="nav-link" data-scroll-target="#variance-stabilizing-transformations-ii">Variance stabilizing transformations II</a></li>
   <li><a href="#box-cox-transform" id="toc-box-cox-transform" class="nav-link" data-scroll-target="#box-cox-transform">Box-Cox transform</a></li>
-  <li><a href="#profile-likelihood-for-lambda-derivation-i" id="toc-profile-likelihood-for-lambda-derivation-i" class="nav-link" data-scroll-target="#profile-likelihood-for-lambda-derivation-i">Profile likelihood for <span class="math inline">\lambda</span>: derivation I</a></li>
-  <li><a href="#profile-likelihood-for-lambda-derivation-ii" id="toc-profile-likelihood-for-lambda-derivation-ii" class="nav-link" data-scroll-target="#profile-likelihood-for-lambda-derivation-ii">Profile likelihood for <span class="math inline">\lambda</span>: derivation II</a></li>
+  <li><a href="#box-cox-transform-derivation-i" id="toc-box-cox-transform-derivation-i" class="nav-link" data-scroll-target="#box-cox-transform-derivation-i">Box-Cox transform: derivation I</a></li>
+  <li><a href="#box-cox-transform-derivation-ii" id="toc-box-cox-transform-derivation-ii" class="nav-link" data-scroll-target="#box-cox-transform-derivation-ii">Box-Cox transform: derivation II</a></li>
   <li><a href="#box-cox-transform-for-the-auto-dataset" id="toc-box-cox-transform-for-the-auto-dataset" class="nav-link" data-scroll-target="#box-cox-transform-for-the-auto-dataset">Box-Cox transform for the auto dataset</a></li>
   <li><a href="#a-fourth-model-graphical-diagnostics" id="toc-a-fourth-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-fourth-model-graphical-diagnostics">A fourth model: graphical diagnostics</a></li>
   <li><a href="#variable-transformation-a-caveat" id="toc-variable-transformation-a-caveat" class="nav-link" data-scroll-target="#variable-transformation-a-caveat">Variable transformation: a caveat</a></li>
   <li><a href="#non-normality-of-the-errors-i" id="toc-non-normality-of-the-errors-i" class="nav-link" data-scroll-target="#non-normality-of-the-errors-i">Non-normality of the errors I</a></li>
   <li><a href="#non-normality-of-the-errors-ii" id="toc-non-normality-of-the-errors-ii" class="nav-link" data-scroll-target="#non-normality-of-the-errors-ii">Non-normality of the errors II</a></li>
-  <li><a href="#heteroschedasticity-of-the-errors" id="toc-heteroschedasticity-of-the-errors" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors">Heteroschedasticity of the errors</a></li>
-  </ul></li>
-  <li><a href="#weighted-least-squares" id="toc-weighted-least-squares" class="nav-link" data-scroll-target="#weighted-least-squares">Weighted least squares</a>
-  <ul class="collapse">
+  <li><a href="#heteroschedasticity-of-the-errors-i" id="toc-heteroschedasticity-of-the-errors-i" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors-i">Heteroschedasticity of the errors I</a></li>
+  <li><a href="#heteroschedasticity-of-the-errors-ii" id="toc-heteroschedasticity-of-the-errors-ii" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors-ii">Heteroschedasticity of the errors II</a></li>
+  <li><a href="#weighted-least-squares-i" id="toc-weighted-least-squares-i" class="nav-link" data-scroll-target="#weighted-least-squares-i">Weighted least squares I</a></li>
+  <li><a href="#weighted-least-squares-ii" id="toc-weighted-least-squares-ii" class="nav-link" data-scroll-target="#weighted-least-squares-ii">Weighted least squares II</a></li>
   <li><a href="#a-final-comment" id="toc-a-final-comment" class="nav-link" data-scroll-target="#a-final-comment">A final comment</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
@@ -392,8 +392,8 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 <section id="linear-regression-inference" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-inference">Linear regression: inference</h2>
 <ul>
-<li><p>We suppose the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
-<li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> using <span class="math display">
+<li><p>We assume that the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
+<li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> as follows: <span class="math display">
   \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
   </span></p></li>
 <li><p>The <span class="orange">standard errors</span> of the components of <span class="math inline">\hat{\beta}</span> correspond to the square root of the diagonal of the above covariance matrix.</p></li>
@@ -409,16 +409,16 @@ s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\
 <section id="linear-regression-diagnostic" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-diagnostic">Linear regression: diagnostic</h2>
 <ul>
-<li><p>The diagonal elements <span class="math inline">h_{ii} \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
-\text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
-</span> The leverage <span class="math inline">h_{ii}</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_{ii}</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
+<li><p>The diagonal elements <span class="math inline">h_i \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
+\text{var}(\hat{Y}_i) = \sigma^2 h_i, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_i), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_i}.
+</span> The leverage <span class="math inline">h_i</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_i</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
 <li><p>Leverages also appear in the definition of <span class="blue">standardized residuals</span>: <span class="math display">
-\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
-</span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the <span class="orange">residuals</span>.</p></li>
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_i)}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_i)}},
+</span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the (raw) <span class="orange">residuals</span>.</p></li>
 </ul>
 <ul>
 <li>An observation is <span class="blue">influent</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
-p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
+p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{1 - h_i}.
 </span> Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
 </ul>
 </section>
@@ -823,7 +823,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Classical assumptions of a linear model
+Classical assumptions of linear models
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -862,7 +862,7 @@ Classical assumptions of a linear model
 <ul>
 <li>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</li>
 </ul>
-<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -921,17 +921,20 @@ g_{n_i}(y) = \sqrt{n_i}\arcsin\left(\frac{2 y}{n_i} - 1\right),
 </section>
 <section id="box-cox-transform" class="level2">
 <h2 class="anchored" data-anchor-id="box-cox-transform">Box-Cox transform</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-body-container">
+<div class="callout-title-container flex-fill">
+Box-Cox transform
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 </span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
 <p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
-</div>
 </div>
 </div>
 <ul>
@@ -941,24 +944,26 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 <li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
 </ul>
 </section>
-<section id="profile-likelihood-for-lambda-derivation-i" class="level2">
-<h2 class="anchored" data-anchor-id="profile-likelihood-for-lambda-derivation-i">Profile likelihood for <span class="math inline">\lambda</span>: derivation I</h2>
+<section id="box-cox-transform-derivation-i" class="level2">
+<h2 class="anchored" data-anchor-id="box-cox-transform-derivation-i">Box-Cox transform: derivation I</h2>
 <ul>
-<li><p>The distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian: <span class="math display">
+<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
 </span></p></li>
-<li><p>The density of the <span class="orange">original data</span> is <span class="math inline">f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}</span> after accounting for the <span class="orange">Jacobian</span> of the transformation. The <span class="blue">log-likelihood</span> therefore is <span class="math display">
+<li><p>Using standard tools of probability theory, we can obtain the density of the <span class="orange">original data</span>: <span class="math display">
+f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The additional term is the <span class="orange">Jacobian</span> of the transformation.</p></li>
+<li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
 \ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
-</span></p></li>
-<li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
 </span></p></li>
 </ul>
 </section>
-<section id="profile-likelihood-for-lambda-derivation-ii" class="level2">
-<h2 class="anchored" data-anchor-id="profile-likelihood-for-lambda-derivation-ii">Profile likelihood for <span class="math inline">\lambda</span>: derivation II</h2>
+<section id="box-cox-transform-derivation-ii" class="level2">
+<h2 class="anchored" data-anchor-id="box-cox-transform-derivation-ii">Box-Cox transform: derivation II</h2>
 <ul>
-<li><p>The <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span> admits a very simple expression, namely <span class="math display">
+<li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
+\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
+</span></p></li>
+<li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
 \ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
 </span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
 <li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
@@ -969,8 +974,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Note that Box and Cox themselves suggested using this approach as an <span class="blue">exploratory tool</span>, rather than a formal inferential procedure.</p>
-<p>For instance,the optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> may be <span class="orange">hard to interpret</span> but it could be an indication that a square root transformation is appropriate.</p>
+<p>Note that Box and Cox themselves suggested using this approach as an <span class="blue">exploratory tool</span>. For instance, the optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> may be <span class="orange">hard to interpret</span> but it could indicate that a square root transformation is appropriate.</p>
 </div>
 </div>
 </div>
@@ -981,7 +985,7 @@ f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="un_A_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+<p><img src="un_A_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1750"></p>
 </figure>
 </div>
 </div>
@@ -1068,14 +1072,97 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </div>
 </div>
 </section>
-<section id="heteroschedasticity-of-the-errors" class="level2">
-<h2 class="anchored" data-anchor-id="heteroschedasticity-of-the-errors">Heteroschedasticity of the errors</h2>
+<section id="heteroschedasticity-of-the-errors-i" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="heteroschedasticity-of-the-errors-i">Heteroschedasticity of the errors I</h2>
+<ul>
+<li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoschedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroschedastic errors</span>: <span class="math display">
+\text{var}(\bm{\epsilon}) = \bm{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
+</span> where <span class="math inline">\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> is a diagonal matrix with positive entries.</p></li>
+<li><p>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math display">
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
+</span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W})</span>, then <span class="math display">
+\beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
+</span> Under suitable but mild conditions on <span class="math inline">\bm{X}</span> and <span class="math inline">\bm{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
+</ul>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;These results are valid even when the matrix <span class="math inline">\bm{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></div></div></section>
+<section id="heteroschedasticity-of-the-errors-ii" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="heteroschedasticity-of-the-errors-ii">Heteroschedasticity of the errors II</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The OLS estimator in presence of heteroschedasticity still gives a <span class="blue">good point estimate</span>. However, the OLS estimator is <span class="orange">not efficient</span> and the classical <span class="orange">standard errors</span> are <span class="orange">wrong</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>A potential approach is to <span class="orange">accept the inefficiency</span> of the OLS estimator in this scenario and <span class="blue">correct</span> the standard errors.</p></li>
+<li><p>The elements of <span class="math inline">\bm{\Sigma}</span> are <span class="orange">unknown</span>, but we can estimate them from the data. Note that <span class="math display">
+\text{var}(r_i) = \text{var}(y_i - \bm{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
+</span> suggesting the <span class="blue">estimate</span> <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
+<li><p>This leads to the so-called <span class="orange">sandwich estimator</span> of the covariance matrix: <span class="math display">
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1})
+</span> where <span class="math inline">\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)</span> and <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)</span>.</p></li>
+<li><p>These are known as <span class="blue">White’s</span> heteroscedasticity-consistent <span class="blue">standard errors</span>. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p></li>
+</ul>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;White originally proposed the simpler version <span class="math inline">\hat{w}_i = r_i^2</span>. Another variant is <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)^2</span>.</p></div></div></section>
+<section id="weighted-least-squares-i" class="level2">
+<h2 class="anchored" data-anchor-id="weighted-least-squares-i">Weighted least squares I</h2>
+<ul>
+<li><p>Let us consider again the case of <span class="blue">heteroschedastic errors</span>: <span class="math display">
+\text{var}(\bm{\epsilon}) = \sigma^2\bm{W}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{w_i}, \quad i=1,\dots,n
+</span> where <span class="math inline">\bm{W} = \text{diag}(w_1,\dots,w_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">w_1,\dots,w_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
+<li><p>Let us define the <span class="orange">standardized</span> quantities: <span class="math display">
+\bm{Y}^* = \bm{W}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{W}^{1/2}\bm{X}.
+</span> This is equivalent to say that <span class="math inline">Y_i^* = \sqrt{w_i} Y_i</span> and <span class="math inline">x_{ij}^* = \sqrt{w_i} x_{ij}</span>. Then, it is easy to show that <span class="math display">
+\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{W}^{1/2}\bm{W}^{-1}\bm{W}^{1/2}= \sigma^2 I_n,
+</span> namely the <span class="orange">assumptions</span> <strong>(A.1)</strong> and <strong>(A.2)</strong> are valid in the <span class="blue">transformed scale</span>.</p></li>
+<li><p>In other words, <span class="orange">after</span> a suitable <span class="orange">transformation</span>, we reconducted the problem to a <span class="blue">standard linear model</span>.</p></li>
+</ul>
 </section>
+<section id="weighted-least-squares-ii" class="level2">
+<h2 class="anchored" data-anchor-id="weighted-least-squares-ii">Weighted least squares II</h2>
+<ul>
+<li><p>Thus an estimator for <span class="math inline">\beta</span>, based on the transformed data, is obtained minimizing the deviance <span class="math display">
+\begin{aligned}
+D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{W}(\bm{y} - \bm{X}\beta) \\
+&amp;=\sum_{i=1}^n w_i (y_i - \bm{x}_i^T\beta)^2.
+\end{aligned}
+</span> which is a <span class="orange">weighted</span> version of the original <span class="blue">quadratic loss</span>, with <span class="orange">high weight = low variance</span>.</p></li>
+<li><p>The resulting OLS estimate minimizing <span class="math inline">D_\text{wls}(\beta)</span> in the transformed and original scales is <span class="math display">
+\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}^T\bm{W}\bm{y}
+</span> and it is referred to as <span class="blue">weighted least squares</span> estimator of <span class="math inline">\beta</span>.</p></li>
+<li><p>Such an estimator is <span class="orange">unbiased</span> and <span class="orange">efficient</span> (<span class="blue">BLUE</span>), with <span class="math display">
+\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{W}\bm{X})^{-1}.
+</span> Moreover, if <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})</span> it also coincides with the <span class="orange">maximum likelihood</span> estimator.</p></li>
+</ul>
 </section>
-<section id="weighted-least-squares" class="level1">
-<h1>Weighted least squares</h1>
 <section id="a-final-comment" class="level2">
 <h2 class="anchored" data-anchor-id="a-final-comment">A final comment</h2>
+<ul>
+<li>So far we described several methods for <span class="blue">handling misspecification</span> of the <span class="blue">linear model</span>, but some cases remain <span class="orange">partially unsolved</span>.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(\pi, n_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
+<ul>
+<li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
+<li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">n_i \rightarrow \infty</span>.</li>
+</ul>
+<p>Besides, this transform is clearly not applicable when <span class="math inline">n_i = 1</span> and <span class="math inline">Y_i \in \{0, 1\}</span>, a very common problem called <span class="orange">binary regression</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>If we know that <span class="math inline">Y_i</span> follows, say, a Bernoulli or a Gamma distribution, then we should use the <span class="blue">appropriate likelihood</span> rather than a <span class="orange">Gaussian approximation</span>.</p></li>
+<li><p>This is what <span class="blue">Generalized Linear Models</span> are for, providing a <span class="orange">much more elegant solution</span> to the above problem.</p></li>
+</ul>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>

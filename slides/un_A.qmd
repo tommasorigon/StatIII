@@ -299,9 +299,9 @@ where $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
 
 ## Linear regression: inference
 
-- We suppose the errors $\bm{\epsilon}$ have zero mean $\mathbb{E}(\bm{\epsilon}) = 0$ and are [uncorrelated]{.orange} $\text{var}(\bm{\epsilon}) = \sigma^2I_n$.
+- We assume that the errors $\bm{\epsilon}$ have zero mean $\mathbb{E}(\bm{\epsilon}) = 0$ and are [uncorrelated]{.orange} $\text{var}(\bm{\epsilon}) = \sigma^2I_n$.
 
-- Then, the estimator $\hat{\beta}$ is [unbiased]{.orange} $\mathbb{E}(\hat{\beta}) = \beta$ and its [variance]{.blue} is $\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}$. Since $\sigma^2$ is also unknown, we can estimate the variances of $\hat{\beta}$ using $$
+- Then, the estimator $\hat{\beta}$ is [unbiased]{.orange} $\mathbb{E}(\hat{\beta}) = \beta$ and its [variance]{.blue} is $\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}$. Since $\sigma^2$ is also unknown, we can estimate the variances of $\hat{\beta}$ as follows: $$
     \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
     $$
 
@@ -327,23 +327,23 @@ where $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
 
 ## Linear regression: diagnostic
 
-- The diagonal elements $h_{ii} \in [0, 1]$ of the matrix $\bm{H}$ are called [leverages]{.blue} and it holds
+- The diagonal elements $h_i \in [0, 1]$ of the matrix $\bm{H}$ are called [leverages]{.blue} and it holds
 $$
-\text{var}(\hat{Y}_i) = \sigma^2 h_{ii}, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_{ii}), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_{ii}}.
+\text{var}(\hat{Y}_i) = \sigma^2 h_i, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_i), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_i}.
 $$
-The leverage $h_{ii}$ determines the [precision]{.orange} with which $\hat{Y}_i$ predicts $Y_i$. For large $h_{ii}$ close to $1$, $\text{cor}(Y_i, \hat{Y}_i) \approx 1$, therefore changes of a single point $Y_i$ leads to significant changes in $\hat{Y}_i$.
+The leverage $h_i$ determines the [precision]{.orange} with which $\hat{Y}_i$ predicts $Y_i$. For large $h_i$ close to $1$, $\text{cor}(Y_i, \hat{Y}_i) \approx 1$, therefore changes of a single point $Y_i$ leads to significant changes in $\hat{Y}_i$.
 
 - Leverages also appear in the definition of [standardized residuals]{.blue}:
 $$
-\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_{ii})}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_{ii})}},
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_i)}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_i)}},
 $$
-where $r_i = y_i - \bm{x}_i^T\hat{\beta}$ are the [residuals]{.orange}.
+where $r_i = y_i - \bm{x}_i^T\hat{\beta}$ are the (raw) [residuals]{.orange}.
 
 . . .
  
 - An observation is [influent]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
 $$
-p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_{ii}}{1 - h_{ii}}.
+p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{1 - h_i}.
 $$
 Cook's distance is considered relatively large when $d_i \ge 1$. 
 
@@ -662,13 +662,14 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)
 ## Assumptions and misspecification
 
 :::callout-note
-#### Classical assumptions of a linear model
 
-  - **(A.1)** [Linear structure]{.blue}, namely $\bm{Y} = \bm{X}\beta + \bm{\epsilon}$ with $\mathbb{E}(\bm{\epsilon}) = 0$, implying $\mathbb{E}(\bm{Y}) = \bm{X}\beta$. [^err1] 
+#### Classical assumptions of linear models
+
+- **(A.1)** [Linear structure]{.blue}, namely $\bm{Y} = \bm{X}\beta + \bm{\epsilon}$ with $\mathbb{E}(\bm{\epsilon}) = 0$, implying $\mathbb{E}(\bm{Y}) = \bm{X}\beta$. [^err1] 
   
-  - **(A.2)** [Homoschedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$.
+- **(A.2)** [Homoschedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$.
   
-  - **(A.3)** [Gaussianity]{.grey}, namely $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)$. In other words, the errors $\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)$ are iid Gaussian random variables with zero mean and variance $\sigma^2$.
+- **(A.3)** [Gaussianity]{.grey}, namely $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)$. In other words, the errors $\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)$ are iid Gaussian random variables with zero mean and variance $\sigma^2$.
 
 It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is not identifiable.
 :::
@@ -699,7 +700,7 @@ It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is n
 
 - The first remedy for [misspecification]{.orange} was implicitly applied in the analysis of the car dataset, namely through [variable transformation]{.blue}.
 
-:::callout-note
+:::callout-tip
 While the model may have been incorrectly specified for the original data, it could become [appropriate]{.blue} once the [transformations]{.orange} are considered, namely
 $$
 g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
@@ -770,6 +771,8 @@ $$
 ## Box-Cox transform
 
 :::callout-note
+#### Box-Cox transform
+
 If the data are $y_i$ are [positive]{.orange}, we may consider a [parametric class]{.blue} of transformations:
 $$
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
@@ -788,27 +791,34 @@ $$
 
 - The aim of the transformation is to produce a response for which the [variance]{.blue} of $\epsilon_i$ is [constant]{.blue} with an [approximately normal]{.orange} distribution. 
 
-## Profile likelihood for $\lambda$: derivation I
+## Box-Cox transform: derivation I
 
-- The distribution of the [transformed data]{.blue} $\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian:
+- By assumption, the distribution of the [transformed data]{.blue} $\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian, therefore their joint density is
 $$
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
 $$
 
-- The density of the [original data]{.orange} is $f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}$ after accounting for the [Jacobian]{.orange} of the transformation. The [log-likelihood]{.blue} therefore is
+- Using standard tools of probability theory, we can obtain the density of the [original data]{.orange}: 
+$$
+f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.$$
+The additional term is the [Jacobian]{.orange} of the transformation. 
+
+- The [log-likelihood]{.blue} therefore is
 $$
 \ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 $$
+
+
+
+## Box-Cox transform: derivation II
+
 
 - Note that, for any given value of $\lambda$, the maximum likelihood estimates are 
 $$
 \hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
 $$
 
-## Profile likelihood for $\lambda$: derivation II
-
-
-- The [profile log-likelihood]{.blue} for $\lambda$ admits a very simple expression, namely
+- We can [plug-in]{.orange} the above estimates into the log-likelihood. This gives the [profile log-likelihood]{.blue} for $\lambda$, which admits a very simple expression:
 $$
 \ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
 $$
@@ -819,9 +829,7 @@ which must be [numerically maximized]{.orange} over $\lambda$, e.g. using `optim
 . . .
 
 :::callout-tip
-Note that Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}, rather than a formal inferential procedure.
-
-For instance,the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could be an indication that a square root transformation is appropriate.
+Note that Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}. For instance, the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could indicate that a square root transformation is appropriate.
 :::
 
 
@@ -830,8 +838,8 @@ For instance,the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to inter
 ```{r}
 #| echo: false
 #| fig-align: center
-#| fig-width: 7.8
-#| fig-height: 6.55
+#| fig-width: 7
+#| fig-height: 6
 m_box <- lm(city.distance ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
 MASS::boxcox(m_box)
 ```
@@ -927,13 +935,111 @@ from which [confidence intervals]{.blue} and [test statistics]{.blue} can be obt
 There is often an [over-emphasis]{.orange} on testing whether the residuals are Gaussian. However, even if normality is rejected, the practical implications are minimal.
 :::
 
-## Heteroschedasticity of the errors
+## Heteroschedasticity of the errors I
+
+- Suppose now that the linearity assumption **(A.1)** is valid but [homoschedasticity]{.orange} of the errors **(A.2)** is [not]{.orange}. Instead, we consider [heteroschedastic errors]{.blue}:
+$$
+\text{var}(\bm{\epsilon}) = \bm{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
+$$
+where $\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)$ is a diagonal matrix with positive entries. 
+
+- The OLS estimator is still [unbiased]{.orange}, with a [modified covariance]{.blue} structure[^diagonal] 
+$$
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
+$$
+If in addition we assume Gaussianity of the errors, that is $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W})$, then
+$$
+\beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
+$$
+Under suitable but mild conditions on $\bm{X}$ and $\bm{\Sigma}$, the estimator is also [consistent]{.orange}. 
 
 
+[^diagonal]: These results are valid even when the matrix $\bm{\Sigma}$ is non-diagonal. This is useful to model correlated responses. 
 
-# Weighted least squares
+## Heteroschedasticity of the errors II
+
+:::callout-tip
+The OLS estimator in presence of heteroschedasticity still gives a [good point estimate]{.blue}. However, the OLS estimator is [not efficient]{.orange} and the classical [standard errors]{.orange} are [wrong]{.orange}. 
+:::
+
+- A potential approach is to [accept the inefficiency]{.orange} of the OLS estimator in this scenario and [correct]{.blue} the standard errors.
+
+- The elements of $\bm{\Sigma}$ are [unknown]{.orange}, but we can estimate them from the data. Note that
+$$
+\text{var}(r_i) = \text{var}(y_i - \bm{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
+$$
+suggesting the [estimate]{.blue} $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)$. 
+
+- This leads to the so-called [sandwich estimator]{.orange} of the covariance matrix:
+$$
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1})
+$$
+where $\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $\hat{w}_i = r_i^2 / (1 - h_i)$. 
+
+- These are known as [White's]{.blue} heteroscedasticity-consistent [standard errors]{.blue}. [^white]
+
+[^white]: White originally proposed the simpler version $\hat{w}_i = r_i^2$. Another variant is $\hat{w}_i = r_i^2 / (1 - h_i)^2$. 
+
+## Weighted least squares I
+
+- Let us consider again the case of [heteroschedastic errors]{.blue}:
+$$
+\text{var}(\bm{\epsilon}) = \sigma^2\bm{W}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{w_i}, \quad i=1,\dots,n
+$$
+where $\bm{W} = \text{diag}(w_1,\dots,w_n)$ are positive [weights]{.orange}. However, here we assume that the weights $w_1,\dots,w_n$ are [known]{.blue}, a common situation in survey design. 
+
+- Let us define the [standardized]{.orange} quantities:
+$$
+\bm{Y}^* = \bm{W}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{W}^{1/2}\bm{X}. 
+$$
+This is equivalent to say that $Y_i^* = \sqrt{w_i} Y_i$ and $x_{ij}^* = \sqrt{w_i} x_{ij}$. Then, it is easy to show that
+$$
+\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{W}^{1/2}\bm{W}^{-1}\bm{W}^{1/2}= \sigma^2 I_n,
+$$
+namely the [assumptions]{.orange} **(A.1)** and **(A.2)** are valid in the [transformed scale]{.blue}.
+
+- In other words, [after]{.orange} a suitable [transformation]{.orange}, we reconducted the problem to a [standard linear model]{.blue}. 
+
+## Weighted least squares II
+
+- Thus an estimator for $\beta$, based on the transformed data, is obtained minimizing the deviance
+$$
+\begin{aligned}
+D_\text{wls}(\beta) &= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{W}(\bm{y} - \bm{X}\beta) \\
+&=\sum_{i=1}^n w_i (y_i - \bm{x}_i^T\beta)^2.
+\end{aligned}
+$$
+which is a [weighted]{.orange} version of the original [quadratic loss]{.blue}, with [high weight = low variance]{.orange}.
+
+- The resulting OLS estimate minimizing $D_\text{wls}(\beta)$ in the transformed and original scales is
+$$
+\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}^T\bm{W}\bm{y} 
+$$
+and it is referred to as [weighted least squares]{.blue} estimator of $\beta$.
+
+- Such an estimator is [unbiased]{.orange} and [efficient]{.orange} ([BLUE]{.blue}), with
+$$
+\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{W}\bm{X})^{-1}.
+$$
+Moreover, if $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})$ it also coincides with the [maximum likelihood]{.orange} estimator. 
 
 ## A final comment
+
+- So far we described several methods for [handling misspecification]{.blue} of the [linear model]{.blue}, but some cases remain [partially unsolved]{.orange}.
+
+:::callout-tip
+Suppose $Y_i \sim \text{Binomial}(\pi, n_i)$. The variance stabilizing transformation is not fully satisfactory:
+
+  - It [complicates]{.orange} the [interpretation]{.orange}, because it models $\mathbb{E}\{g(Y_i)\}$ instead of $\mathbb{E}(Y_i)$;
+  - It is an [asymptotic approximation]{.blue}, and is only valid for $n_i \rightarrow \infty$.
+
+Besides, this transform is clearly not applicable when $n_i = 1$ and $Y_i \in \{0, 1\}$, a very common problem called [binary regression]{.orange}.
+:::
+
+- If we know that $Y_i$ follows, say, a Bernoulli or a Gamma distribution, then we should use the [appropriate likelihood]{.blue} rather than a [Gaussian approximation]{.orange}. 
+
+- This is what [Generalized Linear Models]{.blue} are for, providing a [much more elegant solution]{.orange} to the above problem. 
+
 
 ## References {.unnumbered}
 
