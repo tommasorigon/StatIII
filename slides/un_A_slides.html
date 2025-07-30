@@ -195,6 +195,7 @@
 </ul></li>
 <li><p>The main theme is: what should we do when the <span class="blue">assumptions</span> of linear models are <span class="orange">violated</span>?</p></li>
 <li><p>We will push the linear model to its limit, using it even when is not supposed to work.</p></li>
+<li><p>The symbol 📖 means that a few extra steps are discussed in the <span class="blue">handwritten notes</span>.</p></li>
 </ul>
 </div></div>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -291,7 +292,7 @@ f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z =
 <div class="callout callout-note no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Definition (Linear model)</strong></p>
+<p><strong>Linear model</strong></p>
 </div>
 <div class="callout-content">
 <p>In a <span class="blue">linear model</span> the response variable <span class="math inline">Y_i</span> is related to the covariates through the function<span class="math display">
@@ -846,7 +847,7 @@ g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qqu
 </div>
 </section>
 <section id="variance-stabilizing-transformations-i" class="slide level2 center">
-<h2>Variance stabilizing transformations I</h2>
+<h2>Variance stabilizing transformations I 📖</h2>
 <ul>
 <li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
@@ -869,7 +870,7 @@ g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\q
 </div>
 </section>
 <section id="variance-stabilizing-transformations-ii" class="slide level2 center">
-<h2>Variance stabilizing transformations II</h2>
+<h2>Variance stabilizing transformations II 📖</h2>
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 <ul>
 <li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, n_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">n_i</span>. For large values of <span class="math inline">n_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
@@ -912,7 +913,7 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 </div>
 </section>
 <section id="box-cox-transform-derivation-i" class="slide level2 center">
-<h2>Box-Cox transform: derivation I</h2>
+<h2>Box-Cox transform: derivation I 📖</h2>
 <ul>
 <li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
 f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
@@ -925,7 +926,7 @@ f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The addit
 </ul>
 </section>
 <section id="box-cox-transform-derivation-ii" class="slide level2 center">
-<h2>Box-Cox transform: derivation II</h2>
+<h2>Box-Cox transform: derivation II 📖</h2>
 <ul>
 <li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
 \hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
@@ -959,7 +960,7 @@ f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The addit
 
 <img data-src="un_A_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
 <section id="variable-transformation-a-caveat" class="slide level2 center">
-<h2>Variable transformation: a caveat</h2>
+<h2>Variable transformation: a caveat 📖</h2>
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
 <ul>
 <li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
@@ -979,7 +980,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </div>
 </section>
 <section id="non-normality-of-the-errors-i" class="slide level2 center">
-<h2>Non-normality of the errors I</h2>
+<h2>Non-normality of the errors I 📖</h2>
 <ul>
 <li><p>Let us consider the case in which assumptions <strong>(A.1)</strong>-<strong>(A.2)</strong> are <span class="blue">valid</span> but <strong>(A.3)</strong> <span class="orange">is not</span>, that is <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>, but <span class="math inline">\epsilon</span> does <span class="orange">not</span> follow <span class="orange">a Gaussian</span> distribution.</p></li>
 <li><p>For example, <span class="math inline">\epsilon_i</span> may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student’s t distribution, etc.</p></li>
@@ -1023,7 +1024,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </div>
 </section>
 <section id="heteroschedasticity-of-the-errors-i" class="slide level2 center">
-<h2>Heteroschedasticity of the errors I</h2>
+<h2>Heteroschedasticity of the errors I 📖</h2>
 <ul>
 <li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoschedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroschedastic errors</span>: <span class="math display">
 \text{var}(\bm{\epsilon}) = \bm{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
@@ -1036,7 +1037,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>These results are valid even when the matrix <span class="math inline">\bm{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></li></ol></aside></section>
 <section id="heteroschedasticity-of-the-errors-ii" class="slide level2 center">
-<h2>Heteroschedasticity of the errors II</h2>
+<h2>Heteroschedasticity of the errors II 📖</h2>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -1056,7 +1057,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn3"><p>White originally proposed the simpler version <span class="math inline">\hat{\sigma}^2_i = r_i^2</span>. Another variant is <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)^2</span>.</p></li></ol></aside></section>
 <section id="weighted-least-squares-i" class="slide level2 center">
-<h2>Weighted least squares I</h2>
+<h2>Weighted least squares I 📖</h2>
 <ul>
 <li><p>Let us consider again the case of <span class="blue">heteroschedastic errors</span>: <span class="math display">
 \text{var}(\bm{\epsilon}) = \sigma^2\bm{W}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{w_i}, \quad i=1,\dots,n
@@ -1070,7 +1071,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 </ul>
 </section>
 <section id="weighted-least-squares-ii" class="slide level2 center">
-<h2>Weighted least squares II</h2>
+<h2>Weighted least squares II 📖</h2>
 <ul>
 <li><p>Thus an estimator for <span class="math inline">\beta</span>, based on the transformed data, is obtained minimizing the deviance <span class="math display">
 \begin{aligned}

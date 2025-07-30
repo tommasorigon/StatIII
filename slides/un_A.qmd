@@ -9,7 +9,7 @@ citeproc: true
 csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
 reference-location: margin
 execute:
-  cache: false
+  cache: true
 filters: 
   - remove-pause.lua
 format:
@@ -80,6 +80,7 @@ Attributed to [Albert Einstein]{.grey}
 
 - We will push the linear model to its limit, using it even when is not supposed to work. 
 
+- The symbol 📖 means that a few extra steps are discussed in the [handwritten notes]{.blue}. 
 :::
 :::
 
@@ -214,7 +215,7 @@ ggplot(data = auto, aes(x = engine.size, y = city.distance, col = fuel)) +
 . . .
 
 ::: callout-note
-#### Definition (Linear model)
+#### Linear model
 
 In a [linear model]{.blue} the response variable $Y_i$ is related to the
 covariates through the function$$
@@ -720,7 +721,7 @@ where $g(\cdot)$ and $h_j(\cdot)$ for $j=1,\dots,p$ are [non-linear]{.orange} an
 
 <!-- - Here we consider two general approaches for selecting the function $g(\cdot)$: variance stabilizing transformations and the Box-Cox transform.   -->
 
-## Variance stabilizing transformations I
+## Variance stabilizing transformations I 📖
 
 - Let $Y_i \sim \text{Poisson}(\mu_i)$ with mean $\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)$. Note that $$
 Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
@@ -745,7 +746,7 @@ $$
 \text{var}(\sqrt{Y_i}) \approx \left(\frac{1}{2\sqrt{\mu_i}}\right)^2\mu_i = \frac{1}{4}.
 $$
 
-## Variance stabilizing transformations II
+## Variance stabilizing transformations II 📖
 
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 
@@ -791,7 +792,7 @@ $$
 
 - The aim of the transformation is to produce a response for which the [variance]{.blue} of $\epsilon_i$ is [constant]{.blue} with an [approximately normal]{.orange} distribution. 
 
-## Box-Cox transform: derivation I
+## Box-Cox transform: derivation I 📖
 
 - By assumption, the distribution of the [transformed data]{.blue} $\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian, therefore their joint density is
 $$
@@ -810,7 +811,7 @@ $$
 
 
 
-## Box-Cox transform: derivation II
+## Box-Cox transform: derivation II 📖
 
 
 - Note that, for any given value of $\lambda$, the maximum likelihood estimates are 
@@ -869,7 +870,7 @@ ggplot(data = augmented_m_box, aes(x = .fitted, y = .resid, col = fuel)) +
   ylab("Residuals")
 ```
 
-## Variable transformation: a caveat
+## Variable transformation: a caveat 📖
 
 <!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
 
@@ -893,7 +894,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 $$
 the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is the usual [mean]{.blue}.
 
-## Non-normality of the errors I
+## Non-normality of the errors I 📖
 
 - Let us consider the case in which assumptions **(A.1)**-**(A.2)** are [valid]{.blue} but **(A.3)** [is not]{.orange}, that is $\mathbb{E}(\bm{\epsilon}) = 0$ and $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$, but $\epsilon$ does [not]{.orange} follow [a Gaussian]{.orange} distribution. 
 
@@ -935,7 +936,7 @@ from which [confidence intervals]{.blue} and [test statistics]{.blue} can be obt
 There is often an [over-emphasis]{.orange} on testing whether the residuals are Gaussian. However, even if normality is rejected, the practical implications are minimal.
 :::
 
-## Heteroschedasticity of the errors I
+## Heteroschedasticity of the errors I 📖
 
 - Suppose now that the linearity assumption **(A.1)** is valid but [homoschedasticity]{.orange} of the errors **(A.2)** is [not]{.orange}. Instead, we consider [heteroschedastic errors]{.blue}:
 $$
@@ -956,7 +957,7 @@ Under suitable but mild conditions on $\bm{X}$ and $\bm{\Sigma}$, the estimator 
 
 [^diagonal]: These results are valid even when the matrix $\bm{\Sigma}$ is non-diagonal. This is useful to model correlated responses. 
 
-## Heteroschedasticity of the errors II
+## Heteroschedasticity of the errors II 📖
 
 :::callout-tip
 The OLS estimator in presence of heteroschedasticity still gives a [good point estimate]{.blue}. However, the OLS estimator is [not efficient]{.orange} and the classical [standard errors]{.orange} are [wrong]{.orange}. 
@@ -980,7 +981,7 @@ where $\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $\hat{w}_
 
 [^white]: White originally proposed the simpler version $\hat{\sigma}^2_i = r_i^2$. Another variant is $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)^2$. 
 
-## Weighted least squares I
+## Weighted least squares I 📖
 
 - Let us consider again the case of [heteroschedastic errors]{.blue}:
 $$
@@ -1000,7 +1001,7 @@ namely the [assumptions]{.orange} **(A.1)** and **(A.2)** are valid in the [tran
 
 - In other words, [after]{.orange} a suitable [transformation]{.orange}, we reconducted the problem to a [standard linear model]{.blue}. 
 
-## Weighted least squares II
+## Weighted least squares II 📖
 
 - Thus an estimator for $\beta$, based on the transformed data, is obtained minimizing the deviance
 $$
