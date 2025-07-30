@@ -943,8 +943,6 @@ $$
 $$
 where $\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)$ is a diagonal matrix with positive entries. 
 
-. . .
-
 - The OLS estimator is still [unbiased]{.orange}, with a [modified covariance]{.blue} structure[^diagonal] 
 $$
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
@@ -980,7 +978,7 @@ where $\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $\hat{w}_
 
 - These are known as [White's]{.blue} heteroscedasticity-consistent [standard errors]{.blue}. [^white]
 
-[^white]: White originally proposed the simpler version $\hat{w}_i = r_i^2$. Another variant is $\hat{w}_i = r_i^2 / (1 - h_i)^2$. 
+[^white]: White originally proposed the simpler version $\hat{\sigma}^2_i = r_i^2$. Another variant is $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)^2$. 
 
 ## Weighted least squares I
 
