@@ -188,13 +188,13 @@
 <li><p>This unit will cover the following <span class="orange">topics</span>:</p>
 <ul>
 <li>Exponential dispersion families</li>
-<li>Likelihood, inference and testing</li>
+<li>Likelihood, inference, and testing</li>
 <li>Iteratively Re-weighted Least Squares (IRLS)</li>
 <li>Deviance, model checking, and residuals</li>
 <li>Model selection</li>
 </ul></li>
-<li><p>GLMs are regression models with a linear predictor in which the response variable is distributed according to an <span class="blue">exponential dispersion family</span>.</p></li>
-<li><p>This Unit covers the <span class="orange">theoretical backbone</span> of GLMs.</p></li>
+<li><p>GLMs are regression models with a linear predictor, where the response variable follows an <span class="blue">exponential dispersion family</span>.</p></li>
+<li><p>The symbol 📖 means that a few extra steps are discussed in the <span class="blue">handwritten notes</span>.</p></li>
 </ul>
 </div></div>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -213,21 +213,22 @@
 <section id="preliminaries" class="slide level2 center">
 <h2>Preliminaries</h2>
 <ul>
-<li><p>GLMs are a class of <span class="blue">regression models</span> where we describe a <span class="orange">response</span> random variable <span class="math inline">Y_i</span> as a function of a vector of <span class="grey">covariates</span> <span class="math inline">\bm{x}_i \in \mathbb{R}^p</span>.</p></li>
-<li><p>The random variables <span class="math inline">Y_i</span> are not restricted to be Gaussian. For example, we may have</p>
+<li><p>GLMs are a class of <span class="blue">regression models</span> in which a <span class="orange">response</span> random variable <span class="math inline">Y_i</span> is modeled as a function of a vector of <span class="grey">covariates</span> <span class="math inline">\bm{x}_i \in \mathbb{R}^p</span>.</p></li>
+<li><p>The random variables <span class="math inline">Y_i</span> are not restricted to be Gaussian. For example:</p>
 <ul>
-<li><span class="math inline">Y_i \in \{0,1\}</span>, often called <span class="blue">binary regression</span><br>
+<li><span class="math inline">Y_i \in \{0,1\}</span>, known as <span class="blue">binary regression</span><br>
 </li>
-<li><span class="math inline">Y_i \in \{0,1,\dots\}</span>, often called <span class="orange">count regression</span><br>
+<li><span class="math inline">Y_i \in \{0,1,\dots\}</span>, known as <span class="orange">count regression</span><br>
 </li>
 <li><span class="math inline">Y_i \in (0,\infty)</span> or <span class="math inline">Y_i \in (-\infty,\infty)</span></li>
 </ul></li>
-<li><p>Gaussian linear models form a special case of GLMs, arising when <span class="math inline">Y_i \in (-\infty,\infty)</span></p></li>
+<li><p>Gaussian linear models are a special case of GLMs, arising when <span class="math inline">Y_i \in (-\infty,\infty)</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>The <span class="orange">response random variables</span> are collected in the random vector <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)^T</span>, whose <span class="blue">observed realization</span> is <span class="math inline">\bm{y} = (y_1,\dots,y_n)^T</span>.</p></li>
-<li><p>The <span class="blue">design matrix</span> <span class="math inline">\bm{X}</span> is a <span class="math inline">n \times p</span> matrix, comprising the covariate’s values. The <span class="math inline">j</span>th variable (column) is denoted with <span class="math inline">\tilde{\bm{x}}_j</span>, whereas the <span class="math inline">i</span>th observation (row) is <span class="math inline">\bm{x}_i</span>.</p></li>
+<li><p>The <span class="blue">design matrix</span> <span class="math inline">\bm{X}</span> is an <span class="math inline">n \times p</span> <span class="orange">non-stochastic</span> matrix containing the covariate values. The <span class="math inline">j</span>‑th variable (column) is denoted by <span class="math inline">\tilde{\bm{x}}_j</span>, while the <span class="math inline">i</span>‑th observation (row) is <span class="math inline">\bm{x}_i</span>.</p></li>
+<li><p>We assume that <span class="math inline">\bm{X}</span> has <span class="orange">full rank</span>, that is, <span class="math inline">\text{rk}(\bm{X}) = p</span> with <span class="math inline">p \le n</span>.</p></li>
 </ul>
 </div>
 </section>
@@ -292,8 +293,8 @@
 </div>
 </div>
 <ul>
-<li><p>We aim to predict the proportion of <code>deaths</code> as a function of the <code>logdose</code>.</p></li>
-<li><p>Modelling death proportions directly with <span class="orange">linear models</span> is <span class="orange">inappropriate</span>. While a <span class="blue">variable transformation</span> offers a more <span class="blue">principled</span> approach, it has important <span class="orange">drawbacks</span>.</p></li>
+<li><p>We aim to predict the proportion of <code>deaths</code> as a function of <code>logdose</code>.</p></li>
+<li><p>Modeling death proportions directly with <span class="orange">linear models</span> is <span class="orange">inappropriate</span>. A <span class="blue">variable transformation</span> provides a more <span class="blue">principled</span> solution, but it comes with <span class="orange">drawbacks</span>.</p></li>
 </ul>
 </section>
 <section id="beetles-data-a-dose-response-plot" class="slide level2 center">
@@ -306,38 +307,40 @@
 <section id="an-attempt-at-modelling-the-beetles-data" class="slide level2 center">
 <h2>An attempt at modelling the <code>Beetles</code> data</h2>
 <ul>
-<li><p>Let <span class="math inline">Y_i</span> the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> be the log-dose. By definition, the random variables <span class="math inline">Y_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i=1,\dots,8</span>.</p></li>
-<li><p>It is reasonable to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
-Y_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i=1,\dots,8,
-</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of dying at a given dose <span class="math inline">x_i</span>, and we know that <span class="math display">
-\mathbb{E}\left(\frac{Y_i}{m_i}\right) = \mu_i = \pi_i.
+<li><p>Let <span class="math inline">Y_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">Y_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
+<li><p>It is natural to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
+</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, we have <span class="math display">
+\mathbb{E}\!\left(\frac{Y_i}{m_i}\right) = \mu_i = \pi_i.
 </span></p></li>
-<li><p>A modelling possibility, called <span class="blue">logistic regression</span>, prescribes the following: <span class="math display">
+<li><p>A modeling approach, called <span class="blue">logistic regression</span>, specifies:<br>
+<span class="math display">
 g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \pi_i = g^{-1}(\beta_1 + \beta_2 x_i) = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}.
-</span> for some parameters <span class="math inline">\beta_1,\beta_2 \in \mathbb{R}</span>. <span class="orange">Note</span> that <span class="math inline">\pi_i \in (0, 1)</span> by construction.</p></li>
+</span> for some parameters <span class="math inline">\beta_1, \beta_2 \in \mathbb{R}</span>. <span class="orange">Note</span> that <span class="math inline">\pi_i \in (0, 1)</span> by construction.</p></li>
 </ul>
 </section>
 <section id="beetles-data-fitted-model" class="slide level2 center">
 <h2><code>Beetles</code> data, fitted model</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
-<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This gives the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2x)</span>, an estimate for the mean proportion <span class="math inline">\mathbb{E}(Y_i/m_i)</span>.</li>
+<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean proportion <span class="math inline">\mathbb{E}(Y_i / m_i)</span>.</li>
 </ul>
 </section>
 <section id="alternative-modelling-approaches-i" class="slide level2 center">
 <h2>Alternative modelling approaches I 📖</h2>
 <ul>
-<li><p>Let <span class="math inline">Z_i = Y_i/m_i</span> be the proportion of deaths. A direct application of linear models means: <span class="math display">
+<li><p>Let <span class="math inline">Z_i = Y_i / m_i</span> be the proportion of deaths. A direct application of linear models implies: <span class="math display">
 Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
-</span> This is <span class="orange">not</span> a <span class="orange">good approach</span>. In the first place, while <span class="math inline">Z_i \in [0, 1]</span> the prediction <span class="math inline">\beta_1 + \beta_2 x_i</span> would be <span class="orange">unrestricted</span>. This means we could get “1.3” or “-2” as estimated proportion.</p></li>
-<li><p>Secondly, the <span class="blue">additive structure</span> <span class="math inline">Z_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold for iid errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">Y_i</span>, and hence <span class="math inline">Z_i</span>, are <span class="orange">discrete</span>. The errors would be <span class="orange">heteroskedastic</span>.</p></li>
+</span> This is <span class="orange">not</span> a <span class="orange">good approach</span>. First, although <span class="math inline">Z_i \in [0,1]</span>, the prediction <span class="math inline">\beta_1 + \beta_2 x_i</span> is <span class="orange">unrestricted</span>, meaning it could produce values like “1.3” or “-2” as estimated proportions.</p></li>
+<li><p>Secondly, the <span class="blue">additive structure</span> <span class="math inline">Z_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold with iid errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">Y_i</span>, and thus <span class="math inline">Z_i</span>, are <span class="orange">discrete</span>. As a result, the errors would be <span class="orange">heteroskedastic</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>A better alternative would be considering a variable transformation of <span class="math inline">Z_i</span>, obtaining <span class="math display">
+<li><p>A better alternative would be considering a variable transformation of <span class="math inline">Z_i</span>, obtaining<br>
+<span class="math display">
 \text{logit}(\tilde{Z}_i) = \log\left(\frac{Y_i + 0.5}{m_i - Y_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Z}_i = \frac{Y_i + 0.5}{m_i +1}.
 </span> The <span class="orange">arbitrary</span> correction term is necessary because otherwise the logit would be undefined.</p></li>
-<li><p>The predictions are <span class="math inline">\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i)</span>, in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta_2}</span> are estimated using OLS. The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">g(\tilde{Z}_i)</span>.</p></li>
+<li><p>The predictions are <span class="math inline">\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i)</span>, in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated using OLS. The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">g(\tilde{Z}_i)</span>.</p></li>
 <li><p>Inference is also problematic because of <span class="orange">heteroskedastic</span> errors. Finally, this approach is <span class="orange">not compatible</span> with the very reasonable assumption <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>.</p></li>
 </ul>
 </div>
@@ -443,7 +446,7 @@ Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <h2><code>Aids</code> data, scatter plot</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
-<li>There is a clear positive pattern between <code>period</code> and <code>deaths</code>. However, the growth is likely <span class="orange">faster</span> than <span class="orange">linear</span>. Note that the both the mean and the <span class="blue">variability</span> of <span class="math inline">Y_i</span> grow over time.</li>
+<li>There is a clear positive association between period and deaths. However, the increase appears to be <span class="orange">faster</span> than <span class="orange">linear</span>. Note that both the mean and the <span class="blue">variability</span> of <span class="math inline">Y_i</span> increase over time.</li>
 </ul>
 </section>
 <section id="an-attempt-at-modelling-the-aids-data" class="slide level2 center">
@@ -454,7 +457,7 @@ Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-8-1.png" width="2500" class="r-stretch"></section>
 <section id="alternative-modelling-approaches-i-1" class="slide level2 center">
-<h2>Alternative modelling approaches I 📖</h2>
+<h2>Alternative modelling approaches I</h2>
 </section>
 <section id="alternative-modelling-approaches-ii-1" class="slide level2 center">
 <h2>Alternative modelling approaches II</h2>
@@ -490,9 +493,24 @@ Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <li><p>Most <span class="blue">well-known</span> <span class="blue">distributions</span>—such as Gaussian, Poisson, Binomial, and Gamma—are instances of exponential families.</p></li>
 </ul>
 </section></section>
+<section id="likelihood-inference-and-testing" class="title-slide slide level1 center">
+<h1>Likelihood, inference, and testing</h1>
+
+</section>
+
+<section id="irls-algorithm" class="title-slide slide level1 center">
+<h1>IRLS algorithm</h1>
+
+</section>
+
+<section id="deviance-model-checking-residuals" class="title-slide slide level1 center">
+<h1>Deviance, model checking, residuals</h1>
+
+</section>
+
 <section>
-<section id="generalized-linear-models" class="title-slide slide level1 center">
-<h1>Generalized Linear Models</h1>
+<section id="model-selection" class="title-slide slide level1 center">
+<h1>Model selection</h1>
 
 </section>
 <section id="references" class="slide level2 unnumbered smaller scrollable">

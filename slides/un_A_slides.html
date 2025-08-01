@@ -188,7 +188,7 @@
 <ul>
 <li><p>This unit will cover the following <span class="orange">topics</span>:</p>
 <ul>
-<li>Recap: linear models and the modeling process</li>
+<li><span class="blue">Recap</span>: linear models and the modeling process</li>
 <li>Box-Cox transform, variance stabilizing transformations</li>
 <li>Robustness of OLS estimates, sandwich estimators</li>
 <li>Weighted least squares</li>
@@ -998,7 +998,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <li><p>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<sup>1</sup> <span class="math display">
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
 </span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\bm{\Sigma})</span>, then <span class="math display">
-\beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
+\hat{\beta} \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
 </span> Under suitable but mild conditions on <span class="math inline">\bm{X}</span> and <span class="math inline">\bm{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>These results are valid even when the matrix <span class="math inline">\bm{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></li></ol></aside></section>

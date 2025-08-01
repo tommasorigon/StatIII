@@ -207,7 +207,7 @@ window.Quarto = {
 <ul>
 <li><p>This unit will cover the following <span class="orange">topics</span>:</p>
 <ul>
-<li>Recap: linear models and the modeling process</li>
+<li><span class="blue">Recap</span>: linear models and the modeling process</li>
 <li>Box-Cox transform, variance stabilizing transformations</li>
 <li>Robustness of OLS estimates, sandwich estimators</li>
 <li>Weighted least squares</li>
@@ -1056,7 +1056,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <li><p>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math display">
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
 </span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\bm{\Sigma})</span>, then <span class="math display">
-\beta \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
+\hat{\beta} \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
 </span> Under suitable but mild conditions on <span class="math inline">\bm{X}</span> and <span class="math inline">\bm{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
 </ul>
 <div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;These results are valid even when the matrix <span class="math inline">\bm{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></div></div></section>
@@ -1129,6 +1129,7 @@ D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta
 <ul>
 <li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
 <li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">m_i \rightarrow \infty</span>.</li>
+<li>The transform depends on <span class="math inline">m_i</span>, therefore we cannot make predictions for a generic covariate value <span class="math inline">\bm{x}_i</span> without knowing the associated <span class="math inline">m_i</span>.</li>
 </ul>
 <p>Besides, this transform is clearly not applicable when <span class="math inline">m_i = 1</span> and <span class="math inline">Y_i \in \{0, 1\}</span>, a very common problem called <span class="orange">binary regression</span>.</p>
 </div>
