@@ -1024,6 +1024,7 @@ Suppose $Y_i \sim \text{Binomial}(\pi, m_i)$. The variance stabilizing transform
 
   - It [complicates]{.orange} the [interpretation]{.orange}, because it models $\mathbb{E}\{g(Y_i)\}$ instead of $\mathbb{E}(Y_i)$;
   - It is an [asymptotic approximation]{.blue}, and is only valid for $m_i \rightarrow \infty$.
+  - The transform depends on $m_i$, therefore we cannot make predictions for a generic covariate value $\bm{x}_i$ without knowing the associated $m_i$. 
 
 Besides, this transform is clearly not applicable when $m_i = 1$ and $Y_i \in \{0, 1\}$, a very common problem called [binary regression]{.orange}.
 :::

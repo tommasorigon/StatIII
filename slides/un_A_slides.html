@@ -1065,6 +1065,7 @@ D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta
 <ul>
 <li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
 <li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">m_i \rightarrow \infty</span>.</li>
+<li>The transform depends on <span class="math inline">m_i</span>, therefore we cannot make predictions for a generic covariate value <span class="math inline">\bm{x}_i</span> without knowing the associated <span class="math inline">m_i</span>.</li>
 </ul>
 <p>Besides, this transform is clearly not applicable when <span class="math inline">m_i = 1</span> and <span class="math inline">Y_i \in \{0, 1\}</span>, a very common problem called <span class="orange">binary regression</span>.</p>
 </div>

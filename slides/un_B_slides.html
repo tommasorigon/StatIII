@@ -293,7 +293,7 @@
 </div>
 <ul>
 <li><p>We aim to predict the proportion of <code>deaths</code> as a function of the <code>logdose</code>.</p></li>
-<li><p>Modelling death proportions directly with <span class="orange">linear models</span> is <span class="orange">inappropriate</span>. While a <span class="blue">variance-stabilizing</span> transformation offers a more <span class="blue">principled</span> approach, it has important <span class="orange">drawbacks</span>.</p></li>
+<li><p>Modelling death proportions directly with <span class="orange">linear models</span> is <span class="orange">inappropriate</span>. While a <span class="blue">variable transformation</span> offers a more <span class="blue">principled</span> approach, it has important <span class="orange">drawbacks</span>.</p></li>
 </ul>
 </section>
 <section id="beetles-data-a-dose-response-plot" class="slide level2 center">
@@ -306,11 +306,11 @@
 <section id="an-attempt-at-modelling-the-beetles-data" class="slide level2 center">
 <h2>An attempt at modelling the <code>Beetles</code> data</h2>
 <ul>
-<li><p>Let <span class="math inline">Y_i</span> the number of dead beetles out of <span class="math inline">n_i</span>, and let <span class="math inline">x_i</span> be the log-dose. By definition, the random variables <span class="math inline">Y_i \in \{0, 1, \dots, n_i\}</span> for <span class="math inline">i=1,\dots,8</span>.</p></li>
-<li><p>It is reasonable to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">n_i</span> individuals. In other words: <span class="math display">
-Y_i \overset{\text{ind}}{\sim} \text{Binomial}(n_i, \pi_i), \qquad i=1,\dots,8,
+<li><p>Let <span class="math inline">Y_i</span> the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> be the log-dose. By definition, the random variables <span class="math inline">Y_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i=1,\dots,8</span>.</p></li>
+<li><p>It is reasonable to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i=1,\dots,8,
 </span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of dying at a given dose <span class="math inline">x_i</span>, and we know that <span class="math display">
-\mathbb{E}\left(\frac{Y_i}{n_i}\right) = \mu_i = \pi_i.
+\mathbb{E}\left(\frac{Y_i}{m_i}\right) = \mu_i = \pi_i.
 </span></p></li>
 <li><p>A modelling possibility, called <span class="blue">logistic regression</span>, prescribes the following: <span class="math display">
 g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \pi_i = g^{-1}(\beta_1 + \beta_2 x_i) = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}.
@@ -321,11 +321,158 @@ g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \qua
 <h2><code>Beetles</code> data, fitted model</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
-<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta_2} = 34.3</span>. This gives the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2x)</span>, an estimate for the mean proportion <span class="math inline">\mathbb{E}(Y_i/n_i)</span>.</li>
+<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This gives the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2x)</span>, an estimate for the mean proportion <span class="math inline">\mathbb{E}(Y_i/m_i)</span>.</li>
 </ul>
 </section>
-<section id="section" class="slide level2 center">
-<h2></h2>
+<section id="alternative-modelling-approaches-i" class="slide level2 center">
+<h2>Alternative modelling approaches I 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Z_i = Y_i/m_i</span> be the proportion of deaths. A direct application of linear models means: <span class="math display">
+Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
+</span> This is <span class="orange">not</span> a <span class="orange">good approach</span>. In the first place, while <span class="math inline">Z_i \in [0, 1]</span> the prediction <span class="math inline">\beta_1 + \beta_2 x_i</span> would be <span class="orange">unrestricted</span>. This means we could get “1.3” or “-2” as estimated proportion.</p></li>
+<li><p>Secondly, the <span class="blue">additive structure</span> <span class="math inline">Z_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold for iid errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">Y_i</span>, and hence <span class="math inline">Z_i</span>, are <span class="orange">discrete</span>. The errors would be <span class="orange">heteroskedastic</span>.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>A better alternative would be considering a variable transformation of <span class="math inline">Z_i</span>, obtaining <span class="math display">
+\text{logit}(\tilde{Z}_i) = \log\left(\frac{Y_i + 0.5}{m_i - Y_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Z}_i = \frac{Y_i + 0.5}{m_i +1}.
+</span> The <span class="orange">arbitrary</span> correction term is necessary because otherwise the logit would be undefined.</p></li>
+<li><p>The predictions are <span class="math inline">\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i)</span>, in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta_2}</span> are estimated using OLS. The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">g(\tilde{Z}_i)</span>.</p></li>
+<li><p>Inference is also problematic because of <span class="orange">heteroskedastic</span> errors. Finally, this approach is <span class="orange">not compatible</span> with the very reasonable assumption <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="alternative-modelling-approaches-ii" class="slide level2 center">
+<h2>Alternative modelling approaches II</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<li>The black line is the predicted curve of a <span class="grey">logistic regression GLM</span>. The orange line is the predictived curve of a <span class="orange">linear model</span>. The blue line is the predictive curve of a <span class="blue">linear model</span> after an <span class="blue">empirical logit variable transformation</span>.</li>
+</ul>
+</section>
+<section id="aids-data" class="slide level2 center">
+<h2><code>Aids</code> data</h2>
+<ul>
+<li>Number of AIDS <code>deaths</code> in Australia in a sequence of three-months periods between 1983 and 1986.</li>
+</ul>
+<div class="smaller">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">1983-1</th>
+<th style="text-align: right;">1984-1</th>
+<th style="text-align: right;">1985-1</th>
+<th style="text-align: right;">1986-1</th>
+<th style="text-align: right;">1983-2</th>
+<th style="text-align: right;">1984-2</th>
+<th style="text-align: right;">1985-2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">deaths</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">period</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">1986-2</th>
+<th style="text-align: right;">1983-3</th>
+<th style="text-align: right;">1984-3</th>
+<th style="text-align: right;">1985-3</th>
+<th style="text-align: right;">1986-3</th>
+<th style="text-align: right;">1983-4</th>
+<th style="text-align: right;">1984-4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">deaths</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">period</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li><p>We are interested in predicting the number of <code>deaths</code> as a function of the <code>period</code> of time.</p></li>
+<li><p>The response variable <span class="math inline">Y_i \in \{0, 1, \dots\}</span> is a <span class="orange">count</span>.</p></li>
+</ul>
+</section>
+<section id="aids-data-scatter-plot" class="slide level2 center">
+<h2><code>Aids</code> data, scatter plot</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<li>There is a clear positive pattern between <code>period</code> and <code>deaths</code>. However, the growth is likely <span class="orange">faster</span> than <span class="orange">linear</span>. Note that the both the mean and the <span class="blue">variability</span> of <span class="math inline">Y_i</span> grow over time.</li>
+</ul>
+</section>
+<section id="an-attempt-at-modelling-the-aids-data" class="slide level2 center">
+<h2>An attempt at modelling the <code>Aids</code> data</h2>
+</section>
+<section id="aids-data-fitted-model" class="slide level2 center">
+<h2><code>Aids</code> data, fitted model</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-8-1.png" width="2500" class="r-stretch"></section>
+<section id="alternative-modelling-approaches-i-1" class="slide level2 center">
+<h2>Alternative modelling approaches I 📖</h2>
+</section>
+<section id="alternative-modelling-approaches-ii-1" class="slide level2 center">
+<h2>Alternative modelling approaches II</h2>
+</section>
+<section id="components-of-a-glm" class="slide level2 center">
+<h2>Components of a GLM</h2>
+</section>
+<section id="random-component-of-a-glm" class="slide level2 center">
+<h2>Random component of a GLM</h2>
+</section>
+<section id="linear-predictor-of-a-glm" class="slide level2 center">
+<h2>Linear predictor of a GLM</h2>
+</section>
+<section id="link-function-of-a-glm" class="slide level2 center">
+<h2>Link function of a GLM</h2>
+</section>
+<section id="advantages-of-glms-versus-transforming-the-data" class="slide level2 center">
+<h2>Advantages of GLMs versus transforming the data</h2>
 </section></section>
 <section>
 <section id="exponential-dispersion-families" class="title-slide slide level1 center">
