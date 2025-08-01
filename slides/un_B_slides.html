@@ -300,7 +300,7 @@
 <h2><code>Beetles</code> data, a dose-response plot</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
-<li>There is a clear <span class="orange">positive</span> and <span class="blue">non-linear</span> pattern between the <span class="orange">proportion of deaths</span> as a function of the logdose.</li>
+<li>There is a clear <span class="orange">positive</span> and <span class="blue">non-linear</span> pattern between the <span class="orange">proportion of deaths</span> as a function of the logdose. The response variable take values in <span class="math inline">[0, 1]</span>.</li>
 </ul>
 </section>
 <section id="an-attempt-at-modelling-the-beetles-data" class="slide level2 center">
@@ -309,18 +309,23 @@
 <li><p>Let <span class="math inline">Y_i</span> the number of dead beetles out of <span class="math inline">n_i</span>, and let <span class="math inline">x_i</span> be the log-dose. By definition, the random variables <span class="math inline">Y_i \in \{0, 1, \dots, n_i\}</span> for <span class="math inline">i=1,\dots,8</span>.</p></li>
 <li><p>It is reasonable to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">n_i</span> individuals. In other words: <span class="math display">
 Y_i \overset{\text{ind}}{\sim} \text{Binomial}(n_i, \pi_i), \qquad i=1,\dots,8,
-</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of dying at a given dose.</p></li>
+</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of dying at a given dose <span class="math inline">x_i</span>, and we know that <span class="math display">
+\mathbb{E}\left(\frac{Y_i}{n_i}\right) = \mu_i = \pi_i.
+</span></p></li>
+<li><p>A modelling possibility, called <span class="blue">logistic regression</span>, prescribes the following: <span class="math display">
+g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \pi_i = g^{-1}(\beta_1 + \beta_2 x_i) = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}.
+</span> for some parameters <span class="math inline">\beta_1,\beta_2 \in \mathbb{R}</span>. <span class="orange">Note</span> that <span class="math inline">\pi_i \in (0, 1)</span> by construction.</p></li>
 </ul>
-<div class="fragment">
-<ul>
-<li><p>Because of well-known properties of the binomial distribution, we know that <span class="math display">
-\mathbb{E}(Y_i) = \mu_i = n_i \pi_i.
-</span> We would like to express <span class="math inline">\pi_i</span>, the proportion of deaths, as a function of <span class="math inline">x_i</span>.</p></li>
-<li><p>A modelling possibility, called <span class="blue">logistic regression</span> is the following: <span class="math display">
-\pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \quad \text{ or equivalently} \quad \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i.
-</span> for some parameters <span class="math inline">\beta_1,\beta_2 \in \mathbb{R}</span>. Note that <span class="math inline">\pi_i \in (0, 1)</span> by construction.</p></li>
+</section>
+<section id="beetles-data-fitted-model" class="slide level2 center">
+<h2><code>Beetles</code> data, fitted model</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta_2} = 34.3</span>. This gives the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2x)</span>, an estimate for the mean proportion <span class="math inline">\mathbb{E}(Y_i/n_i)</span>.</li>
 </ul>
-</div>
+</section>
+<section id="section" class="slide level2 center">
+<h2></h2>
 </section></section>
 <section>
 <section id="exponential-dispersion-families" class="title-slide slide level1 center">

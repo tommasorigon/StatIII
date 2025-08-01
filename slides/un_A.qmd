@@ -741,19 +741,19 @@ $$
 
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 
-- Let $Y_i \sim \text{Binomial}(\pi_i, n_i)$, with [success probability]{.blue} $\pi_i = f(\bm{x}_i; \beta)$ and [trials]{.blue} $n_i$. For large values of $n_i$, the [Gaussian approximation]{.orange} holds 
+- Let $Y_i \sim \text{Binomial}(\pi_i, m_i)$, with [success probability]{.blue} $\pi_i = f(\bm{x}_i; \beta)$ and [trials]{.blue} $m_i$. For large values of $m_i$, the [Gaussian approximation]{.orange} holds 
 $$
-Y_i \,\dot{\sim}\, \text{N}(n_i \pi_i, n_i\pi_i(1 - \pi_i)).
+Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
 $$
-However, the data are  [heteroschedastic]{.orange}, because $\text{var}(Y_i) = n_i \pi_i(1- \pi_i)$.
+However, the data are  [heteroschedastic]{.orange}, because $\text{var}(Y_i) = m_i \pi_i(1- \pi_i)$.
 
 - Thus, a [variance stabilizing]{.blue} transformation in this case is 
 $$
-g_{n_i}(y) = \sqrt{n_i}\arcsin\left(\frac{2 y}{n_i} - 1\right),
+g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
 $$
 because in fact we have that
 $$
-\text{var}(g_{n_i}(Y_i)) \approx \left(\frac{\sqrt{n_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{n_i}\right)^2 n_i \pi_i(1- \pi_i) = 1.
+\text{var}(g_{m_i}(Y_i)) \approx \left(\frac{\sqrt{m_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{m_i}\right)^2 m_i \pi_i(1- \pi_i) = 1.
 $$
 
 . . .
@@ -1020,12 +1020,12 @@ Moreover, if $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})$ it also coi
 - So far we described several methods for [handling misspecification]{.blue} of the [linear model]{.blue}, but some cases remain [partially unsolved]{.orange}.
 
 :::callout-tip
-Suppose $Y_i \sim \text{Binomial}(\pi, n_i)$. The variance stabilizing transformation is not fully satisfactory:
+Suppose $Y_i \sim \text{Binomial}(\pi, m_i)$. The variance stabilizing transformation is not fully satisfactory:
 
   - It [complicates]{.orange} the [interpretation]{.orange}, because it models $\mathbb{E}\{g(Y_i)\}$ instead of $\mathbb{E}(Y_i)$;
-  - It is an [asymptotic approximation]{.blue}, and is only valid for $n_i \rightarrow \infty$.
+  - It is an [asymptotic approximation]{.blue}, and is only valid for $m_i \rightarrow \infty$.
 
-Besides, this transform is clearly not applicable when $n_i = 1$ and $Y_i \in \{0, 1\}$, a very common problem called [binary regression]{.orange}.
+Besides, this transform is clearly not applicable when $m_i = 1$ and $Y_i \in \{0, 1\}$, a very common problem called [binary regression]{.orange}.
 :::
 
 - If we know that $Y_i$ follows, say, a Bernoulli or a Gamma distribution, then we should use the [appropriate likelihood]{.blue} rather than a [Gaussian approximation]{.orange}. 

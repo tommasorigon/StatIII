@@ -839,13 +839,13 @@ g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\q
 <h2>Variance stabilizing transformations II 📖</h2>
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 <ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, n_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">n_i</span>. For large values of <span class="math inline">n_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
-Y_i \,\dot{\sim}\, \text{N}(n_i \pi_i, n_i\pi_i(1 - \pi_i)).
-</span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = n_i \pi_i(1- \pi_i)</span>.</p></li>
+<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
+Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
+</span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
 <li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
-g_{n_i}(y) = \sqrt{n_i}\arcsin\left(\frac{2 y}{n_i} - 1\right),
+g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
 </span> because in fact we have that <span class="math display">
-\text{var}(g_{n_i}(Y_i)) \approx \left(\frac{\sqrt{n_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{n_i}\right)^2 n_i \pi_i(1- \pi_i) = 1.
+\text{var}(g_{m_i}(Y_i)) \approx \left(\frac{\sqrt{m_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{m_i}\right)^2 m_i \pi_i(1- \pi_i) = 1.
 </span></p></li>
 </ul>
 <div class="fragment">
@@ -1061,12 +1061,12 @@ D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(\pi, n_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
+<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(\pi, m_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
 <ul>
 <li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
-<li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">n_i \rightarrow \infty</span>.</li>
+<li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">m_i \rightarrow \infty</span>.</li>
 </ul>
-<p>Besides, this transform is clearly not applicable when <span class="math inline">n_i = 1</span> and <span class="math inline">Y_i \in \{0, 1\}</span>, a very common problem called <span class="orange">binary regression</span>.</p>
+<p>Besides, this transform is clearly not applicable when <span class="math inline">m_i = 1</span> and <span class="math inline">Y_i \in \{0, 1\}</span>, a very common problem called <span class="orange">binary regression</span>.</p>
 </div>
 </div>
 </div>

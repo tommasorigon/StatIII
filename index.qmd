@@ -65,10 +65,10 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | **Poisson regression** | [Unit D] | [Slides Unit D] | [Code D] |
 | Lab 5 | | | |
 | *Exercises* | [Exercises D] |  |  |
+| | **ADVANCED TOPICS** | | |
 | **Contingency tables and log-linear models** | [Unit E] | [Slides Unit E] | [Code E] |
 | Lab 6 | | | |
 | *Exercises* | [Exercises E] |  |  |
-| | **ADVANCED TOPICS** | | |
 | **Quasi-likelihoods** | [Unit F] | [Slides Unit F] | [Code F] |
 | Lab 7 | | | |
 | *Exercises* | [Exercises F] |  |  |

@@ -54,7 +54,7 @@ editor_options:
 #| include: false
 #| message: false
 #| purl: false
-
+rm(list = ls())
 knitr::purl("un_B.qmd", output = "../code/un_B.R", documentation = 0)
 styler:::style_file("../code/un_B.R")
 
@@ -134,32 +134,50 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
   ylab("Proportion of deaths")
 ```
 
-- There is a clear [positive]{.orange} and [non-linear]{.blue} pattern between the [proportion of deaths]{.orange} as a function of the logdose.
+- There is a clear [positive]{.orange} and [non-linear]{.blue} pattern between the [proportion of deaths]{.orange} as a function of the logdose. The response variable take values in $[0, 1]$. 
 
 ## An attempt at modelling the `Beetles` data
 
-- Let $Y_i$ the number of dead beetles out of $n_i$, and let $x_i$ be the log-dose. By definition, the random variables $Y_i \in \{0, 1, \dots, n_i\}$ for $i=1,\dots,8$. 
+- Let $Y_i$ the number of dead beetles out of $m_i$, and let $x_i$ be the log-dose. By definition, the random variables $Y_i \in \{0, 1, \dots, m_i\}$ for $i=1,\dots,8$. 
 
-- It is reasonable to model each $Y_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $n_i$ individuals. In other words:
+- It is reasonable to model each $Y_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $m_i$ individuals. In other words:
 $$
-Y_i \overset{\text{ind}}{\sim} \text{Binomial}(n_i, \pi_i), \qquad i=1,\dots,8,
+Y_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i=1,\dots,8,
 $$
-where $\pi_i$ is the [probability]{.orange} of dying at a given dose. 
+where $\pi_i$ is the [probability]{.orange} of dying at a given dose $x_i$, and we know that
+$$
+\mathbb{E}\left(\frac{Y_i}{m_i}\right) = \mu_i = \pi_i.
+$$
 
-. . .
+- A modelling possibility, called [logistic regression]{.blue}, prescribes the following:
+$$
+g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \pi_i = g^{-1}(\beta_1 + \beta_2 x_i) = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}.
+$$
+for some parameters $\beta_1,\beta_2 \in \mathbb{R}$. [Note]{.orange} that $\pi_i \in (0, 1)$ by construction. 
 
-- Because of well-known properties of the binomial distribution, we know that
-$$
-\mathbb{E}(Y_i) = \mu_i = n_i \pi_i.
-$$
-We would like to express $\pi_i$, the proportion of deaths, as a function of $x_i$.
+## `Beetles` data, fitted model
 
-- A modelling possibility, called [logistic regression]{.blue} is the following:
-$$
-\pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \quad \text{ or equivalently} \quad \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i.
-$$
-for some parameters $\beta_1,\beta_2 \in \mathbb{R}$. Note that $\pi_i \in (0, 1)$ by construction. 
+```{r}
+#| fig-width: 7.8
+#| fig-height: 4.55
+#| fig-align: center
 
+fit_Beetles <- glm(cbind(deaths, n - deaths) ~ logdose, family = "binomial", data = Beetles)
+
+ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
+  geom_point() +
+  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed") +
+  theme_light() +
+  theme(legend.position = "right") +
+  scale_color_tableau(palette = "Color Blind") +
+  xlab("log-dose") +
+  ylab("Proportion of deaths")
+```
+
+- The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = -60.72$ and $\hat{\beta_2} = 34.3$. This gives the [predictive curve]{.blue} $\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2x)$, an estimate for the mean proportion $\mathbb{E}(Y_i/m_i)$. 
+
+
+## 
 
 # Exponential dispersion families
 

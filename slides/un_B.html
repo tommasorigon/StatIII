@@ -57,6 +57,49 @@ div.csl-indent {
 <link href="un_B_files/libs/bootstrap/bootstrap-252358bd5e41c56bbae4a2085ac3f5af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -69,7 +112,13 @@ div.csl-indent {
    
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#preliminaries" id="toc-preliminaries" class="nav-link" data-scroll-target="#preliminaries">Preliminaries</a></li>
+  <li><a href="#beetles-data-from-bliss-1935" id="toc-beetles-data-from-bliss-1935" class="nav-link" data-scroll-target="#beetles-data-from-bliss-1935"><code>Beetles</code> data, from Bliss (1935)</a></li>
+  <li><a href="#beetles-data-a-dose-response-plot" id="toc-beetles-data-a-dose-response-plot" class="nav-link" data-scroll-target="#beetles-data-a-dose-response-plot"><code>Beetles</code> data, a dose-response plot</a></li>
+  <li><a href="#an-attempt-at-modelling-the-beetles-data" id="toc-an-attempt-at-modelling-the-beetles-data" class="nav-link" data-scroll-target="#an-attempt-at-modelling-the-beetles-data">An attempt at modelling the <code>Beetles</code> data</a></li>
+  </ul></li>
   <li><a href="#exponential-dispersion-families" id="toc-exponential-dispersion-families" class="nav-link" data-scroll-target="#exponential-dispersion-families">Exponential dispersion families</a>
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
@@ -131,7 +180,7 @@ div.csl-indent {
 <li>Deviance, model checking, and residuals</li>
 <li>Model selection</li>
 </ul></li>
-<li><p>GLMs are regression models with a linear predictor in which the response variable is distributed according to <span class="blue">exponential dispersion family</span>.</p></li>
+<li><p>GLMs are regression models with a linear predictor in which the response variable is distributed according to an <span class="blue">exponential dispersion family</span>.</p></li>
 <li><p>This Unit covers the <span class="orange">theoretical backbone</span> of GLMs.</p></li>
 </ul>
 </div>
@@ -149,6 +198,122 @@ div.csl-indent {
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
+<section id="preliminaries" class="level2">
+<h2 class="anchored" data-anchor-id="preliminaries">Preliminaries</h2>
+<ul>
+<li><p>GLMs are a class of <span class="blue">regression models</span> where we describe a <span class="orange">response</span> random variable <span class="math inline">Y_i</span> as a function of a vector of <span class="grey">covariates</span> <span class="math inline">\bm{x}_i \in \mathbb{R}^p</span>.</p></li>
+<li><p>The random variables <span class="math inline">Y_i</span> are not restricted to be Gaussian. For example, we may have</p>
+<ul>
+<li><span class="math inline">Y_i \in \{0,1\}</span>, often called <span class="blue">binary regression</span><br>
+</li>
+<li><span class="math inline">Y_i \in \{0,1,\dots\}</span>, often called <span class="orange">count regression</span><br>
+</li>
+<li><span class="math inline">Y_i \in (0,\infty)</span> or <span class="math inline">Y_i \in (-\infty,\infty)</span></li>
+</ul></li>
+<li><p>Gaussian linear models form a special case of GLMs, arising when <span class="math inline">Y_i \in (-\infty,\infty)</span></p></li>
+</ul>
+<ul>
+<li><p>The <span class="orange">response random variables</span> are collected in the random vector <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)^T</span>, whose <span class="blue">observed realization</span> is <span class="math inline">\bm{y} = (y_1,\dots,y_n)^T</span>.</p></li>
+<li><p>The <span class="blue">design matrix</span> <span class="math inline">\bm{X}</span> is a <span class="math inline">n \times p</span> matrix, comprising the covariate’s values. The <span class="math inline">j</span>th variable (column) is denoted with <span class="math inline">\tilde{\bm{x}}_j</span>, whereas the <span class="math inline">i</span>th observation (row) is <span class="math inline">\bm{x}_i</span>.</p></li>
+</ul>
+</section>
+<section id="beetles-data-from-bliss-1935" class="level2">
+<h2 class="anchored" data-anchor-id="beetles-data-from-bliss-1935"><code>Beetles</code> data, from Bliss (1935)</h2>
+<ul>
+<li>The <code>Beetles</code> dataset originates from Bliss (1935). It records the number of adult flour beetles that died after a 5-hour exposure to gaseous carbon disulphide.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">deaths</th>
+<th style="text-align: right;">logdose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.6907</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">1.7242</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">1.7552</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1.7842</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">1.8113</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">1.8369</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">1.8610</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1.8839</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>We aim to predict the proportion of <code>deaths</code> as a function of the <code>logdose</code>.</p></li>
+<li><p>Modelling death proportions directly with <span class="orange">linear models</span> is <span class="orange">inappropriate</span>. While a <span class="blue">variance-stabilizing</span> transformation offers a more <span class="blue">principled</span> approach, it has important <span class="orange">drawbacks</span>.</p></li>
+</ul>
+</section>
+<section id="beetles-data-a-dose-response-plot" class="level2">
+<h2 class="anchored" data-anchor-id="beetles-data-a-dose-response-plot"><code>Beetles</code> data, a dose-response plot</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_B_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1950"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>There is a clear <span class="orange">positive</span> and <span class="blue">non-linear</span> pattern between the <span class="orange">proportion of deaths</span> as a function of the logdose.</li>
+</ul>
+</section>
+<section id="an-attempt-at-modelling-the-beetles-data" class="level2">
+<h2 class="anchored" data-anchor-id="an-attempt-at-modelling-the-beetles-data">An attempt at modelling the <code>Beetles</code> data</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i</span> the number of dead beetles out of <span class="math inline">n_i</span>, and let <span class="math inline">x_i</span> be the log-dose. By definition, the random variables <span class="math inline">Y_i \in \{0, 1, \dots, n_i\}</span> for <span class="math inline">i=1,\dots,8</span>.</p></li>
+<li><p>It is reasonable to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">n_i</span> individuals. In other words: <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Binomial}(n_i, \pi_i), \qquad i=1,\dots,8,
+</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of dying at a given dose.</p></li>
+</ul>
+<ul>
+<li><p>Because of well-known properties of the binomial distribution, we know that <span class="math display">
+\mathbb{E}(Y_i) = \mu_i = n_i \pi_i.
+</span> We would like to express <span class="math inline">\pi_i</span>, the proportion of deaths, as a function of <span class="math inline">x_i</span>.</p></li>
+<li><p>A modelling possibility, called <span class="blue">logistic regression</span> is the following: <span class="math display">
+\pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \quad \text{ or equivalently} \quad \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i.
+</span> for some parameters <span class="math inline">\beta_1,\beta_2 \in \mathbb{R}</span>. Note that <span class="math inline">\pi_i \in (0, 1)</span> by construction.</p></li>
+</ul>
+</section>
 </section>
 <section id="exponential-dispersion-families" class="level1">
 <h1>Exponential dispersion families</h1>
