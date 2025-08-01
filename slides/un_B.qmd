@@ -1,15 +1,15 @@
 ---
-title: "Exponential families"
-subtitle: "Statistical Inference - PhD EcoStatData"
+title: "Generalized Linear Models"
+subtitle: "Statistics III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 page-layout: full
 bibliography: ../biblio.bib
 citeproc: true
-# csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
 reference-location: margin
 execute:
-  cache: true
+  cache: false
 filters: 
   - remove-pause.lua
 format:
@@ -25,13 +25,11 @@ format:
     theme: [default, ../template.css] # alternative themes (subset): default, night, dark
     embed-resources: false
     echo: false
-    fig-dpi: 200
+    fig-dpi: 250
     # incremental: true  # Remove comment if you like incremental bullet points
     logo: img/logoB.png
-    footer: "[Home page](https://tommasorigon.github.io/InferentialStat)"
-    highlight-style: github
+    footer: "[Home page](https://tommasorigon.github.io/StatIII)"
   html:
-    message: false
     html-math-method: katex
     echo: false
     callout-appearance: minimal
@@ -39,13 +37,8 @@ format:
     toc: true
     toc-title: Table of contents
     embed-resources: false
-    code-line-numbers: true
     smooth-scroll: true
-    code-fold: false
-    code-summary: "Show the code"
-    fig-dpi: 150
-    toc-location: right
-    highlight-style: github
+    fig-dpi: 250
 editor: 
   markdown: 
     wrap: 72
@@ -67,1131 +60,123 @@ styler:::style_file("../code/un_B.R")
 
 library(ggplot2)
 library(ggthemes)
+library(MLGdata)
 ```
 
 ::: columns
 ::: {.column width="30%"}
 ![](img/gaussian.png)
-
-<!-- *"Pluralitas non est ponenda sine necessitate."* -->
-
-<!-- [William of Ockham]{.grey} -->
 :::
 
 ::: {.column width="70%"}
 - This unit will cover the following [topics]{.orange}:
-    - One-parameter and multiparameter exponential families
-    - Likelihood, inference, sufficiency and completeness
+    - Exponential dispersion families
+    - Likelihood, inference and testing
+    - Iteratively Re-weighted Least Squares (IRLS)
+    - Deviance, model checking, and residuals
+    - Model selection
+    
+- GLMs are regression models with a linear predictor in which the response variable is distributed according to an [exponential dispersion family]{.blue}.
+
+- This  Unit covers the [theoretical backbone]{.orange} of GLMs.
+:::
+:::
+
+:::callout-tip
+The content of this Unit is covered in [Chapter 2]{.orange} of @Salvan2020. Alternatively, see [Chapter 4]{.blue} of @Agresti2015 or [Chapter 6]{.grey} of @Azzalini2008.
+:::
+
+# Introduction
+
+## Preliminaries
+
+- GLMs are a class of [regression models]{.blue} where we describe a [response]{.orange} random variable $Y_i$ as a function of a vector of [covariates]{.grey} $\bm{x}_i \in \mathbb{R}^p$.  
+
+- The random variables $Y_i$ are not restricted to be Gaussian. For example, we may have  
+  - $Y_i \in \{0,1\}$, often called [binary regression]{.blue}  
+  - $Y_i \in \{0,1,\dots\}$, often called [count regression]{.orange}  
+  - $Y_i \in (0,\infty)$ or $Y_i \in (-\infty,\infty)$  
+
+- Gaussian linear models form a special case of GLMs, arising when  $Y_i \in (-\infty,\infty)$
+
+. . .
+
+- The [response random variables]{.orange} are collected in the random vector $\bm{Y} = (Y_1,\dots,Y_n)^T$, whose [observed realization]{.blue} is $\bm{y} = (y_1,\dots,y_n)^T$.
+
+- The [design matrix]{.blue} $\bm{X}$ is a $n \times p$ matrix, comprising the covariate's values. The $j$th variable (column) is denoted with $\tilde{\bm{x}}_j$, whereas the $i$th observation (row) is $\bm{x}_i$.
+
+## `Beetles` data, from Bliss (1935) 
+
+- The `Beetles` dataset originates from Bliss (1935). It records the number of adult flour beetles that died after a 5-hour exposure to gaseous carbon disulphide.
+
+```{r}
+data("Beetles")
+colnames(Beetles) <- c("n", "deaths", "logdose")
+knitr::kable(Beetles)
+```
+
+- We aim to predict the proportion of `deaths` as a function of the `logdose`.
+
+- Modelling death proportions directly with [linear models]{.orange} is [inappropriate]{.orange}. While a [variance-stabilizing]{.blue} transformation offers a more [principled]{.blue} approach, it has important [drawbacks]{.orange}.
+
+## `Beetles` data, a dose-response plot
+
+```{r}
+#| fig-width: 7.8
+#| fig-height: 4.55
+#| fig-align: center
+ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
+  geom_point() +
+  theme_light() +
+  theme(legend.position = "right") +
+  scale_color_tableau(palette = "Color Blind") +
+  xlab("log-dose") +
+  ylab("Proportion of deaths")
+```
+
+- There is a clear [positive]{.orange} and [non-linear]{.blue} pattern between the [proportion of deaths]{.orange} as a function of the logdose.
+
+## An attempt at modelling the `Beetles` data
+
+- Let $Y_i$ the number of dead beetles out of $n_i$, and let $x_i$ be the log-dose. By definition, the random variables $Y_i \in \{0, 1, \dots, n_i\}$ for $i=1,\dots,8$. 
+
+- It is reasonable to model each $Y_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $n_i$ individuals. In other words:
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Binomial}(n_i, \pi_i), \qquad i=1,\dots,8,
+$$
+where $\pi_i$ is the [probability]{.orange} of dying at a given dose. 
+
+. . .
+
+- Because of well-known properties of the binomial distribution, we know that
+$$
+\mathbb{E}(Y_i) = \mu_i = n_i \pi_i.
+$$
+We would like to express $\pi_i$, the proportion of deaths, as a function of $x_i$.
+
+- A modelling possibility, called [logistic regression]{.blue} is the following:
+$$
+\pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \quad \text{ or equivalently} \quad \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i.
+$$
+for some parameters $\beta_1,\beta_2 \in \mathbb{R}$. Note that $\pi_i \in (0, 1)$ by construction. 
+
+
+# Exponential dispersion families
+
+## Overview
+
+- Figure 1 of @Efron2023. [Three level]{.grey} of statistical modeling. 
+
+
+![](img/EF.png){width=6in fig-align="center"}
+
 
 - The [prime role]{.orange} of [exponential families]{.orange} in the theory of statistical inference was first emphasized by @Fisher1934.
 
 - Most [well-known]{.blue} [distributions]{.blue}---such as Gaussian, Poisson, Binomial, and Gamma---are instances of exponential families.
 
-- Exponential families are the distributions typically considered when presenting the usual "regularity conditions".
 
-:::
-
-- With a few minor exceptions, this presentation will closely follow Chapters 5 and 6 of @Pace1997.
-
-:::
-
-## Overview
-
-![](img/EF.png){width=6in fig-align="center"}
-
-- Figure 1 of @Efron2023. Three level of statistical modeling. 
-
-# One-parameter exponential families
-
-## Exponential tilting
-
-- Let $Y$ be a [non-degenerate]{.orange} random variable with [support]{.blue} $\mathcal{Y} \subseteq \mathbb{R}$ and [density]{.orange} $f_0(y)$ with respect to a dominating measure $\nu(\mathrm{d}y)$.
-
-- We aim at building a [parametric family]{.blue} $\mathcal{F} = \{f(;\theta) : \theta \in \Theta \subseteq \mathbb{R} \}$ with common support $\mathcal{Y}$ such that $f_0$ is a special case, namely $f_0 \in \mathcal{F}$.
-
-- A strategy for doing this is called [exponential tilting]{.orange}, namely we could set
-$$
-f(y; \theta) \propto e^{\theta y}f_0(y).
-$$
-Thus, if $f(y;\theta)$ is generated via exponential tilting, then $f(y; 0) = e^0 f_0(y) = f_0(y)$. 
-
-- Let us define the mapping $M_0:\mathbb{R}\rightarrow (0,\infty]$
-$$
-M_0(\theta):=\int_\mathcal{Y}e^{\theta y}f_0(y)\nu(\mathrm{d}y), \qquad \theta \in \mathbb{R}.
-$$
-If $M_0(\theta)$ is [finite]{.orange} in a neighborhood of the origin, it is the [moment generating function]{.blue} of $Y$. 
-
-- Moreover, we define the set $\tilde{\Theta} \subseteq \mathbb{R}$ as the set of all $\theta$ such that $M_0(\theta)$ is finite, i.e.
-$$
-\tilde{\Theta} = \{\theta \in \mathbb{R} : M_0(\theta) < \infty\}.
-$$
-
-## Natural exponential family of order one
-
-- The mapping $K(\theta) = K_0(\theta) = \log{M_0(\theta)}$ is the [cumulant generating function]{.blue} of $f_0$. It is [finite]{.orange} if and only if $M_0(\theta)$ is finite. 
-
-:::callout-note
-The parametric family generated via [exponential tilting]{.orange} of $f_0$
-$$
-\mathcal{F}_{\text{ne}}^1 = \left\{f(y;\theta) = \frac{e^{\theta y}f_0(y)}{M_0(\theta)} = f_0(y)\exp\{\theta y - K(\theta)\}, \quad y \in \mathcal{Y}, \theta \in \tilde{\Theta} \right\},
-$$
-is called a [natural exponential family]{.orange} of order one, and $\tilde{\Theta} = \{\theta \in \mathbb{R} : K(\theta) < \infty\}$ is the [natural parameter space]{.blue}. 
-:::
-
--	The natural parameter space $\tilde{\Theta}$ is the [widest possible]{.orange} and must be an [interval]{.orange}; see exercises. The family $\mathcal{F}_{\text{ne}}^1$ is said to be [full]{.blue}, whereas a subfamily of $\mathcal{F}_{\text{ne}}^1$ with $\Theta \subseteq \tilde{\Theta}$ is [non-full]{.blue}.
-
--	By definition, all the densities $f(y;\theta) \in \mathcal{F}_{\text{ne}}^1$ have the [same support]{.blue}.
-
-:::callout-note
-A natural exponential family of order one, $\mathcal{F}_{\text{ne}}^1$, is said to be [regular]{.orange} if $\tilde{\Theta}$ is open.
-:::
-
-## Moment generating function
-
-- In regular problems, the functions $M_0(\theta)$ and $K_0(\theta)$ associated to a r.v. $Y$ with density $f_0$ are [finite]{.orange} in a neighbor of the origin. A [sufficient]{.blue} condition is that $\tilde{\Theta}$ is an [open set]{.blue} (regular $\mathcal{F}_\text{en}^1$).
-
-:::callout-warning
-Suppose $M_0(t) < \infty$ for any $|t| < t_0$ and for some $t_0 > 0$. Then a standard result of probability theory (e.g. @Billingsley1995, Section 21) implies:
-  
-- The random variable $Y$ has [finite moments]{.blue} of all orders, i.e. $\mu_k = \mathbb{E}(Y^k) < \infty$ for all $k \geq 1$.
-  
-- The moments $(\mu_k)_{k \ge 1}$ and  [moment generating function]{.blue} $M_0(t)$ [uniquely characterize]{.orange} the [law]{.orange} of $Y$ and $f_0$. Moreover, $M_0(t)$ admits a [Taylor expansion]{.grey} around the origin:
-$$
-  M_0(t) = 1 +  \mu_1 t + \mu_2 \frac{t^2}{2!} + \mu_3 \frac{t^3}{3!} + \cdots = \sum_{k=0}^\infty \frac{t^k}{k!}\mu_k, \qquad |t| < t_0.
-$$
-- The moments $\mu_k$ equal the $k$th derivative of $M_0(t)$ evaluated at the origin:
-$$
-\mu_k = \mathbb{E}_\theta(Y^k) = \frac{\partial^k}{\partial t^k} M_0(t) \Big|_{t = 0}, \qquad k \ge 1.
-$$
-:::
-
-## Cumulant generating function
-
-:::callout-warning
-Suppose $K_0(t) = \log{M_0(t)} < \infty$ for any $|t| < t_0$ and for some $t_0 > 0$. Then:
-
-- $K_0$ [uniquely characterizes]{.orange} the law of $Y$ and it admits a [Taylor expansion]{.grey}
-$$
-K_0(t) = \kappa_1 t + \kappa_2 \frac{t^2}{2!} + \kappa_3 \frac{t^3}{3!} + \cdots = \sum_{k=1}^\infty \frac{t^k}{k!} \kappa_k, \qquad |t| < t_0,
-$$
-where the coefficients $(\kappa_k)_{k \ge 1}$ are the [cumulants]{.blue} of $Y$.
-
-- The cumulants $\kappa_k$ equal the $k$th derivative of $K_0(t)$ evaluated at the origin
-$$
-\kappa_k = \frac{\partial^k}{\partial t^k} K_0(t) \Big|_{t = 0}, \qquad k \ge 1.
-$$
-Moreover, it can be shown the following moment relationships hold:
-$$
-\kappa_1 = \mathbb{E}_\theta(Y), \quad \kappa_2 = \text{var}_\theta(Y), \quad \kappa_3 = \mathbb{E}_\theta\{(Y - \mu_1)^3\}, \quad \kappa_4 = \mathbb{E}_\theta\{(Y - \mu_1)^4\} - 3\text{var}_\theta(Y)^2. 
-$$
-:::
-
-::: aside
-Refer to @Pace1997, Section 3.2.5 for detailed derivations. Standardized cumulants $\kappa_3/\kappa_2^{3/2}$ and $\kappa_4/\kappa_2^2$ are the [skewness]{.blue} and the (excess of) [kurtosis]{.blue} of $Y$.
-:::
-
-## Example: uniform distribution 📖 
-
-- Let $Y \sim \text{Unif}(0,1)$ so that $f_0(y) = 1$ for $y \in [0,1]$. The [exponential tilting]{.orange} of $f_0$ gives
-$$
-f(y; \theta) \propto e^{\theta y}f_0(y) = e^{\theta y}, \qquad y \in [0,1], \quad \theta \in \mathbb{R}.
-$$
-- The normalizing constant, that is, the [moment generating function]{.blue}, is
-$$
-M_0(\theta)= \mathbb{E}(e^{\theta Y})  = \int_0^1 e^{\theta y} \mathrm{d}y = \frac{e^\theta}{\theta}\Big|_0^1 = \frac{e^\theta - 1}{\theta}, \qquad \theta \neq 0.
-$$
-with $M_0(0) = 1$. Note that $M_0$ is continuous since $\lim_{\theta \to 0}(e^\theta - 1)/\theta = 1$.
-
-- Consequently, we have $M_0(\theta) < \infty$ for all $\theta \in \mathbb{R}$ and the [natural parameter space]{.orange} is $\tilde{\Theta} = \mathbb{R}$, which is an [open set]{.blue}. The resulting density is
-$$
-f(y; \theta) = \frac{\theta e^{\theta y}}{e^{\theta -1}} = \exp\{\theta y - K(\theta)\}, \qquad y \in [0, 1],
-$$
-where $K(\theta) = \log\{(e^\theta - 1)/\theta\}$.
-
-- It [holds in general](https://math.stackexchange.com/questions/1008707/moment-generating-function-of-bounded-variables) that $\tilde{\Theta} = \mathbb{R}$ whenever $f_0$ has [bounded support]{.blue}; thus, the family is [regular]{.orange}.
-
-## Example: Poisson distribution 📖 
-
-- Let $Y \sim \text{Poisson}(1)$ so that $f_0(y) = e^{-1}/y!$ for $y \in \mathbb{N}$. The [exponential tilting]{.orange} of $f_0$ gives
-$$
-f(y; \theta) \propto e^{\theta y}f_0(y) = \frac{e^{\theta y}e^{-1}}{y!}, \qquad y \in \mathbb{N}, \quad \theta \in \mathbb{R}.
-$$
-- The normalizing constant, that is, the [moment generating function]{.blue}, is
-$$
-M_0(\theta)= \mathbb{E}(e^{\theta Y})  = e^{-1}\sum_{k=0}^\infty \frac{e^{\theta k}}{k!} = \exp\{e^\theta - 1\}, \qquad \theta \in \mathbb{R}.
-$$
-- Consequently, we have $M_0(\theta) < \infty$ for all $\theta \in \mathbb{R}$ and the [natural parameter space]{.orange} is $\tilde{\Theta} = \mathbb{R}$, which is an [open set]{.blue}. The resulting density is
-$$
-f(y; \theta) = \frac{e^{\theta y} e^{-1}}{y!}\frac{e^{-e^\theta}}{e^{-1}} = \frac{e^{-1}}{y!}\exp\{\theta y - (e^\theta - 1)\} = \frac{\lambda^y e^{\lambda}}{y!}, \qquad y \in \mathbb{N},
-$$
-so that $K(\theta) = e^\theta - 1$ and having defined $\lambda  = e^\theta$. 
-
-- In other words, the tilted density is again a Poisson distribution with mean $e^\theta$. 
-
-## Example: exponential family generated by a Gaussian 📖 
-
-- Let $Y \sim \text{N}(0,1)$ so that $f_0(y) = 1/(\sqrt{2\pi})e^{-y^2/2}$ for $y \in \mathbb{R}$. The [exponential tilting]{.orange} of $f_0$ gives
-$$
-f(y; \theta) \propto e^{\theta y}f_0(y) = \frac{1}{\sqrt{2\pi}}e^{\theta y -y^2/2}, \qquad y,\theta \in \mathbb{R}.
-$$
-- The normalizing constant, that is, the [moment generating function]{.blue}, is
-$$
-M_0(\theta)= \mathbb{E}(e^{\theta Y})  = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}e^{\theta y -y^2/2}\mathrm{d}y = e^{\theta^2/2}, \qquad \theta \in \mathbb{R}.
-$$
-- Consequently, we have $M_0(\theta) < \infty$ for all $\theta \in \mathbb{R}$ and the [natural parameter space]{.orange} is $\tilde{\Theta} = \mathbb{R}$, which is an [open set]{.blue}. The resulting density is
-$$
-f(y; \theta) = \frac{1}{\sqrt{2\pi}}e^{\theta y}e^{-y^2/2}e^{-\theta^2/2} = \frac{e^{-y^2/2}}{\sqrt{2\pi}}\exp\{\theta y - \theta^2/2\} = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(y - \theta)^2}, \qquad y \in \mathbb{R},
-$$
-so that $K(\theta) = \theta^2/2$. 
-
-- In other words, the tilted density is again a Gaussian distribution with mean $\theta$. 
-
-
-## Closure under exponential tilting 📖 
-
-- Let $\mathcal{F}_{\text{ne}}^1$ be an exponential family with [parameter]{.blue} $\psi$ and [natural parameter space]{.orange} $\tilde{\Psi}$, with density $f(y; \psi) = f_0(y)\exp\{\psi y - K(\psi)\}$. The [exponential tilting]{.orange} of $f(y; \psi)$ gives
-$$
-f(y; \theta, \psi) \propto e^{\theta y} f(y; \psi) \propto f_0(y) \exp\{(\theta + \psi)y\},
-$$
-and the [normalizing constant]{.blue} of $f_0(y) \exp\{(\theta + \psi)y\}$ is therefore  
-$$
-\int_\mathcal{Y} f_0(y) \exp\{(\theta + \psi)y\} \, \nu(\mathrm{d}y) = M_0(\theta + \psi).
-$$
-
-- Thus, for any $\theta$ and $\psi$ such that $M_0(\theta + \psi) < \infty$, the corresponding density is
-$$
-f(y; \theta, \psi) = f_0(y) \exp\{(\theta + \psi)y - K(\theta + \psi)\},
-$$
-which is again a [member]{.blue} of the [exponential family]{.orange} $\mathcal{F}_{\text{ne}}^1$, with updated parameter $\theta + \psi$.
-
-:::callout-tip
-Exponential families are [closed]{.blue} under [exponential tilting]{.orange}, and $\mathcal{F}_{\text{ne}}^1$ can be thought of as being generated by any of its members.
-:::
-
-## Moments and cumulants
-
-- The functions $M_0(\theta)$ and $K(\theta) = K_0(\theta)$ of a $\mathcal{F}_\text{en}^1$, refer to the [baseline]{.orange} density $f_0(y)$. Indeed, for any fixed $\theta$, the [moment generating function]{.blue} of $f(y; \theta) \in \mathcal{F}_\text{en}^1$ is
-$$
-M_\theta(t) := \int_\mathcal{Y} e^{ty} f(y; \theta)\, \nu(\mathrm{d}y) 
-  = \frac{1}{M_0(\theta)} \int_\mathcal{Y} e^{(t + \theta)y} f_0(y)\, \nu(\mathrm{d}y) 
-  = \frac{M_0(t + \theta)}{M_0(\theta)}, \quad t + \theta \in \tilde{\Theta}.
-$$
-
-- Consequently, the [cumulant generating function]{.orange} of $f(y; \theta)$ relates to $K_0$ as follows:
-$$
-K_\theta(t) = \log M_\theta(t) = K_0(t + \theta) - K_0(\theta), \quad t + \theta \in \tilde{\Theta}.
-$$
-
-:::aside
-Textbooks sometimes suppress additive constants in defining  $K_0(\theta)$, e.g. using $e^\theta$ instead of $e^\theta-1$. This is inconsequential (constants cancel in $K_\theta(t)$) but somewhat misleading.
-:::
-
-:::callout-tip
-If $\mathcal{F}_\text{en}^1$ is a [regular]{.orange} family, then $\tilde{\Theta}$ is an [open set]{.blue}, and $\tilde{\Theta} = \text{int}\:\tilde{\Theta}$, meaning that $\theta$ is always an [inner point]{.blue} of $\tilde{\Theta}$. Therefore, there exists a $t_0$ such that $t + \theta \in \tilde{\Theta}$ for all $|t| < t_0$ implying that both $M_\theta$ and $K_\theta$ are [well-defined]{.orange}.
-
-
-If $\mathcal{F}_\text{en}^1$ is [not]{.orange} regular, then for $M_\theta(t)$ and $K_\theta(t)$ to be well-defined, we require that $\theta$ is [not]{.orange} a [boundary point]{.blue}; that is, $\theta \in \text{int}\:\tilde{\Theta}$, meaning it belongs to the interior of $\tilde{\Theta}$.
-:::
-
-
-## Mean value mapping I
-
-- [Moments]{.blue} and [cumulants]{.orange} exist for every $\theta \in \text{int}\:\tilde{\Theta}$. In particular, the cumulants are
-$$
-\kappa_k = \frac{\partial^k}{\partial t^k} K_\theta(t) \Big|_{t = 0} = \frac{\partial^k}{\partial t^k} \left[ K(t + \theta) - K(\theta) \right] \Big|_{t = 0} = \frac{\partial^k}{\partial \theta^k} K(\theta), \qquad k \ge 1.
-$$
-
-:::callout-note
-Let $Y \sim f(y; \theta)$, with $f(y; \theta) \in \mathcal{F}_\text{en}^1$. The first two moments of $Y$ are obtained as: 
-$$
-\mu(\theta) := \mathbb{E}_\theta(Y) = \frac{\partial}{\partial \theta} K(\theta), \qquad \text{var}_\theta(Y) = \frac{\partial}{\partial \theta} \mu(\theta) = \frac{\partial^2}{\partial \theta^2} K(\theta),
-$$
-We call $\mu : \text{int}\:\tilde{\Theta} \to \mathbb{R}$ the [mean value mapping]{.orange}. 
-:::
-
-- If $f_0$ is non-degenerate, then $\text{var}_\theta(Y) > 0$, implying that $K(\theta)$ is a [convex function]{.blue}, and $\mu(\theta)$ is a [smooth]{.orange} and [monotone increasing]{.orange}, namely is a [one-to-one]{.blue} map. 
-
-- Thus, if $\mathcal{F}_\text{en}^1$ is a [regular]{.orange} exponential family, then $\tilde{\Theta} = \text{int}\:\tilde{\Theta}$ and $\mu(\theta)$ is a [reparametrization]{.blue}. 
-
-## Mean value mapping II
-
-:::callout-note
-The mean value mapping has range $\mathcal{M} = \text{Range}(\mu) = \{\mu(\theta) : \theta \in \text{int}\:\tilde{\Theta}\}$. The set $\mathcal{M} \subseteq\mathbb{R}$ is called [mean space]{.blue} or [expectation space]{.orange}. 
-:::
-
-:::callout-note
-Let $C = C(\mathcal{Y})$ be the [closed convex hull]{.blue} of the sample space $\mathcal{Y}$, which is the [smallest closed convex set]{.blue} $C \subseteq \mathbb{R}$ [containing]{.orange} $\mathcal{Y}$, namely:
-$$
-C(\mathcal{Y}) = \{ y \in \mathbb{R} : y = \lambda y_1 + (1 - \lambda)y_2, \quad 0 \le \lambda \le 1, \quad y_1,y_2 \in \mathcal{Y}\}.
-$$
-:::
-
-- Hence, if $\mathcal{Y} = \{0, 1, \dots, N\}$, then $C = [0,N]$. If $\mathcal{Y} = \mathbb{N}$, then $C = \mathbb{R}^+$. If $\mathcal{Y} = \mathbb{R}$, then $C = \mathbb{R}$.
-
-- Because of the properties of expectations, $\mu(\theta) \in \text{int}\:C(\mathcal{Y})$ for all $\theta \in \text{int}\:\tilde{\Theta}$, namely
-$$
-\mathcal{M} \subseteq \text{int}\:C(\mathcal{Y}).
-$$
-Indeed, $\text{int}\:C(\mathcal{Y})$ is an [open interval]{.orange} whose extremes are the [infimum]{.blue} and [supremum]{.blue} of $\mathcal{Y}$.
-
-:::aside
-Both definitions naturally generalize to the multivariate case when $C, \mathcal{Y} \subseteq \mathbb{R}^p$, for $p > 1$. 
-:::
-
-## Mean value mapping III 📖 
-
-- In a regular exponential family, the mean value mapping $\mu(\theta)$ is a [reparametrization]{.orange}, meaning that for each $\theta \in \tilde{\Theta}$, there exists a [unique]{.blue} mean $\mu \in \mathcal{M}$ such that $\mu = \mu(\theta)$.
-
-- Moreover, in regular families, a much stronger result holds: for each value of $y \in \text{int}\:C(\mathcal{Y})$, there exists a [unique]{.orange} $\theta \in \tilde{\Theta}$ such that $\mu(\theta) = y$.
-
-:::callout-warning
-#### Theorem (@Pace1997, Theorem 5.1)
-
-If $\mathcal{F}_\text{en}^1$ is regular, then $\Theta = \text{int}\:\tilde{\Theta} = \tilde{\Theta}$ and $\mathcal{M} = \text{int}\:C.$
-:::
-
-- This establishes a [duality]{.blue} between the expectation space $\mathcal{M}$ and the sample space. Any value in $\text{int}\:C$ can be "reached", that is, there exists a distribution $f(y; \theta)$ with that mean.
-
-- This correspondence is crucial in maximum likelihood estimation and inference.
-
-:::aside
-This theorem can actually be strengthened: a necessary and sufficient condition for $\mathcal{M} = \text{int}\:C$ is that the family $\mathcal{F}_\text{en}^1$ is [steep]{.orange} (a regular family is also steep); see @Pace1997.
-:::
-
-## A non regular and non steep exponential family
-
-- Let us a consider an exponential family $\mathcal{F}_\text{en}^1$ generated by the density
-$$
-f_0(y) = c \frac{e^{-|y|}}{1 + y^4}, \qquad y \in \mathbb{R}.
-$$
-for some normalizing constant $c > 0$. The [exponential tilting]{.orange} of $f_0$ gives
-$$
-f(y; \theta) \propto e^{\theta y}f_0(y) \propto \frac{e^{-|y| + \theta y}}{1 + y^4}, \qquad y \in \mathbb{R}, \quad \theta \in \tilde{\Theta}.
-$$
-- The function $M_0(\theta)$ is unavailable in closed form, however $\tilde{\Theta} = [-1,1]$ since
-$$
-M_0(\theta) < \infty, \qquad \theta \in  [-1, 1]. 
-$$
-- Since $\tilde{\Theta}$ is a [closed set]{.blue}, the exponential family is [not regular]{.orange} (and is not steep either). In fact, one can show that $\lim_{\theta \to 1} \mu(\theta) = a < \infty$, implying that
-$$
-\mathcal{M} = (-a, a), \qquad \text{ whereas } \qquad \text{int}\:C = \mathbb{R}.
-$$
-- In other words, there are no values of $\theta$ such that $\mu(\theta) = y$ for any $y > a$, which implies, for instance, that the method of moments will encounter difficulties in estimating $\theta$.
-
-
-## Variance function I 📖 
-
-:::callout-note
-Let $Y \sim f(y; \theta)$, with $f(y; \theta) \in \mathcal{F}_\text{en}^1$ and let $\theta(\mu)$ be the [inverse map]{.orange} of $\mu(\theta)$. The variance of $Y$ can be expressed as a function of $\mu$:
-$$
-V(\mu) := \text{var}_{\theta(\mu)}(Y) = \frac{\partial^2}{\partial \theta^2} K(\theta) \Big|_{\theta = \theta(\mu)}.
-$$
-The function $V : \mathcal{M} \to \mathbb{R}^+$ is called the [variance function]{.orange} of the exponential family $\mathcal{F}_\text{en}^1$.
-:::
-
-- The importance of the variance function $V(\mu)$ is related to the following [characterization]{.blue} result due to @Morris1982.
-
-:::callout-warning
-#### Theorem (@Pace1997, Theorem 5.2)
-If $Y$ has a density that belongs to a $\mathcal{F}_\text{en}^1$, then the [pair]{.orange} $(\mathcal{M}, V(\mu))$ [uniquely]{.blue} determine the natural parameter space $\tilde{\Theta}$ and the cumulant generating function $K(\theta)$, and hence also $f(y;\theta)$.
-:::
-
-
-## Variance function II 📖 
-
-- The characterization theorem of @Morris1982 is [constructive]{.blue} in nature, as its [proof]{.orange} provides a practical way of determining $K(\theta)$ from $(\mathcal{M}, V(\mu))$. In particular, the function $K(\cdot)$ must satisfy
-$$
-K\left(\int_{\mu_0}^\mu \frac{1}{V(m)}\mathrm{d}m\right) = \int_{\mu_0}^\mu \frac{m}{V(m)}\mathrm{d}m,
-$$
-where $\mu_0$ is an arbitrary point in $\mathcal{M}$.
-
-- For example, let $\mathcal{M} = (0, \infty)$ and $V(\mu) = \mu^2$. Then, choosing $\mu_0=1$ gives
-$$
-K\left(1 - \frac{1}{\mu}\right) = \log\mu,
-$$
-and therefore $\theta(\mu) = 1 - 1/\mu$, giving $\tilde{\Theta} = (-\infty, 1)$ and $\mu(\theta) = (1 - \theta)^{-1}$. Hence we obtain $K(\theta) = -\log(1 - \theta)$, which corresponds to the exponential density $f_0(y) = e^{-y}$, for $y > 0$.
-
-:::callout-tip
-In order to identify $\mathcal{F}_\text{en}^1$ [both]{.orange} $\mathcal{M}$ and $V(\mu)$ must be known.
-:::
-
-## Well-known exponential families
-
-| Notation | $\text{N}(\psi, 1)$ | $\text{Poisson}(\psi)$ | $\text{Bin}(N, \psi)$ | $\text{Gamma}(\nu,\psi), \nu > 0$|
-|:-------------------------------|-------------|-----------|---------------------------------------------|----------------------------------|
-| $\mathcal{Y}$ | $\mathbb{R}$ | $\mathbb{N}$ | $\{0, 1, \dots, N\}$ | $(0, \infty)$ |
-| [Natural param.]{.orange}
-| $\theta(\psi)$ | $\psi$ | $\log{\psi}$ | $\log\{\psi/(1 - \psi)\}$ | $-\psi$ |
-| $f_0(y)$ | $(\sqrt{2\pi})^{-1}e^{-\frac{1}{2}y^2}$ | $e^{-1}/ y!$ | $\binom{N}{y}\left(\frac{1}{2}\right)^N$ | $y^{\nu - 1}e^{-y}/\Gamma(\nu)$ |
-| $K(\theta)$ | $\theta^2/2$ | $e^\theta-1$ | $N \log(1 + e^\theta) - N\log{2}$ | $-\nu \log(1-\theta)$ |
-| $\tilde{\Theta}$ | $\mathbb{R}$ | $\mathbb{R}$ | $\mathbb{R}$ | $(-\infty, 0)$ |
-| [Mean param.]{.blue} |
-| $\mu(\theta)$ | $\theta$ | $e^\theta$ | $N e^\theta/(1 + e^{\theta})$ | $-\nu/\theta$ |
-| $\mathcal{M}$ | $\mathbb{R}$ | $(0, \infty)$ | $(0, N)$ | $(0, \infty)$ |
-| $V(\mu)$ | $1$ | $\mu$ | $\mu(1 - \mu/ N)$ | $\mu^2/\nu$ |
-
-## Quadratic variance functions
-
-- There is more in @Morris1982's paper. Specifically, he focused on a subclass of [quadratic]{.orange} variance functions, which can be written as
-$$
-V(\mu) = a + b\mu + c\mu^2,
-$$
-for some known constants $a$, $b$, and $c$.
-
-- @Morris1982 showed that, up to transformations such as convolution, there exist only [six families]{.blue} within $\mathcal{F}_\text{en}^1$ that possess a [quadratic variance]{.orange} function. These are: (i) the normal, (ii) the Poisson, (iii) the gamma, (iv) the binomial, (v) the negative binomial, and (vi) a sixth family.
-
-- The sixth (less known) distribution is called the [generalized hyperbolic secant]{.blue}, and it has density
-$$
-f(y; \theta) = \frac{\exp\left\{\theta y - \log\cos{\theta}\right\}}{2\cosh(\pi y/2)}, \qquad y \in \mathbb{R}, \quad \theta \in (-\pi/2, \pi/2),
-$$
-with [mean]{.orange} function $\mu(\theta) = \tan{\theta}$ and [variance]{.blue} function $V(\mu) = \csc^2(\theta) = 1 + \mu^2$, and $\mathcal{M} = \mathbb{R}$. It is also a [regular]{.orange} exponential family.
-
-
-
-## A general definition of exponential families I
-
-:::callout-note
-Let $h(y) > 0$, $s(y)$, be real-valued functions not depending on $\psi$ and let $\theta(\psi), G(\psi)$ be real-valued functions not depending on $y$. The parametric family
-$$
-\mathcal{F}_{\text{e}}^1 = \left\{f(y;\psi) = h(y)\exp\{\theta(\psi) s(y) - G(\psi)\}, \quad y \in \mathcal{Y}\subseteq \mathbb{R}, \: \psi \in \Psi \right\},
-$$
-is called a [exponential family]{.orange} of order one, where the normalizing constant is
-$$
-\exp{G(\psi)} = \int_\mathcal{Y} h(y) \exp\{\theta(\psi) s(y)\} \nu(\mathrm{d}y).
-$$
-The family is [full]{.blue} if the parameter space $\Psi$ is the widest possible $\tilde{\Psi} = \{\psi \subseteq\mathbb{R}: G(\psi) < \infty\}$. 
-:::
-
-:::callout-tip
-Suppose $f(y; \psi) \in \mathcal{F}_\text{e}^1$. Then, the function $\theta(\psi)$ must be a [one-to-one]{.blue} mapping, that is, a [reparametrization]{.orange}, otherwise, the model would [not]{.orange} be [identifiable]{.orange}. Hence, we can write:
-$$
-f(y; \psi) = h(y)\exp\{\theta(\psi) s(y) - \tilde{G}(\theta(\psi))\},
-$$
-for some function $\tilde{G}(\cdot)$ such that $G(\psi) = \tilde{G}(\theta(\psi))$. 
-:::
-
-## A general definition of exponential families II
-
-- When $s(y)$ is an arbitrary function of $y$, then $\mathcal{F}_\text{e}^1$ is [broader]{.blue} than $\mathcal{F}_\text{en}^1$. 
-
-- Without loss of generality, we can focus on the natural parametrization $\theta \in \Theta$ and a density baseline $h(y) = f_0(y)$, meaning that $f(y;\theta) \in \mathcal{F}_\text{e}^1$ can be written as
-$$
-f(y; \theta) = f_0(y)\exp\{\theta s(y) - K(\theta)\},
-$$
-because the general case would be a [reparametrization]{.orange} of this one.
-
-- Let $Y \sim f(y; \theta)$, with $f(y; \theta) \in \mathcal{F}_\text{e}^1$. Then, the random variable $S = s(Y)$ has density
-$$
-f_S(s; \psi) = \tilde{f}_0(s)\exp\{\theta s - K(\theta)\},
-$$
-for some baseline density $\tilde{f}_0(s)$, namely $f_S(s; \psi) \in \mathcal{F}_\text{en}^1$. If in addition $s(y)$ is a [one-to-one]{.orange} invertible mapping, this means $Y = s^{-1}(S)$ is just a transformation of an $\mathcal{F}_\text{en}^1$.
-
-:::callout-tip
-A full exponential family $\mathcal{F}_\text{e}^1$ is, technically, a broader definition, but in practice it leads to a [reparametrization]{.orange} of a natural exponential family $\mathcal{F}_\text{en}^1$ in a [transformed space]{.blue} $s(Y)$. 
-:::
-
-<!-- ## Independent sampling -->
-
-<!-- - Let $Y_1,\dots,Y_n$ be iid random variables with density $f(y; \theta)$, where $f(y; \theta) \in \mathcal{F}_\text{e}^1$ is a full exponential family. , assume the density can be written as -->
-<!-- $$ -->
-<!-- f(y; \theta) = h(y)\exp\{\theta s(y) - G(\theta)\}, \qquad \theta \in \tilde{\Theta}. -->
-<!-- $$ -->
-
-<!-- - The [likelihood]{.blue} function is -->
-<!-- $$ -->
-<!-- L(\theta; \bm{y}) = \prod_{i=1}^n \exp\left\{\theta s(y_i) - G(\theta)\right\} = \exp\left\{\theta \sum_{i=1}^n s(y_i) - n G(\theta)\right\}, -->
-<!-- $$ -->
-<!-- from which we see that $s = \sum_{i=1}^n s(y_i)$ is the [minimal sufficient statistic]{.orange} for $\theta$. -->
-
-<!-- - Inference can therefore be based on the random variable $S = \sum_{i=1}^n s(Y_i)$, whose distribution is -->
-<!-- $$ -->
-<!-- f_S(s; \theta) = \tilde{f}_0(s)\exp\{\theta s - K(\theta)\}, -->
-<!-- $$ -->
-<!-- with $K(\theta) = n G(\theta)$ and for some density $\tilde{f}_0(s)$. That is, the distribution of the minimal sufficient statistic $f_S(s; \theta)$ is itself a [natural exponential family]{.blue} of order one. -->
-
-# Multiparameter exponential families
-
-## Natural exponential families of order $p$
-
-- Let $Y$ be a [non-degenerate]{.orange} random variable with [support]{.blue} $\mathcal{Y} \subseteq \mathbb{R}^p$ and [density]{.orange} $f_0(y)$ with respect to a dominating measure $\nu(\mathrm{d}y)$.
-
-- Let us define the mapping $M_0:\mathbb{R}^p\rightarrow (0,\infty]$
-$$
-M_0(\theta):=\int_\mathcal{Y}e^{\theta^T y}f_0(y)\nu(\mathrm{d}y), \qquad \theta \in \mathbb{R}^p.
-$$
-
-:::callout-note
-The parametric family generated via [exponential tilting]{.orange} of a density $f_0$ 
-$$
-\mathcal{F}_{\text{ne}}^p = \left\{f(y;\theta) = \frac{e^{\theta^T y}f_0(y)}{M_0(\theta)} = f_0(y)\exp\{\theta^T y - K(\theta)\}, \quad y \in \mathcal{Y}\subseteq \mathbb{R}^p, \:\theta \in \tilde{\Theta} \right\},
-$$
-is called a [natural exponential family]{.orange} of order one, $K(\theta) = \log M_0(\theta)$ and $\tilde{\Theta} = \{\theta \in \mathbb{R}^p : K(\theta) < \infty\}$ is the [natural parameter space]{.blue}. 
-:::
-
-- The family $\mathcal{F}_{\text{ne}}^p$ is said to be [full]{.blue}, whereas a subfamily of $\mathcal{F}_{\text{ne}}^p$ with $\Theta \subseteq \tilde{\Theta}$ is [non-full]{.blue}. Moreover, the family $\mathcal{F}_{\text{ne}}^p$ is said to be [regular]{.orange} if $\tilde{\Theta}$ is an open set. 
-
-## Example: multinomial distribution I 📖
-
-- Let $Y = (Y_1,\dots,Y_{p-1}) \sim \text{Multinom}(N; 1/p,\dots,1/p)$ be a [multinomial]{.orange} random vector with [uniform probabilities]{.blue}, so that its density $f_0$ is  
-$$
-f_0(y) = \frac{N!}{y_1!\cdots y_p!}\left(\frac{1}{p}\right)^N, \qquad y = (y_1,\dots,y_{p-1}) \in \mathcal{Y} \subseteq \mathbb{R}^{p-1},
-$$
-where $\mathcal{Y} = \{(y_1,\dots,y_{p-1}) \in \{0,\dots,N\}^{p-1} : \sum_{j=1}^{p-1} y_j \le N\}$, having set $y_p := N - \sum_{j=1}^{p-1} y_j$.
-
-- The [exponential tilting]{.orange} of $f_0$ yields
-$$
-f(y; \theta) \propto f_0(y) e^{\theta^T y} = \frac{N!}{y_1!\cdots y_p!}\left(\frac{1}{p}\right)^N e^{\theta_1 y_1 + \cdots + \theta_{p-1} y_{p-1}}, \qquad y \in \mathcal{Y}, \;\theta \in \mathbb{R}^{p-1}.
-$$
-
-- As a consequence of the [multinomial theorem]{.orange}, the normalizing constant, that is, the [moment generating function]{.blue}, is  
-$$
-M_0(\theta) = \mathbb{E}\left(e^{\theta^T Y}\right) = \left(\frac{1}{p}\right)^N(1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}})^N.
-$$
-  Thus $M_0(\theta) < \infty$ for all $\theta \in \mathbb{R}^{p-1}$ and the [natural parameter space]{.orange} is the [open set]{.blue} $\tilde{\Theta} = \mathbb{R}^{p-1}$.
-
-
-
-## Example: multinomial distribution II 📖
-
-- The resulting [tilted]{.orange} density is
-$$
-f(y; \theta) = f_0(y)e^{\theta^Ty - K(\theta)} = \frac{N!}{y_1!\cdots y_p!}\frac{e^{\theta_1 y_1 + \cdots + \theta_{p-1}y_{p-1}}}{(1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}})^N}, 
-$$
-where $K(\theta) = \log{M_0(\theta)} = N\log(1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}}) - N\log{p}$.
-
-- In other words, the tilted density is again a [multinomial]{.blue} distribution with parameters $N$ and [probabilities]{.orange} $\pi_j = e^{\theta_j} / (1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}})$. In fact, we can write:
-$$
-\begin{aligned}
-f(y; \theta) &= \frac{N!}{y_1!\cdots y_p!}\frac{e^{\theta_1 y_1}  \cdots  e^{\theta_p y_p}}{(\sum_{j=1}^p e^{\theta_j})^{y_1} \cdots (\sum_{j=1}^p e^{\theta_j})^{y_p}} = \frac{N!}{y_1!\cdots y_p!} \prod_{j=1}^p\left(\frac{e^{\theta_j}}{\sum_{k=1}^p e^{\theta_k}}\right)^{y_j} \\
-&= \frac{N!}{y_1!\cdots y_p!} \prod_{j=1}^p\pi_j^{y_j}.
-\end{aligned}
-$$
-where we defined $\theta_p := 0$, so that $\sum_{j=1}^pe^{\theta_j} = 1 + e^{\theta_1} + \cdots + e^{\theta_{p-1}}$, recalling that $\sum_{j=1}^py_j = N$.
-
-- The tilted density belongs to a regular [natural exponential family]{.blue} $\mathcal{F}_\text{en}^{p-1}$ of [order]{.orange} $p-1$. 
-
-
-## Example: independent exponential families 📖
-
-- Let $Y = (Y_1,\dots,Y_p)$ be a random vector of [independent]{.blue} random variables, each belonging to a [full natural exponential family]{.orange} $\mathcal{F}_\text{en}^1$ of order 1, with density
-$$
-f(y_j; \theta_j) = f_j(y_j)\exp\{\theta_j y_j - K_j(\theta_j)\}, \qquad \theta_j \in \tilde{\Theta}_j.
-$$
-
-- Let $\theta = (\theta_1,\dots,\theta_p)$. Because of independence, the [joint distribution]{.blue} of $Y$ is
-$$
-\begin{aligned}
-f(y;\theta) &= \prod_{j=1}^p f(y_j;\theta_j) = \prod_{j=1}^p f_j(y_j)\exp\{\theta_j y_j - K_j(\theta_j)\} \\
-&= \left[\prod_{j=1}^p f_j(y_j)\right] \exp\left\{\sum_{j=1}^p \theta_j y_j - \sum_{j=1}^p K_j(\theta_j)\right\} \\
-&= f_0(y) \exp\{\theta^T y - K(\theta)\},
-\end{aligned}
-$$
-where $f_0(y) = \prod_{j=1}^p f_j(y_j)$, $K(\theta) = \sum_{j=1}^p K_j(\theta_j)$, and the [natural parameter space]{.orange} is
-$$
-\tilde{\Theta} = \tilde{\Theta}_1 \times \cdots \times \tilde{\Theta}_p.
-$$
-
-- Thus, $f(y;\theta)$ is an $\mathcal{F}_\text{en}^p$, in which $K(\theta)$ is a [separable]{.blue} function. 
-
-## Mean value mapping and other properties
-
-<!-- - Properties of moments and cumulants in the one-parameter case carry over to the multi-parameter setting, with the obvious adjustments. -->
-
-- Let $Y \sim f(y; \theta)$, with $f(y; \theta) \in \mathcal{F}_\text{en}^p$. The cumulant generating function is  
-$$
-K_\theta(t) = \log M_\theta(t) = K_0(t + \theta) - K_0(\theta), \qquad t + \theta \in \tilde{\Theta}.
-$$
-In particular, the first two moments of $Y$ are obtained as:  
-$$
-\mu(\theta) := \mathbb{E}_\theta(Y) = \frac{\partial}{\partial \theta} K(\theta), \qquad \text{var}_\theta(Y) = \frac{\partial}{\partial \theta^\top} \mu(\theta) = \frac{\partial^2}{\partial \theta \partial \theta^\top} K(\theta),
-$$
-
-- If $f_0$ is non-degenerate, then the [covariance matrix]{.blue} $\text{var}_\theta(Y)$ is [positive definite]{.orange}, implying that $K(\theta)$ is a [convex function]{.blue}, and $\mu(\theta)$ is a [smooth]{.orange} [one-to-one]{.blue} map.
-
-- The definitions of mean value mapping $\mu(\theta)$, its range $\mathcal{M}$, the convex hull $C(\mathcal{Y})$ of the sample space, and the variance function $V(\mu)$ also naturally extend to the multi-parameter setting.
-
-- Refer to @Jorgensen1987 for an extension of the results of @Morris1982 about $V(\mu)$.
-
-:::callout-warning
-#### Theorem (@Pace1997, Theorem 5.3)
-
-If $\mathcal{F}_\text{en}^p$ is regular, then  $\mathcal{M} = \text{int}\:C.$
-:::
-
-## Independence of the components
-
-:::callout-warning
-#### Theorem (@Pace1997, Theorem 5.4)
-
-If the natural observations of an $\mathcal{F}_\text{en}^p$ are [independent]{.blue} for some $\theta_0 \in \tilde{\Theta}$, then this is also true for every $\theta \in \tilde{\Theta}$.
-:::
-
-- This theorem essentially establishes that if the baseline density $f_0(\cdot)$ has independent components, then the exponential tilting preserves independence.
-
-:::callout-warning
-#### Theorem (@Pace1997, Theorem 5.5)
-
-If, for every $\theta \in \tilde{\Theta}$, the natural observations of a [regular]{.blue} $\mathcal{F}_\text{en}^p$ are [uncorrelated]{.blue}, then they are also [independent]{.orange}.
-:::
-
-- This generalizes a well-known fact about multivariate Gaussians, which are in fact an $\mathcal{F}_\text{en}^p$.
-
-- In practice, if the Hessian matrix of $K(\theta)$ is [diagonal]{.blue}, then the natural observations are [independent]{.orange}. This occurs whenever $K(\theta)$ is [separable]{.orange}.
-
-## Marginal and conditional distributions
-
-- Consider a $\mathcal{F}_\text{en}^p$ family, so that $f(y; \theta) = f_0(y) \exp\{\theta^T y - K(\theta)\}$.
-
-- Let $y = (t, u)$ be a [partition]{.blue} of the natural observations $y$, where $t$ has $k$ components and $u$ has $p-k$ components. Let us partition $\theta$ accordingly, so that $\theta = (\tau, \zeta)$ and
-$$
-f(y; \tau, \zeta) = f_0(y) \exp\{\tau^T t + \zeta^T u - K(\tau, \zeta)\}, \qquad (\tau, \zeta) \in \tilde{\Theta}.
-$$
-
-:::callout-warning
-#### Theorem (@Pace1997, Theorem 5.6)
-
-i. The family of [marginal]{.blue} distributions of $U$ is an $\mathcal{F}_\text{en}^{p-k}$ for every fixed value of $\tau$ and
-$$
-f_U(u; \tau, \zeta) = h_\tau(u) \exp\{\zeta^T u - K_\tau(\zeta)\}.
-$$
-
-ii. The family of [conditional]{.orange} distributions of $T$ given $U = u$ is an $\mathcal{F}_\text{en}^k$ and the conditional densities do not depend on $\zeta$, that is
-$$
-f_{T \mid U = u}(t; u, \tau) = h_u(t) \exp\{\tau^T t - K_u(\tau)\}, \quad \exp{K_u(\tau)} = \mathbb{E}_0\left(e^{\tau^T T} \mid U = u\right).
-$$
-:::
-
-## Conditional likelihoods
-
-- The former result on marginal and conditional laws is not just an elegant probabilistic fact. Indeed, it has meaningful inferential applications.
-
-- Often, we can split the parameter vector $\theta$ into a [parameter of interest]{.blue} $\tau$ and a [nuisance parameter]{.orange} $\zeta$. We are not interested in learning $\zeta$.
-
-:::callout-tip
-The main idea relies on noticing that $f_{T \mid U = u}(t; u, \tau) = h_u(t) \exp\{\tau^T t - K_u(\tau)\}$ does not involve $\zeta$ and therefore we could define a [conditional likelihood]{.orange} based on $f_{T \mid U = u}$.
-:::
-
-- A practical drawback of this approach is that the conditional cumulant generating function $K_u(\tau)$ is not always available in closed form, albeit with notable exceptions.
-
-- The approach is valid, in the sense that a likelihood based on $f_{T \mid U = u}$ is a [genuine likelihood]{.blue}. On the other hand, note that the full likelihood would be based on
-$$
-f(y; \tau, \zeta) = f_U(u; \tau, \zeta) \, f_{T \mid U = u}(t; u, \tau),
-$$
-and thus the conditional likelihood is [discarding information]{.orange}, that is, it neglects $f_U(u; \tau, \zeta)$.
-
-## A general definition of exponential families I
-
-:::callout-note
-Let $s_1(y), \dots, s_p(y)$ and $h(y) > 0$ be real-valued functions not depending on the parameter $\psi$, and let $\theta_1(\psi), \dots, \theta_p(\psi)$, $G(\psi)$ be real-valued functions not depending on $y$. The family
-$$
-\mathcal{F}_{\text{e}}^p = \left\{ f(y; \psi) = h(y) \exp\{\theta(\psi)^T s(y) - G(\psi)\}, \quad y \in \mathcal{Y} \subseteq \mathbb{R}^p, \: \psi \in \Psi \subseteq \mathbb{R}^q \right\},
-$$
-is called an [exponential family]{.orange} of order $p$, where the normalizing constant is
-$$
-\exp{G(\psi)} = \int_{\mathcal{Y}} h(y) \exp\{\theta(\psi)^T s(y)\} \nu(\mathrm{d}y).
-$$
-The notation $\mathcal{F}_\text{e}^p$ is understood to indicate a [minimal representation]{.blue}, i.e., such that there is [no linear dependence]{.orange} between $1, s_1(y), \dots, s_p(y)$ or, equivalently, between $1, \theta_1(\psi), \dots, \theta_p(\psi)$. 
-:::
-
-- If $q > p$, then $\psi$ is [not identifiable]{.orange} and this possibility should be discarded.
-- If $q = p$, then $\theta(\psi)$ must be a one-to-one mapping, i.e., a [reparametrization]{.blue}, otherwise the model is again [not identifiable]{.orange}.
-- If $q < p$, we have a $(p,q)$-[curved exponential family]{.blue}, which corresponds to a [restriction]{.orange} of the natural parameter space.
-
-## Curved exponential families
-
-![](img/efron2.png){width=6in fig-align="center"}
-
-- Figure 4.1 of @Efron2023, Chapter 4. Three levels of statistical modeling, now with a fourth level added representing curved exponential families.
-
-## A general definition of exponential families II
-
-- We refer to @Efron2023, Chapter 4, for a detailed discussion on curved exponential families. From now on, we will focus on the $p = q$ case.
-
-- Without loss of generality, we can focus on the [natural parametrization]{.blue} $\theta \in \Theta \subseteq \mathbb{R}^p$ and baseline density $h(y) = f_0(y)$, meaning that $f(y;\theta) \in \mathcal{F}_\text{e}^p$ can be written as
-$$
-f(y; \theta) = f_0(y)\exp\{\theta^T s(y) - K(\theta)\},
-$$
-because the general case would be a [reparametrization]{.orange} of this one.
-
-- Let $Y \sim f(y; \theta)$, with $f(y; \theta) \in \mathcal{F}_\text{e}^p$. Then, the [random vector]{.blue} $S = s(Y) = (s_1(Y), \dots, s_p(Y))$ has density
-$$
-f_S(s; \theta) = \tilde{f}_0(s)\exp\{\theta^T s - K(\theta)\},
-$$
-for some baseline density $\tilde{f}_0(s)$, namely $f_S(s; \theta) \in \mathcal{F}_\text{en}^p$. If in addition $s(y)$ is a [one-to-one]{.orange} invertible mapping, this means $Y = s^{-1}(S)$ is just a transformation of an $\mathcal{F}_\text{en}^p$.
-
-:::callout-tip
-As in the single parameter case, a full exponential family $\mathcal{F}_\text{e}^p$ with $p = q$ in practice leads to a [reparametrization]{.orange} of a natural exponential family $\mathcal{F}_\text{en}^p$ in a [transformed space]{.blue} $s(Y)$.
-:::
-
-## Example: gamma distribution 📖
-
-- The family $\text{Gamma}(\nu, \lambda)$ with $\nu,\lambda > 0$ is an $\mathcal{F}_\text{e}^2$. In fact, its [density]{.blue} is
-$$
-\begin{aligned}
-f(y; \nu, \lambda) &= \frac{\lambda^\nu}{\Gamma(\nu)}y^{\nu -1}e^{-\lambda y} = \frac{1}{y}\exp\{\nu\log{y} - \lambda y - \log\Gamma(\nu) + \nu\log{\lambda}\} \\
-&= h(y)\exp\{\theta(\psi)^T s(y) - G(\psi)\}.
-\end{aligned}
-$$
-where $h(y) = y^{-1}$, the [sufficient statistic]{.blue} $s(y) = (s_1(y), s_2(y)) = (\log{y}, y)$, whereas the [natural parameters]{.orange} and the cumulant generating function are
-$$
-\theta(\psi) = (\theta_1(\psi), \theta_2(\psi)) = (\nu, -\lambda), \qquad G(\psi) = \log{\Gamma(\nu)} - \nu\log{\lambda},
-$$
-having set $\psi = (\nu, \lambda)$. 
-
-- As previously shown, this implies that the family
-$$
-f(s; \theta) = \tilde{h}(s)\exp\{\theta^Ts - \log{\Gamma(\theta_1)} + \theta_1\log(-\theta_2)\}, \qquad \theta \in \tilde{\Theta},
-$$
-is a regular [natural exponential family]{.orange} of order 2, with some function $\tilde{h}(s)$.
-
-## Example: von Mises distribution I
-
-- Let $Y$ be a random variable describing an [angle]{.blue}, so that $\mathcal{Y} = (0, 2\pi)$, and let us consider the [uniform density]{.orange} on the [circle]{.blue}, namely
-$$
-f_0(y) = \frac{1}{2\pi}, \qquad y \in (0, 2\pi).
-$$
-
-- We define a tilted density $f(y; \theta) \in \mathcal{F}_\text{e}^2$ by considering $s(y) = (\cos{y}, \sin{y})$, i.e., the [cartesian coordinates]{.orange} of $y$. This choice of $s(y)$ ensures the appealing property $f(y;\theta) = f(y + 2k\pi;\theta)$. 
-
-- More precisely, let $\theta = (\theta_1,\theta_2)$ and define the parametric family of densities
-$$
-f(y; \theta) = f_0(y)\exp\{\theta^Ts(y) - K(\theta)\}, \qquad \theta \in \tilde{\Theta},
-$$
-where $h(y) = 1/2\pi$. The normalizing constant has a "closed form"
-$$
-\exp{K(\theta)} = \frac{1}{2\pi}\int_0^{2\pi}\exp\{\theta_1\cos(y) + \theta_2\sin(y)\}\mathrm{d}y = \mathcal{A}_0(||\theta||_2),
-$$
-where $\mathcal{A}_\nu(\cdot)$ is known as the [modified Bessel function]{.orange} of the first kind and order $\nu$.
-
-- It is easy to check that $K(\theta) < \infty$ for all values of $\theta \in \mathbb{R}^2$; therefore, $\tilde{\Theta} = \mathbb{R}^2$. This completes the definition of what is known as the [von Mises]{.blue} distribution.
-
-## Example: von Mises distribution II
-
-- Instead of the [natural parametrization]{.orange}, it is often convenient to consider a [reparametrization]{.blue} $\psi =(\tau, \gamma)$, defined through the one-to-one mapping
-$$
-\theta(\psi) = (\tau\cos{\gamma}, \tau\sin{\gamma}), \qquad \psi \in \tilde{\Psi} = (0, \infty) \times (0, 2\pi).
-$$
-
-- Using this parametrization, thanks to well-known [trigonometric]{.blue} relationships, we obtain the more familiar formulation of the von Mises distribution, which is
-$$
-f(y; \psi) = h(y)\exp\{\theta(\psi)s(y) - G(\psi)\} = \frac{1}{2\pi \mathcal{A}_0(\tau)}e^{\tau\cos(y - \gamma)}, \qquad y \in (0, 2\pi),
-$$
-so that $\gamma \in (0,2\pi)$ can be interpreted as the [location]{.orange} and $\tau > 0$ as the [precision]{.blue}.
-
-- We also note that the distribution of $s(Y)$ is a [regular]{.blue} [natural exponential family]{.orange} of order 2, with density
-$$
-f_S(s; \theta) = \frac{1}{2\pi}\exp\{\theta^Ts - \log\mathcal{A}_0(||\theta||_2)\}, \qquad s \in \mathcal{S} = \{(s_1,s_2) \in \mathbb{R}^2 : s_1^2 + s_2^2 = 1\},
-$$
-clarifying that $S = s(Y)$ is a random vector taking values on a [circle]{.orange} with unit radius.  
-
-## Example: wind direction in Venice I
-
-```{r}
-#| message: false
-library(tidyverse)
-
-rm(list = ls())
-dataset <- read_delim("../data/Stazione_SanGiorgio.csv", delim = ";", col_types = "c")
-dataset <- dataset %>%
-  transmute(date = force_tz(as_datetime(Data), tzone = "Europe/Rome"), wind_dir = `San Giorgio D.Vento med. 10m`, `Wind speed` = `San Giorgio V.Vento max`) %>%
-  mutate(year = year(date)) %>%
-  mutate(month = month(date)) %>%
-  mutate(day = day(date)) %>%
-  mutate(hour = hour(date))
-
-# Filtering a bunch of them
-dataset <- filter(dataset, date >= "2025-04-14 00:00:00")
-```
-
-- The von Mises distribution is sometimes regarded as the "Gaussian distribution for [circular data]{.blue}". To provide a concrete example, let us consider the [wind directions]{.orange} measured from the [San Giorgio meteorological station](https://www.comune.venezia.it/it/content/17-san-giorgio), in Venice. 
-
-- Measurements are recorded every [5 minutes]{.orange}, from 14-04-2025 to 18-04-2025, for a total of $n = 1153$. The variable `wind_dir` is recorded in [degrees]{.blue}, i.e., between 0 and 360.
-
-```{r}
-print(subset(dataset, select = c(date, wind_dir, `Wind speed`))[1:10, ])
-```
-
-:::aside
-The dataset is available [here](../data/Stazione_SanGiorgio.csv). The original source is the [webpage of Venice municipality](https://www.comune.venezia.it/it/content/dati-e-statistiche-).
-:::
-
-## Example: wind direction in Venice II
-
-```{r}
-#| fig-width: 6
-#| fig-height: 4
-#| fig-align: center
-ggplot(data = dataset, aes(x = date, y = wind_dir, col = `Wind speed`)) +
-  geom_line() +
-  labs(x = "Date", y = "Wind direction (degrees)") +
-  theme_bw()
-```
-
-- This is a somewhat [misleading]{.orange} graphical representation of [wind directions]{.blue} evolving over time. Indeed, the "spikes" are not real: the angles 1 and 359 are, in fact, very close.
-
-## Example: wind direction in Venice III
-
-```{r}
-clifro::windrose(speed = dataset$`Wind speed`, direction = dataset$wind_dir, n_directions = 20)
-```
-
-- A better graphical representation of [wind directions]{.blue} and [wind speed]{.orange}, using Cartesian coordinates. From this wind rose, it is clear the winds were coming mostly from the east. 
-
-# Inference
-
-## Independent sampling, sufficiency and completeness
-
-- Let $Y_1,\dots,Y_n$ be iid random vectors with density $f(y; \theta)$, where $f(y; \theta) \in \mathcal{F}_\text{e}^p$ and, without loss of generality, we let $f(y; \theta) = f_0(y)\exp\{\theta^T s(y) - K(\theta)\}$. The [likelihood]{.blue} function is
-$$
-L(\theta; \bm{y}) = \prod_{i=1}^n \exp\left\{\theta^T s(y_i) - K(\theta)\right\} = \exp\left\{\theta^T \sum_{i=1}^n s(y_i) - n K(\theta)\right\},
-$$
-from which we see that $s = \sum_{i=1}^n s(y_i) = \left(\sum_{i=1}^n s_1(y_i), \dots, \sum_{i=1}^n s_p(y_i)\right)$ is the [minimal sufficient statistic]{.orange} as long as $n \ge p$, which has [fixed dimension]{.blue} $p$ whatever the sample size. 
-
-- Inference can therefore be based on the random vector $S = \sum_{i=1}^n s(Y_i)$, whose distribution is
-$$
-f_S(s; \theta) = \tilde{f}_0(s)\exp\{\theta^T s - \tilde{K}(\theta)\},
-$$
-with $\tilde{K}(\theta) = n K(\theta)$ and for some density $\tilde{f}_0(s)$. In other words, $f_S(s; \theta) \in \mathcal{F}_\text{en}^p$.
-
-::: callout-warning
-#### Theorem (@Pace1997, Theorem 5.7)
-A sufficient statistic $S$ with distribution $\mathcal{F}_\text{en}^p$ is [complete]{.blue}, provided that $\text{int}\:\tilde{\Theta} \neq \emptyset$.  
-:::
-
-## Sufficiency and completeness
-
-- Thus, the log-likelihood function, after a reduction via [sufficiency]{.blue}, is
-$$
-\ell(\theta) = \ell(\theta; s) = \theta^T s - n K(\theta), \qquad \theta \in \tilde{\Theta},
-$$
-with $S = \sum_{i=1}^n s(Y_i)$ being distributed as a $\mathcal{F}_\text{en}^p$ with cumulant generating function $n K(\theta)$, whereas each $s(Y_i)$ is distributed as a $\mathcal{F}_\text{en}^p$ with cumulant generating function $K(\theta)$.
-
-- The [completeness]{.orange} of $S$ in exponential families is a classical result that enables the usage of the Rao-Blackwell-Lehmann-Scheffé theorem for finding the UMVUE.
-
-- Moreover, the existence of a [minimal sufficient]{.blue} statistic that performs a [non-trivial]{.orange} [dimensionality reduction]{.blue}, from $n$ to $p$ and with $p \le n$, is a major simplification.
-
-- This only occurs in exponential families, except for non-regular cases. 
-
-::: callout-warning
-#### Theorem (Koopman-Pitman-Darmois, @Robert1994, Theorem 3.3.3)
-
-Under iid sampling, if a parametric family whose [support]{.orange} does [not depend]{.orange} on the [parameter]{.orange} is such that there exists a [sufficient statistic]{.blue} of [constant dimension]{.blue} $p$, then the family is $\mathcal{F}_\text{e}^p$.
-:::
-
-## Likelihood quantities
-
-- After a sufficiency reduction, we get $\ell(\theta) = \theta^T s - n K(\theta)$. Thus, the [score function]{.blue} is
-$$
-\ell^*(\theta) = s - n \frac{\partial}{\partial \theta}K(\theta) = s - n \mu(\theta),
-$$
-where $\mu(\theta) = \mathbb{E}_\theta(s(Y_1))$ is the [mean value mapping]{.orange} of each $s(Y_i)$ and $n \mu(\theta) = \mathbb{E}(S)$. 
-
-- By direct calculation, we show that the [first Bartlett identity]{.blue} holds, namely
-$$
-\mathbb{E}_\theta(\ell^*(\theta; S)) = \mathbb{E}_\theta(S) - n\mu(\theta) = n\mu(\theta) - n\mu(\theta)= \bm{0}.
-$$
-The [Fisher information]{.orange} is straightforward to compute, being equal to
-$$
-I(\theta) = \mathbb{E}_\theta(\ell^*(\theta)\ell^*(\theta)^T) = \mathbb{E}_\theta\{(S - n\mu(\theta))(S - n\mu(\theta))^T\} = \text{var}_\theta(S) = n \, \text{var}_\theta(s(Y_1)).
-$$
-
-- Moreover, the [observed information]{.blue} is
-$$
-\mathcal{I}(\theta) = -\frac{\partial^2}{\partial \theta \partial \theta^T}\ell(\theta) = \frac{\partial^2}{\partial \theta \partial \theta^T}\tilde{K}(\theta)= n\frac{\partial^2}{\partial \theta \partial \theta^T}K(\theta)  = n \, \text{var}_\theta(s(Y_1)),
-$$
-which proves the [second Bartlett identity]{.blue} as an implication of the [remarkable]{.orange} identity $\mathcal{I}(\theta) = I(\theta)$, stronger than the usual $I(\theta) = \mathbb{E}_\theta(\mathcal{I}(\theta))$. In fact, $\mathcal{I}(\theta)$ is [non-stochastic]{.blue}.
-
-## Existence of the maximum likelihood
-
-- The maximum likelihood estimate $\hat{\theta}$, if it exists, is the [unique]{.orange} solution of the [score equation]{.blue}
-$$
-s - n \mu(\theta) = \bm{0}, \qquad \text{so that} \qquad \hat{\theta} = \mu^{-1}\left(\frac{s}{n}\right) = \mu^{-1}\left(\frac{1}{n}\sum_{i=1}^ns(y_i)\right).
-$$
-It is unique because $\ell(\theta)$ is [concave]{.orange} in $\theta$, namely its second derivative is
-$$
-\frac{\partial^2}{\partial \theta \partial \theta^T}\ell(\theta) = -\text{var}_\theta(S) < 0, \qquad \theta \in \tilde{\Theta}.
-$$
-
-::: callout-warning
-#### Theorem (@Pace1997, Theorem 5.8)
-If $\mathcal{F}_\text{en}^p$ is regular, then the maximum likelihood estimate $\hat{\theta}$ exists and is the unique solution of $\ell^*(\theta) = \bm{0}$ if and only if $s \in \text{int}\:C(\mathcal{S})$, where $C(\mathcal{S})$ is the closed convex hull of the support of $\mathcal{S}$.
-:::
-
-- As a corollary, if $\mathcal{F}_\text{en}^p$ is regular, the MLE exists and is unique [with probability one]{.blue} if and only if the boundary of $C = C(\mathcal{S})$ has probability $0$. This is often violated when $S$ is [discrete]{.orange}.
-
-## Likelihood quantities: mean parametrization 📖
-
-- Let us consider the [mean parametrization]{.blue} $\mu = \mu(\theta) = \mathbb{E}_\theta(s(Y_1))$, whose inverse is $\theta = \theta(\mu)$. The log-likelihood is:
-$$
-\ell(\mu) = \ell(\theta(\mu)) = \theta(\mu)^T s - n K(\theta(\mu)), \qquad \mu \in \mathcal{M}.
-$$
-
-- Hence, using the [chain rule]{.orange} of differentiation, we obtain the [score]{.blue}
-$$
-\ell^*(\mu) = \left(\frac{\partial}{\partial \mu}\theta(\mu)\right)(s - n \mu) = \text{var}_{\mu}(s(Y_1))^{-1}(s - n \mu),
-$$
-where the last step follows from the properties of the derivatives of inverse functions. 
-
-- Thus, the [observed information]{.blue} matrix for the mean parametrization is
-$$
-\mathcal{I}_\mu(\mu) = -\frac{\partial^2}{\partial \mu \partial \mu^T}\ell(\mu) = -\left(\frac{\partial^2}{\partial \mu \partial \mu^T}\theta(\mu)\right)(s - n \mu) + n \, \text{var}_{\mu}(s(Y_1))^{-1},
-$$
-whereas the [Fisher information]{.orange} matrix for $\mu$ is
-$$
-I_\mu(\mu) = \mathbb{E}_\mu(\mathcal{I}_\mu(\mu)) = n \, \text{var}_{\mu}(s(Y_1))^{-1} = n \, V(\mu)^{-1}.
-$$
-
-## Maximum likelihood: mean parametrization
-
-- Thus, the maximum likelihood estimate of the [mean parametrization]{.orange} $\hat{\mu} = \mu(\hat{\theta})$ is
-$$
-\hat{\mu} = \frac{s}{n} = \frac{1}{n}\sum_{i=1}^ns(y_i).
-$$
-This means $\hat{\mu}$ is both the [maximum likelihood]{.orange} and the [method of moments]{.blue} estimate of $\mu$.
-
-- It is also an [unbiased estimator]{.blue}, because by definition
-$$
-\mathbb{E}(\hat{\mu}) = \frac{1}{n}\sum_{i=1}^n\mathbb{E}_\mu(s(Y_i)) = \mathbb{E}_\theta(s(Y_1)) = \mu.
-$$
-
-- Furthermore $\hat{\mu}$ is the [UMVUE]{.orange} of $\mu$. Indeed, we could first notice that $\hat{\mu}$ is a function of $S$, which is a [complete]{.orange} sufficient statistic  Alternatively, we could note that the variance of $\hat{\mu}$ is
-$$
-\text{var}_\mu(\hat{\mu}) = \frac{1}{n}\text{var}_\mu(s(Y_1))= \frac{1}{n}V(\mu) = \mathcal{I}_\mu(\mu)^{-1},
-$$
-which corresponds to the [Cramer-Rao]{.blue} lower bound.
-
-<!-- ::: callout-tip -->
-<!-- The maximum likelihood estimate for $\hat{\theta}$ is typically [biased]{.blue}; therefore, it cannot be the [UMVUE]{.orange}, even though it depends on the complete sufficient statistic $S$. -->
-<!-- ::: -->
-
-
-## Example: binomial distribution 📖 
-
-- Let $Y_1,\dots,Y_n$ be iid Bernoulli random variables with mean $\mu \in (0,1)$, that is $\text{pr}(Y_i = 1) = \mu$. Then, the log-likelihood function is
-$$
-\ell(\mu) = \sum_{i=1}^n[y_i\log{\mu} + (1 - y_i)\log{(1 - \mu)}] = s \log{\mu} + (n - s)\log{(1 - \mu)},
-$$
-with $S = \sum_{i=1}^nY_i$ being the [minimal sufficient]{.orange} statistic and the [natural parametrization]{.blue} is $\theta(\mu) = \log{\mu/(1-\mu)}$. Note that $S \sim \text{Binom}(n, \mu)$. 
-
-- The [variance function]{.blue} is $V(\mu) = \text{var}_\mu(Y_i)= \mu(1-\mu)$, so that the [score function]{.blue} becomes
-$$
-\ell^*(\mu) = \frac{s}{\mu} - \frac{n - s}{1 - \mu} = \frac{1}{V(\mu)}(s - n\mu),
-$$
-leading to the well-known UMVUE maximum likelihood estimator $\hat{\mu} = s/n$. 
-
-- Finally, the [observed information]{.orange} and the [Fisher information]{.blue} equal, respectively
-$$
-\mathcal{I}_\mu(\mu) = \frac{s}{\mu^2} - \frac{n - s}{(1 - \mu)^2}, \qquad I_\mu(\mu) = \mathbb{E}_\mu(\mathcal{I}_\mu(\mu)) = \frac{n}{\mu(1 - \mu)} = \frac{n}{V(\mu)}.
-$$
-
-## Example: von Mises distribution III 📖 
-
-- Let $Y_1,\dots,Y_n$ be iid random variables from a [Von-Mises]{.blue} distribution with density $f(y; \psi) = (2\pi\mathcal{A}_0(\tau))^{-1}\exp\{\tau\cos(y - \gamma)\}$, with $y \in (0, 2\pi)$, therefore the [log-likelihood]{.orange} is
-$$
-\ell(\psi) = \tau\sum_{i=1}^n\cos(y_i - \gamma) - n\log{\mathcal{A}_0(\tau)}.
-$$
-
-- The Jacobian of the log-likelihood is
-$$
-\frac{\partial}{\partial \gamma} \ell(\psi) = \tau\sum_{i=1}^n\sin(y_i - \gamma), \quad\frac{\partial}{\partial \tau}\ell(\psi) = \sum_{i=1}^n\cos{(y_i - \gamma)} - n\frac{\mathcal{A_1(\tau)}}{\mathcal{A}_0(\tau)}.
-$$
-
-- Thus, the [maximum likelihood estimate]{.blue} $(\hat{\gamma},\hat{\tau})$ is the solution of the following equations
-$$
-\tan(\hat{\gamma}) = \frac{\sum_{i=1}^n\sin{y_i}}{\sum_{i=1}^n\cos{y_i}}, \qquad \frac{1}{n}\sum_{i=1}^n\cos{(y_i - \hat{\gamma})} = \frac{\mathcal{A_1(\hat{\tau})}}{\mathcal{A}_0(\hat{\tau})}.
-$$
-The estimate for $\tau$ can be obtained [numerically]{.orange} e.g. using the `circular::A1inv` function. 
-
-## Example: wind direction in Venice IV
-
-```{r}
-y <- dataset$wind_dir / 360 * 2 * pi
-s1 <- sum(cos(y))
-s2 <- sum(sin(y))
-
-
-# Estimate the concentration parameter
-gamma <- atan2(s2, s1)
-tau <- circular::A1inv(mean(cos(y - gamma)))
-
-theta1 <- tau * cos(gamma)
-theta2 <- tau * sin(gamma)
-```
-
-```{r}
-#library(circular)
-dvonmises <- function(x, gamma, tau){
-  1/ (2 * pi * circular::A1(tau)) * exp(tau * cos(x - gamma))
-}
-
-dvonmises <- Vectorize(dvonmises, vectorize.args = "x")
-x_seq <- seq(0, 2 * pi, length.out = 500)
-plot(x_seq / (2 * pi) * 360, dvonmises(x_seq, gamma, tau), type = "l", xlab = "Degrees", ylab = "Density")
-rug(y/ (2 * pi) * 360)
-abline(v = gamma / (2 * pi) * 360, lty = "dashed")
-```
-
-- The [estimated]{.orange} values are $\hat{\gamma} = 1.375$ (corresponding to about 79 degrees) and $\hat{\tau} = 2.51$.
-
-## Example: wind direction in Venice V
-
-```{r}
-ggplot(data = NULL, aes(x = sin(x_seq), y = cos(x_seq), col = dvonmises(x_seq, gamma, tau), size = dvonmises(x_seq, gamma, tau))) +
-  geom_point() +
-  xlim(c(-1, 1)) +
-  ylim(c(-1, 1)) +
-  labs(x = "Easting", y = "Northing") +
-  theme_bw() + theme(legend.position = "none")+ coord_fixed(ratio = 1)
-```
-
-## Asymptotic theory: remarks
-
-- Let us consider an iid sample from a model such that the minimal sufficient statistic belongs to a [regular exponential family]{.orange} $\mathcal{F}_\text{en}^p$, with natural parameter $\theta \in \tilde{\Theta}$.
-
-- It is straightforward to verify that the [regularity conditions]{.blue} [A1–A6]{.blue} from [Unit A](un_A.html) are [all satisfied]{.blue}. Thus, Theorem 5.1 of @Lehmann1998 applies directly.
-
-- We also proved that, if the score function has a root, then the maximum likelihood estimate $\hat{\theta}$ exists and is the [unique solution]{.blue} of $\ell^*(\theta) = \mathbf{0}$, where $\ell^*(\theta) = s - n \mu(\theta)$.
-
-- The maximum likelihood estimate may fail to exist if $s$ lies on the boundary of $C(\mathcal{S})$. However, as $n \to \infty$, the probability that $s$ lies on the boundary of $C(\mathcal{S})$ tends to zero.
-
-- Indeed, by the law of large numbers, $S/n$ converges almost surely to $\mu(\theta) \in \mathcal{M} = \text{int}\:\mathcal{C}(S)$, implying that a unique root of the score function eventually exists with probability one.
-
-:::callout-tip
-If the observations are iid from a [regular]{.orange} exponential family, the maximum likelihood estimator $\hat{\theta}$ is consistent and asymptotically normal for $\theta$. By the [continuous mapping theorem]{.blue}, this implies that $\hat{\mu} = \mu(\hat{\theta})$, or any other [smooth reparametrization]{.orange}, is a consistent estimator of $\mu$.
-:::
-
-## Wald inequality: a direct proof 📖
-
-- Let us recall that [Wald inequality]{.blue} states that
-$$
-\mathbb{E}_{\theta_0}\left(\ell(\theta; \bm{Y})\right) < \mathbb{E}_{\theta_0}\left(\ell(\theta_0; \bm{Y})\right), \qquad \theta \neq \theta_0,
-$$
-and the proof relies on the Kullback-Leibler divergence.
-
-- Let us focus on the [univariate]{.orange} case $\Theta \subseteq \mathbb{R}$. It is instructive to provide a [direct proof]{.orange} for exponential families, recalling that $\ell(\theta_0\bm{Y}) = \theta S - n K(\theta)$. 
-
-- In the first place, note that
-$$
-\mathbb{E}_{\theta_0}(\ell(\theta; \bm{Y})) = n \left[\theta \mu(\theta_0) - K(\theta)\right], 
-$$
-implying that Wald inequality holds true if and only if
-$$
-\mu(\theta_0)\left(\theta_0 - \theta\right) > K(\theta_0) - K(\theta), \qquad \theta \neq \theta_0.
-$$
-
-- This is indeed the case, the above being a [characterization](https://en.wikipedia.org/wiki/Convex_function) of [convexity]{.orange} for $K(\cdot)$, which we previously show having $\partial^2 /\partial \theta^2 K(\theta) > 0$ for all $\theta \in \tilde{\Theta}$. Moreover, recall that $\mu(\theta) = \partial /\partial \theta K(\theta)$.
-
-<!-- ## Consistency and normality: a direct proof -->
-
-<!-- ## Firth corrections -->
-
-
-# References and study material
-
-## Main references
-
-- @Pace1997
-  - [Chapter 5]{.orange} (*Exponential families*)
-  - [Chapter 6]{.orange} (*Exponential dispersion families*)
-  
-- @Davison2003
-  - [Chapter 5]{.blue} (*Models*)
-  
-- @Efron2016
-  - [Chapter 5]{.grey} (*Parametric models and exponential families*)
-  
-- @Efron2023
-  - [Chapter 1]{.orange} (*One-parameter exponential families*)
-  - [Chapter 2]{.orange} (*Multiparameter exponential families*)
-
-
-## @Morris1982
-
-::: columns
-::: {.column width="40%"}
-![](img/Morris.png)
-:::
-::: {.column width="60%"}
-- @Morris1982 [AoS]{.blue} is a [seminal]{.blue} paper in the field of [exponential families]{.orange}.
-
-- It is a must-read, as it encompasses and overviews many of the results discussed in this unit.
-
-- It also shows that exponential families with quadratic variance are [infinitely divisible]{.blue}, provided that $c \ge 0$.
-
-- The paper covers several [advanced topics]{.orange}, including:
-  - orthogonal polynomials;
-  - limiting results;
-  - large deviations;
-  - ...and more.
-
-:::
-
-:::
-
-## @Jorgensen1987
-
-::: columns
-::: {.column width="40%"}
-![](img/Jorgensen.png)
-:::
-::: {.column width="60%"}
-- @Jorgensen1987 [JRSSB]{.blue} is another [seminal]{.blue} paper in the field of [exponential dispersion families]{.orange}.
-
-- It studies a multivariate extension of exponential dispersion models of @Nelder1972. 
-
-- It characterizes the entire class in terms of variance function, extending @Morris1982. 
-
-- It also describes a notion of asymptotic normality called [small sample asymptotics]{.blue}. 
-
-- It is a [read]{.orange} paper and among the discussants we find, J.A. Nelder, A.C. Davison, C.N. Morris.
-
-:::
-
-:::
-
-## @Diaconis1979
-
-::: columns
-::: {.column width="40%"}
-![](img/Diaconis.png)
-:::
-::: {.column width="60%"}
-- Bayesian statistics also greatly benefits from the use of exponential families.
-
-- @Diaconis1979 [AoS]{.blue} is a [seminal paper]{.blue} on the topic of [conjugate priors]{.orange}.
-
-- Broadly speaking, conjugate priors always exist for exponential families.
-
-- These are known as the Diaconis–Ylvisaker conjugate priors.
-
-- Classical priors such as beta–Bernoulli and Poisson–gamma are special cases.
-
-- The posterior expectation under the mean parametrization is a [linear combination]{.blue} of the data and the prior mean.
-:::
-
-:::
-
-
-## @Consonni1992
-
-::: columns
-::: {.column width="40%"}
-![](img/Consonni.png)
-:::
-::: {.column width="60%"}
-- @Consonni1992 [JASA]{.blue} is another [Bayesian]{.blue} contribution which refines the results of @Diaconis1979.
-
-- It investigates when a [conjugate prior]{.orange} specified on the mean parameter $\mu$ of a natural exponential family leads to a linear posterior expectation of $\mu$.
-
-- The main result shows that this [posterior linearity]{.orange} holds if and only if the [variance function]{.orange} is [quadratic]{.blue}.
-
-- The paper also explores the [monotonicity]{.blue} of the [posterior variance]{.orange} of $\mu$ with respect to both the sample size and the prior sample size.
-
-
-:::
-
-:::
-
+# Generalized Linear Models
 
 ## References {.unnumbered}
 

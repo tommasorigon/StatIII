@@ -50,18 +50,15 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | Topic | Notes | Slides | Code |
 |-------------------|------------------|------------------|------------------|
 | **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) |  |
+| | **GENERAL THEORY** | | |
 | **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) | [Code A](code/un_A.R) |
-| *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
+| *Exercises* | [Exercises A] |  |  |
 | Lab 1 | | | [`lab1.R`](code/lab1.R) |
-| | **GENERALIZED LINEAR MODELS** | | |
-| **Exponential dispersion families** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
-| **Estimation (IRLS)** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_B_slides.html)| [Code C](code/un_B.R) |
-| **Inference** | [Unit D](slides/un_B.html) | [Slides Unit D](slides/un_B_slides.html)| [Code D](code/un_D.R) |
-| **Model checking, diagnostic, model selection** | [Unit E](slides/un_E.html) | [Slides Unit E](slides/un_B_slides.html)| [Code E](code/un_E.R) |
-| *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
+| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| *Exercises* | [Exercises B] |  |  |
 | Lab 2 | | | |
 | | **NOTABLE MODELS** | | |
-| **Binary and binomial regression** | [Unit F] | [Slides Unit F] | [Code F] |
+| **Binary and binomial regression** | [Unit C] | [Slides Unit C] | [Code C] |
 | Lab 3 | | | |
 | Lab 4 | | | |
 | *Exercises* | [Exercises C] |  |  |

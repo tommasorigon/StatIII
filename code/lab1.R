@@ -7,7 +7,7 @@
 library(MLGdata) # Library containing the dataset we need
 rm(list = ls())
 
-data(Neonati) # Weight at birth, data on the weight at birth. The duration of the gestation, and the smoke habit of the mother for n = 32 newborns.
+data(Neonati) # Weight at birth, data on the weight at birth. The duration of the gestation, and the smoke habit of the mother for n = 32 newborns. Daniel, W.W. (1999). Biostatistics: A Foundation for Analysis in the Health Sciences. New York: Wiley.
 
 str(Neonati)
 # View(Neonati) # Appropriate only if you have a small amount of data points
