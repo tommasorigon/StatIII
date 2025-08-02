@@ -781,166 +781,6 @@ p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <li><p>Similarly, robust estimators may work under <span class="orange">model misspecification</span>, but this does not mean we should neglect <span class="blue">checking</span> whether the original <span class="blue">assumptions</span> hold.</p></li>
 </ul>
 </section>
-<section id="variable-transformations" class="slide level2 center">
-<h2>Variable transformations</h2>
-<ul>
-<li>The first remedy for <span class="orange">misspecification</span> was implicitly applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</li>
-</ul>
-<div class="callout callout-tip no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>While the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
-g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<ul>
-<li><p>This idea is conceptually <span class="blue">simple</span> and <span class="blue">powerful</span>. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain <span class="orange">linear in the parameters</span>.</p></li>
-<li><p>However, choosing <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> in practice is <span class="orange">not simple</span>. In our case study, we proceeded by trial and error and used <span class="blue">contextual information</span> to guide our final choice.</p></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Regarding the functions <span class="math inline">h_j(\cdot)</span>, <span class="blue">polynomial</span> terms are a simple and common option. More advanced approaches based on <span class="orange">splines</span> will be discussed in <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</li>
-</ul>
-<!-- - Here we consider two general approaches for selecting the function $g(\cdot)$: variance stabilizing transformations and the Box-Cox transform.   -->
-</div>
-</section>
-<section id="variance-stabilizing-transformations-i" class="slide level2 center">
-<h2>Variance stabilizing transformations I 📖</h2>
-<ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
-Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
-</span> is <span class="blue">asymptotically Gaussian</span> for large values of <span class="math inline">\mu_i</span>. However, data are <span class="orange">heteroschedastic</span>.</p></li>
-<li><p>In modeling count data, we could transform the counts so that, at least <span class="orange">approximately</span>, the <span class="blue">variance</span> of <span class="math inline">g(Y_i)</span> is <span class="blue">constant</span> and ordinary least squares methods can be used.</p></li>
-</ul>
-<div class="fragment">
-<ul>
-<li>As an application of the <span class="blue">delta method</span>, the following linearization holds <span class="math display">
-g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\quad \text{var}\{g(Y_i)\} \approx g'(\mu_i)^2\text{var}(Y_i).
-</span> In the Poisson case <span class="math inline">\text{var}\{g(Y_i)\} \approx \mu_i \,g'(\mu_i)^2</span> and we would like this to be <span class="orange">constant</span>.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>The choice <span class="math inline">g(y) = \sqrt{y}</span>, called <span class="orange">variance stabilizing</span> transformation, gives <span class="math display">
-\text{var}(\sqrt{Y_i}) \approx \left(\frac{1}{2\sqrt{\mu_i}}\right)^2\mu_i = \frac{1}{4}.
-</span></li>
-</ul>
-</div>
-</section>
-<section id="variance-stabilizing-transformations-ii" class="slide level2 center">
-<h2>Variance stabilizing transformations II 📖</h2>
-<!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
-<ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
-Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
-</span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
-<li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
-g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
-</span> because in fact we have that <span class="math display">
-\text{var}(g_{m_i}(Y_i)) \approx \left(\frac{\sqrt{m_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{m_i}\right)^2 m_i \pi_i(1- \pi_i) = 1.
-</span></p></li>
-</ul>
-<div class="fragment">
-<ul>
-<li>If the data are <span class="blue">gamma distributed</span>, the <span class="orange">variance stabilizing</span> transform is <span class="math inline">g(y) = \log{y}</span>.</li>
-</ul>
-</div>
-</section>
-<section id="box-cox-transform" class="slide level2 center">
-<h2>Box-Cox transform</h2>
-<div class="callout callout-note no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Box-Cox transform</strong></p>
-</div>
-<div class="callout-content">
-<p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
-g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
-</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
-<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<ul>
-<li><p>We estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
-g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
-</span></p></li>
-<li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
-</ul>
-</div>
-</section>
-<section id="box-cox-transform-derivation-i" class="slide level2 center">
-<h2>Box-Cox transform: derivation I 📖</h2>
-<ul>
-<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
-f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
-</span></p></li>
-<li><p>Using standard tools of probability theory, we can obtain the density of the <span class="orange">original data</span>: <span class="math display">
-f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The additional term is the <span class="orange">Jacobian</span> of the transformation.</p></li>
-<li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
-\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
-</span></p></li>
-</ul>
-</section>
-<section id="box-cox-transform-derivation-ii" class="slide level2 center">
-<h2>Box-Cox transform: derivation II 📖</h2>
-<ul>
-<li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
-</span></p></li>
-<li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
-\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
-</span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
-<li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-tip no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>Box and Cox themselves suggested using this approach as an <span class="blue">exploratory tool</span>. For instance, the optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> may be <span class="orange">hard to interpret</span> but it could indicate that a square root transformation is appropriate.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="box-cox-transform-for-the-auto-dataset" class="slide level2 center">
-<h2>Box-Cox transform for the auto dataset</h2>
-
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1750"><ul>
-<li>The <span class="blue">Box-Cox transform</span> in the auto dataset suggests a <span class="orange">reciprocal</span> transformation: <span class="math display">
-\frac{1}{Y_i} = \beta_1 + \beta_2 x_i +  \beta_3 w_i + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
-</span> which is a good alternative to our model based on logarithms of <span class="math inline">y_i, x_i</span>, and <span class="math inline">w_i</span> (<span class="orange">but</span>…).</li>
-</ul>
-</section>
-<section id="a-fourth-model-graphical-diagnostics" class="slide level2 center">
-<h2>A fourth model: graphical diagnostics</h2>
-
-<img data-src="un_A_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
-<section id="variable-transformation-a-caveat" class="slide level2 center">
-<h2>Variable transformation: a caveat 📖</h2>
-<!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
-<ul>
-<li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
-Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-</span> Thus, the coefficient <span class="math inline">\beta_j</span> can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> <span class="math inline">x_{ij} \rightarrow x_{ij}+1</span> of the <span class="math inline">j</span>th covariate.</li>
-</ul>
-<div class="fragment">
-<ul>
-<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
-<span class="math display">
-E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
-<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
-g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
-</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
-</ul>
-</div>
-</section>
 <section id="non-normality-of-the-errors-i" class="slide level2 center">
 <h2>Non-normality of the errors I 📖</h2>
 <ul>
@@ -1049,11 +889,172 @@ D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta
 </span> Moreover, if <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})</span> it also coincides with the <span class="orange">maximum likelihood</span> estimator.</p></li>
 </ul>
 </section>
-<section id="a-final-comment" class="slide level2 center">
-<h2>A final comment</h2>
+<section id="variable-transformations" class="slide level2 center">
+<h2>Variable transformations</h2>
 <ul>
-<li>So far we described several methods for <span class="blue">handling misspecification</span> of the <span class="blue">linear model</span>, but some cases remain <span class="orange">partially unsolved</span>.</li>
+<li>Another remedy for <span class="orange">misspecification</span> was already applied in the analysis of the car dataset, namely through <span class="blue">variable transformation</span>.</li>
 </ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>While the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
+g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+</span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>This idea is conceptually <span class="blue">simple</span> and <span class="blue">powerful</span>. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain <span class="orange">linear in the parameters</span>.</p></li>
+<li><p>However, choosing <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> in practice is <span class="orange">not simple</span>. In our case study, we proceeded by trial and error and used <span class="blue">contextual information</span> to guide our final choice.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Regarding the functions <span class="math inline">h_j(\cdot)</span>, <span class="blue">polynomial</span> terms are a simple and common option. More advanced approaches based on <span class="orange">splines</span> will be discussed in <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</li>
+</ul>
+<!-- - Here we consider two general approaches for selecting the function $g(\cdot)$: variance stabilizing transformations and the Box-Cox transform.   -->
+</div>
+</section>
+<section id="box-cox-transform" class="slide level2 center">
+<h2>Box-Cox transform</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Box-Cox transform</strong></p>
+</div>
+<div class="callout-content">
+<p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
+g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
+</span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
+<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>We estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
+g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
+</span></p></li>
+<li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
+</ul>
+</div>
+</section>
+<section id="box-cox-transform-derivation-i" class="slide level2 center">
+<h2>Box-Cox transform: derivation I 📖</h2>
+<ul>
+<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
+f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
+</span></p></li>
+<li><p>Using standard tools of probability theory, we can obtain the density of the <span class="orange">original data</span>: <span class="math display">
+f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The additional term is the <span class="orange">Jacobian</span> of the transformation.</p></li>
+<li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
+\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
+</span></p></li>
+</ul>
+</section>
+<section id="box-cox-transform-derivation-ii" class="slide level2 center">
+<h2>Box-Cox transform: derivation II 📖</h2>
+<ul>
+<li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
+\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
+</span></p></li>
+<li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
+\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
+</span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
+<li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Box and Cox suggested using this approach as an <span class="blue">exploratory tool</span>. For instance, an optimal value <span class="math inline">\hat{\lambda} = 0.4210283</span> is <span class="orange">hard to interpret</span> but it could suggest a square root transformation.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="box-cox-transform-for-the-auto-dataset" class="slide level2 center">
+<h2>Box-Cox transform for the auto dataset</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1750"><ul>
+<li>The <span class="blue">Box-Cox transform</span> in the auto dataset suggests a <span class="orange">reciprocal</span> transformation: <span class="math display">
+\frac{1}{Y_i} = \beta_1 + \beta_2 x_i +  \beta_3 w_i + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
+</span> which is a good alternative to our model based on logarithms of <span class="math inline">y_i, x_i</span>, and <span class="math inline">w_i</span> (<span class="orange">but</span>…).</li>
+</ul>
+</section>
+<section id="a-fourth-model-graphical-diagnostics" class="slide level2 center">
+<h2>A fourth model: graphical diagnostics</h2>
+
+<img data-src="un_A_files/figure-revealjs/unnamed-chunk-17-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"></section>
+<section id="variance-stabilizing-transformations-i" class="slide level2 center">
+<h2>Variance stabilizing transformations I 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
+Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
+</span> is <span class="blue">asymptotically Gaussian</span> for large values of <span class="math inline">\mu_i</span>. However, data are <span class="orange">heteroschedastic</span>.</p></li>
+<li><p>In modeling count data, we could transform the counts so that, at least <span class="orange">approximately</span>, the <span class="blue">variance</span> of <span class="math inline">g(Y_i)</span> is <span class="blue">constant</span> and ordinary least squares methods can be used.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>As an application of the <span class="blue">delta method</span>, the following linearization holds <span class="math display">
+g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\quad \text{var}\{g(Y_i)\} \approx g'(\mu_i)^2\text{var}(Y_i).
+</span> In the Poisson case <span class="math inline">\text{var}\{g(Y_i)\} \approx \mu_i \,g'(\mu_i)^2</span> and we would like this to be <span class="orange">constant</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The choice <span class="math inline">g(y) = \sqrt{y}</span>, called <span class="orange">variance stabilizing</span> transformation, gives <span class="math display">
+\text{var}(\sqrt{Y_i}) \approx \left(\frac{1}{2\sqrt{\mu_i}}\right)^2\mu_i = \frac{1}{4}.
+</span></li>
+</ul>
+</div>
+</section>
+<section id="variance-stabilizing-transformations-ii" class="slide level2 center">
+<h2>Variance stabilizing transformations II 📖</h2>
+<!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
+<ul>
+<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
+Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
+</span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
+<li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
+g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
+</span> because in fact we have that <span class="math display">
+\text{var}(g_{m_i}(Y_i)) \approx \left(\frac{\sqrt{m_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{m_i}\right)^2 m_i \pi_i(1- \pi_i) = 1.
+</span></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>If the data are <span class="blue">gamma distributed</span>, the <span class="orange">variance stabilizing</span> transform is <span class="math inline">g(y) = \log{y}</span>.</li>
+</ul>
+</div>
+</section>
+<section id="limitations-of-variable-transformations-i" class="slide level2 center">
+<h2>Limitations of variable transformations I 📖</h2>
+<ul>
+<li>Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some <span class="orange">drawbacks</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
+Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+</span> Thus, the coefficient <span class="math inline">\beta_j</span> can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> <span class="math inline">x_{ij} \rightarrow x_{ij}+1</span> of the <span class="math inline">j</span>th covariate.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
+<span class="math display">
+E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
+<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
+</span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="limitations-of-variable-transformations-ii" class="slide level2 center">
+<h2>Limitations of variable transformations II</h2>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -1069,7 +1070,7 @@ D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta
 </div>
 <ul>
 <li><p>If we know that <span class="math inline">Y_i</span> follows, say, a Bernoulli or a Gamma distribution, then we should use the <span class="blue">appropriate likelihood</span> rather than a <span class="orange">Gaussian approximation</span>.</p></li>
-<li><p>This is what <span class="blue">Generalized Linear Models</span> are for, providing a <span class="orange">much more elegant solution</span> to the above problem.</p></li>
+<li><p><span class="blue">Generalized Linear Models</span> provide a <span class="orange">much more elegant solution</span> to the above problem.</p></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered smaller scrollable">

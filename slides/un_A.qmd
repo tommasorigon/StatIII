@@ -681,204 +681,6 @@ It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is n
 - Similarly, robust estimators may work under [model misspecification]{.orange}, but this does not mean we should neglect [checking]{.blue} whether the original [assumptions]{.blue} hold.
 
 
-
-## Variable transformations
-
-- The first remedy for [misspecification]{.orange} was implicitly applied in the analysis of the car dataset, namely through [variable transformation]{.blue}.
-
-:::callout-tip
-While the model may have been incorrectly specified for the original data, it could become [appropriate]{.blue} once the [transformations]{.orange} are considered, namely
-$$
-g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-$$
-where $g(\cdot)$ and $h_j(\cdot)$ for $j=1,\dots,p$ are [non-linear]{.orange} and [known]{.blue} functions. 
-:::
-
-. . .
-
-- This idea is conceptually [simple]{.blue} and [powerful]{.blue}. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain [linear in the parameters]{.orange}.
-
-- However, choosing $g(\cdot)$ and $h_j(\cdot)$ in practice is [not simple]{.orange}. In our case study, we proceeded by trial and error and used [contextual information]{.blue} to guide our final choice.
-
-. . .
-
-- Regarding the functions $h_j(\cdot)$, [polynomial]{.blue} terms are a simple and common option. More advanced approaches based on [splines]{.orange} will be discussed in [Data Mining](https://tommasorigon.github.io/datamining/). 
-
-<!-- - Here we consider two general approaches for selecting the function $g(\cdot)$: variance stabilizing transformations and the Box-Cox transform.   -->
-
-## Variance stabilizing transformations I 📖
-
-- Let $Y_i \sim \text{Poisson}(\mu_i)$ with mean $\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)$. Note that $$
-Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
-$$
-is [asymptotically Gaussian]{.blue} for large values of $\mu_i$. However, data are [heteroschedastic]{.orange}. 
-
-- In modeling count data, we could transform the counts so that, at
-least [approximately]{.orange}, the [variance]{.blue} of $g(Y_i)$ is [constant]{.blue} and ordinary least squares methods can be used.
-
-. . .
-
-- As an application of the [delta method]{.blue}, the following linearization holds
-$$
-g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\quad \text{var}\{g(Y_i)\} \approx g'(\mu_i)^2\text{var}(Y_i).
-$$
-In the Poisson case $\text{var}\{g(Y_i)\} \approx \mu_i \,g'(\mu_i)^2$ and we would like this to be [constant]{.orange}.
-
-. . .
-
-- The choice $g(y) = \sqrt{y}$, called [variance stabilizing]{.orange} transformation, gives
-$$
-\text{var}(\sqrt{Y_i}) \approx \left(\frac{1}{2\sqrt{\mu_i}}\right)^2\mu_i = \frac{1}{4}.
-$$
-
-## Variance stabilizing transformations II 📖
-
-<!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
-
-- Let $Y_i \sim \text{Binomial}(\pi_i, m_i)$, with [success probability]{.blue} $\pi_i = f(\bm{x}_i; \beta)$ and [trials]{.blue} $m_i$. For large values of $m_i$, the [Gaussian approximation]{.orange} holds 
-$$
-Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
-$$
-However, the data are  [heteroschedastic]{.orange}, because $\text{var}(Y_i) = m_i \pi_i(1- \pi_i)$.
-
-- Thus, a [variance stabilizing]{.blue} transformation in this case is 
-$$
-g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
-$$
-because in fact we have that
-$$
-\text{var}(g_{m_i}(Y_i)) \approx \left(\frac{\sqrt{m_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{m_i}\right)^2 m_i \pi_i(1- \pi_i) = 1.
-$$
-
-. . .
-
-- If the data are [gamma distributed]{.blue}, the [variance stabilizing]{.orange} transform is $g(y) = \log{y}$. 
-
-## Box-Cox transform
-
-:::callout-note
-#### Box-Cox transform
-
-If the data are $y_i$ are [positive]{.orange}, we may consider a [parametric class]{.blue} of transformations:
-$$
-g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
-$$
-and $g_\lambda(y) = \log{y}$ when $\lambda = 0$. This is the celebrated [Box-Cox transform]{.blue}.
-
-The case $\lambda = 1$ corresponds to no transformation, $\lambda= 1/2$ to the square root, $\lambda = 0$ to the logarithm, and $\lambda= −1$ to the reciprocal.
-:::
-
-. . .
-
-- We estimate $\lambda$ from the data using [maximum likelihood]{.orange}, so that the data themselves can inform us about the best transformation. We assume
-$$
-g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
-$$
-
-- The aim of the transformation is to produce a response for which the [variance]{.blue} of $\epsilon_i$ is [constant]{.blue} with an [approximately normal]{.orange} distribution. 
-
-## Box-Cox transform: derivation I 📖
-
-- By assumption, the distribution of the [transformed data]{.blue} $\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian, therefore their joint density is
-$$
-f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
-$$
-
-- Using standard tools of probability theory, we can obtain the density of the [original data]{.orange}: 
-$$
-f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.$$
-The additional term is the [Jacobian]{.orange} of the transformation. 
-
-- The [log-likelihood]{.blue} therefore is
-$$
-\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
-$$
-
-
-
-## Box-Cox transform: derivation II 📖
-
-
-- Note that, for any given value of $\lambda$, the maximum likelihood estimates are 
-$$
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
-$$
-
-- We can [plug-in]{.orange} the above estimates into the log-likelihood. This gives the [profile log-likelihood]{.blue} for $\lambda$, which admits a very simple expression:
-$$
-\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
-$$
-which must be [numerically maximized]{.orange} over $\lambda$, e.g. using `optim`.
-
-- The optimal value $\hat{\lambda} = \arg\max\ell_P(\lambda)$, as well as a confidence interval for it, may offer guidance in choosing the right transformation.
-
-. . .
-
-:::callout-tip
-Box and Cox themselves suggested using this approach as an [exploratory tool]{.blue}. For instance, the optimal value $\hat{\lambda} = 0.4210283$ may be [hard to interpret]{.orange} but it could indicate that a square root transformation is appropriate.
-:::
-
-
-## Box-Cox transform for the auto dataset
-
-```{r}
-#| echo: false
-#| fig-align: center
-#| fig-width: 7
-#| fig-height: 6
-m_box <- lm(city.distance ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
-MASS::boxcox(m_box)
-```
-
-- The [Box-Cox transform]{.blue} in the auto dataset suggests a [reciprocal]{.orange} transformation:
-$$
-\frac{1}{Y_i} = \beta_1 + \beta_2 x_i +  \beta_3 w_i + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
-$$
-which is a good alternative to our model based on logarithms of $y_i, x_i$, and $w_i$ ([but]{.orange}...). 
-
-## A fourth model: graphical diagnostics
-
-```{r}
-#| fig-width: 7.8
-#| fig-height: 4.55
-#| fig-align: center
-m_box <- lm(I(1/city.distance) ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
-
-augmented_m_box <- augment(m_box, data = auto)
-ggplot(data = augmented_m_box, aes(x = .fitted, y = .resid, col = fuel)) +
-  geom_point() +
-  geom_hline(aes(yintercept = 0), linetype = "dotted") +
-  theme_light() +
-  theme(legend.position = "right") +
-  scale_color_tableau(palette = "Color Blind") +
-  xlab("Fitted values") +
-  ylab("Residuals")
-```
-
-## Variable transformation: a caveat 📖
-
-<!-- - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.  -->
-
-- In the case of transformations applied only to the [explanatory variables]{.blue}, the model is
-$$
-Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
-$$
-Thus, the coefficient $\beta_j$ can [no longer]{.orange} be [interpreted]{.orange} as the change in the mean of $Y_i$ corresponding to a [one-unit increase]{.blue} $x_{ij} \rightarrow x_{ij}+1$ of the $j$th covariate.
-
-. . .
-
-- In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However:  
-$$
-   E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-$$
-Thus $\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})$ is a [reasonable prediction]{.blue} for $Y_i$ and not an estimate for its mean.
-
-- When $g(y) = \log{y}$ this difference can be made explicit, because we have 
-$$
-g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
-$$
-the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is the usual [mean]{.blue}.
-
 ## Non-normality of the errors I 📖
 
 - Let us consider the case in which assumptions **(A.1)**-**(A.2)** are [valid]{.blue} but **(A.3)** [is not]{.orange}, that is $\mathbb{E}(\bm{\epsilon}) = 0$ and $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$, but $\epsilon$ does [not]{.orange} follow [a Gaussian]{.orange} distribution. 
@@ -1009,9 +811,209 @@ $$
 $$
 Moreover, if $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})$ it also coincides with the [maximum likelihood]{.orange} estimator. 
 
-## A final comment
 
-- So far we described several methods for [handling misspecification]{.blue} of the [linear model]{.blue}, but some cases remain [partially unsolved]{.orange}.
+## Variable transformations
+
+- Another remedy for [misspecification]{.orange} was already applied in the analysis of the car dataset, namely through [variable transformation]{.blue}.
+
+:::callout-tip
+While the model may have been incorrectly specified for the original data, it could become [appropriate]{.blue} once the [transformations]{.orange} are considered, namely
+$$
+g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+$$
+where $g(\cdot)$ and $h_j(\cdot)$ for $j=1,\dots,p$ are [non-linear]{.orange} and [known]{.blue} functions. 
+:::
+
+. . .
+
+- This idea is conceptually [simple]{.blue} and [powerful]{.blue}. It also shows that linear models are capable of capturing non-linear relationships, as long as they remain [linear in the parameters]{.orange}.
+
+- However, choosing $g(\cdot)$ and $h_j(\cdot)$ in practice is [not simple]{.orange}. In our case study, we proceeded by trial and error and used [contextual information]{.blue} to guide our final choice.
+
+. . .
+
+- Regarding the functions $h_j(\cdot)$, [polynomial]{.blue} terms are a simple and common option. More advanced approaches based on [splines]{.orange} will be discussed in [Data Mining](https://tommasorigon.github.io/datamining/). 
+
+<!-- - Here we consider two general approaches for selecting the function $g(\cdot)$: variance stabilizing transformations and the Box-Cox transform.   -->
+
+## Box-Cox transform
+
+:::callout-note
+#### Box-Cox transform
+
+If the data are $y_i$ are [positive]{.orange}, we may consider a [parametric class]{.blue} of transformations:
+$$
+g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
+$$
+and $g_\lambda(y) = \log{y}$ when $\lambda = 0$. This is the celebrated [Box-Cox transform]{.blue}.
+
+The case $\lambda = 1$ corresponds to no transformation, $\lambda= 1/2$ to the square root, $\lambda = 0$ to the logarithm, and $\lambda= −1$ to the reciprocal.
+:::
+
+. . .
+
+- We estimate $\lambda$ from the data using [maximum likelihood]{.orange}, so that the data themselves can inform us about the best transformation. We assume
+$$
+g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
+$$
+
+- The aim of the transformation is to produce a response for which the [variance]{.blue} of $\epsilon_i$ is [constant]{.blue} with an [approximately normal]{.orange} distribution. 
+
+## Box-Cox transform: derivation I 📖
+
+- By assumption, the distribution of the [transformed data]{.blue} $\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian, therefore their joint density is
+$$
+f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
+$$
+
+- Using standard tools of probability theory, we can obtain the density of the [original data]{.orange}: 
+$$
+f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.$$
+The additional term is the [Jacobian]{.orange} of the transformation. 
+
+- The [log-likelihood]{.blue} therefore is
+$$
+\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
+$$
+
+
+
+## Box-Cox transform: derivation II 📖
+
+
+- Note that, for any given value of $\lambda$, the maximum likelihood estimates are 
+$$
+\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
+$$
+
+- We can [plug-in]{.orange} the above estimates into the log-likelihood. This gives the [profile log-likelihood]{.blue} for $\lambda$, which admits a very simple expression:
+$$
+\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
+$$
+which must be [numerically maximized]{.orange} over $\lambda$, e.g. using `optim`.
+
+- The optimal value $\hat{\lambda} = \arg\max\ell_P(\lambda)$, as well as a confidence interval for it, may offer guidance in choosing the right transformation.
+
+. . .
+
+:::callout-tip
+Box and Cox suggested using this approach as an [exploratory tool]{.blue}. For instance, an optimal value $\hat{\lambda} = 0.4210283$ is [hard to interpret]{.orange} but it could suggest a square root transformation.
+:::
+
+
+## Box-Cox transform for the auto dataset
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 7
+#| fig-height: 6
+m_box <- lm(city.distance ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
+MASS::boxcox(m_box)
+```
+
+- The [Box-Cox transform]{.blue} in the auto dataset suggests a [reciprocal]{.orange} transformation:
+$$
+\frac{1}{Y_i} = \beta_1 + \beta_2 x_i +  \beta_3 w_i + \beta_4 I(z_i = \texttt{gas}) + \beta_5 I(v_i = 2) + \epsilon_i,
+$$
+which is a good alternative to our model based on logarithms of $y_i, x_i$, and $w_i$ ([but]{.orange}...). 
+
+## A fourth model: graphical diagnostics
+
+```{r}
+#| fig-width: 7.8
+#| fig-height: 4.55
+#| fig-align: center
+m_box <- lm(I(1/city.distance) ~ engine.size + curb.weight + fuel + cylinders2, data = auto)
+
+augmented_m_box <- augment(m_box, data = auto)
+ggplot(data = augmented_m_box, aes(x = .fitted, y = .resid, col = fuel)) +
+  geom_point() +
+  geom_hline(aes(yintercept = 0), linetype = "dotted") +
+  theme_light() +
+  theme(legend.position = "right") +
+  scale_color_tableau(palette = "Color Blind") +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+## Variance stabilizing transformations I 📖
+
+- Let $Y_i \sim \text{Poisson}(\mu_i)$ with mean $\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)$. Note that $$
+Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
+$$
+is [asymptotically Gaussian]{.blue} for large values of $\mu_i$. However, data are [heteroschedastic]{.orange}. 
+
+- In modeling count data, we could transform the counts so that, at
+least [approximately]{.orange}, the [variance]{.blue} of $g(Y_i)$ is [constant]{.blue} and ordinary least squares methods can be used.
+
+. . .
+
+- As an application of the [delta method]{.blue}, the following linearization holds
+$$
+g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\quad \text{var}\{g(Y_i)\} \approx g'(\mu_i)^2\text{var}(Y_i).
+$$
+In the Poisson case $\text{var}\{g(Y_i)\} \approx \mu_i \,g'(\mu_i)^2$ and we would like this to be [constant]{.orange}.
+
+. . .
+
+- The choice $g(y) = \sqrt{y}$, called [variance stabilizing]{.orange} transformation, gives
+$$
+\text{var}(\sqrt{Y_i}) \approx \left(\frac{1}{2\sqrt{\mu_i}}\right)^2\mu_i = \frac{1}{4}.
+$$
+
+## Variance stabilizing transformations II 📖
+
+<!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
+
+- Let $Y_i \sim \text{Binomial}(\pi_i, m_i)$, with [success probability]{.blue} $\pi_i = f(\bm{x}_i; \beta)$ and [trials]{.blue} $m_i$. For large values of $m_i$, the [Gaussian approximation]{.orange} holds 
+$$
+Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
+$$
+However, the data are  [heteroschedastic]{.orange}, because $\text{var}(Y_i) = m_i \pi_i(1- \pi_i)$.
+
+- Thus, a [variance stabilizing]{.blue} transformation in this case is 
+$$
+g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
+$$
+because in fact we have that
+$$
+\text{var}(g_{m_i}(Y_i)) \approx \left(\frac{\sqrt{m_i}}{\sqrt{1 - (2\pi_i-1)^2}} \frac{2}{m_i}\right)^2 m_i \pi_i(1- \pi_i) = 1.
+$$
+
+. . .
+
+- If the data are [gamma distributed]{.blue}, the [variance stabilizing]{.orange} transform is $g(y) = \log{y}$. 
+
+
+## Limitations of variable transformations I 📖
+
+- Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.
+
+. . .
+
+- In the case of transformations applied only to the [explanatory variables]{.blue}, the model is
+$$
+Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+$$
+Thus, the coefficient $\beta_j$ can [no longer]{.orange} be [interpreted]{.orange} as the change in the mean of $Y_i$ corresponding to a [one-unit increase]{.blue} $x_{ij} \rightarrow x_{ij}+1$ of the $j$th covariate.
+
+. . .
+
+- In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However:  
+$$
+   E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+$$
+Thus $\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})$ is a [reasonable prediction]{.blue} for $Y_i$ and not an estimate for its mean.
+
+- When $g(y) = \log{y}$ this difference can be made explicit, because we have 
+$$
+g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
+$$
+the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is the usual [mean]{.blue}.
+
+
+## Limitations of variable transformations II
 
 :::callout-tip
 Suppose $Y_i \sim \text{Binomial}(\pi, m_i)$. The variance stabilizing transformation is not fully satisfactory:
@@ -1025,7 +1027,9 @@ Besides, this transform is clearly not applicable when $m_i = 1$ and $Y_i \in \{
 
 - If we know that $Y_i$ follows, say, a Bernoulli or a Gamma distribution, then we should use the [appropriate likelihood]{.blue} rather than a [Gaussian approximation]{.orange}. 
 
-- This is what [Generalized Linear Models]{.blue} are for, providing a [much more elegant solution]{.orange} to the above problem. 
+- [Generalized Linear Models]{.blue} provide a [much more elegant solution]{.orange} to the above problem. 
+
+
 
 
 ## References {.unnumbered}
