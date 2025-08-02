@@ -47,14 +47,14 @@ to convert the HTML slides into pdf files, you can [follow the
 instruction of the quarto
 documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf).
 
-| Topic | Notes | Slides | Code |
+| Topic | Notes | Slides | Further material |
 |-------------------|------------------|------------------|------------------|
 | **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) |  |
 | | **GENERAL THEORY** | | |
-| **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) | [Code A](code/un_A.R) |
+| **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) |  |
 | *Exercises* | [Exercises A] |  |  |
-| Lab 1 | | | [`lab1.R`](code/lab1.R) |
-| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [Code B](code/un_B.R) |
+| Lab 1 |  [`lab1.R`](code/lab1.R) | | |
+| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)|  |
 | *Exercises* | [Exercises B] |  |  |
 | Lab 2 | | | |
 | | **NOTABLE MODELS** | | |

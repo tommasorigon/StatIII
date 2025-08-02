@@ -112,7 +112,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
-  <li><a href="#old-friends-linear-models" id="toc-old-friends-linear-models" class="nav-link" data-scroll-target="#old-friends-linear-models">Old friends: linear models</a>
+  <li><a href="#the-modeling-process" id="toc-the-modeling-process" class="nav-link" data-scroll-target="#the-modeling-process">The modeling process</a>
   <ul class="collapse">
   <li><a href="#car-data-diesel-or-gas" id="toc-car-data-diesel-or-gas" class="nav-link" data-scroll-target="#car-data-diesel-or-gas">Car data (<span class="blue">diesel</span> or <span class="orange">gas</span>)</a></li>
   <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear regression</a></li>
@@ -124,7 +124,6 @@ window.Quarto = {
   <li><a href="#linear-regression-inference" id="toc-linear-regression-inference" class="nav-link" data-scroll-target="#linear-regression-inference">Linear regression: inference</a></li>
   <li><a href="#linear-regression-diagnostic" id="toc-linear-regression-diagnostic" class="nav-link" data-scroll-target="#linear-regression-diagnostic">Linear regression: diagnostic</a></li>
   <li><a href="#leverages-outliers-and-influence-points" id="toc-leverages-outliers-and-influence-points" class="nav-link" data-scroll-target="#leverages-outliers-and-influence-points">Leverages, outliers and influence points</a></li>
-  <li><a href="#car-data-a-first-model" id="toc-car-data-a-first-model" class="nav-link" data-scroll-target="#car-data-a-first-model">Car data, a first model</a></li>
   <li><a href="#a-first-model-estimated-coefficients" id="toc-a-first-model-estimated-coefficients" class="nav-link" data-scroll-target="#a-first-model-estimated-coefficients">A first model: estimated coefficients</a></li>
   <li><a href="#a-first-model-fitted-values" id="toc-a-first-model-fitted-values" class="nav-link" data-scroll-target="#a-first-model-fitted-values">A first model: fitted values</a></li>
   <li><a href="#a-first-model-graphical-diagnostics" id="toc-a-first-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-first-model-graphical-diagnostics">A first model: graphical diagnostics</a></li>
@@ -229,8 +228,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="old-friends-linear-models" class="level1">
-<h1>Old friends: linear models</h1>
+<section id="the-modeling-process" class="level1">
+<h1>The modeling process</h1>
 <section id="car-data-diesel-or-gas" class="level2">
 <h2 class="anchored" data-anchor-id="car-data-diesel-or-gas">Car data (<span class="blue">diesel</span> or <span class="orange">gas</span>)</h2>
 <div class="columns">
@@ -257,6 +256,16 @@ window.Quarto = {
 <li>The fuel type (gasoline or diesel, <code>fuel</code>).</li>
 </ul></li>
 </ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We assume you are already familiar with linear models. The following is a brief recap rather than a full discussion.</p>
+</div>
 </div>
 </div>
 </section>
@@ -388,12 +397,15 @@ D(\hat{\beta}) = ||\bm{y} - \hat{\bm{y}}||^2 = \bm{y}^T(I_n - \bm{H})\bm{y}.
 <li><p>Moreover, a typical estimate for the <span class="orange">residual variance</span> <span class="math inline">\sigma^2</span> is obtained as follows: <span class="math display">
 s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
 </span></p></li>
+<li><p>To evaluate the goodness of fit, we can calculate the <span class="orange">coefficient of determination</span>: <span class="math display">
+R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
+</span></p></li>
 </ul>
 </section>
 <section id="linear-regression-inference" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-inference">Linear regression: inference</h2>
 <ul>
-<li><p>We assume that the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
+<li><p>Recall that the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
 <li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> as follows: <span class="math display">
   \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
   </span></p></li>
@@ -438,25 +450,13 @@ p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <li><span class="orange">Left plot</span>: leverage, not outlier. <span class="blue">Central plot</span>: outlier, not leverage. <span class="grey">Right plot</span>: influence point = leverage + outlier.</li>
 </ul>
 </section>
-<section id="car-data-a-first-model" class="level2">
-<h2 class="anchored" data-anchor-id="car-data-a-first-model">Car data, a first model</h2>
+<section id="a-first-model-estimated-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="a-first-model-estimated-coefficients">A first model: estimated coefficients</h2>
 <ul>
 <li><p>Our first attempt for predicting <code>city.distance</code> (<span class="math inline">y</span>) via <code>engine.size</code> (<span class="math inline">x</span>) and <code>fuel</code> (<span class="math inline">z</span>) is: <span class="math display">
   f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z = \texttt{gas}).
   </span></p></li>
-<li><p>Indeed, by looking at the plot of the data, it is plausible that we need a <span class="orange">polynomial</span> of degree <span class="math inline">3</span> or <span class="math inline">4</span></p></li>
-<li><p>It is also clear from the plot that <code>fuel</code> is a relevant variable. Categorical variables are <span class="orange">encoded</span> using <span class="blue">indicator variables</span>.</p></li>
-</ul>
-<ul>
-<li>To evaluate the goodness of fit, we can calculate the <span class="orange">coefficient of determination</span>: <span class="math display">
-R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
-</span></li>
-</ul>
-</section>
-<section id="a-first-model-estimated-coefficients" class="level2">
-<h2 class="anchored" data-anchor-id="a-first-model-estimated-coefficients">A first model: estimated coefficients</h2>
-<ul>
-<li>We obtain the following <span class="orange">summary</span> for the regression coefficients <span class="math inline">\hat{\beta}</span>.</li>
+<li><p>We obtain the following <span class="orange">summary</span> for the regression coefficients <span class="math inline">\hat{\beta}</span>.</p></li>
 </ul>
 <table class="caption-top table">
 <thead>
@@ -561,7 +561,7 @@ R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1
 <li><p>The overall fit <span class="blue">seems satisfactory</span> at first glance, especially if we aim at predicting the urban distance of cars when average engine size (i.e., between <span class="math inline">1.5L</span> and <span class="math inline">3L</span>).</p></li>
 </ul>
 <ul>
-<li>However, the plot of the <span class="orange">residuals</span> <span class="math inline">r_i = y_i - \hat{y}_i</span> suggests that the homoscedasticity assumption, i.e.&nbsp;<span class="math inline">\text{var}(\epsilon_i) = \sigma^2</span>, might be violated.</li>
+<li>However, the plot of the <span class="orange">residuals</span> <span class="math inline">r_i = y_i - \hat{y}_i</span> suggests that the homoschedasticity assumption, i.e.&nbsp;<span class="math inline">\text{var}(\epsilon_i) = \sigma^2</span>, might be violated.</li>
 </ul>
 <ul>
 <li><p>Also, this model is unsuitable for <span class="orange">extrapolation</span>. Indeed:</p>

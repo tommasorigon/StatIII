@@ -88,7 +88,7 @@ Attributed to [Albert Einstein]{.grey}
 The content of this Unit is covered in [Chapter 1]{.orange} of @Salvan2020. Alternatively, see [Chapter 2]{.blue} of @Agresti2015 or [Chapter 5]{.grey} of @Azzalini2008.
 :::
 
-# Old friends: linear models
+# The modeling process
 
 ## Car data ([diesel]{.blue} or [gas]{.orange})
 
@@ -137,6 +137,11 @@ p0
     -   The fuel type (gasoline or diesel, `fuel`).
 :::
 :::
+
+:::{.callout-tip}
+We assume you are already familiar with linear models. The following is a brief recap rather than a full discussion.
+:::
+
 
 ## Linear regression
 
@@ -298,9 +303,15 @@ where $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
     s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
     $$
 
+-   To evaluate the goodness of fit, we can calculate the [coefficient
+    of determination]{.orange}: $$
+    R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
+    $$
+
+
 ## Linear regression: inference
 
-- We assume that the errors $\bm{\epsilon}$ have zero mean $\mathbb{E}(\bm{\epsilon}) = 0$ and are [uncorrelated]{.orange} $\text{var}(\bm{\epsilon}) = \sigma^2I_n$.
+- Recall that the errors $\bm{\epsilon}$ have zero mean $\mathbb{E}(\bm{\epsilon}) = 0$ and are [uncorrelated]{.orange} $\text{var}(\bm{\epsilon}) = \sigma^2I_n$.
 
 - Then, the estimator $\hat{\beta}$ is [unbiased]{.orange} $\mathbb{E}(\hat{\beta}) = \beta$ and its [variance]{.blue} is $\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}$. Since $\sigma^2$ is also unknown, we can estimate the variances of $\hat{\beta}$ as follows: $$
     \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
@@ -385,31 +396,14 @@ par(mfrow = c(1, 1))
 
 - [Left plot]{.orange}: leverage, not outlier. [Central plot]{.blue}: outlier, not leverage. [Right plot]{.grey}: influence point = leverage + outlier.
 
-## Car data, a first model
+## A first model: estimated coefficients
 
 -   Our first attempt for predicting `city.distance` ($y$) via
     `engine.size` ($x$) and `fuel` ($z$) is: $$
       f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z = \texttt{gas}).
       $$
 
--   Indeed, by looking at the plot of the data, it is plausible that we
-    need a [polynomial]{.orange} of degree $3$ or $4$
-
--   It is also clear from the plot that `fuel` is a relevant variable.
-    Categorical variables are [encoded]{.orange} using [indicator
-    variables]{.blue}.
-
-. . .
-
--   To evaluate the goodness of fit, we can calculate the [coefficient
-    of determination]{.orange}: $$
-    R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
-    $$
-
-## A first model: estimated coefficients
-
--   We obtain the following [summary]{.orange} for the regression
-    coefficients $\hat{\beta}$.
+-   We obtain the following [summary]{.orange} for the regression coefficients $\hat{\beta}$.
 
 ```{r}
 #| output: false
@@ -476,7 +470,7 @@ ggplot(data = augmented_m1, aes(x = .fitted, y = .resid, col = fuel)) +
 . . .
 
 -   However, the plot of the [residuals]{.orange}
-    $r_i = y_i - \hat{y}_i$ suggests that the homoscedasticity
+    $r_i = y_i - \hat{y}_i$ suggests that the homoschedasticity
     assumption, i.e. $\text{var}(\epsilon_i) = \sigma^2$, might be
     violated.
 
