@@ -90,7 +90,7 @@ The content of this Unit is covered in [Chapter 2]{.orange} of @Salvan2020. Alte
 
 ## Preliminaries
 
-- GLMs are a class of [regression models]{.blue} in which a [response]{.orange} random variable $Y_i$ is modeled as a function of a vector of [covariates]{.grey} $\bm{x}_i \in \mathbb{R}^p$.  
+- GLMs are a [class]{.blue} of [regression models]{.blue} in which a [response]{.orange} random variable $Y_i$ is modeled as a function of a vector of [covariates]{.grey} $\bm{x}_i \in \mathbb{R}^p$.  
 
 - The random variables $Y_i$ are not restricted to be Gaussian. For example:  
   - $Y_i \in \{0,1\}$, known as [binary regression]{.blue}  
@@ -103,7 +103,7 @@ The content of this Unit is covered in [Chapter 2]{.orange} of @Salvan2020. Alte
 
 - The [response random variables]{.orange} are collected in the random vector $\bm{Y} = (Y_1,\dots,Y_n)^T$, whose [observed realization]{.blue} is $\bm{y} = (y_1,\dots,y_n)^T$.  
 
-- The [design matrix]{.blue} $\bm{X}$ is an $n \times p$ [non-stochastic]{.orange} matrix containing the covariate values. The $j$‑th variable (column) is denoted by $\tilde{\bm{x}}_j$, while the $i$‑th observation (row) is $\bm{x}_i$.  
+- The [design matrix]{.blue} $\bm{X}$ is an $n \times p$ [non-stochastic]{.orange} matrix containing the covariate values. The $j$th variable (column) is denoted by $\tilde{\bm{x}}_j$, while the $i$th observation (row) is $\bm{x}_i$.  
 
 - We assume that $\bm{X}$ has [full rank]{.orange}, that is, $\text{rk}(\bm{X}) = p$ with $p \le n$.  
 
@@ -136,7 +136,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
 
 - There is a clear [positive]{.orange} and [non-linear]{.blue} pattern between the [proportion of deaths]{.orange} as a function of the logdose. The response variable take values in $[0, 1]$. 
 
-## An attempt at modelling the `Beetles` data
+## Modelling the `Beetles` data
 
 - Let $Y_i$ be the number of dead beetles out of $m_i$, and let $x_i$ denote the log-dose. By definition, $Y_i \in \{0, 1, \dots, m_i\}$ for $i = 1,\dots,8$.  
 
@@ -175,31 +175,51 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
 - The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = -60.72$ and $\hat{\beta}_2 = 34.3$. This yields the [predictive curve]{.blue} $\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean proportion $\mathbb{E}(Y_i / m_i)$.  
 
 
-## Alternative modelling approaches I 📖
+## A comparison with old tools I 📖
 
-- Let $Z_i = Y_i / m_i$ be the proportion of deaths. A direct application of linear models implies:
+:::callout-tip
+Let $Z_i = Y_i / m_i$ be the proportion of deaths. A direct application of linear models implies:
 $$
 Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 $$
-This is [not]{.orange} a [good approach]{.orange}. First, although $Z_i \in [0,1]$, the prediction $\beta_1 + \beta_2 x_i$ is [unrestricted]{.orange}, meaning it could produce values like "1.3" or "-2" as estimated proportions.
+The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Z_i$ as response.
+:::
 
-- Secondly, the [additive structure]{.blue} $Z_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with iid errors $\epsilon_i$, because $Y_i$, and thus $Z_i$, are [discrete]{.orange}. As a result, the errors would be [heteroskedastic]{.orange}.  
+- This is [not]{.orange} a [good approach]{.orange}. 
 
+- First, the prediction $\hat{\beta}_1 + \hat{\beta}_2 x_i$ is [unrestricted]{.orange}, meaning it could produce values like "1.3" or "-2" as estimated [proportions]{.blue}, which is clearly undesirable.
 
-. . .
+- Moreover, the [additive structure]{.blue} $Z_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with iid errors $\epsilon_i$, because $Y_i$, and thus $Z_i$, are [discrete]{.orange}. As a result, the errors would be [heteroschedastic]{.orange}. 
 
-- A better alternative would be considering a variable transformation of $Z_i$, obtaining  
+- If $m_i = 1$, i.e. when the data are [binary]{.orange}, all the above issues are [exacerbated]{.orange}.
+
+:::callout-tip
+This approach is sometimes called the [linear probability model]{.blue}. Before GLMs, it was considered acceptable despite its issues, but by modern standards it should [not be used]{.orange}.
+:::
+
+## A comparison with old tools II 📖
+
+:::callout-tip
+We consider the [empirical logit]{.blue} variable transformation of $Z_i = Y_i / m_i$, obtaining  
 $$
 \text{logit}(\tilde{Z}_i) = \log\left(\frac{Y_i + 0.5}{m_i - Y_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Z}_i = \frac{Y_i + 0.5}{m_i +1}.
 $$
-The [arbitrary]{.orange} correction term is necessary because otherwise the logit would be undefined.  
+A correction term is necessary because otherwise $g(\cdot) = \text{logit}(\cdot)$ is undefined. The predictions belong to $(0, 1)$, since
+$$
+\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i),$$ 
+in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text{logit}(\tilde{Z}_i)$ as response. 
+:::
 
-- The predictions are $\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i)$, in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated using OLS. The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $g(\tilde{Z}_i)$.  
+- The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\text{logit}(\tilde{Z}_i)$ instead of $\mathbb{E}(Z_i)$.
 
-- Inference is also problematic because of [heteroskedastic]{.orange} errors. Finally, this approach is [not compatible]{.orange} with the very reasonable assumption $Y_i \sim \text{Binomial}(m_i, \pi_i)$.  
+- Inference is problematic and requires further corrections, because of [heteroschedastic]{.orange} errors. 
 
+- This approach is [not compatible]{.orange} with the very reasonable assumption $$
+Y_i \sim \text{Binomial}(m_i, \pi_i).
+$$
+- An arbitrary [boundary correction]{.orange} is needed. 
 
-## Alternative modelling approaches II
+## A comparison with old tools III
 
 ```{r}
 #| fig-width: 7.8
@@ -253,7 +273,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 
 - There is a clear positive association between period and deaths. However, the increase appears to be [faster]{.orange} than [linear]{.orange}. Note that both the mean and the [variability]{.blue} of $Y_i$ increase over time.
 
-## An attempt at modelling the `Aids` data
+## Modelling the `Aids` data
 
 ## `Aids` data, fitted model
 
@@ -269,9 +289,9 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 ```
 
 
-## Alternative modelling approaches I
+## A comparison with old tools I
 
-## Alternative modelling approaches II
+## A comparison with old tools II
 
 ## Components of a GLM
 
@@ -280,8 +300,6 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 ## Linear predictor of a GLM
 
 ## Link function of a GLM
-
-## Advantages of GLMs versus transforming the data
 
 # Exponential dispersion families
 
