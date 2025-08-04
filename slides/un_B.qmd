@@ -166,7 +166,7 @@ fit_Beetles <- glm(cbind(deaths, n - deaths) ~ logdose, family = "binomial", dat
 
 ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
   geom_point() +
-  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed") +
+  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
   theme_light() +
   xlab("log-dose") +
   ylab("Proportion of deaths")
@@ -185,11 +185,9 @@ $$
 The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Z_i$ as response.
 :::
 
-- This is [not]{.orange} a [good approach]{.orange}. 
+- The prediction $\hat{\beta}_1 + \hat{\beta}_2 x_i$ is [unrestricted]{.orange}, meaning it could produce values like "1.3" or "-2" as estimated [proportions]{.blue}, which is clearly undesirable.
 
-- First, the prediction $\hat{\beta}_1 + \hat{\beta}_2 x_i$ is [unrestricted]{.orange}, meaning it could produce values like "1.3" or "-2" as estimated [proportions]{.blue}, which is clearly undesirable.
-
-- Moreover, the [additive structure]{.blue} $Z_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with iid errors $\epsilon_i$, because $Y_i$, and thus $Z_i$, are [discrete]{.orange}. As a result, the errors would be [heteroschedastic]{.orange}. 
+- The [additive structure]{.blue} $Z_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with [iid]{.blue} errors $\epsilon_i$, because $Y_i$, and thus $Z_i$, are [discrete]{.orange}. As a result, the errors are always [heteroschedastic]{.orange}. 
 
 - If $m_i = 1$, i.e. when the data are [binary]{.orange}, all the above issues are [exacerbated]{.orange}.
 
@@ -206,18 +204,17 @@ $$
 $$
 A correction term is necessary because otherwise $g(\cdot) = \text{logit}(\cdot)$ is undefined. The predictions belong to $(0, 1)$, since
 $$
-\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i),$$ 
+\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},$$ 
 in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text{logit}(\tilde{Z}_i)$ as response. 
 :::
 
 - The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\text{logit}(\tilde{Z}_i)$ instead of $\mathbb{E}(Z_i)$.
 
+- An arbitrary [boundary correction]{.orange} is needed. 
+
 - Inference is problematic and requires further corrections, because of [heteroschedastic]{.orange} errors. 
 
-- This approach is [not compatible]{.orange} with the very reasonable assumption $$
-Y_i \sim \text{Binomial}(m_i, \pi_i).
-$$
-- An arbitrary [boundary correction]{.orange} is needed. 
+- This approach is [not compatible]{.orange} with the reasonable assumption $Y_i \sim \text{Binomial}(m_i, \pi_i)$.
 
 ## A comparison with old tools III
 
@@ -232,7 +229,7 @@ fit_Beetles_logit <- lm(qlogis((deaths + 0.5) / (n + 1)) ~ logdose, data = Beetl
 ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
   xlim(c(1.65, 1.92)) + 
   geom_point() +
-  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed") + geom_function(fun = function(x) coef(fit_Beetles_lm)[1] + coef(fit_Beetles_lm)[2] * x, linetype = "dashed", col = "darkorange") + geom_function(fun = function(x) plogis(coef(fit_Beetles_logit)[1] + coef(fit_Beetles_logit)[2] * x), linetype = "dashed", col = "darkblue") +
+  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) + geom_function(fun = function(x) coef(fit_Beetles_lm)[1] + coef(fit_Beetles_lm)[2] * x, linetype = "dashed", col = "darkorange", linewidth = 0.6) + geom_function(fun = function(x) plogis(coef(fit_Beetles_logit)[1] + coef(fit_Beetles_logit)[2] * x), linetype = "dashed", col = "darkblue", linewidth = 0.6) +
   theme_light() +
   xlab("log-dose") +
   ylab("Proportion of deaths")
@@ -256,7 +253,7 @@ knitr::kable(t(Aids[8:14, ]))
 
 - We are interested in predicting the number of `deaths` as a function of the `period` of time.
 
-- The response variable $Y_i \in \{0, 1, \dots\}$ is a [count]{.orange}. 
+- The response variable $Y_i \in \{0, 1, \dots\}$ is a non-negative [count]{.orange}.
 
 ## `Aids` data, scatter plot
 
@@ -275,25 +272,137 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 
 ## Modelling the `Aids` data
 
+- Let $Y_i$ be the number of deaths, and let $x_i$ denote the period. By definition, $Y_i \in \{0, 1, \dots\}$ are non-negative counts, for $i = 1,\dots,14$.  
+
+. . .
+
+-  We model $Y_i$ as [independent Poisson]{.blue} random variables, counting the number of deaths: 
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad i = 1,\dots,14,
+$$
+where $\mu_i$ is the [mean]{.orange} of $Y_i$, namely $\mathbb{E}(Y_i) = \mu_i$.
+
+- A modeling approach, called [Poisson regression]{.blue}, specifies:  
+$$
+g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i = g^{-1}(\beta_1 + \beta_2 x_i) = \exp(\beta_1 + \beta_2 x_i),
+$$
+for some parameters $\beta_1, \beta_2 \in \mathbb{R}$. [Note]{.orange} that $\mu_i > 0$ by construction. 
+
+- Under this specification, the [variances]{.blue} of the observations are  
+$$
+\text{var}(Y_i) = \mu_i = \exp(\beta_1 + \beta_2 x_i),
+$$
+which increases with $x$, as desired. This implies that $Y_1,\dots,Y_n$ are [heteroschedastic]{.orange}, but this is not an issue in GLMs, as this aspect is [automatically accounted]{.blue} for.
+
+
 ## `Aids` data, fitted model
 
 ```{r}
+#| fig-width: 7.8
+#| fig-height: 4.55
+#| fig-align: center
 fit_Aids <- glm(deaths ~ period, family = "poisson", data = Aids)
 
 ggplot(data = Aids, aes(x = period, y = deaths)) +
   geom_point() +
-  geom_function(fun = function(x) exp(coef(fit_Aids)[1] + coef(fit_Aids)[2] * x), linetype = "dashed") +
+  geom_function(fun = function(x) exp(coef(fit_Aids)[1] + coef(fit_Aids)[2] * x), linetype = "dashed", linewidth = 0.6) +
   theme_light() +
   xlab("Period") +
   ylab("Deaths")
 ```
 
+- The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = 0.30$ and $\hat{\beta}_2 = 0.26$. This yields the [predictive curve]{.blue} $\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean $\mathbb{E}(Y_i)$.  
+
 
 ## A comparison with old tools I
 
+
+:::callout-tip
+We consider the [variance-stabilizing]{.blue} transformation $Z_i = \sqrt{Y_i}$, obtaining  
+$$
+\sqrt{Y_i} = \beta_1 + \beta_2 x_i + \epsilon_i.
+$$
+The predictions belong to $(0, \infty)$, since
+$$
+\hat{\mu}_i = \mathbb{E}(\sqrt{Y_i})^2 = (\hat{\beta}_1 + \hat{\beta}_2 x_i)^2,$$ 
+in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\sqrt{Y_i}$ as response. 
+:::
+
+- The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\sqrt{Y}_i$ instead of $\mathbb{E}(Y_i)$.
+
+- This approach is [not compatible]{.orange} with the reasonable assumption $Y_i \sim \text{Poisson}(\mu_i)$ and it only valid as an [asymptotic approximation]{.blue}. 
+
+:::{.callout-tip}
+To compare such a model with a similar specification, we also fit another Poisson GLM in which
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \beta_1 + \beta_2 x_i, \qquad i=1,\dots,14.
+$$
+:::
+
 ## A comparison with old tools II
 
-## Components of a GLM
+```{r}
+#| fig-width: 7.8
+#| fig-height: 4.55
+#| fig-align: center
+fit_Aids_lm <- lm(sqrt(deaths) ~ period, data = Aids)
+fit_Aids_sqrt <- glm(deaths ~ period, family = poisson(link = "sqrt"), data = Aids)
+
+ggplot(data = Aids, aes(x = period, y = deaths)) +
+  geom_point() +
+  geom_function(fun = function(x) exp(coef(fit_Aids)[1] + coef(fit_Aids)[2] * x), linetype = "dashed", linewidth = 0.6) +
+    geom_function(fun = function(x) (coef(fit_Aids_lm)[1] + coef(fit_Aids_lm)[2] * x)^2, linetype = "dashed", col = "darkorange", linewidth = 0.6) +
+    geom_function(fun = function(x) (coef(fit_Aids_sqrt)[1] + coef(fit_Aids_sqrt)[2] * x)^2, linetype = "dashed", col = "darkblue", linewidth = 0.6) +
+  theme_light() +
+  xlab("Period") +
+  ylab("Deaths")
+```
+
+- The black line is the predicted curve of a [Poisson regression GLM]{.grey} with [logarithmic link]{.gray}. The orange line is the predicted curve of a [linear model]{.orange} with a [square-root transformation]{.orange}. The blue line is the predictive curve of a [Poisson regression GLM]{.blue} with [square-root link]{.blue}.
+
+
+## The components of a GLM
+
+
+- [Random component]{.orange}. This specifies the probability distribution response variable $Y_i$. The observations $\bm{y} =(y_1,\dots,y_n)$ on that distribution are treated as [independent]{.orange}.
+
+- [Linear predictor]{.blue}. For a parameter vector $\bm{\beta} = (\beta_1,\dots,\beta_p)^T$ and an $n \times p$ design matrix $\bm{X}$, the linear predictor is $\bm{\eta} = \bm{X}\beta$. We will also write
+$$
+\eta_i = \bm{x}_i^T\beta = \beta_1x_{i1} + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
+$$
+
+- [Link function]{.grey}. This is an invertible function $g(\cdot)$ applied to each component of the [mean]{.grey} $\mu_i = \mathbb{E}(Y_i)$ that relates it to the linear predictor:
+$$
+g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1}(\eta_i) = g^{-1}(\bm{x}_i^T\beta).
+$$
+
+. . .
+
+:::callout-tip
+In a GLMs the observations are independent draws from a distribution $F(\cdot \, ; \mu_i)$:
+$$
+Y_i \overset{\text{ind}}{\sim} F(\cdot\,;\mu_i), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta. 
+$$
+Note that, in general, we [cannot]{.orange} express the response in an additive way $Y_i = g^{-1}(\eta_i) + \epsilon_i$.
+:::
+
+## Examples
+
+:::{.callout-tip}
+In a [Gaussian linear model]{.blue}, we have that 
+$$
+Y_i \overset{\text{ind}}{\sim}\text{N}(\bm{x}_i^T\beta, \sigma^2), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad \mu_i = \bm{x}_i^T\beta.
+$$
+In this case we say that $g(\mu) = \mu$ is the [identity link]{.blue}. The variance $\sigma^2$ is an unknown parameter called [dispersion]{.orange} in GLMs, but it does not appear in the linear predictor.
+:::
+
+:::{.callout-tip}
+In a [logistic regression model]{.blue}, we have that 
+$$
+Y_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i), \qquad \mathbb{E}\left(Y_i\right) = \mu_i, \qquad \mu_i = \bm{x}_i^T\beta.
+$$
+In this case we say that $g(\mu) = \mu$ is the [identity link]{.blue}. The variance $\sigma^2$ is an unknown parameter called [dispersion]{.orange} in GLMs, but it does not appear in the linear predictor.
+:::
 
 ## Random component of a GLM
 
