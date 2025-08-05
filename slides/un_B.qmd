@@ -138,15 +138,15 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
 
 ## Modelling the `Beetles` data
 
-- Let $Y_i$ be the number of dead beetles out of $m_i$, and let $x_i$ denote the log-dose. By definition, $Y_i \in \{0, 1, \dots, m_i\}$ for $i = 1,\dots,8$.  
+- Let $Y_i$ be the number of dead beetles out of $m_i$, and let $x_i$ denote the log-dose. By definition, $S_i \in \{0, 1, \dots, m_i\}$ for $i = 1,\dots,8$.  
 
 - It is natural to model each $Y_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $m_i$ individuals. In other words:
 $$
-Y_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
+S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
 $$
 where $\pi_i$ is the [probability]{.orange} of death at a given dose $x_i$. Moreover, we have
 $$
-\mathbb{E}\!\left(\frac{Y_i}{m_i}\right) = \mu_i = \pi_i.
+\mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
 $$
 
 - A modeling approach, called [logistic regression]{.blue}, specifies:  
@@ -172,22 +172,22 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
   ylab("Proportion of deaths")
 ```
 
-- The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = -60.72$ and $\hat{\beta}_2 = 34.3$. This yields the [predictive curve]{.blue} $\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean proportion $\mathbb{E}(Y_i / m_i)$.  
+- The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = -60.72$ and $\hat{\beta}_2 = 34.3$. This yields the [predictive curve]{.blue} $\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean proportion $\mathbb{E}(S_i / m_i)$.  
 
 
 ## A comparison with old tools I 📖
 
 :::callout-tip
-Let $Z_i = Y_i / m_i$ be the proportion of deaths. A direct application of linear models implies:
+Let $Y_i = S_i / m_i$ be the proportion of deaths. A direct application of linear models implies:
 $$
-Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
+Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 $$
-The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Z_i$ as response.
+The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Y_i$ as response.
 :::
 
 - The prediction $\hat{\beta}_1 + \hat{\beta}_2 x_i$ is [unrestricted]{.orange}, meaning it could produce values like "1.3" or "-2" as estimated [proportions]{.blue}, which is clearly undesirable.
 
-- The [additive structure]{.blue} $Z_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with [iid]{.blue} errors $\epsilon_i$, because $Y_i$, and thus $Z_i$, are [discrete]{.orange}. As a result, the errors are always [heteroschedastic]{.orange}. 
+- The [additive structure]{.blue} $Y_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with [iid]{.blue} errors $\epsilon_i$, because $S_i$, and thus $Y_i$, are [discrete]{.orange}. As a result, the errors are always [heteroschedastic]{.orange}. 
 
 - If $m_i = 1$, i.e. when the data are [binary]{.orange}, all the above issues are [exacerbated]{.orange}.
 
@@ -198,23 +198,23 @@ This approach is sometimes called the [linear probability model]{.blue}. Before 
 ## A comparison with old tools II 📖
 
 :::callout-tip
-We consider the [empirical logit]{.blue} variable transformation of $Z_i = Y_i / m_i$, obtaining  
+We consider the [empirical logit]{.blue} variable transformation of $S_i = Y_i / m_i$, obtaining  
 $$
-\text{logit}(\tilde{Z}_i) = \log\left(\frac{Y_i + 0.5}{m_i - Y_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Z}_i = \frac{Y_i + 0.5}{m_i +1}.
+\text{logit}(\tilde{Y}_i) = \log\left(\frac{S_i + 0.5}{m_i - S_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Y}_i = \frac{S_i + 0.5}{m_i +1}.
 $$
 A correction term is necessary because otherwise $g(\cdot) = \text{logit}(\cdot)$ is undefined. The predictions belong to $(0, 1)$, since
 $$
-\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},$$ 
+\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Y}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},$$ 
 in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text{logit}(\tilde{Z}_i)$ as response. 
 :::
 
-- The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\text{logit}(\tilde{Z}_i)$ instead of $\mathbb{E}(Z_i)$.
+- The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\text{logit}(\tilde{Y}_i)$ instead of $\mathbb{E}(Y_i)$.
 
 - An arbitrary [boundary correction]{.orange} is needed. 
 
 - Inference is problematic and requires further corrections, because of [heteroschedastic]{.orange} errors. 
 
-- This approach is [not compatible]{.orange} with the reasonable assumption $Y_i \sim \text{Binomial}(m_i, \pi_i)$.
+- This approach is [not compatible]{.orange} with the reasonable assumption $S_i \sim \text{Binomial}(m_i, \pi_i)$.
 
 ## A comparison with old tools III
 
@@ -318,7 +318,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 
 
 :::callout-tip
-We consider the [variance-stabilizing]{.blue} transformation $Z_i = \sqrt{Y_i}$, obtaining  
+We consider the [variance-stabilizing]{.blue} transformation $S_i = \sqrt{Y_i}$, obtaining  
 $$
 \sqrt{Y_i} = \beta_1 + \beta_2 x_i + \epsilon_i.
 $$
@@ -364,51 +364,78 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 ## The components of a GLM
 
 
-- [Random component]{.orange}. This specifies the probability distribution response variable $Y_i$. The observations $\bm{y} =(y_1,\dots,y_n)$ on that distribution are treated as [independent]{.orange}.
+- [Random component]{.orange}. This specifies the probability distribution response variable $Y_i$. The observations $\bm{y} =(y_1,\dots,y_n)$ on that distribution are treated as [independent]{.orange}. 
+
+. . .
 
 - [Linear predictor]{.blue}. For a parameter vector $\bm{\beta} = (\beta_1,\dots,\beta_p)^T$ and an $n \times p$ design matrix $\bm{X}$, the linear predictor is $\bm{\eta} = \bm{X}\beta$. We will also write
 $$
 \eta_i = \bm{x}_i^T\beta = \beta_1x_{i1} + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
 $$
 
-- [Link function]{.grey}. This is an invertible function $g(\cdot)$ applied to each component of the [mean]{.grey} $\mu_i = \mathbb{E}(Y_i)$ that relates it to the linear predictor:
+. . .
+
+- [Link function]{.grey}. This is an invertible and differentiable function $g(\cdot)$ applied to each component of the [mean]{.grey} $\mu_i = \mathbb{E}(Y_i)$ that relates it to the linear predictor:
 $$
 g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1}(\eta_i) = g^{-1}(\bm{x}_i^T\beta).
 $$
 
-. . .
-
 :::callout-tip
-In a GLMs the observations are independent draws from a distribution $F(\cdot \, ; \mu_i)$:
-$$
-Y_i \overset{\text{ind}}{\sim} F(\cdot\,;\mu_i), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta. 
-$$
 Note that, in general, we [cannot]{.orange} express the response in an additive way $Y_i = g^{-1}(\eta_i) + \epsilon_i$.
 :::
 
-## Examples
 
-:::{.callout-tip}
-In a [Gaussian linear model]{.blue}, we have that 
-$$
-Y_i \overset{\text{ind}}{\sim}\text{N}(\bm{x}_i^T\beta, \sigma^2), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad \mu_i = \bm{x}_i^T\beta.
-$$
-In this case we say that $g(\mu) = \mu$ is the [identity link]{.blue}. The variance $\sigma^2$ is an unknown parameter called [dispersion]{.orange} in GLMs, but it does not appear in the linear predictor.
-:::
-
-:::{.callout-tip}
-In a [logistic regression model]{.blue}, we have that 
-$$
-Y_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i), \qquad \mathbb{E}\left(Y_i\right) = \mu_i, \qquad \mu_i = \bm{x}_i^T\beta.
-$$
-In this case we say that $g(\mu) = \mu$ is the [identity link]{.blue}. The variance $\sigma^2$ is an unknown parameter called [dispersion]{.orange} in GLMs, but it does not appear in the linear predictor.
-:::
 
 ## Random component of a GLM
 
-## Linear predictor of a GLM
+- In GLMs the random variables $Y_i$ are [independent]{.orange} and they are distributed according to an [exponential dispersion family]{.blue}, whose definition will be provided in a few slides. 
 
-## Link function of a GLM
+- For now, it suffices to say that the distributions most commonly used in Statistics, such as the normal, binomial, gamma, and Poisson, are exponential family distributions.
+
+- Exponential dispersion families are [characterized]{.orange} by their [mean]{.blue} and [variance]{.blue}. Let $v(\mu) > 0$ be a function of the mean, called [variance function]{.blue} and let $a_i(\phi) >0$ be functions of an additional unknown parameter $\phi > 0$ called [dispersion]{.orange}. 
+
+
+
+. . .
+
+:::callout-tip
+In a GLMs the observations are independent draws from a distribution $\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$:
+$$
+Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
+$$
+with $\mu_i \in \mathcal{M}$. Moreover, the [variance]{.orange} is connected to the [mean]{.blue} via $v(\mu)$:
+$$
+\text{var}(Y_i) = a_i(\phi) v(\mu_i),
+$$
+We typically have $a_i(\phi) = \phi$, $a_i(\phi) = 1$ or $a_i(\phi) = \phi / w_i$  where $w_i$ are [weights]{.blue}.
+
+:::
+
+## Notable examples
+
+:::{.callout-tip}
+In a [Gaussian linear model]{.blue} we consider the [identity link]{.blue} $g(\mu) = \mu$ and let
+$$
+Y_i \overset{\text{ind}}{\sim}\text{N}(\mu_i, \sigma^2), \qquad \mu_i = \bm{x}_i^T\beta.
+$$
+The unknown variance $\sigma^2 = \phi$ is called [dispersion]{.orange} in GLMs. The [parameter space]{.orange} is $\mathcal{M} = \mathbb{R}$, whereas $a_i(\phi) = \phi$ and the variance function is [constant]{.blue} $v(\mu) = 1$ (homoschedasticity).
+:::
+
+:::{.callout-tip}
+In a [binomial regression model]{.blue} with [logit link]{.blue} $g(\mu) = \text{logit}(\mu)$ we let $Y_i = S_i/m_i$ and
+$$
+S_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i),\qquad \mathbb{E}\left(Y_i\right) = \pi_i = \mu_i, \qquad \text{logit}(\mu_i) =  \bm{x}_i^T\beta.
+$$
+We have $a_i(\phi) = 1/m_i$ and $v(\mu) = \mu(1-\mu)$. There is [no dispersion]{.orange} parameter.
+:::
+
+:::{.callout-tip}
+In [Poisson regression]{.blue} with [logarithmic link]{.blue} $g(\mu) = \log(\mu)$ we let
+$$
+Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_i^T\beta.
+$$
+We have $a_i(\phi) = 1$ and $v(\mu) = \mu$. There is [no dispersion]{.orange} parameter.
+:::
 
 # Exponential dispersion families
 
@@ -423,7 +450,25 @@ In this case we say that $g(\mu) = \mu$ is the [identity link]{.blue}. The varia
 
 - Most [well-known]{.blue} [distributions]{.blue}---such as Gaussian, Poisson, Binomial, and Gamma---are instances of exponential families.
 
+## Definition
 
+## Mean and variance
+
+## Moment generating function
+
+## Mean parametrization, variance function
+
+## Gaussian distribution
+
+## Binomial distribution
+
+## Poisson example
+
+## Gamma example
+
+## A summary
+
+## Link functions and canonical link
 
 # Likelihood, inference, and testing
 

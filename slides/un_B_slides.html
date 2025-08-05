@@ -307,11 +307,11 @@
 <section id="modelling-the-beetles-data" class="slide level2 center">
 <h2>Modelling the <code>Beetles</code> data</h2>
 <ul>
-<li><p>Let <span class="math inline">Y_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">Y_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
+<li><p>Let <span class="math inline">Y_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">S_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
 <li><p>It is natural to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
-Y_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
+S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
 </span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, we have <span class="math display">
-\mathbb{E}\!\left(\frac{Y_i}{m_i}\right) = \mu_i = \pi_i.
+\mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
 </span></p></li>
 <li><p>A modeling approach, called <span class="blue">logistic regression</span>, specifies:<br>
 <span class="math display">
@@ -323,7 +323,7 @@ g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \qua
 <h2><code>Beetles</code> data, fitted model</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
-<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean proportion <span class="math inline">\mathbb{E}(Y_i / m_i)</span>.</li>
+<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean proportion <span class="math inline">\mathbb{E}(S_i / m_i)</span>.</li>
 </ul>
 </section>
 <section id="a-comparison-with-old-tools-i" class="slide level2 center">
@@ -331,15 +331,15 @@ g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \qua
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Let <span class="math inline">Z_i = Y_i / m_i</span> be the proportion of deaths. A direct application of linear models implies: <span class="math display">
-Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
-</span> The coefficients <span class="math inline">\beta_1</span> and <span class="math inline">\beta_2</span> are then estimated using OLS using <span class="math inline">Z_i</span> as response.</p>
+<p>Let <span class="math inline">Y_i = S_i / m_i</span> be the proportion of deaths. A direct application of linear models implies: <span class="math display">
+Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
+</span> The coefficients <span class="math inline">\beta_1</span> and <span class="math inline">\beta_2</span> are then estimated using OLS using <span class="math inline">Y_i</span> as response.</p>
 </div>
 </div>
 </div>
 <ul>
 <li><p>The prediction <span class="math inline">\hat{\beta}_1 + \hat{\beta}_2 x_i</span> is <span class="orange">unrestricted</span>, meaning it could produce values like “1.3” or “-2” as estimated <span class="blue">proportions</span>, which is clearly undesirable.</p></li>
-<li><p>The <span class="blue">additive structure</span> <span class="math inline">Z_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold with <span class="blue">iid</span> errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">Y_i</span>, and thus <span class="math inline">Z_i</span>, are <span class="orange">discrete</span>. As a result, the errors are always <span class="orange">heteroschedastic</span>.</p></li>
+<li><p>The <span class="blue">additive structure</span> <span class="math inline">Y_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold with <span class="blue">iid</span> errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">S_i</span>, and thus <span class="math inline">Y_i</span>, are <span class="orange">discrete</span>. As a result, the errors are always <span class="orange">heteroschedastic</span>.</p></li>
 <li><p>If <span class="math inline">m_i = 1</span>, i.e.&nbsp;when the data are <span class="orange">binary</span>, all the above issues are <span class="orange">exacerbated</span>.</p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -355,19 +355,19 @@ Z_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>We consider the <span class="blue">empirical logit</span> variable transformation of <span class="math inline">Z_i = Y_i / m_i</span>, obtaining<br>
+<p>We consider the <span class="blue">empirical logit</span> variable transformation of <span class="math inline">S_i = Y_i / m_i</span>, obtaining<br>
 <span class="math display">
-\text{logit}(\tilde{Z}_i) = \log\left(\frac{Y_i + 0.5}{m_i - Y_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Z}_i = \frac{Y_i + 0.5}{m_i +1}.
+\text{logit}(\tilde{Y}_i) = \log\left(\frac{S_i + 0.5}{m_i - S_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Y}_i = \frac{S_i + 0.5}{m_i +1}.
 </span> A correction term is necessary because otherwise <span class="math inline">g(\cdot) = \text{logit}(\cdot)</span> is undefined. The predictions belong to <span class="math inline">(0, 1)</span>, since <span class="math display">
-\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Z}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},</span> in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated with OLS using <span class="math inline">\text{logit}(\tilde{Z}_i)</span> as response.</p>
+\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Y}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},</span> in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated with OLS using <span class="math inline">\text{logit}(\tilde{Z}_i)</span> as response.</p>
 </div>
 </div>
 </div>
 <ul>
-<li><p>The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">\text{logit}(\tilde{Z}_i)</span> instead of <span class="math inline">\mathbb{E}(Z_i)</span>.</p></li>
+<li><p>The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">\text{logit}(\tilde{Y}_i)</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>.</p></li>
 <li><p>An arbitrary <span class="orange">boundary correction</span> is needed.</p></li>
 <li><p>Inference is problematic and requires further corrections, because of <span class="orange">heteroschedastic</span> errors.</p></li>
-<li><p>This approach is <span class="orange">not compatible</span> with the reasonable assumption <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>.</p></li>
+<li><p>This approach is <span class="orange">not compatible</span> with the reasonable assumption <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>.</p></li>
 </ul>
 </section>
 <section id="a-comparison-with-old-tools-iii" class="slide level2 center">
@@ -507,7 +507,7 @@ g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>We consider the <span class="blue">variance-stabilizing</span> transformation <span class="math inline">Z_i = \sqrt{Y_i}</span>, obtaining<br>
+<p>We consider the <span class="blue">variance-stabilizing</span> transformation <span class="math inline">S_i = \sqrt{Y_i}</span>, obtaining<br>
 <span class="math display">
 \sqrt{Y_i} = \beta_1 + \beta_2 x_i + \epsilon_i.
 </span> The predictions belong to <span class="math inline">(0, \infty)</span>, since <span class="math display">
@@ -539,55 +539,80 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 <section id="the-components-of-a-glm" class="slide level2 center">
 <h2>The components of a GLM</h2>
 <ul>
-<li><p><span class="orange">Random component</span>. This specifies the probability distribution response variable <span class="math inline">Y_i</span>. The observations <span class="math inline">\bm{y} =(y_1,\dots,y_n)</span> on that distribution are treated as <span class="orange">independent</span>.</p></li>
-<li><p><span class="blue">Linear predictor</span>. For a parameter vector <span class="math inline">\bm{\beta} = (\beta_1,\dots,\beta_p)^T</span> and an <span class="math inline">n \times p</span> design matrix <span class="math inline">\bm{X}</span>, the linear predictor is <span class="math inline">\bm{\eta} = \bm{X}\beta</span>. We will also write <span class="math display">
-\eta_i = \bm{x}_i^T\beta = \beta_1x_{i1} + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
-</span></p></li>
-<li><p><span class="grey">Link function</span>. This is an invertible function <span class="math inline">g(\cdot)</span> applied to each component of the <span class="grey">mean</span> <span class="math inline">\mu_i = \mathbb{E}(Y_i)</span> that relates it to the linear predictor: <span class="math display">
-g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1}(\eta_i) = g^{-1}(\bm{x}_i^T\beta).
-</span></p></li>
+<li><span class="orange">Random component</span>. This specifies the probability distribution response variable <span class="math inline">Y_i</span>. The observations <span class="math inline">\bm{y} =(y_1,\dots,y_n)</span> on that distribution are treated as <span class="orange">independent</span>.</li>
 </ul>
 <div class="fragment">
+<ul>
+<li><span class="blue">Linear predictor</span>. For a parameter vector <span class="math inline">\bm{\beta} = (\beta_1,\dots,\beta_p)^T</span> and an <span class="math inline">n \times p</span> design matrix <span class="math inline">\bm{X}</span>, the linear predictor is <span class="math inline">\bm{\eta} = \bm{X}\beta</span>. We will also write <span class="math display">
+\eta_i = \bm{x}_i^T\beta = \beta_1x_{i1} + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
+</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="grey">Link function</span>. This is an invertible and differentiable function <span class="math inline">g(\cdot)</span> applied to each component of the <span class="grey">mean</span> <span class="math inline">\mu_i = \mathbb{E}(Y_i)</span> that relates it to the linear predictor: <span class="math display">
+g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1}(\eta_i) = g^{-1}(\bm{x}_i^T\beta).
+</span></li>
+</ul>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>In a GLMs the observations are independent draws from a distribution <span class="math inline">F(\cdot \, ; \mu_i)</span>: <span class="math display">
-Y_i \overset{\text{ind}}{\sim} F(\cdot\,;\mu_i), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta.
-</span> Note that, in general, we <span class="orange">cannot</span> express the response in an additive way <span class="math inline">Y_i = g^{-1}(\eta_i) + \epsilon_i</span>.</p>
+<p>Note that, in general, we <span class="orange">cannot</span> express the response in an additive way <span class="math inline">Y_i = g^{-1}(\eta_i) + \epsilon_i</span>.</p>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section id="examples" class="slide level2 center">
-<h2>Examples</h2>
-<div class="callout callout-tip no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>In a <span class="blue">Gaussian linear model</span>, we have that <span class="math display">
-Y_i \overset{\text{ind}}{\sim}\text{N}(\bm{x}_i^T\beta, \sigma^2), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad \mu_i = \bm{x}_i^T\beta.
-</span> In this case we say that <span class="math inline">g(\mu) = \mu</span> is the <span class="blue">identity link</span>. The variance <span class="math inline">\sigma^2</span> is an unknown parameter called <span class="orange">dispersion</span> in GLMs, but it does not appear in the linear predictor.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-tip no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>In a <span class="blue">logistic regression model</span>, we have that <span class="math display">
-Y_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i), \qquad \mathbb{E}\left(Y_i\right) = \mu_i, \qquad \mu_i = \bm{x}_i^T\beta.
-</span> In this case we say that <span class="math inline">g(\mu) = \mu</span> is the <span class="blue">identity link</span>. The variance <span class="math inline">\sigma^2</span> is an unknown parameter called <span class="orange">dispersion</span> in GLMs, but it does not appear in the linear predictor.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="random-component-of-a-glm" class="slide level2 center">
 <h2>Random component of a GLM</h2>
+<ul>
+<li><p>In GLMs the random variables <span class="math inline">Y_i</span> are <span class="orange">independent</span> and they are distributed according to an <span class="blue">exponential dispersion family</span>, whose definition will be provided in a few slides.</p></li>
+<li><p>For now, it suffices to say that the distributions most commonly used in Statistics, such as the normal, binomial, gamma, and Poisson, are exponential family distributions.</p></li>
+<li><p>Exponential dispersion families are <span class="orange">characterized</span> by their <span class="blue">mean</span> and <span class="blue">variance</span>. Let <span class="math inline">v(\mu) &gt; 0</span> be a function of the mean, called <span class="blue">variance function</span> and let <span class="math inline">a_i(\phi) &gt;0</span> be functions of an additional unknown parameter <span class="math inline">\phi &gt; 0</span> called <span class="orange">dispersion</span>.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In a GLMs the observations are independent draws from a distribution <span class="math inline">\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span>: <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
+</span> with <span class="math inline">\mu_i \in \mathcal{M}</span>. Moreover, the <span class="orange">variance</span> is connected to the <span class="blue">mean</span> via <span class="math inline">v(\mu)</span>: <span class="math display">
+\text{var}(Y_i) = a_i(\phi) v(\mu_i),
+</span> We typically have <span class="math inline">a_i(\phi) = \phi</span>, <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">weights</span>.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="linear-predictor-of-a-glm" class="slide level2 center">
-<h2>Linear predictor of a GLM</h2>
-</section>
-<section id="link-function-of-a-glm" class="slide level2 center">
-<h2>Link function of a GLM</h2>
+<section id="notable-examples" class="slide level2 center">
+<h2>Notable examples</h2>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In a <span class="blue">Gaussian linear model</span> we consider the <span class="blue">identity link</span> <span class="math inline">g(\mu) = \mu</span> and let <span class="math display">
+Y_i \overset{\text{ind}}{\sim}\text{N}(\mu_i, \sigma^2), \qquad \mu_i = \bm{x}_i^T\beta.
+</span> The unknown variance <span class="math inline">\sigma^2 = \phi</span> is called <span class="orange">dispersion</span> in GLMs. In this model <span class="math inline">\mathcal{M} = \mathbb{R}</span>, <span class="math inline">a_i(\phi) = \phi</span> and a <span class="blue">constant variance</span> function <span class="math inline">v(\mu) = 1</span> (homoschedasticity).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In a <span class="blue">binomial regression model</span> with <span class="blue">logit link</span> <span class="math inline">g(\mu) = \text{logit}(\mu)</span> we let <span class="math inline">Y_i = S_i/m_i</span> and <span class="math display">
+S_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i),\qquad \mathbb{E}\left(Y_i\right) = \pi_i = \mu_i, \qquad \text{logit}(\mu_i) =  \bm{x}_i^T\beta.
+</span> We have <span class="math inline">a_i(\phi) = 1/m_i</span> and <span class="math inline">v(\mu) = \mu(1-\mu)</span>. There is <span class="orange">no dispersion</span> parameter.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In <span class="blue">Poisson regression</span> with <span class="blue">logarithmic link</span> <span class="math inline">g(\mu) = \log(\mu)</span> we let <span class="math display">
+Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_i^T\beta.
+</span> We have <span class="math inline">a_i(\phi) = 1</span> and <span class="math inline">v(\mu) = \mu</span>. There is <span class="orange">no dispersion</span> parameter.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="exponential-dispersion-families" class="title-slide slide level1 center">
@@ -604,6 +629,36 @@ Y_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i), \qquad \mathbb{E}\lef
 <li><p>The <span class="orange">prime role</span> of <span class="orange">exponential families</span> in the theory of statistical inference was first emphasized by <span class="citation" data-cites="Fisher1934">Fisher (<a href="#/references" role="doc-biblioref" onclick="">1934</a>)</span>.</p></li>
 <li><p>Most <span class="blue">well-known</span> <span class="blue">distributions</span>—such as Gaussian, Poisson, Binomial, and Gamma—are instances of exponential families.</p></li>
 </ul>
+</section>
+<section id="definition" class="slide level2 center">
+<h2>Definition</h2>
+</section>
+<section id="mean-and-variance" class="slide level2 center">
+<h2>Mean and variance</h2>
+</section>
+<section id="moment-generating-function" class="slide level2 center">
+<h2>Moment generating function</h2>
+</section>
+<section id="mean-parametrization-variance-function" class="slide level2 center">
+<h2>Mean parametrization, variance function</h2>
+</section>
+<section id="gaussian-distribution" class="slide level2 center">
+<h2>Gaussian distribution</h2>
+</section>
+<section id="binomial-distribution" class="slide level2 center">
+<h2>Binomial distribution</h2>
+</section>
+<section id="poisson-example" class="slide level2 center">
+<h2>Poisson example</h2>
+</section>
+<section id="gamma-example" class="slide level2 center">
+<h2>Gamma example</h2>
+</section>
+<section id="a-summary" class="slide level2 center">
+<h2>A summary</h2>
+</section>
+<section id="link-functions-and-canonical-link" class="slide level2 center">
+<h2>Link functions and canonical link</h2>
 </section></section>
 <section id="likelihood-inference-and-testing" class="title-slide slide level1 center">
 <h1>Likelihood, inference, and testing</h1>
