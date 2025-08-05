@@ -149,24 +149,21 @@ In fact, this approach is currently known as [logistic regression]{.blue}.
 ## The content of this course
 
 - [General theory]{.blue}
-
   - Linear models and misspecification	
-  - Generalized Linear Models
+  - Generalized Linear Models (GLMs)
 
 - [Notable models]{.orange}
-
   - Binary and binomial regression
   - Poisson regression
 
 - [Advanced topics]{.grey}
-
   - Contingency tables and log-linear models
   - Quasi likelihoods
 
 . . .
 
 - Unfortunately, due to time constraints, we will [not]{.orange} cover:
-  - Multinomial response models;
+  - Multinomial response and ordinal response models;
   - Models with correlated responses (random effects);
   - Nonparametric regression.
 
