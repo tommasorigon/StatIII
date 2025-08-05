@@ -957,10 +957,10 @@ f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\p
 <h2>Box-Cox transform: derivation II 📖</h2>
 <ul>
 <li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda))^T(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda)),
+\hat{\beta}_\lambda = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2_\lambda = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda)^T(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda),
 </span></p></li>
 <li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
-\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
+\ell_P(\lambda) = \ell(\hat{\beta}_\lambda, \hat{\sigma}^2_\lambda, \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2_\lambda} + (\lambda -1)\sum_{i=1}^n\log{y_i},
 </span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
 <li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
 </ul>
@@ -1045,9 +1045,9 @@ Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad 
 <ul>
 <li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
-<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and <span class="orange">not an estimate</span> for its <span class="orange">mean</span>.</p></li>
+<li><p>When <span class="math inline">g(y) = \log{y}</span> this distinction can be made explicit, because we have <span class="math display">
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
 </span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
 </ul>

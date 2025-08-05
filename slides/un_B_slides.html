@@ -578,7 +578,7 @@ g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1
 Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
 </span> with <span class="math inline">\mu_i \in \mathcal{M}</span>. Moreover, the <span class="orange">variance</span> is connected to the <span class="blue">mean</span> via <span class="math inline">v(\mu)</span>: <span class="math display">
 \text{var}(Y_i) = a_i(\phi) v(\mu_i),
-</span> We typically have <span class="math inline">a_i(\phi) = \phi</span>, <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">weights</span>.</p>
+</span> We typically have <span class="math inline">a_i(\phi) = \phi</span>, <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">known weights</span>.</p>
 </div>
 </div>
 </div>
@@ -591,7 +591,7 @@ Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \math
 <div class="callout-content">
 <p>In a <span class="blue">Gaussian linear model</span> we consider the <span class="blue">identity link</span> <span class="math inline">g(\mu) = \mu</span> and let <span class="math display">
 Y_i \overset{\text{ind}}{\sim}\text{N}(\mu_i, \sigma^2), \qquad \mu_i = \bm{x}_i^T\beta.
-</span> The unknown variance <span class="math inline">\sigma^2 = \phi</span> is called <span class="orange">dispersion</span> in GLMs. In this model <span class="math inline">\mathcal{M} = \mathbb{R}</span>, <span class="math inline">a_i(\phi) = \phi</span> and a <span class="blue">constant variance</span> function <span class="math inline">v(\mu) = 1</span> (homoschedasticity).</p>
+</span> The unknown variance <span class="math inline">\sigma^2 = \phi</span> is called <span class="orange">dispersion</span> in GLMs. The <span class="orange">parameter space</span> is <span class="math inline">\mathcal{M} = \mathbb{R}</span>, whereas <span class="math inline">a_i(\phi) = \phi</span> and the variance function is <span class="blue">constant</span> <span class="math inline">v(\mu) = 1</span> (homoschedasticity).</p>
 </div>
 </div>
 </div>
@@ -632,30 +632,117 @@ Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_
 </section>
 <section id="definition" class="slide level2 center">
 <h2>Definition</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="orange">density</span> of <span class="math inline">Y_i</span> belongs to an <span class="blue">exponential dispersion family</span> if it can be written as <span class="math display">
+p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\},
+</span> where <span class="math inline">y_i \in \mathcal{Y} \subseteq \mathbb{R}</span>, <span class="math inline">\theta_i \in \Theta \subseteq\mathbb{R}</span> and <span class="math inline">a_i(\phi) &gt; 0</span>. The parameter <span class="math inline">\theta_i</span> is called <span class="orange">natural parameter</span> while <span class="math inline">\phi</span> is called <span class="blue">dispersion</span> parameter.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>By specifying the functions <span class="math inline">a_i(\cdot), b(\cdot)</span> and <span class="math inline">c(\cdot)</span> one obtain a particular <span class="orange">parametric model</span>.</p></li>
+<li><p>The support <span class="math inline">\mathcal{Y}</span> of <span class="math inline">Y_i</span> does not depend on the parameters <span class="math inline">\phi</span> or <span class="math inline">\theta_i</span> and <span class="math inline">b(\cdot)</span> can be <span class="blue">differentiated</span> infinitely many times. In particular, this is a <span class="orange">regular statistical model</span>.</p></li>
+<li><p>As mentioned, we typically have <span class="math inline">a_i(\phi) = \phi</span>, <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">known weights</span>. When <span class="math inline">a_i(\phi) = 1</span> and <span class="math inline">c(y_i, \phi) = c(y_i)</span> we obtain <span class="math display">
+p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
+</span> which is called <span class="orange">natural exponential family</span> of order 1.</p></li>
+</ul>
 </section>
-<section id="mean-and-variance" class="slide level2 center">
-<h2>Mean and variance</h2>
+<section id="mean-and-variance-i" class="slide level2 center">
+<h2>Mean and variance I 📖</h2>
+<ul>
+<li><p>Let us consider the <span class="orange">log-likelihood</span> contribution of the <span class="math inline">i</span>th observations, which is defined as <span class="math display">
+\ell(\theta_i, \phi; y_i) = \log{p(y_i; \theta_i, \phi)} = \frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
+</span> If you prefer, this is the log-likelihood when the sample size <span class="math inline">n = 1</span> and we only observe <span class="math inline">Y_i</span>.</p></li>
+<li><p>The <span class="blue">score</span> and <span class="orange">hessian</span> functions, namely the first and second derivative over <span class="math inline">\theta_i</span> are <span class="math display">
+\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; y_i) = \frac{y_i - b'(\theta_i)}{a_i(\phi)}, \qquad \frac{\partial^2}{\partial \theta_i^2}\ell(\theta_i, \phi; y_i) = \frac{-b''(\theta_i)}{a_i(\phi)}.
+</span> where <span class="math inline">b'(\cdot)</span> and <span class="math inline">b''(\cdot)</span> denote the <span class="blue">first</span> and <span class="orange">second</span> derivative of <span class="math inline">b(\cdot)</span>.</p></li>
+<li><p>Recall the following <span class="grey">Bartlett identities</span>, valid in any <span class="orange">regular</span> statistical model: <span class="math display">
+\begin{aligned}
+\mathbb{E}\left(\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; Y_i) \right) &amp;= 0, \\
+\mathbb{E}\left\{\left(\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; Y_i) \right)^2\right\} = \text{var}\left(\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; Y_i) \right) &amp;= \mathbb{E}\left(-\frac{\partial^2}{\partial \theta_i^2}\ell(\theta_i, \phi; Y_i)\right).
+\end{aligned}
+</span></p></li>
+</ul>
 </section>
-<section id="moment-generating-function" class="slide level2 center">
-<h2>Moment generating function</h2>
-</section>
+<section id="mean-and-variance-ii" class="slide level2 center">
+<h2>Mean and variance II 📖</h2>
+<ul>
+<li>Specializing Bartlett identities in <span class="blue">exponential dispersion families</span>, we obtain <span class="math display">
+\mathbb{E}\left(\frac{Y_i - b'(\theta_i)}{a_i(\phi)}\right) = 0, \qquad \text{var}\left(\frac{Y_i - b'(\theta_i)}{a_i(\phi)}\right) = \frac{\text{var}(Y_i)}{a_i(\phi)^2} = \frac{b''(\theta_i)}{a_i(\phi)}.
+</span> Re-arranging the terms, we finally get the following key result.</li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let <span class="math inline">Y_i</span> be an exponential dispersion family, identified by the functions <span class="math inline">a_i(\cdot), b(\cdot)</span> and <span class="math inline">c(\cdot)</span>, and with natural parameter <span class="math inline">\theta_i</span>. Then the <span class="orange">mean</span> and the <span class="blue">variance</span> of <span class="math inline">Y_i</span> equal <span class="math display">
+\mathbb{E}(Y_i) =  b'(\theta_i), \qquad \text{var}(Y_i) = a_i(\phi) b''(\theta_i).
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The mean <span class="math inline">\mu_i = b'(\theta_i)</span> does <span class="orange">not</span> depend on the <span class="orange">dispersion</span> parameter.</p></li>
+<li><p>We have <span class="math inline">b''(\cdot) &gt; 0</span> because <span class="math inline">\text{var}(Y_i)</span>, which means that <span class="math inline">b(\cdot)</span> is a <span class="blue">convex function</span>.</p></li>
+<li><p>Moreover, the function <span class="math inline">b'(\theta)</span> is <span class="orange">continuous</span> and <span class="orange">monotone increasing</span> and hence <span class="orange">invertible</span>.</p></li>
+</ul>
+
+<aside><div>
+<p>The function <span class="math inline">b(\cdot)</span> is related to the moment generating function of <span class="math inline">Y_i</span>. Thus, higher order derivatives of <span class="math inline">b(\cdot)</span> allows the calculations of skewness, kurtosis, etc.</p>
+</div></aside></section>
 <section id="mean-parametrization-variance-function" class="slide level2 center">
 <h2>Mean parametrization, variance function</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let <span class="math inline">Y_i</span> be an exponential dispersion family, identified by the functions <span class="math inline">a_i(\cdot), b(\cdot)</span> and <span class="math inline">c(\cdot)</span>, and with <span class="orange">natural parameter</span> <span class="math inline">\theta_i</span>, then <span class="math display">
+\mu(\theta_i):= \mu_i = \mathbb{E}(Y_i) = b'(\theta_i).
+</span> The function <span class="math inline">\mu(\cdot) : \Theta \to\mathcal{M}</span> is <span class="blue">one-to-one</span> and invertible, that is, a <span class="orange">reparametrization</span> of <span class="math inline">\theta_i</span>. We call <span class="math inline">\mu_i</span> the <span class="blue">mean parametrization</span> of an exponential dispersion family.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>The <span class="orange">inverse</span> relationship, re-obtaining <span class="math inline">\theta_i</span> as a function of <span class="math inline">\mu_i</span>, is denoted with <span class="math display">
+\theta_i = \theta(\mu_i) = b'^{-1}(\mu_i).
+</span></p></li>
+<li><p>Using this notation, we can express the variance of <span class="math inline">Y_i</span> as a function of <span class="math inline">\mu_i</span> as follows <span class="math display">
+\text{var}(Y_i) = a_i(\phi)b''(\theta_i) =  a_i(\phi)b''(\theta(\mu_i)) = a_i(\phi)v(\mu_i),
+</span> where <span class="math inline">v(\mu_i) := b''(\theta(\mu_i))</span> is the <span class="blue">variance function</span>.</p></li>
+<li><p>The domain <span class="math inline">\mathcal{M}</span> and the variance function <span class="math inline">v(\mu)</span> <span class="orange">characterize</span> the function <span class="math inline">b(\cdot)</span> and the entire distribution, for any given <span class="math inline">a_i(\phi)</span>. This justifies the <span class="blue">notation</span> <span class="math inline">Y_i \sim \text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span>.</p></li>
+</ul>
+</div>
 </section>
 <section id="gaussian-distribution" class="slide level2 center">
-<h2>Gaussian distribution</h2>
+<h2>Gaussian distribution 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i \sim \text{N}(\mu_i, \sigma^2)</span>. The <span class="blue">density</span> function of <span class="math inline">Y_i</span> can be written as <span class="math display">
+\begin{aligned}
+p(y_i; \mu_i, \sigma^2) &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y_i - \mu_i)^2\right\}
+\\
+&amp;=\exp\left\{\frac{y_i \mu_i - \mu_i^2/2}{\sigma^2}- \frac{\log(2\pi\sigma^2)}{2}-\frac{y_i^2}{2\sigma^2}\right\}
+\end{aligned}
+</span></p></li>
+<li><p>Then, we can recognize the following relationships: <span class="math display">
+\theta_i = \theta(\mu_i) = \mu_i, \quad a_i(\phi) = \phi = \sigma^2, \quad b(\theta_i) = \frac{\theta_i^2}{2}, \quad c(y_i, \phi) = - \frac{\log(2\pi\phi)}{2}-\frac{y_i^2}{2\phi}.
+</span> In the Gaussian case, the <span class="blue">mean parametrization</span> and the <span class="orange">natural parametrization</span> coincide. Moreover, the <span class="orange">dispersion</span> <span class="math inline">\phi</span> coincides with the <span class="blue">variance</span> <span class="math inline">\sigma^2</span>.</p></li>
+<li><p>Using the results we previously discussed, we obtain the well-known relationships <span class="math display">
+\mathbb{E}(Y_i) = b'(\theta_i) = \theta_i, \qquad \text{var}(Y_i) = a_i(\phi)b''(\theta_i) = \phi.
+</span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = 1</span> is constant. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> with <span class="math inline">\mu_i \in \mathcal{M} = \mathbb{R}</span>.</p></li>
+</ul>
+</section>
+<section id="poisson-distribution" class="slide level2 center">
+<h2>Poisson distribution 📖</h2>
+</section>
+<section id="gamma-distribution" class="slide level2 center">
+<h2>Gamma distribution 📖</h2>
 </section>
 <section id="binomial-distribution" class="slide level2 center">
-<h2>Binomial distribution</h2>
+<h2>Binomial distribution 📖</h2>
 </section>
-<section id="poisson-example" class="slide level2 center">
-<h2>Poisson example</h2>
-</section>
-<section id="gamma-example" class="slide level2 center">
-<h2>Gamma example</h2>
-</section>
-<section id="a-summary" class="slide level2 center">
-<h2>A summary</h2>
+<section id="a-summary-of-exponential-dispersion-families" class="slide level2 center">
+<h2>A summary of exponential dispersion families</h2>
 </section>
 <section id="link-functions-and-canonical-link" class="slide level2 center">
 <h2>Link functions and canonical link</h2>

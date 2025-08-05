@@ -648,13 +648,12 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)
 ## Assumptions and misspecification
 
 :::callout-note
-
 #### Classical assumptions of linear models
 
 - **(A.1)** [Linear structure]{.blue}, namely $\bm{Y} = \bm{X}\beta + \bm{\epsilon}$ with $\mathbb{E}(\bm{\epsilon}) = 0$, implying $\mathbb{E}(\bm{Y}) = \bm{X}\beta$. [^err1] 
-  
+
 - **(A.2)** [Homoschedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\bm{\epsilon}) = \sigma^2 I_n$.
-  
+
 - **(A.3)** [Gaussianity]{.grey}, namely $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)$. In other words, the errors $\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)$ are iid Gaussian random variables with zero mean and variance $\sigma^2$.
 
 It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is not identifiable.
@@ -883,12 +882,12 @@ $$
 
 - Note that, for any given value of $\lambda$, the maximum likelihood estimates are 
 $$
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda))^T(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda)),
+\hat{\beta}_\lambda = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2_\lambda = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda)^T(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda),
 $$
 
 - We can [plug-in]{.orange} the above estimates into the log-likelihood. This gives the [profile log-likelihood]{.blue} for $\lambda$, which admits a very simple expression:
 $$
-\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
+\ell_P(\lambda) = \ell(\hat{\beta}_\lambda, \hat{\sigma}^2_\lambda, \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2_\lambda} + (\lambda -1)\sum_{i=1}^n\log{y_i},
 $$
 which must be [numerically maximized]{.orange} over $\lambda$, e.g. using `optim`.
 
@@ -1002,11 +1001,11 @@ Thus, the coefficient $\beta_j$ can [no longer]{.orange} be [interpreted]{.orang
 
 - In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta$. However:  
 $$
-   E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+  g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
 $$
-Thus $\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})$ is a [reasonable prediction]{.blue} for $Y_i$ and not an estimate for its mean.
+Thus $\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})$ is a [reasonable prediction]{.blue} for $Y_i$ and [not an estimate]{.orange} for its [mean]{.orange}.
 
-- When $g(y) = \log{y}$ this difference can be made explicit, because we have 
+- When $g(y) = \log{y}$ this distinction can be made explicit, because we have 
 $$
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
 $$

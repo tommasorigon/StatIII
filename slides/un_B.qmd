@@ -407,7 +407,7 @@ with $\mu_i \in \mathcal{M}$. Moreover, the [variance]{.orange} is connected to 
 $$
 \text{var}(Y_i) = a_i(\phi) v(\mu_i),
 $$
-We typically have $a_i(\phi) = \phi$, $a_i(\phi) = 1$ or $a_i(\phi) = \phi / w_i$  where $w_i$ are [weights]{.blue}.
+We typically have $a_i(\phi) = \phi$, $a_i(\phi) = 1$ or $a_i(\phi) = \phi / w_i$  where $w_i$ are [known weights]{.blue}.
 
 :::
 
@@ -452,21 +452,127 @@ We have $a_i(\phi) = 1$ and $v(\mu) = \mu$. There is [no dispersion]{.orange} pa
 
 ## Definition
 
-## Mean and variance
+:::callout-note
+The [density]{.orange} of $Y_i$ belongs to an [exponential dispersion family]{.blue} if it can be written as
+$$
+p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\},
+$$
+where $y_i \in \mathcal{Y} \subseteq \mathbb{R}$, $\theta_i \in \Theta \subseteq\mathbb{R}$ and $a_i(\phi) > 0$. The parameter $\theta_i$ is called [natural parameter]{.orange} while $\phi$ is called [dispersion]{.blue} parameter. 
+:::
 
-## Moment generating function
+- By specifying the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$ one obtain a particular [parametric model]{.orange}. 
+
+- The support $\mathcal{Y}$ of $Y_i$ does not depend on the parameters $\phi$ or $\theta_i$ and $b(\cdot)$ can be [differentiated]{.blue} infinitely many times. In particular, this is a [regular statistical model]{.orange}. 
+
+- As mentioned, we typically have $a_i(\phi) = \phi$, $a_i(\phi) = 1$ or $a_i(\phi) = \phi / w_i$  where $w_i$ are [known weights]{.blue}. When $a_i(\phi) = 1$ and $c(y_i, \phi) = c(y_i)$ we obtain
+$$
+p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
+$$
+which is called [natural exponential family]{.orange} of order 1.
+
+
+## Mean and variance I 📖
+
+- Let us consider the [log-likelihood]{.orange} contribution of the $i$th observations, which is defined as
+$$
+\ell(\theta_i, \phi; y_i) = \log{p(y_i; \theta_i, \phi)} = \frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
+$$
+If you prefer, this is the log-likelihood when the sample size $n = 1$ and we only observe $Y_i$. 
+
+- The [score]{.blue} and [hessian]{.orange} functions, namely the first and second derivative over $\theta_i$ are
+$$
+\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; y_i) = \frac{y_i - b'(\theta_i)}{a_i(\phi)}, \qquad \frac{\partial^2}{\partial \theta_i^2}\ell(\theta_i, \phi; y_i) = \frac{-b''(\theta_i)}{a_i(\phi)}.
+$$
+where $b'(\cdot)$ and $b''(\cdot)$ denote the [first]{.blue} and [second]{.orange} derivative of $b(\cdot)$. 
+
+- Recall the following [Bartlett identities]{.grey}, valid in any [regular]{.orange} statistical model:
+$$
+\begin{aligned}
+\mathbb{E}\left(\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; Y_i) \right) &= 0, \\
+\mathbb{E}\left\{\left(\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; Y_i) \right)^2\right\} = \text{var}\left(\frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; Y_i) \right) &= \mathbb{E}\left(-\frac{\partial^2}{\partial \theta_i^2}\ell(\theta_i, \phi; Y_i)\right).
+\end{aligned}
+$$
+
+## Mean and variance II 📖
+
+- Specializing Bartlett identities in [exponential dispersion families]{.blue}, we obtain
+$$
+\mathbb{E}\left(\frac{Y_i - b'(\theta_i)}{a_i(\phi)}\right) = 0, \qquad \text{var}\left(\frac{Y_i - b'(\theta_i)}{a_i(\phi)}\right) = \frac{\text{var}(Y_i)}{a_i(\phi)^2} = \frac{b''(\theta_i)}{a_i(\phi)}.
+$$
+Re-arranging the terms, we finally get the following key result.
+
+:::callout-warning
+Let $Y_i$ be an exponential dispersion family, identified by the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$, and with natural parameter $\theta_i$. Then the [mean]{.orange} and the [variance]{.blue} of $Y_i$ equal
+$$
+\mathbb{E}(Y_i) =  b'(\theta_i), \qquad \text{var}(Y_i) = a_i(\phi) b''(\theta_i).
+$$
+:::
+
+- The mean $\mu_i = b'(\theta_i)$ does [not]{.orange} depend on the [dispersion]{.orange} parameter.
+
+- We have $b''(\cdot) > 0$ because $\text{var}(Y_i)$, which means that $b(\cdot)$ is a [convex function]{.blue}. 
+
+- Moreover, the function $b'(\theta)$ is [continuous]{.orange} and [monotone increasing]{.orange} and hence [invertible]{.orange}. 
+
+:::aside
+The function $b(\cdot)$ is related to the moment generating function of $Y_i$. Thus, higher order derivatives of $b(\cdot)$ allows the calculations of skewness, kurtosis, etc. 
+:::
 
 ## Mean parametrization, variance function
 
-## Gaussian distribution
+:::callout-note
+Let $Y_i$ be an exponential dispersion family, identified by the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$, and with [natural parameter]{.orange} $\theta_i$, then 
+$$
+\mu(\theta_i):= \mu_i = \mathbb{E}(Y_i) = b'(\theta_i).
+$$
+The function $\mu(\cdot) : \Theta \to\mathcal{M}$ is [one-to-one]{.blue} and invertible, that is, a [reparametrization]{.orange} of $\theta_i$. We call $\mu_i$ the [mean parametrization]{.blue} of an exponential dispersion family. 
+:::
 
-## Binomial distribution
+. . .
 
-## Poisson example
+- The [inverse]{.orange} relationship, re-obtaining $\theta_i$ as a function of $\mu_i$, is denoted with
+$$
+\theta_i = \theta(\mu_i) = b'^{-1}(\mu_i).
+$$
 
-## Gamma example
+- Using this notation, we can express the variance of $Y_i$ as a function of $\mu_i$ as follows
+$$
+\text{var}(Y_i) = a_i(\phi)b''(\theta_i) =  a_i(\phi)b''(\theta(\mu_i)) = a_i(\phi)v(\mu_i),
+$$
+where $v(\mu_i) := b''(\theta(\mu_i))$ is the [variance function]{.blue}. 
 
-## A summary
+- The domain $\mathcal{M}$ and the variance function $v(\mu)$ [characterize]{.orange} the function $b(\cdot)$ and the entire distribution, for any given $a_i(\phi)$. This justifies the [notation]{.blue} $Y_i \sim \text{ED}(\mu_i, a_i(\phi)v(\mu_i))$.
+
+## Gaussian distribution 📖
+
+- Let $Y_i \sim \text{N}(\mu_i, \sigma^2)$. The [density]{.blue} function of $Y_i$ can be written as
+$$
+\begin{aligned}
+p(y_i; \mu_i, \sigma^2) &= \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(y_i - \mu_i)^2\right\}
+\\
+&=\exp\left\{\frac{y_i \mu_i - \mu_i^2/2}{\sigma^2}- \frac{\log(2\pi\sigma^2)}{2}-\frac{y_i^2}{2\sigma^2}\right\}
+\end{aligned}
+$$
+
+- Then, we can recognize the following relationships:
+$$
+\theta_i = \theta(\mu_i) = \mu_i, \quad a_i(\phi) = \phi = \sigma^2, \quad b(\theta_i) = \frac{\theta_i^2}{2}, \quad c(y_i, \phi) = - \frac{\log(2\pi\phi)}{2}-\frac{y_i^2}{2\phi}.
+$$
+In the Gaussian case, the [mean parametrization]{.blue} and the [natural parametrization]{.orange} coincide. Moreover, the [dispersion]{.orange} $\phi$ coincides with the [variance]{.blue} $\sigma^2$. 
+
+- Using the results we previously discussed, we obtain the well-known relationships
+$$
+\mathbb{E}(Y_i) = b'(\theta_i) = \theta_i, \qquad \text{var}(Y_i) = a_i(\phi)b''(\theta_i) = \phi.
+$$
+The [variance function]{.blue} $v(\mu_i) = 1$ is constant. We will write $Y_i \sim \text{ED}(\mu_i, \phi)$ with $\mu_i \in \mathcal{M} = \mathbb{R}$. 
+
+## Poisson distribution 📖
+
+## Gamma distribution 📖
+
+## Binomial distribution 📖
+
+## A summary of exponential dispersion families
 
 ## Link functions and canonical link
 
