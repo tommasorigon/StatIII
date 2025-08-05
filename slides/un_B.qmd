@@ -568,6 +568,32 @@ The [variance function]{.blue} $v(\mu_i) = 1$ is constant. We will write $Y_i \s
 
 ## Poisson distribution 📖
 
+Let $Y_i \sim \text{Poisson}(\mu_i)$. The [pdf]{.blue} function of $Y_i$ can be written as
+$$
+\begin{aligned}
+p(y_i; \mu_i) &= \frac{\mu_i^{y_i} e^{-\mu_i}}{y_i!}=\exp\{y_i \log(\mu_i) - \mu_i - \log(y_i!)\} \\
+&=\exp\{y_i \theta_i - e^{\theta_i} - \log(y_i!)\}, \qquad y_i = 0, 1, 2,\dots.
+\end{aligned}
+$$
+
+- Then, we can recognize the following relationships:
+$$
+\begin{aligned}
+\theta_i &= \theta(\mu_i) = \log(\mu_i), \quad &&a_i(\phi) = 1, \\
+b(\theta_i) &= e^{\theta_i}, \quad &&c(y_i, \phi) = c(y_i) = -\log(y_i!).
+\end{aligned}
+$$
+There is [no dispersion]{.orange} parameter since $a_i(\phi) = 1$. 
+
+- Using the results we previously discussed, we obtain the well-known relationships
+$$
+\begin{aligned}
+\mathbb{E}(Y_i) &= b'(\theta_i) = e^{\theta_i} = \mu_i, \\
+\text{var}(Y_i) &= a_i(\phi) b''(\theta_i) = e^{\theta_i} = \mu_i.
+\end{aligned}
+$$
+The [variance function]{.blue} $v(\mu_i) = \mu_i$ is [linear]{.blue}. We will write $Y_i \sim \text{ED}(\mu_i, \mu_i)$ with $\mu_i \in (0, \infty)$. 
+
 ## Gamma distribution 📖
 
 ## Binomial distribution 📖
@@ -577,6 +603,28 @@ The [variance function]{.blue} $v(\mu_i) = 1$ is constant. We will write $Y_i \s
 ## Link functions and canonical link
 
 # Likelihood, inference, and testing
+
+## Likelihood function
+
+## Sufficient statistics
+
+## Likelihood equations I
+
+## Likelihood equations II
+
+## Likelihood equations III
+
+## Example: Poisson loglinear model
+
+## Observed and expected information I
+
+## Observed and expected information II
+
+## Asymptotic distribution of $\hat{\beta}$
+
+## Wald confidence intervals for $\beta$
+
+## Delta methods and fitted values
 
 # IRLS algorithm
 

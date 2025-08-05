@@ -734,6 +734,26 @@ p(y_i; \mu_i, \sigma^2) &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{
 </section>
 <section id="poisson-distribution" class="slide level2 center">
 <h2>Poisson distribution 📖</h2>
+<p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span>. The <span class="blue">pdf</span> function of <span class="math inline">Y_i</span> can be written as <span class="math display">
+\begin{aligned}
+p(y_i; \mu_i) &amp;= \frac{\mu_i^{y_i} e^{-\mu_i}}{y_i!}=\exp\{y_i \log(\mu_i) - \mu_i - \log(y_i!)\} \\
+&amp;=\exp\{y_i \theta_i - e^{\theta_i} - \log(y_i!)\}, \qquad y_i = 0, 1, 2,\dots.
+\end{aligned}
+</span></p>
+<ul>
+<li><p>Then, we can recognize the following relationships: <span class="math display">
+\begin{aligned}
+\theta_i &amp;= \theta(\mu_i) = \log(\mu_i), \quad &amp;&amp;a_i(\phi) = 1, \\
+b(\theta_i) &amp;= e^{\theta_i}, \quad &amp;&amp;c(y_i, \phi) = c(y_i) = -\log(y_i!).
+\end{aligned}
+</span> There is <span class="orange">no dispersion</span> parameter since <span class="math inline">a_i(\phi) = 1</span>.</p></li>
+<li><p>Using the results we previously discussed, we obtain the well-known relationships <span class="math display">
+\begin{aligned}
+\mathbb{E}(Y_i) &amp;= b'(\theta_i) = e^{\theta_i} = \mu_i, \\
+\text{var}(Y_i) &amp;= a_i(\phi) b''(\theta_i) = e^{\theta_i} = \mu_i.
+\end{aligned}
+</span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = \mu_i</span> is <span class="blue">linear</span>. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> with <span class="math inline">\mu_i \in (0, \infty)</span>.</p></li>
+</ul>
 </section>
 <section id="gamma-distribution" class="slide level2 center">
 <h2>Gamma distribution 📖</h2>
@@ -747,11 +767,44 @@ p(y_i; \mu_i, \sigma^2) &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{
 <section id="link-functions-and-canonical-link" class="slide level2 center">
 <h2>Link functions and canonical link</h2>
 </section></section>
+<section>
 <section id="likelihood-inference-and-testing" class="title-slide slide level1 center">
 <h1>Likelihood, inference, and testing</h1>
 
 </section>
-
+<section id="likelihood-function" class="slide level2 center">
+<h2>Likelihood function</h2>
+</section>
+<section id="sufficient-statistics" class="slide level2 center">
+<h2>Sufficient statistics</h2>
+</section>
+<section id="likelihood-equations-i" class="slide level2 center">
+<h2>Likelihood equations I</h2>
+</section>
+<section id="likelihood-equations-ii" class="slide level2 center">
+<h2>Likelihood equations II</h2>
+</section>
+<section id="likelihood-equations-iii" class="slide level2 center">
+<h2>Likelihood equations III</h2>
+</section>
+<section id="example-poisson-loglinear-model" class="slide level2 center">
+<h2>Example: Poisson loglinear model</h2>
+</section>
+<section id="observed-and-expected-information-i" class="slide level2 center">
+<h2>Observed and expected information I</h2>
+</section>
+<section id="observed-and-expected-information-ii" class="slide level2 center">
+<h2>Observed and expected information II</h2>
+</section>
+<section id="asymptotic-distribution-of-hatbeta" class="slide level2 center">
+<h2>Asymptotic distribution of <span class="math inline">\hat{\beta}</span></h2>
+</section>
+<section id="wald-confidence-intervals-for-beta" class="slide level2 center">
+<h2>Wald confidence intervals for <span class="math inline">\beta</span></h2>
+</section>
+<section id="delta-methods-and-fitted-values" class="slide level2 center">
+<h2>Delta methods and fitted values</h2>
+</section></section>
 <section id="irls-algorithm" class="title-slide slide level1 center">
 <h1>IRLS algorithm</h1>
 
