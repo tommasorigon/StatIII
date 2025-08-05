@@ -861,19 +861,19 @@ $$
 
 ## Box-Cox transform: derivation I 📖
 
-- By assumption, the distribution of the [transformed data]{.blue} $\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian, therefore their joint density is
+- By assumption, the distribution of the [transformed data]{.blue} $\bm{Z}_\lambda  = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T$ is Gaussian, therefore their joint density is
 $$
-f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
+f_Z(\bm{z}_\lambda) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{z}_\lambda - \bm{X}\beta)^T(\bm{z}_\lambda - \bm{X}\beta)\right\}.
 $$
 
 - Using standard tools of probability theory, we can obtain the density of the [original data]{.orange}: 
 $$
-f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.$$
-The additional term is the [Jacobian]{.orange} of the transformation. 
+f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right|, \quad \text{where}\quad \left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right| = y_i^{\lambda - 1}.$$
+The additional term is the determinant of the [Jacobian]{.orange} of the transformation. 
 
 - The [log-likelihood]{.blue} therefore is
 $$
-\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
+\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{z}_\lambda - \bm{X}\beta)^T(\bm{z}_\lambda - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 $$
 
 
@@ -883,7 +883,7 @@ $$
 
 - Note that, for any given value of $\lambda$, the maximum likelihood estimates are 
 $$
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
+\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda))^T(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda)),
 $$
 
 - We can [plug-in]{.orange} the above estimates into the log-likelihood. This gives the [profile log-likelihood]{.blue} for $\lambda$, which admits a very simple expression:

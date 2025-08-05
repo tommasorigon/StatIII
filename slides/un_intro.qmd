@@ -66,7 +66,7 @@ editor_options:
 
   - [Simple linear regression]{.blue}, from [_Statistica I_](https://tommasorigon.github.io/StatI/);
   - [Inferential statistics]{.orange}, from _Statistica II_;
-  - [Linear models]{.grey}, from _Analisi Statistica Multivariata_;
+  - [Linear models]{.grey}, from _Analisi Statistica Multivariata_ and _Econometria_;
   - [R software]{.grey}, from [_Analisi Statistica Multivariata_](https://tommasorigon.github.io/introR/).
   
 - In _Statistica III_ we extend linear models within a unified and elegant framework. 
@@ -94,11 +94,11 @@ $$
 
 . . .
 
-- As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle [proportion data]{.blue} of the form $Y_i / m$.
+- As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle [proportion data]{.blue} of the form $S_i / m$.
 
-- Through some modeling and calculus, Fisher derived a [binomial]{.blue} model for $Y_i$, with
+- Through some modeling and calculus, Fisher derived a [binomial]{.blue} model for $S_i$, with
 $$
-\mathbb{E}(Y_i/m) = \pi_i 
+\mathbb{E}(S_i/m) = \pi_i 
 = 1 - \exp\{-\exp(\beta_1 + \beta_2 x_i)\}, 
 \qquad i = 1, \dots, n.
 $$
@@ -111,9 +111,9 @@ $$
 
 ## Early ideas II
 
-- In the [probit model]{.blue}, developed by Bliss (1935), a [Binomial]{.blue} model for $Y_i$ is specified with
+- In the [probit model]{.blue}, developed by Bliss (1935), a [Binomial]{.blue} model for $S_i$ is specified with
 $$
-\mathbb{E}(Y_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
+\mathbb{E}(S_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
 $$
 where $\Phi(x)$ is the cumulative distribution function of a Gaussian distribution. 
 
@@ -121,7 +121,7 @@ where $\Phi(x)$ is the cumulative distribution function of a Gaussian distributi
 
 - Dyke and Patterson (1952) also considered the case of modelling proportions, but specified
 $$
-\mathbb{E}(Y_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
+\mathbb{E}(S_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
 $$
 
 - The corresponding inverse relationship is known as the [logit]{.orange} link function: 
@@ -145,6 +145,32 @@ In fact, this approach is currently known as [logistic regression]{.blue}.
 ## Quasi likelihoods
 
 ![](img/Davison8.png){width=6.5in fig-align=center}
+
+## The content of this course
+
+- [General theory]{.blue}
+
+  - Linear models and misspecification	
+  - Generalized Linear Models
+
+- [Notable models]{.orange}
+
+  - Binary and binomial regression
+  - Poisson regression
+
+- [Advanced topics]{.grey}
+
+  - Contingency tables and log-linear models
+  - Quasi likelihoods
+
+. . .
+
+- Unfortunately, due to time constraints, we will [not]{.orange} cover:
+  - Multinomial response models;
+  - Models with correlated responses (random effects);
+  - Nonparametric regression.
+
+- These topics will be covered e.g. in [Statistica Multivariata]{.blue} and [Data Mining](https://tommasorigon.github.io/datamining/) at CLAMSES. 
 
 ## Textbooks
 

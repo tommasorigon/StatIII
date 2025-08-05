@@ -117,6 +117,7 @@ window.Quarto = {
   <li><a href="#early-ideas-ii" id="toc-early-ideas-ii" class="nav-link" data-scroll-target="#early-ideas-ii">Early ideas II</a></li>
   <li><a href="#generalized-linear-models" id="toc-generalized-linear-models" class="nav-link" data-scroll-target="#generalized-linear-models">Generalized linear models</a></li>
   <li><a href="#quasi-likelihoods" id="toc-quasi-likelihoods" class="nav-link" data-scroll-target="#quasi-likelihoods">Quasi likelihoods</a></li>
+  <li><a href="#the-content-of-this-course" id="toc-the-content-of-this-course" class="nav-link" data-scroll-target="#the-content-of-this-course">The content of this course</a></li>
   <li><a href="#textbooks" id="toc-textbooks" class="nav-link" data-scroll-target="#textbooks">Textbooks</a></li>
   <li><a href="#exam" id="toc-exam" class="nav-link" data-scroll-target="#exam">Exam</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -174,7 +175,7 @@ window.Quarto = {
 <ul>
 <li><span class="blue">Simple linear regression</span>, from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
 <li><span class="orange">Inferential statistics</span>, from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, from <em>Analisi Statistica Multivariata</em>;</li>
+<li><span class="grey">Linear models</span>, from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
 <li><span class="grey">R software</span>, from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
 </ul></li>
 <li><p>In <em>Statistica III</em> we extend linear models within a unified and elegant framework.</p></li>
@@ -204,9 +205,9 @@ window.Quarto = {
 </span></p></li>
 </ul>
 <ul>
-<li><p>As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle <span class="blue">proportion data</span> of the form <span class="math inline">Y_i / m</span>.</p></li>
-<li><p>Through some modeling and calculus, Fisher derived a <span class="blue">binomial</span> model for <span class="math inline">Y_i</span>, with <span class="math display">
-\mathbb{E}(Y_i/m) = \pi_i
+<li><p>As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle <span class="blue">proportion data</span> of the form <span class="math inline">S_i / m</span>.</p></li>
+<li><p>Through some modeling and calculus, Fisher derived a <span class="blue">binomial</span> model for <span class="math inline">S_i</span>, with <span class="math display">
+\mathbb{E}(S_i/m) = \pi_i
 = 1 - \exp\{-\exp(\beta_1 + \beta_2 x_i)\},
 \qquad i = 1, \dots, n.
 </span> where <span class="math inline">\pi_i \in (0, 1)</span> is the <span class="orange">probability of success</span> of a binomial distribution.</p></li>
@@ -218,13 +219,13 @@ window.Quarto = {
 <section id="early-ideas-ii" class="level2">
 <h2 class="anchored" data-anchor-id="early-ideas-ii">Early ideas II</h2>
 <ul>
-<li>In the <span class="blue">probit model</span>, developed by Bliss (1935), a <span class="blue">Binomial</span> model for <span class="math inline">Y_i</span> is specified with <span class="math display">
-\mathbb{E}(Y_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
+<li>In the <span class="blue">probit model</span>, developed by Bliss (1935), a <span class="blue">Binomial</span> model for <span class="math inline">S_i</span> is specified with <span class="math display">
+\mathbb{E}(S_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
 </span> where <span class="math inline">\Phi(x)</span> is the cumulative distribution function of a Gaussian distribution.</li>
 </ul>
 <ul>
 <li><p>Dyke and Patterson (1952) also considered the case of modelling proportions, but specified <span class="math display">
-\mathbb{E}(Y_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
+\mathbb{E}(S_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
 </span></p></li>
 <li><p>The corresponding inverse relationship is known as the <span class="orange">logit</span> link function: <span class="math display">
 \beta_1 + \beta_2 x_i = \text{logit}(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right).
@@ -257,6 +258,36 @@ window.Quarto = {
 <p><img src="img/Davison8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:6.5in"></p>
 </figure>
 </div>
+</section>
+<section id="the-content-of-this-course" class="level2">
+<h2 class="anchored" data-anchor-id="the-content-of-this-course">The content of this course</h2>
+<ul>
+<li><p><span class="blue">General theory</span></p>
+<ul>
+<li>Linear models and misspecification<br>
+</li>
+<li>Generalized Linear Models</li>
+</ul></li>
+<li><p><span class="orange">Notable models</span></p>
+<ul>
+<li>Binary and binomial regression</li>
+<li>Poisson regression</li>
+</ul></li>
+<li><p><span class="grey">Advanced topics</span></p>
+<ul>
+<li>Contingency tables and log-linear models</li>
+<li>Quasi likelihoods</li>
+</ul></li>
+</ul>
+<ul>
+<li>Unfortunately, due to time constraints, we will <span class="orange">not</span> cover:
+<ul>
+<li>Multinomial response models;</li>
+<li>Models with correlated responses (random effects);</li>
+<li>Nonparametric regression.</li>
+</ul></li>
+<li>These topics will be covered e.g.&nbsp;in <span class="blue">Statistica Multivariata</span> and <a href="https://tommasorigon.github.io/datamining/">Data Mining</a> at CLAMSES.</li>
+</ul>
 </section>
 <section id="textbooks" class="level2">
 <h2 class="anchored" data-anchor-id="textbooks">Textbooks</h2>

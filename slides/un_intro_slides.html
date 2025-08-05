@@ -194,7 +194,7 @@
 <ul>
 <li><span class="blue">Simple linear regression</span>, from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
 <li><span class="orange">Inferential statistics</span>, from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, from <em>Analisi Statistica Multivariata</em>;</li>
+<li><span class="grey">Linear models</span>, from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
 <li><span class="grey">R software</span>, from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
 </ul></li>
 <li><p>In <em>Statistica III</em> we extend linear models within a unified and elegant framework.</p></li>
@@ -220,9 +220,9 @@
 </ul>
 <div class="fragment">
 <ul>
-<li><p>As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle <span class="blue">proportion data</span> of the form <span class="math inline">Y_i / m</span>.</p></li>
-<li><p>Through some modeling and calculus, Fisher derived a <span class="blue">binomial</span> model for <span class="math inline">Y_i</span>, with <span class="math display">
-\mathbb{E}(Y_i/m) = \pi_i
+<li><p>As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle <span class="blue">proportion data</span> of the form <span class="math inline">S_i / m</span>.</p></li>
+<li><p>Through some modeling and calculus, Fisher derived a <span class="blue">binomial</span> model for <span class="math inline">S_i</span>, with <span class="math display">
+\mathbb{E}(S_i/m) = \pi_i
 = 1 - \exp\{-\exp(\beta_1 + \beta_2 x_i)\},
 \qquad i = 1, \dots, n.
 </span> where <span class="math inline">\pi_i \in (0, 1)</span> is the <span class="orange">probability of success</span> of a binomial distribution.</p></li>
@@ -235,14 +235,14 @@
 <section id="early-ideas-ii" class="slide level2 center">
 <h2>Early ideas II</h2>
 <ul>
-<li>In the <span class="blue">probit model</span>, developed by Bliss (1935), a <span class="blue">Binomial</span> model for <span class="math inline">Y_i</span> is specified with <span class="math display">
-\mathbb{E}(Y_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
+<li>In the <span class="blue">probit model</span>, developed by Bliss (1935), a <span class="blue">Binomial</span> model for <span class="math inline">S_i</span> is specified with <span class="math display">
+\mathbb{E}(S_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
 </span> where <span class="math inline">\Phi(x)</span> is the cumulative distribution function of a Gaussian distribution.</li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>Dyke and Patterson (1952) also considered the case of modelling proportions, but specified <span class="math display">
-\mathbb{E}(Y_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
+\mathbb{E}(S_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
 </span></p></li>
 <li><p>The corresponding inverse relationship is known as the <span class="orange">logit</span> link function: <span class="math display">
 \beta_1 + \beta_2 x_i = \text{logit}(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right).
@@ -275,6 +275,38 @@
 <h2>Quasi likelihoods</h2>
 
 <img data-src="img/Davison8.png" class="quarto-figure quarto-figure-center r-stretch" style="width:6.5in"></section>
+<section id="the-content-of-this-course" class="slide level2 center">
+<h2>The content of this course</h2>
+<ul>
+<li><p><span class="blue">General theory</span></p>
+<ul>
+<li>Linear models and misspecification<br>
+</li>
+<li>Generalized Linear Models</li>
+</ul></li>
+<li><p><span class="orange">Notable models</span></p>
+<ul>
+<li>Binary and binomial regression</li>
+<li>Poisson regression</li>
+</ul></li>
+<li><p><span class="grey">Advanced topics</span></p>
+<ul>
+<li>Contingency tables and log-linear models</li>
+<li>Quasi likelihoods</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Unfortunately, due to time constraints, we will <span class="orange">not</span> cover:
+<ul>
+<li>Multinomial response models;</li>
+<li>Models with correlated responses (random effects);</li>
+<li>Nonparametric regression.</li>
+</ul></li>
+<li>These topics will be covered e.g.&nbsp;in <span class="blue">Statistica Multivariata</span> and <a href="https://tommasorigon.github.io/datamining/">Data Mining</a> at CLAMSES.</li>
+</ul>
+</div>
+</section>
 <section id="textbooks" class="slide level2 center">
 <h2>Textbooks</h2>
 <p>We will use several textbooks throughout this course — some more specialized than others. They are listed in order of importance:</p>

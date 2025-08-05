@@ -999,13 +999,13 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 <section id="box-cox-transform-derivation-i" class="level2">
 <h2 class="anchored" data-anchor-id="box-cox-transform-derivation-i">Box-Cox transform: derivation I 📖</h2>
 <ul>
-<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Y}(\lambda) = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
-f(\bm{y}(\lambda)) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta)\right\}.
+<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Z}_\lambda  = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
+f_Z(\bm{z}_\lambda) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{z}_\lambda - \bm{X}\beta)^T(\bm{z}_\lambda - \bm{X}\beta)\right\}.
 </span></p></li>
 <li><p>Using standard tools of probability theory, we can obtain the density of the <span class="orange">original data</span>: <span class="math display">
-f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The additional term is the <span class="orange">Jacobian</span> of the transformation.</p></li>
+f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right|, \quad \text{where}\quad \left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right| = y_i^{\lambda - 1}.</span> The additional term is the determinant of the <span class="orange">Jacobian</span> of the transformation.</p></li>
 <li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
-\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{y}(\lambda) - \bm{X}\beta)^T(\bm{y}(\lambda) - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
+\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{z}_\lambda - \bm{X}\beta)^T(\bm{z}_\lambda - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 </span></p></li>
 </ul>
 </section>
@@ -1013,7 +1013,7 @@ f_Y(\bm{y}) = f(\bm{y}(\lambda))\prod_{i=1}^ny_i^{\lambda - 1}.</span> The addit
 <h2 class="anchored" data-anchor-id="box-cox-transform-derivation-ii">Box-Cox transform: derivation II 📖</h2>
 <ul>
 <li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}(\lambda), \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda))^T(\bm{y}(\lambda) - \bm{X}\hat{\beta}(\lambda)),
+\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda))^T(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda)),
 </span></p></li>
 <li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
 \ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
