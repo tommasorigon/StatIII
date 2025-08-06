@@ -585,8 +585,7 @@ b(\theta_i) &= e^{\theta_i}, \quad &&c(y_i, \phi) = c(y_i) = -\log(y_i!).
 $$
 There is [no dispersion]{.orange} parameter since $a_i(\phi) = 1$. 
 
-- Using the results we previously discussed, we obtain the well-known relationships
-$$
+- Using the results we previously discussed, we obtain the well-known relationships $$
 \begin{aligned}
 \mathbb{E}(Y_i) &= b'(\theta_i) = e^{\theta_i} = \mu_i, \\
 \text{var}(Y_i) &= a_i(\phi) b''(\theta_i) = e^{\theta_i} = \mu_i.
@@ -594,11 +593,99 @@ $$
 $$
 The [variance function]{.blue} $v(\mu_i) = \mu_i$ is [linear]{.blue}. We will write $Y_i \sim \text{ED}(\mu_i, \mu_i)$ with $\mu_i \in (0, \infty)$. 
 
-## Gamma distribution 📖
+## Gamma distribution I 📖
 
-## Binomial distribution 📖
+- Let $Y_i \sim \text{Gamma}(\alpha, \lambda_i)$. The [density]{.blue} function of $Y_i$ can be written as
+$$
+\begin{aligned}
+p(y_i; \alpha, \lambda_i) &= \frac{\lambda_i^\alpha y_i^{\alpha-1}\alpha e^{-\lambda_i y_i}}{\Gamma(\alpha)}
+\\
+&=\exp\left\{\alpha\log{\lambda_i} - \lambda_i y_i + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
+&=\exp\left\{\alpha\left(\log{\lambda_i} - \frac{\lambda_i}{\alpha} y_i\right) + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
+&=\exp\left\{\frac{\theta_i y_i + \log(-\theta_i)}{\phi} - (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi)\right\}, \qquad y > 0,\\
+\end{aligned}
+$$
+having defined the [dispersion]{.blue} $\phi = 1/\alpha$ and the [natural parameter]{.orange} $\theta_i = -\lambda_i/\alpha$. 
 
-## A summary of exponential dispersion families
+- Then, we can recognize the following relationships:
+$$
+\begin{aligned}
+\quad a_i(\phi) &= \phi, \qquad b(\theta_i) = - \log(-\theta_i), \\
+c(y_i, \phi) &= -  (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi).
+\end{aligned}
+$$
+
+## Gamma distribution II 📖
+
+
+- Using the results we previously discussed, we obtain the well-known relationships
+$$
+\mathbb{E}(Y_i) = b'(\theta_i) = - \frac{1}{\theta_i} = \frac{\alpha}{\lambda_i} = \mu_i, \qquad \text{var}(Y_i) = a_i(\phi)b''(\theta_i) = \frac{\phi}{\theta_i^2} = \frac{\alpha}{\lambda_i^2}.
+$$
+
+- At the same time, we can write the [inverse]{.orange} relationship linking $\theta_i$ to the [mean]{.blue} as
+$$
+\theta_i = \theta(\mu_i) = - \frac{1}{\mu_i}
+$$
+from which we finally obtain the following [quadratic]{.blue} variance function
+$$
+v(\mu_i) = \mu_i^2. 
+$$
+- We will write $Y_i \sim \text{ED}(\mu_i, \phi\mu_i^2)$ with $\mu_i \in (0, \infty)$.
+
+## Binomial distribution I 📖
+
+- Let $S_i \sim \text{Binomial}(m_i, \pi_i)$, with $\pi_i \in (0, 1)$. The random variable $Y_i = S_i/m_i$ has [density]{.blue}
+$$
+\begin{aligned}
+p(y_i; m_i, \pi_i) &= \binom{m_i}{m_i y_i}\pi_i^{m_i y_i}(1 - \pi_i)^{m_i - m_i y_i}\\
+&=\binom{m_i}{m_i y_i}\left(\frac{\pi_i}{1 - \pi_i}\right)^{m_i y_i}(1 - \pi_i)^{m_i}\\
+&=\exp\left\{m_iy_i\log\left(\frac{\pi_i}{1 - \pi_i}\right) + m_i\log(1 - \pi_i) + \log\binom{m_i}{m_i y_i}\right\},
+\end{aligned}
+$$
+for $y_i \in \{0, 1/m_i, 2/m_2, \dots, m_i/m_i\}$. This can be written as
+$$
+p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1/m_i}+ \log\binom{m_i}{m_i y_i}\right\},
+$$
+where the [natural parameter]{.orange} is $\theta_i = \text{logit}(\pi_i) = \log\{\pi/(1-\pi_i)\}$. 
+
+
+
+
+## Binomial distribution II 📖
+
+- Note that $\mathbb{E}(Y_i) = \mathbb{E}(Z_i / m_i) = \pi_i = \mu_i$. This means there [no dispersion]{.orange} parameter $\phi$ and
+$$
+\theta_i = \text{logit}(\mu_i), \quad a_i(\phi) = \frac{1}{m_i}, \quad b(\theta_i) = \log\{1 + \exp(\theta_i)\}, \quad c(y_i) = \log\binom{m_i}{m_i y_i}. 
+$$
+
+- Using the general formulas therefore we obtain
+$$
+\begin{aligned}
+\mathbb{E}(Y_i) &= b'(\theta_i) = \frac{\exp(\theta_i)}{1 + \exp(\theta_i)} = \mu_i, \\
+\text{var}(Y_i) &= a_i(\phi)b''(\theta_i) = \frac{1}{m_i}\frac{\exp(\theta_i)}{[1 + \exp(\theta_i)]^2} = \frac{\mu_i (1 - \mu_i)}{m_i},
+\end{aligned}
+$$
+from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-\mu_i)$ is quadratic. 
+
+- We will write $Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i))$ with $\mu_i \in \mathcal{M} = (0, 1)$. 
+
+## A summary of notable exponential dispersion families
+
+| Model | $\text{N}(\mu_i, \sigma^2)$ | $\text{Gamma}(\alpha, \alpha/\mu_i)$ | $\frac{1}{m_i}\text{Binomial}(m_i, \mu_i)$ | $\text{Poisson}(\mu_i)$ |
+|--------------------|---------------|---------------|---------------|---------------|
+| Support $\mathcal{Y}$ |  $\mathbb{R}$| $[0, \infty)$ | $\{0, 1/m_i,\dots, 1\}$ | $\mathbb{N}$ |
+| $\theta_i$ | $\mu_i$ | $- 1/\mu_i$ | $\log\left(\frac{\mu_i}{1 - \mu_i}\right)$ | $\log{\mu_i}$ |
+| Parametric space $\Theta$ | $\mathbb{R}$ | $(-\infty, 0)$ | $\mathbb{R}$ | $\mathbb{R}$ | 
+| $b(\theta_i)$ | $\theta_i^2/2$ | $-\log(-\theta_i)$ | $\log\{1 + \exp(\theta_i)\}$| $\exp(\theta_i)$ |
+| $\phi$ | $\sigma^2$ | $1/\alpha$ | $1$ | $1$ |
+| $a_i(\phi)$ | $\sigma^2$ | $1/\alpha$ | $1/m_i$ | $1$ |
+| $\mathcal{M}$ | $\mathbb{R}$ | $(0, \infty)$ | $(0, 1)$ | $(0, \infty)$ |
+| $v(\mu_i)$ | $1$ | $\mu_i^2$ | $\mu_i(1-\mu_i)$ | $\mu_i$ |
+
+:::callout-tip
+The list of exponential dispersion families does not end here. Other examples are the inverse Gaussian and hyperbolic secant distributions. 
+:::
 
 ## Link functions and canonical link
 

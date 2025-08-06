@@ -755,14 +755,154 @@ b(\theta_i) &amp;= e^{\theta_i}, \quad &amp;&amp;c(y_i, \phi) = c(y_i) = -\log(y
 </span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = \mu_i</span> is <span class="blue">linear</span>. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> with <span class="math inline">\mu_i \in (0, \infty)</span>.</p></li>
 </ul>
 </section>
-<section id="gamma-distribution" class="slide level2 center">
-<h2>Gamma distribution 📖</h2>
+<section id="gamma-distribution-i" class="slide level2 center">
+<h2>Gamma distribution I 📖</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i \sim \text{Gamma}(\alpha, \lambda_i)</span>. The <span class="blue">density</span> function of <span class="math inline">Y_i</span> can be written as <span class="math display">
+\begin{aligned}
+p(y_i; \alpha, \lambda_i) &amp;= \frac{\lambda_i^\alpha y_i^{\alpha-1}\alpha e^{-\lambda_i y_i}}{\Gamma(\alpha)}
+\\
+&amp;=\exp\left\{\alpha\log{\lambda_i} - \lambda_i y_i + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
+&amp;=\exp\left\{\alpha\left(\log{\lambda_i} - \frac{\lambda_i}{\alpha} y_i\right) + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
+&amp;=\exp\left\{\frac{\theta_i y_i + \log(-\theta_i)}{\phi} - (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi)\right\}, \qquad y &gt; 0,\\
+\end{aligned}
+</span> having defined the <span class="blue">dispersion</span> <span class="math inline">\phi = 1/\alpha</span> and the <span class="orange">natural parameter</span> <span class="math inline">\theta_i = -\lambda_i/\alpha</span>.</p></li>
+<li><p>Then, we can recognize the following relationships: <span class="math display">
+\begin{aligned}
+\quad a_i(\phi) &amp;= \phi, \qquad b(\theta_i) = - \log(-\theta_i), \\
+c(y_i, \phi) &amp;= -  (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi).
+\end{aligned}
+</span></p></li>
+</ul>
 </section>
-<section id="binomial-distribution" class="slide level2 center">
-<h2>Binomial distribution 📖</h2>
+<section id="gamma-distribution-ii" class="slide level2 center">
+<h2>Gamma distribution II 📖</h2>
+<ul>
+<li><p>Using the results we previously discussed, we obtain the well-known relationships <span class="math display">
+\mathbb{E}(Y_i) = b'(\theta_i) = - \frac{1}{\theta_i} = \frac{\alpha}{\lambda_i} = \mu_i, \qquad \text{var}(Y_i) = a_i(\phi)b''(\theta_i) = \frac{\phi}{\theta_i^2} = \frac{\alpha}{\lambda_i^2}.
+</span></p></li>
+<li><p>At the same time, we can write the <span class="orange">inverse</span> relationship linking <span class="math inline">\theta_i</span> to the <span class="blue">mean</span> as <span class="math display">
+\theta_i = \theta(\mu_i) = - \frac{1}{\mu_i}
+</span> from which we finally obtain the following <span class="blue">quadratic</span> variance function <span class="math display">
+v(\mu_i) = \mu_i^2.
+</span></p></li>
+<li><p>We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi\mu_i^2)</span> with <span class="math inline">\mu_i \in (0, \infty)</span>.</p></li>
+</ul>
 </section>
-<section id="a-summary-of-exponential-dispersion-families" class="slide level2 center">
-<h2>A summary of exponential dispersion families</h2>
+<section id="binomial-distribution-i" class="slide level2 center">
+<h2>Binomial distribution I 📖</h2>
+<ul>
+<li>Let <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, with <span class="math inline">\pi_i \in (0, 1)</span>. The random variable <span class="math inline">Y_i = S_i/m_i</span> has <span class="blue">density</span> <span class="math display">
+\begin{aligned}
+p(y_i; m_i, \pi_i) &amp;= \binom{m_i}{m_i y_i}\pi_i^{m_i y_i}(1 - \pi_i)^{m_i - m_i y_i}\\
+&amp;=\binom{m_i}{m_i y_i}\left(\frac{\pi_i}{1 - \pi_i}\right)^{m_i y_i}(1 - \pi_i)^{m_i}\\
+&amp;=\exp\left\{m_iy_i\log\left(\frac{\pi_i}{1 - \pi_i}\right) + m_i\log(1 - \pi_i) + \log\binom{m_i}{m_i y_i}\right\},
+\end{aligned}
+</span> for <span class="math inline">y_i \in \{0, 1/m_i, 2/m_2, \dots, m_i/m_i\}</span>. This can be written as <span class="math display">
+p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1/m_i}+ \log\binom{m_i}{m_i y_i}\right\},
+</span> where the <span class="orange">natural parameter</span> is <span class="math inline">\theta_i = \text{logit}(\pi_i) = \log\{\pi/(1-\pi_i)\}</span>.</li>
+</ul>
+</section>
+<section id="binomial-distribution-ii" class="slide level2 center">
+<h2>Binomial distribution II 📖</h2>
+<ul>
+<li><p>Note that <span class="math inline">\mathbb{E}(Y_i) = \mathbb{E}(Z_i / m_i) = \pi_i = \mu_i</span>. This means there <span class="orange">no dispersion</span> parameter <span class="math inline">\phi</span> and <span class="math display">
+\theta_i = \text{logit}(\mu_i), \quad a_i(\phi) = \frac{1}{m_i}, \quad b(\theta_i) = \log\{1 + \exp(\theta_i)\}, \quad c(y_i) = \log\binom{m_i}{m_i y_i}.
+</span></p></li>
+<li><p>Using the general formulas therefore we obtain <span class="math display">
+\begin{aligned}
+\mathbb{E}(Y_i) &amp;= b'(\theta_i) = \frac{\exp(\theta_i)}{1 + \exp(\theta_i)} = \mu_i, \\
+\text{var}(Y_i) &amp;= a_i(\phi)b''(\theta_i) = \frac{1}{m_i}\frac{\exp(\theta_i)}{[1 + \exp(\theta_i)]^2} = \frac{\mu_i (1 - \mu_i)}{m_i},
+\end{aligned}
+</span> from which we obtain that the <span class="blue">variance function</span> is <span class="math inline">v(\mu_i) = \mu_i(1-\mu_i)</span> is quadratic.</p></li>
+<li><p>We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i))</span> with <span class="math inline">\mu_i \in \mathcal{M} = (0, 1)</span>.</p></li>
+</ul>
+</section>
+<section id="a-summary-of-notable-exponential-dispersion-families" class="slide level2 center">
+<h2>A summary of notable exponential dispersion families</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th><span class="math inline">\text{N}(\mu_i, \sigma^2)</span></th>
+<th><span class="math inline">\text{Gamma}(\alpha, \alpha/\mu_i)</span></th>
+<th><span class="math inline">\frac{1}{m_i}\text{Binomial}(m_i, \mu_i)</span></th>
+<th><span class="math inline">\text{Poisson}(\mu_i)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Support <span class="math inline">\mathcal{Y}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">[0, \infty)</span></td>
+<td><span class="math inline">\{0, 1/m_i,\dots, 1\}</span></td>
+<td><span class="math inline">\mathbb{N}</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\theta_i</span></td>
+<td><span class="math inline">\mu_i</span></td>
+<td><span class="math inline">- 1/\mu_i</span></td>
+<td><span class="math inline">\log\left(\frac{\mu_i}{1 - \mu_i}\right)</span></td>
+<td><span class="math inline">\log{\mu_i}</span></td>
+</tr>
+<tr class="odd">
+<td>Parametric space <span class="math inline">\Theta</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">(-\infty, 0)</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">b(\theta_i)</span></td>
+<td><span class="math inline">\theta_i^2/2</span></td>
+<td><span class="math inline">-\log(-\theta_i)</span></td>
+<td><span class="math inline">\log\{1 + \exp(\theta_i)\}</span></td>
+<td><span class="math inline">\exp(\theta_i)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\phi</span></td>
+<td><span class="math inline">\sigma^2</span></td>
+<td><span class="math inline">1/\alpha</span></td>
+<td><span class="math inline">1</span></td>
+<td><span class="math inline">1</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">a_i(\phi)</span></td>
+<td><span class="math inline">\sigma^2</span></td>
+<td><span class="math inline">1/\alpha</span></td>
+<td><span class="math inline">1/m_i</span></td>
+<td><span class="math inline">1</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\mathcal{M}</span></td>
+<td><span class="math inline">\mathbb{R}</span></td>
+<td><span class="math inline">(0, \infty)</span></td>
+<td><span class="math inline">(0, 1)</span></td>
+<td><span class="math inline">(0, \infty)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">v(\mu_i)</span></td>
+<td><span class="math inline">1</span></td>
+<td><span class="math inline">\mu_i^2</span></td>
+<td><span class="math inline">\mu_i(1-\mu_i)</span></td>
+<td><span class="math inline">\mu_i</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The list of exponential dispersion families does not end here. Other examples are the inverse Gaussian and hyperbolic secant distributions.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="link-functions-and-canonical-link" class="slide level2 center">
 <h2>Link functions and canonical link</h2>
