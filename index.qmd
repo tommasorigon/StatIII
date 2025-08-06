@@ -1,5 +1,5 @@
 ---
-title: "Statistica III (Generalized Linear Models)"
+title: "Statistics III: Generalized Linear Models"
 subtitle: "CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
@@ -26,16 +26,27 @@ editor_options:
   chunk_output_type: console
 ---
 
-This is the website of the **Statistica III** course (6 CFU) of the "*Corso di Laurea Triennale in Scienze Statistiche ed Economiche* (SSE)", Università degli Studi di Milano-Bicocca.
+This is the website of the **Statistica III** course (6 CFU) of the "*Corso di Laurea Triennale in Scienze Statistiche ed Economiche* (SSE)", Università degli Studi di Milano-Bicocca. **Statistica III** is a monographic course on [Generalized Linear Models]{.blue} (GLMs).
+
+This is a [B.Sc.-level]{.orange} course, but there are some prerequisites: it is assumed that you have already been exposed to:
+
+  - [Simple linear regression and descriprive statistics]{.blue}, e.g. from [_Statistica I_](https://tommasorigon.github.io/StatI/);
+  - [Inferential statistics]{.orange}, e.g. from _Statistica II_;
+  - [Linear models]{.grey}, e.g. from _Analisi Statistica Multivariata_ and _Econometria_;
+  - [R software]{.grey}, e.g. from [_Analisi Statistica Multivariata_](https://tommasorigon.github.io/introR/).
+
+Regression is such an important topic that the [tour]{.orange} will [continue]{.orange} at  [Data Mining](https://tommasorigon.github.io/datamining/).
+
 
 ## Teaching material
 
-### Required
+### Recommended textbooks (ITA)
 
-- Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza*](https://link.springer.com/book/9788847001305). Springer
 - Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://doi.org/10.1007/978-88-470-3995-7_10). Springer.
+- Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza*](https://link.springer.com/book/9788847001305). Springer
+
     
-### Optional 
+### Recommended textbooks (ENG)
 
 - Agresti, A. 2015. [*Foundations of Linear and Generalized Linear Models*](https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034). Wiley.
 - McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh). Second Edition. Springer.

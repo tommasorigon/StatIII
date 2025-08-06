@@ -670,13 +670,13 @@ from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-
 
 - We will write $Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i))$ with $\mu_i \in \mathcal{M} = (0, 1)$. 
 
-## A summary of notable exponential dispersion families
+## Notable exponential dispersion families
 
 | Model | $\text{N}(\mu_i, \sigma^2)$ | $\text{Gamma}(\alpha, \alpha/\mu_i)$ | $\frac{1}{m_i}\text{Binomial}(m_i, \mu_i)$ | $\text{Poisson}(\mu_i)$ |
 |--------------------|---------------|---------------|---------------|---------------|
-| Support $\mathcal{Y}$ |  $\mathbb{R}$| $[0, \infty)$ | $\{0, 1/m_i,\dots, 1\}$ | $\mathbb{N}$ |
+| [Support]{.blue} $\mathcal{Y}$ |  $\mathbb{R}$| $[0, \infty)$ | $\{0, 1/m_i,\dots, 1\}$ | $\mathbb{N}$ |
 | $\theta_i$ | $\mu_i$ | $- 1/\mu_i$ | $\log\left(\frac{\mu_i}{1 - \mu_i}\right)$ | $\log{\mu_i}$ |
-| Parametric space $\Theta$ | $\mathbb{R}$ | $(-\infty, 0)$ | $\mathbb{R}$ | $\mathbb{R}$ | 
+| [Parametric space]{.orange} $\Theta$ | $\mathbb{R}$ | $(-\infty, 0)$ | $\mathbb{R}$ | $\mathbb{R}$ | 
 | $b(\theta_i)$ | $\theta_i^2/2$ | $-\log(-\theta_i)$ | $\log\{1 + \exp(\theta_i)\}$| $\exp(\theta_i)$ |
 | $\phi$ | $\sigma^2$ | $1/\alpha$ | $1$ | $1$ |
 | $a_i(\phi)$ | $\sigma^2$ | $1/\alpha$ | $1/m_i$ | $1$ |
@@ -684,10 +684,36 @@ from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-
 | $v(\mu_i)$ | $1$ | $\mu_i^2$ | $\mu_i(1-\mu_i)$ | $\mu_i$ |
 
 :::callout-tip
-The list of exponential dispersion families does not end here. Other examples are the inverse Gaussian and hyperbolic secant distributions. 
+The list of exponential dispersion families does not end here. Other examples are the [inverse Gaussian]{.blue}, the [negative binomial]{.orange} and [hyperbolic secant]{.grey} distributions. 
 :::
 
 ## Link functions and canonical link
+
+- To complete the GLM specification, we need to choose a [link function]{.blue} $g(\cdot)$ such that:
+$$
+g(\mu_i) = \bm{x}_i^T\beta, \qquad \theta_i = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \theta(g^{-1}(\bm{x}_i^T\beta)).
+$$
+
+- It is fairly natural to consider a [monotone]{.blue} and [differentiable]{.orange} link function $g(\cdot) : \mathcal{M} \to \mathbb{R}$ so that the inverse $g^{-1}(\cdot) : \mathbb{R} \to \mathcal{M}$. This ensures that the predictions are well-defined.
+$$
+\mathbb{E}(Y_i) = g^{-1}(\bm{x}_i^T\beta) \in \mathcal{M}.
+$$
+
+- For example, in [binary regression]{.blue} any continuous [cumulative distribution function]{.orange} for $g^{-1}(\cdot)$ leads to a good link function, such as $g(\cdot) = \Phi(\cdot)$ (probit) or $g^{-1}(\eta_i) = e^{\eta_i}/(1 + e^{\eta_i})$ (logistic). 
+
+. . .
+
+:::callout-tip
+The following link is called [canonical link]{.orange} and it is implied by the distribution:
+$$
+g(\mu_i) = \theta(\mu_i), \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta. 
+$$
+Such a choice leads to remarkable simplifications in the likelihood function.
+:::
+
+- The [identity]{.blue} link is canonical for the [Gaussian]{.blue}, the [logarithm]{.orange} is canonical for the [Poisson]{.orange}, the [logit]{.grey} is canonical for the Binomial and the [reciprocal]{.blue} is canonical for the [Gamma]{.blue}. 
+
+<!-- - In a Gamma GLM, the reciprocal canonical link does not map $\bm{x}_i^T\beta$ into positive values, therefore the logarithmic link is sometimes preferred.  -->
 
 # Likelihood, inference, and testing
 
