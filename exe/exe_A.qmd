@@ -34,181 +34,76 @@ editor_options:
 
 # [Homepage](../index.html)
 
-## Preliminaries
+## Theoretical
 
-::: {.callout-note collapse=true}
-#### [Davison (2003), Problem 2, pag. 156]{.blue} 
+:::{.callout-note collapse=true}
+#### **Salvan et al. (2020), Exercise 1.8**
 
-![](img/Davison2.png)
-![](img/Davison2bis.png)
+Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
+$$
+\hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
+$$
+
+(a) Show that $$
+\bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}$$ 
+so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in the column space of $\bm{X}$?  
+
+(b) Explain why the [added-variable plot]{.blue} (residuals $\bm{r}$ vs. residuals from regressing $\bm{z}$ on $\bm{X}$) helps assess whether to include $\bm{z}$.  
+
+(c) Using the plots in the figure below, comment on the result and suggest how to modify the model.
+
+```{r}
+set.seed(123)
+x1 <- runif(100, 0, 1)
+x2 <- runif(100, 0, 1)
+z <- 3 * x1 + rnorm(100, 0, 0.2)
+y <- 1 + x1 + x2 - 5 * z + rnorm(100, 0, 0.3)
+
+plot(z, residuals(lm(y ~ x1 + x2)), pch = 16)
+plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
+```
+
+
 :::
 
-::: {.callout-note collapse=true}
-#### [Davison (2003), Exercise 8, pag. 109]{.blue}
-
-![](img/Davison8.png)
-:::
+## Data analysis
 
 ::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.6]{.orange}
+#### **Agresti (2015), Exercise 1.21**
 
-![](img/Casella7_6.png)
-:::
+Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset `FEV.dat` is [available here](../data/FEV.dat); the first six observations are shown below.
 
-::: {.callout-note collapse=true}
-#### [Davison (2003), Problem 11, pag. 159]{.blue}
+In this analysis, let $y$ denote the FEV1 value after one hour of treatment (variable `fev1` in the dataset). Define 
 
-![](img/Davison11.png)
-:::
+- $x_1$: baseline FEV1 measurement prior to treatment (`base`),  
+- $x_2$: treatment group (categorical variable `drug` with labels `a`, `b`, `p`).  
 
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.10]{.orange}
+[Download the data](../data/FEV.dat) and fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$. For each model, [interpret]{.blue} the estimated parameters.
 
-![](img/Casella7_10.png)
-:::
+```{r}
+FAV <- read.table("../data/FEV.dat", header = TRUE)
+knitr::kable(head(FAV))
+```
 
-## Risk, losses, Bayes estimation, and shrinkage
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.62]{.orange}
-
-![](img/Casella7_62.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.63]{.orange}
-
-![](img/Casella7_63.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.65]{.orange}
-
-![](img/Casella7_65.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Davison (2003), Problem 2, pag 636]{.blue}
-
-![](img/Davison2_636.png)
 :::
 
 
-## Unbiasedness and efficiency
+:::{.callout-note collapse=true}
+#### **Agresti (2015), Exercise 1.24**
 
-::: {.callout-note collapse=true}
-#### [Davison (2003), Problem 1, pag. 156]{.blue}
+For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The data format is illustrated below. During the study, the participants were randomly assigned to one of three therapy groups:  
 
-![](img/Davison1.png)
-:::
+- **Control group**: received the standard therapy (label `c`),  
+- **Family therapy** (label `f`),  
+- **Cognitive behavioral therapy** (label `b`).  
 
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.44]{.orange}
+[Download the data](../data/Anorexia.dat) and fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}.   [Interpret]{.blue} the estimated parameters of the model.
 
-![](img/Casella7_44.png)
-:::
+Convert the weights to kilograms ($1\ \text{lb} = 0.453592\ \text{kg}$), repeat the analysis, and discuss whether the results change and why.  
 
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.46]{.orange}
+```{r}
+Anorexia <- read.table("../data/Anorexia.dat", header = TRUE)
+knitr::kable(head(Anorexia))
+```
 
-![](img/Casella7_46.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.48]{.orange}
-
-![](img/Casella7_48.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.57]{.orange}
-
-![](img/Casella7_57.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 7.66]{.orange}
-
-![](img/Casella7_66.png)
-:::
-
-
-## Asymptotics
-
-::: {.callout-note collapse=true}
-#### [Casella & Berger (2002), Exercise 10.9]{.orange}
-
-![](img/Casella10_9.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Davison (2003), Exercise 5, pag. 125]{.blue}
-
-![](img/Davison5_125.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Davison (2003), Exercise 5, pag. 149]{.blue}
-
-![](img/Davison5_149.png)
-:::
-
-::: {.callout-note collapse=true}
-#### **Young and Smith (2008), Exercise 8.10, pag. 139**
-
-![](img/YoungSmith8_10.png)
-:::
-
-## Robustness
-
-::: {.callout-note collapse=true}
-#### [Davison (2003), Exercise 2, pag. 324]{.blue}
-
-![](img/Davison2_325_1.png)
-![](img/Davison2_325_2.png)
-
-Recalling that
-
-![](img/Davison2_325_3.png)
-![](img/Davison2_325_4.png)
-:::
-
-::: {.callout-note collapse=true}
-#### [Davison (2003), Exercise 6, pag. 325]{.blue}
-
-![](img/Davison6_325.png)
-
-Recalling that
-
-![](img/Davison7_20.png)
-:::
-
-## Recap (ITA)
-
-These exercises are taken from the book by [Adimari and Pauli (2012)](https://moodle2.units.it/pluginfile.php/428460/mod_resource/content/2/AdimariPauli.pdf). They are in italian, but hopefully you can understand them. If not, just upload the picture on ChatGPT.
-
-::: {.callout-note collapse=true}
-#### **Adimari & Pauli (2012), Exercise 12**
-![](img/Adimari12.png)
-![](img/Adimari12bis.png)
-:::
-
-::: {.callout-note collapse=true}
-#### **Adimari & Pauli (2012), Exercise 28 (You can skip point a.)**
-![](img/Adimari28.png)
-:::
-
-::: {.callout-note collapse=true}
-#### **Adimari & Pauli (2012), Exercise 56**
-![](img/Adimari56.png)
-:::
-
-::: {.callout-note collapse=true}
-#### **Adimari & Pauli (2012), Exercise 58**
-![](img/Adimari58.png)
-:::
-
-::: {.callout-note collapse=true}
-#### **Adimari & Pauli (2012), Exercise 70**
-![](img/Adimari70.png)
 :::

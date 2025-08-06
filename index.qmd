@@ -63,7 +63,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) |  |
 | | **GENERAL THEORY** | | |
 | **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) |  |
-| *Exercises* | [Exercises A] |  |  |
+| *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
 | Lab 1 |  [`lab1.R`](code/lab1.R) | | |
 | **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)|  |
 | *Exercises* | [Exercises B] |  |  |

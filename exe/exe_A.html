@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Statistics III: Generalized Linear Models</title>
+<title>Exercises A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,19 +24,62 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-252358bd5e41c56bbae4a2085ac3f5af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="exe_A_files/libs/clipboard/clipboard.min.js"></script>
+<script src="exe_A_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="exe_A_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="exe_A_files/libs/quarto-html/popper.min.js"></script>
+<script src="exe_A_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="exe_A_files/libs/quarto-html/anchor.min.js"></script>
+<link href="exe_A_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="exe_A_files/libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="exe_A_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="exe_A_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="exe_A_files/libs/bootstrap/bootstrap-721140556699abb0ff907dddd6c78b98.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -48,13 +91,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#teaching-material" id="toc-teaching-material" class="nav-link active" data-scroll-target="#teaching-material">Teaching material</a>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
   <ul class="collapse">
-  <li><a href="#recommended-textbooks-ita" id="toc-recommended-textbooks-ita" class="nav-link" data-scroll-target="#recommended-textbooks-ita">Recommended textbooks (ITA)</a></li>
-  <li><a href="#recommended-textbooks-eng" id="toc-recommended-textbooks-eng" class="nav-link" data-scroll-target="#recommended-textbooks-eng">Recommended textbooks (ENG)</a></li>
-  <li><a href="#slides-and-lecture-notes" id="toc-slides-and-lecture-notes" class="nav-link" data-scroll-target="#slides-and-lecture-notes">Slides and lecture notes</a></li>
+  <li><a href="#theoretical" id="toc-theoretical" class="nav-link" data-scroll-target="#theoretical">Theoretical</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
   </ul></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
   </ul>
 </nav>
 </div>
@@ -62,8 +103,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics III: Generalized Linear Models</h1>
-<p class="subtitle lead">CdL SSE</p>
+<h1 class="title">Exercises A</h1>
+<p class="subtitle lead">Statistical Inference - Ph.D.&nbsp;in Economics, Statistics, and Data Science</p>
 </div>
 
 
@@ -93,199 +134,255 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the website of the <strong>Statistica III</strong> course (6 CFU) of the “<em>Corso di Laurea Triennale in Scienze Statistiche ed Economiche</em> (SSE)”, Università degli Studi di Milano-Bicocca. <strong>Statistica III</strong> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs).</p>
-<p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
-<ul>
-<li><span class="blue">Simple linear regression and descriprive statistics</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, e.g.&nbsp;from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, e.g.&nbsp;from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
-<li><span class="grey">R software</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
-</ul>
-<p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</p>
-<section id="teaching-material" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-material">Teaching material</h2>
-<section id="recommended-textbooks-ita" class="level3">
-<h3 class="anchored" data-anchor-id="recommended-textbooks-ita">Recommended textbooks (ITA)</h3>
-<ul>
-<li>Salvan, A., Sartori, N. and L. Pace. 2020. <a href="https://doi.org/10.1007/978-88-470-3995-7_10"><em>Modelli Lineari Generalizzati</em></a>. Springer.</li>
-<li>Azzalini, A. 2008. <a href="https://link.springer.com/book/9788847001305"><em>Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza</em></a>. Springer</li>
-</ul>
+<section id="homepage" class="level1">
+<h1><a href="../index.html">Homepage</a></h1>
+<section id="theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>Salvan et al.&nbsp;(2020), Exercise 1.8</strong>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose the normal linear model <span class="math inline">\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}</span>, with <span class="math inline">\bm{X}</span> an <span class="math inline">n \times p</span> matrix (rank <span class="math inline">p&lt;n</span>), <span class="math inline">\bm{z}</span> an <span class="math inline">n \times 1</span> vector, and <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)</span>. We instead fit <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\varepsilon}</span>, with <span class="math display">
+\hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
+</span></p>
+<ol type="a">
+<li><p>Show that <span class="math display">
+\bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}</span> so <span class="math inline">\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma</span>. What if <span class="math inline">\bm{z}</span> lies in the column space of <span class="math inline">\bm{X}</span>?</p></li>
+<li><p>Explain why the <span class="blue">added-variable plot</span> (residuals <span class="math inline">\bm{r}</span> vs.&nbsp;residuals from regressing <span class="math inline">\bm{z}</span> on <span class="math inline">\bm{X}</span>) helps assess whether to include <span class="math inline">\bm{z}</span>.</p></li>
+<li><p>Using the plots in the figure below, comment on the result and suggest how to modify the model.</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exe_A_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exe_A_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="recommended-textbooks-eng" class="level3">
-<h3 class="anchored" data-anchor-id="recommended-textbooks-eng">Recommended textbooks (ENG)</h3>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>Agresti (2015), Exercise 1.21</strong>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Littell et al.&nbsp;(2000) reported a pharmaceutical clinical trial involving <span class="math inline">n = 72</span> patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset <code>FEV.dat</code> is <a href="../data/FEV.dat">available here</a>; the first six observations are shown below.</p>
+<p>In this analysis, let <span class="math inline">y</span> denote the FEV1 value after one hour of treatment (variable <code>fev1</code> in the dataset). Define</p>
 <ul>
-<li>Agresti, A. 2015. <a href="https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034"><em>Foundations of Linear and Generalized Linear Models</em></a>. Wiley.</li>
-<li>McCullagh, P., and J. A. Nelder. 1989. <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh"><em>Generalized Linear Models</em></a>. Second Edition. Springer.</li>
+<li><span class="math inline">x_1</span>: baseline FEV1 measurement prior to treatment (<code>base</code>),<br>
+</li>
+<li><span class="math inline">x_2</span>: treatment group (categorical variable <code>drug</code> with labels <code>a</code>, <code>b</code>, <code>p</code>).</li>
 </ul>
-</section>
-<section id="slides-and-lecture-notes" class="level3">
-<h3 class="anchored" data-anchor-id="slides-and-lecture-notes">Slides and lecture notes</h3>
-<p>The slides are meant to be used in HTML. However, if you <em>really</em> want to convert the HTML slides into pdf files, you can <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf">follow the instruction of the quarto documentation</a>.</p>
-<table class="caption-top table">
+<p><a href="../data/FEV.dat">Download the data</a> and fit linear models for <span class="math inline">y</span> using the following sets of predictors: (i) <span class="math inline">x_1</span> only, (ii) <span class="math inline">x_2</span> only, (iii) both <span class="math inline">x_1</span> and <span class="math inline">x_2</span>. For each model, <span class="blue">interpret</span> the estimated parameters.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th>Topic</th>
-<th>Notes</th>
-<th>Slides</th>
-<th>Further material</th>
+<th style="text-align: right;">patient</th>
+<th style="text-align: right;">base</th>
+<th style="text-align: right;">fev1</th>
+<th style="text-align: right;">fev2</th>
+<th style="text-align: right;">fev3</th>
+<th style="text-align: right;">fev4</th>
+<th style="text-align: right;">fev5</th>
+<th style="text-align: right;">fev6</th>
+<th style="text-align: right;">fev7</th>
+<th style="text-align: right;">fev8</th>
+<th style="text-align: left;">drug</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Introduction</strong></td>
-<td><a href="slides/un_intro.html">Introduction</a></td>
-<td><a href="slides/un_intro_slides.html">Slides Introduction</a></td>
-<td></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.46</td>
+<td style="text-align: right;">2.68</td>
+<td style="text-align: right;">2.76</td>
+<td style="text-align: right;">2.50</td>
+<td style="text-align: right;">2.30</td>
+<td style="text-align: right;">2.14</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">2.33</td>
+<td style="text-align: right;">2.20</td>
+<td style="text-align: left;">a</td>
 </tr>
 <tr class="even">
-<td></td>
-<td><strong>GENERAL THEORY</strong></td>
-<td></td>
-<td></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: right;">3.95</td>
+<td style="text-align: right;">3.65</td>
+<td style="text-align: right;">2.93</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">3.37</td>
+<td style="text-align: right;">3.14</td>
+<td style="text-align: right;">2.62</td>
+<td style="text-align: left;">a</td>
 </tr>
 <tr class="odd">
-<td><strong>Linear models and misspecification</strong></td>
-<td><a href="slides/un_A.html">Unit A</a></td>
-<td><a href="slides/un_A_slides.html">Slides Unit A</a></td>
-<td></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">2.28</td>
+<td style="text-align: right;">2.34</td>
+<td style="text-align: right;">2.29</td>
+<td style="text-align: right;">2.43</td>
+<td style="text-align: right;">2.06</td>
+<td style="text-align: right;">2.18</td>
+<td style="text-align: right;">2.28</td>
+<td style="text-align: right;">2.29</td>
+<td style="text-align: left;">a</td>
 </tr>
 <tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_A.html">Exercises A</a></td>
-<td></td>
-<td></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.44</td>
+<td style="text-align: right;">4.08</td>
+<td style="text-align: right;">3.87</td>
+<td style="text-align: right;">3.79</td>
+<td style="text-align: right;">3.30</td>
+<td style="text-align: right;">3.80</td>
+<td style="text-align: right;">3.24</td>
+<td style="text-align: right;">2.98</td>
+<td style="text-align: right;">2.91</td>
+<td style="text-align: left;">a</td>
 </tr>
 <tr class="odd">
-<td>Lab 1</td>
-<td><a href="code/lab1.R"><code>lab1.R</code></a></td>
-<td></td>
-<td></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.80</td>
+<td style="text-align: right;">4.09</td>
+<td style="text-align: right;">3.90</td>
+<td style="text-align: right;">3.54</td>
+<td style="text-align: right;">3.35</td>
+<td style="text-align: right;">3.15</td>
+<td style="text-align: right;">3.23</td>
+<td style="text-align: right;">3.46</td>
+<td style="text-align: right;">3.27</td>
+<td style="text-align: left;">a</td>
 </tr>
 <tr class="even">
-<td><strong>Generalized Linear Models</strong></td>
-<td><a href="slides/un_B.html">Unit B</a></td>
-<td><a href="slides/un_B_slides.html">Slides Unit B</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises B]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 2</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><strong>NOTABLE MODELS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Binary and binomial regression</strong></td>
-<td>[Unit C]</td>
-<td>[Slides Unit C]</td>
-<td>[Code C]</td>
-</tr>
-<tr class="odd">
-<td>Lab 3</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 4</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises C]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Poisson regression</strong></td>
-<td>[Unit D]</td>
-<td>[Slides Unit D]</td>
-<td>[Code D]</td>
-</tr>
-<tr class="odd">
-<td>Lab 5</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td>[Exercises D]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><strong>ADVANCED TOPICS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Contingency tables and log-linear models</strong></td>
-<td>[Unit E]</td>
-<td>[Slides Unit E]</td>
-<td>[Code E]</td>
-</tr>
-<tr class="odd">
-<td>Lab 6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td>[Exercises E]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Quasi-likelihoods</strong></td>
-<td>[Unit F]</td>
-<td>[Slides Unit F]</td>
-<td>[Code F]</td>
-</tr>
-<tr class="even">
-<td>Lab 7</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises F]</td>
-<td></td>
-<td></td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.36</td>
+<td style="text-align: right;">3.79</td>
+<td style="text-align: right;">3.97</td>
+<td style="text-align: right;">3.78</td>
+<td style="text-align: right;">3.69</td>
+<td style="text-align: right;">3.31</td>
+<td style="text-align: right;">2.83</td>
+<td style="text-align: right;">2.72</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: left;">a</td>
 </tr>
 </tbody>
 </table>
-<!-- ## Exam -->
-<!-- #### Mock exam -->
-<!-- An example of written examination is provided at [this link](exe/exe_exam.html).  -->
-<!-- ## Prerequisites -->
-<!-- Knowledge of the topics (i) linear algebra, (ii) linear models is highly recommended. -->
-<!-- Knowledge of topics covered in the courses Probability and Statistics M -->
-<!-- and Advanced Statistics M is also highly recommended. -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>Agresti (2015), Exercise 1.24</strong>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">n = 72</span> young girls diagnosed with anorexia, the dataset <code>Anorexia.dat</code> <a href="../data/Anorexia.dat">available here</a> records their body weights (in lbs) before and after an experimental treatment period. The data format is illustrated below. During the study, the participants were randomly assigned to one of three therapy groups:</p>
+<ul>
+<li><strong>Control group</strong>: received the standard therapy (label <code>c</code>),<br>
+</li>
+<li><strong>Family therapy</strong> (label <code>f</code>),<br>
+</li>
+<li><strong>Cognitive behavioral therapy</strong> (label <code>b</code>).</li>
+</ul>
+<p><a href="../data/Anorexia.dat">Download the data</a> and fit a linear model where the outcome is the <span class="blue">post-treatment weight</span> and the predictors are the <span class="orange">baseline weight</span> and the <span class="orange">therapy group</span>. <span class="blue">Interpret</span> the estimated parameters of the model.</p>
+<p>Convert the weights to kilograms (<span class="math inline">1\ \text{lb} = 0.453592\ \text{kg}</span>), repeat the analysis, and discuss whether the results change and why.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">subj</th>
+<th style="text-align: left;">therapy</th>
+<th style="text-align: right;">before</th>
+<th style="text-align: right;">after</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">80.5</td>
+<td style="text-align: right;">82.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">84.9</td>
+<td style="text-align: right;">85.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">81.5</td>
+<td style="text-align: right;">81.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">82.6</td>
+<td style="text-align: right;">81.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">79.9</td>
+<td style="text-align: right;">76.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">88.7</td>
+<td style="text-align: right;">103.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-</section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course.</p>
-<p>I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit. Students are encouraged to consult the books: these slides are just a concise summary.</p>
-<p>All the mistakes still present are mine.</p>
-<hr>
 </section>
 
 </main>
@@ -694,5 +791,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="exe_A_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
