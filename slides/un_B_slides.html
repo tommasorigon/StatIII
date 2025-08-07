@@ -578,7 +578,7 @@ g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1
 Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
 </span> with <span class="math inline">\mu_i \in \mathcal{M}</span>. Moreover, the <span class="orange">variance</span> is connected to the <span class="blue">mean</span> via <span class="math inline">v(\mu)</span>: <span class="math display">
 \text{var}(Y_i) = a_i(\phi) v(\mu_i),
-</span> We typically have <span class="math inline">a_i(\phi) = \phi</span>, <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">known weights</span>.</p>
+</span> where <span class="math inline">a_i(\phi) = \phi / \omega_i</span> and <span class="math inline">\omega_i</span> are <span class="blue">known weights</span>. Special cases are <span class="math inline">a_i(\phi) = \phi</span> and <span class="math inline">a_i(\phi) = 1</span>.</p>
 </div>
 </div>
 </div>
@@ -637,14 +637,14 @@ Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_
 <div class="callout-content">
 <p>The <span class="orange">density</span> of <span class="math inline">Y_i</span> belongs to an <span class="blue">exponential dispersion family</span> if it can be written as <span class="math display">
 p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\},
-</span> where <span class="math inline">y_i \in \mathcal{Y} \subseteq \mathbb{R}</span>, <span class="math inline">\theta_i \in \Theta \subseteq\mathbb{R}</span> and <span class="math inline">a_i(\phi) &gt; 0</span>. The parameter <span class="math inline">\theta_i</span> is called <span class="orange">natural parameter</span> while <span class="math inline">\phi</span> is called <span class="blue">dispersion</span> parameter.</p>
+</span> where <span class="math inline">y_i \in \mathcal{Y} \subseteq \mathbb{R}</span>, <span class="math inline">\theta_i \in \Theta \subseteq\mathbb{R}</span> and <span class="math inline">a_i(\phi) = \phi / \omega_i</span> where <span class="math inline">\omega_i</span> are <span class="blue">known positive weights</span>. The parameter <span class="math inline">\theta_i</span> is called <span class="orange">natural parameter</span> while <span class="math inline">\phi</span> is called <span class="blue">dispersion</span> parameter.</p>
 </div>
 </div>
 </div>
 <ul>
 <li><p>By specifying the functions <span class="math inline">a_i(\cdot), b(\cdot)</span> and <span class="math inline">c(\cdot)</span> one obtain a particular <span class="orange">parametric model</span>.</p></li>
 <li><p>The support <span class="math inline">\mathcal{Y}</span> of <span class="math inline">Y_i</span> does not depend on the parameters <span class="math inline">\phi</span> or <span class="math inline">\theta_i</span> and <span class="math inline">b(\cdot)</span> can be <span class="blue">differentiated</span> infinitely many times. In particular, this is a <span class="orange">regular statistical model</span>.</p></li>
-<li><p>As mentioned, we typically have <span class="math inline">a_i(\phi) = \phi</span>, <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">known weights</span>. When <span class="math inline">a_i(\phi) = 1</span> and <span class="math inline">c(y_i, \phi) = c(y_i)</span> we obtain <span class="math display">
+<li><p>As mentioned, special cases are <span class="math inline">a_i(\phi) = \phi</span> and <span class="math inline">a_i(\phi) = 1</span>. When <span class="math inline">a_i(\phi) = 1</span> and <span class="math inline">c(y_i, \phi) = c(y_i)</span> we obtain <span class="math display">
 p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
 </span> which is called <span class="orange">natural exponential family</span> of order 1.</p></li>
 </ul>
@@ -729,7 +729,7 @@ p(y_i; \mu_i, \sigma^2) &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{
 </span> In the Gaussian case, the <span class="blue">mean parametrization</span> and the <span class="orange">natural parametrization</span> coincide. Moreover, the <span class="orange">dispersion</span> <span class="math inline">\phi</span> coincides with the <span class="blue">variance</span> <span class="math inline">\sigma^2</span>.</p></li>
 <li><p>Using the results we previously discussed, we obtain the well-known relationships <span class="math display">
 \mathbb{E}(Y_i) = b'(\theta_i) = \theta_i, \qquad \text{var}(Y_i) = a_i(\phi)b''(\theta_i) = \phi.
-</span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = 1</span> is constant. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> with <span class="math inline">\mu_i \in \mathcal{M} = \mathbb{R}</span>.</p></li>
+</span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = 1</span> is <span class="orange">constant</span>. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> with <span class="math inline">\mu_i \in \mathcal{M} = \mathbb{R}</span>.</p></li>
 </ul>
 </section>
 <section id="poisson-distribution" class="slide level2 center">
@@ -752,7 +752,7 @@ b(\theta_i) &amp;= e^{\theta_i}, \quad &amp;&amp;c(y_i, \phi) = c(y_i) = -\log(y
 \mathbb{E}(Y_i) &amp;= b'(\theta_i) = e^{\theta_i} = \mu_i, \\
 \text{var}(Y_i) &amp;= a_i(\phi) b''(\theta_i) = e^{\theta_i} = \mu_i.
 \end{aligned}
-</span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = \mu_i</span> is <span class="blue">linear</span>. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> with <span class="math inline">\mu_i \in (0, \infty)</span>.</p></li>
+</span> The <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = \mu_i</span> is <span class="orange">linear</span>. We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> with <span class="math inline">\mu_i \in (0, \infty)</span>.</p></li>
 </ul>
 </section>
 <section id="gamma-distribution-i" class="slide level2 center">
@@ -920,7 +920,7 @@ g(\mu_i) = \bm{x}_i^T\beta, \qquad \theta_i = \theta(\mu_i) \quad \Longrightarro
 <div class="callout-body">
 <div class="callout-content">
 <p>The following link is called <span class="orange">canonical link</span> and it is implied by the distribution: <span class="math display">
-g(\mu_i) = \theta(\mu_i), \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta.
+g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta.
 </span> Such a choice leads to remarkable simplifications in the likelihood function.</p>
 </div>
 </div>
@@ -938,21 +938,169 @@ g(\mu_i) = \theta(\mu_i), \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta
 </section>
 <section id="likelihood-function" class="slide level2 center">
 <h2>Likelihood function</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span> be the response variable of a GLM, with <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span>. The <span class="blue">joint distribution</span> of <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)</span> is <span class="math display">
+p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
+</span> with <span class="math inline">\theta_i = \theta(\mu_i) = \theta(g^{-1}(\bm{x}_i^T\beta))</span>.</p></li>
+<li><p>The <span class="orange">log-likelihood</span> function therefore is <span class="math display">
+\ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
+</span></p></li>
+<li><p>In general, there is <span class="orange">no sufficient statistic</span> with dimension smaller than <span class="math inline">n</span>.</p></li>
+</ul>
 </section>
-<section id="sufficient-statistics" class="slide level2 center">
-<h2>Sufficient statistics</h2>
+<section id="sufficient-statistics-and-canonical-link" class="slide level2 center">
+<h2>Sufficient statistics and canonical link 📖</h2>
+<ul>
+<li><p>Consider the <span class="blue">canonical link</span>, namely <span class="math inline">\theta(\mu_i) = g(\mu_i)</span> so that <span class="math inline">\theta_i = \bm{x}_i^T\beta</span>. Then the log-likelihood function <span class="orange">simplifies</span>: <span class="math display">
+\begin{aligned}
+\ell(\beta, \phi) &amp;= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\
+&amp;= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi).
+\end{aligned}
+</span> If <span class="math inline">\phi</span> were <span class="blue">known</span> or fixed, say <span class="math inline">a_i(\phi) = \phi</span> with <span class="math inline">\phi</span> known or <span class="math inline">a_i(\phi) = 1/\omega_i</span>, then <span class="math display">
+\left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right),
+</span> is (minimal) <span class="blue">sufficient</span> of dimension <span class="math inline">p \le n</span> for inference on <span class="math inline">\beta</span>.</p></li>
+<li><p>In <span class="blue">logistic regression</span> for binary observations and <span class="orange">Poisson regression</span> with logarithmic link we have <span class="math inline">a_i(\phi) = 1</span>. The <span class="blue">sufficient</span> statistic is <span class="math inline">\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).</span></p></li>
+</ul>
 </section>
 <section id="likelihood-equations-i" class="slide level2 center">
-<h2>Likelihood equations I</h2>
+<h2>Likelihood equations I 📖</h2>
+<ul>
+<li>To conduct inference using the <span class="orange">classical theory</span> (as in <em>Statistica II</em>), we need to consider the first and second derivative of the log-likelihood, that is, the <span class="blue">score function</span> <span class="math display">
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
+</span> and the <span class="orange">hessian matrix</span>, whose elements are <span class="math display">
+\frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
+</span></li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>For now, let us focus on estimating <span class="math inline">\beta</span> and let us assume that <span class="math inline">\phi</span> is a <span class="blue">known parameter</span>, as in binomial and Poisson regression.</p>
+<p>This is not a restrictive even when <span class="math inline">\phi</span> is unknown. In fact, we will show that the maximum likelihood estimate <span class="math inline">\hat{\beta}</span> does not depend on <span class="math inline">\phi</span> and that <span class="math inline">\beta</span> and <span class="math inline">\phi</span> are <span class="orange">orthogonal parameters</span>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="likelihood-equations-ii" class="slide level2 center">
-<h2>Likelihood equations II</h2>
+<h2>Likelihood equations II 📖</h2>
+<ul>
+<li><p>Let us begin by noting that <span class="math display">
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+</span> Such an expression can be <span class="blue">simplified</span> because <span class="math display">
+\frac{\partial b(\theta_i)}{\partial \beta_r} = b'(\theta_i)\frac{\partial \theta_i}{\partial \beta_r} = \mu_i\frac{\partial \theta_i}{\partial \beta_r},
+</span> which implies that the score function will have the <span class="orange">structure</span> <span class="math display">
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
+</span></p></li>
+<li><p>Recall that <span class="math inline">a_i(\phi) = \phi/\omega_i</span>, hence the <span class="blue">maximum likelihood estimator</span> is obtained by solving: <span class="math display">
+\textcolor{red}{\cancel{\frac{1}{\phi}}}\sum_{i=1}^n\omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} = 0, \qquad r=1,\dots,p.
+</span></p></li>
+</ul>
 </section>
 <section id="likelihood-equations-iii" class="slide level2 center">
-<h2>Likelihood equations III</h2>
+<h2>Likelihood equations III 📖</h2>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let <span class="math inline">f(x)</span> be a function with <span class="orange">inverse</span> <span class="math inline">g(x) = f^{-1}(x)</span> and <span class="blue">first derivative</span> <span class="math inline">f'(x)</span>. Then <span class="math display">
+\frac{\partial g}{\partial{x}} = [f^{-1}]'(x) = \frac{1}{f'(f^{-1}(x))}.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>Recall that <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta = \eta_i</span> and that <span class="math inline">\theta_i = \theta(\mu_i)</span> is the inverse of <span class="math inline">\mu(\theta_i)</span>. As an <span class="blue">application</span> of the above <span class="blue">lemma</span>: <span class="math display">
+\frac{\partial \theta_i}{\partial \mu_i} = \theta'(\mu_i) = \frac{1}{\mu'(\theta(\mu_i))}= \frac{1}{b''(\theta(\mu_i))} = \frac{1}{v(\mu_i)},
+</span> Moreover, since we <span class="math inline">\mu_i = g^{-1}(\eta_i)</span> we obtain <span class="math display">
+\frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
+</span></li>
+<li>Summing up, the <span class="orange">chain rule of derivation</span> for <span class="blue">composite functions</span> implies: <span class="math display">
+\frac{\partial \theta_i}{\partial \beta_r} = \frac{\partial \theta_i}{\partial \mu_i} \frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} = \frac{1}{v(\mu_i)}\frac{1}{g'(\mu_i)}x_{ir}, \qquad r=1,\dots,p.
+</span></li>
+</ul>
 </section>
-<section id="example-poisson-loglinear-model" class="slide level2 center">
-<h2>Example: Poisson loglinear model</h2>
+<section id="likelihood-equations-iv" class="slide level2 center">
+<h2>Likelihood equations IV 📖</h2>
+<ul>
+<li>Combining all the above equations, we obtain an explicit formula for the score function <span class="math display">
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
+</span></li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">maximum likelihood estimator</span> is the solution of <span class="orange">likelihood equations</span>: <span class="math display">
+\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
+</span> which does not depend on <span class="math inline">\phi</span>. In <span class="blue">matrix notation</span> <span class="math display">
+\bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0},
+</span> where <span class="math inline">\bm{V} = \text{diag}(v(\mu_1)/\omega_1,\dots,v(\mu_n)/\omega_n)</span> and <span class="math inline">\bm{D}</span> is an <span class="math inline">n \times p</span> matrix whose elements are <span class="math display">
+d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} =\frac{1}{g'(\mu_i)}x_{ir}, \qquad i=1,\dots,n, \quad r=1,\dots,p.
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="canonical-link-simplifications" class="slide level2 center">
+<h2>Canonical link: simplifications</h2>
+<ul>
+<li>When using the <span class="orange">canonical link</span> <span class="math inline">\theta(\mu_i) = g(\mu_i)</span> there are major simplification, because <span class="math display">
+\frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
+</span> In other terms, this implies the simpler representation: <span class="math display">
+\frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
+</span> which is not surprising since in the canonical link <span class="math inline">\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p</span>.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="orange">likelihood equations</span> under the <span class="blue">canonical link</span> are <span class="math display">
+\sum_{i=1}^n \omega_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
+</span> Let <span class="math inline">\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span>, then in <span class="blue">matrix notation</span> <span class="math inline">\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}</span>. This simplifies even further the weights are constant because <span class="math inline">\bm{\Omega} = I_n</span>, obtaining <span class="math inline">\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="examples" class="slide level2 center">
+<h2>Examples</h2>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link. The likelihood equations are <span class="math display">
+\bm{X}^T(\bm{y} - \bm{X}\beta) = \bm{0},
+</span> which are also called <span class="orange">normal equations</span>. Their solution over <span class="math inline">\beta</span> is the OLS <span class="math inline">\hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link and <span class="blue">heteroschedastic errors</span>. The likelihood equations are <span class="math display">
+\bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
+</span> Their solution over <span class="math inline">\beta</span> is the weighted least square estimator <span class="math inline">\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> with <span class="math inline">g(\mu_i) = \log{\mu_i}</span>, namely a <span class="orange">Poisson</span> regression model with the <span class="grey">logarithmic</span> (canonical) link. The likelihood equations can be solved <span class="orange">numerically</span> <span class="math display">
+\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}, \qquad \bm{\mu} = (e^{\bm{x}_1^T\beta}, \dots,  e^{\bm{x}_n^T\beta}).
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-aids-data" class="slide level2 center">
+<h2>Example: <code>Aids</code> data</h2>
+<ul>
+<li><p>In the <code>Aids</code> data we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span>.</p></li>
+<li><p>The maximum likelihood estimate <span class="math inline">(\hat{\beta}_1, \hat{\beta}_2)</span> <span class="orange">solve</span> simultaneously: <span class="math display">
+\sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
+\text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
+</span></p></li>
+<li><p>This system does not always admits a solution. This happends, for example, in the extreme case <span class="math inline">\sum_{i=1}y_i = 0</span>, occurring when all counts equal zero.</p></li>
+<li><p>Using the <code>Aids</code> data <span class="math inline">\sum_{i=1}^ny_i = 217</span> and <span class="math inline">\sum_{i=1}^nx_i y_i = 2387</span> and via <span class="orange">numerical methods</span> we obtain <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>.</p></li>
+<li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
+\hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
+</span> In other words, the estimated increase of Aids deaths is about the <span class="math inline">30%</span> every trimester.</p></li>
+</ul>
 </section>
 <section id="observed-and-expected-information-i" class="slide level2 center">
 <h2>Observed and expected information I</h2>

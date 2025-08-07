@@ -62,3 +62,6 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
   theme_light() +
   xlab("Period") +
   ylab("Deaths")
+
+sum(Aids$deaths)
+sum(Aids$period * Aids$deaths)

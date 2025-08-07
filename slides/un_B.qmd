@@ -407,7 +407,7 @@ with $\mu_i \in \mathcal{M}$. Moreover, the [variance]{.orange} is connected to 
 $$
 \text{var}(Y_i) = a_i(\phi) v(\mu_i),
 $$
-We typically have $a_i(\phi) = \phi$, $a_i(\phi) = 1$ or $a_i(\phi) = \phi / w_i$  where $w_i$ are [known weights]{.blue}.
+where $a_i(\phi) = \phi / \omega_i$ and $\omega_i$ are [known weights]{.blue}. Special cases are $a_i(\phi) = \phi$ and $a_i(\phi) = 1$.
 
 :::
 
@@ -457,14 +457,14 @@ The [density]{.orange} of $Y_i$ belongs to an [exponential dispersion family]{.b
 $$
 p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\},
 $$
-where $y_i \in \mathcal{Y} \subseteq \mathbb{R}$, $\theta_i \in \Theta \subseteq\mathbb{R}$ and $a_i(\phi) > 0$. The parameter $\theta_i$ is called [natural parameter]{.orange} while $\phi$ is called [dispersion]{.blue} parameter. 
+where $y_i \in \mathcal{Y} \subseteq \mathbb{R}$, $\theta_i \in \Theta \subseteq\mathbb{R}$ and $a_i(\phi) = \phi / \omega_i$ where $\omega_i$ are [known positive weights]{.blue}. The parameter $\theta_i$ is called [natural parameter]{.orange} while $\phi$ is called [dispersion]{.blue} parameter. 
 :::
 
 - By specifying the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$ one obtain a particular [parametric model]{.orange}. 
 
 - The support $\mathcal{Y}$ of $Y_i$ does not depend on the parameters $\phi$ or $\theta_i$ and $b(\cdot)$ can be [differentiated]{.blue} infinitely many times. In particular, this is a [regular statistical model]{.orange}. 
 
-- As mentioned, we typically have $a_i(\phi) = \phi$, $a_i(\phi) = 1$ or $a_i(\phi) = \phi / w_i$  where $w_i$ are [known weights]{.blue}. When $a_i(\phi) = 1$ and $c(y_i, \phi) = c(y_i)$ we obtain
+- As mentioned, special cases are $a_i(\phi) = \phi$ and $a_i(\phi) = 1$. When $a_i(\phi) = 1$ and $c(y_i, \phi) = c(y_i)$ we obtain
 $$
 p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
 $$
@@ -564,7 +564,7 @@ In the Gaussian case, the [mean parametrization]{.blue} and the [natural paramet
 $$
 \mathbb{E}(Y_i) = b'(\theta_i) = \theta_i, \qquad \text{var}(Y_i) = a_i(\phi)b''(\theta_i) = \phi.
 $$
-The [variance function]{.blue} $v(\mu_i) = 1$ is constant. We will write $Y_i \sim \text{ED}(\mu_i, \phi)$ with $\mu_i \in \mathcal{M} = \mathbb{R}$. 
+The [variance function]{.blue} $v(\mu_i) = 1$ is [constant]{.orange}. We will write $Y_i \sim \text{ED}(\mu_i, \phi)$ with $\mu_i \in \mathcal{M} = \mathbb{R}$. 
 
 ## Poisson distribution 📖
 
@@ -591,7 +591,7 @@ There is [no dispersion]{.orange} parameter since $a_i(\phi) = 1$.
 \text{var}(Y_i) &= a_i(\phi) b''(\theta_i) = e^{\theta_i} = \mu_i.
 \end{aligned}
 $$
-The [variance function]{.blue} $v(\mu_i) = \mu_i$ is [linear]{.blue}. We will write $Y_i \sim \text{ED}(\mu_i, \mu_i)$ with $\mu_i \in (0, \infty)$. 
+The [variance function]{.blue} $v(\mu_i) = \mu_i$ is [linear]{.orange}. We will write $Y_i \sim \text{ED}(\mu_i, \mu_i)$ with $\mu_i \in (0, \infty)$. 
 
 ## Gamma distribution I 📖
 
@@ -706,7 +706,7 @@ $$
 :::callout-tip
 The following link is called [canonical link]{.orange} and it is implied by the distribution:
 $$
-g(\mu_i) = \theta(\mu_i), \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta. 
+g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta. 
 $$
 Such a choice leads to remarkable simplifications in the likelihood function.
 :::
@@ -719,15 +719,191 @@ Such a choice leads to remarkable simplifications in the likelihood function.
 
 ## Likelihood function
 
-## Sufficient statistics
+- Let $Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$ be the response variable of a GLM, with $g(\mu_i) = \bm{x}_i^T\beta$. The [joint distribution]{.blue} of $\bm{Y} = (Y_1,\dots,Y_n)$ is
+$$
+p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
+$$
+with $\theta_i = \theta(\mu_i) = \theta(g^{-1}(\bm{x}_i^T\beta))$. 
 
-## Likelihood equations I
+- The [log-likelihood]{.orange} function therefore is
+$$
+\ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
+$$
+- In general, there is [no sufficient statistic]{.orange} with dimension smaller than $n$. 
 
-## Likelihood equations II
+## Sufficient statistics and canonical link 📖
 
-## Likelihood equations III
+- Consider the [canonical link]{.blue}, namely $\theta(\mu_i) = g(\mu_i)$ so that $\theta_i = \bm{x}_i^T\beta$. Then the log-likelihood function [simplifies]{.orange}:
+$$
+\begin{aligned}
+\ell(\beta, \phi) &= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\
+&= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi).
+\end{aligned}
+$$
+If $\phi$ were [known]{.blue} or fixed, say $a_i(\phi) = \phi$ with $\phi$ known or $a_i(\phi) = 1/\omega_i$, then
+$$
+\left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right),
+$$
+is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$. 
 
-## Example: Poisson loglinear model
+- In [logistic regression]{.blue} for binary observations and [Poisson regression]{.orange} with logarithmic link we have $a_i(\phi) = 1$. The [sufficient]{.blue} statistic is $\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).$
+
+
+## Likelihood equations I 📖
+
+- To conduct inference using the [classical theory]{.orange} (as in _Statistica II_), we need to consider the first and second derivative of the log-likelihood, that is, the [score function]{.blue}
+$$
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
+$$
+and the [hessian matrix]{.orange}, whose elements are
+$$
+\frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
+$$
+
+
+:::callout-warning
+For now, let us focus on estimating $\beta$ and let us assume that $\phi$ is a [known parameter]{.blue}, as in binomial and Poisson regression. 
+
+This is not a restrictive even when $\phi$ is unknown. In fact, we will show that the maximum likelihood estimate $\hat{\beta}$ does not depend on $\phi$ and that $\beta$ and $\phi$ are [orthogonal parameters]{.orange}.
+:::
+
+## Likelihood equations II 📖
+
+- Let us begin by noting that
+$$
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+$$
+Such an expression can be [simplified]{.blue} because
+$$
+\frac{\partial b(\theta_i)}{\partial \beta_r} = b'(\theta_i)\frac{\partial \theta_i}{\partial \beta_r} = \mu_i\frac{\partial \theta_i}{\partial \beta_r},
+$$
+which implies that the score function will have the [structure]{.orange}
+$$
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
+$$
+
+- Recall that $a_i(\phi) = \phi/\omega_i$, hence the [maximum likelihood estimator]{.blue} is obtained by solving:
+$$
+\textcolor{red}{\cancel{\frac{1}{\phi}}}\sum_{i=1}^n\omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} = 0, \qquad r=1,\dots,p.
+$$
+
+## Likelihood equations III 📖
+
+::: {.callout-tip}
+Let $f(x)$ be a function with [inverse]{.orange} $g(x) = f^{-1}(x)$ and [first derivative]{.blue} $f'(x)$. Then
+$$
+\frac{\partial g}{\partial{x}} = [f^{-1}]'(x) = \frac{1}{f'(f^{-1}(x))}.
+$$
+:::
+
+- Recall that $g(\mu_i) = \bm{x}_i^T\beta = \eta_i$ and that $\theta_i = \theta(\mu_i)$ is the inverse of $\mu(\theta_i)$. As an [application]{.blue} of the above [lemma]{.blue}:
+$$
+\frac{\partial \theta_i}{\partial \mu_i} = \theta'(\mu_i) = \frac{1}{\mu'(\theta(\mu_i))}= \frac{1}{b''(\theta(\mu_i))} = \frac{1}{v(\mu_i)},
+$$
+Moreover, since we $\mu_i = g^{-1}(\eta_i)$ we obtain 
+$$
+\frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
+$$
+- Summing up, the [chain rule of derivation]{.orange} for [composite functions]{.blue} implies:
+$$
+\frac{\partial \theta_i}{\partial \beta_r} = \frac{\partial \theta_i}{\partial \mu_i} \frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} = \frac{1}{v(\mu_i)}\frac{1}{g'(\mu_i)}x_{ir}, \qquad r=1,\dots,p.
+$$
+
+## Likelihood equations IV 📖
+
+- Combining all the above equations, we obtain an explicit formula for the score function
+$$
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
+$$
+
+:::{.callout-note}
+
+The [maximum likelihood estimator]{.blue} is the solution of [likelihood equations]{.orange}:
+$$
+\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
+$$
+which does not depend on $\phi$. In [matrix notation]{.blue}
+$$
+\bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0},
+$$
+where $\bm{V} = \text{diag}(v(\mu_1)/\omega_1,\dots,v(\mu_n)/\omega_n)$ and $\bm{D}$ is an $n \times p$ matrix whose elements are
+$$
+d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} =\frac{1}{g'(\mu_i)}x_{ir}, \qquad i=1,\dots,n, \quad r=1,\dots,p.
+$$
+:::
+
+## Canonical link: simplifications
+
+- When using the [canonical link]{.orange} $\theta(\mu_i) = g(\mu_i)$ there are major simplification, because
+$$
+\frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
+$$
+In other terms, this implies the simpler representation:
+$$
+\frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
+$$
+which is not surprising since in the canonical link $\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p$.
+
+:::callout-note
+The [likelihood equations]{.orange} under the [canonical link]{.blue} are
+$$
+\sum_{i=1}^n \omega_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
+$$
+Let $\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$, then in [matrix notation]{.blue} $\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}$. This simplifies even further the weights are constant because $\bm{\Omega} = I_n$, obtaining $\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}$.
+:::
+
+## Examples
+
+:::callout-tip
+Let $Y_i \sim \text{ED}(\mu_i, \phi)$ with $g(\mu_i) = \mu_i$, namely the [Gaussian]{.orange} linear model with the [identity]{.grey} (canonical) link. The likelihood equations are
+$$
+\bm{X}^T(\bm{y} - \bm{X}\beta) = \bm{0},
+$$
+which are also called [normal equations]{.orange}. Their solution over $\beta$ is the OLS $\hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}$. 
+:::
+
+:::callout-tip
+Let $Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)$ with $g(\mu_i) = \mu_i$, namely the [Gaussian]{.orange} linear model with the [identity]{.grey} (canonical) link and [heteroschedastic errors]{.blue}. The likelihood equations are
+$$
+\bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
+$$
+Their solution over $\beta$ is the weighted least square estimator $\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}$. 
+:::
+
+:::callout-tip
+Let $Y_i \sim \text{ED}(\mu_i, \mu_i)$ with $g(\mu_i) = \log{\mu_i}$, namely a [Poisson]{.orange} regression model with the [logarithmic]{.grey} (canonical) link. The likelihood equations can be solved [numerically]{.orange}
+$$
+\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}, \qquad \bm{\mu} = (e^{\bm{x}_1^T\beta}, \dots,  e^{\bm{x}_n^T\beta}). 
+$$
+:::
+
+## Example: `Aids` data
+
+- In the `Aids` data we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$. 
+
+- The maximum likelihood estimate $(\hat{\beta}_1, \hat{\beta}_2)$ [solve]{.orange} simultaneously:
+$$
+\sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
+\text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
+$$
+- This system does not always admits a solution. This happends, for example, in the extreme case $\sum_{i=1}y_i = 0$, occurring when all counts equal zero.
+
+- Using the `Aids` data $\sum_{i=1}^ny_i = 217$ and $\sum_{i=1}^nx_i y_i = 2387$ and via [numerical methods]{.orange} we obtain $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$.
+
+- The estimated mean values are $\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)$ and in particular the mean for the [next period]{.blue} is
+$$
+\hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
+$$
+In other words, the estimated increase of Aids deaths is about the $30%$ every trimester. 
+
+```{r}
+#| echo: false
+#| include: false
+sum(Aids$deaths)
+sum(Aids$period * Aids$deaths)
+```
+
+
 
 ## Observed and expected information I
 
