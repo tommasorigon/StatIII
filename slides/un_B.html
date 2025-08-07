@@ -670,7 +670,7 @@ g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1
 Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
 </span> with <span class="math inline">\mu_i \in \mathcal{M}</span>. Moreover, the <span class="orange">variance</span> is connected to the <span class="blue">mean</span> via <span class="math inline">v(\mu)</span>: <span class="math display">
 \text{var}(Y_i) = a_i(\phi) v(\mu_i),
-</span> where <span class="math inline">a_i(\phi) = \phi / w_i</span> and <span class="math inline">w_i</span> are <span class="blue">known weights</span>. Special cases are <span class="math inline">a_i(\phi) = \phi</span> and <span class="math inline">a_i(\phi) = 1</span>.</p>
+</span> where <span class="math inline">a_i(\phi) = \phi / \omega_i</span> and <span class="math inline">\omega_i</span> are <span class="blue">known weights</span>. Special cases are <span class="math inline">a_i(\phi) = \phi</span> and <span class="math inline">a_i(\phi) = 1</span>.</p>
 </div>
 </div>
 </div>
@@ -742,7 +742,7 @@ Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_
 <div class="callout-body-container">
 <p>The <span class="orange">density</span> of <span class="math inline">Y_i</span> belongs to an <span class="blue">exponential dispersion family</span> if it can be written as <span class="math display">
 p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\},
-</span> where <span class="math inline">y_i \in \mathcal{Y} \subseteq \mathbb{R}</span>, <span class="math inline">\theta_i \in \Theta \subseteq\mathbb{R}</span> and <span class="math inline">a_i(\phi) = \phi / w_i</span> where <span class="math inline">w_i</span> are <span class="blue">known positive weights</span>. The parameter <span class="math inline">\theta_i</span> is called <span class="orange">natural parameter</span> while <span class="math inline">\phi</span> is called <span class="blue">dispersion</span> parameter.</p>
+</span> where <span class="math inline">y_i \in \mathcal{Y} \subseteq \mathbb{R}</span>, <span class="math inline">\theta_i \in \Theta \subseteq\mathbb{R}</span> and <span class="math inline">a_i(\phi) = \phi / \omega_i</span> where <span class="math inline">\omega_i</span> are <span class="blue">known positive weights</span>. The parameter <span class="math inline">\theta_i</span> is called <span class="orange">natural parameter</span> while <span class="math inline">\phi</span> is called <span class="blue">dispersion</span> parameter.</p>
 </div>
 </div>
 </div>
@@ -1051,7 +1051,7 @@ g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta.
 <h2 class="anchored" data-anchor-id="likelihood-function">Likelihood function</h2>
 <ul>
 <li><p>Let <span class="math inline">Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span> be the response variable of a GLM, with <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span>. The <span class="blue">joint distribution</span> of <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)</span> is <span class="math display">
-p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
+p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
 </span> with <span class="math inline">\theta_i = \theta(\mu_i) = \theta(g^{-1}(\bm{x}_i^T\beta))</span>.</p></li>
 <li><p>The <span class="orange">log-likelihood</span> function therefore is <span class="math display">
 \ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
@@ -1067,7 +1067,7 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \exp\left\{\frac{y_i
 \ell(\beta, \phi) &amp;= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\
 &amp;= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi).
 \end{aligned}
-</span> If <span class="math inline">\phi</span> were <span class="blue">known</span> or fixed, say <span class="math inline">a_i(\phi) = \phi</span> with <span class="math inline">\phi</span> known or <span class="math inline">a_i(\phi) = 1/w_i</span>, then <span class="math display">
+</span> If <span class="math inline">\phi</span> were <span class="blue">known</span> or fixed, say <span class="math inline">a_i(\phi) = \phi</span> with <span class="math inline">\phi</span> known or <span class="math inline">a_i(\phi) = 1/\omega_i</span>, then <span class="math display">
 \left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right),
 </span> is (minimal) <span class="blue">sufficient</span> of dimension <span class="math inline">p \le n</span> for inference on <span class="math inline">\beta</span>.</p></li>
 <li><p>In <span class="blue">logistic regression</span> for binary observations and <span class="orange">Poisson regression</span> with logarithmic link we have <span class="math inline">a_i(\phi) = 1</span>. The <span class="blue">sufficient</span> statistic is <span class="math inline">\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).</span></p></li>
@@ -1104,8 +1104,8 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \exp\left\{\frac{y_i
 </span> which implies that the score function will have the <span class="orange">structure</span> <span class="math display">
 \frac{\partial}{\partial \beta_r}\ell(\beta; \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
 </span></p></li>
-<li><p>Recall that <span class="math inline">a_i(\phi) = \phi/w_i</span>, hence the <span class="blue">maximum likelihood estimator</span> is obtained by solving: <span class="math display">
-\textcolor{red}{\cancel{\frac{1}{\phi}}}\sum_{i=1}^nw_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} = 0, \qquad r=1,\dots,p.
+<li><p>Recall that <span class="math inline">a_i(\phi) = \phi/\omega_i</span>, hence the <span class="blue">maximum likelihood estimator</span> is obtained by solving: <span class="math display">
+\textcolor{red}{\cancel{\frac{1}{\phi}}}\sum_{i=1}^n\omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} = 0, \qquad r=1,\dots,p.
 </span></p></li>
 </ul>
 </section>
@@ -1138,7 +1138,7 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \exp\left\{\frac{y_i
 <h2 class="anchored" data-anchor-id="likelihood-equations-iv">Likelihood equations IV 📖</h2>
 <ul>
 <li>Combining all the above equations, we obtain an explicit formula for the score function <span class="math display">
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n w_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
 </span></li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -1148,10 +1148,10 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \exp\left\{\frac{y_i
 </div>
 <div class="callout-body-container">
 <p>The <span class="blue">maximum likelihood estimator</span> is the solution of <span class="orange">likelihood equations</span>: <span class="math display">
-\sum_{i=1}^n w_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
+\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
 </span> which does not depend on <span class="math inline">\phi</span>. In <span class="blue">matrix notation</span> <span class="math display">
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0},
-</span> where <span class="math inline">\bm{V} = \text{diag}(v(\mu_1)/w_1,\dots,v(\mu_n)/w_n)</span> and <span class="math inline">\bm{D}</span> is an <span class="math inline">n \times p</span> matrix whose elements are <span class="math display">
+</span> where <span class="math inline">\bm{V} = \text{diag}(v(\mu_1)/\omega_1,\dots,v(\mu_n)/\omega_n)</span> and <span class="math inline">\bm{D}</span> is an <span class="math inline">n \times p</span> matrix whose elements are <span class="math display">
 d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} =\frac{1}{g'(\mu_i)}x_{ir}, \qquad i=1,\dots,n, \quad r=1,\dots,p.
 </span></p>
 </div>
@@ -1174,8 +1174,8 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </div>
 <div class="callout-body-container">
 <p>The <span class="orange">likelihood equations</span> under the <span class="blue">canonical link</span> are <span class="math display">
-\sum_{i=1}^n w_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
-</span> Let <span class="math inline">\bm{\Omega} = \text{diag}(w_1,\dots,w_m)</span>, then in <span class="blue">matrix notation</span> <span class="math inline">\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}</span>. This simplifies even further the weights are constant because <span class="math inline">\bm{\Omega} = I_n</span>, obtaining <span class="math inline">\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}</span>.</p>
+\sum_{i=1}^n \omega_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
+</span> Let <span class="math inline">\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span>, then in <span class="blue">matrix notation</span> <span class="math inline">\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}</span>. This simplifies even further the weights are constant because <span class="math inline">\bm{\Omega} = I_n</span>, obtaining <span class="math inline">\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}</span>.</p>
 </div>
 </div>
 </div>
@@ -1200,7 +1200,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi/w_i)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link and <span class="blue">heteroschedastic errors</span>. The likelihood equations are <span class="math display">
+<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link and <span class="blue">heteroschedastic errors</span>. The likelihood equations are <span class="math display">
 \bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
 </span> Their solution over <span class="math inline">\beta</span> is the weighted least square estimator <span class="math inline">\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}</span>.</p>
 </div>
@@ -1222,7 +1222,16 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <section id="example-aids-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data">Example: <code>Aids</code> data</h2>
 <ul>
-<li>In <code>Aids</code> data example, we specified a loglinear Poisson regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span>.</li>
+<li><p>In the <code>Aids</code> data we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span>.</p></li>
+<li><p>The maximum likelihood estimate <span class="math inline">(\hat{\beta}_1, \hat{\beta}_2)</span> <span class="orange">solve</span> simultaneously: <span class="math display">
+\sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
+\text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
+</span></p></li>
+<li><p>This system does not always admits a solution. This happends, for example, in the extreme case <span class="math inline">\sum_{i=1}y_i = 0</span>, occurring when all counts equal zero.</p></li>
+<li><p>Using the <code>Aids</code> data <span class="math inline">\sum_{i=1}^ny_i = 217</span> and <span class="math inline">\sum_{i=1}^nx_i y_i = 2387</span> and via <span class="orange">numerical methods</span> we obtain <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>.</p></li>
+<li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
+\hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
+</span> In other words, the estimated increase of Aids deaths is about the <span class="math inline">30%</span> every trimester.</p></li>
 </ul>
 </section>
 <section id="observed-and-expected-information-i" class="level2">
