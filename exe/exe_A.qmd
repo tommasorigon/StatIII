@@ -37,7 +37,26 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
-#### **Salvan et al. (2020), Exercise 1.8**
+#### Agresti (2015), Exercise 2.4
+
+In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$.
+
+:::
+
+:::{.callout-note collapse=true}
+#### Agresti (2015), Exercise 2.42
+
+In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta_1 x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
+
+(a) Show that the weighted least squares estimator minimizes $\sum_{i=1}^n(y_i - \beta x_i)^2/x_i$ (i.e., giving more weight to observation with smaller $x_i$) and has $\hat{\beta}_\text{wls} = \bar{y}/\bar{x}$, with $\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i$.
+
+(b) Show that the ordinary least squares estimator is $\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2$ and has $\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2$. 
+
+(c) Show that $\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})$. 
+:::
+
+:::{.callout-note collapse=true}
+#### Salvan et al. (2020), Exercise 1.8
 
 Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
 $$
@@ -50,7 +69,7 @@ so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in t
 
 (b) Explain why the [added-variable plot]{.blue} (residuals $\bm{r}$ vs. residuals from regressing $\bm{z}$ on $\bm{X}$) helps assess whether to include $\bm{z}$.  
 
-(c) Using the plots in the figure below, comment on the result and suggest how to modify the model.
+(c) Using the plots in the figure below, referring to the same set of data, comment on the results and suggest how to modify the model.
 
 ```{r}
 set.seed(123)
@@ -62,14 +81,42 @@ y <- 1 + x1 + x2 - 5 * z + rnorm(100, 0, 0.3)
 plot(z, residuals(lm(y ~ x1 + x2)), pch = 16)
 plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
 ```
-
-
 :::
+
 
 ## Data analysis
 
+:::{.callout-note collapse=true}
+#### `Abrasion` dataset. Salvan et al. (2020), Exercise 1.12
+
+The dataset `Abrasion` (Hand et al., 1994), available in the `MLGdata` R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (`perdita`, in grams per hour) was recorded. For each sample, the following variables were also measured:  
+
+- `D`: hardness (in Shore degrees),  
+- `Re`: tensile strength (kg/cm²).  
+
+(a) Identify the statistical units, the response variable, and the explanatory variables, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).
+
+(b) Perform a graphical analysis to assess whether a linear regression model may be appropriate.
+
+(c) Specify a simple linear regression model, choosing an appropriate explanatory variable.
+
+(d) Fit the simple linear regression model from (c) in **R**.
+
+(e) Report the estimates and 95% confidence intervals for the coefficients. Interpret the estimated values.
+
+(f) For each element of the R  `summary` output of the `lm` object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.
+
+(g) Evaluate the goodness of fit of the model.
+
+(h) Fit a multiple regression model in **R** including both explanatory variables. Interpret the estimated coefficients.
+
+(i) Evaluate the goodness of fit of the multiple regression model.
+
+(j) Obtain a 95% confidence interval for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% prediction interval for the response.
+:::
+
 ::: {.callout-note collapse=true}
-#### **Agresti (2015), Exercise 1.21**
+#### `FEV` dataset. Agresti (2015), Exercise 1.21
 
 Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset `FEV.dat` is [available here](../data/FEV.dat); the first six observations are shown below.
 
@@ -78,7 +125,7 @@ In this analysis, let $y$ denote the FEV1 value after one hour of treatment (var
 - $x_1$: baseline FEV1 measurement prior to treatment (`base`),  
 - $x_2$: treatment group (categorical variable `drug` with labels `a`, `b`, `p`).  
 
-[Download the data](../data/FEV.dat) and fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$. For each model, [interpret]{.blue} the estimated parameters.
+[Download the data](../data/FEV.dat) and fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$. Test to see whether the interaction terms are needed. For each model, [interpret]{.blue} the estimated parameters. Check the underlying assumptions of the fitted models.
 
 ```{r}
 FAV <- read.table("../data/FEV.dat", header = TRUE)
@@ -89,15 +136,15 @@ knitr::kable(head(FAV))
 
 
 :::{.callout-note collapse=true}
-#### **Agresti (2015), Exercise 1.24**
+#### `Anorexia` dataset. Agresti (2015), Exercise 1.24
 
-For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The data format is illustrated below. During the study, the participants were randomly assigned to one of three therapy groups:  
+For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The data format is illustrated below. During the study, the participants were randomly assigned to one of three `therapy` groups:  
 
-- **Control group**: received the standard therapy (label `c`),  
-- **Family therapy** (label `f`),  
-- **Cognitive behavioral therapy** (label `b`).  
+- Control group: received the standard therapy (label `c`),  
+- Family therapy (label `f`),  
+- Cognitive behavioral therapy (label `b`).  
 
-[Download the data](../data/Anorexia.dat) and fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}.   [Interpret]{.blue} the estimated parameters of the model.
+[Download the data](../data/Anorexia.dat) and fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}. [Interpret]{.blue} the estimated parameters of the model. Check the underlying assumptions.
 
 Convert the weights to kilograms ($1\ \text{lb} = 0.453592\ \text{kg}$), repeat the analysis, and discuss whether the results change and why.  
 
