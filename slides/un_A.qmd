@@ -771,17 +771,17 @@ where $\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $\hat{w}_
 
 - Let us consider again the case of [heteroschedastic errors]{.blue}:
 $$
-\text{var}(\bm{\epsilon}) = \sigma^2\bm{W}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{w_i}, \quad i=1,\dots,n
+\text{var}(\bm{\epsilon}) = \sigma^2\bm{\Omega}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
 $$
-where $\bm{W} = \text{diag}(w_1,\dots,w_n)$ are positive [weights]{.orange}. However, here we assume that the weights $w_1,\dots,w_n$ are [known]{.blue}, a common situation in survey design. 
+where $\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$ are positive [weights]{.orange}. However, here we assume that the weights $\omega_1,\dots,\omega_n$ are [known]{.blue}, a common situation in survey design. 
 
 - Let us define the [standardized]{.orange} quantities:
 $$
-\bm{Y}^* = \bm{W}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{W}^{1/2}\bm{X}. 
+\bm{Y}^* = \bm{\Omega}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{\Omega}^{1/2}\bm{X}. 
 $$
-This is equivalent to say that $Y_i^* = \sqrt{w_i} Y_i$ and $x_{ij}^* = \sqrt{w_i} x_{ij}$. Then, it is easy to show that
+This is equivalent to say that $Y_i^* = \sqrt{\omega_i} Y_i$ and $x_{ij}^* = \sqrt{\omega_i} x_{ij}$. Then, it is easy to show that
 $$
-\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{W}^{1/2}\bm{W}^{-1}\bm{W}^{1/2}= \sigma^2 I_n,
+\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{\Omega}^{1/2}\bm{\Omega}^{-1}\bm{\Omega}^{1/2}= \sigma^2 I_n,
 $$
 namely the [assumptions]{.orange} **(A.1)** and **(A.2)** are valid in the [transformed scale]{.blue}.
 
@@ -792,23 +792,23 @@ namely the [assumptions]{.orange} **(A.1)** and **(A.2)** are valid in the [tran
 - Thus an estimator for $\beta$, based on the transformed data, is obtained minimizing the deviance
 $$
 \begin{aligned}
-D_\text{wls}(\beta) &= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{W}(\bm{y} - \bm{X}\beta) \\
-&=\sum_{i=1}^n w_i (y_i - \bm{x}_i^T\beta)^2.
+D_\text{wls}(\beta) &= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{\Omega}(\bm{y} - \bm{X}\beta) \\
+&=\sum_{i=1}^n \omega_i (y_i - \bm{x}_i^T\beta)^2.
 \end{aligned}
 $$
 which is a [weighted]{.orange} version of the original [quadratic loss]{.blue}, with [high weight = low variance]{.orange}.
 
 - The resulting OLS estimate minimizing $D_\text{wls}(\beta)$ in the transformed and original scales is
 $$
-\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}^T\bm{W}\bm{y} 
+\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y} 
 $$
 and it is referred to as [weighted least squares]{.blue} estimator of $\beta$.
 
 - Such an estimator is [unbiased]{.orange} and [efficient]{.orange} ([BLUE]{.blue}), with
 $$
-\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{W}\bm{X})^{-1}.
+\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{\Omega}\bm{X})^{-1}.
 $$
-Moreover, if $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})$ it also coincides with the [maximum likelihood]{.orange} estimator. 
+Moreover, if $\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{\Omega}^{-1})$ it also coincides with the [maximum likelihood]{.orange} estimator. 
 
 
 ## Variable transformations

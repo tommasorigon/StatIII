@@ -918,12 +918,12 @@ Classical assumptions of linear models
 <h2 class="anchored" data-anchor-id="weighted-least-squares-i">Weighted least squares I 📖</h2>
 <ul>
 <li><p>Let us consider again the case of <span class="blue">heteroschedastic errors</span>: <span class="math display">
-\text{var}(\bm{\epsilon}) = \sigma^2\bm{W}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{w_i}, \quad i=1,\dots,n
-</span> where <span class="math inline">\bm{W} = \text{diag}(w_1,\dots,w_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">w_1,\dots,w_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
+\text{var}(\bm{\epsilon}) = \sigma^2\bm{\Omega}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
+</span> where <span class="math inline">\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">\omega_1,\dots,\omega_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
 <li><p>Let us define the <span class="orange">standardized</span> quantities: <span class="math display">
-\bm{Y}^* = \bm{W}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{W}^{1/2}\bm{X}.
-</span> This is equivalent to say that <span class="math inline">Y_i^* = \sqrt{w_i} Y_i</span> and <span class="math inline">x_{ij}^* = \sqrt{w_i} x_{ij}</span>. Then, it is easy to show that <span class="math display">
-\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{W}^{1/2}\bm{W}^{-1}\bm{W}^{1/2}= \sigma^2 I_n,
+\bm{Y}^* = \bm{\Omega}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{\Omega}^{1/2}\bm{X}.
+</span> This is equivalent to say that <span class="math inline">Y_i^* = \sqrt{\omega_i} Y_i</span> and <span class="math inline">x_{ij}^* = \sqrt{\omega_i} x_{ij}</span>. Then, it is easy to show that <span class="math display">
+\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{\Omega}^{1/2}\bm{\Omega}^{-1}\bm{\Omega}^{1/2}= \sigma^2 I_n,
 </span> namely the <span class="orange">assumptions</span> <strong>(A.1)</strong> and <strong>(A.2)</strong> are valid in the <span class="blue">transformed scale</span>.</p></li>
 <li><p>In other words, <span class="orange">after</span> a suitable <span class="orange">transformation</span>, we reconducted the problem to a <span class="blue">standard linear model</span>.</p></li>
 </ul>
@@ -933,16 +933,16 @@ Classical assumptions of linear models
 <ul>
 <li><p>Thus an estimator for <span class="math inline">\beta</span>, based on the transformed data, is obtained minimizing the deviance <span class="math display">
 \begin{aligned}
-D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{W}(\bm{y} - \bm{X}\beta) \\
-&amp;=\sum_{i=1}^n w_i (y_i - \bm{x}_i^T\beta)^2.
+D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{\Omega}(\bm{y} - \bm{X}\beta) \\
+&amp;=\sum_{i=1}^n \omega_i (y_i - \bm{x}_i^T\beta)^2.
 \end{aligned}
 </span> which is a <span class="orange">weighted</span> version of the original <span class="blue">quadratic loss</span>, with <span class="orange">high weight = low variance</span>.</p></li>
 <li><p>The resulting OLS estimate minimizing <span class="math inline">D_\text{wls}(\beta)</span> in the transformed and original scales is <span class="math display">
-\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}^T\bm{W}\bm{y}
+\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}
 </span> and it is referred to as <span class="blue">weighted least squares</span> estimator of <span class="math inline">\beta</span>.</p></li>
 <li><p>Such an estimator is <span class="orange">unbiased</span> and <span class="orange">efficient</span> (<span class="blue">BLUE</span>), with <span class="math display">
-\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{W}\bm{X})^{-1}.
-</span> Moreover, if <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{W}^{-1})</span> it also coincides with the <span class="orange">maximum likelihood</span> estimator.</p></li>
+\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{\Omega}\bm{X})^{-1}.
+</span> Moreover, if <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{\Omega}^{-1})</span> it also coincides with the <span class="orange">maximum likelihood</span> estimator.</p></li>
 </ul>
 </section>
 <section id="variable-transformations" class="level2">
@@ -1013,10 +1013,10 @@ f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\p
 <h2 class="anchored" data-anchor-id="box-cox-transform-derivation-ii">Box-Cox transform: derivation II 📖</h2>
 <ul>
 <li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
-\hat{\beta}(\lambda) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2(\lambda) = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda))^T(\bm{z}_\lambda - \bm{X}\hat{\beta}(\lambda)),
+\hat{\beta}_\lambda = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2_\lambda = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda)^T(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda),
 </span></p></li>
 <li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
-\ell_P(\lambda) = \ell(\hat{\beta}(\lambda), \hat{\sigma}^2(\lambda), \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2(\lambda)} + (\lambda -1)\sum_{i=1}^n\log{y_i},
+\ell_P(\lambda) = \ell(\hat{\beta}_\lambda, \hat{\sigma}^2_\lambda, \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2_\lambda} + (\lambda -1)\sum_{i=1}^n\log{y_i},
 </span> which must be <span class="orange">numerically maximized</span> over <span class="math inline">\lambda</span>, e.g.&nbsp;using <code>optim</code>.</p></li>
 <li><p>The optimal value <span class="math inline">\hat{\lambda} = \arg\max\ell_P(\lambda)</span>, as well as a confidence interval for it, may offer guidance in choosing the right transformation.</p></li>
 </ul>
@@ -1109,9 +1109,9 @@ Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad 
 <ul>
 <li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-E(g(Y_i)) \neq g(\mathbb{E}(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and not an estimate for its mean.</p></li>
-<li><p>When <span class="math inline">g(y) = \log{y}</span> this difference can be made explicit, because we have <span class="math display">
+g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and <span class="orange">not an estimate</span> for its <span class="orange">mean</span>.</p></li>
+<li><p>When <span class="math inline">g(y) = \log{y}</span> this distinction can be made explicit, because we have <span class="math display">
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
 </span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
 </ul>
