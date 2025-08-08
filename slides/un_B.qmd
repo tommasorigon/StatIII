@@ -729,6 +729,9 @@ with $\theta_i = \theta(\mu_i) = \theta(g^{-1}(\bm{x}_i^T\beta))$.
 $$
 \ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
 $$
+
+. . .
+
 - In general, there is [no sufficient statistic]{.orange} with dimension smaller than $n$. 
 
 ## Sufficient statistics and canonical link 📖
@@ -755,11 +758,12 @@ is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$
 $$
 \frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
 $$
-and the [hessian matrix]{.orange}, whose elements are
+and the [observed information matrix]{.orange} $\bm{J}$, whose elements are
 $$
-\frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
+j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
 $$
 
+. . .
 
 :::callout-warning
 For now, let us focus on estimating $\beta$ and let us assume that $\phi$ is a [known parameter]{.blue}, as in binomial and Poisson regression. 
@@ -822,7 +826,7 @@ The [maximum likelihood estimator]{.blue} is the solution of [likelihood equatio
 $$
 \sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
 $$
-which does not depend on $\phi$. In [matrix notation]{.blue}
+which do not depend on $\phi$. In [matrix notation]{.blue}
 $$
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0},
 $$
@@ -838,18 +842,18 @@ $$
 $$
 \frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
 $$
-In other terms, this implies the simpler representation:
+In other terms, we obtain the simple equality:
 $$
 \frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
 $$
-which is not surprising since in the canonical link $\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p$.
+which is not surprising since the canonical link implies $\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p$.
 
 :::callout-note
 The [likelihood equations]{.orange} under the [canonical link]{.blue} are
 $$
 \sum_{i=1}^n \omega_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
 $$
-Let $\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$, then in [matrix notation]{.blue} $\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}$. This simplifies even further the weights are constant because $\bm{\Omega} = I_n$, obtaining $\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}$.
+Let $\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$, then in [matrix notation]{.blue} $\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}$. This simplifies even further when the weights are constant, i.e. $\bm{\Omega} = I_n$, obtaining $\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}$.
 :::
 
 ## Examples
@@ -886,7 +890,9 @@ $$
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
 \text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 $$
-- This system does not always admits a solution. This happends, for example, in the extreme case $\sum_{i=1}y_i = 0$, occurring when all counts equal zero.
+- This system does [not]{.orange} always admits a [solution]{.orange}. This happens, for example, in the [extreme case]{.blue} $\sum_{i=1}y_i = 0$, occurring when all counts equal zero.
+
+. . .
 
 - Using the `Aids` data $\sum_{i=1}^ny_i = 217$ and $\sum_{i=1}^nx_i y_i = 2387$ and via [numerical methods]{.orange} we obtain $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$.
 
@@ -894,7 +900,7 @@ $$
 $$
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
 $$
-In other words, the estimated increase of Aids deaths is about the $30%$ every trimester. 
+In other words, the estimated increase of Aids deaths is about the $30\%$ every trimester. 
 
 ```{r}
 #| echo: false
@@ -903,11 +909,80 @@ sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
 ```
 
-
-
 ## Observed and expected information I
 
+- We suppose for now that $\phi$ is a [known parameter]{.orange}, say $\phi = 1$. 
+
+- Let $\bm{I} = \mathbb{E}(\bm{J})$ be the $p \times p$ [Fisher information matrix]{.blue} associated to $\beta$, whose elements are
+$$
+i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
+$$
+
 ## Observed and expected information II
+
+## Orthogonality of $\beta$ and $\psi$
+
+- Let us now consider the case in which $\phi$ is [unknown]{.blue} so that $a_i(\phi) = \phi/\omega_i$. We obtain:
+$$
+j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta; \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
+$$
+whose [expected value]{.orange} is $i_{r\phi} = \mathbb{E}(j_{r\phi}) = 0$ since $\mathbb{E}(Y_i) = \mu_i$. 
+
+. . .
+
+- This means the Fisher information matrix accounting for $\phi$ takes the form:
+$$
+\begin{bmatrix}
+\bm{I} & \bm{0} \\
+\bm{0} & i_{\phi \phi}
+\end{bmatrix} \qquad\Longrightarrow\qquad  \begin{bmatrix}
+\bm{I} & \bm{0} \\
+\bm{0} & i_{\phi \phi}
+\end{bmatrix}^{-1} = \begin{bmatrix}
+\bm{I}^{-1} & \bm{0} \\
+\bm{0} & 1 /i_{\phi \phi}
+\end{bmatrix}
+$$
+where $[\bm{I}]_{rs} = i_{rs}$ are the elements associated to $\beta$ as before. 
+
+
+:::callout-note
+The parameters $\beta$ and $\phi$ are [orthogonal]{.orange} and their maximum likelihood estimates are [asymptotically independent]{.blue}.
+
+Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference on $\beta$ and there is no need to compute $i_{\phi \phi}$. Note that the maximum likelihood $\hat{\beta}$ can also be computed without knowing $\phi$. 
+:::
+
+<!-- - In a GLM with $p = 2$ the Fisher information matrix, evaluated on a given $\beta,\phi$, looks like: -->
+<!-- $$ -->
+<!-- \begin{bmatrix} -->
+<!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
+<!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
+<!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
+<!-- \end{bmatrix}= \begin{bmatrix} -->
+<!-- 10.39 & -1.22 & 0 \\  -->
+<!-- -1.22 & 10.39 & 0 \\  -->
+<!-- 0 & 0 & 10 \\  -->
+<!--   \end{bmatrix} \Longrightarrow \begin{bmatrix} -->
+<!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
+<!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
+<!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
+<!-- \end{bmatrix}^{-1}= \begin{bmatrix} -->
+<!-- 0.098 & 0.011 & 0 \\  -->
+<!-- 0.011 & 0.098 & 0 \\  -->
+<!-- 0 & 0 & 0.1 \\  -->
+<!--   \end{bmatrix} -->
+<!-- $$ -->
+
+<!-- ```{r} -->
+<!-- set.seed(1234) -->
+<!-- XtX <- crossprod(matrix(rnorm(20), 10, 2)) -->
+<!-- XtX <- rbind(cbind(XtX, 0),0) -->
+<!-- XtX[3, 3] <- 10 -->
+<!-- # xtable::xtable(XtX, digits = 2) -->
+<!-- # xtable::xtable(solve(XtX), digits = 3) -->
+
+<!-- ``` -->
+
 
 ## Asymptotic distribution of $\hat{\beta}$
 

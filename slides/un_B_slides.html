@@ -945,8 +945,12 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <li><p>The <span class="orange">log-likelihood</span> function therefore is <span class="math display">
 \ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
 </span></p></li>
-<li><p>In general, there is <span class="orange">no sufficient statistic</span> with dimension smaller than <span class="math inline">n</span>.</p></li>
 </ul>
+<div class="fragment">
+<ul>
+<li>In general, there is <span class="orange">no sufficient statistic</span> with dimension smaller than <span class="math inline">n</span>.</li>
+</ul>
+</div>
 </section>
 <section id="sufficient-statistics-and-canonical-link" class="slide level2 center">
 <h2>Sufficient statistics and canonical link 📖</h2>
@@ -967,15 +971,17 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <ul>
 <li>To conduct inference using the <span class="orange">classical theory</span> (as in <em>Statistica II</em>), we need to consider the first and second derivative of the log-likelihood, that is, the <span class="blue">score function</span> <span class="math display">
 \frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
-</span> and the <span class="orange">hessian matrix</span>, whose elements are <span class="math display">
-\frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
+</span> and the <span class="orange">observed information matrix</span> <span class="math inline">\bm{J}</span>, whose elements are <span class="math display">
+j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
 </span></li>
 </ul>
+<div class="fragment">
 <div class="callout callout-warning no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
 <p>For now, let us focus on estimating <span class="math inline">\beta</span> and let us assume that <span class="math inline">\phi</span> is a <span class="blue">known parameter</span>, as in binomial and Poisson regression.</p>
 <p>This is not a restrictive even when <span class="math inline">\phi</span> is unknown. In fact, we will show that the maximum likelihood estimate <span class="math inline">\hat{\beta}</span> does not depend on <span class="math inline">\phi</span> and that <span class="math inline">\beta</span> and <span class="math inline">\phi</span> are <span class="orange">orthogonal parameters</span>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1029,7 +1035,7 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <div class="callout-content">
 <p>The <span class="blue">maximum likelihood estimator</span> is the solution of <span class="orange">likelihood equations</span>: <span class="math display">
 \sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
-</span> which does not depend on <span class="math inline">\phi</span>. In <span class="blue">matrix notation</span> <span class="math display">
+</span> which do not depend on <span class="math inline">\phi</span>. In <span class="blue">matrix notation</span> <span class="math display">
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0},
 </span> where <span class="math inline">\bm{V} = \text{diag}(v(\mu_1)/\omega_1,\dots,v(\mu_n)/\omega_n)</span> and <span class="math inline">\bm{D}</span> is an <span class="math inline">n \times p</span> matrix whose elements are <span class="math display">
 d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} =\frac{1}{g'(\mu_i)}x_{ir}, \qquad i=1,\dots,n, \quad r=1,\dots,p.
@@ -1043,16 +1049,16 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <ul>
 <li>When using the <span class="orange">canonical link</span> <span class="math inline">\theta(\mu_i) = g(\mu_i)</span> there are major simplification, because <span class="math display">
 \frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
-</span> In other terms, this implies the simpler representation: <span class="math display">
+</span> In other terms, we obtain the simple equality: <span class="math display">
 \frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
-</span> which is not surprising since in the canonical link <span class="math inline">\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p</span>.</li>
+</span> which is not surprising since the canonical link implies <span class="math inline">\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p</span>.</li>
 </ul>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
 <p>The <span class="orange">likelihood equations</span> under the <span class="blue">canonical link</span> are <span class="math display">
 \sum_{i=1}^n \omega_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
-</span> Let <span class="math inline">\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span>, then in <span class="blue">matrix notation</span> <span class="math inline">\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}</span>. This simplifies even further the weights are constant because <span class="math inline">\bm{\Omega} = I_n</span>, obtaining <span class="math inline">\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}</span>.</p>
+</span> Let <span class="math inline">\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span>, then in <span class="blue">matrix notation</span> <span class="math inline">\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}</span>. This simplifies even further when the weights are constant, i.e.&nbsp;<span class="math inline">\bm{\Omega} = I_n</span>, obtaining <span class="math inline">\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}</span>.</p>
 </div>
 </div>
 </div>
@@ -1095,18 +1101,88 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
 \text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 </span></p></li>
-<li><p>This system does not always admits a solution. This happends, for example, in the extreme case <span class="math inline">\sum_{i=1}y_i = 0</span>, occurring when all counts equal zero.</p></li>
+<li><p>This system does <span class="orange">not</span> always admits a <span class="orange">solution</span>. This happens, for example, in the <span class="blue">extreme case</span> <span class="math inline">\sum_{i=1}y_i = 0</span>, occurring when all counts equal zero.</p></li>
+</ul>
+<div class="fragment">
+<ul>
 <li><p>Using the <code>Aids</code> data <span class="math inline">\sum_{i=1}^ny_i = 217</span> and <span class="math inline">\sum_{i=1}^nx_i y_i = 2387</span> and via <span class="orange">numerical methods</span> we obtain <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>.</p></li>
 <li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
-</span> In other words, the estimated increase of Aids deaths is about the <span class="math inline">30%</span> every trimester.</p></li>
+</span> In other words, the estimated increase of Aids deaths is about the <span class="math inline">30\%</span> every trimester.</p></li>
 </ul>
+</div>
 </section>
 <section id="observed-and-expected-information-i" class="slide level2 center">
 <h2>Observed and expected information I</h2>
+<ul>
+<li><p>We suppose for now that <span class="math inline">\phi</span> is a <span class="orange">known parameter</span>, say <span class="math inline">\phi = 1</span>.</p></li>
+<li><p>Let <span class="math inline">\bm{I} = \mathbb{E}(\bm{J})</span> be the <span class="math inline">p \times p</span> <span class="blue">Fisher information matrix</span> associated to <span class="math inline">\beta</span>, whose elements are <span class="math display">
+i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
+</span></p></li>
+</ul>
 </section>
 <section id="observed-and-expected-information-ii" class="slide level2 center">
 <h2>Observed and expected information II</h2>
+</section>
+<section id="orthogonality-of-beta-and-psi" class="slide level2 center">
+<h2>Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\psi</span></h2>
+<ul>
+<li>Let us now consider the case in which <span class="math inline">\phi</span> is <span class="blue">unknown</span> so that <span class="math inline">a_i(\phi) = \phi/\omega_i</span>. We obtain: <span class="math display">
+j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta; \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
+</span> whose <span class="orange">expected value</span> is <span class="math inline">i_{r\phi} = \mathbb{E}(j_{r\phi}) = 0</span> since <span class="math inline">\mathbb{E}(Y_i) = \mu_i</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>This means the Fisher information matrix accounting for <span class="math inline">\phi</span> takes the form: <span class="math display">
+\begin{bmatrix}
+\bm{I} &amp; \bm{0} \\
+\bm{0} &amp; i_{\phi \phi}
+\end{bmatrix} \qquad\Longrightarrow\qquad  \begin{bmatrix}
+\bm{I} &amp; \bm{0} \\
+\bm{0} &amp; i_{\phi \phi}
+\end{bmatrix}^{-1} = \begin{bmatrix}
+\bm{I}^{-1} &amp; \bm{0} \\
+\bm{0} &amp; 1 /i_{\phi \phi}
+\end{bmatrix}
+</span> where <span class="math inline">[\bm{I}]_{rs} = i_{rs}</span> are the elements associated to <span class="math inline">\beta</span> as before.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The parameters <span class="math inline">\beta</span> and <span class="math inline">\phi</span> are <span class="orange">orthogonal</span> and their maximum likelihood estimates are <span class="blue">asymptotically independent</span>.</p>
+<p>Moreover, the matrices <span class="math inline">\bm{I}</span> and <span class="math inline">\bm{I}^{-1}</span> are sufficient for inference on <span class="math inline">\beta</span> and there is no need to compute <span class="math inline">i_{\phi \phi}</span>. Note that the maximum likelihood <span class="math inline">\hat{\beta}</span> can also be computed without knowing <span class="math inline">\phi</span>.</p>
+</div>
+</div>
+</div>
+<!-- - In a GLM with $p = 2$ the Fisher information matrix, evaluated on a given $\beta,\phi$, looks like: -->
+<!-- $$ -->
+<!-- \begin{bmatrix} -->
+<!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
+<!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
+<!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
+<!-- \end{bmatrix}= \begin{bmatrix} -->
+<!-- 10.39 & -1.22 & 0 \\  -->
+<!-- -1.22 & 10.39 & 0 \\  -->
+<!-- 0 & 0 & 10 \\  -->
+<!--   \end{bmatrix} \Longrightarrow \begin{bmatrix} -->
+<!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
+<!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
+<!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
+<!-- \end{bmatrix}^{-1}= \begin{bmatrix} -->
+<!-- 0.098 & 0.011 & 0 \\  -->
+<!-- 0.011 & 0.098 & 0 \\  -->
+<!-- 0 & 0 & 0.1 \\  -->
+<!--   \end{bmatrix} -->
+<!-- $$ -->
+<!-- ```{r} -->
+<!-- set.seed(1234) -->
+<!-- XtX <- crossprod(matrix(rnorm(20), 10, 2)) -->
+<!-- XtX <- rbind(cbind(XtX, 0),0) -->
+<!-- XtX[3, 3] <- 10 -->
+<!-- # xtable::xtable(XtX, digits = 2) -->
+<!-- # xtable::xtable(solve(XtX), digits = 3) -->
+<!-- ``` -->
+</div>
 </section>
 <section id="asymptotic-distribution-of-hatbeta" class="slide level2 center">
 <h2>Asymptotic distribution of <span class="math inline">\hat{\beta}</span></h2>
