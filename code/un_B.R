@@ -65,3 +65,10 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 
 sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
+
+# vcov(fit_Aids)
+
+lmtest::coeftest(fit_Aids)
+
+lmtest::coefci(fit_Aids)
+confint(fit_Aids)

@@ -161,12 +161,24 @@ window.Quarto = {
   <li><a href="#example-aids-data" id="toc-example-aids-data" class="nav-link" data-scroll-target="#example-aids-data">Example: <code>Aids</code> data</a></li>
   <li><a href="#observed-and-expected-information-i" id="toc-observed-and-expected-information-i" class="nav-link" data-scroll-target="#observed-and-expected-information-i">Observed and expected information I</a></li>
   <li><a href="#observed-and-expected-information-ii" id="toc-observed-and-expected-information-ii" class="nav-link" data-scroll-target="#observed-and-expected-information-ii">Observed and expected information II</a></li>
+  <li><a href="#canonical-link-simplifications-1" id="toc-canonical-link-simplifications-1" class="nav-link" data-scroll-target="#canonical-link-simplifications-1">Canonical link: simplifications</a></li>
+  <li><a href="#further-considerations" id="toc-further-considerations" class="nav-link" data-scroll-target="#further-considerations">Further considerations</a></li>
   <li><a href="#orthogonality-of-beta-and-psi" id="toc-orthogonality-of-beta-and-psi" class="nav-link" data-scroll-target="#orthogonality-of-beta-and-psi">Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\psi</span></a></li>
   <li><a href="#asymptotic-distribution-of-hatbeta" id="toc-asymptotic-distribution-of-hatbeta" class="nav-link" data-scroll-target="#asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></a></li>
-  <li><a href="#wald-confidence-intervals-for-beta" id="toc-wald-confidence-intervals-for-beta" class="nav-link" data-scroll-target="#wald-confidence-intervals-for-beta">Wald confidence intervals for <span class="math inline">\beta</span></a></li>
+  <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
+  <li><a href="#wald-test-for-beta" id="toc-wald-test-for-beta" class="nav-link" data-scroll-target="#wald-test-for-beta">Wald test for <span class="math inline">\beta</span></a></li>
+  <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
   <li><a href="#delta-methods-and-fitted-values" id="toc-delta-methods-and-fitted-values" class="nav-link" data-scroll-target="#delta-methods-and-fitted-values">Delta methods and fitted values</a></li>
+  <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example: <code>Aids</code> data</a></li>
   </ul></li>
-  <li><a href="#irls-algorithm" id="toc-irls-algorithm" class="nav-link" data-scroll-target="#irls-algorithm">IRLS algorithm</a></li>
+  <li><a href="#irls-algorithm" id="toc-irls-algorithm" class="nav-link" data-scroll-target="#irls-algorithm">IRLS algorithm</a>
+  <ul class="collapse">
+  <li><a href="#iteratively-reweighted-least-squares-i" id="toc-iteratively-reweighted-least-squares-i" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-i">Iteratively reweighted least squares I</a></li>
+  <li><a href="#iteratively-reweighted-least-squares-ii" id="toc-iteratively-reweighted-least-squares-ii" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-ii">Iteratively reweighted least squares II</a></li>
+  <li><a href="#iteratively-reweighted-least-squares-iii" id="toc-iteratively-reweighted-least-squares-iii" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-iii">Iteratively reweighted least squares III</a></li>
+  <li><a href="#estimation-of-phi" id="toc-estimation-of-phi" class="nav-link" data-scroll-target="#estimation-of-phi">Estimation of <span class="math inline">\phi</span></a></li>
+  </ul></li>
   <li><a href="#deviance-model-checking-residuals" id="toc-deviance-model-checking-residuals" class="nav-link" data-scroll-target="#deviance-model-checking-residuals">Deviance, model checking, residuals</a></li>
   <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model selection</a>
   <ul class="collapse">
@@ -1247,9 +1259,73 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
 </span></p></li>
 </ul>
+<ul>
+<li><p>Let us first consider the negative derivative of the score function, that is <span class="math display">
+\begin{aligned}
+j_{rs} &amp;=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
+&amp;=\sum_{i=1}^n\frac{1}{a_i(\phi)}\left[\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r} - (y_i - \mu_i) \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s}\right], \qquad r,s = 1,\dots,p.
+\end{aligned}
+</span></p></li>
+<li><p>Thus, the Fisher information matrix substantially simplifies because <span class="math inline">\mathbb{E}(Y_i) = \mu_i</span>, obtaining: <span class="math display">
+i_{rs} = \mathbb{E}(j_{rs}) = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}, \qquad \qquad r,s = 1,\dots,p.
+</span></p></li>
+</ul>
 </section>
 <section id="observed-and-expected-information-ii" class="level2">
 <h2 class="anchored" data-anchor-id="observed-and-expected-information-ii">Observed and expected information II</h2>
+<ul>
+<li>Moreover, in the previous slides we already computed the derivatives <span class="math display">
+\frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
+</span></li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Combining the above equations, we obtain that the <span class="orange">Fisher information</span> <span class="math inline">\bm{I}</span> of a GLM has entries <span class="math display">
+i_{rs} = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{x_{ir} x_{is}}{v(\mu_i)g'(\mu_i)^2} = \sum_{i=1}^n \frac{x_{ir}x_{is}}{\text{var}(Y_i) g'(\mu_i)^2}, \qquad r,s = 1,\dots,p.
+</span> In <span class="blue">matrix notation</span>, we have that <span class="math display">
+\bm{I} = \bm{X}^T\bm{W}\bm{X},
+</span> where <span class="math inline">\bm{W} = \text{diag}(w_1,\dots,w_n)</span> and <span class="math inline">w_i</span> are <span class="blue">weights</span> such that <span class="math display">
+w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(Y_i) g'(\mu_i)^2}, \qquad i=1,\dots,n.
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="canonical-link-simplifications-1" class="level2">
+<h2 class="anchored" data-anchor-id="canonical-link-simplifications-1">Canonical link: simplifications</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Under the <span class="orange">canonical link</span> we have that <span class="math inline">\theta_i = \beta_1x_{i1} + \cdots \beta_p x_{ip}</span>, which means that <span class="math display">
+\frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s} = 0 \qquad \Longrightarrow \qquad i_{rs} = j_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}.
+</span> The <span class="blue">observed information</span> <span class="math inline">\bm{J}</span> is <span class="orange">non-stochastic</span>, which means that observed information and expected (Fisher) information coincide, that is <span class="math inline">i_{rs} = \mathbb{E}(j_{rs})</span> and <span class="math inline">\bm{I} = \bm{J}</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Under the <span class="orange">canonical link</span>, we also have that <span class="math inline">1/v(\mu_i) = g'(\mu_i)</span>, therefore we obtain <span class="math display">
+i_{rs}  = \frac{1}{\phi}\sum_{i=1}^n \omega_i v(\mu_i)x_{ir} x_{is}, \qquad r,s = 1,\dots,p.
+</span> In <span class="blue">matrix notation</span>, we have that <span class="math display">
+\bm{I} = \bm{X}^T\bm{W}\bm{X}, \qquad \text{ with weights} \qquad w_i = \frac{\omega_i}{\phi} v(\mu_i) = \frac{v(\mu_i)}{a_i(\phi)}, \qquad i=1,\dots,n.
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="further-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="further-considerations">Further considerations</h2>
 </section>
 <section id="orthogonality-of-beta-and-psi" class="level2">
 <h2 class="anchored" data-anchor-id="orthogonality-of-beta-and-psi">Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\psi</span></h2>
@@ -1315,15 +1391,66 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <section id="asymptotic-distribution-of-hatbeta" class="level2">
 <h2 class="anchored" data-anchor-id="asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></h2>
 </section>
-<section id="wald-confidence-intervals-for-beta" class="level2">
-<h2 class="anchored" data-anchor-id="wald-confidence-intervals-for-beta">Wald confidence intervals for <span class="math inline">\beta</span></h2>
+<section id="example-aids-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
+</section>
+<section id="wald-test-for-beta" class="level2">
+<h2 class="anchored" data-anchor-id="wald-test-for-beta">Wald test for <span class="math inline">\beta</span></h2>
+</section>
+<section id="example-aids-data-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-2">Example: <code>Aids</code> data</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+z test of coefficients:
+
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) 0.303655   0.253867  1.1961   0.2317    
+period      0.258963   0.022238 11.6448   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="example-aids-data-3" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %    97.5 %
+(Intercept) -0.1939158 0.8012249
+period       0.2153764 0.3025494</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for profiling to be done...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %    97.5 %
+(Intercept) -0.2146576 0.7816308
+period       0.2164770 0.3037480</code></pre>
+</div>
+</div>
 </section>
 <section id="delta-methods-and-fitted-values" class="level2">
 <h2 class="anchored" data-anchor-id="delta-methods-and-fitted-values">Delta methods and fitted values</h2>
 </section>
+<section id="example-aids-data-4" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-4">Example: <code>Aids</code> data</h2>
+</section>
 </section>
 <section id="irls-algorithm" class="level1">
 <h1>IRLS algorithm</h1>
+<section id="iteratively-reweighted-least-squares-i" class="level2">
+<h2 class="anchored" data-anchor-id="iteratively-reweighted-least-squares-i">Iteratively reweighted least squares I</h2>
+</section>
+<section id="iteratively-reweighted-least-squares-ii" class="level2">
+<h2 class="anchored" data-anchor-id="iteratively-reweighted-least-squares-ii">Iteratively reweighted least squares II</h2>
+</section>
+<section id="iteratively-reweighted-least-squares-iii" class="level2">
+<h2 class="anchored" data-anchor-id="iteratively-reweighted-least-squares-iii">Iteratively reweighted least squares III</h2>
+</section>
+<section id="estimation-of-phi" class="level2">
+<h2 class="anchored" data-anchor-id="estimation-of-phi">Estimation of <span class="math inline">\phi</span></h2>
+</section>
 </section>
 <section id="deviance-model-checking-residuals" class="level1">
 <h1>Deviance, model checking, residuals</h1>

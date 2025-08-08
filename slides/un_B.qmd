@@ -918,7 +918,69 @@ $$
 i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
 $$
 
+. . .
+
+- Let us first consider the negative derivative of the score function, that is
+$$
+\begin{aligned}
+j_{rs} &=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
+&=\sum_{i=1}^n\frac{1}{a_i(\phi)}\left[\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r} - (y_i - \mu_i) \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s}\right], \qquad r,s = 1,\dots,p.
+\end{aligned}
+$$
+
+- Thus, the Fisher information matrix substantially simplifies because $\mathbb{E}(Y_i) = \mu_i$, obtaining:
+$$
+i_{rs} = \mathbb{E}(j_{rs}) = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}, \qquad \qquad r,s = 1,\dots,p.
+$$
+
 ## Observed and expected information II
+
+- Moreover, in the previous slides we already computed the derivatives $$
+\frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
+$$
+
+::: callout-note
+
+Combining the above equations, we obtain that the [Fisher information]{.orange} $\bm{I}$ of a GLM has entries
+$$
+i_{rs} = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{x_{ir} x_{is}}{v(\mu_i)g'(\mu_i)^2} = \sum_{i=1}^n \frac{x_{ir}x_{is}}{\text{var}(Y_i) g'(\mu_i)^2}, \qquad r,s = 1,\dots,p.
+$$
+In [matrix notation]{.blue}, we have that
+$$
+\bm{I} = \bm{X}^T\bm{W}\bm{X},
+$$
+where $\bm{W} = \text{diag}(w_1,\dots,w_n)$ and $w_i$ are [weights]{.blue} such that
+$$
+w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(Y_i) g'(\mu_i)^2}, \qquad i=1,\dots,n. 
+$$
+:::
+
+## Canonical link: simplifications
+
+:::callout-note
+Under the [canonical link]{.orange} we have that $\theta_i = \beta_1x_{i1} + \cdots \beta_p x_{ip}$, which means that
+$$
+\frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s} = 0 \qquad \Longrightarrow \qquad i_{rs} = j_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}.
+$$
+The [observed information]{.blue} $\bm{J}$ is [non-stochastic]{.orange}, which means that observed information and expected (Fisher) information coincide, that is $i_{rs} = \mathbb{E}(j_{rs})$ and $\bm{I} = \bm{J}$. 
+:::
+
+. . .
+
+:::callout-note
+Under the [canonical link]{.orange}, we also have that $1/v(\mu_i) = g'(\mu_i)$, therefore we obtain
+$$
+i_{rs}  = \frac{1}{\phi}\sum_{i=1}^n \omega_i v(\mu_i)x_{ir} x_{is}, \qquad r,s = 1,\dots,p.
+$$
+In [matrix notation]{.blue}, we have that
+$$
+\bm{I} = \bm{X}^T\bm{W}\bm{X}, \qquad \text{ with weights} \qquad w_i = \frac{\omega_i}{\phi} v(\mu_i) = \frac{v(\mu_i)}{a_i(\phi)}, \qquad i=1,\dots,n. 
+$$
+:::
+
+## Further considerations 
+
+
 
 ## Orthogonality of $\beta$ and $\psi$
 
@@ -986,11 +1048,41 @@ Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference o
 
 ## Asymptotic distribution of $\hat{\beta}$
 
-## Wald confidence intervals for $\beta$
+## Example: `Aids` data
+
+```{r}
+# vcov(fit_Aids)
+```
+
+## Wald test for $\beta$
+
+## Example: `Aids` data
+
+```{r}
+lmtest::coeftest(fit_Aids)
+```
+
+## Example: `Aids` data
+
+```{r}
+lmtest::coefci(fit_Aids)
+confint(fit_Aids)
+```
+
 
 ## Delta methods and fitted values
 
+## Example: `Aids` data
+
 # IRLS algorithm
+
+## Iteratively reweighted least squares I
+
+## Iteratively reweighted least squares II
+
+## Iteratively reweighted least squares III
+
+## Estimation of $\phi$ 
 
 # Deviance, model checking, residuals
 
