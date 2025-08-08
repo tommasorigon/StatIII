@@ -703,7 +703,7 @@ $$
 
 . . .
 
-:::callout-tip
+:::callout-note
 The following link is called [canonical link]{.orange} and it is implied by the distribution:
 $$
 g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta. 
@@ -719,7 +719,7 @@ Such a choice leads to remarkable simplifications in the likelihood function.
 
 ## Likelihood function
 
-- Let $Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$ be the response variable of a GLM, with $g(\mu_i) = \bm{x}_i^T\beta$. The [joint distribution]{.blue} of $\bm{Y} = (Y_1,\dots,Y_n)$ is
+- Let $Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$ be the response variable of a GLM, with $g(\mu_i) = \bm{x}_i^T\beta$. The [joint distribution]{.blue} of the responses $\bm{Y} = (Y_1,\dots,Y_n)$ is
 $$
 p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
 $$
@@ -734,7 +734,7 @@ $$
 
 - In general, there is [no sufficient statistic]{.orange} with dimension smaller than $n$. 
 
-## Sufficient statistics and canonical link 📖
+## ☠️ - Sufficient statistics and canonical link
 
 - Consider the [canonical link]{.blue}, namely $\theta(\mu_i) = g(\mu_i)$ so that $\theta_i = \bm{x}_i^T\beta$. Then the log-likelihood function [simplifies]{.orange}:
 $$
@@ -743,11 +743,13 @@ $$
 &= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi).
 \end{aligned}
 $$
-If $\phi$ were [known]{.blue} or fixed, say $a_i(\phi) = \phi$ with $\phi$ known or $a_i(\phi) = 1/\omega_i$, then
+If $\phi$ were [known]{.blue}, say $a_i(\phi) = 1$ or $a_i(\phi) = 1/\omega_i$, then
 $$
 \left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right),
 $$
 is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$. 
+
+. . .
 
 - In [logistic regression]{.blue} for binary observations and [Poisson regression]{.orange} with logarithmic link we have $a_i(\phi) = 1$. The [sufficient]{.blue} statistic is $\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).$
 
@@ -763,12 +765,14 @@ $$
 j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
 $$
 
+- These quantities have a [simple expression]{.blue} in the end, but getting there requires quite a [bit of calculus]{.orange}.
+
 . . .
 
 :::callout-warning
-For now, let us focus on estimating $\beta$ and let us assume that $\phi$ is a [known parameter]{.blue}, as in binomial and Poisson regression. 
+Let us focus on the estimation of $\beta$, assuming for now that $\phi$ is a [known parameter]{.blue}, as is the case in binomial or Poisson regression.
 
-This is not a restrictive even when $\phi$ is unknown. In fact, we will show that the maximum likelihood estimate $\hat{\beta}$ does not depend on $\phi$ and that $\beta$ and $\phi$ are [orthogonal parameters]{.orange}.
+This assumption is not restrictive, even when $\phi$ is actually unknown. In fact, we will show that the maximum likelihood estimate $\hat{\beta}$ does not depend on $\phi$, and that $\beta$ and $\phi$ are [orthogonal]{.orange}.
 :::
 
 ## Likelihood equations II 📖
@@ -781,7 +785,7 @@ Such an expression can be [simplified]{.blue} because
 $$
 \frac{\partial b(\theta_i)}{\partial \beta_r} = b'(\theta_i)\frac{\partial \theta_i}{\partial \beta_r} = \mu_i\frac{\partial \theta_i}{\partial \beta_r},
 $$
-which implies that the score function will have the [structure]{.orange}
+which implies that the score function will have the following [structure]{.orange}:
 $$
 \frac{\partial}{\partial \beta_r}\ell(\beta; \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
 $$
@@ -808,25 +812,25 @@ Moreover, since we $\mu_i = g^{-1}(\eta_i)$ we obtain
 $$
 \frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
 $$
-- Summing up, the [chain rule of derivation]{.orange} for [composite functions]{.blue} implies:
+- Summing up, the [chain rule of derivation]{.orange} for [composite functions]{.blue} gives:
 $$
 \frac{\partial \theta_i}{\partial \beta_r} = \frac{\partial \theta_i}{\partial \mu_i} \frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} = \frac{1}{v(\mu_i)}\frac{1}{g'(\mu_i)}x_{ir}, \qquad r=1,\dots,p.
 $$
 
 ## Likelihood equations IV 📖
 
-- Combining all the above equations, we obtain an explicit formula for the score function
+- Combining all the above equations, we obtain an explicit formula for the [score function]{.blue}
 $$
 \frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
 $$
 
 :::{.callout-note}
 
-The [maximum likelihood estimator]{.blue} is the solution of [likelihood equations]{.orange}:
+The [maximum likelihood estimator]{.blue} solves the [likelihood equations]{.orange}:
 $$
 \sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
 $$
-which do not depend on $\phi$. In [matrix notation]{.blue}
+which [do not depend]{.orange} on $\phi$. In [matrix notation]{.blue}
 $$
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0},
 $$
@@ -838,25 +842,25 @@ $$
 
 ## Canonical link: simplifications
 
-- When using the [canonical link]{.orange} $\theta(\mu_i) = g(\mu_i)$ there are major simplification, because
+- When using the [canonical link]{.orange} $\theta(\mu_i) = g(\mu_i)$ significant simplifications arise, because
 $$
 \frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
 $$
-In other terms, we obtain the simple equality:
+Thus, plugging-in this equality in the former equations, gives:
 $$
 \frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
 $$
-which is not surprising since the canonical link implies $\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p$.
+which is not surprising, because the canonical link implies $\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p$.
 
 :::callout-note
 The [likelihood equations]{.orange} under the [canonical link]{.blue} are
 $$
 \sum_{i=1}^n \omega_i (y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
 $$
-Let $\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$, then in [matrix notation]{.blue} $\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}$. This simplifies even further when the weights are constant, i.e. $\bm{\Omega} = I_n$, obtaining $\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}$.
+Let $\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$, then in [matrix notation]{.blue} we have $\bm{X}^T\bm{\Omega}(\bm{y} - \bm{\mu}) = \bm{0}$. The equations simplify even further when the weights are constant, i.e. $\bm{\Omega} = I_n$, yielding $\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}$.
 :::
 
-## Examples
+## Examples of estimating equations
 
 :::callout-tip
 Let $Y_i \sim \text{ED}(\mu_i, \phi)$ with $g(\mu_i) = \mu_i$, namely the [Gaussian]{.orange} linear model with the [identity]{.grey} (canonical) link. The likelihood equations are
@@ -883,24 +887,24 @@ $$
 
 ## Example: `Aids` data
 
-- In the `Aids` data we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$. 
+- In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$. 
 
 - The maximum likelihood estimate $(\hat{\beta}_1, \hat{\beta}_2)$ [solve]{.orange} simultaneously:
 $$
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
 \text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 $$
-- This system does [not]{.orange} always admits a [solution]{.orange}. This happens, for example, in the [extreme case]{.blue} $\sum_{i=1}y_i = 0$, occurring when all counts equal zero.
+- This system does [not]{.orange} always admits a [solution]{.orange}. This happens, for example, in the [extreme case]{.blue} $\sum_{i=1}^ny_i = 0$, occurring when all counts equal zero.
 
 . . .
 
-- Using the `Aids` data $\sum_{i=1}^ny_i = 217$ and $\sum_{i=1}^nx_i y_i = 2387$ and via [numerical methods]{.orange} we obtain $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$.
+- Using the `Aids` data we have $\sum_{i=1}^ny_i = 217$ and $\sum_{i=1}^nx_i y_i = 2387$. Via [numerical methods]{.orange} we solve the above system of equations and we obtain $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$.
 
 - The estimated mean values are $\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)$ and in particular the mean for the [next period]{.blue} is
 $$
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
 $$
-In other words, the estimated increase of Aids deaths is about the $30\%$ every trimester. 
+In other words, the estimated number of deaths increases by approximately $30%$ every trimester.
 
 ```{r}
 #| echo: false
@@ -911,16 +915,7 @@ sum(Aids$period * Aids$deaths)
 
 ## Observed and expected information I
 
-- We suppose for now that $\phi$ is a [known parameter]{.orange}, say $\phi = 1$. 
-
-- Let $\bm{I} = \mathbb{E}(\bm{J})$ be the $p \times p$ [Fisher information matrix]{.blue} associated to $\beta$, whose elements are
-$$
-i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
-$$
-
-. . .
-
-- Let us first consider the negative derivative of the score function, that is
+- Let us first consider the negative derivative of the score function, that is the [observed information matrix]{.orange} $\bm{J}$ with entries:
 $$
 \begin{aligned}
 j_{rs} &=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
@@ -928,14 +923,19 @@ j_{rs} &=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \bet
 \end{aligned}
 $$
 
+- Let $\bm{I} = \mathbb{E}(\bm{J})$ be the $p \times p$ [Fisher information matrix]{.blue} associated with $\beta$, whose elements are
+$$
+i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
+$$
+
 - Thus, the Fisher information matrix substantially simplifies because $\mathbb{E}(Y_i) = \mu_i$, obtaining:
 $$
-i_{rs} = \mathbb{E}(j_{rs}) = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}, \qquad \qquad r,s = 1,\dots,p.
+i_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}, \qquad r,s = 1,\dots,p.
 $$
 
 ## Observed and expected information II
 
-- Moreover, in the previous slides we already computed the derivatives $$
+- In the previous slides we already computed the explicit values of these derivatives: $$
 \frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
 $$
 
@@ -962,27 +962,45 @@ Under the [canonical link]{.orange} we have that $\theta_i = \beta_1x_{i1} + \cd
 $$
 \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s} = 0 \qquad \Longrightarrow \qquad i_{rs} = j_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}.
 $$
-The [observed information]{.blue} $\bm{J}$ is [non-stochastic]{.orange}, which means that observed information and expected (Fisher) information coincide, that is $i_{rs} = \mathbb{E}(j_{rs})$ and $\bm{I} = \bm{J}$. 
+The [observed information]{.blue} $\bm{J}$ is [non-stochastic]{.orange}, which means that observed information and expected (Fisher) information coincide, that is $i_{rs} = j_{rs}$ and $\bm{I} = \bm{J}$. 
 :::
 
 . . .
 
 :::callout-note
-Under the [canonical link]{.orange}, we also have that $1/v(\mu_i) = g'(\mu_i)$, therefore we obtain
+Under the [canonical link]{.orange}, we also have the simplifications $1/v(\mu_i) = g'(\mu_i)$, yielding
 $$
 i_{rs}  = \frac{1}{\phi}\sum_{i=1}^n \omega_i v(\mu_i)x_{ir} x_{is}, \qquad r,s = 1,\dots,p.
 $$
-In [matrix notation]{.blue}, we have that
+In [matrix notation]{.blue}, we have that $\bm{I} = \bm{X}^T\bm{W}\bm{X}$ with weights
 $$
-\bm{I} = \bm{X}^T\bm{W}\bm{X}, \qquad \text{ with weights} \qquad w_i = \frac{\omega_i}{\phi} v(\mu_i) = \frac{v(\mu_i)}{a_i(\phi)}, \qquad i=1,\dots,n. 
+w_i = \frac{1}{\phi} \omega_iv(\mu_i) = \frac{v(\mu_i)}{a_i(\phi)}, \qquad i=1,\dots,n. 
 $$
 :::
 
 ## Further considerations 
 
+- The [observed]{.orange} and [expected]{.blue} information matrices $\bm{J}$ and $\bm{I}$, as well as weights $\bm{W}$, [depend]{.blue} on $\beta$ and $\phi$. We write $\hat{\bm{J}}$, $\hat{\bm{I}}$ and $\hat{\bm{W}}$ to indicate that $\beta$ and $\phi$ have been estimated with $\hat{\beta}$ and $\hat{\phi}$.
+
+. . .
+
+- If $\bm{X}$ has [full rank]{.blue} and $g'(\mu) \neq 0$, then $\bm{I}$ is [positive definite]{.orange} for any value of $\beta$ and $\phi$. 
+
+. . .
+
+- Under the [canonical link]{.orange}, we have $\bm{J} = \bm{I}$, and both matrices are [positive definite]{.orange} if $\text{rk}(\bm{X}) = p$. 
+
+- This implies that the log-likelihood function is [concave]{.orange} because its second derivative is negative definite, so any [solution]{.orange} to the [estimating equations]{.orange} is also a [global optimum]{.blue}.
+
+. . .
+
+- The Fisher information matrix could be computed exploiting [Bartlett identity]{.grey}, namely $$
+i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right)\right], \qquad r,s = 1,\dots,p.$$
+as in @Agresti2015. Of course, the final result [coincide]{.orange} with ours. 
 
 
-## Orthogonality of $\beta$ and $\psi$
+
+## ☠️ - Orthogonality of $\beta$ and $\psi$
 
 - Let us now consider the case in which $\phi$ is [unknown]{.blue} so that $a_i(\phi) = \phi/\omega_i$. We obtain:
 $$
@@ -1048,13 +1066,63 @@ Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference o
 
 ## Asymptotic distribution of $\hat{\beta}$
 
+:::callout-note
+The [asymptotic distribution]{.orange} of the [maximum likelihood estimator]{.blue} is
+$$
+\hat{\beta} \, \dot{\sim} \, \text{N}_p\left(\beta, (\bm{X}^T\bm{W}\bm{X})^{-1}\right),
+$$
+for large values of $n$ and under mild regularity conditions on $\bm{X}$. 
+:::
+
+- This means that, under correct specification and mild conditions on $\bm{X}$, the maximum likelihood estimator is [asymptotically unbiased]{.orange} and with known asymptotic [variance]{.blue}
+$$
+\mathbb{E}(\hat{\beta}) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
+$$
+
+- In practice, since $\bm{W}$ depends on $\beta$ and $\phi$, rely on the following approximation
+$$
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
+$$
+where we plugged in the consistent estimates $\hat{\beta}$ and $\hat{\phi}$ into $\bm{W}$ obtaining $\hat{\bm{W}}$. 
+
+- Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}. 
+
 ## Example: `Aids` data
 
+- In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$ and estimated $\hat{\beta} = (0.304, 0.259)$.
+
+- This means that the weights are estimated as
+$$
+\hat{\bm{W}} = \text{diag}(\hat{\mu}_1,\dots,\hat{\mu}_n) = \text{diag}(1.755, \dots, 50.863).
+$$
+from which we obtain the [estimated]{.orange} [Fisher information matrix]{.blue}:
+$$
+\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{bmatrix} 
+\sum_{i=1}^n\hat{\mu}_i & \sum_{i=1}^n x_i\hat{\mu_i}\\
+\sum_{i=1}^n x_i\hat{\mu_i} & \sum_{i=1}^n x_i^2\hat{\mu_i}
+\end{bmatrix} = \begin{bmatrix}
+217 & 2387\\
+2387 & 28279.05
+\end{bmatrix}.
+$$
+- Hence, the [estimated covariance]{.blue} matrix of the maximum likelihood estimator is
+$$
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{bmatrix}
+0.06445 & -0.00544 \\
+-0.00544 & 0.00049
+\end{bmatrix}.
+$$
+- Therefore the [estimated standard errors]{.orange} are
+$$
+[\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}} \quad\Longrightarrow \quad \widehat{\text{se}}(\hat{\beta}) = (0.254, 0.022).
+$$
+
 ```{r}
-# vcov(fit_Aids)
+# solve(vcov(fit_Aids))
+# round(vcov(fit_Aids), 3)
 ```
 
-## Wald test for $\beta$
+## Test and confidence intervals
 
 ## Example: `Aids` data
 
@@ -1075,6 +1143,8 @@ confint(fit_Aids)
 ## Example: `Aids` data
 
 # IRLS algorithm
+
+## Numerical methods for maximum likelihood estimation
 
 ## Iteratively reweighted least squares I
 
