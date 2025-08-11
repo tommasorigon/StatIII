@@ -168,6 +168,7 @@ window.Quarto = {
   <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
   <li><a href="#test-and-confidence-intervals" id="toc-test-and-confidence-intervals" class="nav-link" data-scroll-target="#test-and-confidence-intervals">Test and confidence intervals</a></li>
   <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
+  <li><a href="#likelihood-based-testing" id="toc-likelihood-based-testing" class="nav-link" data-scroll-target="#likelihood-based-testing">Likelihood based testing</a></li>
   <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
   <li><a href="#delta-methods-and-fitted-values" id="toc-delta-methods-and-fitted-values" class="nav-link" data-scroll-target="#delta-methods-and-fitted-values">Delta methods and fitted values</a></li>
   <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example: <code>Aids</code> data</a></li>
@@ -671,7 +672,7 @@ g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1
 <h2 class="anchored" data-anchor-id="random-component-of-a-glm">Random component of a GLM</h2>
 <ul>
 <li><p>In GLMs the random variables <span class="math inline">Y_i</span> are <span class="orange">independent</span> and they are distributed according to an <span class="blue">exponential dispersion family</span>, whose definition will be provided in a few slides.</p></li>
-<li><p>For now, it suffices to say that the distributions most commonly used in Statistics, such as the normal, binomial, gamma, and Poisson, are exponential family distributions.</p></li>
+<li><p>The <span class="orange">distributions most commonly</span> used in Statistics, such as the normal, binomial, gamma, and Poisson, are exponential family distributions.</p></li>
 <li><p>Exponential dispersion families are <span class="orange">characterized</span> by their <span class="blue">mean</span> and <span class="blue">variance</span>. Let <span class="math inline">v(\mu) &gt; 0</span> be a function of the mean, called <span class="blue">variance function</span> and let <span class="math inline">a_i(\phi) &gt;0</span> be functions of an additional unknown parameter <span class="math inline">\phi &gt; 0</span> called <span class="orange">dispersion</span>.</p></li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -1423,9 +1424,11 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </span></p></li>
 <li><p>In practice, since <span class="math inline">\bm{W}</span> depends on <span class="math inline">\beta</span> and <span class="math inline">\phi</span>, rely on the following approximation <span class="math display">
 \widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
-</span> where we plugged in the consistent estimates <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span> into <span class="math inline">\bm{W}</span> obtaining <span class="math inline">\hat{\bm{W}}</span>.</p></li>
-<li><p>Note that the asymptotic variance implicitly takes into account <span class="orange">heteroschedasticity</span>.</p></li>
+</span> where we plugged in the consistent estimates <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span> into <span class="math inline">\bm{W}</span> obtaining <span class="math inline">\hat{\bm{W}}</span>. Moreover, we can computed the <span class="orange">standard errors</span> of each <span class="math inline">\hat{\beta}_j</span> as: <span class="math display">
+\texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
+</span></p></li>
 </ul>
+<!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
 </section>
 <section id="example-aids-data-1" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
@@ -1455,9 +1458,25 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </section>
 <section id="test-and-confidence-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="test-and-confidence-intervals">Test and confidence intervals</h2>
+<ul>
+<li><p>Consider the <span class="blue">hypothesis</span> <span class="math inline">H_0: \beta_j = \beta_0</span> against the <span class="orange">alternative</span> <span class="math inline">H_1: \beta_j \neq \beta_0</span>. The <span class="blue">Wald test statistic</span> <span class="math inline">z_j</span>, rejecting the hypothesis for large values of <span class="math inline">|z_j|</span> is: <span class="math display">
+\texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1).
+</span> which is <span class="orange">approximately</span> distributed as a <span class="blue">standard normal</span> under <span class="math inline">H_0</span>.</p></li>
+<li><p>The p-value is defined in the usual way, namely <span class="math display">
+\texttt{p value} = \alpha_\text{obs} \approx \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+</span></p></li>
+</ul>
+<ul>
+<li>By inverting the the Wald test, we obtained the associated <span class="blue">confidence interval</span> <span class="math display">
+\hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
+</span> of <span class="orange">approximate</span> level <span class="math inline">1-\alpha</span>, where <span class="math inline">z_{1-\alpha/2}</span> is the quantile of a standard Gaussian.</li>
+</ul>
 </section>
 <section id="example-aids-data-2" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data-2">Example: <code>Aids</code> data</h2>
+<ul>
+<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Aids</code> data we get the familiar summary.</li>
+</ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1470,15 +1489,23 @@ period      0.258963   0.022238 11.6448   &lt;2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-</section>
-<section id="example-aids-data-3" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
+<ul>
+<li>The associated confidence intervals are:</li>
+</ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>                 2.5 %    97.5 %
 (Intercept) -0.1939158 0.8012249
 period       0.2153764 0.3025494</code></pre>
 </div>
+</div>
+</section>
+<section id="likelihood-based-testing" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-based-testing">Likelihood based testing</h2>
+</section>
+<section id="example-aids-data-3" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
+<div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
 </div>

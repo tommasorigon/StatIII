@@ -390,7 +390,7 @@ Note that, in general, we [cannot]{.orange} express the response in an additive 
 
 - In GLMs the random variables $Y_i$ are [independent]{.orange} and they are distributed according to an [exponential dispersion family]{.blue}, whose definition will be provided in a few slides. 
 
-- For now, it suffices to say that the distributions most commonly used in Statistics, such as the normal, binomial, gamma, and Poisson, are exponential family distributions.
+- The [distributions most commonly]{.orange} used in Statistics, such as the normal, binomial, gamma, and Poisson, are exponential family distributions.
 
 - Exponential dispersion families are [characterized]{.orange} by their [mean]{.blue} and [variance]{.blue}. Let $v(\mu) > 0$ be a function of the mean, called [variance function]{.blue} and let $a_i(\phi) >0$ be functions of an additional unknown parameter $\phi > 0$ called [dispersion]{.orange}. 
 
@@ -459,6 +459,8 @@ p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)}
 $$
 where $y_i \in \mathcal{Y} \subseteq \mathbb{R}$, $\theta_i \in \Theta \subseteq\mathbb{R}$ and $a_i(\phi) = \phi / \omega_i$ where $\omega_i$ are [known positive weights]{.blue}. The parameter $\theta_i$ is called [natural parameter]{.orange} while $\phi$ is called [dispersion]{.blue} parameter. 
 :::
+
+. . .
 
 - By specifying the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$ one obtain a particular [parametric model]{.orange}. 
 
@@ -1083,9 +1085,12 @@ $$
 $$
 \widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
 $$
-where we plugged in the consistent estimates $\hat{\beta}$ and $\hat{\phi}$ into $\bm{W}$ obtaining $\hat{\bm{W}}$. 
+where we plugged in the consistent estimates $\hat{\beta}$ and $\hat{\phi}$ into $\bm{W}$ obtaining $\hat{\bm{W}}$. Moreover, we can computed the [standard errors]{.orange} of each $\hat{\beta}_j$ as:
+$$
+\texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
+$$
 
-- Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}. 
+<!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
 
 ## Example: `Aids` data
 
@@ -1124,16 +1129,45 @@ $$
 
 ## Test and confidence intervals
 
+- Consider the [hypothesis]{.blue} $H_0: \beta_j = \beta_0$ against the [alternative]{.orange} $H_1: \beta_j \neq \beta_0$. The [Wald test statistic]{.blue} $z_j$, rejecting the hypothesis for large values of $|z_j|$ is:
+$$
+\texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1). 
+$$
+which is [approximately]{.orange} distributed as a [standard normal]{.blue} under $H_0$.
+
+- The p-value is defined in the usual way, namely
+$$
+\texttt{p value} = \alpha_\text{obs} \approx \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+$$
+
+. . .
+
+- By inverting the the Wald test, we obtained the associated [confidence interval]{.blue}
+$$
+\hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
+$$
+of [approximate]{.orange} level $1-\alpha$, where $z_{1-\alpha/2}$ is the quantile of a standard Gaussian.
+
+
 ## Example: `Aids` data
+
+- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Aids` data we get the familiar summary.
 
 ```{r}
 lmtest::coeftest(fit_Aids)
 ```
 
-## Example: `Aids` data
+- The associated confidence intervals are:
 
 ```{r}
 lmtest::coefci(fit_Aids)
+```
+
+## Likelihood based testing
+
+## Example: `Aids` data
+
+```{r}
 confint(fit_Aids)
 ```
 

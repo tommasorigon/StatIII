@@ -72,4 +72,5 @@ sum(Aids$period * Aids$deaths)
 lmtest::coeftest(fit_Aids)
 
 lmtest::coefci(fit_Aids)
+
 confint(fit_Aids)
