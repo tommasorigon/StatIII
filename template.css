@@ -30,6 +30,13 @@ $code-bg: #fff !default;
   //overflow: hidden; /* ensures children respect the rounded corners */
 }
 
+.styled-output .cell-output pre {
+  max-width: fit-content;
+  margin-left: 4ch;              /* indent relative to character width */
+  margin-right: 0;             /* no centering */
+}
+
+
 
 // headings
 $presentation-heading-line-height: 2.3;

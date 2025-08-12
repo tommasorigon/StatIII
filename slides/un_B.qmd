@@ -1423,6 +1423,8 @@ exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
 
 # Deviance, model checking, residuals
 
+# The `glm` **R** function output
+
 # Model selection
 
 ## References {.unnumbered}
