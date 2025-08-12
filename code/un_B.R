@@ -69,6 +69,10 @@ sum(Aids$period * Aids$deaths)
 # solve(vcov(fit_Aids))
 # round(vcov(fit_Aids), 3)
 
+lmtest::coeftest(fit_Beetles)
+
+lmtest::coefci(fit_Beetles)
+
 lmtest::coeftest(fit_Aids)
 
 lmtest::coefci(fit_Aids)

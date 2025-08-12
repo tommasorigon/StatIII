@@ -1118,7 +1118,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </div>
 </section>
 <section id="canonical-link-simplifications" class="slide level2 center">
-<h2>Canonical link: simplifications</h2>
+<h2>Canonical link: simplifications 📖</h2>
 <ul>
 <li>When using the <span class="orange">canonical link</span> <span class="math inline">\theta(\mu_i) = g(\mu_i)</span> significant simplifications arise, because <span class="math display">
 \frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
@@ -1166,6 +1166,9 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </div>
 </div>
 </section>
+<section id="example-beetles-data" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data</h2>
+</section>
 <section id="example-aids-data" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
@@ -1181,12 +1184,12 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <li><p>Using the <code>Aids</code> data we have <span class="math inline">\sum_{i=1}^ny_i = 217</span> and <span class="math inline">\sum_{i=1}^nx_i y_i = 2387</span>. Via <span class="orange">numerical methods</span> we solve the above system of equations and we obtain <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>.</p></li>
 <li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
-</span> In other words, the estimated number of deaths increases by approximately <span class="math inline">30%</span> every trimester.</p></li>
+</span> In other words, the estimated number of deaths increases by about <span class="math inline">30\%</span> every trimester.</p></li>
 </ul>
 </div>
 </section>
 <section id="observed-and-expected-information-i" class="slide level2 center">
-<h2>Observed and expected information I</h2>
+<h2>Observed and expected information I 📖</h2>
 <ul>
 <li><p>Let us first consider the negative derivative of the score function, that is the <span class="orange">observed information matrix</span> <span class="math inline">\bm{J}</span> with entries: <span class="math display">
 \begin{aligned}
@@ -1203,7 +1206,7 @@ i_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\f
 </ul>
 </section>
 <section id="observed-and-expected-information-ii" class="slide level2 center">
-<h2>Observed and expected information II</h2>
+<h2>Observed and expected information II 📖</h2>
 <ul>
 <li>In the previous slides we already computed the explicit values of these derivatives: <span class="math display">
 \frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
@@ -1224,7 +1227,7 @@ w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(
 </div>
 </section>
 <section id="canonical-link-simplifications-1" class="slide level2 center">
-<h2>Canonical link: simplifications</h2>
+<h2>Canonical link: simplifications 📖</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -1341,7 +1344,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <ul>
 <li><p>In general, the estimating equations of a GLM <span class="math display">
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0}
-</span> cannot be solved in closed form and we need to rely on <span class="orange">numerical methods</span>.</p></li>
+</span> cannot be solved in <span class="blue">closed form</span> and we need to rely on <span class="orange">numerical methods</span>.</p></li>
 <li><p>An <span class="orange">iterative</span> method means that we start the <span class="blue">algorithm</span> with a candidate value <span class="math inline">\beta^{(1)}</span> (<span class="grey">initialization</span>). Then, at the step <span class="math inline">t</span> we update <span class="math display">
 \beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
 </span></p></li>
@@ -1466,19 +1469,22 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 </div>
 </div>
 </section>
-<section id="estimation-of-phi" class="slide level2 center">
-<h2>Estimation of <span class="math inline">\phi</span></h2>
+<section id="estimation-of-the-dispersion-phi" class="slide level2 center">
+<h2>Estimation of the dispersion <span class="math inline">\phi</span></h2>
 <ul>
 <li><p>In some GLMs, such as the Gaussian and the Gamma, there is a <span class="orange">dispersion parameter</span> <span class="math inline">\phi</span> that we need to estimate.</p></li>
-<li><p>Instead of the maximum likelihood estimate, because of numerical instabilities and lack of robustness it is typically preferred an <span class="orange">method of moments</span> estimator: <span class="math display">
-\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{v(\hat{\mu}_i)}.
-</span></p></li>
-<li><p>When <span class="math inline">g(\mu_i) = \mu_i</span> is the <span class="blue">identity link</span> and <span class="math inline">v(\mu_i) = 1</span>, this coincides with the usual unbiased estimator of <span class="math inline">\sigma^2</span> for a Gaussian linear model.</p></li>
-<li><p>For a Gamma model with <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi \mu_i)</span>, we get instead <span class="math display">
-\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{\hat{\mu}_i^2}.
+<li><p>Instead of the maximum likelihood, because of <span class="orange">numerical instabilities</span> and <span class="blue">lack of robustness</span> it is typically preferred a <span class="orange">method of moments</span> estimator. If <span class="math inline">\mu_i</span> were known, the estimator <span class="math display">
+\frac{1}{n}\sum_{i=1}^n\omega_i\frac{(y_i - \mu_i)^2}{v(\mu_i)}
+</span> would be <span class="orange">unbiased</span> for <span class="math inline">\phi</span>, because <span class="math inline">\mathbb{E}\{(Y_i - \mu_i)^2\} = (\phi/\omega_i) v(\mu_i)</span>. This motivates the estimator <span class="math display">
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \omega_i\frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}, \qquad \hat{\mu}_i = g^{-1}(\bm{x}_i^T\hat{\beta}).
 </span></p></li>
 <li><p>This is a <span class="blue">consistent</span> estimator of <span class="math inline">\phi</span> as long as <span class="math inline">\hat{\beta}</span> is consistent.</p></li>
 </ul>
+<div class="fragment">
+<ul>
+<li>When <span class="math inline">g(\mu_i) = \mu_i</span> is the <span class="blue">identity link</span> and <span class="math inline">v(\mu_i) = \omega_i = 1</span>, this coincides with the usual unbiased estimator <span class="math inline">s^2</span> of <span class="math inline">\sigma^2</span> for a Gaussian linear model.</li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="inference-and-hypothesis-testing" class="title-slide slide level1 center">
@@ -1508,6 +1514,9 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 </ul>
 <!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
 </section>
+<section id="example-beetles-data-1" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data</h2>
+</section>
 <section id="example-aids-data-1" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
@@ -1516,8 +1525,8 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 \hat{\bm{W}} = \text{diag}(\hat{\mu}_1,\dots,\hat{\mu}_n) = \text{diag}(1.755, \dots, 50.863).
 </span> from which we obtain the <span class="orange">estimated</span> <span class="blue">Fisher information matrix</span>: <span class="math display">
 \bm{X}^T\hat{\bm{W}}\bm{X} = \begin{pmatrix}
-\sum_{i=1}^n\hat{\mu}_i &amp; \sum_{i=1}^n x_i\hat{\mu_i}\\
-\sum_{i=1}^n x_i\hat{\mu_i} &amp; \sum_{i=1}^n x_i^2\hat{\mu_i}
+\sum_{i=1}^n\hat{\mu}_i &amp; \sum_{i=1}^n x_i\hat{\mu}_i\\
+\sum_{i=1}^n x_i\hat{\mu}_i &amp; \sum_{i=1}^n x_i^2\hat{\mu}_i
 \end{pmatrix} = \begin{pmatrix}
 217 &amp; 2387\\
 2387 &amp; 28279.05
@@ -1571,10 +1580,43 @@ z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \fr
 </div>
 </div>
 </section>
+<section id="example-beetles-data-2" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data</h2>
+<ul>
+<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Beetles</code> data we get the following familiar summary.</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+z test of coefficients:
+
+            Estimate Std. Error z value  Pr(&gt;|z|)    
+(Intercept) -60.7175     5.1807 -11.720 &lt; 2.2e-16 ***
+logdose      34.2703     2.9121  11.768 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li>In this case, we <span class="orange">reject</span> the null hypothesis that <span class="math inline">\beta_2 = 0</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The associated <span class="blue">Wald confidence intervals</span> are:</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>                2.5 %    97.5 %
+(Intercept) -70.87144 -50.56347
+logdose      28.56265  39.97800</code></pre>
+</div>
+</div>
+</div>
+</section>
 <section id="example-aids-data-2" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
-<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Aids</code> data we get the familiar summary.</li>
+<li>The Wald test for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span> in the <code>Aids</code> data is the following.</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1702,12 +1744,15 @@ W_u \: \dot{\sim} \; \chi^2_q,
 </section>
 <section id="three-asymptotically-equivalent-tests" class="slide level2 center">
 <h2>Three asymptotically equivalent tests</h2>
-<ul>
-<li><p>The Wald test, the Score test and the log-likelihood ration test are <span class="blue">asymptotically equivalent</span>. In other words, these tests give the same <span class="blue">same number</span> for (very) large values of <span class="math inline">n</span>.</p></li>
-<li><p>More formally, we have that <span class="math display">
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The Wald test, the Score test and the log-likelihood ration test are <span class="blue">asymptotically equivalent</span>, that is, these tests give the same <span class="blue">same number</span> for large values of <span class="math inline">n</span>. We have that <span class="math display">
 W_e = W + o_p(1), \qquad W_u = W + o_p(1),
-</span> where <span class="math inline">o_p(1)</span> is a quantity that goes to <span class="math inline">0</span> in probability as <span class="math inline">n \to \infty</span>.</p></li>
-</ul>
+</span> where <span class="math inline">o_p(1)</span> is a quantity that goes to <span class="math inline">0</span> in probability as <span class="math inline">n \to \infty</span>.</p>
+</div>
+</div>
+</div>
 <div class="fragment">
 <ul>
 <li>When <span class="math inline">q = 1</span>, we can also <span class="blue">invert</span> <span class="math inline">W_e</span>, <span class="math inline">W_u</span> and <span class="math inline">W</span> tests over <span class="math inline">\beta_0</span> to obtain the corresponding <span class="orange">confidence interval</span>. This is often done <span class="orange">numerically</span> for <span class="math inline">W_u</span> and <span class="math inline">W</span>.</li>
@@ -1748,6 +1793,9 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </ul>
 </div>
 </section>
+<section id="example-beetles-data-3" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data</h2>
+</section>
 <section id="example-aids-data-3" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
@@ -1785,12 +1833,12 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <li>Suppose we were interested in a confidence interval for <span class="math inline">\exp(\beta_2)</span>. Thanks to invariance of the score and the LRT tests, we can simply <span class="orange">transform</span> of the <span class="blue">original interval</span>:</li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">exp</span>(CI_Rao) <span class="co"># Rao/Score confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">exp</span>(CI_Rao) <span class="co"># Rao/Score confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2.5 %   97.5 % 
 1.240440 1.353202 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">exp</span>(CI_LRT) <span class="co"># LRT confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">exp</span>(CI_LRT) <span class="co"># LRT confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2.5 %   97.5 % 
 1.241695 1.354928 </code></pre>
@@ -1800,18 +1848,66 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <li>In the Wald case, we need to <span class="orange">adjust</span> the <span class="orange">variance</span> according to the <span class="blue">delta method</span>, obtaining <span class="math display">\widehat{\text{var}}(\exp(\hat{\beta}_2)) = \exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 0.000830.</span></li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>var_exp_beta2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">2</span> <span class="sc">*</span> beta_2) <span class="sc">*</span> var_beta_2</span>
-<span id="cb10-2"><a href=""></a><span class="fu">exp</span>(beta_2) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(var_exp_beta2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>var_exp_beta2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">2</span> <span class="sc">*</span> beta_2) <span class="sc">*</span> var_beta_2</span>
+<span id="cb12-2"><a href=""></a><span class="fu">exp</span>(beta_2) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(var_exp_beta2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.239116 1.352056</code></pre>
 </div>
 </div>
 </section></section>
+<section>
 <section id="deviance-model-checking-residuals" class="title-slide slide level1 center">
 <h1>Deviance, model checking, residuals</h1>
 
 </section>
-
+<section id="example-beetles-data-saturated-model" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data, saturated model</h2>
+</section>
+<section id="deviance-i" class="slide level2 center">
+<h2>Deviance I</h2>
+</section>
+<section id="deviance-and-log-likelihood-ratio" class="slide level2 center">
+<h2>Deviance and log-likelihood ratio</h2>
+</section>
+<section id="analysis-of-deviance-summary" class="slide level2 center">
+<h2>Analysis of deviance: summary</h2>
+</section>
+<section id="deviance-of-a-gaussian-linear-model" class="slide level2 center">
+<h2>Deviance of a Gaussian linear model</h2>
+</section>
+<section id="deviance-of-a-poisson-model" class="slide level2 center">
+<h2>Deviance of a Poisson model</h2>
+</section>
+<section id="deviance-of-a-binomial-model" class="slide level2 center">
+<h2>Deviance of a binomial model</h2>
+</section>
+<section id="deviance-of-a-gamma-model" class="slide level2 center">
+<h2>Deviance of a Gamma model</h2>
+</section>
+<section id="relationship-between-deviance-and-pearson-x2" class="slide level2 center">
+<h2>Relationship between deviance and Pearson <span class="math inline">X^2</span></h2>
+</section>
+<section id="deviance-as-goodness-of-fit-measure" class="slide level2 center">
+<h2>Deviance as goodness of fit measure</h2>
+</section>
+<section id="residuals" class="slide level2 center">
+<h2>Residuals</h2>
+</section>
+<section id="pearson-residuals" class="slide level2 center">
+<h2>Pearson residuals</h2>
+</section>
+<section id="deviance-residuals" class="slide level2 center">
+<h2>Deviance residuals</h2>
+</section>
+<section id="quantile-residuals" class="slide level2 center">
+<h2>Quantile residuals</h2>
+</section>
+<section id="standardized-residuals" class="slide level2 center">
+<h2>Standardized residuals</h2>
+</section>
+<section id="approximate-cooks-distance" class="slide level2 center">
+<h2>Approximate Cook’s distance</h2>
+</section></section>
 <section id="the-glm-routines-in-r" class="title-slide slide level1 center">
 <h1>The <code>glm</code> routines in <strong>R</strong></h1>
 
@@ -1821,6 +1917,12 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <section id="model-selection" class="title-slide slide level1 center">
 <h1>Model selection</h1>
 
+</section>
+<section id="stepwise-procedures-forward-and-backward-selection" class="slide level2 center">
+<h2>Stepwise procedures: forward and backward selection</h2>
+</section>
+<section id="aic-and-bic" class="slide level2 center">
+<h2>AIC and BIC</h2>
 </section>
 <section id="references" class="slide level2 unnumbered smaller scrollable">
 <h2>References</h2>

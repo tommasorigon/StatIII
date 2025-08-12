@@ -845,7 +845,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 $$
 :::
 
-## Canonical link: simplifications
+## Canonical link: simplifications 📖
 
 - When using the [canonical link]{.orange} $\theta(\mu_i) = g(\mu_i)$ significant simplifications arise, because
 $$
@@ -890,6 +890,8 @@ $$
 $$
 :::
 
+## Example: `Beetles` data
+
 ## Example: `Aids` data
 
 - In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$. 
@@ -909,7 +911,7 @@ $$
 $$
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
 $$
-In other words, the estimated number of deaths increases by approximately $30%$ every trimester.
+In other words, the estimated number of deaths increases by about $30\%$ every trimester.
 
 ```{r}
 #| echo: false
@@ -918,7 +920,7 @@ sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
 ```
 
-## Observed and expected information I
+## Observed and expected information I 📖
 
 - Let us first consider the negative derivative of the score function, that is the [observed information matrix]{.orange} $\bm{J}$ with entries:
 $$
@@ -938,7 +940,7 @@ $$
 i_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}, \qquad r,s = 1,\dots,p.
 $$
 
-## Observed and expected information II
+## Observed and expected information II 📖
 
 - In the previous slides we already computed the explicit values of these derivatives: $$
 \frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
@@ -960,7 +962,7 @@ w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(
 $$
 :::
 
-## Canonical link: simplifications
+## Canonical link: simplifications 📖
 
 :::callout-note
 Under the [canonical link]{.orange} we have that $\theta_i = \beta_1x_{i1} + \cdots \beta_p x_{ip}$, which means that
@@ -1076,7 +1078,7 @@ Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference o
 $$
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0}
 $$
-cannot be solved in closed form and we need to rely on [numerical methods]{.orange}. 
+cannot be solved in [closed form]{.blue} and we need to rely on [numerical methods]{.orange}. 
 
 - An [iterative]{.orange} method means that we start the [algorithm]{.blue} with a candidate value $\beta^{(1)}$ ([initialization]{.grey}). Then, at the step $t$ we update
 $$
@@ -1207,22 +1209,24 @@ the [least square]{.orange} solution for the transformed data. To avoid boundary
   with probabilities $\pi_i^{(t)} = \exp(\bm{x}_i^T\beta^{(t)})/(1 + \exp(\bm{x}_i^T\beta^{(t)}))$ for $i=1,\dots,n$.
 :::
 
-## Estimation of $\phi$ 
+## Estimation of the dispersion $\phi$ 
 
 - In some GLMs, such as the Gaussian and the Gamma, there is a [dispersion parameter]{.orange} $\phi$ that we need to estimate.
 
-- Instead of the maximum likelihood estimate, because of numerical instabilities and lack of robustness it is typically preferred an [method of moments]{.orange} estimator:
+- Instead of the maximum likelihood, because of [numerical instabilities]{.orange} and [lack of robustness]{.blue} it is typically preferred a [method of moments]{.orange} estimator. If $\mu_i$ were known, the estimator
 $$
-\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{v(\hat{\mu}_i)}.
+\frac{1}{n}\sum_{i=1}^n\omega_i\frac{(y_i - \mu_i)^2}{v(\mu_i)}
+$$
+would be [unbiased]{.orange} for $\phi$, because $\mathbb{E}\{(Y_i - \mu_i)^2\} = (\phi/\omega_i) v(\mu_i)$. This motivates the estimator
+$$
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \omega_i\frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}, \qquad \hat{\mu}_i = g^{-1}(\bm{x}_i^T\hat{\beta}). 
 $$
 
-- When $g(\mu_i) = \mu_i$ is the [identity link]{.blue} and $v(\mu_i) = 1$, this coincides with the usual unbiased estimator of $\sigma^2$ for a Gaussian linear model.
-
-- For a Gamma model with $Y_i \sim \text{ED}(\mu_i, \phi \mu_i)$, we get instead
-$$
-\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{\hat{\mu}_i^2}.
-$$
 - This is a [consistent]{.blue} estimator of $\phi$ as long as $\hat{\beta}$ is consistent. 
+
+. . .
+
+- When $g(\mu_i) = \mu_i$ is the [identity link]{.blue} and $v(\mu_i) = \omega_i = 1$, this coincides with the usual unbiased estimator $s^2$ of $\sigma^2$ for a Gaussian linear model.
 
 # Inference and hypothesis testing
 
@@ -1252,6 +1256,9 @@ $$
 
 <!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
 
+## Example: `Beetles` data
+
+
 ## Example: `Aids` data
 
 - In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$ and estimated $\hat{\beta} = (0.304, 0.259)$.
@@ -1263,8 +1270,8 @@ $$
 from which we obtain the [estimated]{.orange} [Fisher information matrix]{.blue}:
 $$
 \bm{X}^T\hat{\bm{W}}\bm{X} = \begin{pmatrix} 
-\sum_{i=1}^n\hat{\mu}_i & \sum_{i=1}^n x_i\hat{\mu_i}\\
-\sum_{i=1}^n x_i\hat{\mu_i} & \sum_{i=1}^n x_i^2\hat{\mu_i}
+\sum_{i=1}^n\hat{\mu}_i & \sum_{i=1}^n x_i\hat{\mu}_i\\
+\sum_{i=1}^n x_i\hat{\mu}_i & \sum_{i=1}^n x_i^2\hat{\mu}_i
 \end{pmatrix} = \begin{pmatrix}
 217 & 2387\\
 2387 & 28279.05
@@ -1326,9 +1333,30 @@ $$ which is the usual test statistic considered, e.g., in the output on `lm` in 
 In GLMs we use procedures that are [approximate]{.orange} rather than [exact]{.blue}. Of course, whenever an exact result is known, we should use it. 
 :::
 
+## Example: `Beetles` data
+
+- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Beetles` data we get the following familiar summary. 
+
+```{r}
+#| classes: styled-output
+lmtest::coeftest(fit_Beetles)
+```
+
+- In this case, we [reject]{.orange} the null hypothesis that $\beta_2 = 0$. 
+
+. . .
+
+- The associated [Wald confidence intervals]{.blue} are:
+
+```{r}
+#| classes: styled-output
+lmtest::coefci(fit_Beetles)
+```
+
+
 ## Example: `Aids` data
 
-- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Aids` data we get the familiar summary. 
+- The Wald test for checking the hypotheses $H_0 : \beta_j = 0$ in the `Aids` data is the following. 
 
 ```{r}
 #| classes: styled-output
@@ -1447,13 +1475,13 @@ The Rao test arguably the [less common]{.orange}. However, it is linked to the $
 
 ## Three asymptotically equivalent tests
 
-- The Wald test, the Score test and the log-likelihood ration test are [asymptotically equivalent]{.blue}. In other words, these tests give the same [same number]{.blue} for (very) large values of $n$. 
-
-- More formally, we have that
+:::callout-warning
+The Wald test, the Score test and the log-likelihood ration test are [asymptotically equivalent]{.blue}, that is, these tests give the same [same number]{.blue} for large values of $n$. We have that
 $$
 W_e = W + o_p(1), \qquad W_u = W + o_p(1),
 $$
 where $o_p(1)$ is a quantity that goes to $0$ in probability as $n \to \infty$. 
+:::
 
 . . .
 
@@ -1494,6 +1522,8 @@ where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is
 
 - The quantities $W_e, W_u$, and $W$ are the natural extension of the F-statistic for GLMs. They are [approximately]{.orange} distributed as $\chi^2_q$ with $q$ [degrees of freedom]{.blue}. 
 
+
+## Example: `Beetles` data
 
 ## Example: `Aids` data
 
@@ -1563,12 +1593,47 @@ exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
 ```
 
 
-
 # Deviance, model checking, residuals
+
+## Example: `Beetles` data, saturated model
+
+## Deviance I
+
+## Deviance and log-likelihood ratio
+
+## Analysis of deviance: summary
+
+## Deviance of a Gaussian linear model
+
+## Deviance of a Poisson model
+
+## Deviance of a binomial model
+
+## Deviance of a Gamma model
+
+## Relationship between deviance and Pearson $X^2$ 
+
+## Deviance as goodness of fit measure
+
+## Residuals
+
+## Pearson residuals
+
+## Deviance residuals
+
+## Quantile residuals
+
+## Standardized residuals
+
+## Approximate Cook's distance
 
 # The `glm` routines in **R**
 
 # Model selection
+
+## Stepwise procedures: forward and backward selection
+
+## AIC and BIC
 
 ## References {.unnumbered}
 
