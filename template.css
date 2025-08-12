@@ -23,11 +23,11 @@ $code-color: #DF0606;
 $code-bg: #fff !default;
 
 .styled-output .cell-output {
-  border: 1px solid rgba(0,0,0,0.15);     /* subtle border */
-  border-radius: 8px;         /* rounded corners */
+  //border: 1px solid rgba(0,0,0,0.15);     /* subtle border */
+  //border-radius: 8px;         /* rounded corners */
   display: block;             /* ensure it behaves as a block container */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* light shadow for panel effect */
-  overflow: hidden; /* ensures children respect the rounded corners */
+  // box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* light shadow for panel effect */
+  //overflow: hidden; /* ensures children respect the rounded corners */
 }
 
 
