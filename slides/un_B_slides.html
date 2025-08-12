@@ -1342,7 +1342,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <li><p>In general, the estimating equations of a GLM <span class="math display">
 \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0}
 </span> cannot be solved in closed form and we need to rely on <span class="orange">numerical methods</span>.</p></li>
-<li><p>An <span class="orange">iterative</span> method means that we start the <span class="blue">algorithm</span> with a candidate value <span class="math inline">\beta^{(0)}</span> (<span class="grey">initialization</span>). Then, at the step <span class="math inline">t</span> we update <span class="math display">
+<li><p>An <span class="orange">iterative</span> method means that we start the <span class="blue">algorithm</span> with a candidate value <span class="math inline">\beta^{(1)}</span> (<span class="grey">initialization</span>). Then, at the step <span class="math inline">t</span> we update <span class="math display">
 \beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
 </span></p></li>
 <li><p>The algorithm <span class="orange">stops</span> whenever a certain criteria is met, e.g.&nbsp;when <span class="math inline">||\beta^{(t+1)} - \beta^{(t)}|| &lt; \epsilon</span>, where <span class="math inline">\epsilon</span> is sometimes called <span class="grey">tolerance</span>. We say it reached <span class="blue">convergence</span>.</p></li>
@@ -1432,12 +1432,53 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(
 <ul>
 <li>The IRLS updates does not depend on the choice of <span class="math inline">\phi</span>, because it <span class="orange">cancels</span> in the multiplications, as we would expect.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li><p>The pseudo-responses have a <span class="blue">nice interpretation</span>, because they can be interpreted as a linear approximation of the transformed responses: <span class="math display">
+g(y_i) \approx g(\mu_i) + (y_i - \mu_i)g'(\mu_i) = \eta_i + (y_i - \mu_i)g'(\mu_i) = z_i.
+</span></p></li>
+<li><p>Based on this approximation, a good <span class="blue">initialization</span> is <span class="math display">
+\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \hat{\beta}^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
+</span> the <span class="orange">least square</span> solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in Binomial regression.</p></li>
+</ul>
+</div>
 </section>
-<section id="example-logistic-regression" class="slide level2 center">
-<h2>Example: logistic regression</h2>
+<section id="example-irls-for-logistic-regression" class="slide level2 center">
+<h2>Example: IRLS for logistic regression</h2>
+<ul>
+<li>Consider a <span class="blue">logistic regression</span> model for <span class="orange">proportions</span> <span class="math inline">Y_i \in \{0, 1/m_i, \dots,1\}</span> with probability of success <span class="math inline">\pi_i = \mu_i</span> and trials <span class="math inline">m_i</span>.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>IRLS algorithm for logistic regression</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><span class="grey">Initialize</span> <span class="math inline">\bm{\beta}^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{logit}(\tilde{\bm{y}})</span> where <span class="math inline">\text{logit}(\tilde{\bm{y}})</span> is the <span class="orange">empirical logit</span> transform.</p></li>
+<li><p>For <span class="math inline">t=1,2, \dots</span> until <span class="orange">convergence</span> compute: <span class="math display">
+\beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)},
+</span> where the weights in <span class="math inline">\bm{W}^{(t)}</span> equals <span class="math inline">w_i^{(t)} = m_i \pi_i^{(t)} (1 - \pi_i^{(t)})</span> and the <span class="blue">pseudo-responses</span> <span class="math inline">\bm{z}^{(t)}</span> are <span class="math display">
+z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_i^{(t)})}, \qquad i=1,\dots,n,
+</span> with probabilities <span class="math inline">\pi_i^{(t)} = \exp(\bm{x}_i^T\beta^{(t)})/(1 + \exp(\bm{x}_i^T\beta^{(t)}))</span> for <span class="math inline">i=1,\dots,n</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="estimation-of-phi" class="slide level2 center">
 <h2>Estimation of <span class="math inline">\phi</span></h2>
+<ul>
+<li><p>In some GLMs, such as the Gaussian and the Gamma, there is a <span class="orange">dispersion parameter</span> <span class="math inline">\phi</span> that we need to estimate.</p></li>
+<li><p>Instead of the maximum likelihood estimate, because of numerical instabilities and lack of robustness it is typically preferred an <span class="orange">method of moments</span> estimator: <span class="math display">
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{v(\hat{\mu}_i)}.
+</span></p></li>
+<li><p>When <span class="math inline">g(\mu_i) = \mu_i</span> is the <span class="blue">identity link</span> and <span class="math inline">v(\mu_i) = 1</span>, this coincides with the usual unbiased estimator of <span class="math inline">\sigma^2</span> for a Gaussian linear model.</p></li>
+<li><p>For a Gamma model with <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi \mu_i)</span>, we get instead <span class="math display">
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{\hat{\mu}_i^2}.
+</span></p></li>
+<li><p>This is a <span class="blue">consistent</span> estimator of <span class="math inline">\phi</span> as long as <span class="math inline">\hat{\beta}</span> is consistent.</p></li>
+</ul>
 </section></section>
 <section>
 <section id="inference-and-hypothesis-testing" class="title-slide slide level1 center">

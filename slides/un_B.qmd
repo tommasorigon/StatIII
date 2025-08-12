@@ -1078,7 +1078,7 @@ $$
 $$
 cannot be solved in closed form and we need to rely on [numerical methods]{.orange}. 
 
-- An [iterative]{.orange} method means that we start the [algorithm]{.blue} with a candidate value $\beta^{(0)}$ ([initialization]{.grey}). Then, at the step $t$ we update
+- An [iterative]{.orange} method means that we start the [algorithm]{.blue} with a candidate value $\beta^{(1)}$ ([initialization]{.grey}). Then, at the step $t$ we update
 $$
 \beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
 $$
@@ -1176,12 +1176,53 @@ $$
 
 . . .
 
+- The pseudo-responses have a [nice interpretation]{.blue}, because they can be interpreted as a linear approximation of the transformed responses:
+$$
+g(y_i) \approx g(\mu_i) + (y_i - \mu_i)g'(\mu_i) = \eta_i + (y_i - \mu_i)g'(\mu_i) = z_i.
+$$
 
+- Based on this approximation, a good [initialization]{.blue} is
+$$
+\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \hat{\beta}^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
+$$
+the [least square]{.orange} solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in Binomial regression. 
 
-## Example: logistic regression
+## Example: IRLS for logistic regression
+
+- Consider a [logistic regression]{.blue} model for [proportions]{.orange} $Y_i \in \{0, 1/m_i, \dots,1\}$ with probability of success $\pi_i = \mu_i$ and trials $m_i$. 
+
+:::callout-tip
+#### IRLS algorithm for logistic regression
+
+-  [Initialize]{.grey} $\bm{\beta}^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{logit}(\tilde{\bm{y}})$ where $\text{logit}(\tilde{\bm{y}})$ is the [empirical logit]{.orange} transform.
+  
+- For $t=1,2, \dots$ until [convergence]{.orange} compute:
+  $$
+  \beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)},
+  $$
+  where the weights in $\bm{W}^{(t)}$ equals $w_i^{(t)} = m_i \pi_i^{(t)} (1 - \pi_i^{(t)})$ and the [pseudo-responses]{.blue} $\bm{z}^{(t)}$ are
+  $$
+  z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_i^{(t)})}, \qquad i=1,\dots,n,
+  $$
+  with probabilities $\pi_i^{(t)} = \exp(\bm{x}_i^T\beta^{(t)})/(1 + \exp(\bm{x}_i^T\beta^{(t)}))$ for $i=1,\dots,n$.
+:::
 
 ## Estimation of $\phi$ 
 
+- In some GLMs, such as the Gaussian and the Gamma, there is a [dispersion parameter]{.orange} $\phi$ that we need to estimate.
+
+- Instead of the maximum likelihood estimate, because of numerical instabilities and lack of robustness it is typically preferred an [method of moments]{.orange} estimator:
+$$
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{v(\hat{\mu}_i)}.
+$$
+
+- When $g(\mu_i) = \mu_i$ is the [identity link]{.blue} and $v(\mu_i) = 1$, this coincides with the usual unbiased estimator of $\sigma^2$ for a Gaussian linear model.
+
+- For a Gamma model with $Y_i \sim \text{ED}(\mu_i, \phi \mu_i)$, we get instead
+$$
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \frac{y_i - \hat{\mu}_i}{\hat{\mu}_i^2}.
+$$
+- This is a [consistent]{.blue} estimator of $\phi$ as long as $\hat{\beta}$ is consistent. 
 
 # Inference and hypothesis testing
 
