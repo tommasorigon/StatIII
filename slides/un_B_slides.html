@@ -696,8 +696,8 @@ Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_
 <li><p>Most <span class="blue">well-known</span> <span class="blue">distributions</span>—such as Gaussian, Poisson, Binomial, and Gamma—are instances of exponential families.</p></li>
 </ul>
 </section>
-<section id="definition" class="slide level2 center">
-<h2>Definition</h2>
+<section id="exponential-dispersion-family-definition" class="slide level2 center">
+<h2>Exponential dispersion family: definition</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -1338,15 +1338,103 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </section>
 <section id="numerical-methods-for-maximum-likelihood-estimation" class="slide level2 center">
 <h2>Numerical methods for maximum likelihood estimation</h2>
+<ul>
+<li><p>In general, the estimating equations of a GLM <span class="math display">
+\bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0}
+</span> cannot be solved in closed form and we need to rely on <span class="orange">numerical methods</span>.</p></li>
+<li><p>An <span class="orange">iterative</span> method means that we start the <span class="blue">algorithm</span> with a candidate value <span class="math inline">\beta^{(0)}</span> (<span class="grey">initialization</span>). Then, at the step <span class="math inline">t</span> we update <span class="math display">
+\beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
+</span></p></li>
+<li><p>The algorithm <span class="orange">stops</span> whenever a certain criteria is met, e.g.&nbsp;when <span class="math inline">||\beta^{(t+1)} - \beta^{(t)}|| &lt; \epsilon</span>, where <span class="math inline">\epsilon</span> is sometimes called <span class="grey">tolerance</span>. We say it reached <span class="blue">convergence</span>.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>There exists a huge variety of numerical methods for maximizing a function.</p></li>
+<li><p>The <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm became very popular after being proposed by <span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#/references" role="doc-biblioref" onclick="">1972</a>)</span> and is currently implemented in <strong>R</strong>.</p></li>
+<li><p>The IRLS algorithm can be used for any GLM, has a clear geometric interpretation, and often delivers good performance. It can be seen as a <span class="orange">variant</span> of <span class="blue">Newton-Raphson</span>.</p></li>
+</ul>
+</div>
 </section>
-<section id="iteratively-reweighted-least-squares-i" class="slide level2 center">
-<h2>Iteratively reweighted least squares I</h2>
+<section id="newton-raphson-algorithm-i" class="slide level2 center">
+<h2>Newton-Raphson algorithm I</h2>
+<ul>
+<li><p>In the Newton-Raphson algorithm, we consider a second-order <span class="blue">Taylor expansion</span> of the log-likelihood <span class="math inline">\ell(\beta) = \ell(\beta,\phi)</span> centered in <span class="math inline">\beta^{(t)}</span>, namely: <span class="math display">
+\ell(\beta) \approx \ell(\beta^{(t)}) + \ell_*(\beta^{(t)})^T(\beta - \beta^{(t)}) - \frac{1}{2}(\beta -
+\beta^{(t)})^T\bm{J}^{(t)}
+</span> where <span class="math inline">\ell_*(\beta^{(t)})</span> is the <span class="orange">score function</span> and <span class="math inline">\bm{J}^{(t)}</span> is the <span class="blue">observed information</span>, evaluated at <span class="math inline">\beta^{(t)}</span>.</p></li>
+<li><p>In other words, we <span class="orange">approximate</span> the log-likelihood <span class="math inline">\ell(\beta)</span> with a <span class="blue">parabola</span>. This gives the <span class="grey">approximate likelihood equations</span>: <span class="math display">
+\ell_*(\beta^{(t)}) - \bm{J}^{(t)}(\beta - \beta^{(t)}) = \bm{0}.
+</span></p></li>
+<li><p>Solving the equation above gives the following <span class="orange">updates</span>: <span class="math display">
+\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+</span></p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The Netwon-Raphson method essentially considers a series of <span class="orange">parabolic approximations</span> to the log-likelihood, each time evaluating the <span class="blue">point of maximum</span>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="iteratively-reweighted-least-squares-ii" class="slide level2 center">
-<h2>Iteratively reweighted least squares II</h2>
+<section id="newton-raphson-algorithm-ii" class="slide level2 center">
+<h2>Newton-Raphson algorithm II</h2>
+
+<img data-src="img/NR.png" class="quarto-figure quarto-figure-center r-stretch" style="width:5in"><ul>
+<li>Figure taken from <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>.</li>
+</ul>
 </section>
-<section id="iteratively-reweighted-least-squares-iii" class="slide level2 center">
-<h2>Iteratively reweighted least squares III</h2>
+<section id="iteratively-re-weighted-least-squares-i" class="slide level2 center">
+<h2>Iteratively re-weighted least squares I 📖</h2>
+<ul>
+<li>The matrix <span class="math inline">\bm{J}^(t)</span> is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the <span class="blue">expected information</span> <span class="math inline">\bm{I}^{(t)}</span>.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In the <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm, we consider the updates: <span class="math display">
+\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+</span> This method is also called <span class="orange">Fisher scoring</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The above formula can <span class="blue">simplified</span> a bit. First, we rewrite the <span class="orange">score</span> as <span class="math display">
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
+</span> where the <span class="orange">weights</span> were defined as <span class="math inline">w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)</span>. In <span class="blue">matrix notation</span> we will write: <span class="math display">
+\ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
+</span> where <span class="math inline">\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T</span> and <span class="math inline">u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})</span> for <span class="math inline">i=1,\dots,n</span>.</li>
+</ul>
+</section>
+<section id="iteratively-re-weighted-least-squares-ii" class="slide level2 center">
+<h2>Iteratively re-weighted least squares II 📖</h2>
+<ul>
+<li>Exploiting the former formulas, we can write the IRLS update as follows <span class="math display">
+\beta^{(t+1)} = \beta^{(t)} + (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}.
+</span> Now <span class="orange">multiply</span> both sides by <span class="math inline">(\bm{X}^T\bm{W}^{(t)}\bm{X})</span>, <span class="blue">simplify</span> and <span class="grey">re-arrange</span> the resulting terms. This gives the following formula.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In the <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm, we consider the updates: <span class="math display">
+\beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)}, \qquad t=1,2,\dots,
+</span> where <span class="math inline">\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})</span> is called <span class="orange">pseudo-response</span> whose elements are defined as <span class="math display">
+z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
+</span> Hence, each update can be interpreted as the solution of a <span class="grey">weighted least square</span> problem: <span class="math display">
+\hat{\beta}^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="iteratively-re-weighted-least-squares-iii" class="slide level2 center">
+<h2>Iteratively re-weighted least squares III 📖</h2>
+<ul>
+<li>The IRLS updates does not depend on the choice of <span class="math inline">\phi</span>, because it <span class="orange">cancels</span> in the multiplications, as we would expect.</li>
+</ul>
+</section>
+<section id="example-logistic-regression" class="slide level2 center">
+<h2>Example: logistic regression</h2>
 </section>
 <section id="estimation-of-phi" class="slide level2 center">
 <h2>Estimation of <span class="math inline">\phi</span></h2>
@@ -1683,8 +1771,8 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 
 </section>
 
-<section id="the-glm-r-function-output" class="title-slide slide level1 center">
-<h1>The <code>glm</code> <strong>R</strong> function output</h1>
+<section id="the-glm-routines-in-r" class="title-slide slide level1 center">
+<h1>The <code>glm</code> routines in <strong>R</strong></h1>
 
 </section>
 
@@ -1707,6 +1795,9 @@ Efron, B. (2023), <em><span class="nocase">Exponential Families in Theory and Pr
 </div>
 <div id="ref-Fisher1934" class="csl-entry" role="listitem">
 Fisher, R. A. (1934), <span>“<span class="nocase">Two new properties of mathematical likelihood</span>,”</span> <em>Proceedings of the Royal Society of London. Series A</em>, 144, 285–307.
+</div>
+<div id="ref-Nelder1972" class="csl-entry" role="listitem">
+Nelder, J. A., and Wedderburn, R. W. M. (1972), <span>“<span class="nocase">Generalized linear models</span>,”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em>, 135, 370–384.
 </div>
 <div id="ref-Salvan2020" class="csl-entry" role="listitem">
 Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.

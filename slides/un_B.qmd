@@ -453,7 +453,7 @@ We have $a_i(\phi) = 1$ and $v(\mu) = \mu$. There is [no dispersion]{.orange} pa
 
 - Most [well-known]{.blue} [distributions]{.blue}---such as Gaussian, Poisson, Binomial, and Gamma---are instances of exponential families.
 
-## Definition
+## Exponential dispersion family: definition
 
 :::callout-note
 The [density]{.orange} of $Y_i$ belongs to an [exponential dispersion family]{.blue} if it can be written as
@@ -1072,11 +1072,113 @@ Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference o
 
 ## Numerical methods for maximum likelihood estimation
 
-## Iteratively reweighted least squares I
+- In general, the estimating equations of a GLM
+$$
+\bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0}
+$$
+cannot be solved in closed form and we need to rely on [numerical methods]{.orange}. 
 
-## Iteratively reweighted least squares II
+- An [iterative]{.orange} method means that we start the [algorithm]{.blue} with a candidate value $\beta^{(0)}$ ([initialization]{.grey}). Then, at the step $t$ we update
+$$
+\beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
+$$
 
-## Iteratively reweighted least squares III
+- The algorithm [stops]{.orange} whenever a certain criteria is met, e.g. when $||\beta^{(t+1)} - \beta^{(t)}|| < \epsilon$, where $\epsilon$ is sometimes called [tolerance]{.grey}. We say it reached [convergence]{.blue}. 
+
+. . .
+
+- There exists a huge variety of numerical methods for maximizing a function.  
+
+- The [iteratively re-weighted least squares]{.blue} (IRLS) algorithm became very popular after being proposed by @Nelder1972 and is currently implemented in **R**.  
+
+- The IRLS algorithm can be used for any GLM, has a clear geometric interpretation, and often delivers good performance. It can be seen as a [variant]{.orange} of [Newton-Raphson]{.blue}.
+
+
+## Newton-Raphson algorithm I
+
+- In the Newton-Raphson algorithm, we consider a second-order [Taylor expansion]{.blue} of the log-likelihood $\ell(\beta) = \ell(\beta,\phi)$ centered in $\beta^{(t)}$, namely:
+$$
+\ell(\beta) \approx \ell(\beta^{(t)}) + \ell_*(\beta^{(t)})^T(\beta - \beta^{(t)}) - \frac{1}{2}(\beta - 
+\beta^{(t)})^T\bm{J}^{(t)}
+$$
+where $\ell_*(\beta^{(t)})$ is the [score function]{.orange} and $\bm{J}^{(t)}$ is the [observed information]{.blue}, evaluated at  $\beta^{(t)}$.
+
+- In other words, we [approximate]{.orange} the log-likelihood $\ell(\beta)$ with a [parabola]{.blue}. This gives the [approximate likelihood equations]{.grey}:
+$$
+\ell_*(\beta^{(t)}) - \bm{J}^{(t)}(\beta - \beta^{(t)}) = \bm{0}.
+$$
+
+- Solving the equation above gives the following [updates]{.orange}:
+$$
+\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+$$
+
+:::callout-tip
+The Netwon-Raphson method essentially considers a series of [parabolic approximations]{.orange} to the log-likelihood, each time evaluating the [point of maximum]{.blue}.
+:::
+
+
+## Newton-Raphson algorithm II
+
+![](img/NR.png){width=5in fig-align="center"}
+
+- Figure taken from @Agresti2015. 
+
+## Iteratively re-weighted least squares I 📖
+
+- The matrix $\bm{J}^(t)$ is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the [expected information]{.blue} $\bm{I}^{(t)}$.
+
+:::callout-note
+In the [iteratively re-weighted least squares]{.blue} (IRLS) algorithm, we consider the updates:
+$$
+\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+$$
+This method is also called [Fisher scoring]{.orange}. 
+:::
+
+- The above formula can [simplified]{.blue} a bit. First, we rewrite the [score]{.orange} as
+$$
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
+$$
+where the [weights]{.orange} were defined as $w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)$. In [matrix notation]{.blue} we will write:
+$$
+\ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
+$$
+where $\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T$ and  $u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})$ for $i=1,\dots,n$. 
+
+## Iteratively re-weighted least squares II 📖
+
+- Exploiting the former formulas, we can write the IRLS update as follows
+$$
+\beta^{(t+1)} = \beta^{(t)} + (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}.
+$$
+Now [multiply]{.orange} both sides by $(\bm{X}^T\bm{W}^{(t)}\bm{X})$, [simplify]{.blue} and [re-arrange]{.grey} the resulting terms. This gives the following formula.
+
+
+:::callout-note
+In the [iteratively re-weighted least squares]{.blue} (IRLS) algorithm, we consider the updates:
+$$
+\beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)}, \qquad t=1,2,\dots,
+$$
+where $\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})$ is called [pseudo-response]{.orange} whose elements are defined as
+$$
+z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
+$$
+Hence, each update can be interpreted as the solution of a [weighted least square]{.grey} problem:
+$$
+\hat{\beta}^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
+$$
+:::
+
+## Iteratively re-weighted least squares III 📖
+
+- The IRLS updates does not depend on the choice of $\phi$, because it [cancels]{.orange} in the multiplications, as we would expect. 
+
+. . .
+
+
+
+## Example: logistic regression
 
 ## Estimation of $\phi$ 
 
@@ -1423,7 +1525,7 @@ exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
 
 # Deviance, model checking, residuals
 
-# The `glm` **R** function output
+# The `glm` routines in **R**
 
 # Model selection
 

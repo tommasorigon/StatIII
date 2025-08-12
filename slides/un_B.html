@@ -170,7 +170,7 @@ window.Quarto = {
   <li><a href="#exponential-dispersion-families" id="toc-exponential-dispersion-families" class="nav-link" data-scroll-target="#exponential-dispersion-families">Exponential dispersion families</a>
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition">Definition</a></li>
+  <li><a href="#exponential-dispersion-family-definition" id="toc-exponential-dispersion-family-definition" class="nav-link" data-scroll-target="#exponential-dispersion-family-definition">Exponential dispersion family: definition</a></li>
   <li><a href="#mean-and-variance-i" id="toc-mean-and-variance-i" class="nav-link" data-scroll-target="#mean-and-variance-i">Mean and variance I 📖</a></li>
   <li><a href="#mean-and-variance-ii" id="toc-mean-and-variance-ii" class="nav-link" data-scroll-target="#mean-and-variance-ii">Mean and variance II 📖</a></li>
   <li><a href="#mean-parametrization-variance-function" id="toc-mean-parametrization-variance-function" class="nav-link" data-scroll-target="#mean-parametrization-variance-function">Mean parametrization, variance function</a></li>
@@ -203,9 +203,12 @@ window.Quarto = {
   <li><a href="#irls-algorithm" id="toc-irls-algorithm" class="nav-link" data-scroll-target="#irls-algorithm">IRLS algorithm</a>
   <ul class="collapse">
   <li><a href="#numerical-methods-for-maximum-likelihood-estimation" id="toc-numerical-methods-for-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#numerical-methods-for-maximum-likelihood-estimation">Numerical methods for maximum likelihood estimation</a></li>
-  <li><a href="#iteratively-reweighted-least-squares-i" id="toc-iteratively-reweighted-least-squares-i" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-i">Iteratively reweighted least squares I</a></li>
-  <li><a href="#iteratively-reweighted-least-squares-ii" id="toc-iteratively-reweighted-least-squares-ii" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-ii">Iteratively reweighted least squares II</a></li>
-  <li><a href="#iteratively-reweighted-least-squares-iii" id="toc-iteratively-reweighted-least-squares-iii" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-iii">Iteratively reweighted least squares III</a></li>
+  <li><a href="#newton-raphson-algorithm-i" id="toc-newton-raphson-algorithm-i" class="nav-link" data-scroll-target="#newton-raphson-algorithm-i">Newton-Raphson algorithm I</a></li>
+  <li><a href="#newton-raphson-algorithm-ii" id="toc-newton-raphson-algorithm-ii" class="nav-link" data-scroll-target="#newton-raphson-algorithm-ii">Newton-Raphson algorithm II</a></li>
+  <li><a href="#iteratively-re-weighted-least-squares-i" id="toc-iteratively-re-weighted-least-squares-i" class="nav-link" data-scroll-target="#iteratively-re-weighted-least-squares-i">Iteratively re-weighted least squares I 📖</a></li>
+  <li><a href="#iteratively-re-weighted-least-squares-ii" id="toc-iteratively-re-weighted-least-squares-ii" class="nav-link" data-scroll-target="#iteratively-re-weighted-least-squares-ii">Iteratively re-weighted least squares II 📖</a></li>
+  <li><a href="#iteratively-re-weighted-least-squares-iii" id="toc-iteratively-re-weighted-least-squares-iii" class="nav-link" data-scroll-target="#iteratively-re-weighted-least-squares-iii">Iteratively re-weighted least squares III 📖</a></li>
+  <li><a href="#example-logistic-regression" id="toc-example-logistic-regression" class="nav-link" data-scroll-target="#example-logistic-regression">Example: logistic regression</a></li>
   <li><a href="#estimation-of-phi" id="toc-estimation-of-phi" class="nav-link" data-scroll-target="#estimation-of-phi">Estimation of <span class="math inline">\phi</span></a></li>
   </ul></li>
   <li><a href="#inference-and-hypothesis-testing" id="toc-inference-and-hypothesis-testing" class="nav-link" data-scroll-target="#inference-and-hypothesis-testing">Inference and hypothesis testing</a>
@@ -226,7 +229,7 @@ window.Quarto = {
   <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example: <code>Aids</code> data</a></li>
   </ul></li>
   <li><a href="#deviance-model-checking-residuals" id="toc-deviance-model-checking-residuals" class="nav-link" data-scroll-target="#deviance-model-checking-residuals">Deviance, model checking, residuals</a></li>
-  <li><a href="#the-glm-r-function-output" id="toc-the-glm-r-function-output" class="nav-link" data-scroll-target="#the-glm-r-function-output">The <code>glm</code> <strong>R</strong> function output</a></li>
+  <li><a href="#the-glm-routines-in-r" id="toc-the-glm-routines-in-r" class="nav-link" data-scroll-target="#the-glm-routines-in-r">The <code>glm</code> routines in <strong>R</strong></a></li>
   <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model selection</a>
   <ul class="collapse">
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -792,8 +795,8 @@ Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_
 <li><p>Most <span class="blue">well-known</span> <span class="blue">distributions</span>—such as Gaussian, Poisson, Binomial, and Gamma—are instances of exponential families.</p></li>
 </ul>
 </section>
-<section id="definition" class="level2">
-<h2 class="anchored" data-anchor-id="definition">Definition</h2>
+<section id="exponential-dispersion-family-definition" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-dispersion-family-definition">Exponential dispersion family: definition</h2>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1454,15 +1457,114 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <h1>IRLS algorithm</h1>
 <section id="numerical-methods-for-maximum-likelihood-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="numerical-methods-for-maximum-likelihood-estimation">Numerical methods for maximum likelihood estimation</h2>
+<ul>
+<li><p>In general, the estimating equations of a GLM <span class="math display">
+\bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{0}
+</span> cannot be solved in closed form and we need to rely on <span class="orange">numerical methods</span>.</p></li>
+<li><p>An <span class="orange">iterative</span> method means that we start the <span class="blue">algorithm</span> with a candidate value <span class="math inline">\beta^{(0)}</span> (<span class="grey">initialization</span>). Then, at the step <span class="math inline">t</span> we update <span class="math display">
+\beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
+</span></p></li>
+<li><p>The algorithm <span class="orange">stops</span> whenever a certain criteria is met, e.g.&nbsp;when <span class="math inline">||\beta^{(t+1)} - \beta^{(t)}|| &lt; \epsilon</span>, where <span class="math inline">\epsilon</span> is sometimes called <span class="grey">tolerance</span>. We say it reached <span class="blue">convergence</span>.</p></li>
+</ul>
+<ul>
+<li><p>There exists a huge variety of numerical methods for maximizing a function.</p></li>
+<li><p>The <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm became very popular after being proposed by <span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#ref-Nelder1972" role="doc-biblioref">1972</a>)</span> and is currently implemented in <strong>R</strong>.</p></li>
+<li><p>The IRLS algorithm can be used for any GLM, has a clear geometric interpretation, and often delivers good performance. It can be seen as a <span class="orange">variant</span> of <span class="blue">Newton-Raphson</span>.</p></li>
+</ul>
 </section>
-<section id="iteratively-reweighted-least-squares-i" class="level2">
-<h2 class="anchored" data-anchor-id="iteratively-reweighted-least-squares-i">Iteratively reweighted least squares I</h2>
+<section id="newton-raphson-algorithm-i" class="level2">
+<h2 class="anchored" data-anchor-id="newton-raphson-algorithm-i">Newton-Raphson algorithm I</h2>
+<ul>
+<li><p>In the Newton-Raphson algorithm, we consider a second-order <span class="blue">Taylor expansion</span> of the log-likelihood <span class="math inline">\ell(\beta) = \ell(\beta,\phi)</span> centered in <span class="math inline">\beta^{(t)}</span>, namely: <span class="math display">
+\ell(\beta) \approx \ell(\beta^{(t)}) + \ell_*(\beta^{(t)})^T(\beta - \beta^{(t)}) - \frac{1}{2}(\beta -
+\beta^{(t)})^T\bm{J}^{(t)}
+</span> where <span class="math inline">\ell_*(\beta^{(t)})</span> is the <span class="orange">score function</span> and <span class="math inline">\bm{J}^{(t)}</span> is the <span class="blue">observed information</span>, evaluated at <span class="math inline">\beta^{(t)}</span>.</p></li>
+<li><p>In other words, we <span class="orange">approximate</span> the log-likelihood <span class="math inline">\ell(\beta)</span> with a <span class="blue">parabola</span>. This gives the <span class="grey">approximate likelihood equations</span>: <span class="math display">
+\ell_*(\beta^{(t)}) - \bm{J}^{(t)}(\beta - \beta^{(t)}) = \bm{0}.
+</span></p></li>
+<li><p>Solving the equation above gives the following <span class="orange">updates</span>: <span class="math display">
+\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+</span></p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The Netwon-Raphson method essentially considers a series of <span class="orange">parabolic approximations</span> to the log-likelihood, each time evaluating the <span class="blue">point of maximum</span>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="iteratively-reweighted-least-squares-ii" class="level2">
-<h2 class="anchored" data-anchor-id="iteratively-reweighted-least-squares-ii">Iteratively reweighted least squares II</h2>
+<section id="newton-raphson-algorithm-ii" class="level2">
+<h2 class="anchored" data-anchor-id="newton-raphson-algorithm-ii">Newton-Raphson algorithm II</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/NR.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:5in"></p>
+</figure>
+</div>
+<ul>
+<li>Figure taken from <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>.</li>
+</ul>
 </section>
-<section id="iteratively-reweighted-least-squares-iii" class="level2">
-<h2 class="anchored" data-anchor-id="iteratively-reweighted-least-squares-iii">Iteratively reweighted least squares III</h2>
+<section id="iteratively-re-weighted-least-squares-i" class="level2">
+<h2 class="anchored" data-anchor-id="iteratively-re-weighted-least-squares-i">Iteratively re-weighted least squares I 📖</h2>
+<ul>
+<li>The matrix <span class="math inline">\bm{J}^(t)</span> is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the <span class="blue">expected information</span> <span class="math inline">\bm{I}^{(t)}</span>.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In the <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm, we consider the updates: <span class="math display">
+\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+</span> This method is also called <span class="orange">Fisher scoring</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The above formula can <span class="blue">simplified</span> a bit. First, we rewrite the <span class="orange">score</span> as <span class="math display">
+\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
+</span> where the <span class="orange">weights</span> were defined as <span class="math inline">w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)</span>. In <span class="blue">matrix notation</span> we will write: <span class="math display">
+\ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
+</span> where <span class="math inline">\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T</span> and <span class="math inline">u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})</span> for <span class="math inline">i=1,\dots,n</span>.</li>
+</ul>
+</section>
+<section id="iteratively-re-weighted-least-squares-ii" class="level2">
+<h2 class="anchored" data-anchor-id="iteratively-re-weighted-least-squares-ii">Iteratively re-weighted least squares II 📖</h2>
+<ul>
+<li>Exploiting the former formulas, we can write the IRLS update as follows <span class="math display">
+\beta^{(t+1)} = \beta^{(t)} + (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}.
+</span> Now <span class="orange">multiply</span> both sides by <span class="math inline">(\bm{X}^T\bm{W}^{(t)}\bm{X})</span>, <span class="blue">simplify</span> and <span class="grey">re-arrange</span> the resulting terms. This gives the following formula.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In the <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm, we consider the updates: <span class="math display">
+\beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)}, \qquad t=1,2,\dots,
+</span> where <span class="math inline">\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})</span> is called <span class="orange">pseudo-response</span> whose elements are defined as <span class="math display">
+z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
+</span> Hence, each update can be interpreted as the solution of a <span class="grey">weighted least square</span> problem: <span class="math display">
+\hat{\beta}^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
+</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="iteratively-re-weighted-least-squares-iii" class="level2">
+<h2 class="anchored" data-anchor-id="iteratively-re-weighted-least-squares-iii">Iteratively re-weighted least squares III 📖</h2>
+<ul>
+<li>The IRLS updates does not depend on the choice of <span class="math inline">\phi</span>, because it <span class="orange">cancels</span> in the multiplications, as we would expect.</li>
+</ul>
+</section>
+<section id="example-logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="example-logistic-regression">Example: logistic regression</h2>
 </section>
 <section id="estimation-of-phi" class="level2">
 <h2 class="anchored" data-anchor-id="estimation-of-phi">Estimation of <span class="math inline">\phi</span></h2>
@@ -1807,8 +1909,8 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <section id="deviance-model-checking-residuals" class="level1">
 <h1>Deviance, model checking, residuals</h1>
 </section>
-<section id="the-glm-r-function-output" class="level1">
-<h1>The <code>glm</code> <strong>R</strong> function output</h1>
+<section id="the-glm-routines-in-r" class="level1">
+<h1>The <code>glm</code> routines in <strong>R</strong></h1>
 </section>
 <section id="model-selection" class="level1">
 <h1>Model selection</h1>
@@ -1826,6 +1928,9 @@ Efron, B. (2023), <em><span class="nocase">Exponential Families in Theory and Pr
 </div>
 <div id="ref-Fisher1934" class="csl-entry" role="listitem">
 Fisher, R. A. (1934), <span>“<span class="nocase">Two new properties of mathematical likelihood</span>,”</span> <em>Proceedings of the Royal Society of London. Series A</em>, 144, 285–307.
+</div>
+<div id="ref-Nelder1972" class="csl-entry" role="listitem">
+Nelder, J. A., and Wedderburn, R. W. M. (1972), <span>“<span class="nocase">Generalized linear models</span>,”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em>, 135, 370–384.
 </div>
 <div id="ref-Salvan2020" class="csl-entry" role="listitem">
 Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.
