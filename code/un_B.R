@@ -73,4 +73,19 @@ lmtest::coeftest(fit_Aids)
 
 lmtest::coefci(fit_Aids)
 
-confint(fit_Aids)
+beta_2 <- coef(fit_Aids)[2]
+var_beta_2 <- vcov(fit_Aids)[2, 2]
+CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
+CI_Wald
+
+CI_Rao <- confint(fit_Aids, test = "Rao")[2, ]
+CI_Rao
+
+CI_LRT <- confint(fit_Aids, test = "LRT")[2, ]
+CI_LRT
+
+exp(CI_Rao) # Rao/Score confidence interval for exp(beta_2)
+exp(CI_LRT) # LRT confidence interval for exp(beta_2)
+
+var_exp_beta2 <- exp(2 * beta_2) * var_beta_2
+exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)

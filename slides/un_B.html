@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -54,7 +89,7 @@ div.csl-indent {
 <link href="un_B_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_B_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_B_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_B_files/libs/bootstrap/bootstrap-252358bd5e41c56bbae4a2085ac3f5af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_B_files/libs/bootstrap/bootstrap-9502bd515432a4cac1aff33bd2ce2146.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -148,7 +183,7 @@ window.Quarto = {
   <li><a href="#notable-exponential-dispersion-families" id="toc-notable-exponential-dispersion-families" class="nav-link" data-scroll-target="#notable-exponential-dispersion-families">Notable exponential dispersion families</a></li>
   <li><a href="#link-functions-and-canonical-link" id="toc-link-functions-and-canonical-link" class="nav-link" data-scroll-target="#link-functions-and-canonical-link">Link functions and canonical link</a></li>
   </ul></li>
-  <li><a href="#likelihood-inference-and-testing" id="toc-likelihood-inference-and-testing" class="nav-link" data-scroll-target="#likelihood-inference-and-testing">Likelihood, inference, and testing</a>
+  <li><a href="#likelihood-quantities" id="toc-likelihood-quantities" class="nav-link" data-scroll-target="#likelihood-quantities">Likelihood quantities</a>
   <ul class="collapse">
   <li><a href="#likelihood-function" id="toc-likelihood-function" class="nav-link" data-scroll-target="#likelihood-function">Likelihood function</a></li>
   <li><a href="#sufficient-statistics-and-canonical-link" id="toc-sufficient-statistics-and-canonical-link" class="nav-link" data-scroll-target="#sufficient-statistics-and-canonical-link">☠️ - Sufficient statistics and canonical link</a></li>
@@ -164,14 +199,6 @@ window.Quarto = {
   <li><a href="#canonical-link-simplifications-1" id="toc-canonical-link-simplifications-1" class="nav-link" data-scroll-target="#canonical-link-simplifications-1">Canonical link: simplifications</a></li>
   <li><a href="#further-considerations" id="toc-further-considerations" class="nav-link" data-scroll-target="#further-considerations">Further considerations</a></li>
   <li><a href="#orthogonality-of-beta-and-psi" id="toc-orthogonality-of-beta-and-psi" class="nav-link" data-scroll-target="#orthogonality-of-beta-and-psi">☠️ - Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\psi</span></a></li>
-  <li><a href="#asymptotic-distribution-of-hatbeta" id="toc-asymptotic-distribution-of-hatbeta" class="nav-link" data-scroll-target="#asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></a></li>
-  <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
-  <li><a href="#test-and-confidence-intervals" id="toc-test-and-confidence-intervals" class="nav-link" data-scroll-target="#test-and-confidence-intervals">Test and confidence intervals</a></li>
-  <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
-  <li><a href="#likelihood-based-testing" id="toc-likelihood-based-testing" class="nav-link" data-scroll-target="#likelihood-based-testing">Likelihood based testing</a></li>
-  <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
-  <li><a href="#delta-methods-and-fitted-values" id="toc-delta-methods-and-fitted-values" class="nav-link" data-scroll-target="#delta-methods-and-fitted-values">Delta methods and fitted values</a></li>
-  <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example: <code>Aids</code> data</a></li>
   </ul></li>
   <li><a href="#irls-algorithm" id="toc-irls-algorithm" class="nav-link" data-scroll-target="#irls-algorithm">IRLS algorithm</a>
   <ul class="collapse">
@@ -180,6 +207,23 @@ window.Quarto = {
   <li><a href="#iteratively-reweighted-least-squares-ii" id="toc-iteratively-reweighted-least-squares-ii" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-ii">Iteratively reweighted least squares II</a></li>
   <li><a href="#iteratively-reweighted-least-squares-iii" id="toc-iteratively-reweighted-least-squares-iii" class="nav-link" data-scroll-target="#iteratively-reweighted-least-squares-iii">Iteratively reweighted least squares III</a></li>
   <li><a href="#estimation-of-phi" id="toc-estimation-of-phi" class="nav-link" data-scroll-target="#estimation-of-phi">Estimation of <span class="math inline">\phi</span></a></li>
+  </ul></li>
+  <li><a href="#inference-and-hypothesis-testing" id="toc-inference-and-hypothesis-testing" class="nav-link" data-scroll-target="#inference-and-hypothesis-testing">Inference and hypothesis testing</a>
+  <ul class="collapse">
+  <li><a href="#asymptotic-distribution-of-hatbeta" id="toc-asymptotic-distribution-of-hatbeta" class="nav-link" data-scroll-target="#asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></a></li>
+  <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
+  <li><a href="#wald-test-and-confidence-intervals" id="toc-wald-test-and-confidence-intervals" class="nav-link" data-scroll-target="#wald-test-and-confidence-intervals">Wald test and confidence intervals</a></li>
+  <li><a href="#comparison-with-the-gaussian-linear-model" id="toc-comparison-with-the-gaussian-linear-model" class="nav-link" data-scroll-target="#comparison-with-the-gaussian-linear-model">Comparison with the Gaussian linear model</a></li>
+  <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
+  <li><a href="#general-hypothesis-testing" id="toc-general-hypothesis-testing" class="nav-link" data-scroll-target="#general-hypothesis-testing">General hypothesis testing</a></li>
+  <li><a href="#testing-hypothesis-in-glms-i" id="toc-testing-hypothesis-in-glms-i" class="nav-link" data-scroll-target="#testing-hypothesis-in-glms-i">Testing hypothesis in GLMs I</a></li>
+  <li><a href="#log-likelihood-ratio-test" id="toc-log-likelihood-ratio-test" class="nav-link" data-scroll-target="#log-likelihood-ratio-test">Log-likelihood ratio test</a></li>
+  <li><a href="#score-or-rao-test" id="toc-score-or-rao-test" class="nav-link" data-scroll-target="#score-or-rao-test">Score or Rao test</a></li>
+  <li><a href="#a-graphical-representation-when-p-1" id="toc-a-graphical-representation-when-p-1" class="nav-link" data-scroll-target="#a-graphical-representation-when-p-1">A graphical representation when <span class="math inline">p = 1</span></a></li>
+  <li><a href="#three-asymptotically-equivalent-tests" id="toc-three-asymptotically-equivalent-tests" class="nav-link" data-scroll-target="#three-asymptotically-equivalent-tests">Three asymptotically equivalent tests</a></li>
+  <li><a href="#comparison-with-the-gaussian-linear-model-1" id="toc-comparison-with-the-gaussian-linear-model-1" class="nav-link" data-scroll-target="#comparison-with-the-gaussian-linear-model-1">Comparison with the Gaussian linear model</a></li>
+  <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example <code>Aids</code> data</a></li>
   </ul></li>
   <li><a href="#deviance-model-checking-residuals" id="toc-deviance-model-checking-residuals" class="nav-link" data-scroll-target="#deviance-model-checking-residuals">Deviance, model checking, residuals</a></li>
   <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model selection</a>
@@ -1060,8 +1104,8 @@ g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta.
 <!-- - In a Gamma GLM, the reciprocal canonical link does not map $\bm{x}_i^T\beta$ into positive values, therefore the logarithmic link is sometimes preferred.  -->
 </section>
 </section>
-<section id="likelihood-inference-and-testing" class="level1">
-<h1>Likelihood, inference, and testing</h1>
+<section id="likelihood-quantities" class="level1">
+<h1>Likelihood quantities</h1>
 <section id="likelihood-function" class="level2">
 <h2 class="anchored" data-anchor-id="likelihood-function">Likelihood function</h2>
 <ul>
@@ -1096,7 +1140,7 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <h2 class="anchored" data-anchor-id="likelihood-equations-i">Likelihood equations I 📖</h2>
 <ul>
 <li><p>To conduct inference using the <span class="orange">classical theory</span> (as in <em>Statistica II</em>), we need to consider the first and second derivative of the log-likelihood, that is, the <span class="blue">score function</span> <span class="math display">
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
+\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
 </span> and the <span class="orange">observed information matrix</span> <span class="math inline">\bm{J}</span>, whose elements are <span class="math display">
 j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
 </span></p></li>
@@ -1118,7 +1162,7 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 <h2 class="anchored" data-anchor-id="likelihood-equations-ii">Likelihood equations II 📖</h2>
 <ul>
 <li><p>Let us begin by noting that <span class="math display">
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+\ell_*(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
 </span> Such an expression can be <span class="blue">simplified</span> because <span class="math display">
 \frac{\partial b(\theta_i)}{\partial \beta_r} = b'(\theta_i)\frac{\partial \theta_i}{\partial \beta_r} = \mu_i\frac{\partial \theta_i}{\partial \beta_r},
 </span> which implies that the score function will have the following <span class="orange">structure</span>: <span class="math display">
@@ -1352,16 +1396,16 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </ul>
 <ul>
 <li>This means the Fisher information matrix accounting for <span class="math inline">\phi</span> takes the form: <span class="math display">
-\begin{bmatrix}
+\begin{pmatrix}
 \bm{I} &amp; \bm{0} \\
 \bm{0} &amp; i_{\phi \phi}
-\end{bmatrix} \qquad\Longrightarrow\qquad  \begin{bmatrix}
+\end{pmatrix} \qquad\Longrightarrow\qquad  \begin{pmatrix}
 \bm{I} &amp; \bm{0} \\
 \bm{0} &amp; i_{\phi \phi}
-\end{bmatrix}^{-1} = \begin{bmatrix}
+\end{pmatrix}^{-1} = \begin{pmatrix}
 \bm{I}^{-1} &amp; \bm{0} \\
 \bm{0} &amp; 1 /i_{\phi \phi}
-\end{bmatrix}
+\end{pmatrix}
 </span> where <span class="math inline">[\bm{I}]_{rs} = i_{rs}</span> are the elements associated to <span class="math inline">\beta</span> as before.</li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -1377,23 +1421,23 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </div>
 <!-- - In a GLM with $p = 2$ the Fisher information matrix, evaluated on a given $\beta,\phi$, looks like: -->
 <!-- $$ -->
-<!-- \begin{bmatrix} -->
+<!-- \begin{pmatrix} -->
 <!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
 <!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
 <!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
-<!-- \end{bmatrix}= \begin{bmatrix} -->
+<!-- \end{pmatrix}= \begin{pmatrix} -->
 <!-- 10.39 & -1.22 & 0 \\  -->
 <!-- -1.22 & 10.39 & 0 \\  -->
 <!-- 0 & 0 & 10 \\  -->
-<!--   \end{bmatrix} \Longrightarrow \begin{bmatrix} -->
+<!--   \end{pmatrix} \Longrightarrow \begin{pmatrix} -->
 <!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
 <!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
 <!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
-<!-- \end{bmatrix}^{-1}= \begin{bmatrix} -->
+<!-- \end{pmatrix}^{-1}= \begin{pmatrix} -->
 <!-- 0.098 & 0.011 & 0 \\  -->
 <!-- 0.011 & 0.098 & 0 \\  -->
 <!-- 0 & 0 & 0.1 \\  -->
-<!--   \end{bmatrix} -->
+<!--   \end{pmatrix} -->
 <!-- $$ -->
 <!-- ```{r} -->
 <!-- set.seed(1234) -->
@@ -1403,124 +1447,6 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <!-- # xtable::xtable(XtX, digits = 2) -->
 <!-- # xtable::xtable(solve(XtX), digits = 3) -->
 <!-- ``` -->
-</section>
-<section id="asymptotic-distribution-of-hatbeta" class="level2">
-<h2 class="anchored" data-anchor-id="asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>The <span class="orange">asymptotic distribution</span> of the <span class="blue">maximum likelihood estimator</span> is <span class="math display">
-\hat{\beta} \, \dot{\sim} \, \text{N}_p\left(\beta, (\bm{X}^T\bm{W}\bm{X})^{-1}\right),
-</span> for large values of <span class="math inline">n</span> and under mild regularity conditions on <span class="math inline">\bm{X}</span>.</p>
-</div>
-</div>
-</div>
-<ul>
-<li><p>This means that, under correct specification and mild conditions on <span class="math inline">\bm{X}</span>, the maximum likelihood estimator is <span class="orange">asymptotically unbiased</span> and with known asymptotic <span class="blue">variance</span> <span class="math display">
-\mathbb{E}(\hat{\beta}) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
-</span></p></li>
-<li><p>In practice, since <span class="math inline">\bm{W}</span> depends on <span class="math inline">\beta</span> and <span class="math inline">\phi</span>, rely on the following approximation <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
-</span> where we plugged in the consistent estimates <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span> into <span class="math inline">\bm{W}</span> obtaining <span class="math inline">\hat{\bm{W}}</span>. Moreover, we can computed the <span class="orange">standard errors</span> of each <span class="math inline">\hat{\beta}_j</span> as: <span class="math display">
-\texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
-</span></p></li>
-</ul>
-<!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
-</section>
-<section id="example-aids-data-1" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
-<ul>
-<li><p>In the <code>Aids</code> data, we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span> and estimated <span class="math inline">\hat{\beta} = (0.304, 0.259)</span>.</p></li>
-<li><p>This means that the weights are estimated as <span class="math display">
-\hat{\bm{W}} = \text{diag}(\hat{\mu}_1,\dots,\hat{\mu}_n) = \text{diag}(1.755, \dots, 50.863).
-</span> from which we obtain the <span class="orange">estimated</span> <span class="blue">Fisher information matrix</span>: <span class="math display">
-\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{bmatrix}
-\sum_{i=1}^n\hat{\mu}_i &amp; \sum_{i=1}^n x_i\hat{\mu_i}\\
-\sum_{i=1}^n x_i\hat{\mu_i} &amp; \sum_{i=1}^n x_i^2\hat{\mu_i}
-\end{bmatrix} = \begin{bmatrix}
-217 &amp; 2387\\
-2387 &amp; 28279.05
-\end{bmatrix}.
-</span></p></li>
-<li><p>Hence, the <span class="blue">estimated covariance</span> matrix of the maximum likelihood estimator is <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{bmatrix}
-0.06445 &amp; -0.00544 \\
--0.00544 &amp; 0.00049
-\end{bmatrix}.
-</span></p></li>
-<li><p>Therefore the <span class="orange">estimated standard errors</span> are <span class="math display">
-[\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}} \quad\Longrightarrow \quad \widehat{\text{se}}(\hat{\beta}) = (0.254, 0.022).
-</span></p></li>
-</ul>
-</section>
-<section id="test-and-confidence-intervals" class="level2">
-<h2 class="anchored" data-anchor-id="test-and-confidence-intervals">Test and confidence intervals</h2>
-<ul>
-<li><p>Consider the <span class="blue">hypothesis</span> <span class="math inline">H_0: \beta_j = \beta_0</span> against the <span class="orange">alternative</span> <span class="math inline">H_1: \beta_j \neq \beta_0</span>. The <span class="blue">Wald test statistic</span> <span class="math inline">z_j</span>, rejecting the hypothesis for large values of <span class="math inline">|z_j|</span> is: <span class="math display">
-\texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1).
-</span> which is <span class="orange">approximately</span> distributed as a <span class="blue">standard normal</span> under <span class="math inline">H_0</span>.</p></li>
-<li><p>The p-value is defined in the usual way, namely <span class="math display">
-\texttt{p value} = \alpha_\text{obs} \approx \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
-</span></p></li>
-</ul>
-<ul>
-<li>By inverting the the Wald test, we obtained the associated <span class="blue">confidence interval</span> <span class="math display">
-\hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
-</span> of <span class="orange">approximate</span> level <span class="math inline">1-\alpha</span>, where <span class="math inline">z_{1-\alpha/2}</span> is the quantile of a standard Gaussian.</li>
-</ul>
-</section>
-<section id="example-aids-data-2" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-2">Example: <code>Aids</code> data</h2>
-<ul>
-<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Aids</code> data we get the familiar summary.</li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-z test of coefficients:
-
-            Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) 0.303655   0.253867  1.1961   0.2317    
-period      0.258963   0.022238 11.6448   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<ul>
-<li>The associated confidence intervals are:</li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>                 2.5 %    97.5 %
-(Intercept) -0.1939158 0.8012249
-period       0.2153764 0.3025494</code></pre>
-</div>
-</div>
-</section>
-<section id="likelihood-based-testing" class="level2">
-<h2 class="anchored" data-anchor-id="likelihood-based-testing">Likelihood based testing</h2>
-</section>
-<section id="example-aids-data-3" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 2.5 %    97.5 %
-(Intercept) -0.2146576 0.7816308
-period       0.2164770 0.3037480</code></pre>
-</div>
-</div>
-</section>
-<section id="delta-methods-and-fitted-values" class="level2">
-<h2 class="anchored" data-anchor-id="delta-methods-and-fitted-values">Delta methods and fitted values</h2>
-</section>
-<section id="example-aids-data-4" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-4">Example: <code>Aids</code> data</h2>
 </section>
 </section>
 <section id="irls-algorithm" class="level1">
@@ -1539,6 +1465,344 @@ period       0.2164770 0.3037480</code></pre>
 </section>
 <section id="estimation-of-phi" class="level2">
 <h2 class="anchored" data-anchor-id="estimation-of-phi">Estimation of <span class="math inline">\phi</span></h2>
+</section>
+</section>
+<section id="inference-and-hypothesis-testing" class="level1 page-columns page-full">
+<h1>Inference and hypothesis testing</h1>
+<section id="asymptotic-distribution-of-hatbeta" class="level2">
+<h2 class="anchored" data-anchor-id="asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <span class="orange">asymptotic distribution</span> of the <span class="blue">maximum likelihood estimator</span> is <span class="math display">
+\hat{\beta} \, \dot{\sim} \, \text{N}_p\left(\beta, (\bm{X}^T\bm{W}\bm{X})^{-1}\right),
+</span> for large values of <span class="math inline">n</span> and under mild regularity conditions on <span class="math inline">\bm{X}</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Under correct specification and mild conditions on <span class="math inline">\bm{X}</span>, the maximum likelihood estimator is <span class="orange">asymptotically unbiased</span> and with known asymptotic <span class="blue">variance</span> <span class="math display">
+\mathbb{E}(\hat{\beta}) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
+</span></p></li>
+<li><p>In practice, since <span class="math inline">\bm{W}</span> depends on <span class="math inline">\beta</span> and <span class="math inline">\phi</span>, we rely on the following approximation <span class="math display">
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
+</span> where we plugged in the estimates <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span> into <span class="math inline">\bm{W}</span> obtaining <span class="math inline">\hat{\bm{W}}</span>. The <span class="orange">standard errors</span> are: <span class="math display">
+\texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
+</span></p></li>
+</ul>
+<!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
+</section>
+<section id="example-aids-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
+<ul>
+<li><p>In the <code>Aids</code> data, we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span> and estimated <span class="math inline">\hat{\beta} = (0.304, 0.259)</span>.</p></li>
+<li><p>This means that the weights are estimated as <span class="math display">
+\hat{\bm{W}} = \text{diag}(\hat{\mu}_1,\dots,\hat{\mu}_n) = \text{diag}(1.755, \dots, 50.863).
+</span> from which we obtain the <span class="orange">estimated</span> <span class="blue">Fisher information matrix</span>: <span class="math display">
+\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{pmatrix}
+\sum_{i=1}^n\hat{\mu}_i &amp; \sum_{i=1}^n x_i\hat{\mu_i}\\
+\sum_{i=1}^n x_i\hat{\mu_i} &amp; \sum_{i=1}^n x_i^2\hat{\mu_i}
+\end{pmatrix} = \begin{pmatrix}
+217 &amp; 2387\\
+2387 &amp; 28279.05
+\end{pmatrix}.
+</span></p></li>
+<li><p>Hence, the <span class="blue">estimated covariance</span> matrix of the maximum likelihood estimator is <span class="math display">
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{pmatrix}
+0.06445 &amp; -0.00544 \\
+-0.00544 &amp; 0.00049
+\end{pmatrix}.
+</span></p></li>
+<li><p>Therefore the <span class="orange">estimated standard errors</span> are <span class="math display">
+[\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}} \quad\Longrightarrow \quad \widehat{\text{se}}(\hat{\beta}) = (0.254, 0.022).
+</span></p></li>
+</ul>
+</section>
+<section id="wald-test-and-confidence-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="wald-test-and-confidence-intervals">Wald test and confidence intervals</h2>
+<ul>
+<li><p>Consider the <span class="blue">hypothesis</span> <span class="math inline">H_0: \beta_j = \beta_0</span> against the <span class="orange">alternative</span> <span class="math inline">H_1: \beta_j \neq \beta_0</span>. The <span class="blue">Wald test statistic</span> <span class="math inline">z_j</span>, rejecting the hypothesis for large values of <span class="math inline">|z_j|</span> is: <span class="math display">
+\texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1).
+</span> which is <span class="orange">approximately</span> distributed as a <span class="blue">standard normal</span> under <span class="math inline">H_0</span>.</p></li>
+<li><p>The p-value is defined in the usual way, namely <span class="math display">
+\texttt{p value} = \alpha_\text{obs} \approx \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+</span></p></li>
+</ul>
+<ul>
+<li>By inverting the the Wald test, we obtain the associated <span class="blue">confidence interval</span> <span class="math display">
+\hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
+</span> of <span class="orange">approximate</span> level <span class="math inline">1-\alpha</span>, where <span class="math inline">z_{1-\alpha/2}</span> is the quantile of a standard Gaussian.</li>
+</ul>
+</section>
+<section id="comparison-with-the-gaussian-linear-model" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-with-the-gaussian-linear-model">Comparison with the Gaussian linear model</h2>
+<ul>
+<li><p>In a classical <span class="blue">Gaussian linear model</span> the weight matrix is <span class="math inline">\bm{W} = \sigma^2 I_n</span>, therefore the distribution of the maximum likelihood is <span class="math display">
+\hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right),
+</span> an important result we have encountered multiple times in this course.</p></li>
+<li><p>The <span class="blue">Wald statistic</span> <span class="math inline">z_j</span> <span class="orange">specializes</span> to <span class="math display">
+z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
+</span> which is the usual test statistic considered, e.g., in the output on <code>lm</code> in <strong>R</strong>.</p></li>
+<li><p>However, in this case there is <span class="orange">no need</span> of <span class="orange">approximations</span>. The distribution of <span class="math inline">z_j</span> is known to be a <span class="grey">Student</span>’ <span class="math inline">t_{n-p}</span> under <span class="math inline">H_0</span>, which indeed converges to a <span class="math inline">\text{N}(0, 1)</span> for large values of <span class="math inline">n</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In GLMs we use procedures that are <span class="orange">approximate</span> rather than <span class="blue">exact</span>. Of course, whenever an exact result is known, we should use it.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-aids-data-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-2">Example: <code>Aids</code> data</h2>
+<ul>
+<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Aids</code> data we get the familiar summary.</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+z test of coefficients:
+
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) 0.303655   0.253867  1.1961   0.2317    
+period      0.258963   0.022238 11.6448   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li>In this case, we <span class="orange">reject</span> the null hypothesis that <span class="math inline">\beta_2 = 0</span>.</li>
+</ul>
+<ul>
+<li>The associated <span class="blue">Wald confidence intervals</span> are:</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %    97.5 %
+(Intercept) -0.1939158 0.8012249
+period       0.2153764 0.3025494</code></pre>
+</div>
+</div>
+</section>
+<section id="general-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="general-hypothesis-testing">General hypothesis testing</h2>
+<ul>
+<li>Suppose we wish to test <span class="blue">multiple parameters</span> at the same time. Let us organize the parameters into <span class="blue">two blocks</span>: <span class="math display">
+\beta = \begin{pmatrix}\beta_A \\ \beta_B \end{pmatrix}, \qquad \beta_A = \begin{pmatrix}\beta_1 \\ \vdots \\ \beta_{p_0} \end{pmatrix}, \quad \beta_B = \begin{pmatrix}\beta_{p_0+1} \\ \vdots \\ \beta_p \end{pmatrix},
+</span> where <span class="math inline">q = p - p_0</span> is the number of <span class="orange">constrained parameters</span>. We want to <span class="blue">test the hypothesis</span>: <span class="math display">
+H_0: \beta_B = \beta_0 \qquad \text{against}\qquad H_1: \beta_B \neq \beta_0.</span></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>A common case is <span class="math inline">H_0: \beta_B = 0</span> (<span class="grey">nested models</span>), where we compare the <span class="orange">reduced model</span> <span class="math inline">M_0</span> against the <span class="blue">full model</span> <span class="math inline">M_1</span>. We verify if <span class="orange">all</span> the <span class="math inline">q</span> variables associated with <span class="math inline">\beta_B</span> can be omitted.</p>
+<p>The case <span class="math inline">q = 1</span>, that is <span class="math inline">\beta_B = \beta_p</span> with <span class="math inline">H_0: \beta_p = 0</span> corresponds to the previously considered situation where we test if a <span class="orange">specific coefficient</span>, say <span class="math inline">\beta_p</span>, is non-zero.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="testing-hypothesis-in-glms-i" class="level2">
+<h2 class="anchored" data-anchor-id="testing-hypothesis-in-glms-i">Testing hypothesis in GLMs I</h2>
+<ul>
+<li>There are <span class="orange">three classical tests</span> that we could consider for such a testing problem: the <span class="orange">Wald test</span>, the <span class="grey">Score/Rao test</span> and the <span class="blue">log-likelihood ratio test</span>.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wald test (general case)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood, the quantity <span class="math display">
+W_e = (\hat{\beta}_B - \beta_0)^T \:\widehat{\text{var}}(\hat{\beta}_B)^{-1} \:(\hat{\beta}_B - \beta_0),
+</span> is called <span class="blue">Wald test</span>. Here <span class="math inline">\widehat{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}\hat{\bm{W}}\bm{X})^{-1}</span> and <span class="math inline">\hat{\bm{W}}</span> is estimated using <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
+W_e \: \dot{\sim} \; \chi^2_q,
+</span> namely a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</p>
+</div>
+</div>
+<ul>
+<li>Clearly, in the <span class="math inline">q = 1</span> case we recover the Wald statistic with <span class="math inline">z_j^2 = W_e</span>.</li>
+</ul>
+<!-- - The Wald statistic is the [simplest]{.blue}, but it has some [drawbacks]{.orange}. For example, it depends on the parametrization and it is sometimes problematic for small $n$. -->
+</section>
+<section id="log-likelihood-ratio-test" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="log-likelihood-ratio-test">Log-likelihood ratio test</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Log-likelihood ratio test (LRT)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood and let <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})</span> the <span class="orange">restricted</span> maximum likelihood estimate. The quantity <span class="math display">
+W = 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})],
+</span> is called <span class="blue">log-likelihood ratio</span> test (LRT). Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
+W \: \dot{\sim} \; \chi^2_q,
+</span> namely a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</p>
+</div>
+</div>
+<ul>
+<li><p>When testing <span class="math inline">H_0 : \beta_B = 0</span>, we separately fit the <span class="blue">full model</span>, obtaining <span class="math inline">\hat{\beta}</span>, and the <span class="orange">reduced model</span>, obtaining <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)</span>. Then, we compare their log-likelihoods: <span class="math inline">\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})</span>.</p></li>
+<li><p>The LRT is the <span class="orange">default</span> in <strong>R</strong> for comparing <span class="blue">nested models</span>.</p></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>When the dispersion parameter <span class="math inline">\phi</span> is unknown, a <span class="orange">variant</span> uses <span class="blue">separate estimates</span> <span class="math inline">\hat{\phi}</span>, based on <span class="math inline">\hat{\beta}</span>, and <span class="math inline">\hat{\phi}_0</span>, based on <span class="math inline">\hat{\beta}_0</span>. The <code>anova</code> <strong>R</strong> command uses a single <span class="math inline">\hat{\phi}</span>, as described above.</p>
+</div></div></section>
+<section id="score-or-rao-test" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="score-or-rao-test">Score or Rao test</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Rao test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood and let <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})</span> the <span class="orange">restricted</span> maximum likelihood estimate. Moreover, let <span class="math display">
+\ell_B(\beta;\phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
+</span> namely the <span class="grey">block</span> of the score function associated with <span class="math inline">\beta_B</span>. The quantity <span class="math display">
+W_u = \ell_B(\hat{\beta}_0; \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0; \hat{\phi}),
+</span> is called <span class="blue">Rao test</span> or <span class="blue">score test</span>. Here <span class="math inline">\widetilde{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}\tilde{\bm{W}}\bm{X})^{-1}</span> where <span class="math inline">\tilde{\bm{W}}</span> is estimated using the <span class="orange">restricted</span> <span class="math inline">\hat{\beta}_0</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
+W_u \: \dot{\sim} \; \chi^2_q,
+</span> namely a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</p>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>The Rao test arguably the <span class="orange">less common</span>. However, it is linked to the <span class="math inline">X^2</span> Pearson statistic. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
+</div></div></section>
+<section id="a-graphical-representation-when-p-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-graphical-representation-when-p-1">A graphical representation when <span class="math inline">p = 1</span></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/tests.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:4in"></p>
+</figure>
+</div>
+<ul>
+<li>Figure taken from Azzalini (1996). This is also the <span class="grey">cover</span> of the <span class="orange">book</span>!</li>
+</ul>
+</section>
+<section id="three-asymptotically-equivalent-tests" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="three-asymptotically-equivalent-tests">Three asymptotically equivalent tests</h2>
+<ul>
+<li><p>The Wald test, the Score test and the log-likelihood ration test are <span class="blue">asymptotically equivalent</span>. In other words, these tests give the same <span class="blue">same number</span> for (very) large values of <span class="math inline">n</span>.</p></li>
+<li><p>More formally, we have that <span class="math display">
+W_e = W + o_p(1), \qquad W_u = W + o_p(1),
+</span> where <span class="math inline">o_p(1)</span> is a quantity that goes to <span class="math inline">0</span> in probability as <span class="math inline">n \to \infty</span>.</p></li>
+</ul>
+<ul>
+<li>When <span class="math inline">q = 1</span>, we can also <span class="blue">invert</span> <span class="math inline">W_e</span>, <span class="math inline">W_u</span> and <span class="math inline">W</span> tests over <span class="math inline">\beta_0</span> to obtain the corresponding <span class="orange">confidence interval</span>. This is often done <span class="orange">numerically</span> for <span class="math inline">W_u</span> and <span class="math inline">W</span>.</li>
+</ul>
+<ul>
+<li><p>The Wald test depends on the parametrization. When considering a transformation of <span class="math inline">\beta</span>, the variance must be adjusted using the derivative of the transformation (<span class="blue">delta method</span>).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+<li><p>On the other hand, both the LRT and the score are <span class="blue">invariant</span>, and therefore we can simply <span class="orange">transform</span> the <span class="orange">extremes</span> of the <span class="orange">original interval</span> without further corrections.</p></li>
+</ul>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Transforming the extremes of Wald confidence interval “works” in the sense that it produces a valid confidence interval, but it is <span class="orange">not</span> the Wald interval in the trasformed scale.</p></div></div></section>
+<section id="comparison-with-the-gaussian-linear-model-1" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-with-the-gaussian-linear-model-1">Comparison with the Gaussian linear model</h2>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>In the Gaussian linear model all tests are <span class="blue">equivalent</span> if <span class="math inline">\phi = \sigma^2</span> is <span class="orange">known</span>. We have <span class="math display">
+W = W_e = W_u =  \frac{||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
+</span> The <span class="math inline">\chi^2_q</span> distribution is <span class="orange">exact</span> and not an approximation thanks to Cochran theorem.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Consider the <span class="blue">log-likelihood ratio</span> for testing <span class="math inline">H_0: \beta_B = \beta_0</span>. Suppose <span class="math inline">\sigma^2</span> is <span class="orange">unknown</span>, then: <span class="math display">
+\begin{aligned}
+W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \frac{||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2)/q}{||\bm{y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
+&amp; = q F,
+\end{aligned}
+</span> where <span class="math inline">F \sim F_{q, n - p}</span> is the usual <span class="orange">Snedecor</span>’s F. Indeed <span class="math inline">qF</span> is <span class="orange">approximately</span> distributed as <span class="math inline">\chi^2_q</span> for large values of <span class="math inline">n</span>.</li>
+</ul>
+<!-- - In Gaussian linear models we should not use the asymptotic approximation, because the [exact distribution]{.orange} is known! -->
+<ul>
+<li>The quantities <span class="math inline">W_e, W_u</span>, and <span class="math inline">W</span> are the natural extension of the F-statistic for GLMs. They are <span class="orange">approximately</span> distributed as <span class="math inline">\chi^2_q</span> with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</li>
+</ul>
+</section>
+<section id="example-aids-data-3" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
+<ul>
+<li>When applied to real data, such as the <code>Aids</code> data, these tests often lead to very similar conclusions.</li>
+</ul>
+<ul>
+<li><span class="blue">Wald test</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals 135.602. The Wald confidence interval is</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>    2.5 %    97.5 % 
+0.2153764 0.3025494 </code></pre>
+</div>
+</div>
+<ul>
+<li><span class="orange">Rao test</span> <span class="math inline">W_u</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals 163.586. The score confidence interval is</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>    2.5 %    97.5 % 
+0.2154662 0.3024735 </code></pre>
+</div>
+</div>
+<ul>
+<li>The <span class="grey">likelihood ratio test</span> <span class="math inline">W</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals 178.551. The LRT confidence interval is</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>   2.5 %   97.5 % 
+0.216477 0.303748 </code></pre>
+</div>
+</div>
+</section>
+<section id="example-aids-data-4" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-4">Example <code>Aids</code> data</h2>
+<ul>
+<li>Suppose we were interested in a confidence interval for <span class="math inline">\exp(\beta_2)</span>. Thanks to invariance of the score and the LRT tests, we can simply <span class="orange">transform</span> of the <span class="blue">original interval</span>:</li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(CI_Rao) <span class="co"># Rao/Score confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   2.5 %   97.5 % 
+1.240440 1.353202 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(CI_LRT) <span class="co"># LRT confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   2.5 %   97.5 % 
+1.241695 1.354928 </code></pre>
+</div>
+</div>
+<ul>
+<li>In the Wald case, we need to <span class="orange">adjust</span> the <span class="orange">variance</span> according to the <span class="blue">delta method</span>, obtaining <span class="math display">\widehat{\text{var}}(\exp(\hat{\beta}_2)) = \exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 0.000830.</span></li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>var_exp_beta2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">2</span> <span class="sc">*</span> beta_2) <span class="sc">*</span> var_beta_2</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(beta_2) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(var_exp_beta2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.239116 1.352056</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="deviance-model-checking-residuals" class="level1">
@@ -1567,6 +1831,7 @@ Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati<
 </div>
 </section>
 </section>
+
 
 </main>
 <!-- /main column -->

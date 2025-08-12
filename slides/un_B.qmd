@@ -35,6 +35,9 @@ format:
     callout-appearance: minimal
     theme: [simplex, ../template.css]
     toc: true
+    execute: 
+      message: false
+      warning: false
     toc-title: Table of contents
     embed-resources: false
     smooth-scroll: true
@@ -717,7 +720,7 @@ Such a choice leads to remarkable simplifications in the likelihood function.
 
 <!-- - In a Gamma GLM, the reciprocal canonical link does not map $\bm{x}_i^T\beta$ into positive values, therefore the logarithmic link is sometimes preferred.  -->
 
-# Likelihood, inference, and testing
+# Likelihood quantities
 
 ## Likelihood function
 
@@ -760,7 +763,7 @@ is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$
 
 - To conduct inference using the [classical theory]{.orange} (as in _Statistica II_), we need to consider the first and second derivative of the log-likelihood, that is, the [score function]{.blue}
 $$
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
+\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
 $$
 and the [observed information matrix]{.orange} $\bm{J}$, whose elements are
 $$
@@ -781,7 +784,7 @@ This assumption is not restrictive, even when $\phi$ is actually unknown. In fac
 
 - Let us begin by noting that
 $$
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+\ell_*(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
 $$
 Such an expression can be [simplified]{.blue} because
 $$
@@ -1014,16 +1017,16 @@ whose [expected value]{.orange} is $i_{r\phi} = \mathbb{E}(j_{r\phi}) = 0$ since
 
 - This means the Fisher information matrix accounting for $\phi$ takes the form:
 $$
-\begin{bmatrix}
+\begin{pmatrix}
 \bm{I} & \bm{0} \\
 \bm{0} & i_{\phi \phi}
-\end{bmatrix} \qquad\Longrightarrow\qquad  \begin{bmatrix}
+\end{pmatrix} \qquad\Longrightarrow\qquad  \begin{pmatrix}
 \bm{I} & \bm{0} \\
 \bm{0} & i_{\phi \phi}
-\end{bmatrix}^{-1} = \begin{bmatrix}
+\end{pmatrix}^{-1} = \begin{pmatrix}
 \bm{I}^{-1} & \bm{0} \\
 \bm{0} & 1 /i_{\phi \phi}
-\end{bmatrix}
+\end{pmatrix}
 $$
 where $[\bm{I}]_{rs} = i_{rs}$ are the elements associated to $\beta$ as before. 
 
@@ -1036,23 +1039,23 @@ Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference o
 
 <!-- - In a GLM with $p = 2$ the Fisher information matrix, evaluated on a given $\beta,\phi$, looks like: -->
 <!-- $$ -->
-<!-- \begin{bmatrix} -->
+<!-- \begin{pmatrix} -->
 <!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
 <!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
 <!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
-<!-- \end{bmatrix}= \begin{bmatrix} -->
+<!-- \end{pmatrix}= \begin{pmatrix} -->
 <!-- 10.39 & -1.22 & 0 \\  -->
 <!-- -1.22 & 10.39 & 0 \\  -->
 <!-- 0 & 0 & 10 \\  -->
-<!--   \end{bmatrix} \Longrightarrow \begin{bmatrix} -->
+<!--   \end{pmatrix} \Longrightarrow \begin{pmatrix} -->
 <!-- i_{11} & i_{12} &  i_{1\phi} \\ -->
 <!-- i_{21} & i_{22} &  i_{2\phi} \\ -->
 <!-- i_{\phi 1} & i_{\phi2 } &  i_{\phi\phi} \\ -->
-<!-- \end{bmatrix}^{-1}= \begin{bmatrix} -->
+<!-- \end{pmatrix}^{-1}= \begin{pmatrix} -->
 <!-- 0.098 & 0.011 & 0 \\  -->
 <!-- 0.011 & 0.098 & 0 \\  -->
 <!-- 0 & 0 & 0.1 \\  -->
-<!--   \end{bmatrix} -->
+<!--   \end{pmatrix} -->
 <!-- $$ -->
 
 <!-- ```{r} -->
@@ -1065,6 +1068,20 @@ Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference o
 
 <!-- ``` -->
 
+# IRLS algorithm
+
+## Numerical methods for maximum likelihood estimation
+
+## Iteratively reweighted least squares I
+
+## Iteratively reweighted least squares II
+
+## Iteratively reweighted least squares III
+
+## Estimation of $\phi$ 
+
+
+# Inference and hypothesis testing
 
 ## Asymptotic distribution of $\hat{\beta}$
 
@@ -1076,16 +1093,16 @@ $$
 for large values of $n$ and under mild regularity conditions on $\bm{X}$. 
 :::
 
-- This means that, under correct specification and mild conditions on $\bm{X}$, the maximum likelihood estimator is [asymptotically unbiased]{.orange} and with known asymptotic [variance]{.blue}
+- Under correct specification and mild conditions on $\bm{X}$, the maximum likelihood estimator is [asymptotically unbiased]{.orange} and with known asymptotic [variance]{.blue}
 $$
 \mathbb{E}(\hat{\beta}) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
 $$
 
-- In practice, since $\bm{W}$ depends on $\beta$ and $\phi$, rely on the following approximation
+- In practice, since $\bm{W}$ depends on $\beta$ and $\phi$, we rely on the following approximation
 $$
 \widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
 $$
-where we plugged in the consistent estimates $\hat{\beta}$ and $\hat{\phi}$ into $\bm{W}$ obtaining $\hat{\bm{W}}$. Moreover, we can computed the [standard errors]{.orange} of each $\hat{\beta}_j$ as:
+where we plugged in the estimates $\hat{\beta}$ and $\hat{\phi}$ into $\bm{W}$ obtaining $\hat{\bm{W}}$. The [standard errors]{.orange} are:
 $$
 \texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
 $$
@@ -1102,20 +1119,20 @@ $$
 $$
 from which we obtain the [estimated]{.orange} [Fisher information matrix]{.blue}:
 $$
-\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{bmatrix} 
+\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{pmatrix} 
 \sum_{i=1}^n\hat{\mu}_i & \sum_{i=1}^n x_i\hat{\mu_i}\\
 \sum_{i=1}^n x_i\hat{\mu_i} & \sum_{i=1}^n x_i^2\hat{\mu_i}
-\end{bmatrix} = \begin{bmatrix}
+\end{pmatrix} = \begin{pmatrix}
 217 & 2387\\
 2387 & 28279.05
-\end{bmatrix}.
+\end{pmatrix}.
 $$
 - Hence, the [estimated covariance]{.blue} matrix of the maximum likelihood estimator is
 $$
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{bmatrix}
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{pmatrix}
 0.06445 & -0.00544 \\
 -0.00544 & 0.00049
-\end{bmatrix}.
+\end{pmatrix}.
 $$
 - Therefore the [estimated standard errors]{.orange} are
 $$
@@ -1127,11 +1144,11 @@ $$
 # round(vcov(fit_Aids), 3)
 ```
 
-## Test and confidence intervals
+## Wald test and confidence intervals
 
 - Consider the [hypothesis]{.blue} $H_0: \beta_j = \beta_0$ against the [alternative]{.orange} $H_1: \beta_j \neq \beta_0$. The [Wald test statistic]{.blue} $z_j$, rejecting the hypothesis for large values of $|z_j|$ is:
 $$
-\texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1). 
+\texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1). 
 $$
 which is [approximately]{.orange} distributed as a [standard normal]{.blue} under $H_0$.
 
@@ -1142,51 +1159,257 @@ $$
 
 . . .
 
-- By inverting the the Wald test, we obtained the associated [confidence interval]{.blue}
+- By inverting the the Wald test, we obtain the associated [confidence interval]{.blue}
 $$
 \hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
 $$
 of [approximate]{.orange} level $1-\alpha$, where $z_{1-\alpha/2}$ is the quantile of a standard Gaussian.
 
+## Comparison with the Gaussian linear model
+
+- In a classical [Gaussian linear model]{.blue} the weight matrix is $\bm{W} = \sigma^2 I_n$, therefore the distribution of the maximum likelihood is
+$$
+\hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right),
+$$
+an important result we have encountered multiple times in this course.
+
+- The [Wald statistic]{.blue} $z_j$ [specializes]{.orange} to $$
+z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
+$$ which is the usual test statistic considered, e.g., in the output on `lm` in **R**. 
+
+- However, in this case there is [no need]{.orange} of [approximations]{.orange}. The distribution of $z_j$ is known to be a [Student]{.grey}' $t_{n-p}$ under $H_0$, which indeed converges to a $\text{N}(0, 1)$ for large values of $n$.
+
+:::callout-tip
+In GLMs we use procedures that are [approximate]{.orange} rather than [exact]{.blue}. Of course, whenever an exact result is known, we should use it. 
+:::
 
 ## Example: `Aids` data
 
-- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Aids` data we get the familiar summary.
+- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Aids` data we get the familiar summary. 
 
 ```{r}
+#| classes: styled-output
 lmtest::coeftest(fit_Aids)
 ```
 
-- The associated confidence intervals are:
+- In this case, we [reject]{.orange} the null hypothesis that $\beta_2 = 0$. 
+
+. . .
+
+- The associated [Wald confidence intervals]{.blue} are:
 
 ```{r}
+#| classes: styled-output
 lmtest::coefci(fit_Aids)
 ```
 
-## Likelihood based testing
+## General hypothesis testing
+
+- Suppose we wish to test [multiple parameters]{.blue} at the same time. Let us organize the parameters into [two blocks]{.blue}:
+$$
+\beta = \begin{pmatrix}\beta_A \\ \beta_B \end{pmatrix}, \qquad \beta_A = \begin{pmatrix}\beta_1 \\ \vdots \\ \beta_{p_0} \end{pmatrix}, \quad \beta_B = \begin{pmatrix}\beta_{p_0+1} \\ \vdots \\ \beta_p \end{pmatrix}, 
+$$
+where $q = p - p_0$ is the number of [constrained parameters]{.orange}. We want to [test the hypothesis]{.blue}: 
+$$
+H_0: \beta_B = \beta_0 \qquad \text{against}\qquad H_1: \beta_B \neq \beta_0.$$ 
+
+. . .
+
+
+:::{.callout-tip}
+A common case is $H_0: \beta_B = 0$ ([nested models]{.grey}), where we compare the [reduced model]{.orange} $M_0$ against the [full model]{.blue} $M_1$. We verify if [all]{.orange} the $q$ variables associated with $\beta_B$ can be omitted. 
+
+The case $q = 1$, that is $\beta_B = \beta_p$ with $H_0: \beta_p = 0$ corresponds to the previously considered situation where we test if a [specific coefficient]{.orange}, say $\beta_p$, is non-zero. 
+:::
+
+## Testing hypothesis in GLMs I
+
+- There are [three classical tests]{.orange} that we could consider for such a testing problem: the [Wald test]{.orange}, the [Score/Rao test]{.grey} and the [log-likelihood ratio test]{.blue}. 
+
+
+:::callout-note
+#### Wald test (general case)
+
+Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood, the quantity
+$$
+W_e = (\hat{\beta}_B - \beta_0)^T \:\widehat{\text{var}}(\hat{\beta}_B)^{-1} \:(\hat{\beta}_B - \beta_0),
+$$
+is called [Wald test]{.blue}. Here $\widehat{\text{var}}(\hat{\beta}_B)$ is the appropriate [block]{.grey} of $(\bm{X}\hat{\bm{W}}\bm{X})^{-1}$ and $\hat{\bm{W}}$ is estimated using $\hat{\beta}$ and $\hat{\phi}$. Under $H_0$ this quantity is [approximately]{.orange} distributed as
+$$
+W_e \: \dot{\sim} \; \chi^2_q,
+$$
+namely a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. 
+:::
+
+- Clearly, in the $q = 1$ case we recover the Wald statistic with $z_j^2 = W_e$. 
+
+<!-- - The Wald statistic is the [simplest]{.blue}, but it has some [drawbacks]{.orange}. For example, it depends on the parametrization and it is sometimes problematic for small $n$. -->
+
+
+## Log-likelihood ratio test
+
+:::callout-note
+#### Log-likelihood ratio test (LRT)
+
+Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ the [restricted]{.orange} maximum likelihood estimate. The quantity
+$$
+W = 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})],
+$$
+is called [log-likelihood ratio]{.blue} test (LRT). Under $H_0$ this quantity is [approximately]{.orange} distributed as
+$$
+W \: \dot{\sim} \; \chi^2_q,
+$$
+namely a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}.
+:::
+
+- When testing $H_0 : \beta_B = 0$, we separately fit the [full model]{.blue}, obtaining $\hat{\beta}$, and the [reduced model]{.orange}, obtaining $\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)$. Then, we compare their log-likelihoods: $\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})$. 
+
+- The LRT is the [default]{.orange} in **R** for comparing [nested models]{.blue}. 
+
+:::aside
+When the dispersion parameter $\phi$ is unknown, a [variant]{.orange} uses [separate estimates]{.blue} $\hat{\phi}$, based on $\hat{\beta}$, and $\hat{\phi}_0$, based on $\hat{\beta}_0$. The `anova` **R** command uses a single $\hat{\phi}$, as described above. 
+:::
+
+## Score or Rao test
+
+:::callout-note
+#### Rao test
+Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ the [restricted]{.orange} maximum likelihood estimate. Moreover, let
+$$
+\ell_B(\beta;\phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
+$$ 
+namely the [block]{.grey} of the score function associated with $\beta_B$. The quantity
+$$
+W_u = \ell_B(\hat{\beta}_0; \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0; \hat{\phi}), 
+$$
+is called [Rao test]{.blue} or [score test]{.blue}. Here $\widetilde{\text{var}}(\hat{\beta}_B)$ is the appropriate [block]{.grey} of $(\bm{X}\tilde{\bm{W}}\bm{X})^{-1}$ where $\tilde{\bm{W}}$ is estimated using the [restricted]{.orange} $\hat{\beta}_0$. Under $H_0$ this quantity is [approximately]{.orange} distributed as
+$$
+W_u \: \dot{\sim} \; \chi^2_q,
+$$
+namely a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}.
+:::
+
+
+:::aside
+The Rao test arguably the [less common]{.orange}. However, it is linked to the $X^2$ Pearson statistic. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
+:::
+
+
+## A graphical representation when $p = 1$
+
+![](img/tests.png){width=4in fig-align="center"}
+
+- Figure taken from Azzalini (1996). This is also the [cover]{.grey} of the [book]{.orange}!
+
+
+## Three asymptotically equivalent tests
+
+- The Wald test, the Score test and the log-likelihood ration test are [asymptotically equivalent]{.blue}. In other words, these tests give the same [same number]{.blue} for (very) large values of $n$. 
+
+- More formally, we have that
+$$
+W_e = W + o_p(1), \qquad W_u = W + o_p(1),
+$$
+where $o_p(1)$ is a quantity that goes to $0$ in probability as $n \to \infty$. 
+
+. . .
+
+- When $q = 1$, we can also [invert]{.blue} $W_e$, $W_u$ and $W$ tests over $\beta_0$ to obtain the corresponding [confidence interval]{.orange}. This is often done [numerically]{.orange} for $W_u$ and $W$. 
+
+. . .
+
+- The Wald test depends on the parametrization. When considering a transformation of $\beta$, the variance must be adjusted using the derivative of the transformation ([delta method]{.blue}).[^wald_delta]
+
+- On the other hand, both the LRT and the score are [invariant]{.blue}, and therefore we can simply [transform]{.orange} the [extremes]{.orange} of the [original interval]{.orange} without further corrections.
+
+[^wald_delta]: Transforming the extremes of Wald confidence interval "works" in the sense that it produces a valid confidence interval, but it is [not]{.orange} the Wald interval in the trasformed scale. 
+
+## Comparison with the Gaussian linear model
+
+:::callout-warning
+In the Gaussian linear model all tests are [equivalent]{.blue} if $\phi = \sigma^2$ is [known]{.orange}. We have
+$$
+W = W_e = W_u =  \frac{||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
+$$
+The $\chi^2_q$ distribution is [exact]{.orange} and not an approximation thanks to Cochran theorem. 
+:::
+
+. . .
+
+- Consider the [log-likelihood ratio]{.blue} for testing $H_0: \beta_B = \beta_0$. Suppose $\sigma^2$ is [unknown]{.orange}, then:
+$$
+\begin{aligned}
+W &= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \frac{||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2)/q}{||\bm{y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
+& = q F,
+\end{aligned}
+$$
+where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is [approximately]{.orange} distributed as $\chi^2_q$ for large values of $n$. 
+
+<!-- - In Gaussian linear models we should not use the asymptotic approximation, because the [exact distribution]{.orange} is known! -->
+
+. . . 
+
+- The quantities $W_e, W_u$, and $W$ are the natural extension of the F-statistic for GLMs. They are [approximately]{.orange} distributed as $\chi^2_q$ with $q$ [degrees of freedom]{.blue}. 
+
 
 ## Example: `Aids` data
 
+- When applied to real data, such as the `Aids` data, these tests often lead to very similar conclusions.
+
+. . .
+
+- [Wald test]{.blue} for $H_0: \beta_2 = 0$ equals `r round(lmtest::coeftest(fit_Aids)[2, 3]^2, 3)`. The Wald confidence interval is
 ```{r}
-confint(fit_Aids)
+#| classes: styled-output
+
+beta_2 <- coef(fit_Aids)[2]
+var_beta_2 <- vcov(fit_Aids)[2, 2]
+CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
+CI_Wald
+```
+
+- [Rao test]{.orange} $W_u$ for $H_0: \beta_2 = 0$ equals `r round(anova(fit_Aids, test = "Rao")$Rao[2], 3)`. The score confidence interval is
+
+```{r}
+#| classes: styled-output
+
+CI_Rao <- confint(fit_Aids, test = "Rao")[2, ]
+CI_Rao
+```
+
+- The [likelihood ratio test]{.grey} $W$ for $H_0: \beta_2 = 0$ equals `r round(anova(fit_Aids)[, 2][2], 3)`. The LRT confidence interval is
+```{r}
+#| classes: styled-output
+
+CI_LRT <- confint(fit_Aids, test = "LRT")[2, ]
+CI_LRT
+```
+
+## Example `Aids` data
+
+- Suppose we were interested in a confidence interval for $\exp(\beta_2)$. Thanks to invariance of the score and the LRT tests, we can simply [transform]{.orange} of the [original interval]{.blue}:
+
+```{r}
+#| classes: styled-output
+#| echo: true
+
+exp(CI_Rao) # Rao/Score confidence interval for exp(beta_2)
+exp(CI_LRT) # LRT confidence interval for exp(beta_2)
+```
+
+- In the Wald case, we need to [adjust]{.orange} the [variance]{.orange} according to the [delta method]{.blue}, obtaining
+$$\widehat{\text{var}}(\exp(\hat{\beta}_2)) = \exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 0.000830.$$
+
+
+```{r}
+#| classes: styled-output
+#| echo: true
+
+var_exp_beta2 <- exp(2 * beta_2) * var_beta_2
+exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
 ```
 
 
-## Delta methods and fitted values
-
-## Example: `Aids` data
-
-# IRLS algorithm
-
-## Numerical methods for maximum likelihood estimation
-
-## Iteratively reweighted least squares I
-
-## Iteratively reweighted least squares II
-
-## Iteratively reweighted least squares III
-
-## Estimation of $\phi$ 
 
 # Deviance, model checking, residuals
 
