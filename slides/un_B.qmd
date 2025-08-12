@@ -1354,11 +1354,19 @@ where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is
 
 ## Example: `Aids` data
 
-- When applied to real data, such as the `Aids` data, these tests often lead to very similar conclusions.
+```{r}
 
-. . .
+fit_Aids0 <- glm(deaths ~ 1, family = "poisson", data = Aids)
+phi <- summary(fit_Aids)$dispersion # Yes, I know this is equal 1, but it is here for conceptual clarity
 
-- [Wald test]{.blue} for $H_0: \beta_2 = 0$ equals `r round(lmtest::coeftest(fit_Aids)[2, 3]^2, 3)`. The Wald confidence interval is
+W_e <- lmtest::waldtest(fit_Aids0, fit_Aids, test = "Chisq")$Chisq[2]
+W_u <- anova(fit_Aids, test = "Rao")$Rao[2]
+W <- (deviance(fit_Aids0) - deviance(fit_Aids)) / phi
+```
+
+- The [Wald test]{.blue} for $H_0: \beta_2 = 0$ with $q = 1$ degrees of freedom equals $W_e = 135.6$, so that the p-value is $\texttt{Pr(>Chi)} = \mathbb{P}(W_e > 135.6) \approx 0$, [rejecting the null hypothesis]{.orange}. 
+
+- Note that we previously obtained $z_j = 11.645$ and indeed $z_j^2 = 11.645^2 = 135.6$. The Wald [confidence interval]{.blue} is obtained using the analytical formulas and equals
 ```{r}
 #| classes: styled-output
 
@@ -1368,7 +1376,7 @@ CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
 CI_Wald
 ```
 
-- [Rao test]{.orange} $W_u$ for $H_0: \beta_2 = 0$ equals `r round(anova(fit_Aids, test = "Rao")$Rao[2], 3)`. The score confidence interval is
+- The [Rao/Score test]{.orange} for $H_0: \beta_2 = 0$ equals $W_u = 163.59$ with $q = 1$ and the p-value is $\mathbb{P}(W_u > 163.59) \approx 0$. The score [confidence interval]{.blue} is obtained numerically and equals
 
 ```{r}
 #| classes: styled-output
@@ -1377,7 +1385,9 @@ CI_Rao <- confint(fit_Aids, test = "Rao")[2, ]
 CI_Rao
 ```
 
-- The [likelihood ratio test]{.grey} $W$ for $H_0: \beta_2 = 0$ equals `r round(anova(fit_Aids)[, 2][2], 3)`. The LRT confidence interval is
+
+
+- The [log-likelihood ratio test]{.grey} for $H_0: \beta_2 = 0$ equals $W = 178.55$ with $q = 1$ and the p-value is $\mathbb{P}(W > 178.55) \approx 0$. The [confidence interval]{.blue} is obtained numerically and equals
 ```{r}
 #| classes: styled-output
 
@@ -1385,7 +1395,7 @@ CI_LRT <- confint(fit_Aids, test = "LRT")[2, ]
 CI_LRT
 ```
 
-## Example `Aids` data
+## Example: `Aids` data
 
 - Suppose we were interested in a confidence interval for $\exp(\beta_2)$. Thanks to invariance of the score and the LRT tests, we can simply [transform]{.orange} of the [original interval]{.blue}:
 

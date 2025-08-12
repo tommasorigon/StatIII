@@ -1622,11 +1622,8 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <section id="example-aids-data-3" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
-<li>When applied to real data, such as the <code>Aids</code> data, these tests often lead to very similar conclusions.</li>
-</ul>
-<div class="fragment">
-<ul>
-<li><span class="blue">Wald test</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals 135.602. The Wald confidence interval is</li>
+<li><p>The <span class="blue">Wald test</span> for <span class="math inline">H_0: \beta_2 = 0</span> with <span class="math inline">q = 1</span> degrees of freedom equals <span class="math inline">W_e = 135.6</span>, so that the p-value is <span class="math inline">\texttt{Pr(&gt;Chi)} = \mathbb{P}(W_e &gt; 135.6) \approx 0</span>, <span class="orange">rejecting the null hypothesis</span>.</p></li>
+<li><p>Note that we previously obtained <span class="math inline">z_j = 11.645</span> and indeed <span class="math inline">z_j^2 = 11.645^2 = 135.6</span>. The Wald <span class="blue">confidence interval</span> is obtained using the analytical formulas and equals</p></li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1635,7 +1632,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </div>
 </div>
 <ul>
-<li><span class="orange">Rao test</span> <span class="math inline">W_u</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals 163.586. The score confidence interval is</li>
+<li>The <span class="orange">Rao/Score test</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals <span class="math inline">W_u = 163.59</span> with <span class="math inline">q = 1</span> and the p-value is <span class="math inline">\mathbb{P}(W_u &gt; 163.59) \approx 0</span>. The score <span class="blue">confidence interval</span> is obtained numerically and equals</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1644,7 +1641,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </div>
 </div>
 <ul>
-<li>The <span class="grey">likelihood ratio test</span> <span class="math inline">W</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals 178.551. The LRT confidence interval is</li>
+<li>The <span class="grey">log-likelihood ratio test</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals <span class="math inline">W = 178.55</span> with <span class="math inline">q = 1</span> and the p-value is <span class="math inline">\mathbb{P}(W &gt; 178.55) \approx 0</span>. The <span class="blue">confidence interval</span> is obtained numerically and equals</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1652,10 +1649,9 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 0.216477 0.303748 </code></pre>
 </div>
 </div>
-</div>
 </section>
 <section id="example-aids-data-4" class="slide level2 center">
-<h2>Example <code>Aids</code> data</h2>
+<h2>Example: <code>Aids</code> data</h2>
 <ul>
 <li>Suppose we were interested in a confidence interval for <span class="math inline">\exp(\beta_2)</span>. Thanks to invariance of the score and the LRT tests, we can simply <span class="orange">transform</span> of the <span class="blue">original interval</span>:</li>
 </ul>

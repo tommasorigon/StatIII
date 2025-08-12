@@ -73,6 +73,14 @@ lmtest::coeftest(fit_Aids)
 
 lmtest::coefci(fit_Aids)
 
+
+fit_Aids0 <- glm(deaths ~ 1, family = "poisson", data = Aids)
+phi <- summary(fit_Aids)$dispersion # Yes, I know this is equal 1, but it is here for conceptual clarity
+
+W_e <- lmtest::waldtest(fit_Aids0, fit_Aids, test = "Chisq")$Chisq[2]
+W_u <- anova(fit_Aids, test = "Rao")$Rao[2]
+W <- (deviance(fit_Aids0) - deviance(fit_Aids)) / phi
+
 beta_2 <- coef(fit_Aids)[2]
 var_beta_2 <- vcov(fit_Aids)[2, 2]
 CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
