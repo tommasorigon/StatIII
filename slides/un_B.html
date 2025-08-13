@@ -194,6 +194,7 @@ window.Quarto = {
   <li><a href="#canonical-link-simplifications" id="toc-canonical-link-simplifications" class="nav-link" data-scroll-target="#canonical-link-simplifications">Canonical link: simplifications 📖</a></li>
   <li><a href="#examples-of-estimating-equations" id="toc-examples-of-estimating-equations" class="nav-link" data-scroll-target="#examples-of-estimating-equations">Examples of estimating equations</a></li>
   <li><a href="#example-beetles-data" id="toc-example-beetles-data" class="nav-link" data-scroll-target="#example-beetles-data">Example: <code>Beetles</code> data</a></li>
+  <li><a href="#example-beetles-data-1" id="toc-example-beetles-data-1" class="nav-link" data-scroll-target="#example-beetles-data-1">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-aids-data" id="toc-example-aids-data" class="nav-link" data-scroll-target="#example-aids-data">Example: <code>Aids</code> data</a></li>
   <li><a href="#observed-and-expected-information-i" id="toc-observed-and-expected-information-i" class="nav-link" data-scroll-target="#observed-and-expected-information-i">Observed and expected information I 📖</a></li>
   <li><a href="#observed-and-expected-information-ii" id="toc-observed-and-expected-information-ii" class="nav-link" data-scroll-target="#observed-and-expected-information-ii">Observed and expected information II 📖</a></li>
@@ -215,11 +216,11 @@ window.Quarto = {
   <li><a href="#inference-and-hypothesis-testing" id="toc-inference-and-hypothesis-testing" class="nav-link" data-scroll-target="#inference-and-hypothesis-testing">Inference and hypothesis testing</a>
   <ul class="collapse">
   <li><a href="#asymptotic-distribution-of-hatbeta" id="toc-asymptotic-distribution-of-hatbeta" class="nav-link" data-scroll-target="#asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></a></li>
-  <li><a href="#example-beetles-data-1" id="toc-example-beetles-data-1" class="nav-link" data-scroll-target="#example-beetles-data-1">Example: <code>Beetles</code> data</a></li>
+  <li><a href="#example-beetles-data-2" id="toc-example-beetles-data-2" class="nav-link" data-scroll-target="#example-beetles-data-2">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
   <li><a href="#wald-test-and-confidence-intervals" id="toc-wald-test-and-confidence-intervals" class="nav-link" data-scroll-target="#wald-test-and-confidence-intervals">Wald test and confidence intervals</a></li>
   <li><a href="#comparison-with-the-gaussian-linear-model" id="toc-comparison-with-the-gaussian-linear-model" class="nav-link" data-scroll-target="#comparison-with-the-gaussian-linear-model">Comparison with the Gaussian linear model</a></li>
-  <li><a href="#example-beetles-data-2" id="toc-example-beetles-data-2" class="nav-link" data-scroll-target="#example-beetles-data-2">Example: <code>Beetles</code> data</a></li>
+  <li><a href="#example-beetles-data-3" id="toc-example-beetles-data-3" class="nav-link" data-scroll-target="#example-beetles-data-3">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
   <li><a href="#general-hypothesis-testing" id="toc-general-hypothesis-testing" class="nav-link" data-scroll-target="#general-hypothesis-testing">General hypothesis testing</a></li>
   <li><a href="#testing-hypothesis-in-glms-i" id="toc-testing-hypothesis-in-glms-i" class="nav-link" data-scroll-target="#testing-hypothesis-in-glms-i">Testing hypothesis in GLMs I</a></li>
@@ -228,7 +229,7 @@ window.Quarto = {
   <li><a href="#a-graphical-representation-when-p-1" id="toc-a-graphical-representation-when-p-1" class="nav-link" data-scroll-target="#a-graphical-representation-when-p-1">A graphical representation when <span class="math inline">p = 1</span></a></li>
   <li><a href="#three-asymptotically-equivalent-tests" id="toc-three-asymptotically-equivalent-tests" class="nav-link" data-scroll-target="#three-asymptotically-equivalent-tests">Three asymptotically equivalent tests</a></li>
   <li><a href="#comparison-with-the-gaussian-linear-model-1" id="toc-comparison-with-the-gaussian-linear-model-1" class="nav-link" data-scroll-target="#comparison-with-the-gaussian-linear-model-1">Comparison with the Gaussian linear model</a></li>
-  <li><a href="#example-beetles-data-3" id="toc-example-beetles-data-3" class="nav-link" data-scroll-target="#example-beetles-data-3">Example: <code>Beetles</code> data</a></li>
+  <li><a href="#example-beetles-data-4" id="toc-example-beetles-data-4" class="nav-link" data-scroll-target="#example-beetles-data-4">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
   <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example: <code>Aids</code> data</a></li>
   </ul></li>
@@ -1313,6 +1314,106 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </section>
 <section id="example-beetles-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-beetles-data">Example: <code>Beetles</code> data</h2>
+<ul>
+<li><p>Using the <code>Beetles</code> data, we specified a <span class="blue">binomial logistic</span> regression model for the counts <span class="math inline">m_i Y_i \sim \text{Binomial}(m_i, \pi_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \pi_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))</span>.</p></li>
+<li><p>The <span class="orange">maximum likelihood estimate</span> <span class="math inline">(\hat{\beta}_1, \hat{\beta}_2)</span> is the value solving simultaneously: <span class="math display">
+\sum_{i=1}^n m_i y_i =  \sum_{i=1}^n m_i \frac{\exp(\beta_1 + \beta_2x_i)}{1 + \exp(\beta_1 + \beta_2x_i)}, \quad
+\text{and}\quad \sum_{i=1}^n m_i x_i y_i =  \sum_{i=1}^n m_i x_i \frac{\exp(\beta_1 + \beta_2x_i)}{1 + \exp(\beta_1 + \beta_2x_i)}.
+</span> Unfortunately, there is <span class="orange">no closed form</span> solution.</p></li>
+<li><p>In our case, we have that <span class="math display">
+\sum_{i=1}^n m_i y_i = 291, \qquad \sum_{i=1}^n m_i x_i y_i = 532.2083.
+</span></p></li>
+<li><p>With these values, we can use the <span class="orange">numerical</span> algorithm IRLS to solve the above system, obtaining <span class="math display">
+\hat{\beta} = (\hat{\beta}_1, \hat{\beta_2}) = (-60.717, 34.270).
+</span></p></li>
+</ul>
+</section>
+<section id="example-beetles-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-beetles-data-1">Example: <code>Beetles</code> data</h2>
+<ul>
+<li>The <span class="blue">predicted response</span> can be computed by using the formula <span class="math display">
+\hat{\mu}_i = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2x_i)} = \frac{\exp(-60.717 + 34.270 x_i)}{1 + \exp(-60.717 + 34.270 x_i)}, \qquad i=1,\dots, 8.
+</span></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">m_i</span></th>
+<th style="text-align: right;"><code>deaths</code> (<span class="math inline">S_i</span>)</th>
+<th style="text-align: right;"><code>logdose</code> (<span class="math inline">x_i</span>)</th>
+<th style="text-align: right;"><span class="math inline">Y_i = S_i / m_i</span></th>
+<th style="text-align: right;"><span class="math inline">\hat{\mu}_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.691</td>
+<td style="text-align: right;">0.102</td>
+<td style="text-align: right;">0.059</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">1.724</td>
+<td style="text-align: right;">0.217</td>
+<td style="text-align: right;">0.164</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">1.755</td>
+<td style="text-align: right;">0.290</td>
+<td style="text-align: right;">0.362</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1.784</td>
+<td style="text-align: right;">0.500</td>
+<td style="text-align: right;">0.605</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">1.811</td>
+<td style="text-align: right;">0.825</td>
+<td style="text-align: right;">0.795</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">1.837</td>
+<td style="text-align: right;">0.898</td>
+<td style="text-align: right;">0.903</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">1.861</td>
+<td style="text-align: right;">0.984</td>
+<td style="text-align: right;">0.955</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1.884</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">0.979</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="./#/beetles-data-fitted-model">beginning of this unit</a>.</li>
+</ul>
 </section>
 <section id="example-aids-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data">Example: <code>Aids</code> data</h2>
@@ -1320,7 +1421,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <li><p>In the <code>Aids</code> data, we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span>.</p></li>
 <li><p>The maximum likelihood estimate <span class="math inline">(\hat{\beta}_1, \hat{\beta}_2)</span> <span class="orange">solve</span> simultaneously: <span class="math display">
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
-\text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
+\text{and}\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 </span></p></li>
 <li><p>This system does <span class="orange">not</span> always admits a <span class="orange">solution</span>. This happens, for example, in the <span class="blue">extreme case</span> <span class="math inline">\sum_{i=1}^ny_i = 0</span>, occurring when all counts equal zero.</p></li>
 </ul>
@@ -1494,7 +1595,6 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <li><p>The algorithm <span class="orange">stops</span> whenever a certain criteria is met, e.g.&nbsp;when <span class="math inline">||\beta^{(t+1)} - \beta^{(t)}|| &lt; \epsilon</span>, where <span class="math inline">\epsilon</span> is sometimes called <span class="grey">tolerance</span>. We say it reached <span class="blue">convergence</span>.</p></li>
 </ul>
 <ul>
-<li><p>There exists a huge variety of numerical methods for maximizing a function.</p></li>
 <li><p>The <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm became very popular after being proposed by <span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#ref-Nelder1972" role="doc-biblioref">1972</a>)</span> and is currently implemented in <strong>R</strong>.</p></li>
 <li><p>The IRLS algorithm can be used for any GLM, has a clear geometric interpretation, and often delivers good performance. It can be seen as a <span class="orange">variant</span> of <span class="blue">Newton-Raphson</span>.</p></li>
 </ul>
@@ -1668,8 +1768,8 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 </ul>
 <!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
 </section>
-<section id="example-beetles-data-1" class="level2">
-<h2 class="anchored" data-anchor-id="example-beetles-data-1">Example: <code>Beetles</code> data</h2>
+<section id="example-beetles-data-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-beetles-data-2">Example: <code>Beetles</code> data</h2>
 </section>
 <section id="example-aids-data-1" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
@@ -1735,8 +1835,8 @@ z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \fr
 </div>
 </div>
 </section>
-<section id="example-beetles-data-2" class="level2">
-<h2 class="anchored" data-anchor-id="example-beetles-data-2">Example: <code>Beetles</code> data</h2>
+<section id="example-beetles-data-3" class="level2">
+<h2 class="anchored" data-anchor-id="example-beetles-data-3">Example: <code>Beetles</code> data</h2>
 <ul>
 <li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Beetles</code> data we get the following familiar summary.</li>
 </ul>
@@ -1956,8 +2056,8 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <li>The quantities <span class="math inline">W_e, W_u</span>, and <span class="math inline">W</span> are the natural extension of the F-statistic for GLMs. They are <span class="orange">approximately</span> distributed as <span class="math inline">\chi^2_q</span> with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</li>
 </ul>
 </section>
-<section id="example-beetles-data-3" class="level2">
-<h2 class="anchored" data-anchor-id="example-beetles-data-3">Example: <code>Beetles</code> data</h2>
+<section id="example-beetles-data-4" class="level2">
+<h2 class="anchored" data-anchor-id="example-beetles-data-4">Example: <code>Beetles</code> data</h2>
 </section>
 <section id="example-aids-data-3" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>

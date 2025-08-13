@@ -892,6 +892,56 @@ $$
 
 ## Example: `Beetles` data
 
+- Using the `Beetles` data, we specified a [binomial logistic]{.blue} regression model for the counts $m_i Y_i \sim \text{Binomial}(m_i, \pi_i)$ with mean $\mathbb{E}(Y_i) = \pi_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))$.
+
+- The [maximum likelihood estimate]{.orange} $(\hat{\beta}_1, \hat{\beta}_2)$ is the value solving simultaneously:
+$$
+\sum_{i=1}^n m_i y_i =  \sum_{i=1}^n m_i \frac{\exp(\beta_1 + \beta_2x_i)}{1 + \exp(\beta_1 + \beta_2x_i)}, \quad
+\text{and}\quad \sum_{i=1}^n m_i x_i y_i =  \sum_{i=1}^n m_i x_i \frac{\exp(\beta_1 + \beta_2x_i)}{1 + \exp(\beta_1 + \beta_2x_i)}.
+$$
+Unfortunately, there is [no closed form]{.orange} solution.
+
+- In our case, we have that 
+$$
+\sum_{i=1}^n m_i y_i = 291, \qquad \sum_{i=1}^n m_i x_i y_i = 532.2083.
+$$
+
+- With these values, we can use the [numerical]{.orange} algorithm IRLS to solve the above system, obtaining
+$$
+\hat{\beta} = (\hat{\beta}_1, \hat{\beta_2}) = (-60.717, 34.270).
+$$
+
+
+
+## Example: `Beetles` data
+
+- The [predicted response]{.blue} can be computed by using the formula
+$$
+\hat{\mu}_i = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2x_i)} = \frac{\exp(-60.717 + 34.270 x_i)}{1 + \exp(-60.717 + 34.270 x_i)}, \qquad i=1,\dots, 8.
+$$
+
+
+```{r}
+Beetles$Proportions <- Beetles$deaths/Beetles$n
+Beetles$predictions <- predict(fit_Beetles, type = "response")
+
+# knitr::kable(Beetles, digits = 3)
+```
+
+|  $m_i$ | `deaths` ($S_i$) | `logdose` ($x_i$) | $Y_i = S_i / m_i$ | $\hat{\mu}_i$ |
+|--:|------:|-------:|-----------:|-----------:|
+| 59|      6|   1.691|       0.102|       0.059|
+| 60|     13|   1.724|       0.217|       0.164|
+| 62|     18|   1.755|       0.290|       0.362|
+| 56|     28|   1.784|       0.500|       0.605|
+| 63|     52|   1.811|       0.825|       0.795|
+| 59|     53|   1.837|       0.898|       0.903|
+| 62|     61|   1.861|       0.984|       0.955|
+| 60|     60|   1.884|       1.000|       0.979|
+
+- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](/#/beetles-data-fitted-model).
+
+
 ## Example: `Aids` data
 
 - In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$. 
@@ -899,7 +949,7 @@ $$
 - The maximum likelihood estimate $(\hat{\beta}_1, \hat{\beta}_2)$ [solve]{.orange} simultaneously:
 $$
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
-\text{and }\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
+\text{and}\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 $$
 - This system does [not]{.orange} always admits a [solution]{.orange}. This happens, for example, in the [extreme case]{.blue} $\sum_{i=1}^ny_i = 0$, occurring when all counts equal zero.
 
@@ -1088,8 +1138,6 @@ $$
 - The algorithm [stops]{.orange} whenever a certain criteria is met, e.g. when $||\beta^{(t+1)} - \beta^{(t)}|| < \epsilon$, where $\epsilon$ is sometimes called [tolerance]{.grey}. We say it reached [convergence]{.blue}. 
 
 . . .
-
-- There exists a huge variety of numerical methods for maximizing a function.  
 
 - The [iteratively re-weighted least squares]{.blue} (IRLS) algorithm became very popular after being proposed by @Nelder1972 and is currently implemented in **R**.  
 
@@ -1524,6 +1572,7 @@ where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is
 
 
 ## Example: `Beetles` data
+
 
 ## Example: `Aids` data
 

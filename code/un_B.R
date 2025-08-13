@@ -63,6 +63,11 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
   xlab("Period") +
   ylab("Deaths")
 
+Beetles$Proportions <- Beetles$deaths / Beetles$n
+Beetles$predictions <- predict(fit_Beetles, type = "response")
+
+# knitr::kable(Beetles, digits = 3)
+
 sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
 
