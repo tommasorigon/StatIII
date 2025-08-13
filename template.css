@@ -36,6 +36,10 @@ $code-bg: #fff !default;
   margin-right: 0;             /* no centering */
 }
 
+/*this can make tables smaller*/
+.small-table table {
+  font-size: 0.85em; /* shrink font size */
+}
 
 
 // headings

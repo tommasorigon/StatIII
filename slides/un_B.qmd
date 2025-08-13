@@ -130,7 +130,7 @@ knitr::kable(Beetles)
 #| fig-width: 7.8
 #| fig-height: 4.55
 #| fig-align: center
-ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
   geom_point() +
   theme_light() +
   xlab("log-dose") +
@@ -167,7 +167,7 @@ for some parameters $\beta_1, \beta_2 \in \mathbb{R}$. [Note]{.orange} that $\pi
 
 fit_Beetles <- glm(cbind(deaths, n - deaths) ~ logdose, family = "binomial", data = Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
   geom_point() +
   geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
   theme_light() +
@@ -229,10 +229,12 @@ in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text
 fit_Beetles_lm <- lm(I(deaths / n) ~ logdose, data = Beetles)
 fit_Beetles_logit <- lm(qlogis((deaths + 0.5) / (n + 1)) ~ logdose, data = Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths/n)) +
-  xlim(c(1.65, 1.92)) + 
+ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+  xlim(c(1.65, 1.92)) +
   geom_point() +
-  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) + geom_function(fun = function(x) coef(fit_Beetles_lm)[1] + coef(fit_Beetles_lm)[2] * x, linetype = "dashed", col = "darkorange", linewidth = 0.6) + geom_function(fun = function(x) plogis(coef(fit_Beetles_logit)[1] + coef(fit_Beetles_logit)[2] * x), linetype = "dashed", col = "darkblue", linewidth = 0.6) +
+  geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
+  geom_function(fun = function(x) coef(fit_Beetles_lm)[1] + coef(fit_Beetles_lm)[2] * x, linetype = "dashed", col = "darkorange", linewidth = 0.6) +
+  geom_function(fun = function(x) plogis(coef(fit_Beetles_logit)[1] + coef(fit_Beetles_logit)[2] * x), linetype = "dashed", col = "darkblue", linewidth = 0.6) +
   theme_light() +
   xlab("log-dose") +
   ylab("Proportion of deaths")
@@ -314,7 +316,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
   ylab("Deaths")
 ```
 
-- The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = 0.30$ and $\hat{\beta}_2 = 0.26$. This yields the [predictive curve]{.blue} $\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean $\mathbb{E}(Y_i)$.  
+- The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$. This yields the [predictive curve]{.blue} $\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean $\mathbb{E}(Y_i)$.  
 
 
 ## A comparison with old tools I
@@ -354,8 +356,8 @@ fit_Aids_sqrt <- glm(deaths ~ period, family = poisson(link = "sqrt"), data = Ai
 ggplot(data = Aids, aes(x = period, y = deaths)) +
   geom_point() +
   geom_function(fun = function(x) exp(coef(fit_Aids)[1] + coef(fit_Aids)[2] * x), linetype = "dashed", linewidth = 0.6) +
-    geom_function(fun = function(x) (coef(fit_Aids_lm)[1] + coef(fit_Aids_lm)[2] * x)^2, linetype = "dashed", col = "darkorange", linewidth = 0.6) +
-    geom_function(fun = function(x) (coef(fit_Aids_sqrt)[1] + coef(fit_Aids_sqrt)[2] * x)^2, linetype = "dashed", col = "darkblue", linewidth = 0.6) +
+  geom_function(fun = function(x) (coef(fit_Aids_lm)[1] + coef(fit_Aids_lm)[2] * x)^2, linetype = "dashed", col = "darkorange", linewidth = 0.6) +
+  geom_function(fun = function(x) (coef(fit_Aids_sqrt)[1] + coef(fit_Aids_sqrt)[2] * x)^2, linetype = "dashed", col = "darkblue", linewidth = 0.6) +
   theme_light() +
   xlab("Period") +
   ylab("Deaths")
@@ -922,7 +924,7 @@ $$
 
 
 ```{r}
-Beetles$Proportions <- Beetles$deaths/Beetles$n
+Beetles$Proportions <- Beetles$deaths / Beetles$n
 Beetles$predictions <- predict(fit_Beetles, type = "response")
 
 # knitr::kable(Beetles, digits = 3)
@@ -939,7 +941,7 @@ Beetles$predictions <- predict(fit_Beetles, type = "response")
 | 62|     61|   1.861|       0.984|       0.955|
 | 60|     60|   1.884|       1.000|       0.979|
 
-- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](/#/beetles-data-fitted-model).
+- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](/un_B_slides.html#/beetles-data-fitted-model).
 
 
 ## Example: `Aids` data
@@ -957,7 +959,7 @@ $$
 
 - Using the `Aids` data we have $\sum_{i=1}^ny_i = 217$ and $\sum_{i=1}^nx_i y_i = 2387$. Via [numerical methods]{.orange} we solve the above system of equations and we obtain $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$.
 
-- The estimated mean values are $\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)$ and in particular the mean for the [next period]{.blue} is
+- The estimated mean values are $\hat{\mu}_i = \exp(0.304 + 0.259 x_i)$ and in particular the mean for the [next period]{.blue} is
 $$
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
 $$
@@ -969,6 +971,37 @@ In other words, the estimated number of deaths increases by about $30\%$ every t
 sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
 ```
+
+## Example: `Aids` data
+
+```{r}
+Aids$predictions <- predict(fit_Aids, type = "response")
+# knitr::kable(Aids, digits = 3)
+```
+
+:::{.small-table}
+
+|       | `deaths` ($Y_i$) | `period` ($x_i$)| $\hat{\mu}_i$ |
+|:------|------:|------:|-----------:|
+|1983-1 |      0|      1|       1.755|
+|1984-1 |      1|      2|       2.274|
+|1985-1 |      2|      3|       2.946|
+|1986-1 |      3|      4|       3.817|
+|1983-2 |      1|      5|       4.945|
+|1984-2 |      4|      6|       6.407|
+|1985-2 |      8|      7|       8.301|
+|1986-2 |     17|      8|      10.755|
+|1983-3 |     23|      9|      13.934|
+|1984-3 |     32|     10|      18.052|
+|1985-3 |     20|     11|      23.389|
+|1986-3 |     24|     12|      30.302|
+|1983-4 |     37|     13|      39.259|
+|1984-4 |     45|     14|      50.863|
+
+:::
+
+
+- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](/un_B_slides.html#/aids-data-fitted-model).
 
 ## Observed and expected information I 📖
 
@@ -1306,6 +1339,40 @@ $$
 
 ## Example: `Beetles` data
 
+- Using the `Beetles` data, we specified a [binomial logistic]{.blue} regression model for the counts $m_i Y_i \sim \text{Binomial}(m_i, \pi_i)$ with mean $\mu_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))$. 
+
+- We previously [estimated]{.orange} $\hat{\beta} = (-60.717, 34.270)$. This means that the [weights]{.blue} are estimated as
+$$
+\hat{\bm{W}} =\text{diag}(m_1\hat{\mu}_1(1 - \hat{\mu}_1),\dots,m_n \hat{\mu}_n(1 - \hat{\mu}_n)) = \text{diag}(3.255, 8.227, \dots, 1.231).
+$$
+from which we obtain the [estimated]{.orange} [Fisher information matrix]{.blue}:
+$$
+\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{pmatrix} 
+\sum_{i=1}^nm_i\hat{\mu}_i(1 - \hat{\mu}_i) & \sum_{i=1}^n x_im_i\hat{\mu}_i(1 - \hat{\mu}_i)\\
+\sum_{i=1}^n x_im_i\hat{\mu}_i(1 - \hat{\mu}_i) & \sum_{i=1}^n x_i^2m_i\hat{\mu}_i(1 - \hat{\mu}_i)
+\end{pmatrix} = \begin{pmatrix}
+58.484 & 104.011\\
+104.011 & 185.095
+\end{pmatrix}.
+$$
+- Hence, the [estimated covariance]{.blue} matrix of the maximum likelihood estimator is
+$$
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{pmatrix}
+26.840 & -15.082 \\
+-15.082 & 8.481
+\end{pmatrix}.
+$$
+- Therefore the [estimated standard errors]{.orange} are
+$$
+[\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}} \quad\Longrightarrow \quad \widehat{\text{se}}(\hat{\beta}) = (5.181, 2.912).
+$$
+
+```{r}
+# round(solve(vcov(fit_Beetles)), 3)
+# round(vcov(fit_Beetles), 3)
+```
+
+
 
 ## Example: `Aids` data
 
@@ -1350,9 +1417,9 @@ $$
 $$
 which is [approximately]{.orange} distributed as a [standard normal]{.blue} under $H_0$.
 
-- The p-value is defined in the usual way, namely
+- The [p-value]{.blue} is defined in the usual way, namely
 $$
-\texttt{p value} = \alpha_\text{obs} \approx \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+\alpha_\text{obs} = \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
 $$
 
 . . .
@@ -1373,9 +1440,9 @@ an important result we have encountered multiple times in this course.
 
 - The [Wald statistic]{.blue} $z_j$ [specializes]{.orange} to $$
 z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
-$$ which is the usual test statistic considered, e.g., in the output on `lm` in **R**. 
+$$ which is the usual test statistic considered, e.g., in the output of `lm` in **R**. 
 
-- However, in this case there is [no need]{.orange} of [approximations]{.orange}. The distribution of $z_j$ is known to be a [Student]{.grey}' $t_{n-p}$ under $H_0$, which indeed converges to a $\text{N}(0, 1)$ for large values of $n$.
+- However, in the Gaussian case there is [no need]{.orange} of [approximations]{.orange}. The distribution of $z_j$ is a [Student]{.grey}' $t_{n-p}$ under $H_0$, which indeed converges to a $\text{N}(0, 1)$ for large values of $n$.
 
 :::callout-tip
 In GLMs we use procedures that are [approximate]{.orange} rather than [exact]{.blue}. Of course, whenever an exact result is known, we should use it. 
@@ -1383,18 +1450,20 @@ In GLMs we use procedures that are [approximate]{.orange} rather than [exact]{.b
 
 ## Example: `Beetles` data
 
-- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Beetles` data we get the following familiar summary. 
+- The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Beetles` data we get the following familiar summary:
 
 ```{r}
 #| classes: styled-output
 lmtest::coeftest(fit_Beetles)
 ```
 
-- In this case, we [reject]{.orange} the null hypothesis that $\beta_2 = 0$. 
+- Many of the above quantities (estimates and standard errors) have been obtained before. 
+
+- In this case, we [reject]{.orange} the null hypothesis that $\beta_2 = 0$. Indeed, even from the scatterplot there was evidence of a relationship between the `deaths` proportion and the `logdose`.
 
 . . .
 
-- The associated [Wald confidence intervals]{.blue} are:
+- For completeness, we also compute the associated [Wald confidence intervals]{.blue}, which are:
 
 ```{r}
 #| classes: styled-output
@@ -1404,14 +1473,14 @@ lmtest::coefci(fit_Beetles)
 
 ## Example: `Aids` data
 
-- The Wald test for checking the hypotheses $H_0 : \beta_j = 0$ in the `Aids` data is the following. 
+- The Wald tests for checking the hypotheses $H_0 : \beta_j = 0$ in the `Aids` data are provided below. 
 
 ```{r}
 #| classes: styled-output
 lmtest::coeftest(fit_Aids)
 ```
 
-- In this case, we [reject]{.orange} the null hypothesis that $\beta_2 = 0$. 
+- In this case, we [reject]{.orange} the null hypothesis that $\beta_2 = 0$ because the [p-value]{.blue} $\texttt{Pr(>|z|)} \approx 0$. Again, this is not very surprising: the number of `deaths` was clearly increasing over time. 
 
 . . .
 
@@ -1443,8 +1512,9 @@ The case $q = 1$, that is $\beta_B = \beta_p$ with $H_0: \beta_p = 0$ correspond
 
 ## Testing hypothesis in GLMs I
 
-- There are [three classical tests]{.orange} that we could consider for such a testing problem: the [Wald test]{.orange}, the [Score/Rao test]{.grey} and the [log-likelihood ratio test]{.blue}. 
+- There are [three classical tests]{.orange} that we could consider for such a testing problem: the [Wald test]{.orange} $W_e$, the [Rao-score test]{.grey} $W_u$, and the [log-likelihood ratio test]{.blue} $W$. 
 
+- All these tests [reject]{.orange} the null hypothesis for [large values]{.blue} of the [statistic]{.blue}. 
 
 :::callout-note
 #### Wald test (general case)
@@ -1457,7 +1527,7 @@ is called [Wald test]{.blue}. Here $\widehat{\text{var}}(\hat{\beta}_B)$ is the 
 $$
 W_e \: \dot{\sim} \; \chi^2_q,
 $$
-namely a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. 
+a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chisq)} = \mathbb{P}(W_e > w_\text{e, obs})$.
 :::
 
 - Clearly, in the $q = 1$ case we recover the Wald statistic with $z_j^2 = W_e$. 
@@ -1478,7 +1548,7 @@ is called [log-likelihood ratio]{.blue} test (LRT). Under $H_0$ this quantity is
 $$
 W \: \dot{\sim} \; \chi^2_q,
 $$
-namely a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}.
+a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chisq)} =\mathbb{P}(W > w_\text{obs})$.
 :::
 
 - When testing $H_0 : \beta_B = 0$, we separately fit the [full model]{.blue}, obtaining $\hat{\beta}$, and the [reduced model]{.orange}, obtaining $\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)$. Then, we compare their log-likelihoods: $\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})$. 
@@ -1492,7 +1562,7 @@ When the dispersion parameter $\phi$ is unknown, a [variant]{.orange} uses [sepa
 ## Score or Rao test
 
 :::callout-note
-#### Rao test
+#### Rao-score test
 Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ the [restricted]{.orange} maximum likelihood estimate. Moreover, let
 $$
 \ell_B(\beta;\phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
@@ -1501,16 +1571,16 @@ namely the [block]{.grey} of the score function associated with $\beta_B$. The q
 $$
 W_u = \ell_B(\hat{\beta}_0; \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0; \hat{\phi}), 
 $$
-is called [Rao test]{.blue} or [score test]{.blue}. Here $\widetilde{\text{var}}(\hat{\beta}_B)$ is the appropriate [block]{.grey} of $(\bm{X}\tilde{\bm{W}}\bm{X})^{-1}$ where $\tilde{\bm{W}}$ is estimated using the [restricted]{.orange} $\hat{\beta}_0$. Under $H_0$ this quantity is [approximately]{.orange} distributed as
+is called [Rao-score test]{.blue}. Here $\widetilde{\text{var}}(\hat{\beta}_B)$ is the appropriate [block]{.grey} of $(\bm{X}\tilde{\bm{W}}\bm{X})^{-1}$ where $\tilde{\bm{W}}$ is estimated using the [restricted]{.orange} $\hat{\beta}_0$. Under $H_0$ this quantity is [approximately]{.orange} distributed as
 $$
 W_u \: \dot{\sim} \; \chi^2_q,
 $$
-namely a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}.
+a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chisq)} =\mathbb{P}(W_u > w_\text{u, obs})$.
 :::
 
 
 :::aside
-The Rao test arguably the [less common]{.orange}. However, it is linked to the $X^2$ Pearson statistic. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
+The Rao-score test arguably the [less common]{.orange}. However, it is linked to the $X^2$ Pearson statistic. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
 :::
 
 
@@ -1573,74 +1643,187 @@ where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is
 
 ## Example: `Beetles` data
 
+- We would like to use the [Wald]{.blue}, the [Rao-score]{.orange} and the [log-likelihood ratio]{.grey} tests to verify the hypothesis $H_0: \beta_2 = 0$, that is the relevance of `logdose` in predicting the response.  
+
+. . .
+
+- In this case, we have $q = 1$ ($\texttt{Df}$) because there is only one parameter under scrutiny.
+
+```{r}
+fit_Beetles0 <- glm(cbind(deaths, n - deaths) ~ 1,
+  family = "binomial",
+  data = Beetles
+)
+phi <- summary(fit_Beetles)$dispersion # Yes, I know this is equal 1, but it is here for conceptual clarity
+
+W_e <- lmtest::waldtest(fit_Beetles0, fit_Beetles, test = "Chisq")$Chisq[2]
+W_u <- anova(fit_Beetles, test = "Rao")$Rao[2]
+W <- (deviance(fit_Beetles0) - deviance(fit_Beetles)) / phi
+
+tests <- data.frame(value = c(W_e, W_u, W))
+tests$q <- 1
+tests$pvalue <- pchisq(tests$value, tests$q, lower.tail = FALSE)
+rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
+
+# knitr::kable(tests, digits = 3)
+```
+
+| Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chisq}$ |$\texttt{Df}$ | $\texttt{Pr(>Chisq)}$|
+|:---------------------------------|------:|------:|------:|
+| $W_e$ - [Wald test]{.blue}                 | 138.488|  1|      $\approx$ 0|
+| $W_u$ - [Rao-score test]{.orange}          | 227.580|  1|      $\approx$ 0|
+| $W$ - [Log-likelihood ratio test]{.grey} | 272.970|  1|      $\approx$ 0|
+
+- As one may expect, the test values are not identical. Here the sample size is $n = 8$, which is definitely not a big number, therefore we are far from the [asymptotic regime]{.blue}.
+
+- However, the practical conclusions are identical. All tests strongly [reject]{.orange} the null hypothesis.
+
+. . .
+
+- We previously obtained the [Wald statistic]{.blue} $z_j$ and indeed $z_j^2 = 11.76811^2 = 138.488 = W_e$.
+
+
+## Example: `Beetles` data
+
+```{r}
+CI_Wald <- lmtest::coefci(fit_Beetles)[2, ]
+CI_Rao <- confint(fit_Beetles, test = "Rao")[2, ]
+CI_LRT <- confint(fit_Beetles, test = "LRT")[2, ]
+
+CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
+# knitr::kable(CIs)
+```
+
+- Any statistical test can be [inverted]{.orange}, namely we find all the values $\beta_0$ such that we do [not reject the null hypothesis]{.blue}. This generates a [confidence interval]{.blue}. 
+
+. . .
+
+- For the Wald test, the inversion is done analytically, producing the "usual" confidence interval.
+
+- For the Rao-score and the log-likelihood ratio we need numerical procedures, such as the `uniroot` function in **R**. In practice, we can use the `confint` function. 
+
+- In the `Beetles` data, the three tests produce the following confidence intervals for $\beta_2$, associated to `logdose`.
+
+| Confidence intervals for $\beta_2$ at a $95\%$ level | 2.5% | 97.5% |
+|:----------------------------|--------:|--------:|
+| $W_e$ - [Wald test]{.blue} | 28.563| 39.978|
+| $W_u$ - [Rao-score test]{.orange} | 28.588| 39.957|
+| $W$ - [Log-likelihood ratio test]{.grey} | 28.854| 40.301|
+
+- Wald interval was also computed before. The three tests produce [nearly identical]{.blue} intervals.  
+
+- Wald is always symmetric around $\hat{\beta}_j$, whereas Rao and the log-likelihood ratio are typically [asymmetric]{.orange}, depending on the shape of the likelihood function. 
 
 ## Example: `Aids` data
 
 ```{r}
-
 fit_Aids0 <- glm(deaths ~ 1, family = "poisson", data = Aids)
 phi <- summary(fit_Aids)$dispersion # Yes, I know this is equal 1, but it is here for conceptual clarity
 
 W_e <- lmtest::waldtest(fit_Aids0, fit_Aids, test = "Chisq")$Chisq[2]
 W_u <- anova(fit_Aids, test = "Rao")$Rao[2]
 W <- (deviance(fit_Aids0) - deviance(fit_Aids)) / phi
+
+tests <- data.frame(value = c(W_e, W_u, W))
+tests$q <- 1
+tests$pvalue <- pchisq(tests$value, tests$q, lower.tail = FALSE)
+rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
+
+# knitr::kable(tests, digits = 3)
+
 ```
 
-- The [Wald test]{.blue} for $H_0: \beta_2 = 0$ with $q = 1$ degrees of freedom equals $W_e = 135.6$, so that the p-value is $\texttt{Pr(>Chi)} = \mathbb{P}(W_e > 135.6) \approx 0$, [rejecting the null hypothesis]{.orange}. 
+ - Let us know perform the same analysis for the `Aids` data. Again, we test the null hypothesis $H_0 : \beta_2 = 0$, which is the relevance of `period` in predicting the response.
 
-- Note that we previously obtained $z_j = 11.645$ and indeed $z_j^2 = 11.645^2 = 135.6$. The Wald [confidence interval]{.blue} is obtained using the analytical formulas and equals
+| Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chisq}$ |$\texttt{Df}$ | $\texttt{Pr(>Chisq)}$|
+|:---------------------------------|------:|------:|------:|
+| $W_e$ - [Wald test]{.blue}                 | 135.602|  1|      $\approx$ 0|
+| $W_u$ - [Rao-score test]{.orange}          | 163.586|  1|      $\approx$ 0|
+| $W$ - [Log-likelihood ratio test]{.grey} | 163.586|  1|      $\approx$ 0|
+
+
+- As before, despite their numerical differences, all the tests [reject]{.orange} the null hypothesis. We previously obtained the [Wald statistic]{.blue} $z_j = 11.645$ and indeed $z_j^2 = 11.645^2 = 135.6 = W_e$. 
+
+
 ```{r}
-#| classes: styled-output
-
-beta_2 <- coef(fit_Aids)[2]
-var_beta_2 <- vcov(fit_Aids)[2, 2]
 CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
-CI_Wald
-```
-
-- The [Rao/Score test]{.orange} for $H_0: \beta_2 = 0$ equals $W_u = 163.59$ with $q = 1$ and the p-value is $\mathbb{P}(W_u > 163.59) \approx 0$. The score [confidence interval]{.blue} is obtained numerically and equals
-
-```{r}
-#| classes: styled-output
-
 CI_Rao <- confint(fit_Aids, test = "Rao")[2, ]
-CI_Rao
-```
-
-
-
-- The [log-likelihood ratio test]{.grey} for $H_0: \beta_2 = 0$ equals $W = 178.55$ with $q = 1$ and the p-value is $\mathbb{P}(W > 178.55) \approx 0$. The [confidence interval]{.blue} is obtained numerically and equals
-```{r}
-#| classes: styled-output
-
 CI_LRT <- confint(fit_Aids, test = "LRT")[2, ]
-CI_LRT
+
+CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
+# knitr::kable(CIs, digits = 3)
 ```
+
+| Confidence intervals for $\beta_2$ at a $95\%$ level | 2.5% | 97.5% |
+|:----------------------------|--------:|--------:|
+| $W_e$ - [Wald test]{.blue} | 0.2154| 0.3025|
+| $W_u$ - [Rao-score test]{.orange} | 0.2155| 0.3025|
+| $W$ - [Log-likelihood ratio test]{.grey} | 0.2165| 0.3037|
+
+
 
 ## Example: `Aids` data
 
-- Suppose we were interested in a confidence interval for $\exp(\beta_2)$. Thanks to invariance of the score and the LRT tests, we can simply [transform]{.orange} of the [original interval]{.blue}:
+- We are actually interested in a confidence interval for the quantity $100\times(\exp(\beta_2) - 1)$, which is the [percentage increase]{.blue} of `deaths` after each period. 
+
+- Thanks to [invariance property]{.blue} of the Rao-score and the log-likelihood ratio tests, we can simply [transform]{.orange} the [original intervals]{.blue} for $\beta_2$.
+
+- If the extremes of the log-likelihood ration interval are $C_\text{low}, C_\text{high}$, then the new interval is
+$$
+[100\times(\exp(C_\text{low}) - 1), \:100\times(\exp(C_\text{high}) - 1)].
+$$
+and similarly for the Rao-score case. These are reported below.
+
+```{r}
+# Rao-score and LRT confidence interval for 100 (exp(beta_2) -1)
+CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1)) 
+# knitr::kable(CIs, digits = 2)
+```
+
+| Confidence intervals for $100[\exp(\beta_2)-1]$ at a $95\%$ level | 2.5% | 97.5% |
+|:----------------------------|--------:|--------:|
+| $W_u$ - [Rao-score test]{.orange} | 24.04|  35.32|
+| $W$ - [Log-likelihood ratio test]{.grey} | 24.17|  35.49|
+
+. . .
+
+- Hence, the expected [average]{.orange} percentage increase is between $24\%$ and $35\%$ each `period` with a $95\%$ [confidence]{.blue}. 
+
+- By construction, these confidence intervals are [positive]{.orange}, which is desirable because they represent a percentage. 
+
+## Example: `Aids` data
+
+- In the Wald case, we cannot simply transform the extremes of the intervals. Indeed, that would lead to a [valid]{.blue} confidence interval that is not anymore of Wald type (*Lo sbagliato* 🥃).
+
+- Instead, we first need to [adjust]{.orange} the [variance]{.orange} according to the [delta method]{.blue}, obtaining
+$$
+\widehat{\text{var}}\{100[\exp(\hat{\beta}_2)-1]\} = 100^2\exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 8.301184.
+$$
+
+- The Wald confidence interval for $100[\exp(\hat{\beta}_2)-1]$ therefore is
+$$
+100[\exp(\hat{\beta}_2)-1] \pm z_{1-\alpha/2}\widehat{\text{se}}\{100[\exp(\hat{\beta}_2)-1]\}.
+$$
 
 ```{r}
 #| classes: styled-output
-#| echo: true
+#| echo: false
 
-exp(CI_Rao) # Rao/Score confidence interval for exp(beta_2)
-exp(CI_LRT) # LRT confidence interval for exp(beta_2)
+beta2 <- coef(fit_Aids)[2]
+var_beta_2 <- vcov(fit_Aids)[2, 2]
+var_exp_beta2 <- 100^2 * exp(2 * beta2) * var_beta_2
+# 100*(exp(beta_2)-1) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
+# round(100*(exp(CI_Wald) - 1), 2)
 ```
 
-- In the Wald case, we need to [adjust]{.orange} the [variance]{.orange} according to the [delta method]{.blue}, obtaining
-$$\widehat{\text{var}}(\exp(\hat{\beta}_2)) = \exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 0.000830.$$
+| Confidence intervals for $100[\exp(\beta_2)-1]$ at a $95\%$ level | 2.5% | 97.5% |
+|:----------------------------|--------:|--------:|
+| $W_e$ - [Wald test]{.blue} | 23.91| 35.21|
+| "*Lo sbagliato*" - transformed Wald | 24.03 | 35.33 |
 
-
-```{r}
-#| classes: styled-output
-#| echo: true
-
-var_exp_beta2 <- exp(2 * beta_2) * var_beta_2
-exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
-```
-
+:::callout-tip
+Whenever there are restrictions on the parametric space, as in this case, Wald is typically [problematic]{.orange}. Here, it could lead to [negative values]{.orange}, which is absurd. 
+:::
 
 # Deviance, model checking, residuals
 

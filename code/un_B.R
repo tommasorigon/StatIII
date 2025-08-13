@@ -71,6 +71,12 @@ Beetles$predictions <- predict(fit_Beetles, type = "response")
 sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
 
+Aids$predictions <- predict(fit_Aids, type = "response")
+# knitr::kable(Aids, digits = 3)
+
+# round(solve(vcov(fit_Beetles)), 3)
+# round(vcov(fit_Beetles), 3)
+
 # solve(vcov(fit_Aids))
 # round(vcov(fit_Aids), 3)
 
@@ -82,6 +88,29 @@ lmtest::coeftest(fit_Aids)
 
 lmtest::coefci(fit_Aids)
 
+fit_Beetles0 <- glm(cbind(deaths, n - deaths) ~ 1,
+  family = "binomial",
+  data = Beetles
+)
+phi <- summary(fit_Beetles)$dispersion # Yes, I know this is equal 1, but it is here for conceptual clarity
+
+W_e <- lmtest::waldtest(fit_Beetles0, fit_Beetles, test = "Chisq")$Chisq[2]
+W_u <- anova(fit_Beetles, test = "Rao")$Rao[2]
+W <- (deviance(fit_Beetles0) - deviance(fit_Beetles)) / phi
+
+tests <- data.frame(value = c(W_e, W_u, W))
+tests$q <- 1
+tests$pvalue <- pchisq(tests$value, tests$q, lower.tail = FALSE)
+rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
+
+# knitr::kable(tests, digits = 3)
+
+CI_Wald <- lmtest::coefci(fit_Beetles)[2, ]
+CI_Rao <- confint(fit_Beetles, test = "Rao")[2, ]
+CI_LRT <- confint(fit_Beetles, test = "LRT")[2, ]
+
+CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
+# knitr::kable(CIs)
 
 fit_Aids0 <- glm(deaths ~ 1, family = "poisson", data = Aids)
 phi <- summary(fit_Aids)$dispersion # Yes, I know this is equal 1, but it is here for conceptual clarity
@@ -90,19 +119,27 @@ W_e <- lmtest::waldtest(fit_Aids0, fit_Aids, test = "Chisq")$Chisq[2]
 W_u <- anova(fit_Aids, test = "Rao")$Rao[2]
 W <- (deviance(fit_Aids0) - deviance(fit_Aids)) / phi
 
-beta_2 <- coef(fit_Aids)[2]
-var_beta_2 <- vcov(fit_Aids)[2, 2]
+tests <- data.frame(value = c(W_e, W_u, W))
+tests$q <- 1
+tests$pvalue <- pchisq(tests$value, tests$q, lower.tail = FALSE)
+rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
+
+# knitr::kable(tests, digits = 3)
+
+
 CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
-CI_Wald
-
 CI_Rao <- confint(fit_Aids, test = "Rao")[2, ]
-CI_Rao
-
 CI_LRT <- confint(fit_Aids, test = "LRT")[2, ]
-CI_LRT
 
-exp(CI_Rao) # Rao/Score confidence interval for exp(beta_2)
-exp(CI_LRT) # LRT confidence interval for exp(beta_2)
+CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
+# knitr::kable(CIs, digits = 3)
 
-var_exp_beta2 <- exp(2 * beta_2) * var_beta_2
-exp(beta_2) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
+# Rao-score and LRT confidence interval for 100 (exp(beta_2) -1)
+CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1))
+# knitr::kable(CIs, digits = 2)
+
+beta2 <- coef(fit_Aids)[2]
+var_beta_2 <- vcov(fit_Aids)[2, 2]
+var_exp_beta2 <- 100^2 * exp(2 * beta2) * var_beta_2
+# 100*(exp(beta_2)-1) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
+# round(100*(exp(CI_Wald) - 1), 2)

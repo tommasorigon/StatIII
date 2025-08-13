@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -89,7 +54,7 @@ div.csl-indent {
 <link href="un_B_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_B_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_B_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_B_files/libs/bootstrap/bootstrap-055f756fa19940b8474c22bdb25e2a83.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_B_files/libs/bootstrap/bootstrap-6d97075c3db08b01a0fce918ce42e120.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -196,6 +161,7 @@ window.Quarto = {
   <li><a href="#example-beetles-data" id="toc-example-beetles-data" class="nav-link" data-scroll-target="#example-beetles-data">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-beetles-data-1" id="toc-example-beetles-data-1" class="nav-link" data-scroll-target="#example-beetles-data-1">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-aids-data" id="toc-example-aids-data" class="nav-link" data-scroll-target="#example-aids-data">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
   <li><a href="#observed-and-expected-information-i" id="toc-observed-and-expected-information-i" class="nav-link" data-scroll-target="#observed-and-expected-information-i">Observed and expected information I 📖</a></li>
   <li><a href="#observed-and-expected-information-ii" id="toc-observed-and-expected-information-ii" class="nav-link" data-scroll-target="#observed-and-expected-information-ii">Observed and expected information II 📖</a></li>
   <li><a href="#canonical-link-simplifications-1" id="toc-canonical-link-simplifications-1" class="nav-link" data-scroll-target="#canonical-link-simplifications-1">Canonical link: simplifications 📖</a></li>
@@ -217,11 +183,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#asymptotic-distribution-of-hatbeta" id="toc-asymptotic-distribution-of-hatbeta" class="nav-link" data-scroll-target="#asymptotic-distribution-of-hatbeta">Asymptotic distribution of <span class="math inline">\hat{\beta}</span></a></li>
   <li><a href="#example-beetles-data-2" id="toc-example-beetles-data-2" class="nav-link" data-scroll-target="#example-beetles-data-2">Example: <code>Beetles</code> data</a></li>
-  <li><a href="#example-aids-data-1" id="toc-example-aids-data-1" class="nav-link" data-scroll-target="#example-aids-data-1">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
   <li><a href="#wald-test-and-confidence-intervals" id="toc-wald-test-and-confidence-intervals" class="nav-link" data-scroll-target="#wald-test-and-confidence-intervals">Wald test and confidence intervals</a></li>
   <li><a href="#comparison-with-the-gaussian-linear-model" id="toc-comparison-with-the-gaussian-linear-model" class="nav-link" data-scroll-target="#comparison-with-the-gaussian-linear-model">Comparison with the Gaussian linear model</a></li>
   <li><a href="#example-beetles-data-3" id="toc-example-beetles-data-3" class="nav-link" data-scroll-target="#example-beetles-data-3">Example: <code>Beetles</code> data</a></li>
-  <li><a href="#example-aids-data-2" id="toc-example-aids-data-2" class="nav-link" data-scroll-target="#example-aids-data-2">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
   <li><a href="#general-hypothesis-testing" id="toc-general-hypothesis-testing" class="nav-link" data-scroll-target="#general-hypothesis-testing">General hypothesis testing</a></li>
   <li><a href="#testing-hypothesis-in-glms-i" id="toc-testing-hypothesis-in-glms-i" class="nav-link" data-scroll-target="#testing-hypothesis-in-glms-i">Testing hypothesis in GLMs I</a></li>
   <li><a href="#log-likelihood-ratio-test" id="toc-log-likelihood-ratio-test" class="nav-link" data-scroll-target="#log-likelihood-ratio-test">Log-likelihood ratio test</a></li>
@@ -230,8 +196,10 @@ window.Quarto = {
   <li><a href="#three-asymptotically-equivalent-tests" id="toc-three-asymptotically-equivalent-tests" class="nav-link" data-scroll-target="#three-asymptotically-equivalent-tests">Three asymptotically equivalent tests</a></li>
   <li><a href="#comparison-with-the-gaussian-linear-model-1" id="toc-comparison-with-the-gaussian-linear-model-1" class="nav-link" data-scroll-target="#comparison-with-the-gaussian-linear-model-1">Comparison with the Gaussian linear model</a></li>
   <li><a href="#example-beetles-data-4" id="toc-example-beetles-data-4" class="nav-link" data-scroll-target="#example-beetles-data-4">Example: <code>Beetles</code> data</a></li>
-  <li><a href="#example-aids-data-3" id="toc-example-aids-data-3" class="nav-link" data-scroll-target="#example-aids-data-3">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-beetles-data-5" id="toc-example-beetles-data-5" class="nav-link" data-scroll-target="#example-beetles-data-5">Example: <code>Beetles</code> data</a></li>
   <li><a href="#example-aids-data-4" id="toc-example-aids-data-4" class="nav-link" data-scroll-target="#example-aids-data-4">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-5" id="toc-example-aids-data-5" class="nav-link" data-scroll-target="#example-aids-data-5">Example: <code>Aids</code> data</a></li>
+  <li><a href="#example-aids-data-6" id="toc-example-aids-data-6" class="nav-link" data-scroll-target="#example-aids-data-6">Example: <code>Aids</code> data</a></li>
   </ul></li>
   <li><a href="#deviance-model-checking-residuals" id="toc-deviance-model-checking-residuals" class="nav-link" data-scroll-target="#deviance-model-checking-residuals">Deviance, model checking, residuals</a>
   <ul class="collapse">
@@ -664,7 +632,7 @@ g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i
 </div>
 </div>
 <ul>
-<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = 0.30</span> and <span class="math inline">\hat{\beta}_2 = 0.26</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean <span class="math inline">\mathbb{E}(Y_i)</span>.</li>
+<li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean <span class="math inline">\mathbb{E}(Y_i)</span>.</li>
 </ul>
 </section>
 <section id="a-comparison-with-old-tools-i-1" class="level2">
@@ -1412,7 +1380,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </tbody>
 </table>
 <ul>
-<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="./#/beetles-data-fitted-model">beginning of this unit</a>.</li>
+<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="./un_B_slides.html#/beetles-data-fitted-model">beginning of this unit</a>.</li>
 </ul>
 </section>
 <section id="example-aids-data" class="level2">
@@ -1427,9 +1395,113 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </ul>
 <ul>
 <li><p>Using the <code>Aids</code> data we have <span class="math inline">\sum_{i=1}^ny_i = 217</span> and <span class="math inline">\sum_{i=1}^nx_i y_i = 2387</span>. Via <span class="orange">numerical methods</span> we solve the above system of equations and we obtain <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>.</p></li>
-<li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \mathbb{E}(Y_i) = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
+<li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
 </span> In other words, the estimated number of deaths increases by about <span class="math inline">30\%</span> every trimester.</p></li>
+</ul>
+</section>
+<section id="example-aids-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
+<div class="small-table">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;"><code>deaths</code> (<span class="math inline">Y_i</span>)</th>
+<th style="text-align: right;"><code>period</code> (<span class="math inline">x_i</span>)</th>
+<th style="text-align: right;"><span class="math inline">\hat{\mu}_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1983-1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.755</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984-1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.274</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1985-1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.946</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1986-1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.817</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1983-2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4.945</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984-2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6.407</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1985-2</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8.301</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1986-2</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10.755</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1983-3</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">13.934</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984-3</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">18.052</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1985-3</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">23.389</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1986-3</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">30.302</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1983-4</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">39.259</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984-4</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">50.863</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="./un_B_slides.html#/aids-data-fitted-model">beginning of this unit</a>.</li>
 </ul>
 </section>
 <section id="observed-and-expected-information-i" class="level2">
@@ -1770,9 +1842,32 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 </section>
 <section id="example-beetles-data-2" class="level2">
 <h2 class="anchored" data-anchor-id="example-beetles-data-2">Example: <code>Beetles</code> data</h2>
+<ul>
+<li><p>Using the <code>Beetles</code> data, we specified a <span class="blue">binomial logistic</span> regression model for the counts <span class="math inline">m_i Y_i \sim \text{Binomial}(m_i, \pi_i)</span> with mean <span class="math inline">\mu_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))</span>.</p></li>
+<li><p>We previously <span class="orange">estimated</span> <span class="math inline">\hat{\beta} = (-60.717, 34.270)</span>. This means that the <span class="blue">weights</span> are estimated as <span class="math display">
+\hat{\bm{W}} =\text{diag}(m_1\hat{\mu}_1(1 - \hat{\mu}_1),\dots,m_n \hat{\mu}_n(1 - \hat{\mu}_n)) = \text{diag}(3.255, 8.227, \dots, 1.231).
+</span> from which we obtain the <span class="orange">estimated</span> <span class="blue">Fisher information matrix</span>: <span class="math display">
+\bm{X}^T\hat{\bm{W}}\bm{X} = \begin{pmatrix}
+\sum_{i=1}^nm_i\hat{\mu}_i(1 - \hat{\mu}_i) &amp; \sum_{i=1}^n x_im_i\hat{\mu}_i(1 - \hat{\mu}_i)\\
+\sum_{i=1}^n x_im_i\hat{\mu}_i(1 - \hat{\mu}_i) &amp; \sum_{i=1}^n x_i^2m_i\hat{\mu}_i(1 - \hat{\mu}_i)
+\end{pmatrix} = \begin{pmatrix}
+58.484 &amp; 104.011\\
+104.011 &amp; 185.095
+\end{pmatrix}.
+</span></p></li>
+<li><p>Hence, the <span class="blue">estimated covariance</span> matrix of the maximum likelihood estimator is <span class="math display">
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \begin{pmatrix}
+26.840 &amp; -15.082 \\
+-15.082 &amp; 8.481
+\end{pmatrix}.
+</span></p></li>
+<li><p>Therefore the <span class="orange">estimated standard errors</span> are <span class="math display">
+[\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}} \quad\Longrightarrow \quad \widehat{\text{se}}(\hat{\beta}) = (5.181, 2.912).
+</span></p></li>
+</ul>
 </section>
-<section id="example-aids-data-1" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-1">Example: <code>Aids</code> data</h2>
+<section id="example-aids-data-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-2">Example: <code>Aids</code> data</h2>
 <ul>
 <li><p>In the <code>Aids</code> data, we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span> and estimated <span class="math inline">\hat{\beta} = (0.304, 0.259)</span>.</p></li>
 <li><p>This means that the weights are estimated as <span class="math display">
@@ -1803,8 +1898,8 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 <li><p>Consider the <span class="blue">hypothesis</span> <span class="math inline">H_0: \beta_j = \beta_0</span> against the <span class="orange">alternative</span> <span class="math inline">H_1: \beta_j \neq \beta_0</span>. The <span class="blue">Wald test statistic</span> <span class="math inline">z_j</span>, rejecting the hypothesis for large values of <span class="math inline">|z_j|</span> is: <span class="math display">
 \texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1).
 </span> which is <span class="orange">approximately</span> distributed as a <span class="blue">standard normal</span> under <span class="math inline">H_0</span>.</p></li>
-<li><p>The p-value is defined in the usual way, namely <span class="math display">
-\texttt{p value} = \alpha_\text{obs} \approx \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+<li><p>The <span class="blue">p-value</span> is defined in the usual way, namely <span class="math display">
+\alpha_\text{obs} = \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
 </span></p></li>
 </ul>
 <ul>
@@ -1821,8 +1916,8 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 </span> an important result we have encountered multiple times in this course.</p></li>
 <li><p>The <span class="blue">Wald statistic</span> <span class="math inline">z_j</span> <span class="orange">specializes</span> to <span class="math display">
 z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
-</span> which is the usual test statistic considered, e.g., in the output on <code>lm</code> in <strong>R</strong>.</p></li>
-<li><p>However, in this case there is <span class="orange">no need</span> of <span class="orange">approximations</span>. The distribution of <span class="math inline">z_j</span> is known to be a <span class="grey">Student</span>’ <span class="math inline">t_{n-p}</span> under <span class="math inline">H_0</span>, which indeed converges to a <span class="math inline">\text{N}(0, 1)</span> for large values of <span class="math inline">n</span>.</p></li>
+</span> which is the usual test statistic considered, e.g., in the output of <code>lm</code> in <strong>R</strong>.</p></li>
+<li><p>However, in the Gaussian case there is <span class="orange">no need</span> of <span class="orange">approximations</span>. The distribution of <span class="math inline">z_j</span> is a <span class="grey">Student</span>’ <span class="math inline">t_{n-p}</span> under <span class="math inline">H_0</span>, which indeed converges to a <span class="math inline">\text{N}(0, 1)</span> for large values of <span class="math inline">n</span>.</p></li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
@@ -1838,7 +1933,7 @@ z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \fr
 <section id="example-beetles-data-3" class="level2">
 <h2 class="anchored" data-anchor-id="example-beetles-data-3">Example: <code>Beetles</code> data</h2>
 <ul>
-<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Beetles</code> data we get the following familiar summary.</li>
+<li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Beetles</code> data we get the following familiar summary:</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1853,10 +1948,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <ul>
-<li>In this case, we <span class="orange">reject</span> the null hypothesis that <span class="math inline">\beta_2 = 0</span>.</li>
+<li><p>Many of the above quantities (estimates and standard errors) have been obtained before.</p></li>
+<li><p>In this case, we <span class="orange">reject</span> the null hypothesis that <span class="math inline">\beta_2 = 0</span>. Indeed, even from the scatterplot there was evidence of a relationship between the <code>deaths</code> proportion and the <code>logdose</code>.</p></li>
 </ul>
 <ul>
-<li>The associated <span class="blue">Wald confidence intervals</span> are:</li>
+<li>For completeness, we also compute the associated <span class="blue">Wald confidence intervals</span>, which are:</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1866,10 +1962,10 @@ logdose      28.56265  39.97800</code></pre>
 </div>
 </div>
 </section>
-<section id="example-aids-data-2" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-2">Example: <code>Aids</code> data</h2>
+<section id="example-aids-data-3" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
 <ul>
-<li>The Wald test for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span> in the <code>Aids</code> data is the following.</li>
+<li>The Wald tests for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span> in the <code>Aids</code> data are provided below.</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -1884,7 +1980,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <ul>
-<li>In this case, we <span class="orange">reject</span> the null hypothesis that <span class="math inline">\beta_2 = 0</span>.</li>
+<li>In this case, we <span class="orange">reject</span> the null hypothesis that <span class="math inline">\beta_2 = 0</span> because the <span class="blue">p-value</span> <span class="math inline">\texttt{Pr(&gt;|z|)} \approx 0</span>. Again, this is not very surprising: the number of <code>deaths</code> was clearly increasing over time.</li>
 </ul>
 <ul>
 <li>The associated <span class="blue">Wald confidence intervals</span> are:</li>
@@ -1920,7 +2016,8 @@ H_0: \beta_B = \beta_0 \qquad \text{against}\qquad H_1: \beta_B \neq \beta_0.</s
 <section id="testing-hypothesis-in-glms-i" class="level2">
 <h2 class="anchored" data-anchor-id="testing-hypothesis-in-glms-i">Testing hypothesis in GLMs I</h2>
 <ul>
-<li>There are <span class="orange">three classical tests</span> that we could consider for such a testing problem: the <span class="orange">Wald test</span>, the <span class="grey">Score/Rao test</span> and the <span class="blue">log-likelihood ratio test</span>.</li>
+<li><p>There are <span class="orange">three classical tests</span> that we could consider for such a testing problem: the <span class="orange">Wald test</span> <span class="math inline">W_e</span>, the <span class="grey">Rao-score test</span> <span class="math inline">W_u</span>, and the <span class="blue">log-likelihood ratio test</span> <span class="math inline">W</span>.</p></li>
+<li><p>All these tests <span class="orange">reject</span> the null hypothesis for <span class="blue">large values</span> of the <span class="blue">statistic</span>.</p></li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1936,7 +2033,7 @@ Wald test (general case)
 W_e = (\hat{\beta}_B - \beta_0)^T \:\widehat{\text{var}}(\hat{\beta}_B)^{-1} \:(\hat{\beta}_B - \beta_0),
 </span> is called <span class="blue">Wald test</span>. Here <span class="math inline">\widehat{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}\hat{\bm{W}}\bm{X})^{-1}</span> and <span class="math inline">\hat{\bm{W}}</span> is estimated using <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
 W_e \: \dot{\sim} \; \chi^2_q,
-</span> namely a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</p>
+</span> a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>. The <span class="blue">p-value</span> is <span class="math inline">\texttt{Pr(&gt;Chisq)} = \mathbb{P}(W_e &gt; w_\text{e, obs})</span>.</p>
 </div>
 </div>
 <ul>
@@ -1960,7 +2057,7 @@ Log-likelihood ratio test (LRT)
 W = 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})],
 </span> is called <span class="blue">log-likelihood ratio</span> test (LRT). Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
 W \: \dot{\sim} \; \chi^2_q,
-</span> namely a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</p>
+</span> a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>. The <span class="blue">p-value</span> is <span class="math inline">\texttt{Pr(&gt;Chisq)} =\mathbb{P}(W &gt; w_\text{obs})</span>.</p>
 </div>
 </div>
 <ul>
@@ -1979,7 +2076,7 @@ W \: \dot{\sim} \; \chi^2_q,
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Rao test
+Rao-score test
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1987,14 +2084,14 @@ Rao test
 \ell_B(\beta;\phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
 </span> namely the <span class="grey">block</span> of the score function associated with <span class="math inline">\beta_B</span>. The quantity <span class="math display">
 W_u = \ell_B(\hat{\beta}_0; \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0; \hat{\phi}),
-</span> is called <span class="blue">Rao test</span> or <span class="blue">score test</span>. Here <span class="math inline">\widetilde{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}\tilde{\bm{W}}\bm{X})^{-1}</span> where <span class="math inline">\tilde{\bm{W}}</span> is estimated using the <span class="orange">restricted</span> <span class="math inline">\hat{\beta}_0</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
+</span> is called <span class="blue">Rao-score test</span>. Here <span class="math inline">\widetilde{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}\tilde{\bm{W}}\bm{X})^{-1}</span> where <span class="math inline">\tilde{\bm{W}}</span> is estimated using the <span class="orange">restricted</span> <span class="math inline">\hat{\beta}_0</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
 W_u \: \dot{\sim} \; \chi^2_q,
-</span> namely a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>.</p>
+</span> a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>. The <span class="blue">p-value</span> is <span class="math inline">\texttt{Pr(&gt;Chisq)} =\mathbb{P}(W_u &gt; w_\text{u, obs})</span>.</p>
 </div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>The Rao test arguably the <span class="orange">less common</span>. However, it is linked to the <span class="math inline">X^2</span> Pearson statistic. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
+<p>The Rao-score test arguably the <span class="orange">less common</span>. However, it is linked to the <span class="math inline">X^2</span> Pearson statistic. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
 </div></div></section>
 <section id="a-graphical-representation-when-p-1" class="level2">
 <h2 class="anchored" data-anchor-id="a-graphical-representation-when-p-1">A graphical representation when <span class="math inline">p = 1</span></h2>
@@ -2058,63 +2155,256 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </section>
 <section id="example-beetles-data-4" class="level2">
 <h2 class="anchored" data-anchor-id="example-beetles-data-4">Example: <code>Beetles</code> data</h2>
+<ul>
+<li>We would like to use the <span class="blue">Wald</span>, the <span class="orange">Rao-score</span> and the <span class="grey">log-likelihood ratio</span> tests to verify the hypothesis <span class="math inline">H_0: \beta_2 = 0</span>, that is the relevance of <code>logdose</code> in predicting the response.</li>
+</ul>
+<ul>
+<li>In this case, we have <span class="math inline">q = 1</span> (<span class="math inline">\texttt{Df}</span>) because there is only one parameter under scrutiny.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test for the hypothesis <span class="math inline">H_0 : \beta_2 = 0</span></th>
+<th style="text-align: right;"><span class="math inline">\texttt{Chisq}</span></th>
+<th style="text-align: right;"><span class="math inline">\texttt{Df}</span></th>
+<th style="text-align: right;"><span class="math inline">\texttt{Pr(&gt;Chisq)}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W_e</span> - <span class="blue">Wald test</span></td>
+<td style="text-align: right;">138.488</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">W_u</span> - <span class="orange">Rao-score test</span></td>
+<td style="text-align: right;">227.580</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W</span> - <span class="grey">Log-likelihood ratio test</span></td>
+<td style="text-align: right;">272.970</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>As one may expect, the test values are not identical. Here the sample size is <span class="math inline">n = 8</span>, which is definitely not a big number, therefore we are far from the <span class="blue">asymptotic regime</span>.</p></li>
+<li><p>However, the practical conclusions are identical. All tests strongly <span class="orange">reject</span> the null hypothesis.</p></li>
+</ul>
+<ul>
+<li>We previously obtained the <span class="blue">Wald statistic</span> <span class="math inline">z_j</span> and indeed <span class="math inline">z_j^2 = 11.76811^2 = 138.488 = W_e</span>.</li>
+</ul>
 </section>
-<section id="example-aids-data-3" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-3">Example: <code>Aids</code> data</h2>
+<section id="example-beetles-data-5" class="level2">
+<h2 class="anchored" data-anchor-id="example-beetles-data-5">Example: <code>Beetles</code> data</h2>
 <ul>
-<li><p>The <span class="blue">Wald test</span> for <span class="math inline">H_0: \beta_2 = 0</span> with <span class="math inline">q = 1</span> degrees of freedom equals <span class="math inline">W_e = 135.6</span>, so that the p-value is <span class="math inline">\texttt{Pr(&gt;Chi)} = \mathbb{P}(W_e &gt; 135.6) \approx 0</span>, <span class="orange">rejecting the null hypothesis</span>.</p></li>
-<li><p>Note that we previously obtained <span class="math inline">z_j = 11.645</span> and indeed <span class="math inline">z_j^2 = 11.645^2 = 135.6</span>. The Wald <span class="blue">confidence interval</span> is obtained using the analytical formulas and equals</p></li>
+<li>Any statistical test can be <span class="orange">inverted</span>, namely we find all the values <span class="math inline">\beta_0</span> such that we do <span class="blue">not reject the null hypothesis</span>. This generates a <span class="blue">confidence interval</span>.</li>
 </ul>
-<div class="cell styled-output">
-<div class="cell-output cell-output-stdout">
-<pre><code>    2.5 %    97.5 % 
-0.2153764 0.3025494 </code></pre>
-</div>
-</div>
 <ul>
-<li>The <span class="orange">Rao/Score test</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals <span class="math inline">W_u = 163.59</span> with <span class="math inline">q = 1</span> and the p-value is <span class="math inline">\mathbb{P}(W_u &gt; 163.59) \approx 0</span>. The score <span class="blue">confidence interval</span> is obtained numerically and equals</li>
+<li><p>For the Wald test, the inversion is done analytically, producing the “usual” confidence interval.</p></li>
+<li><p>For the Rao-score and the log-likelihood ratio we need numerical procedures, such as the <code>uniroot</code> function in <strong>R</strong>. In practice, we can use the <code>confint</code> function.</p></li>
+<li><p>In the <code>Beetles</code> data, the three tests produce the following confidence intervals for <span class="math inline">\beta_2</span>, associated to <code>logdose</code>.</p></li>
 </ul>
-<div class="cell styled-output">
-<div class="cell-output cell-output-stdout">
-<pre><code>    2.5 %    97.5 % 
-0.2154662 0.3024735 </code></pre>
-</div>
-</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Confidence intervals for <span class="math inline">\beta_2</span> at a <span class="math inline">95\%</span> level</th>
+<th style="text-align: right;">2.5%</th>
+<th style="text-align: right;">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W_e</span> - <span class="blue">Wald test</span></td>
+<td style="text-align: right;">28.563</td>
+<td style="text-align: right;">39.978</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">W_u</span> - <span class="orange">Rao-score test</span></td>
+<td style="text-align: right;">28.588</td>
+<td style="text-align: right;">39.957</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W</span> - <span class="grey">Log-likelihood ratio test</span></td>
+<td style="text-align: right;">28.854</td>
+<td style="text-align: right;">40.301</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>The <span class="grey">log-likelihood ratio test</span> for <span class="math inline">H_0: \beta_2 = 0</span> equals <span class="math inline">W = 178.55</span> with <span class="math inline">q = 1</span> and the p-value is <span class="math inline">\mathbb{P}(W &gt; 178.55) \approx 0</span>. The <span class="blue">confidence interval</span> is obtained numerically and equals</li>
+<li><p>Wald interval was also computed before. The three tests produce <span class="blue">nearly identical</span> intervals.</p></li>
+<li><p>Wald is always symmetric around <span class="math inline">\hat{\beta}_j</span>, whereas Rao and the log-likelihood ratio are typically <span class="orange">asymmetric</span>, depending on the shape of the likelihood function.</p></li>
 </ul>
-<div class="cell styled-output">
-<div class="cell-output cell-output-stdout">
-<pre><code>   2.5 %   97.5 % 
-0.216477 0.303748 </code></pre>
-</div>
-</div>
 </section>
 <section id="example-aids-data-4" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data-4">Example: <code>Aids</code> data</h2>
 <ul>
-<li>Suppose we were interested in a confidence interval for <span class="math inline">\exp(\beta_2)</span>. Thanks to invariance of the score and the LRT tests, we can simply <span class="orange">transform</span> of the <span class="blue">original interval</span>:</li>
+<li>Let us know perform the same analysis for the <code>Aids</code> data. Again, we test the null hypothesis <span class="math inline">H_0 : \beta_2 = 0</span>, which is the relevance of <code>period</code> in predicting the response.</li>
 </ul>
-<div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(CI_Rao) <span class="co"># Rao/Score confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   2.5 %   97.5 % 
-1.240440 1.353202 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(CI_LRT) <span class="co"># LRT confidence interval for exp(beta_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   2.5 %   97.5 % 
-1.241695 1.354928 </code></pre>
-</div>
-</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test for the hypothesis <span class="math inline">H_0 : \beta_2 = 0</span></th>
+<th style="text-align: right;"><span class="math inline">\texttt{Chisq}</span></th>
+<th style="text-align: right;"><span class="math inline">\texttt{Df}</span></th>
+<th style="text-align: right;"><span class="math inline">\texttt{Pr(&gt;Chisq)}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W_e</span> - <span class="blue">Wald test</span></td>
+<td style="text-align: right;">135.602</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">W_u</span> - <span class="orange">Rao-score test</span></td>
+<td style="text-align: right;">163.586</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W</span> - <span class="grey">Log-likelihood ratio test</span></td>
+<td style="text-align: right;">163.586</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>In the Wald case, we need to <span class="orange">adjust</span> the <span class="orange">variance</span> according to the <span class="blue">delta method</span>, obtaining <span class="math display">\widehat{\text{var}}(\exp(\hat{\beta}_2)) = \exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 0.000830.</span></li>
+<li>As before, despite their numerical differences, all the tests <span class="orange">reject</span> the null hypothesis. We previously obtained the <span class="blue">Wald statistic</span> <span class="math inline">z_j = 11.645</span> and indeed <span class="math inline">z_j^2 = 11.645^2 = 135.6 = W_e</span>.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Confidence intervals for <span class="math inline">\beta_2</span> at a <span class="math inline">95\%</span> level</th>
+<th style="text-align: right;">2.5%</th>
+<th style="text-align: right;">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W_e</span> - <span class="blue">Wald test</span></td>
+<td style="text-align: right;">0.2154</td>
+<td style="text-align: right;">0.3025</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">W_u</span> - <span class="orange">Rao-score test</span></td>
+<td style="text-align: right;">0.2155</td>
+<td style="text-align: right;">0.3025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W</span> - <span class="grey">Log-likelihood ratio test</span></td>
+<td style="text-align: right;">0.2165</td>
+<td style="text-align: right;">0.3037</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-aids-data-5" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-5">Example: <code>Aids</code> data</h2>
+<ul>
+<li><p>We are actually interested in a confidence interval for the quantity <span class="math inline">100\times(\exp(\beta_2) - 1)</span>, which is the <span class="blue">percentage increase</span> of <code>deaths</code> after each period.</p></li>
+<li><p>Thanks to <span class="blue">invariance property</span> of the Rao-score and the log-likelihood ratio tests, we can simply <span class="orange">transform</span> the <span class="blue">original intervals</span> for <span class="math inline">\beta_2</span>.</p></li>
+<li><p>If the extremes of the log-likelihood ration interval are <span class="math inline">C_\text{low}, C_\text{high}</span>, then the new interval is <span class="math display">
+[100\times(\exp(C_\text{low}) - 1), \:100\times(\exp(C_\text{high}) - 1)].
+</span> and similarly for the Rao-score case. These are reported below.</p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+<col style="width: 19%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Confidence intervals for <span class="math inline">100[\exp(\beta_2)-1]</span> at a <span class="math inline">95\%</span> level</th>
+<th style="text-align: right;">2.5%</th>
+<th style="text-align: right;">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W_u</span> - <span class="orange">Rao-score test</span></td>
+<td style="text-align: right;">24.04</td>
+<td style="text-align: right;">35.32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">W</span> - <span class="grey">Log-likelihood ratio test</span></td>
+<td style="text-align: right;">24.17</td>
+<td style="text-align: right;">35.49</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Hence, the expected <span class="orange">average</span> percentage increase is between <span class="math inline">24\%</span> and <span class="math inline">35\%</span> each <code>period</code> with a <span class="math inline">95\%</span> <span class="blue">confidence</span>.</p></li>
+<li><p>By construction, these confidence intervals are <span class="orange">positive</span>, which is desirable because they represent a percentage.</p></li>
+</ul>
+</section>
+<section id="example-aids-data-6" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-6">Example: <code>Aids</code> data</h2>
+<ul>
+<li><p>In the Wald case, we cannot simply transform the extremes of the intervals. Indeed, that would lead to a <span class="blue">valid</span> confidence interval that is not anymore of Wald type (<em>Lo sbagliato</em> 🥃).</p></li>
+<li><p>Instead, we first need to <span class="orange">adjust</span> the <span class="orange">variance</span> according to the <span class="blue">delta method</span>, obtaining <span class="math display">
+\widehat{\text{var}}\{100[\exp(\hat{\beta}_2)-1]\} = 100^2\exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 8.301184.
+</span></p></li>
+<li><p>The Wald confidence interval for <span class="math inline">100[\exp(\hat{\beta}_2)-1]</span> therefore is <span class="math display">
+100[\exp(\hat{\beta}_2)-1] \pm z_{1-\alpha/2}\widehat{\text{se}}\{100[\exp(\hat{\beta}_2)-1]\}.
+</span></p></li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>var_exp_beta2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="dv">2</span> <span class="sc">*</span> beta_2) <span class="sc">*</span> var_beta_2</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(beta_2) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(var_exp_beta2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.239116 1.352056</code></pre>
+
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+<col style="width: 19%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Confidence intervals for <span class="math inline">100[\exp(\beta_2)-1]</span> at a <span class="math inline">95\%</span> level</th>
+<th style="text-align: right;">2.5%</th>
+<th style="text-align: right;">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">W_e</span> - <span class="blue">Wald test</span></td>
+<td style="text-align: right;">23.91</td>
+<td style="text-align: right;">35.21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“<em>Lo sbagliato</em>” - transformed Wald</td>
+<td style="text-align: right;">24.03</td>
+<td style="text-align: right;">35.33</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Whenever there are restrictions on the parametric space, as in this case, Wald is typically <span class="orange">problematic</span>. Here, it could lead to <span class="orange">negative values</span>, which is absurd.</p>
+</div>
 </div>
 </div>
 </section>
