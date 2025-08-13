@@ -143,3 +143,11 @@ var_beta_2 <- vcov(fit_Aids)[2, 2]
 var_exp_beta2 <- 100^2 * exp(2 * beta2) * var_beta_2
 # 100*(exp(beta_2)-1) + c(-1, 1) * qnorm(0.975) * sqrt(var_exp_beta2)
 # round(100*(exp(CI_Wald) - 1), 2)
+
+summary(fit_Beetles)
+
+anova(fit_Beetles0, fit_Beetles)
+
+summary(fit_Aids)
+
+anova(fit_Aids0, fit_Aids)

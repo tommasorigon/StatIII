@@ -1527,7 +1527,7 @@ is called [Wald test]{.blue}. Here $\widehat{\text{var}}(\hat{\beta}_B)$ is the 
 $$
 W_e \: \dot{\sim} \; \chi^2_q,
 $$
-a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chisq)} = \mathbb{P}(W_e > w_\text{e, obs})$.
+a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chi)} = \mathbb{P}(W_e > w_\text{e, obs})$.
 :::
 
 - Clearly, in the $q = 1$ case we recover the Wald statistic with $z_j^2 = W_e$. 
@@ -1548,7 +1548,7 @@ is called [log-likelihood ratio]{.blue} test (LRT). Under $H_0$ this quantity is
 $$
 W \: \dot{\sim} \; \chi^2_q,
 $$
-a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chisq)} =\mathbb{P}(W > w_\text{obs})$.
+a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chi)} =\mathbb{P}(W > w_\text{obs})$.
 :::
 
 - When testing $H_0 : \beta_B = 0$, we separately fit the [full model]{.blue}, obtaining $\hat{\beta}$, and the [reduced model]{.orange}, obtaining $\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)$. Then, we compare their log-likelihoods: $\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})$. 
@@ -1575,7 +1575,7 @@ is called [Rao-score test]{.blue}. Here $\widetilde{\text{var}}(\hat{\beta}_B)$ 
 $$
 W_u \: \dot{\sim} \; \chi^2_q,
 $$
-a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chisq)} =\mathbb{P}(W_u > w_\text{u, obs})$.
+a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chi)} =\mathbb{P}(W_u > w_\text{u, obs})$.
 :::
 
 
@@ -1618,7 +1618,7 @@ where $o_p(1)$ is a quantity that goes to $0$ in probability as $n \to \infty$.
 :::callout-warning
 In the Gaussian linear model all tests are [equivalent]{.blue} if $\phi = \sigma^2$ is [known]{.orange}. We have
 $$
-W = W_e = W_u =  \frac{||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
+W = W_e = W_u =  \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
 $$
 The $\chi^2_q$ distribution is [exact]{.orange} and not an approximation thanks to Cochran theorem. 
 :::
@@ -1628,7 +1628,7 @@ The $\chi^2_q$ distribution is [exact]{.orange} and not an approximation thanks 
 - Consider the [log-likelihood ratio]{.blue} for testing $H_0: \beta_B = \beta_0$. Suppose $\sigma^2$ is [unknown]{.orange}, then:
 $$
 \begin{aligned}
-W &= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \frac{||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{X}\hat{\beta}||^2)/q}{||\bm{y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
+W &= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{Y}\hat{\beta}||^2)/q}{||\bm{y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
 & = q F,
 \end{aligned}
 $$
@@ -1668,7 +1668,7 @@ rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 # knitr::kable(tests, digits = 3)
 ```
 
-| Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chisq}$ |$\texttt{Df}$ | $\texttt{Pr(>Chisq)}$|
+| Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chi}$ |$\texttt{Df}$ | $\texttt{Pr(>Chi)}$|
 |:---------------------------------|------:|------:|------:|
 | $W_e$ - [Wald test]{.blue}                 | 138.488|  1|      $\approx$ 0|
 | $W_u$ - [Rao-score test]{.orange}          | 227.580|  1|      $\approx$ 0|
@@ -1700,7 +1700,7 @@ CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
 
 - For the Wald test, the inversion is done analytically, producing the "usual" confidence interval.
 
-- For the Rao-score and the log-likelihood ratio we need numerical procedures, such as the `uniroot` function in **R**. In practice, we can use the `confint` function. 
+- For the Rao-score and the log-likelihood ratio we need numerical procedures. 
 
 - In the `Beetles` data, the three tests produce the following confidence intervals for $\beta_2$, associated to `logdose`.
 
@@ -1735,7 +1735,7 @@ rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 
  - Let us know perform the same analysis for the `Aids` data. Again, we test the null hypothesis $H_0 : \beta_2 = 0$, which is the relevance of `period` in predicting the response.
 
-| Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chisq}$ |$\texttt{Df}$ | $\texttt{Pr(>Chisq)}$|
+| Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chi}$ |$\texttt{Df}$ | $\texttt{Pr(>Chi)}$|
 |:---------------------------------|------:|------:|------:|
 | $W_e$ - [Wald test]{.blue}                 | 135.602|  1|      $\approx$ 0|
 | $W_u$ - [Rao-score test]{.orange}          | 163.586|  1|      $\approx$ 0|
@@ -1822,18 +1822,146 @@ var_exp_beta2 <- 100^2 * exp(2 * beta2) * var_beta_2
 | "*Lo sbagliato*" - transformed Wald | 24.03 | 35.33 |
 
 :::callout-tip
-Whenever there are restrictions on the parametric space, as in this case, Wald is typically [problematic]{.orange}. Here, it could lead to [negative values]{.orange}, which is absurd. 
+Whenever there are restrictions on the parametric space, as in this case, Wald is typically [problematic]{.orange}. Here, it [could]{.blue} lead to [negative values]{.orange}, which is absurd. 
 :::
 
 # Deviance, model checking, residuals
 
+## Deviance: some intuitions
+
+- In a Gaussian linear model, we called [deviance]{.orange} the residual sum of squares, that is
+$$
+D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2 = \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
+$$
+
+- The residual sum of squares $D(\bm{y}; \hat{\bm{\mu}})$ is a [goodness of fit]{.blue} measure. The lower the deviance, the higher the quality of the predictions.  
+
+. . .
+
+- When $\sigma^2$ is [known]{.orange}, the distribution of the [scaled deviance]{.blue} is
+$$
+\frac{D(\bm{Y}; \hat{\bm{\mu}})}{\sigma^2} = \frac{1}{\sigma^2}\sum_{i=1}^n(Y_i - \bm{x}_i^T\hat{\beta})^2  \sim \chi^2_{n - p}.
+$$
+
+- When $\sigma^2$ is known, the difference of scaled deviances of two nested models is:
+$$
+W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\sigma^2} = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
+$$
+
+. . .
+
+- The natural question is: what is a natural [generalization]{.blue} of the deviance for GLMs?
+
 ## Example: `Beetles` data, saturated model
 
-## Deviance I
+- Let us consider again the `Beetles` data and the predictions $\hat{\mu}_i$, based on $p = 2$ parameters. These predictions are not perfect but that may be due to chance.
 
-## Deviance and log-likelihood ratio
+|  $m_i$ | `deaths` ($S_i$) | `logdose` ($x_i$) | $Y_i = S_i / m_i$ | $\hat{\mu}_i$ |
+|--:|------:|-------:|-----------:|-----------:|
+| 59|      6|   1.691|       0.102|       0.059|
+| 60|     13|   1.724|       0.217|       0.164|
+| 62|     18|   1.755|       0.290|       0.362|
+| 56|     28|   1.784|       0.500|       0.605|
+| 63|     52|   1.811|       0.825|       0.795|
+| 59|     53|   1.837|       0.898|       0.903|
+| 62|     61|   1.861|       0.984|       0.955|
+| 60|     60|   1.884|       1.000|       0.979|
 
-## Analysis of deviance: summary
+- The [empirical proportions]{.orange} $s_i / m_i$ can be seen as [estimates]{.blue} of the [most flexible model]{.blue}, in which every observation $Y_i$ has its own mean $\mu_i$. We call it [saturated model]{.orange} because $p = n$.
+
+## Saturated model
+
+- Let us express the [log-likelihood]{.orange} of a GLM as a function of the mean $\bm{\mu} = (\mu_1,\dots,\mu_n)$.
+
+- When evaluated in the maximum likelihood, this gives:
+$$
+\ell_\mathcal{M}(\hat{\bm{\mu}},\phi) = \sum_{i=1}^n\omega_i\frac{y_i\theta(\hat{\mu}_i) - b(\theta(\hat{\mu}_i))}{\phi} + c(y_i, \phi).
+$$
+The maximum likelihood for each $\mu_i$ is [restricted]{.orange}, in the sense that depends on the $p$ parameters of the [linear predictor]{.blue} $\bm{x}_i^T\beta$ through the link function $g(\mu_i) = \bm{x}_i^T\beta$. 
+
+. . .
+
+- In the [saturated model]{.blue} the means $\mu_i$ are [unrestricted]{.orange}: each parameter is estimated separately, giving the maximum likelihood estimate $\hat{\mu}_{i, \text{sat}} = y_i$. This happens whenever $p = n$.
+
+- When evaluated in the maximum, the log-likelihood of the saturated model is
+$$
+\ell_\mathcal{M}(\bm{y},\phi) = \sum_{i=1}^n\omega_i\frac{y_i\theta(y_i) - b(\theta(y_i))}{\phi} + c(y_i, \phi).
+$$
+
+- The saturated model is the [most complex model]{.blue} we can think of.
+
+## Deviance
+
+:::callout-note
+The [deviance]{.blue} of a GLM is defined as
+$$
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &:= \phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)  - \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)] \\
+&=\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}.
+\end{aligned}
+$$
+The quantity $D(\bm{y}; \hat{\bm{\mu}})/\phi$ is called [scaled deviance]{.blue} and it corresponds to a [log-likelihood ratio test]{.orange} in which the current model is tested against the saturated model.
+:::
+
+- By definition, the deviance is [positive]{.orange}: $D(\bm{y}; \hat{\bm{\mu}}) \ge 0$, because $\ell_\mathcal{M}(\bm{y},\phi) \ge \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)$.
+
+- The deviance of the saturated model is $D(\bm{y}; \bm{y}) = 0$. 
+
+. . .
+
+- The deviance describes a [lack of fit]{.blue}: the higher the deviance, the poorer the fit. 
+
+- The deviance measures the discrepancy between the saturated model and a model using $p < n$ parameters.
+
+. . .
+
+- In the Gaussian linear model, this definition gives the [residual sum of squares]{.orange}. 
+
+## Deviance and log-likelihood ratio test
+
+:::callout-note
+Let us consider two [nested models]{.grey} $M_0 \subset M_1$. The [reduced model]{.orange} $M_0$ has $p_0$ parameters and predictions $\hat{\bm{\mu}}_0$. The [full model]{.blue} $M_1$ has $p$ parameters $\hat{\bm{\mu}}_1$.
+
+The [log-likelihood ratio test]{.blue} $W$ for testing model $M_0$ against model $M_1$[^testing] can be written as
+$$
+W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm{\mu}}_0, \hat{\phi})] = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_0)}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q.
+$$
+where $q = p - p_0$ are the degrees of freedom. 
+
+:::
+
+- The log-likelihood ratio can be interpreted as a difference of scaled deviances. This explains why it is popular in GLMs for comparing nested models. 
+
+- This is also strong parallelism with the Gaussian linear model.
+
+[^testing]: More formally, we should say that we are testing the hypothesis $H_0: \beta_B = \bm{0}$ against the alternative $H_1: \beta_B \neq \bm{0}$. I hope you can tolerate this slight linguistic abuse. 
+
+## The null model
+
+:::{.callout-note}
+Let us consider a model $M_\text{null}$ with [no covariates]{.blue} and one parameter ($p =1$), i.e. the [intercept]{.blue}. The predicted values are all equals to
+$$
+\bm{\hat{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
+$$
+We call $M_\text{null}$ the [null model]{.blue} and $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$ the [null deviance]{.orange}.
+:::
+
+- The null model is the "opposite" of the saturated model. It is the [simplest]{.orange} among all models and the one having the [highest deviance]{.blue}. 
+
+- Indeed, the following inequalities hold:
+$$
+0 = D(\bm{y}; \bm{y}) \le D(\bm{y}; \hat{\bm{\mu}}) \le D(\bm{y}; \hat{\bm{\mu}}_\text{null}).
+$$
+
+- It is sometimes useful to test the current model against the null model:
+$$
+W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
+$$
+If the $H_0$ is not rejected, it means all the [covariates]{.orange} are regarded as [irrelevant]{.orange}. 
+
+## Deviance as goodness of fit measure
+
+## Relationship between deviance and Pearson $X^2$ 
 
 ## Deviance of a Gaussian linear model
 
@@ -1843,9 +1971,55 @@ Whenever there are restrictions on the parametric space, as in this case, Wald i
 
 ## Deviance of a Gamma model
 
-## Relationship between deviance and Pearson $X^2$ 
+## Example: `Beetles` data, output of `summary`
 
-## Deviance as goodness of fit measure
+- This is how the `summary` of a GLM looks like. It is very similar to the `summary` of `lm`. At this stage of the course, you should be able to understand almost everything.
+
+```{r}
+#| classes: styled-output
+summary(fit_Beetles)
+```
+
+- $\texttt{Null deviance}$ corresponds to the [null deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$. 
+
+- $\texttt{Residual deviance}$ corresponds to the [deviance]{.orange} $D(\bm{y}; \hat{\bm{\mu}})$ of the current model.
+
+## Example: `Beetles` data, output of `anova`
+
+- `anova(model0, model1)` computes [log-likelihood ratio test]{.blue} comparing two nested models: the [reduced]{.orange} model $M_0$ with $p_0$ parameters and the [full]{.blue} model $M_1$ with $p$ parameters.
+
+
+```{r}
+#| classes: styled-output
+anova(fit_Beetles0, fit_Beetles)
+```
+
+. . .
+
+- $\texttt{Resid Df}$ are the [degrees of freedom]{.blue} of the [deviances]{.orange}, that is $n - p_0$ and $n-p$, respectively. 
+
+- $\texttt{Resid. Dev}$ are the [deviances]{.blue} of the [reduced]{.orange} model $D(\bm{y}; \hat{\bm{\mu}}_0)$ and the [full]{.blue} model $D(\bm{y}; \hat{\bm{\mu}})$. In this example, the reduced model is also the [null model]{.orange}.  
+
+- $\texttt{Df}$ refers to the [degrees of freedom]{.blue} $q = p- p_0$ of the test, which is $q = 1$ in this case.
+
+- $\texttt{Deviance}$ indicates the [change in deviance]{.blue}, that is $\phi W = D(\bm{y}; \hat{\bm{\mu}}) - D(\bm{y}; \hat{\bm{\mu}}_0)$.
+
+- $\texttt{Pr(>Chi)}$ is the [p-value]{.blue} of the log-likelihood ratio test $W$.
+
+## Example: `Aids` data, output of `summary`
+
+```{r}
+#| classes: styled-output
+summary(fit_Aids)
+```
+
+## Example: `Aids` data, output of `anova`
+
+```{r}
+#| classes: styled-output
+anova(fit_Aids0, fit_Aids)
+```
+
 
 ## Residuals
 
@@ -1858,8 +2032,6 @@ Whenever there are restrictions on the parametric space, as in this case, Wald i
 ## Standardized residuals
 
 ## Approximate Cook's distance
-
-# The `glm` routines in **R**
 
 # Model selection
 
