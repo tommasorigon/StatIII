@@ -78,7 +78,7 @@ $code-bg: #fff !default;
   max-width: fit-content;
   margin-left: 4ch;              /* indent relative to character width */
   margin-right: 0;             /* no centering */
-  font-size: 0.75em;                /* slightly smaller text */
+  font-size: 0.70em;                /* slightly smaller text */
 }
 
 /*this can make tables smaller*/

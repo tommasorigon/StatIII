@@ -54,7 +54,7 @@ div.csl-indent {
 <link href="un_B_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_B_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_B_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_B_files/libs/bootstrap/bootstrap-abca03668476d56ad8e58af0d59d28d0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_B_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -209,16 +209,16 @@ window.Quarto = {
   <li><a href="#deviance" id="toc-deviance" class="nav-link" data-scroll-target="#deviance">Deviance</a></li>
   <li><a href="#deviance-and-log-likelihood-ratio-test" id="toc-deviance-and-log-likelihood-ratio-test" class="nav-link" data-scroll-target="#deviance-and-log-likelihood-ratio-test">Deviance and log-likelihood ratio test</a></li>
   <li><a href="#the-null-model" id="toc-the-null-model" class="nav-link" data-scroll-target="#the-null-model">The null model</a></li>
-  <li><a href="#deviance-as-goodness-of-fit-measure" id="toc-deviance-as-goodness-of-fit-measure" class="nav-link" data-scroll-target="#deviance-as-goodness-of-fit-measure">Deviance as goodness of fit measure</a></li>
   <li><a href="#relationship-between-deviance-and-pearson-x2" id="toc-relationship-between-deviance-and-pearson-x2" class="nav-link" data-scroll-target="#relationship-between-deviance-and-pearson-x2">Relationship between deviance and Pearson <span class="math inline">X^2</span></a></li>
   <li><a href="#deviance-of-a-gaussian-linear-model" id="toc-deviance-of-a-gaussian-linear-model" class="nav-link" data-scroll-target="#deviance-of-a-gaussian-linear-model">Deviance of a Gaussian linear model</a></li>
   <li><a href="#deviance-of-a-poisson-model" id="toc-deviance-of-a-poisson-model" class="nav-link" data-scroll-target="#deviance-of-a-poisson-model">Deviance of a Poisson model</a></li>
   <li><a href="#deviance-of-a-binomial-model" id="toc-deviance-of-a-binomial-model" class="nav-link" data-scroll-target="#deviance-of-a-binomial-model">Deviance of a binomial model</a></li>
-  <li><a href="#deviance-of-a-gamma-model" id="toc-deviance-of-a-gamma-model" class="nav-link" data-scroll-target="#deviance-of-a-gamma-model">Deviance of a Gamma model</a></li>
+  <li><a href="#deviance-of-a-gamma-model" id="toc-deviance-of-a-gamma-model" class="nav-link" data-scroll-target="#deviance-of-a-gamma-model">Deviance of a gamma model</a></li>
+  <li><a href="#deviance-as-goodness-of-fit-measure" id="toc-deviance-as-goodness-of-fit-measure" class="nav-link" data-scroll-target="#deviance-as-goodness-of-fit-measure">Deviance as goodness of fit measure</a></li>
   <li><a href="#example-beetles-data-output-of-summary" id="toc-example-beetles-data-output-of-summary" class="nav-link" data-scroll-target="#example-beetles-data-output-of-summary">Example: <code>Beetles</code> data, output of <code>summary</code></a></li>
   <li><a href="#example-beetles-data-output-of-anova" id="toc-example-beetles-data-output-of-anova" class="nav-link" data-scroll-target="#example-beetles-data-output-of-anova">Example: <code>Beetles</code> data, output of <code>anova</code></a></li>
   <li><a href="#example-aids-data-output-of-summary" id="toc-example-aids-data-output-of-summary" class="nav-link" data-scroll-target="#example-aids-data-output-of-summary">Example: <code>Aids</code> data, output of <code>summary</code></a></li>
-  <li><a href="#example-aids-data-output-of-anova" id="toc-example-aids-data-output-of-anova" class="nav-link" data-scroll-target="#example-aids-data-output-of-anova">Example: <code>Aids</code> data, output of <code>anova</code></a></li>
+  <li><a href="#example-aids-data-output-of-anova-and-lrtest" id="toc-example-aids-data-output-of-anova-and-lrtest" class="nav-link" data-scroll-target="#example-aids-data-output-of-anova-and-lrtest">Example: <code>Aids</code> data, output of <code>anova</code> and <code>lrtest</code></a></li>
   <li><a href="#residuals" id="toc-residuals" class="nav-link" data-scroll-target="#residuals">Residuals</a></li>
   <li><a href="#pearson-residuals" id="toc-pearson-residuals" class="nav-link" data-scroll-target="#pearson-residuals">Pearson residuals</a></li>
   <li><a href="#deviance-residuals" id="toc-deviance-residuals" class="nav-link" data-scroll-target="#deviance-residuals">Deviance residuals</a></li>
@@ -985,7 +985,7 @@ p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1
 \text{var}(Y_i) &amp;= a_i(\phi)b''(\theta_i) = \frac{1}{m_i}\frac{\exp(\theta_i)}{[1 + \exp(\theta_i)]^2} = \frac{\mu_i (1 - \mu_i)}{m_i},
 \end{aligned}
 </span> from which we obtain that the <span class="blue">variance function</span> is <span class="math inline">v(\mu_i) = \mu_i(1-\mu_i)</span> is quadratic.</p></li>
-<li><p>We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i))</span> with <span class="math inline">\mu_i \in \mathcal{M} = (0, 1)</span>.</p></li>
+<li><p>We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)</span> with <span class="math inline">\mu_i \in \mathcal{M} = (0, 1)</span>.</p></li>
 </ul>
 </section>
 <section id="notable-exponential-dispersion-families" class="level2">
@@ -2286,7 +2286,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">W</span> - <span class="grey">Log-likelihood ratio test</span></td>
-<td style="text-align: right;">163.586</td>
+<td style="text-align: right;">178.551</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;"><span class="math inline">\approx</span> 0</td>
 </tr>
@@ -2359,7 +2359,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </table>
 <ul>
 <li><p>Hence, the expected <span class="orange">average</span> percentage increase is between <span class="math inline">24\%</span> and <span class="math inline">35\%</span> each <code>period</code> with a <span class="math inline">95\%</span> <span class="blue">confidence</span>.</p></li>
-<li><p>By construction, these confidence intervals are <span class="orange">positive</span>, which is desirable because they represent a percentage.</p></li>
+<li><p>These confidence intervals are always <span class="orange">positive</span>, which is desirable because they are percentages.</p></li>
 </ul>
 </section>
 <section id="example-aids-data-6" class="level2">
@@ -2547,10 +2547,10 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\sigma^2} = \
 <div class="callout-body-container">
 <p>The <span class="blue">deviance</span> of a GLM is defined as <span class="math display">
 \begin{aligned}
-D(\bm{y}; \hat{\bm{\mu}}) &amp;:= \phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)  - \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)] \\
-&amp;=\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}.
+D(\bm{y}; \hat{\bm{\mu}}) &amp;:=\phi W =\phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)  - \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)] \\
+&amp;=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}.
 \end{aligned}
-</span> The quantity <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\phi</span> is called <span class="blue">scaled deviance</span> and it corresponds to a <span class="orange">log-likelihood ratio test</span> in which the current model is tested against the saturated model.</p>
+</span> The quantity <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\phi</span> is called <span class="blue">scaled deviance</span> and it corresponds to a <span class="orange">log-likelihood ratio test</span> <span class="math inline">W</span> in which the current model is tested against the saturated model.</p>
 </div>
 </div>
 </div>
@@ -2610,23 +2610,72 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\ha
 </span> If the <span class="math inline">H_0</span> is not rejected, it means all the <span class="orange">covariates</span> are regarded as <span class="orange">irrelevant</span>.</p></li>
 </ul>
 </section>
-<section id="deviance-as-goodness-of-fit-measure" class="level2">
-<h2 class="anchored" data-anchor-id="deviance-as-goodness-of-fit-measure">Deviance as goodness of fit measure</h2>
-</section>
 <section id="relationship-between-deviance-and-pearson-x2" class="level2">
 <h2 class="anchored" data-anchor-id="relationship-between-deviance-and-pearson-x2">Relationship between deviance and Pearson <span class="math inline">X^2</span></h2>
+<ul>
+<li><p>The deviance is essentially a <span class="blue">log-likelihood ratio</span> test between a model and the saturated model, rescaled by <span class="math inline">\phi</span>.</p></li>
+<li><p>This suggest that we may consider another test, like the <span class="orange">Rao-Score</span> test to obtain an alternative definition of deviance.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Let <span class="math inline">W_u</span> be the <span class="blue">Rao-Score</span> test comparing model <span class="math inline">M</span> with the <span class="orange">saturated model</span>. Then, it holds: <span class="math display">
+\phi W_u = X^2=\sum_{i=1}^n \omega_i\frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)},
+</span> which is known as generalized <span class="blue">Pearson chi-squared statistic</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Karl Pearson introduced <span class="math inline">X^2</span> it in 1900 for testing various hypotheses using the chi-squared distribution, such as the hypothesis of independence in contingency tables.</p></li>
+<li><p>Since <span class="math inline">W_u</span> and <span class="math inline">W</span> are <span class="blue">asymptotically equivalent</span>, so will be the chi-squared statistic <span class="math inline">X^2</span> and the deviance <span class="math inline">D(\bm{Y}; \hat{\bm{\mu}})</span> for large values of <span class="math inline">n</span>.</p></li>
+</ul>
 </section>
 <section id="deviance-of-a-gaussian-linear-model" class="level2">
 <h2 class="anchored" data-anchor-id="deviance-of-a-gaussian-linear-model">Deviance of a Gaussian linear model</h2>
+<ul>
+<li>In the classical <span class="blue">Gaussian linear model</span>, we have that <span class="math inline">\theta_i = \mu_i</span> and <span class="math inline">b(\theta_i) = \theta_i^2</span>. Thus <span class="math inline">\theta(y_i) = y_i</span> and <span class="math display">
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\} \\
+&amp;=2\sum_{i=1}^n\{y_i(y_i - \hat{\mu}_i) - y_i^2/2 + \hat{\mu}_i^2/2\}\\
+&amp;= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu_i} + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
+\end{aligned}
+</span></li>
+<li>This confirms that the definition of deviance recovers the <span class="orange">residuals sum of squares</span>. It is also easy to check that in this case <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = X^2</span>.</li>
+</ul>
+<ul>
+<li>Note that the <span class="blue">null deviance</span> is obtained with <span class="math inline">\hat{\bm{\mu}}_\text{null} = (\bar{y},\dots,\bar{y})</span> so that <span class="math display">
+D(\bm{y}; \hat{\bm{\mu}}_\text{null})= \sum_{i=1}^n(y_i - \bar{y})^2,
+</span> namely the so-called <span class="blue">total deviance</span>.</li>
+</ul>
 </section>
 <section id="deviance-of-a-poisson-model" class="level2">
 <h2 class="anchored" data-anchor-id="deviance-of-a-poisson-model">Deviance of a Poisson model</h2>
+<ul>
+<li><p>Let us consider a <span class="blue">Poisson regression</span> model, that is <span class="math inline">\theta_i = \log{\mu_i}</span> and <span class="math inline">b(\theta_i) = \exp(\theta_i) = \mu_i</span>. Then <span class="math inline">\theta(y_i) = \log{y_i}</span> and <span class="math display">
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^n\{y_i(\log{y_i} - \log{\hat{\mu}_i}) - y_i + \hat{\mu}_i\}\\
+&amp;= 2\sum_{i=1}^n\{y_i\log(y_i/\hat{\mu}_i) - y_i + \hat{\mu}_i\},
+\end{aligned}
+</span> with the convention that <span class="math inline">y_i\log(y_i/\hat{\mu}_i) = 0</span> whenever <span class="math inline">y_i = 0</span>.</p></li>
+<li><p>The <span class="math inline">X^2</span> statistic in this case has a very simple form <span class="math display">
+X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i}.
+</span> As discussed in <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span>, pag. 90, this can be seen as a <span class="orange">quadratic approximation</span> of the <span class="blue">deviance</span> which is valid for large values of <span class="math inline">n</span>.</p></li>
+</ul>
 </section>
 <section id="deviance-of-a-binomial-model" class="level2">
 <h2 class="anchored" data-anchor-id="deviance-of-a-binomial-model">Deviance of a binomial model</h2>
 </section>
 <section id="deviance-of-a-gamma-model" class="level2">
-<h2 class="anchored" data-anchor-id="deviance-of-a-gamma-model">Deviance of a Gamma model</h2>
+<h2 class="anchored" data-anchor-id="deviance-of-a-gamma-model">Deviance of a gamma model</h2>
+</section>
+<section id="deviance-as-goodness-of-fit-measure" class="level2">
+<h2 class="anchored" data-anchor-id="deviance-as-goodness-of-fit-measure">Deviance as goodness of fit measure</h2>
+<ul>
+<li></li>
+</ul>
 </section>
 <section id="example-beetles-data-output-of-summary" class="level2">
 <h2 class="anchored" data-anchor-id="example-beetles-data-output-of-summary">Example: <code>Beetles</code> data, output of <code>summary</code></h2>
@@ -2658,7 +2707,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <ul>
 <li><p><code>Null deviance</code> corresponds to the <span class="blue">null deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}_\text{null})</span>.</p></li>
-<li><p><span class="math inline">\texttt{Residual deviance}</span> corresponds to the <span class="orange">deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span> of the current model.</p></li>
+<li><p><code>Residual deviance</code> corresponds to the <span class="orange">deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span> of the current model.</p></li>
 </ul>
 </section>
 <section id="example-beetles-data-output-of-anova" class="level2">
@@ -2680,15 +2729,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <ul>
-<li><p><span class="math inline">\texttt{Resid Df}</span> are the <span class="blue">degrees of freedom</span> of the <span class="orange">deviances</span>, that is <span class="math inline">n - p_0</span> and <span class="math inline">n-p</span>, respectively.</p></li>
-<li><p><span class="math inline">\texttt{Resid. Dev}</span> are the <span class="blue">deviances</span> of the <span class="orange">reduced</span> model <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}_0)</span> and the <span class="blue">full</span> model <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span>. In this example, the reduced model is also the <span class="orange">null model</span>.</p></li>
-<li><p><span class="math inline">\texttt{Df}</span> refers to the <span class="blue">degrees of freedom</span> <span class="math inline">q = p- p_0</span> of the test, which is <span class="math inline">q = 1</span> in this case.</p></li>
-<li><p><span class="math inline">\texttt{Deviance}</span> indicates the <span class="blue">change in deviance</span>, that is <span class="math inline">\phi W = D(\bm{y}; \hat{\bm{\mu}}) - D(\bm{y}; \hat{\bm{\mu}}_0)</span>.</p></li>
-<li><p><span class="math inline">\texttt{Pr(&gt;Chi)}</span> is the <span class="blue">p-value</span> of the log-likelihood ratio test <span class="math inline">W</span>.</p></li>
+<li><p><code>Resid Df</code> are the <span class="blue">degrees of freedom</span> of the <span class="orange">deviances</span>, that is <span class="math inline">n - p_0</span> and <span class="math inline">n-p</span>, respectively.</p></li>
+<li><p><code>Resid. Dev</code> are the <span class="blue">deviances</span> of the <span class="orange">reduced</span> model <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}_0)</span> and the <span class="blue">full</span> model <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span>. In this example, the reduced model is also the <span class="orange">null model</span>.</p></li>
+<li><p><code>Df</code> refers to the <span class="blue">degrees of freedom</span> <span class="math inline">q = p- p_0</span> of the test, which is <span class="math inline">q = 1</span> in this case.</p></li>
+<li><p><code>Deviance</code> indicates the <span class="blue">change in deviance</span>, that is <span class="math inline">\phi W = D(\bm{y}; \hat{\bm{\mu}}) - D(\bm{y}; \hat{\bm{\mu}}_0)</span>.</p></li>
+<li><p><code>Pr(&gt;Chi)</code> is the <span class="blue">p-value</span> of the log-likelihood ratio test <span class="math inline">W</span>.</p></li>
 </ul>
 </section>
 <section id="example-aids-data-output-of-summary" class="level2">
 <h2 class="anchored" data-anchor-id="example-aids-data-output-of-summary">Example: <code>Aids</code> data, output of <code>summary</code></h2>
+<ul>
+<li>Below is shown the <code>summary</code> of the Poisson regression model with the <code>Aids</code> data.</li>
+</ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2712,8 +2764,8 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 </section>
-<section id="example-aids-data-output-of-anova" class="level2">
-<h2 class="anchored" data-anchor-id="example-aids-data-output-of-anova">Example: <code>Aids</code> data, output of <code>anova</code></h2>
+<section id="example-aids-data-output-of-anova-and-lrtest" class="level2">
+<h2 class="anchored" data-anchor-id="example-aids-data-output-of-anova-and-lrtest">Example: <code>Aids</code> data, output of <code>anova</code> and <code>lrtest</code></h2>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
@@ -2723,6 +2775,29 @@ Model 2: deaths ~ period
   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
 1        13    208.754                          
 2        12     30.203  1   178.55 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The use of the term <code>deviance</code> to indicate the <span class="blue">difference</span> between two deviances is a bit <span class="orange">misleading</span>. I do not know the the reason, but the <code>lrtest</code> function of the <code>lmtest</code> package changed it.</p>
+</div>
+</div>
+</div>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>Likelihood ratio test
+
+Model 1: deaths ~ 1
+Model 2: deaths ~ period
+  #Df   LogLik Df  Chisq Pr(&gt;Chisq)    
+1   1 -130.750                         
+2   2  -41.475  1 178.55  &lt; 2.2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>

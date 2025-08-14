@@ -675,7 +675,7 @@ $$
 $$
 from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-\mu_i)$ is quadratic. 
 
-- We will write $Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i))$ with $\mu_i \in \mathcal{M} = (0, 1)$. 
+- We will write $Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)$ with $\mu_i \in \mathcal{M} = (0, 1)$. 
 
 ## Notable exponential dispersion families
 
@@ -1739,7 +1739,7 @@ rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 |:---------------------------------|------:|------:|------:|
 | $W_e$ - [Wald test]{.blue}                 | 135.602|  1|      $\approx$ 0|
 | $W_u$ - [Rao-score test]{.orange}          | 163.586|  1|      $\approx$ 0|
-| $W$ - [Log-likelihood ratio test]{.grey} | 163.586|  1|      $\approx$ 0|
+| $W$ - [Log-likelihood ratio test]{.grey} |  178.551|  1|      $\approx$ 0|
 
 
 - As before, despite their numerical differences, all the tests [reject]{.orange} the null hypothesis. We previously obtained the [Wald statistic]{.blue} $z_j = 11.645$ and indeed $z_j^2 = 11.645^2 = 135.6 = W_e$. 
@@ -1789,7 +1789,7 @@ CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1))
 
 - Hence, the expected [average]{.orange} percentage increase is between $24\%$ and $35\%$ each `period` with a $95\%$ [confidence]{.blue}. 
 
-- By construction, these confidence intervals are [positive]{.orange}, which is desirable because they represent a percentage. 
+- These confidence intervals are always [positive]{.orange}, which is desirable because they are percentages. 
 
 ## Example: `Aids` data
 
@@ -1896,11 +1896,11 @@ $$
 The [deviance]{.blue} of a GLM is defined as
 $$
 \begin{aligned}
-D(\bm{y}; \hat{\bm{\mu}}) &:= \phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)  - \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)] \\
-&=\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}.
+D(\bm{y}; \hat{\bm{\mu}}) &:=\phi W =\phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)  - \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)] \\
+&=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}.
 \end{aligned}
 $$
-The quantity $D(\bm{y}; \hat{\bm{\mu}})/\phi$ is called [scaled deviance]{.blue} and it corresponds to a [log-likelihood ratio test]{.orange} in which the current model is tested against the saturated model.
+The quantity $D(\bm{y}; \hat{\bm{\mu}})/\phi$ is called [scaled deviance]{.blue} and it corresponds to a [log-likelihood ratio test]{.orange} $W$ in which the current model is tested against the saturated model.
 :::
 
 - By definition, the deviance is [positive]{.orange}: $D(\bm{y}; \hat{\bm{\mu}}) \ge 0$, because $\ell_\mathcal{M}(\bm{y},\phi) \ge \ell_\mathcal{M}(\hat{\bm{\mu}},\phi)$.
@@ -1959,17 +1959,68 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\ha
 $$
 If the $H_0$ is not rejected, it means all the [covariates]{.orange} are regarded as [irrelevant]{.orange}. 
 
-## Deviance as goodness of fit measure
-
 ## Relationship between deviance and Pearson $X^2$ 
+
+- The deviance is essentially a [log-likelihood ratio]{.blue} test between a model and the saturated model, rescaled by $\phi$.
+
+- This suggest that we may consider another test, like the [Rao-Score]{.orange} test to obtain an alternative definition of deviance.
+
+:::callout-note
+Let $W_u$ be the [Rao-Score]{.blue} test comparing model $M$ with the [saturated model]{.orange}. Then, it holds:
+$$
+\phi W_u = X^2=\sum_{i=1}^n \omega_i\frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)},
+$$
+which is known as generalized [Pearson chi-squared statistic]{.blue}.
+:::
+
+- Karl Pearson introduced $X^2$ it in 1900 for testing various hypotheses using the chi-squared distribution, such as the hypothesis of independence in contingency tables. 
+
+- Since $W_u$ and $W$ are [asymptotically equivalent]{.blue}, so will be the chi-squared statistic $X^2$ and the deviance $D(\bm{Y}; \hat{\bm{\mu}})$ for large values of $n$.
 
 ## Deviance of a Gaussian linear model
 
+- In the classical [Gaussian linear model]{.blue}, we have that $\theta_i = \mu_i$ and $b(\theta_i) = \theta_i^2$. Thus $\theta(y_i) = y_i$ and
+$$
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\} \\
+&=2\sum_{i=1}^n\{y_i(y_i - \hat{\mu}_i) - y_i^2/2 + \hat{\mu}_i^2/2\}\\
+&= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu_i} + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
+\end{aligned}
+$$
+- This confirms that the definition of deviance recovers the [residuals sum of squares]{.orange}. It is also easy to check that in this case $D(\bm{y}; \hat{\bm{\mu}}) = X^2$. 
+
+. . .
+
+- Note that the [null deviance]{.blue} is obtained with $\hat{\bm{\mu}}_\text{null} = (\bar{y},\dots,\bar{y})$ so that
+$$
+D(\bm{y}; \hat{\bm{\mu}}_\text{null})= \sum_{i=1}^n(y_i - \bar{y})^2,
+$$
+namely the so-called [total deviance]{.blue}. 
+
 ## Deviance of a Poisson model
+
+- Let us consider a [Poisson regression]{.blue} model, that is $\theta_i = \log{\mu_i}$ and $b(\theta_i) = \exp(\theta_i) = \mu_i$. Then $\theta(y_i) = \log{y_i}$ and
+$$
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^n\{y_i(\log{y_i} - \log{\hat{\mu}_i}) - y_i + \hat{\mu}_i\}\\
+&= 2\sum_{i=1}^n\{y_i\log(y_i/\hat{\mu}_i) - y_i + \hat{\mu}_i\},
+\end{aligned}
+$$
+with the convention that $y_i\log(y_i/\hat{\mu}_i) = 0$ whenever $y_i = 0$. 
+
+- The $X^2$ statistic in this case has a very simple form
+$$
+X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i}.
+$$
+As discussed in @Salvan2020, pag. 90, this can be seen as a [quadratic approximation]{.orange} of the [deviance]{.blue} which is valid for large values of $n$. 
 
 ## Deviance of a binomial model
 
-## Deviance of a Gamma model
+## Deviance of a gamma model
+
+## Deviance as goodness of fit measure
+
+- 
 
 ## Example: `Beetles` data, output of `summary`
 
@@ -1982,7 +2033,7 @@ summary(fit_Beetles)
 
 - `Null deviance` corresponds to the [null deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$. 
 
-- $\texttt{Residual deviance}$ corresponds to the [deviance]{.orange} $D(\bm{y}; \hat{\bm{\mu}})$ of the current model.
+- `Residual deviance` corresponds to the [deviance]{.orange} $D(\bm{y}; \hat{\bm{\mu}})$ of the current model.
 
 ## Example: `Beetles` data, output of `anova`
 
@@ -1996,30 +2047,40 @@ anova(fit_Beetles0, fit_Beetles)
 
 . . .
 
-- $\texttt{Resid Df}$ are the [degrees of freedom]{.blue} of the [deviances]{.orange}, that is $n - p_0$ and $n-p$, respectively. 
+- `Resid Df` are the [degrees of freedom]{.blue} of the [deviances]{.orange}, that is $n - p_0$ and $n-p$, respectively. 
 
-- $\texttt{Resid. Dev}$ are the [deviances]{.blue} of the [reduced]{.orange} model $D(\bm{y}; \hat{\bm{\mu}}_0)$ and the [full]{.blue} model $D(\bm{y}; \hat{\bm{\mu}})$. In this example, the reduced model is also the [null model]{.orange}.  
+- `Resid. Dev` are the [deviances]{.blue} of the [reduced]{.orange} model $D(\bm{y}; \hat{\bm{\mu}}_0)$ and the [full]{.blue} model $D(\bm{y}; \hat{\bm{\mu}})$. In this example, the reduced model is also the [null model]{.orange}.  
 
-- $\texttt{Df}$ refers to the [degrees of freedom]{.blue} $q = p- p_0$ of the test, which is $q = 1$ in this case.
+- `Df` refers to the [degrees of freedom]{.blue} $q = p- p_0$ of the test, which is $q = 1$ in this case.
 
-- $\texttt{Deviance}$ indicates the [change in deviance]{.blue}, that is $\phi W = D(\bm{y}; \hat{\bm{\mu}}) - D(\bm{y}; \hat{\bm{\mu}}_0)$.
+- `Deviance` indicates the [change in deviance]{.blue}, that is $\phi W = D(\bm{y}; \hat{\bm{\mu}}) - D(\bm{y}; \hat{\bm{\mu}}_0)$.
 
-- $\texttt{Pr(>Chi)}$ is the [p-value]{.blue} of the log-likelihood ratio test $W$.
+- `Pr(>Chi)` is the [p-value]{.blue} of the log-likelihood ratio test $W$.
 
 ## Example: `Aids` data, output of `summary`
 
+- Below is shown the `summary` of the Poisson regression model with the `Aids` data.
+ 
 ```{r}
 #| classes: styled-output
 summary(fit_Aids)
 ```
 
-## Example: `Aids` data, output of `anova`
+## Example: `Aids` data, output of `anova` and `lrtest`
 
 ```{r}
 #| classes: styled-output
 anova(fit_Aids0, fit_Aids)
 ```
 
+:::callout-tip
+The use of the term `deviance` to indicate the [difference]{.blue} between two deviances is a bit [misleading]{.orange}. I do not know the the reason, but the `lrtest` function of the `lmtest` package changed it.
+:::
+
+```{r}
+#| classes: styled-output
+lmtest::lrtest(fit_Aids0, fit_Aids)
+```
 
 ## Residuals
 

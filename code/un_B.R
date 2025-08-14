@@ -151,3 +151,5 @@ anova(fit_Beetles0, fit_Beetles)
 summary(fit_Aids)
 
 anova(fit_Aids0, fit_Aids)
+
+lmtest::lrtest(fit_Aids0, fit_Aids)
