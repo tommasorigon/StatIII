@@ -10,71 +10,50 @@
 
 @font-face {
     font-family: 'Latin Modern Sans';
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-boldoblique-webfont.eot');
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-boldoblique-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-boldoblique-webfont.woff') format('woff'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-boldoblique-webfont.ttf') format('truetype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-boldoblique-webfont.svg#latin_modern_sans10BdOb') format('svg');
+    src: url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-boldoblique-webfont.woff') format('woff'),
+         url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-boldoblique-webfont.ttf') format('truetype');
     font-weight: bold;
     font-style: oblique;
 }
 
 @font-face {
     font-family: 'Latin Modern Sans';
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-bold-webfont.eot');
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-bold-webfont.woff') format('woff'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-bold-webfont.ttf') format('truetype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-bold-webfont.svg#latin_modern_sans10_bold') format('svg');
+    src: url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-bold-webfont.woff') format('woff'),
+         url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-bold-webfont.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Latin Modern Sans';
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-oblique-webfont.eot');
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-oblique-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-oblique-webfont.woff') format('woff'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-oblique-webfont.ttf') format('truetype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-oblique-webfont.svg#latin_modern_sans10_oblique') format('svg');
+    src: url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-oblique-webfont.woff') format('woff'),
+         url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-oblique-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: oblique;
 }
 
 @font-face {
     font-family: 'Latin Modern Sans';
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-regular-webfont.eot');
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-regular-webfont.woff') format('woff'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-regular-webfont.ttf') format('truetype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmsans-regular-webfont.svg#latin_modern_sans10_regular') format('svg');
+    src: url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-regular-webfont.woff') format('woff'),
+         url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmsans-regular-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
-
 
 @font-face {
     font-family: 'Latin Modern Mono';
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-italic-webfont.eot');
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-italic-webfont.woff') format('woff'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-italic-webfont.ttf') format('truetype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-italic-webfont.svg#latin_modern_mono10_italic') format('svg');
+    src: url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmmono-italic-webfont.woff') format('woff'),
+         url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmmono-italic-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'Latin Modern Mono';
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-regular-webfont.eot');
-    src: url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-regular-webfont.woff') format('woff'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-regular-webfont.ttf') format('truetype'),
-         url('https://github.com/sugina-dev/latin-modern-web/raw/ee41a253c4ce2a84a54e66704e324d313968546f/font/lmmono-regular-webfont.svg#latin_modern_mono10_regular') format('svg');
+    src: url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmmono-regular-webfont.woff') format('woff'),
+         url('https://github.com/tommasorigon/StatIII/raw/refs/heads/main/fonts/lmmono-regular-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
-
-
 
 // fonts
 $font-family-sans-serif: "Latin Modern Sans"; 

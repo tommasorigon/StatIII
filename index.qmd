@@ -40,18 +40,18 @@ Regression is such an important topic that the [tour]{.orange} will [continue]{.
 
 ## Teaching material
 
-### Recommended textbooks (ITA)
+#### Recommended textbooks (ITA)
 
 - Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://doi.org/10.1007/978-88-470-3995-7_10). Springer.
 - Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza*](https://link.springer.com/book/9788847001305). Springer
 
     
-### Recommended textbooks (ENG)
+#### Recommended textbooks (ENG)
 
 - Agresti, A. 2015. [*Foundations of Linear and Generalized Linear Models*](https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034). Wiley.
 - McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh). Second Edition. Springer.
 
-### Slides and lecture notes
+#### Slides and lecture notes
 
 The slides are meant to be used in HTML. However, if you *really* want
 to convert the HTML slides into pdf files, you can [follow the
