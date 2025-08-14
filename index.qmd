@@ -30,7 +30,7 @@ This is the website of the **Statistica III** course (6 CFU) of the "*Corso di L
 
 This is a [B.Sc.-level]{.orange} course, but there are some prerequisites: it is assumed that you have already been exposed to:
 
-  - [Simple linear regression and descriprive statistics]{.blue}, e.g. from [_Statistica I_](https://tommasorigon.github.io/StatI/);
+  - [Simple linear regression and descriptive statistics]{.blue}, e.g. from [_Statistica I_](https://tommasorigon.github.io/StatI/);
   - [Inferential statistics]{.orange}, e.g. from _Statistica II_;
   - [Linear models]{.grey}, e.g. from _Analisi Statistica Multivariata_ and _Econometria_;
   - [R software]{.grey}, e.g. from [_Analisi Statistica Multivariata_](https://tommasorigon.github.io/introR/).
