@@ -305,7 +305,7 @@ where $\bm{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
 
 -   To evaluate the goodness of fit, we can calculate the [coefficient
     of determination]{.orange}: $$
-    R^2 = 1 - \frac{\text{(``Residual deviance'')}}{\text{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
+    R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
     $$
 
 

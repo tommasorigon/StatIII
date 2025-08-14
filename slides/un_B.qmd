@@ -1980,7 +1980,7 @@ If the $H_0$ is not rejected, it means all the [covariates]{.orange} are regarde
 summary(fit_Beetles)
 ```
 
-- $\texttt{Null deviance}$ corresponds to the [null deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$. 
+- `Null deviance` corresponds to the [null deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$. 
 
 - $\texttt{Residual deviance}$ corresponds to the [deviance]{.orange} $D(\bm{y}; \hat{\bm{\mu}})$ of the current model.
 
