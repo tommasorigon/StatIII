@@ -126,7 +126,6 @@ rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 
 # knitr::kable(tests, digits = 3)
 
-
 CI_Wald <- lmtest::coefci(fit_Aids)[2, ]
 CI_Rao <- confint(fit_Aids, test = "Rao")[2, ]
 CI_LRT <- confint(fit_Aids, test = "LRT")[2, ]
@@ -148,8 +147,55 @@ summary(fit_Beetles)
 
 anova(fit_Beetles0, fit_Beetles)
 
+dev_Beetles <- deviance(fit_Beetles)
+X_Beetles <- sum(residuals(fit_Beetles, type = "pearson")^2)
+
+curve(dchisq(x, df = 6), 0, 30)
+polygon(c(seq(X_Beetles, 30, length = 100), X_Beetles),
+  c(dchisq(seq(X_Beetles, 30, length = 100), 6), 0),
+  col = "slateblue1",
+  border = 1
+)
+abline(v = X_Beetles, lty = "dotted")
+
 summary(fit_Aids)
 
 anova(fit_Aids0, fit_Aids)
 
 lmtest::lrtest(fit_Aids0, fit_Aids)
+
+par(mfrow = c(1, 2))
+plot(predict(fit_Beetles), rstandard(fit_Beetles, type = "deviance"),
+  pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"
+)
+abline(h = 0, lty = "dotted")
+plot(predict(fit_Beetles), rstandard(fit_Beetles, type = "pearson"),
+  pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"
+)
+abline(h = 0, lty = "dotted")
+par(mfrow = c(1, 1))
+
+plot(fit_Beetles, 4)
+
+par(mfrow = c(1, 2))
+plot(predict(fit_Aids), rstandard(fit_Aids, type = "deviance"),
+  pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"
+)
+abline(h = 0, lty = "dotted")
+plot(predict(fit_Aids), rstandard(fit_Aids, type = "pearson"),
+  pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"
+)
+abline(h = 0, lty = "dotted")
+par(mfrow = c(1, 1))
+
+plot(fit_Aids, 4)
+
+par(mfrow = c(1, 2))
+plot(predict(fit_Aids_sqrt), rstandard(fit_Aids_sqrt, type = "deviance"),
+  pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"
+)
+abline(h = 0, lty = "dotted")
+plot(predict(fit_Aids_sqrt), rstandard(fit_Aids_sqrt, type = "pearson"),
+  pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"
+)
+abline(h = 0, lty = "dotted")

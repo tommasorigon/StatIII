@@ -715,7 +715,6 @@ The following link is called [canonical link]{.orange} and it is implied by the 
 $$
 g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta. 
 $$
-Such a choice leads to remarkable simplifications in the likelihood function.
 :::
 
 - The [identity]{.blue} link is canonical for the [Gaussian]{.blue}, the [logarithm]{.orange} is canonical for the [Poisson]{.orange}, the [logit]{.grey} is canonical for the Binomial and the [reciprocal]{.blue} is canonical for the [Gamma]{.blue}. 
@@ -1117,9 +1116,9 @@ where $[\bm{I}]_{rs} = i_{rs}$ are the elements associated to $\beta$ as before.
 
 
 :::callout-note
-The parameters $\beta$ and $\phi$ are [orthogonal]{.orange} and their maximum likelihood estimates are [asymptotically independent]{.blue}.
+The parameters $\beta$ and $\phi$ are [orthogonal]{.orange} and their estimates are [asymptotically independent]{.blue}.
 
-Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference on $\beta$ and there is no need to compute $i_{\phi \phi}$. Note that the maximum likelihood $\hat{\beta}$ can also be computed without knowing $\phi$. 
+Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference on $\beta$ and there is no need to compute $i_{\phi \phi}$. Moreover, the maximum likelihood $\hat{\beta}$ can also be computed without knowing $\phi$. 
 :::
 
 <!-- - In a GLM with $p = 2$ the Fisher information matrix, evaluated on a given $\beta,\phi$, looks like: -->
@@ -1432,12 +1431,10 @@ of [approximate]{.orange} level $1-\alpha$, where $z_{1-\alpha/2}$ is the quanti
 
 ## Comparison with the Gaussian linear model
 
-- In a classical [Gaussian linear model]{.blue} the weight matrix is $\bm{W} = \sigma^2 I_n$, therefore the distribution of the maximum likelihood is
+- In a classical [Gaussian linear model]{.blue} the weight matrix is $\bm{W} = \sigma^2 I_n$, therefore
 $$
-\hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right),
+\hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right).
 $$
-an important result we have encountered multiple times in this course.
-
 - The [Wald statistic]{.blue} $z_j$ [specializes]{.orange} to $$
 z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
 $$ which is the usual test statistic considered, e.g., in the output of `lm` in **R**. 
@@ -1580,7 +1577,7 @@ a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blu
 
 
 :::aside
-The Rao-score test arguably the [less common]{.orange}. However, it is linked to the $X^2$ Pearson statistic. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
+The Rao-score test arguably the [less common]{.orange}. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
 :::
 
 
@@ -1730,7 +1727,6 @@ tests$pvalue <- pchisq(tests$value, tests$q, lower.tail = FALSE)
 rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 
 # knitr::kable(tests, digits = 3)
-
 ```
 
  - Let us know perform the same analysis for the `Aids` data. Again, we test the null hypothesis $H_0 : \beta_2 = 0$, which is the relevance of `period` in predicting the response.
@@ -1776,7 +1772,7 @@ and similarly for the Rao-score case. These are reported below.
 
 ```{r}
 # Rao-score and LRT confidence interval for 100 (exp(beta_2) -1)
-CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1)) 
+CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1))
 # knitr::kable(CIs, digits = 2)
 ```
 
@@ -1787,7 +1783,7 @@ CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1))
 
 . . .
 
-- Hence, the expected [average]{.orange} percentage increase is between $24\%$ and $35\%$ each `period` with a $95\%$ [confidence]{.blue}. 
+- The [average]{.orange} percentage increase is between $24\%$ and $35\%$ each `period`, with a $95\%$ [confidence]{.blue}. 
 
 - These confidence intervals are always [positive]{.orange}, which is desirable because they are percentages. 
 
@@ -1847,8 +1843,6 @@ $$
 $$
 W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\sigma^2} = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
 $$
-
-. . .
 
 - The natural question is: what is a natural [generalization]{.blue} of the deviance for GLMs?
 
@@ -1911,11 +1905,11 @@ The quantity $D(\bm{y}; \hat{\bm{\mu}})/\phi$ is called [scaled deviance]{.blue}
 
 - The deviance describes a [lack of fit]{.blue}: the higher the deviance, the poorer the fit. 
 
-- The deviance measures the discrepancy between the saturated model and a model using $p < n$ parameters.
+- It measures the discrepancy between the saturated model and a model using $p < n$ parameters.
 
 . . .
 
-- In the Gaussian linear model, this definition gives the [residual sum of squares]{.orange}. 
+- The deviance is a function of $\bm{\mu}$, therefore its definition does not depend on the link function $g(\cdot)$. 
 
 ## Deviance and log-likelihood ratio test
 
@@ -1959,11 +1953,13 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\ha
 $$
 If the $H_0$ is not rejected, it means all the [covariates]{.orange} are regarded as [irrelevant]{.orange}. 
 
-## Relationship between deviance and Pearson $X^2$ 
+## Pearson $X^2$ statistic
 
-- The deviance is essentially a [log-likelihood ratio]{.blue} test between a model and the saturated model, rescaled by $\phi$.
+- The deviance is a [log-likelihood ratio]{.blue} test between a given model and the saturated model, rescaled by $\phi$.
 
-- This suggest that we may consider another test, like the [Rao-Score]{.orange} test to obtain an alternative definition of deviance.
+- Hence, we may consider another test, like the [Rao-Score]{.orange}, to obtain an alternative definition.
+
+. . .
 
 :::callout-note
 Let $W_u$ be the [Rao-Score]{.blue} test comparing model $M$ with the [saturated model]{.orange}. Then, it holds:
@@ -1973,7 +1969,7 @@ $$
 which is known as generalized [Pearson chi-squared statistic]{.blue}.
 :::
 
-- Karl Pearson introduced $X^2$ it in 1900 for testing various hypotheses using the chi-squared distribution, such as the hypothesis of independence in contingency tables. 
+- Karl Pearson introduced $X^2$ in 1900 for testing various hypotheses using the chi-squared distribution, such as the hypothesis of independence in contingency tables. 
 
 - Since $W_u$ and $W$ are [asymptotically equivalent]{.blue}, so will be the chi-squared statistic $X^2$ and the deviance $D(\bm{Y}; \hat{\bm{\mu}})$ for large values of $n$.
 
@@ -1987,7 +1983,7 @@ D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \thet
 &= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu_i} + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
 \end{aligned}
 $$
-- This confirms that the definition of deviance recovers the [residuals sum of squares]{.orange}. It is also easy to check that in this case $D(\bm{y}; \hat{\bm{\mu}}) = X^2$. 
+- In the Gaussian case, the deviance is the [residuals sum of squares]{.orange} and $D(\bm{y}; \hat{\bm{\mu}}) = X^2$. 
 
 . . .
 
@@ -2006,21 +2002,110 @@ D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^n\{y_i(\log{y_i} - \log{\hat{\mu}_i}) - 
 &= 2\sum_{i=1}^n\{y_i\log(y_i/\hat{\mu}_i) - y_i + \hat{\mu}_i\},
 \end{aligned}
 $$
-with the convention that $y_i\log(y_i/\hat{\mu}_i) = 0$ whenever $y_i = 0$. 
+with the [convention]{.grey} that $y_i\log(y_i/\hat{\mu}_i) = 0$ whenever $y_i = 0$. 
 
 - The $X^2$ statistic in this case has a very simple form
 $$
-X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i}.
+X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i} = \sum_{i=1}^n\frac{(\textsf{observed}_i - \textsf{fitted}_i)^2}{\textsf{fitted}_i}.
 $$
-As discussed in @Salvan2020, pag. 90, this can be seen as a [quadratic approximation]{.orange} of the [deviance]{.blue} which is valid for large values of $n$. 
+As discussed in @Salvan2020, Example 2.12, this can be seen as a [quadratic approximation]{.orange} of the [deviance]{.blue}, which is valid for large values of $n$. 
 
-## Deviance of a binomial model
+## Deviance of a binomial model I
 
-## Deviance of a gamma model
+- Let us consider a [Binomial regression]{.blue} model $m_i Y_i = S_i \sim \text{Bimonial}(m_i, \pi_i)$ with $\mu_i = \pi_i$. Then
+$$
+\ell_\mathcal{M}(\bm{\hat{\mu}}) = \sum_{i=1}^n\{m_i y_i \log{(\hat{\mu}_i)} + m_i(1 - y_i)\log{(1-\hat{\mu}_i)}\}.
+$$
+Therefore, under the convention $x\log(x) = 0$ as before, the deviance is
+$$
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^nm_i\left\{y_i\log\left(\frac{y_i}{\hat{\mu}_i}\right)  + (1- y_i)\log\left(\frac{1 - y_i}{1 - \hat{\mu}_i}\right)\right\}\\
+&= 2\sum_{i=1}^n\left\{m_i y_i\log\left(\frac{m_i y_i}{m_i \hat{\mu}_i}\right)  + (m_i- m_i y_i)\log\left(\frac{m_i - m_i y_i}{m_i - m_i\hat{\mu}_i}\right)\right\}.
+\end{aligned}
+$$
 
-## Deviance as goodness of fit measure
+- The quantities $m_i y_i$ and $m_i - m_i y_i$ can be interpreted as the number of observed [successes]{.blue} and [failures]{.orange}, respectively. Similarly, $m_i\hat{\mu}_i$ and $m_i - m_i\hat{\mu}_i$ represent their [predictions]{.grey}. Hence, we can write
+$$
+D(\bm{y}; \hat{\bm{\mu}}) = 2\sum_{j=1}^{2n}\textsf{observed}_j\, \log\left(\frac{\textsf{observed}_j}{\textsf{fitted}_j}\right)
+$$
 
-- 
+## Deviance of a binomial model II
+
+- The $X^2$ statistic of a binomial model, recalling that $v(\mu_i) = \mu_i(1 - \mu_i)$, equals to
+$$
+\begin{aligned}
+X^2&= \sum_{i=1}^{n} \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i(1-\hat{\mu}_i)/m_i} \\
+& = \sum_{i=1}^{n} \frac{(m_i y_i - m_i\hat{\mu}_i)^2}{m_i\hat{\mu}_i} + \sum_{i=1}^{n} \frac{[(m_i - m_iy_i) - (m_i - m_i \hat{\mu}_i)]^2}{m_i -m_i \hat{\mu}_i}.
+\end{aligned}
+$$
+The second representation follows after some [algebra]{.grey}. 
+
+- The second equation shows that we can write
+$$
+X^2 = \sum_{j=1}^{2n} \frac{(\textsf{observed}_j - \textsf{fitted}_j)^2}{\textsf{fitted}_j}.
+$$
+
+- As already mentioned, the $X^2$ statistic can be seen as a [quadratic approximation]{.orange} of the [deviance]{.blue}. 
+
+## Deviance as goodness of fit measure I
+
+- The deviance is useful a [descriptive measure]{.orange} for the [goodness of fit]{.blue}. 
+
+- It is [tempting]{.orange} to use the deviance as a formal [statistical test]{.blue}, to verify if the current model is adequate compared to the saturated model. 
+
+ . . .
+ 
+- Suppose $\phi$ were [known]{.blue}, then in the Gaussian case we would have
+$D(\bm{y}; \hat{\bm{\mu}})/\phi \sim \chi^2_{n-p}$, which would allow us to check the adequacy of the model. 
+
+- Unfortunately, whenever $\hat{\phi}$ is [estimated]{.orange} we obtain $D(\bm{y}; \hat{\bm{\mu}})/\hat{\phi} \approx n - p$, and exactly $n-p$ in the Gaussian case, so this strategy can not be used.
+
+. . .
+
+- On the other hand, for example in Poisson e binomial regression, we have $\phi = 1$. Hence, the intuition tells us that, at least approximately, we should have
+$$
+D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
+$$
+
+- Unfortunately, this is [not]{.orange} the [case]{.orange}: the saturated model is an "irregular case" in that the number of parameters $p = n$ grows with the sample size. 
+
+- The usual "large $n$" approximation does not hold in general, e.g. because $\chi^2_{n-p}$ itself depends on $n$. 
+
+## Deviance as goodness of fit measure II
+
+- Despite these bad news, it turns out that in some special cases, the $\chi^2_{n-p}$ approximation is still valid even for fixed values of $n$.
+
+:::callout-warning
+Then the [deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$ and the $X^2$ [Pearson statistic]{.blue} are approximately distributed as a $\chi^2_{n-p}$ in the following cases:
+
+  - In binomial regression, for large values of $m_i$ (small-dispersion asymptotics);
+  - In Poisson regression, for large values of the estimated means $\hat{\mu}_i$ (say $\hat{\mu}_i \ge 5$);
+  - When $\phi$ is known and $\phi \rightarrow 0$ (small-dispersion asymptotics).
+:::
+
+- [Small-dispersion asymptotics]{.blue} describe an alternative limiting regime in which the variance of the observations tends to $0$.
+
+- In binomial regression the $X^2$ statistic converges to $\chi^2_{n-p}$ more quickly than the deviance and has a [more trustworthy]{.blue} p-value when some expected success or failure totals are less than about five.
+
+- The $\chi^2_{n-p}$ approximation is [very poor]{.orange} for binary regression, i.e. when $m_i = 1$.
+
+## On pseudo-$R^2$
+
+- There exist in the literature a variety of generalizations of the $R^2$ statistic for linear models, called [pseudo-$R^2$]{.blue} (McFadden, Cox \& Snell, Nagelkerke, Tjur, etc.).
+
+- These measurements are [difficult to interpret]{.orange} and often mislead those accustomed with standard $R^2.$ A pseudo-$R^2 \approx 0.4$ may indicate a nearly perfect fit (i.e. `Beetles` data), which is confusing. 
+
+- On top of this, these pseudo-$R^2$ produce different answer depending on the [aggregation]{.blue} of the data. 
+
+. . .
+
+- The recommendation is to [avoid pseudo-$R^2$]{.orange} and rely instead on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between $\bm{y}$ and $\hat{\bm{\mu}}$.
+
+- The residual [deviance]{.blue} is also a useful tool, especially for comparing models.
+
+- It is not a coincidence that none of our textbooks @Agresti2015, @Salvan2020, @Azzalini2008, @McCullagh1989, nor the `glm` R function, even mention pseudo-$R^2$. 
+
+- Pseudo-$R^2$ are often shown by default in other software, such as SAS or SPSS. 
 
 ## Example: `Beetles` data, output of `summary`
 
@@ -2057,6 +2142,29 @@ anova(fit_Beetles0, fit_Beetles)
 
 - `Pr(>Chi)` is the [p-value]{.blue} of the log-likelihood ratio test $W$.
 
+
+## Example: `Beetles` data, goodness of fit
+
+```{r}
+dev_Beetles <- deviance(fit_Beetles)
+X_Beetles <- sum(residuals(fit_Beetles, type = "pearson")^2)
+```
+
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+#| fig-align: center
+curve(dchisq(x, df = 6), 0, 30)
+polygon(c(seq(X_Beetles, 30, length = 100), X_Beetles),
+  c(dchisq(seq(X_Beetles, 30, length = 100), 6), 0),
+  col = "slateblue1",
+  border = 1
+)
+abline(v = X_Beetles, lty = "dotted")
+```
+
+
 ## Example: `Aids` data, output of `summary`
 
 - Below is shown the `summary` of the Poisson regression model with the `Aids` data.
@@ -2088,17 +2196,84 @@ lmtest::lrtest(fit_Aids0, fit_Aids)
 
 ## Deviance residuals
 
-## Quantile residuals
+## A weighted projection matrix
 
 ## Standardized residuals
 
 ## Approximate Cook's distance
+
+## Example: `Beetles` data
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+#| fig-align: center
+
+par(mfrow = c(1, 2))
+plot(predict(fit_Beetles), rstandard(fit_Beetles, type = "deviance"), 
+     pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"); abline(h = 0, lty = "dotted")
+plot(predict(fit_Beetles), rstandard(fit_Beetles, type = "pearson"), 
+     pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"); abline(h = 0, lty = "dotted")
+par(mfrow = c(1, 1))
+```
+
+## Example: `Beetles` data
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+#| fig-align: center
+plot(fit_Beetles, 4) 
+```
+
+
+## Example: `Aids` data
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+#| fig-align: center
+
+par(mfrow = c(1, 2))
+plot(predict(fit_Aids), rstandard(fit_Aids, type = "deviance"), 
+     pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"); abline(h = 0, lty = "dotted")
+plot(predict(fit_Aids), rstandard(fit_Aids, type = "pearson"), 
+     pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"); abline(h = 0, lty = "dotted")
+par(mfrow = c(1, 1))
+```
+
+## Example: `Aids` data
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+#| fig-align: center
+plot(fit_Aids, 4) 
+```
+
+
+## Example: `Aids` data
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+#| fig-align: center
+
+par(mfrow = c(1, 2))
+plot(predict(fit_Aids_sqrt), rstandard(fit_Aids_sqrt, type = "deviance"), 
+     pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"); abline(h = 0, lty = "dotted")
+plot(predict(fit_Aids_sqrt), rstandard(fit_Aids_sqrt, type = "pearson"), 
+     pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"); abline(h = 0, lty = "dotted")
+```
+
 
 # Model selection
 
 ## Stepwise procedures: forward and backward selection
 
 ## AIC and BIC
+
+## On the issue of multiple testing
 
 ## References {.unnumbered}
 

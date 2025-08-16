@@ -923,7 +923,7 @@ g(\mu_i) = \bm{x}_i^T\beta, \qquad \theta_i = \theta(\mu_i) \quad \Longrightarro
 <div class="callout-content">
 <p>The following link is called <span class="orange">canonical link</span> and it is implied by the distribution: <span class="math display">
 g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta.
-</span> Such a choice leads to remarkable simplifications in the likelihood function.</p>
+</span></p>
 </div>
 </div>
 </div>
@@ -1437,8 +1437,8 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The parameters <span class="math inline">\beta</span> and <span class="math inline">\phi</span> are <span class="orange">orthogonal</span> and their maximum likelihood estimates are <span class="blue">asymptotically independent</span>.</p>
-<p>Moreover, the matrices <span class="math inline">\bm{I}</span> and <span class="math inline">\bm{I}^{-1}</span> are sufficient for inference on <span class="math inline">\beta</span> and there is no need to compute <span class="math inline">i_{\phi \phi}</span>. Note that the maximum likelihood <span class="math inline">\hat{\beta}</span> can also be computed without knowing <span class="math inline">\phi</span>.</p>
+<p>The parameters <span class="math inline">\beta</span> and <span class="math inline">\phi</span> are <span class="orange">orthogonal</span> and their estimates are <span class="blue">asymptotically independent</span>.</p>
+<p>Moreover, the matrices <span class="math inline">\bm{I}</span> and <span class="math inline">\bm{I}^{-1}</span> are sufficient for inference on <span class="math inline">\beta</span> and there is no need to compute <span class="math inline">i_{\phi \phi}</span>. Moreover, the maximum likelihood <span class="math inline">\hat{\beta}</span> can also be computed without knowing <span class="math inline">\phi</span>.</p>
 </div>
 </div>
 </div>
@@ -1724,9 +1724,9 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(
 <section id="comparison-with-the-gaussian-linear-model" class="slide level2 center">
 <h2>Comparison with the Gaussian linear model</h2>
 <ul>
-<li><p>In a classical <span class="blue">Gaussian linear model</span> the weight matrix is <span class="math inline">\bm{W} = \sigma^2 I_n</span>, therefore the distribution of the maximum likelihood is <span class="math display">
-\hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right),
-</span> an important result we have encountered multiple times in this course.</p></li>
+<li><p>In a classical <span class="blue">Gaussian linear model</span> the weight matrix is <span class="math inline">\bm{W} = \sigma^2 I_n</span>, therefore <span class="math display">
+\hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right).
+</span></p></li>
 <li><p>The <span class="blue">Wald statistic</span> <span class="math inline">z_j</span> <span class="orange">specializes</span> to <span class="math display">
 z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
 </span> which is the usual test statistic considered, e.g., in the output of <code>lm</code> in <strong>R</strong>.</p></li>
@@ -1895,7 +1895,7 @@ W_u \: \dot{\sim} \; \chi^2_q,
 </div>
 
 <aside><div>
-<p>The Rao-score test arguably the <span class="orange">less common</span>. However, it is linked to the <span class="math inline">X^2</span> Pearson statistic. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
+<p>The Rao-score test arguably the <span class="orange">less common</span>. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
 </div></aside></section>
 <section id="a-graphical-representation-when-p-1" class="slide level2 center">
 <h2>A graphical representation when <span class="math inline">p = 1</span></h2>
@@ -2162,7 +2162,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </table>
 <div class="fragment">
 <ul>
-<li><p>Hence, the expected <span class="orange">average</span> percentage increase is between <span class="math inline">24\%</span> and <span class="math inline">35\%</span> each <code>period</code> with a <span class="math inline">95\%</span> <span class="blue">confidence</span>.</p></li>
+<li><p>The <span class="orange">average</span> percentage increase is between <span class="math inline">24\%</span> and <span class="math inline">35\%</span> each <code>period</code>, with a <span class="math inline">95\%</span> <span class="blue">confidence</span>.</p></li>
 <li><p>These confidence intervals are always <span class="orange">positive</span>, which is desirable because they are percentages.</p></li>
 </ul>
 </div>
@@ -2236,11 +2236,7 @@ D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2 = \sum_{
 <li><p>When <span class="math inline">\sigma^2</span> is known, the difference of scaled deviances of two nested models is: <span class="math display">
 W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\sigma^2} = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
 </span></p></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>The natural question is: what is a natural <span class="blue">generalization</span> of the deviance for GLMs?</li>
+<li><p>The natural question is: what is a natural <span class="blue">generalization</span> of the deviance for GLMs?</p></li>
 </ul>
 </div>
 </section>
@@ -2368,12 +2364,12 @@ D(\bm{y}; \hat{\bm{\mu}}) &amp;:=\phi W =\phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)
 <div class="fragment">
 <ul>
 <li><p>The deviance describes a <span class="blue">lack of fit</span>: the higher the deviance, the poorer the fit.</p></li>
-<li><p>The deviance measures the discrepancy between the saturated model and a model using <span class="math inline">p &lt; n</span> parameters.</p></li>
+<li><p>It measures the discrepancy between the saturated model and a model using <span class="math inline">p &lt; n</span> parameters.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>In the Gaussian linear model, this definition gives the <span class="orange">residual sum of squares</span>.</li>
+<li>The deviance is a function of <span class="math inline">\bm{\mu}</span>, therefore its definition does not depend on the link function <span class="math inline">g(\cdot)</span>.</li>
 </ul>
 </div>
 </section>
@@ -2415,12 +2411,13 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\ha
 </span> If the <span class="math inline">H_0</span> is not rejected, it means all the <span class="orange">covariates</span> are regarded as <span class="orange">irrelevant</span>.</p></li>
 </ul>
 </section>
-<section id="relationship-between-deviance-and-pearson-x2" class="slide level2 center">
-<h2>Relationship between deviance and Pearson <span class="math inline">X^2</span></h2>
+<section id="pearson-x2-statistic" class="slide level2 center">
+<h2>Pearson <span class="math inline">X^2</span> statistic</h2>
 <ul>
-<li><p>The deviance is essentially a <span class="blue">log-likelihood ratio</span> test between a model and the saturated model, rescaled by <span class="math inline">\phi</span>.</p></li>
-<li><p>This suggest that we may consider another test, like the <span class="orange">Rao-Score</span> test to obtain an alternative definition of deviance.</p></li>
+<li><p>The deviance is a <span class="blue">log-likelihood ratio</span> test between a given model and the saturated model, rescaled by <span class="math inline">\phi</span>.</p></li>
+<li><p>Hence, we may consider another test, like the <span class="orange">Rao-Score</span>, to obtain an alternative definition.</p></li>
 </ul>
+<div class="fragment">
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -2431,9 +2428,10 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\ha
 </div>
 </div>
 <ul>
-<li><p>Karl Pearson introduced <span class="math inline">X^2</span> it in 1900 for testing various hypotheses using the chi-squared distribution, such as the hypothesis of independence in contingency tables.</p></li>
+<li><p>Karl Pearson introduced <span class="math inline">X^2</span> in 1900 for testing various hypotheses using the chi-squared distribution, such as the hypothesis of independence in contingency tables.</p></li>
 <li><p>Since <span class="math inline">W_u</span> and <span class="math inline">W</span> are <span class="blue">asymptotically equivalent</span>, so will be the chi-squared statistic <span class="math inline">X^2</span> and the deviance <span class="math inline">D(\bm{Y}; \hat{\bm{\mu}})</span> for large values of <span class="math inline">n</span>.</p></li>
 </ul>
+</div>
 </section>
 <section id="deviance-of-a-gaussian-linear-model" class="slide level2 center">
 <h2>Deviance of a Gaussian linear model</h2>
@@ -2445,7 +2443,7 @@ D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \
 &amp;= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu_i} + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
 \end{aligned}
 </span></li>
-<li>This confirms that the definition of deviance recovers the <span class="orange">residuals sum of squares</span>. It is also easy to check that in this case <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = X^2</span>.</li>
+<li>In the Gaussian case, the deviance is the <span class="orange">residuals sum of squares</span> and <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = X^2</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -2463,23 +2461,103 @@ D(\bm{y}; \hat{\bm{\mu}}_\text{null})= \sum_{i=1}^n(y_i - \bar{y})^2,
 D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^n\{y_i(\log{y_i} - \log{\hat{\mu}_i}) - y_i + \hat{\mu}_i\}\\
 &amp;= 2\sum_{i=1}^n\{y_i\log(y_i/\hat{\mu}_i) - y_i + \hat{\mu}_i\},
 \end{aligned}
-</span> with the convention that <span class="math inline">y_i\log(y_i/\hat{\mu}_i) = 0</span> whenever <span class="math inline">y_i = 0</span>.</p></li>
+</span> with the <span class="grey">convention</span> that <span class="math inline">y_i\log(y_i/\hat{\mu}_i) = 0</span> whenever <span class="math inline">y_i = 0</span>.</p></li>
 <li><p>The <span class="math inline">X^2</span> statistic in this case has a very simple form <span class="math display">
-X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i}.
-</span> As discussed in <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, pag. 90, this can be seen as a <span class="orange">quadratic approximation</span> of the <span class="blue">deviance</span> which is valid for large values of <span class="math inline">n</span>.</p></li>
+X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i} = \sum_{i=1}^n\frac{(\textsf{observed}_i - \textsf{fitted}_i)^2}{\textsf{fitted}_i}.
+</span> As discussed in <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, Example 2.12, this can be seen as a <span class="orange">quadratic approximation</span> of the <span class="blue">deviance</span>, which is valid for large values of <span class="math inline">n</span>.</p></li>
 </ul>
 </section>
-<section id="deviance-of-a-binomial-model" class="slide level2 center">
-<h2>Deviance of a binomial model</h2>
-</section>
-<section id="deviance-of-a-gamma-model" class="slide level2 center">
-<h2>Deviance of a gamma model</h2>
-</section>
-<section id="deviance-as-goodness-of-fit-measure" class="slide level2 center">
-<h2>Deviance as goodness of fit measure</h2>
+<section id="deviance-of-a-binomial-model-i" class="slide level2 center">
+<h2>Deviance of a binomial model I</h2>
 <ul>
-<li></li>
+<li><p>Let us consider a <span class="blue">Binomial regression</span> model <span class="math inline">m_i Y_i = S_i \sim \text{Bimonial}(m_i, \pi_i)</span> with <span class="math inline">\mu_i = \pi_i</span>. Then <span class="math display">
+\ell_\mathcal{M}(\bm{\hat{\mu}}) = \sum_{i=1}^n\{m_i y_i \log{(\hat{\mu}_i)} + m_i(1 - y_i)\log{(1-\hat{\mu}_i)}\}.
+</span> Therefore, under the convention <span class="math inline">x\log(x) = 0</span> as before, the deviance is <span class="math display">
+\begin{aligned}
+D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^nm_i\left\{y_i\log\left(\frac{y_i}{\hat{\mu}_i}\right)  + (1- y_i)\log\left(\frac{1 - y_i}{1 - \hat{\mu}_i}\right)\right\}\\
+&amp;= 2\sum_{i=1}^n\left\{m_i y_i\log\left(\frac{m_i y_i}{m_i \hat{\mu}_i}\right)  + (m_i- m_i y_i)\log\left(\frac{m_i - m_i y_i}{m_i - m_i\hat{\mu}_i}\right)\right\}.
+\end{aligned}
+</span></p></li>
+<li><p>The quantities <span class="math inline">m_i y_i</span> and <span class="math inline">m_i - m_i y_i</span> can be interpreted as the number of observed <span class="blue">successes</span> and <span class="orange">failures</span>, respectively. Similarly, <span class="math inline">m_i\hat{\mu}_i</span> and <span class="math inline">m_i - m_i\hat{\mu}_i</span> represent their <span class="grey">predictions</span>. Hence, we can write <span class="math display">
+D(\bm{y}; \hat{\bm{\mu}}) = 2\sum_{j=1}^{2n}\textsf{observed}_j\, \log\left(\frac{\textsf{observed}_j}{\textsf{fitted}_j}\right)
+</span></p></li>
 </ul>
+</section>
+<section id="deviance-of-a-binomial-model-ii" class="slide level2 center">
+<h2>Deviance of a binomial model II</h2>
+<ul>
+<li><p>The <span class="math inline">X^2</span> statistic of a binomial model, recalling that <span class="math inline">v(\mu_i) = \mu_i(1 - \mu_i)</span>, equals to <span class="math display">
+\begin{aligned}
+X^2&amp;= \sum_{i=1}^{n} \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i(1-\hat{\mu}_i)/m_i} \\
+&amp; = \sum_{i=1}^{n} \frac{(m_i y_i - m_i\hat{\mu}_i)^2}{m_i\hat{\mu}_i} + \sum_{i=1}^{n} \frac{[(m_i - m_iy_i) - (m_i - m_i \hat{\mu}_i)]^2}{m_i -m_i \hat{\mu}_i}.
+\end{aligned}
+</span> The second representation follows after some <span class="grey">algebra</span>.</p></li>
+<li><p>The second equation shows that we can write <span class="math display">
+X^2 = \sum_{j=1}^{2n} \frac{(\textsf{observed}_j - \textsf{fitted}_j)^2}{\textsf{fitted}_j}.
+</span></p></li>
+<li><p>As already mentioned, the <span class="math inline">X^2</span> statistic can be seen as a <span class="orange">quadratic approximation</span> of the <span class="blue">deviance</span>.</p></li>
+</ul>
+</section>
+<section id="deviance-as-goodness-of-fit-measure-i" class="slide level2 center">
+<h2>Deviance as goodness of fit measure I</h2>
+<ul>
+<li><p>The deviance is useful a <span class="orange">descriptive measure</span> for the <span class="blue">goodness of fit</span>.</p></li>
+<li><p>It is <span class="orange">tempting</span> to use the deviance as a formal <span class="blue">statistical test</span>, to verify if the current model is adequate compared to the saturated model.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Suppose <span class="math inline">\phi</span> were <span class="blue">known</span>, then in the Gaussian case we would have <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\phi \sim \chi^2_{n-p}</span>, which would allow us to check the adequacy of the model.</p></li>
+<li><p>Unfortunately, whenever <span class="math inline">\hat{\phi}</span> is <span class="orange">estimated</span> we obtain <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\hat{\phi} \approx n - p</span>, and exactly <span class="math inline">n-p</span> in the Gaussian case, so this strategy can not be used.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p>On the other hand, for example in Poisson e binomial regression, we have <span class="math inline">\phi = 1</span>. Hence, the intuition tells us that, at least approximately, we should have <span class="math display">
+D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
+</span></p></li>
+<li><p>Unfortunately, this is <span class="orange">not</span> the <span class="orange">case</span>: the saturated model is an “irregular case” in that the number of parameters <span class="math inline">p = n</span> grows with the sample size.</p></li>
+<li><p>The usual “large <span class="math inline">n</span>” approximation does not hold in general, e.g.&nbsp;because <span class="math inline">\chi^2_{n-p}</span> itself depends on <span class="math inline">n</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="deviance-as-goodness-of-fit-measure-ii" class="slide level2 center">
+<h2>Deviance as goodness of fit measure II</h2>
+<ul>
+<li>Despite these bad news, it turns out that in some special cases, the <span class="math inline">\chi^2_{n-p}</span> approximation is still valid even for fixed values of <span class="math inline">n</span>.</li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Then the <span class="blue">deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span> and the <span class="math inline">X^2</span> <span class="blue">Pearson statistic</span> are approximately distributed as a <span class="math inline">\chi^2_{n-p}</span> in the following cases:</p>
+<ul>
+<li>In binomial regression, for large values of <span class="math inline">m_i</span> (small-dispersion asymptotics);</li>
+<li>In Poisson regression, for large values of the estimated means <span class="math inline">\hat{\mu}_i</span> (say <span class="math inline">\hat{\mu}_i \ge 5</span>);</li>
+<li>When <span class="math inline">\phi</span> is known and <span class="math inline">\phi \rightarrow 0</span> (small-dispersion asymptotics).</li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li><p><span class="blue">Small-dispersion asymptotics</span> describe an alternative limiting regime in which the variance of the observations tends to <span class="math inline">0</span>.</p></li>
+<li><p>In binomial regression the <span class="math inline">X^2</span> statistic converges to <span class="math inline">\chi^2_{n-p}</span> more quickly than the deviance and has a <span class="blue">more trustworthy</span> p-value when some expected success or failure totals are less than about five.</p></li>
+<li><p>The <span class="math inline">\chi^2_{n-p}</span> approximation is <span class="orange">very poor</span> for binary regression, i.e.&nbsp;when <span class="math inline">m_i = 1</span>.</p></li>
+</ul>
+</section>
+<section id="on-pseudo-r2" class="slide level2 center">
+<h2>On pseudo-<span class="math inline">R^2</span></h2>
+<ul>
+<li><p>There exist in the literature a variety of generalizations of the <span class="math inline">R^2</span> statistic for linear models, called <span class="blue">pseudo-<span class="math inline">R^2</span></span> (McFadden, Cox &amp; Snell, Nagelkerke, Tjur, etc.).</p></li>
+<li><p>These measurements are <span class="orange">difficult to interpret</span> and often mislead those accustomed with standard <span class="math inline">R^2.</span> A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (i.e.&nbsp;<code>Beetles</code> data), which is confusing.</p></li>
+<li><p>On top of this, these pseudo-<span class="math inline">R^2</span> produce different answer depending on the <span class="blue">aggregation</span> of the data.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>The recommendation is to <span class="orange">avoid pseudo-<span class="math inline">R^2</span></span> and rely instead on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between <span class="math inline">\bm{y}</span> and <span class="math inline">\hat{\bm{\mu}}</span>.</p></li>
+<li><p>The residual <span class="blue">deviance</span> is also a useful tool, especially for comparing models.</p></li>
+<li><p>It is not a coincidence that none of our textbooks <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span>, <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span>, nor the <code>glm</code> R function, even mention pseudo-<span class="math inline">R^2</span>.</p></li>
+<li><p>Pseudo-<span class="math inline">R^2</span> are often shown by default in other software, such as SAS or SPSS.</p></li>
+</ul>
+</div>
 </section>
 <section id="example-beetles-data-output-of-summary" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data, output of <code>summary</code></h2>
@@ -2542,6 +2620,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ul>
 </div>
 </section>
+<section id="example-beetles-data-goodness-of-fit" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data, goodness of fit</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"></section>
 <section id="example-aids-data-output-of-summary" class="slide level2 center">
 <h2>Example: <code>Aids</code> data, output of <code>summary</code></h2>
 <ul>
@@ -2615,15 +2697,35 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="deviance-residuals" class="slide level2 center">
 <h2>Deviance residuals</h2>
 </section>
-<section id="quantile-residuals" class="slide level2 center">
-<h2>Quantile residuals</h2>
+<section id="a-weighted-projection-matrix" class="slide level2 center">
+<h2>A weighted projection matrix</h2>
 </section>
 <section id="standardized-residuals" class="slide level2 center">
 <h2>Standardized residuals</h2>
 </section>
 <section id="approximate-cooks-distance" class="slide level2 center">
 <h2>Approximate Cook’s distance</h2>
-</section></section>
+</section>
+<section id="example-beetles-data-6" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-32-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"></section>
+<section id="example-beetles-data-7" class="slide level2 center">
+<h2>Example: <code>Beetles</code> data</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"></section>
+<section id="example-aids-data-7" class="slide level2 center">
+<h2>Example: <code>Aids</code> data</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"></section>
+<section id="example-aids-data-8" class="slide level2 center">
+<h2>Example: <code>Aids</code> data</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"></section>
+<section id="example-aids-data-9" class="slide level2 center">
+<h2>Example: <code>Aids</code> data</h2>
+
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"></section></section>
 <section>
 <section id="model-selection" class="title-slide slide level1 center">
 <h1>Model selection</h1>
@@ -2634,6 +2736,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="aic-and-bic" class="slide level2 center">
 <h2>AIC and BIC</h2>
+</section>
+<section id="on-the-issue-of-multiple-testing" class="slide level2 center">
+<h2>On the issue of multiple testing</h2>
 </section>
 <section id="references" class="slide level2 unnumbered smaller scrollable">
 <h2>References</h2>
@@ -2649,6 +2754,9 @@ Efron, B. (2023), <em><span class="nocase">Exponential Families in Theory and Pr
 </div>
 <div id="ref-Fisher1934" class="csl-entry" role="listitem">
 Fisher, R. A. (1934), <span>“<span class="nocase">Two new properties of mathematical likelihood</span>,”</span> <em>Proceedings of the Royal Society of London. Series A</em>, 144, 285–307.
+</div>
+<div id="ref-McCullagh1989" class="csl-entry" role="listitem">
+McCullagh, P., and Nelder, J. A. (1989), <em>Generalized linear models</em>, Chapman &amp; Hall/CRC.
 </div>
 <div id="ref-Nelder1972" class="csl-entry" role="listitem">
 Nelder, J. A., and Wedderburn, R. W. M. (1972), <span>“<span class="nocase">Generalized linear models</span>,”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em>, 135, 370–384.
