@@ -353,11 +353,11 @@ where $r_i = y_i - \bm{x}_i^T\hat{\beta}$ are the (raw) [residuals]{.orange}.
 
 . . .
  
-- An observation is [influent]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $d_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
+- An observation is [influent]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $c_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
 $$
-p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{1 - h_i}.
+p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
 $$
-Cook's distance is considered relatively large when $d_i \ge 1$. 
+Cook's distance is considered relatively large when $c_i \ge 1$. 
 
 ## Leverages, outliers and influence points
 

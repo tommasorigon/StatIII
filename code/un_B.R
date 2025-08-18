@@ -164,13 +164,15 @@ anova(fit_Aids0, fit_Aids)
 
 lmtest::lrtest(fit_Aids0, fit_Aids)
 
+X_Aids <- sum(residuals(fit_Aids)^2)
+
 par(mfrow = c(1, 2))
-plot(predict(fit_Beetles), rstandard(fit_Beetles, type = "deviance"),
-  pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"
+plot(predict(fit_Beetles, type = "response"), rstandard(fit_Beetles, type = "deviance"),
+  pch = 16, xlab = expression(mu), ylab = "Standardized deviance residuals"
 )
 abline(h = 0, lty = "dotted")
-plot(predict(fit_Beetles), rstandard(fit_Beetles, type = "pearson"),
-  pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"
+plot(predict(fit_Beetles, type = "response"), rstandard(fit_Beetles, type = "pearson"),
+  pch = 16, xlab = expression(mu), ylab = "Standardized Pearson residuals"
 )
 abline(h = 0, lty = "dotted")
 par(mfrow = c(1, 1))
@@ -178,24 +180,22 @@ par(mfrow = c(1, 1))
 plot(fit_Beetles, 4)
 
 par(mfrow = c(1, 2))
-plot(predict(fit_Aids), rstandard(fit_Aids, type = "deviance"),
-  pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"
+plot(predict(fit_Aids, type = "response"), rstandard(fit_Aids, type = "deviance"),
+  pch = 16, xlab = expression(mu), ylab = "Standardized deviance residuals"
 )
 abline(h = 0, lty = "dotted")
-plot(predict(fit_Aids), rstandard(fit_Aids, type = "pearson"),
-  pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"
+plot(predict(fit_Aids, type = "response"), rstandard(fit_Aids, type = "pearson"),
+  pch = 16, xlab = expression(mu), ylab = "Standardized Pearson residuals"
 )
 abline(h = 0, lty = "dotted")
 par(mfrow = c(1, 1))
 
-plot(fit_Aids, 4)
-
 par(mfrow = c(1, 2))
-plot(predict(fit_Aids_sqrt), rstandard(fit_Aids_sqrt, type = "deviance"),
-  pch = 16, xlab = expression(eta), ylab = "Standardized deviance residuals"
+plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = "deviance"),
+  pch = 16, xlab = expression(mu), ylab = "Standardized deviance residuals"
 )
 abline(h = 0, lty = "dotted")
-plot(predict(fit_Aids_sqrt), rstandard(fit_Aids_sqrt, type = "pearson"),
-  pch = 16, xlab = expression(eta), ylab = "Standardized Pearson residuals"
+plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = "pearson"),
+  pch = 16, xlab = expression(mu), ylab = "Standardized Pearson residuals"
 )
 abline(h = 0, lty = "dotted")

@@ -49,7 +49,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/theme/quarto-a0c0cc41185901f99e5862491b9a6885.css">
+  <link rel="stylesheet" href="un_A_files/libs/revealjs/dist/theme/quarto-8fd9a32a7a1f1c24c97cc70db42e1276.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -413,9 +413,9 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 </ul>
 <div class="fragment">
 <ul>
-<li>An observation is <span class="blue">influent</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">d_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
-p \cdot d_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{1 - h_i}.
-</span> Cook’s distance is considered relatively large when <span class="math inline">d_i \ge 1</span>.</li>
+<li>An observation is <span class="blue">influent</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">c_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
+</span> Cook’s distance is considered relatively large when <span class="math inline">c_i \ge 1</span>.</li>
 </ul>
 </div>
 </section>

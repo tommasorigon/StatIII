@@ -2546,14 +2546,18 @@ D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 <section id="on-pseudo-r2" class="slide level2 center">
 <h2>On pseudo-<span class="math inline">R^2</span></h2>
 <ul>
-<li><p>There exist in the literature a variety of generalizations of the <span class="math inline">R^2</span> statistic for linear models, called <span class="blue">pseudo-<span class="math inline">R^2</span></span> (McFadden, Cox &amp; Snell, Nagelkerke, Tjur, etc.).</p></li>
-<li><p>These measurements are <span class="orange">difficult to interpret</span> and often mislead those accustomed with standard <span class="math inline">R^2.</span> A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (i.e.&nbsp;<code>Beetles</code> data), which is confusing.</p></li>
-<li><p>On top of this, these pseudo-<span class="math inline">R^2</span> produce different answer depending on the <span class="blue">aggregation</span> of the data.</p></li>
+<li><p>There exist several generalizations of the <span class="math inline">R^2</span> statistic for linear models, called <span class="blue">pseudo-<span class="math inline">R^2</span></span> (e.g.&nbsp;McFadden, Cox &amp; Snell, Nagelkerke, Tjur, etc.).</p></li>
+<li><p>These indices are <span class="orange">difficult to interpret</span> and often mislead those accustomed with standard <span class="math inline">R^2.</span> A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (i.e.&nbsp;<code>Beetles</code> data), which is confusing.</p></li>
+<li><p>On top of this, these pseudo-<span class="math inline">R^2</span> produce different answers depending on the <span class="blue">aggregation</span> of the data.</p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>The recommendation is to <span class="orange">avoid pseudo-<span class="math inline">R^2</span></span> and rely instead on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between <span class="math inline">\bm{y}</span> and <span class="math inline">\hat{\bm{\mu}}</span>.</p></li>
 <li><p>The residual <span class="blue">deviance</span> is also a useful tool, especially for comparing models.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><p>It is not a coincidence that none of our textbooks <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span>, <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span>, nor the <code>glm</code> R function, even mention pseudo-<span class="math inline">R^2</span>.</p></li>
 <li><p>Pseudo-<span class="math inline">R^2</span> are often shown by default in other software, such as SAS or SPSS.</p></li>
 </ul>
@@ -2623,7 +2627,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="example-beetles-data-goodness-of-fit" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data, goodness of fit</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"></section>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"><ul>
+<li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 11.232</span>, with <span class="math inline">n - p = 8 - 2 = 6</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">10.027</span>.</p></li>
+<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">6</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 10.027) = 0.124</span>, as pictured above, which can be interpreted as a <span class="orange">slight</span> lack of fit.</p></li>
+</ul>
+</section>
 <section id="example-aids-data-output-of-summary" class="slide level2 center">
 <h2>Example: <code>Aids</code> data, output of <code>summary</code></h2>
 <ul>
@@ -2688,44 +2696,204 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
+<section id="example-aids-data-goodness-of-fit" class="slide level2 center">
+<h2>Example: <code>Aids</code> data, goodness of fit</h2>
+<ul>
+<li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 30.203</span>, with <span class="math inline">n - p = 14 - 2 = 12</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">30.203</span> (they coincide!)</p></li>
+<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">12</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 30.204) = 0.0026</span>, therefore <span class="orange">rejecting</span> the hypothesis that this model has a comparable fit with the saturated model.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>The <span class="math inline">X^2</span> goodness of fit test indicates a potential issue with the model, but it does not explain <span class="blue">why</span>.</p></li>
+<li><p>A few remedies could be:</p>
+<ol type="a">
+<li>Choosing a different <span class="orange">link function</span>;</li>
+<li>Including an <span class="blue">additional covariate</span> (if available), and/or considering non-linear <span class="orange">trasformations</span> of the available ones;</li>
+<li>Choosing a different <span class="orange">distribution</span> instead of the Poisson, such as the negative binomial;</li>
+<li>Accounting for <span class="blue">overdispersion</span> using quasi-likelihoods, that is, estimating <span class="math inline">\phi</span> from the data rather than fixing it to <span class="math inline">\phi = 1</span>.</li>
+</ol></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>It turns out that selecting the link function <span class="math inline">g(\mu_i) = \sqrt{\mu_i}</span> yields a much better fit with <span class="math inline">X^2 = 17.968</span>, whose p-value is <span class="math inline">0.12</span>. This is not the only possible solution.</li>
+</ul>
+</div>
+</section>
 <section id="residuals" class="slide level2 center">
 <h2>Residuals</h2>
+<ul>
+<li>Linear models have an additive structure <span class="math inline">y_i = \bm{x}_i^T\beta + \epsilon_i</span> therefore the residuals can be estimated as <span class="math display">
+r_i = y_i - \hat{\mu}_i.
+</span> We call these the <span class="blue">response residuals</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>GLMs do not have an additive decomposition, therefore we need define a good <span class="orange">generalization</span> of <span class="orange">residuals</span>. There are at least <span class="math inline">2</span> alternatives: Pearson and deviance residuals.</p></li>
+<li><p>Ideally, we would like residuals to have approximately <span class="math inline">0</span> mean and unitary variance, but these properties will not hold exactly.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The analysis of the residuals is very helpful for identifying any misspecification as well as hinting the solution. In particular, it is useful for instance to:
+<ol type="a">
+<li>Choosing the correct variance function <span class="math inline">v(\mu_i)</span>, i.e.&nbsp;the correct response distribution;</li>
+<li>Choosing the correct link function;</li>
+<li>Identifying latent patterns, often an indication of an omitted variable;</li>
+<li>Identifying potential outliers and leverage points.</li>
+</ol></li>
+</ul>
+</div>
 </section>
 <section id="pearson-residuals" class="slide level2 center">
 <h2>Pearson residuals</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>For a GLM with variance function <span class="math inline">v(\mu_i)</span>, we call <span class="blue">Pearson residuals</span> the following quantities: <span class="math display">
+r_{i, P} = \frac{y_i - \hat{\mu}_i}{\sqrt{v(\hat{\mu}_i)/\omega_i}}, \qquad i=1,\dots,n.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Pearson residuals rescale the response residuals, accounting for <span class="orange">heteroschedasticity</span>.</p></li>
+<li><p>Pearson residuals own their name to the fact that the <span class="math inline">X^2</span> statistic is obtained as <span class="math display">
+X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\mu_i)}.
+</span> Moreover, the dispersion parameter, when present, can be estimated as <span class="math display">
+\hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n r_{i, P}^2.
+</span></p></li>
+</ul>
 </section>
 <section id="deviance-residuals" class="slide level2 center">
 <h2>Deviance residuals</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The deviance of a GLM can be written as a sum of individual contributions <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n d_i</span> and <span class="math display">
+d_i = \omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}, \qquad i=1,\dots,n.
+</span> We call <span class="blue">deviance residuals</span> the following quantities: <span class="math display">
+r_{i, D} = \text{sign}(y_i - \hat{\mu}_i) \sqrt{d_i}, \qquad i=1,\dots,n.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>By definition, the deviance is obtained as <span class="math display">
+D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n r_{i, D}^2.
+</span></p></li>
+<li><p>Deviance residuals are the <span class="orange">default</span> choice in the <code>residuals</code> <strong>R</strong> function.</p></li>
+<li><p>Pearson residuals are an asymptotic approximation of deviance residuals, therefore these two quantities are often very similar in practice.</p></li>
+</ul>
 </section>
 <section id="a-weighted-projection-matrix" class="slide level2 center">
 <h2>A weighted projection matrix</h2>
+<ul>
+<li>In linear models, we considered the <span class="blue">hat matrix</span> <span class="math inline">\bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T</span>, whose diagonal elements <span class="math inline">h_i</span> are called <span class="orange">leverages</span> and it holds <span class="math inline">\text{var}(r_i) = \sigma^2(1 - h_i)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Several arguments can be invoked to justify the following <span class="blue">weighted hat matrix</span> in GLMs <span class="math display">
+\bm{H}_W = \bm{W}^{1/2}\bm{X}(\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}\bm{W}^{1/2}.
+</span> This matrix is <span class="blue">symmetric</span> <span class="math inline">(\bm{H}_W = \bm{H}_W^T)</span> and <span class="orange">idempotent</span> (<span class="math inline">\bm{H}_W^2 = \bm{H}_W</span>), i.e.&nbsp;a projection matrix.</p></li>
+<li><p>We denote with <span class="math inline">h_{i,W}</span> the diagonal elements of <span class="math inline">\bm{H}_W</span>, which are the <span class="blue">leverages</span> of a GLM. In practice <span class="math inline">\bm{W}</span> is estimated from the data, therefore the leverages will depend on the <span class="orange">response</span>.</p></li>
+<li><p>It can be shown, as in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, Section 4.4.5, that <span class="math display">
+\text{var}(y_i - \hat{\mu}_i) \approx \phi/\omega_i v(\mu_i)(1 - h_{i, W}) \quad \Longrightarrow \quad \text{var}(r_{i,P}) \approx \phi(1 - h_{i, W}).
+</span></p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>A technical but deeper discussion about <span class="math inline">\bm{H}_W</span> can be found in the Appendix of Chapter 4 of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, where stronger analogies with linear models are shown.</li>
+</ul>
+</div>
 </section>
 <section id="standardized-residuals" class="slide level2 center">
 <h2>Standardized residuals</h2>
+<ul>
+<li><p>In analogy of what has been done for GLMs, we can consider the <span class="blue">standardized</span> version of Pearson and deviance residuals.</p></li>
+<li><p><span class="blue">Standardized Pearson residuals</span> are defined as <span class="math display">
+\tilde{r}_{i, P} = \frac{r_{i,P}}{\sqrt{\hat{\phi}(1 - \hat{h}_{i, W})}} = \frac{y_i - \hat{\mu_i}}{\sqrt{\hat{\phi}/\omega_iv(\hat{\mu}_i)(1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n,
+</span> where <span class="math inline">\hat{\phi}</span> is an estimate of <span class="math inline">\phi</span> (if unknown) and <span class="math inline">\hat{h}_{i, W}</span> is an estimate of the leverages.</p></li>
+<li><p><span class="blue">Standardized deviance residuals</span> are defined as <span class="math display">
+\tilde{r}_{i, D} = \frac{r_{i, D}}{\sqrt{\hat{\phi} (1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n.
+</span></p></li>
+<li><p>We can also obtain an <span class="orange">approximate Cook’s distance</span> by considering <span class="math display">
+c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,\dots,n.
+</span></p></li>
+</ul>
 </section>
-<section id="approximate-cooks-distance" class="slide level2 center">
-<h2>Approximate Cook’s distance</h2>
+<section id="on-q-q-plots-and-other-practicalities" class="slide level2 center">
+<h2>On Q-Q plots and other practicalities</h2>
+<ul>
+<li><p>It is sometimes recommended to check the normality of the Pearson/deviance residuals using Q-Q plots. Such a plot is also provided in <strong>R</strong>.</p></li>
+<li><p>Indeed, for example under small dispersion asymptotics or other specific, Pearson residuals are <span class="orange">approximately</span> Gaussian.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>However, these conditions are often not met. For example, in binary data the response <span class="math inline">y_i \in \{0, 1\}</span> can only assume two values and the residuals will not be Gaussian distributed, even for large <span class="math inline">n</span>.</p></li>
+<li><p>Actually, the analysis for the residuals in <span class="blue">binary data</span> do <span class="orange">not provide useful information</span>; see e.g. <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, Section 3.6.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The analysis of residuals in GLMs is often useful but should be taken <em>cum grano salis</em>, particularly when dealing with discrete responses that take only a few distinct values.</p>
+<p>Overreliance on residual analysis can encourage automatic decisions rather than thoughtful, critical judgment. A good model should not be discarded solely on the basis of a “bad” diagnostic plot.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="on-identifying-and-removing-outliers" class="slide level2 center">
+<h2>On identifying and removing outliers</h2>
+<ul>
+<li><p>The analysis of the residuals can also help in identifying outliers and influence points. However, we must be careful in drawing conclusions.</p></li>
+<li><p>An outlier might be detected as such simply as the consequence of <span class="orange">model misspecification</span>, e.g.&nbsp;an omitted variable.</p></li>
+<li><p>In the vast majority of cases, the presence of outliers should be carefully dealt with by carefully modifying the model.</p></li>
+<li><p>There are instances in which outliers are actually <span class="blue">contaminated data points</span> (e.g.&nbsp;<code>age = -3</code>). If there is strong and contextual evidence that this might the case, then these points should be <span class="orange">removed</span>. Otherwise, removing data points is a <span class="orange">bad practice</span>.</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In statistical modelling, we wish to find a model that fits our data, not a dataset that is aligned with our prescribed model.</p>
+<p>Discarding observations until the hypoteshes are reasonable it skews the overall analysis and does not answer any meaningful scientific or business question.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="example-beetles-data-6" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-32-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"></section>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"><ul>
+<li><p>A formal test already confirmed that there are <span class="orange">no</span> noticeable <span class="orange">differences</span> between this model and the saturated model. The analysis of the residuals confirms it.</p></li>
+<li><p>Deviance residuals and Pearson residuals are very similar, as expected.</p></li>
+</ul>
+</section>
 <section id="example-beetles-data-7" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"></section>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"><ul>
+<li>The Cook’s distance also confirms that there are not strong influence points.</li>
+</ul>
+</section>
 <section id="example-aids-data-7" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"></section>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"><ul>
+<li><p>From both residuals plots it is evident that three observations are highly underestimated, while the others are slightly underestimated.</p></li>
+<li><p>The lack of fit can be solved, in this case, by using a different link function.</p></li>
+</ul>
+</section>
 <section id="example-aids-data-8" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"></section>
-<section id="example-aids-data-9" class="slide level2 center">
-<h2>Example: <code>Aids</code> data</h2>
-
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"></section></section>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"><ul>
+<li><p>We estimated a Poisson regression model with a <span class="blue">non-canonical link</span> function <span class="math inline">g(\mu_i) = \sqrt{\mu_i}</span>.</p></li>
+<li><p>This yields a much <span class="blue">better fit</span>, as we previously discussed. The residuals are also better behaved.</p></li>
+</ul>
+</section></section>
 <section>
 <section id="model-selection" class="title-slide slide level1 center">
 <h1>Model selection</h1>
