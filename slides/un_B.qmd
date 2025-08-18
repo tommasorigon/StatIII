@@ -1935,7 +1935,7 @@ where $q = p - p_0$ are the degrees of freedom.
 :::{.callout-note}
 Let us consider a model $M_\text{null}$ with [no covariates]{.blue} and one parameter ($p =1$), i.e. the [intercept]{.blue}. The predicted values are all equals to
 $$
-\bm{\hat{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
+\hat{\bm{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
 $$
 We call $M_\text{null}$ the [null model]{.blue} and $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$ the [null deviance]{.orange}.
 :::
@@ -2437,11 +2437,117 @@ plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = 
 
 # Model selection
 
+## Model selection process
+
+- [Model selection]{.blue} for GLMs faces the same issues as for linear models. 
+
+- The selection process becomes more difficult as the number of explanatory variables $p$ increases, because of the growth in possible effects and interactions. There are two competing goals:  
+  
+  a. The model should be complex enough to [fit the data well]{.blue};
+  b. On the other hand, it should [smooth rather than overfit]{.orange} the data and ideally remain [simple to interpret]{.blue}.
+
+. . .
+
+- Most research studies are designed to answer certain questions, which guide the choice. 
+
+- [Confirmatory analyses]{.blue} use a restricted set of models, e.g. for testing a study hypothesis about an effect by comparing models [with and without]{.orange} that effect.  
+
+- [Exploratory studies]{.blue}, instead, search among possible models which may provide clues about the structure of effects or can raise questions for future research.  
+
+. . .
+
+- In either case, it is helpful first to study the [marginal effect]{.blue} of each predictor. Use [descriptive statistics]{.orange} and a scatterplot matrix to get a feel for those effects.  
+
+
+## Automatic model selection
+
+- With $p$ [explanatory variables]{.blue}, the number of potential models is the huge number
+$$
+\sum_{k=1}^p \binom{p}{k} = 2^p.
+$$
+- [Best subset selection]{.blue} identifies the model that optimizes an [information criterion]{.blue} e.g. AIC or BIC, which are defined as
+$$
+\textsf{AIC} = - 2\ell(\hat{\beta}) + 2k, \qquad\textsf{BIC} = - 2\ell(\hat{\beta}) + k\log{n},
+$$
+where $k$ is the number of parameters in the model.
+
+- Best subset selection is [computationally intensive]{.orange} when $p$ is large, to the extent that it is not even feasible in most cases, but approximations such as [forward]{.blue} and [backward]{.blue} selection are possible.
+
+. . .
+
+- In [exploratory studies]{.blue}, these methods are useful if applied [cautiously]{.blue}. 
+
+- As we shall discuss, an excess of automatism may lead to good predictive performance, but it may fail in making the model simple or interpretable. 
+
+
 ## Stepwise procedures: forward and backward selection
 
-## AIC and BIC
+- [Forward selection]{.blue} adds terms sequentially. At each stage it selects the term giving the greatest improvement in terms of [deviance]{.orange} or other goodness of fit measures. 
 
-## On the issue of multiple testing
+- The process stops when further additions do not improve the it, according to statistical significance (i.e. a log-likelihood ratio test) or a criterion for judging the model fit (such as the AIC or BIC).
+
+- A stepwise variation of this procedure rechecks, at each stage, whether terms added at previous stages are still needed.
+
+. . .
+
+- [Backward elimination]{.orange} begins with a complex model and sequentially removes terms. 
+
+- At each stage, it selects the term whose removal has the least damaging effect on the model, such as the largest p-value in a test or the least deterioration in a criterion for judging the model fit. 
+
+- The process stops when any further deletion leads to a poorer it.
+
+:::callout-tip
+Whenever possible, i.e. when $p$ is not too large, we recommend [manually]{.blue} performing each stage of forward or backward procedures and [avoid fully automatic procedures]{.orange}. 
+:::
+
+
+## Comments on forward/backward selection I
+
+- An [interaction term]{.blue} should not be included without its [main effects]{.orange}.  
+
+- For [qualitative predictors]{.blue} with $>2$ categories: add/drop the [entire variable]{.orange}, not just one indicator. Otherwise, results depend on the reference category used in coding.  
+
+. . .
+
+- Some statisticians prefer [backward elimination]{.blue} over [forward selection]{.orange}. It is safer to delete terms from an overly complex model than to [add]{.orange} to an overly simple one. 
+
+- Forward selection based on significance tests:  
+  a. May stop prematurely if a test has [low power]{.blue}.  
+  b. Early-stage comparisons often involve [inadequate models]{.orange}, making tests [questionable]{.blue}.  
+
+. . .
+
+- Neither backward nor forward strategies guarantee a [meaningful model]{.blue}.  
+
+- Evaluating many terms increases risk of [chance findings]{.blue}. If true effects are [weak]{.orange}, the largest sample effect likely [overestimates]{.blue} the truth.  
+
+. . .
+
+- Use of standard significance tests in selection lacks [theoretical justification]{.orange}. Distribution of minimum or maximum $p$-values at each stage is not the same as the distribution of a [pre-selected variable]{.blue}. This issue is called [multiple testing]{.blue} and leads to [overconfident]{.orange} conclusions.
+
+
+## Comments on forward/backward selection II
+
+
+- Statistical significance is not the same as [practical significance]{.blue}; do not rely only on significance tests.  
+
+- The price to pay for adding an irrelevant variable is an increase in [variance]{.blue} of the estimates. The price to pay for dropping a relevant variable is an increase in [bias]{.orange}.
+
+. . .
+
+- It is possible to include variables central to the study goals even if [not significant]{.orange}:  
+  - It enables comparisons with other studies where the effect is significant, perhaps because of a larger sample size;
+  - If the variable is a potential [confounder]{.orange}, i.e. possibly relevant for predicting the response, but not of direct interest, including it in the model may help to reduce bias in estimating relevant effects of key explanatory variables.
+
+. . .
+ 
+- Do not keep variables just because they are [significant]{.blue}.  
+  - As an example, consider an adjusted $R^2 = 0.39$ in a linear model with interactions vs. $0.38$ without. The simpler model may be preferable being more interpretable.
+
+. . .
+
+- Algorithmic selection methods are no substitute for careful thought in model building.  
+
 
 ## References {.unnumbered}
 

@@ -2396,7 +2396,7 @@ W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm
 <div class="callout-body">
 <div class="callout-content">
 <p>Let us consider a model <span class="math inline">M_\text{null}</span> with <span class="blue">no covariates</span> and one parameter (<span class="math inline">p =1</span>), i.e.&nbsp;the <span class="blue">intercept</span>. The predicted values are all equals to <span class="math display">
-\bm{\hat{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
+\hat{\bm{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
 </span> We call <span class="math inline">M_\text{null}</span> the <span class="blue">null model</span> and <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}_\text{null})</span> the <span class="orange">null deviance</span>.</p>
 </div>
 </div>
@@ -2899,14 +2899,126 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <h1>Model selection</h1>
 
 </section>
+<section id="model-selection-process" class="slide level2 center">
+<h2>Model selection process</h2>
+<ul>
+<li><p><span class="blue">Model selection</span> for GLMs faces the same issues as for linear models.</p></li>
+<li><p>The selection process becomes more difficult as the number of explanatory variables <span class="math inline">p</span> increases, because of the growth in possible effects and interactions. There are two competing goals:</p>
+<ol type="a">
+<li>The model should be complex enough to <span class="blue">fit the data well</span>;</li>
+<li>On the other hand, it should <span class="orange">smooth rather than overfit</span> the data and ideally remain <span class="blue">simple to interpret</span>.</li>
+</ol></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Most research studies are designed to answer certain questions, which guide the choice.</p></li>
+<li><p><span class="blue">Confirmatory analyses</span> use a restricted set of models, e.g.&nbsp;for testing a study hypothesis about an effect by comparing models <span class="orange">with and without</span> that effect.</p></li>
+<li><p><span class="blue">Exploratory studies</span>, instead, search among possible models which may provide clues about the structure of effects or can raise questions for future research.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>In either case, it is helpful first to study the <span class="blue">marginal effect</span> of each predictor. Use <span class="orange">descriptive statistics</span> and a scatterplot matrix to get a feel for those effects.</li>
+</ul>
+</div>
+</section>
+<section id="automatic-model-selection" class="slide level2 center">
+<h2>Automatic model selection</h2>
+<ul>
+<li><p>With <span class="math inline">p</span> <span class="blue">explanatory variables</span>, the number of potential models is the huge number <span class="math display">
+\sum_{k=1}^p \binom{p}{k} = 2^p.
+</span></p></li>
+<li><p><span class="blue">Best subset selection</span> identifies the model that optimizes an <span class="blue">information criterion</span> e.g.&nbsp;AIC or BIC, which are defined as <span class="math display">
+\textsf{AIC} = - 2\ell(\hat{\beta}) + 2k, \qquad\textsf{BIC} = - 2\ell(\hat{\beta}) + k\log{n},
+</span> where <span class="math inline">k</span> is the number of parameters in the model.</p></li>
+<li><p>Best subset selection is <span class="orange">computationally intensive</span> when <span class="math inline">p</span> is large, to the extent that it is not even feasible in most cases, but approximations such as <span class="blue">forward</span> and <span class="blue">backward</span> selection are possible.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>In <span class="blue">exploratory studies</span>, these methods are useful if applied <span class="blue">cautiously</span>.</p></li>
+<li><p>As we shall discuss, an excess of automatism may lead to good predictive performance, but it may fail in making the model simple or interpretable.</p></li>
+</ul>
+</div>
+</section>
 <section id="stepwise-procedures-forward-and-backward-selection" class="slide level2 center">
 <h2>Stepwise procedures: forward and backward selection</h2>
+<ul>
+<li><p><span class="blue">Forward selection</span> adds terms sequentially. At each stage it selects the term giving the greatest improvement in terms of <span class="orange">deviance</span> or other goodness of fit measures.</p></li>
+<li><p>The process stops when further additions do not improve the it, according to statistical significance (i.e.&nbsp;a log-likelihood ratio test) or a criterion for judging the model fit (such as the AIC or BIC).</p></li>
+<li><p>A stepwise variation of this procedure rechecks, at each stage, whether terms added at previous stages are still needed.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p><span class="orange">Backward elimination</span> begins with a complex model and sequentially removes terms.</p></li>
+<li><p>At each stage, it selects the term whose removal has the least damaging effect on the model, such as the largest p-value in a test or the least deterioration in a criterion for judging the model fit.</p></li>
+<li><p>The process stops when any further deletion leads to a poorer it.</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Whenever possible, i.e.&nbsp;when <span class="math inline">p</span> is not too large, we recommend <span class="blue">manually</span> performing each stage of forward or backward procedures and <span class="orange">avoid fully automatic procedures</span>.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="aic-and-bic" class="slide level2 center">
-<h2>AIC and BIC</h2>
+<section id="comments-on-forwardbackward-selection-i" class="slide level2 center">
+<h2>Comments on forward/backward selection I</h2>
+<ul>
+<li><p>An <span class="blue">interaction term</span> should not be included without its <span class="orange">main effects</span>.</p></li>
+<li><p>For <span class="blue">qualitative predictors</span> with <span class="math inline">&gt;2</span> categories: add/drop the <span class="orange">entire variable</span>, not just one indicator. Otherwise, results depend on the reference category used in coding.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Some statisticians prefer <span class="blue">backward elimination</span> over <span class="orange">forward selection</span>. It is safer to delete terms from an overly complex model than to <span class="orange">add</span> to an overly simple one.</p></li>
+<li><p>Forward selection based on significance tests:</p>
+<ol type="a">
+<li>May stop prematurely if a test has <span class="blue">low power</span>.<br>
+</li>
+<li>Early-stage comparisons often involve <span class="orange">inadequate models</span>, making tests <span class="blue">questionable</span>.</li>
+</ol></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p>Neither backward nor forward strategies guarantee a <span class="blue">meaningful model</span>.</p></li>
+<li><p>Evaluating many terms increases risk of <span class="blue">chance findings</span>. If true effects are <span class="orange">weak</span>, the largest sample effect likely <span class="blue">overestimates</span> the truth.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Use of standard significance tests in selection lacks <span class="orange">theoretical justification</span>. Distribution of minimum or maximum <span class="math inline">p</span>-values at each stage is not the same as the distribution of a <span class="blue">pre-selected variable</span>. This issue is called <span class="blue">multiple testing</span> and leads to <span class="orange">overconfident</span> conclusions.</li>
+</ul>
+</div>
 </section>
-<section id="on-the-issue-of-multiple-testing" class="slide level2 center">
-<h2>On the issue of multiple testing</h2>
+<section id="comments-on-forwardbackward-selection-ii" class="slide level2 center">
+<h2>Comments on forward/backward selection II</h2>
+<ul>
+<li><p>Statistical significance is not the same as <span class="blue">practical significance</span>; do not rely only on significance tests.</p></li>
+<li><p>The price to pay for adding an irrelevant variable is an increase in <span class="blue">variance</span> of the estimates. The price to pay for dropping a relevant variable is an increase in <span class="orange">bias</span>.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>It is possible to include variables central to the study goals even if <span class="orange">not significant</span>:
+<ul>
+<li>It enables comparisons with other studies where the effect is significant, perhaps because of a larger sample size;</li>
+<li>If the variable is a potential <span class="orange">confounder</span>, i.e.&nbsp;possibly relevant for predicting the response, but not of direct interest, including it in the model may help to reduce bias in estimating relevant effects of key explanatory variables.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Do not keep variables just because they are <span class="blue">significant</span>.
+<ul>
+<li>As an example, consider an adjusted <span class="math inline">R^2 = 0.39</span> in a linear model with interactions vs.&nbsp;<span class="math inline">0.38</span> without. The simpler model may be preferable being more interpretable.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Algorithmic selection methods are no substitute for careful thought in model building.</li>
+</ul>
+</div>
 </section>
 <section id="references" class="slide level2 unnumbered smaller scrollable">
 <h2>References</h2>
