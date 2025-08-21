@@ -37,6 +37,17 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
+#### Slides I
+
+Prove that the variance-stabilizing transform for gamma random variables $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, is $g(Y_i) = \log(Y_i)$. 
+
+[Hint]{.blue}: use the fact that if $Y \sim \text{Gamma}(\alpha, \beta)$ with mean $\alpha/\beta$ and variance $\alpha/\beta^2$, then for large values of $\alpha$ we have the approximation
+$$
+Y \; \dot{\sim}\;\text{N}(\alpha/\beta, \alpha/\beta^2). 
+$$
+:::
+
+:::{.callout-note collapse=true}
 #### Agresti (2015), Exercise 2.4
 
 In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$.

@@ -178,7 +178,7 @@ summary(mod1,dispersion=phi.hat)
 mod3<-glm(cbind(survive,total-survive)~location+period,family=quasibinomial,troutegg)
 summary(mod3)      #AIC NA
 summary(mod1,dispersion=phi.hat)
-
+plot(mod3)
 
 
 pnorm(-0.734)*2

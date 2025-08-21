@@ -743,7 +743,7 @@ Under suitable but mild conditions on $\bm{X}$ and $\bm{\Sigma}$, the estimator 
 
 [^diagonal]: These results are valid even when the matrix $\bm{\Sigma}$ is non-diagonal. This is useful to model correlated responses. 
 
-## Heteroschedasticity of the errors II 📖
+## Heteroschedasticity of the errors II
 
 :::callout-tip
 The OLS estimator in presence of heteroschedasticity still gives a [good point estimate]{.blue}. However, the OLS estimator is [not efficient]{.orange} and the classical [standard errors]{.orange} are [wrong]{.orange}. 
