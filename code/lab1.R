@@ -1,7 +1,8 @@
 # LAB 1, Statistica III (Generalized Linear Models)
+# Title: "Linear models and misspecification". Datasets: Neonati, Clotting
 # Author: Tommaso Rigon
 
-# Example 1, dataset Neonati. Linear Models --------------------------------------------------------------
+# Dataset 1: Neonati --------------------------------------------------------------
 # This is an example in which all the assumptions of LM are satisfied
 
 library(MLGdata) # Library containing the dataset we need
@@ -75,7 +76,7 @@ plot(Neonati$durata, Neonati$peso,
 abline(a = coef(m2)[1], b = coef(m2)[2], lty = "dashed") # Non-smokers prediction
 abline(a = coef(m2)[1] + coef(m2)[3], b = coef(m2)[2] + coef(m2)[4], lty = "dashed", col = "red") # Non-smokers prediction
 
-# Predictions and confidence intervals ---------------------------------
+# Predictions and confidence intervals
 predict(m1, newdata = data.frame(
   fumo = c("F", "NF"),
   durata = rep(40, 2)
@@ -87,7 +88,7 @@ predict(m1, newdata = data.frame(
   durata = rep(40, 2)
 ), interval = "prediction", level = 0.95)
 
-# Playing with contrasts ------------------------------------------------
+# Playing with contrasts
 
 contrasts(Neonati$fumo) # This is the current setup, that can be obtained as follows
 
@@ -118,7 +119,7 @@ head(model.matrix(~ durata + fumo, data = Neonati)) # Matrix X
 m4 <- lm(peso ~ durata + fumo, data = Neonati)
 summary(m4)
 
-# Example 2, Clotting dataset
+# Dataset 2: Clotting--------------------------------------------------------------------
 rm(list = ls())
 
 # Blood clotting times. Mean blood clotting times in seconds for nine percentage concentrations of normal plasma and two lots of clotting agent. McCullagh, P. and Nelder, J. A. (1989) Generalized Linear Models (2nd Edition). London: Chapman and Hall.
@@ -211,7 +212,7 @@ plot(Clotting$logu, log(Clotting$tempo),
   xlab = "Log-plasma concentration", ylab = "Log-Clotting time (s)", pch = 16
 )
 
-# From a graphical inspection, it looks there some curvature
+# From a graphical inspection, it looks there is some curvature
 m2 <- lm(I(log(tempo)) ~ logu + I(logu^2) + lotto, data = Clotting)
 summary(m2)
 
