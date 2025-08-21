@@ -37,22 +37,22 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
-#### Slides I
+#### Exercise A
 
-Prove that the variance-stabilizing transform for gamma random variables $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, is $g(Y_i) = \log(Y_i)$. 
+Prove that the variance-stabilizing transform for gamma random variables $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, is the logarithm $g(Y_i) = \log(Y_i)$. 
 
 [Hint]{.blue}: use the fact that if $Y_i \sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, then for large values of $\alpha$ we have the approximation $Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)$.
 :::
 
 :::{.callout-note collapse=true}
-#### Agresti (2015), Exercise 2.4
+#### Exercise B - Agresti (2015), Exercise 2.4
 
 In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$.
 
 :::
 
 :::{.callout-note collapse=true}
-#### Agresti (2015), Exercise 2.42
+#### Exercise C - Agresti (2015), Exercise 2.42
 
 In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta_1 x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
 
@@ -64,7 +64,7 @@ In some applications, such as regressing annual income on the number of years of
 :::
 
 :::{.callout-note collapse=true}
-#### Salvan et al. (2020), Exercise 1.8
+#### Exercise D - Salvan et al. (2020), Exercise 1.8
 
 Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
 $$
@@ -95,7 +95,7 @@ plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
 ## Data analysis
 
 :::{.callout-note collapse=true}
-#### `Abrasion` dataset. Salvan et al. (2020), Exercise 1.12
+#### `Abrasion` dataset - Salvan et al. (2020), Exercise 1.12
 
 The dataset `Abrasion` (Hand et al., 1994), available in the `MLGdata` R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (`perdita`, in grams per hour) was recorded. For each sample, the following variables were also measured:  
 
@@ -124,7 +124,7 @@ The dataset `Abrasion` (Hand et al., 1994), available in the `MLGdata` R package
 :::
 
 ::: {.callout-note collapse=true}
-#### `FEV` dataset. Agresti (2015), Exercise 1.21
+#### `FEV` dataset -  Agresti (2015), Exercise 1.21
 
 Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset `FEV.dat` is [available here](../data/FEV.dat); the first six observations are shown below.
 
@@ -133,7 +133,16 @@ In this analysis, let $y$ denote the FEV1 value after one hour of treatment (var
 - $x_1$: baseline FEV1 measurement prior to treatment (`base`),  
 - $x_2$: treatment group (categorical variable `drug` with labels `a`, `b`, `p`).  
 
-[Download the data](../data/FEV.dat) and fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$. Test to see whether the interaction terms are needed. For each model, [interpret]{.blue} the estimated parameters. Check the underlying assumptions of the fitted models.
+[Download the data](../data/FEV.dat) and then:
+
+(a) Fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$
+
+(b) Test to see whether the interaction terms are needed. 
+
+(c) Check the underlying assumptions of the fitted models. If they are violated, propose a solution. 
+
+(d) For each model, [interpret]{.blue} the estimated parameters. 
+
 
 ```{r}
 FAV <- read.table("../data/FEV.dat", header = TRUE)
@@ -144,7 +153,7 @@ knitr::kable(head(FAV))
 
 
 :::{.callout-note collapse=true}
-#### `Anorexia` dataset. Agresti (2015), Exercise 1.24
+#### `Anorexia` dataset - Agresti (2015), Exercise 1.24
 
 For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The data format is illustrated below. During the study, the participants were randomly assigned to one of three `therapy` groups:  
 
@@ -152,9 +161,15 @@ For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [av
 - Family therapy (label `f`),  
 - Cognitive behavioral therapy (label `b`).  
 
-[Download the data](../data/Anorexia.dat) and fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}. [Interpret]{.blue} the estimated parameters of the model. Check the underlying assumptions.
+[Download the data](../data/Anorexia.dat) and 
 
-Convert the weights to kilograms ($1\ \text{lb} = 0.453592\ \text{kg}$), repeat the analysis, and discuss whether the results change and why.  
+(a) Fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}
+
+(b) Check the underlying assumptions of the fitted models. If they are violated, propose a solution. 
+
+(c) [Interpret]{.blue} the estimated parameters of the model. 
+
+(d) Convert the weights to kilograms ($1\ \text{lb} = 0.453592\ \text{kg}$), repeat the analysis, and discuss whether the results change and why.  
 
 ```{r}
 Anorexia <- read.table("../data/Anorexia.dat", header = TRUE)

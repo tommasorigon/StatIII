@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Statistics III: Generalized Linear Models</title>
+<title>Exercises B</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,17 +24,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="exe_B_files/libs/clipboard/clipboard.min.js"></script>
+<script src="exe_B_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="exe_B_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="exe_B_files/libs/quarto-html/popper.min.js"></script>
+<script src="exe_B_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="exe_B_files/libs/quarto-html/anchor.min.js"></script>
+<link href="exe_B_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="exe_B_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="exe_B_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="exe_B_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="exe_B_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
 
@@ -48,8 +48,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#teaching-material" id="toc-teaching-material" class="nav-link active" data-scroll-target="#teaching-material">Teaching material</a></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
+  <ul class="collapse">
+  <li><a href="#theoretical" id="toc-theoretical" class="nav-link" data-scroll-target="#theoretical">Theoretical</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -57,8 +60,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics III: Generalized Linear Models</h1>
-<p class="subtitle lead">CdL SSE</p>
+<h1 class="title">Exercises B</h1>
+<p class="subtitle lead">Statistical Inference - Ph.D.&nbsp;in Economics, Statistics, and Data Science</p>
 </div>
 
 
@@ -88,199 +91,14 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the website of the <strong>Statistica III</strong> course (6 CFU) of the “<em>Corso di Laurea Triennale in Scienze Statistiche ed Economiche</em> (SSE)”, Università degli Studi di Milano-Bicocca. <strong>Statistica III</strong> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs).</p>
-<p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
-<ul>
-<li><span class="blue">Simple linear regression and descriptive statistics</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, e.g.&nbsp;from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, e.g.&nbsp;from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
-<li><span class="grey">R software</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
-</ul>
-<p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</p>
-<section id="teaching-material" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-material">Teaching material</h2>
-<section id="recommended-textbooks-ita" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-ita">Recommended textbooks (ITA)</h4>
-<ul>
-<li>Salvan, A., Sartori, N. and L. Pace. 2020. <a href="https://doi.org/10.1007/978-88-470-3995-7_10"><em>Modelli Lineari Generalizzati</em></a>. Springer.</li>
-<li>Azzalini, A. 2008. <a href="https://link.springer.com/book/9788847001305"><em>Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza</em></a>. Springer</li>
-</ul>
+<section id="homepage" class="level1">
+<h1><a href="../index.html">Homepage</a></h1>
+<section id="theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
 </section>
-<section id="recommended-textbooks-eng" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-eng">Recommended textbooks (ENG)</h4>
-<ul>
-<li>Agresti, A. 2015. <a href="https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034"><em>Foundations of Linear and Generalized Linear Models</em></a>. Wiley.</li>
-<li>McCullagh, P., and J. A. Nelder. 1989. <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh"><em>Generalized Linear Models</em></a>. Second Edition. Springer.</li>
-</ul>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
 </section>
-<section id="slides-and-lecture-notes" class="level4">
-<h4 class="anchored" data-anchor-id="slides-and-lecture-notes">Slides and lecture notes</h4>
-<p>The slides are meant to be used in HTML. However, if you <em>really</em> want to convert the HTML slides into pdf files, you can <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf">follow the instruction of the quarto documentation</a>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Notes</th>
-<th>Slides</th>
-<th>Further material</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Introduction</strong></td>
-<td><a href="slides/un_intro.html">Introduction</a></td>
-<td><a href="slides/un_intro_slides.html">Slides Introduction</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>GENERAL THEORY</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Linear models and misspecification</strong></td>
-<td><a href="slides/un_A.html">Unit A</a></td>
-<td><a href="slides/un_A_slides.html">Slides Unit A</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_A.html">Exercises A</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 1</td>
-<td><a href="code/lab1.R"><code>lab1.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Generalized Linear Models</strong></td>
-<td><a href="slides/un_B.html">Unit B</a></td>
-<td><a href="slides/un_B_slides.html">Slides Unit B</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_B.html">Exercises B</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 2</td>
-<td><a href="code/lab2.R"><code>lab2.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 3</td>
-<td><a href="code/lab3.R"><code>lab3.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>NOTABLE MODELS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Binary and binomial regression</strong></td>
-<td>[Unit C]</td>
-<td>[Slides Unit C]</td>
-<td>[Code C]</td>
-</tr>
-<tr class="even">
-<td>Lab 4</td>
-<td><a href="code/lab4.R"><code>lab4.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises C]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Poisson regression</strong></td>
-<td>[Unit D]</td>
-<td>[Slides Unit D]</td>
-<td>[Code D]</td>
-</tr>
-<tr class="odd">
-<td>Lab 5</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td>[Exercises D]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><strong>ADVANCED TOPICS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Contingency tables and log-linear models</strong></td>
-<td>[Unit E]</td>
-<td>[Slides Unit E]</td>
-<td>[Code E]</td>
-</tr>
-<tr class="odd">
-<td>Lab 6</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td>[Exercises E]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Quasi-likelihoods</strong></td>
-<td>[Unit F]</td>
-<td>[Slides Unit F]</td>
-<td>[Code F]</td>
-</tr>
-<tr class="even">
-<td>Lab 7</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises F]</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- ## Exam -->
-<!-- #### Mock exam -->
-<!-- An example of written examination is provided at [this link](exe/exe_exam.html).  -->
-<!-- ## Prerequisites -->
-<!-- Knowledge of the topics (i) linear algebra, (ii) linear models is highly recommended. -->
-<!-- Knowledge of topics covered in the courses Probability and Statistics M -->
-<!-- and Advanced Statistics M is also highly recommended. -->
-</section>
-</section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course.</p>
-<p>I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit. Students are encouraged to consult the books: these slides are just a concise summary.</p>
-<p>All the mistakes still present are mine.</p>
-<hr>
 </section>
 
 </main>
@@ -689,5 +507,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="exe_B_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

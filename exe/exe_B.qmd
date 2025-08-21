@@ -34,51 +34,8 @@ editor_options:
 
 # [Homepage](../index.html)
 
-## Exercises
+## Theoretical
 
 
-
-:::{.callout-note collapse=true}
-#### [@Davison2003, Exercise 3, pag. 219]{.orange}
-
-![](img/Davison3_219.png)
-:::
-
-:::{.callout-warning collapse=true}
-#### [@Pace1997, Problem 5.14]{.orange}
-![](img/Pace5_14.png)
-:::
-
-:::{.callout-note collapse=true}
-#### [@Davison2003, Exercise 5, pag. 219]{.orange}
-
-![](img/Davison5_219.png)
-:::
-
-:::{.callout-note collapse=true}
-#### [@Davison2003, Exercise 6, pag. 219]{.orange}
-![](img/Davison6_220.png)
-:::
-
-
-:::{.callout-warning collapse=true}
-#### [@Pace1997, Problem 5.1]{.orange}
-
-It is evident that the natural parameter space is non-empty, because $0 \in \tilde{\Theta}$. Show that $\tilde{\Theta}$ is a [convex set]{.orange}, namely for all $\theta_1, \theta_2 \in \tilde{\Theta} \subseteq{\mathbb{R}}$
-$$
-\lambda \theta_1 + (1 - \lambda)\theta_2 \in \tilde{\Theta}, \qquad \text{for all }\quad 0 < \lambda < 1.
-$$
-Note that this implies $\tilde{\Theta}$ must be an [interval]{.blue}. [Hint]{.orange}: recall that if $\theta \in \tilde{\Theta}$ we have $M_0(\theta) < \infty$, thus combine the above equation with the inequality between the geometric and the arithmetic mean. 
-:::
-
-:::{.callout-warning collapse=true}
-#### [@Pace1997, Problem 5.6 and 5.7]{.orange}
-![](img/Pace5_6and5_7.png)
-:::
-
-
-:::{.callout-warning collapse=true}
-#### [@Pace1997, Problem 5.12]{.orange}
-![](img/Pace5_12.png)
-:::
+## Data analysis
 
