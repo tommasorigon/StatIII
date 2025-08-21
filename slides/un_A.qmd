@@ -985,7 +985,7 @@ $$
 - If the data are [gamma distributed]{.blue}, the [variance stabilizing]{.orange} transform is $g(y) = \log{y}$. 
 
 
-## Limitations of variable transformations I 📖
+## Limitations of variable transformations I
 
 - Variable transformations are appealing for their simplicity and have a long history in statistics. However, they also have some [drawbacks]{.orange}.
 
