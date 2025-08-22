@@ -157,12 +157,12 @@ In fact, this approach is currently known as [logistic regression]{.blue}.
   - Poisson regression
 
 - [Advanced topics]{.grey}
-  - Contingency tables and log-linear models
   - Quasi likelihoods
 
 . . .
 
 - Unfortunately, due to time constraints, we will [not]{.orange} cover:
+  - Contingency tables and log-linear models;
   - Multinomial response and ordinal response models;
   - Models with correlated responses (random effects);
   - Nonparametric regression.
