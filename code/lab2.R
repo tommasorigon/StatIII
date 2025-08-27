@@ -46,12 +46,11 @@
 #     residuals(), anova(), predict(), etc.
 #   - Use ?family for more details on available families and links.
 
-# Dataset 1: Clotting---------------------------------------------------------------------
+# -------------------------------------------------------------------
+# Dataset 1: Clotting
+# -------------------------------------------------------------------
 
-rm(list = ls())
-library(MLGdata)
-
-# Blood clotting times (seconds) for nine plasma concentrations and two clotting agents
+# Load data: clotting times (seconds) for nine plasma concentrations and two clotting agents
 # Source: McCullagh & Nelder (1989), Generalized Linear Models, 2nd Edition
 data("Clotting")
 
@@ -61,25 +60,95 @@ str(Clotting)
 # Descriptive statistics
 summary(Clotting)
 
-# Quick plot: clotting time vs concentration, colored by clotting agent
-plot(Clotting$concentration, Clotting$time,
-     col = Clotting$lot,
-     xlab = "Plasma Concentration (%)", ylab = "Clotting Time (s)", pch = 16)
+# Log-transform plasma concentration
+Clotting$logu <- log(Clotting$u)
 
-# Fit a Gamma GLM (log link suggested by variance stabilizing transformation)
-m2 <- glm(time ~ concentration + lot, family = Gamma(link = "log"), data = Clotting)
+# Scatter plot: clotting time vs log-concentration
+plot(Clotting$logu, Clotting$tempo,
+     col = Clotting$lotto,
+     xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16)
 
-# Inspect model matrix
-head(Clotting)                     # Original data
-head(model.matrix(~ concentration + lot, data = Clotting))  # Design matrix
+# -------------------------------------------------------------------
+# Fit a Gamma GLM with canonical inverse link
+m1 <- glm(tempo ~ logu + lotto, family = Gamma(link = "inverse"), data = Clotting)
+summary(m1)
+# Note: coefficients interpretation requires care; inverse link “inverts” effect direction
 
-# Model summary
-summary(m2)
+# Add interaction term
+m1_bis <- update(m1, . ~ . + logu:lotto)
+summary(m1_bis)
 
+# Compare models
+anova(m1, m1_bis, test = "Chisq")
 
+# -------------------------------------------------------------------
+# Predictions
+newdata <- data.frame(
+  logu = rep(seq(1.5, 4.8, length = 100), each = 2),
+  lotto = rep(c("uno", "due"), 100)
+)
+pred_m1_bis <- predict(m1_bis, newdata = newdata, type = "response")
 
-# Dataset 2: Chimps ----------------------------------------------------------------------
+# Plot predicted lines
+lines(newdata$logu[newdata$lotto == "uno"], pred_m1_bis[newdata$lotto == "uno"], lty = "dashed", col = "red")
+lines(newdata$logu[newdata$lotto == "due"], pred_m1_bis[newdata$lotto == "due"], lty = "dashed")
+
+plot(Clotting$tempo, fitted(m1_bis), pch = 16, xlab = 'Observed values', ylab = "Fitted values")
+abline(c(0, 1), lty = "dotted")
+
+# -------------------------------------------------------------------
+# Diagnostics
+
+# Response residuals (not recommended for GLMs with non-identity link)
+residuals(m1_bis, type = "response")  # Coincides with Clotting$tempo - fitted(m1_bis)
+
+# Deviance residuals (default in R)
+residuals(m1_bis, type = "deviance")
+# Pearson residuals
+residuals(m1_bis, type = "pearson")
+
+# Dispersion parameter estimate using Pearson residuals
+sum(residuals(m1_bis, type = "pearson")^2) / m1_bis$df.residual
+
+# Plot standardized residuals vs fitted values
+plot(fitted(m1_bis), rstandard(m1, type = "pearson"), pch = 16)
+plot(fitted(m1_bis), rstandard(m1, type = "deviance"), pch = 16)
+
+# Standard diagnostic plots
+par(mfrow = c(2, 2))
+plot(m1_bis, which = 1:4)  # Residuals, fitted values, leverage, Cook's distance
+par(mfrow = c(1, 1))
+
+# Identify observations with high Cook's distance
+round(cooks.distance(m1_bis), 3)
+Clotting[c(1, 10), ]
+# Remarks: These points appear as "outliers" in diagnostics despite the fit being very good.
+# This is because they are predicted with less precision compared to other points, 
+# while the prediction for most points is extremely precise. 
+# They are certainly leverage points. Excluding them would bias coefficient estimates and reduce reliability.
+
+# Leverage values
+influence(m1_bis)$hat
+influence(m1_bis)$hat[c(1, 10)]
+
+# Standardized residuals
+rstandard(m1, type = "deviance")
+rstandard(m1, type = "pearson")
+
+# -------------------------------------------------------------------
+# Additional notes
+vcov(m1)                  # Covariance matrix of coefficients (X'WX)^(-1) in IRLS
+fitted(m1_bis)            # Fitted values
+predict(m1_bis, type="response")  # Fitted values on response scale
+predict(m1_bis)            # Linear predictor
+1 / predict(m1_bis)        # Same as above; demonstrates inverse link interpretation
+
+# -------------------------------------------------------------------
+# Dataset 2: Chimps
+# -------------------------------------------------------------------
+
 rm(list = ls())
 data("Chimps")
 
 str(Chimps)
+# View(Chimps) # Only for small datasets

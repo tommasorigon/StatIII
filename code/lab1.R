@@ -2,7 +2,9 @@
 # Title: "Linear models and misspecification". Datasets: Neonati, Clotting
 # Author: Tommaso Rigon
 
-# Dataset 1: Neonati --------------------------------------------------------------
+# -------------------------------------------------------------------
+# Dataset 1: Neonati
+# -------------------------------------------------------------------
 
 rm(list = ls())
 library(MLGdata)
@@ -137,105 +139,78 @@ m4 <- lm(peso ~ durata + fumo, data = Neonati)
 summary(m4)
 # Question: How do we interpret the parameters now?
 
-# Dataset 2: Clotting--------------------------------------------------------------------
+# -------------------------------------------------------------------
+# Dataset 2: Clotting
+# -------------------------------------------------------------------
+
 rm(list = ls())
 
-# Blood clotting times. Mean blood clotting times in seconds for nine percentage concentrations of normal plasma and two lots of clotting agent. McCullagh, P. and Nelder, J. A. (1989) Generalized Linear Models (2nd Edition). London: Chapman and Hall.
+library(MLGdata)
 data("Clotting")
 
 str(Clotting)
 
-# We consider from the very beginning the log-plasma concentration
+# Log-transform plasma concentration
 Clotting$logu <- log(Clotting$u)
 
+# Scatter plot: clotting time vs log-concentration
 plot(Clotting$logu, Clotting$tempo,
   col = Clotting$lotto,
   xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16
 )
 
-# Several considerations:
-# 1. The relationship is quite clearly non-linear.
-# 2. The response variable, clotting time, is always positive.
+# Observations:
+# 1. Non-linear relationship
+# 2. Response variable always positive
 
-# Approach 0, fit a linear model anyway.
+# Approach 0: fit linear model anyway
 m0 <- lm(tempo ~ logu * lotto, data = Clotting)
-
-# A "wrong" model can still provide fairly good predictions
 summary(m0)
 
-# Data at which we would like to perform the predictions
+# Predictions
 newdata <- data.frame(
-  logu = rep(seq(from = 1.5, to = 4.8, length = 100), each = 2),
+  logu = rep(seq(1.5, 4.8, length = 100), each = 2),
   lotto = rep(c("uno", "due"), 100)
 )
-head(newdata)
-
 pred_m0 <- predict(m0, newdata = newdata)
 lines(newdata$logu[newdata$lotto == "uno"], pred_m0[newdata$lotto == "uno"], lty = "dashed", col = "red")
 lines(newdata$logu[newdata$lotto == "due"], pred_m0[newdata$lotto == "due"], lty = "dashed")
 
-# Diagnostic: the model display some issues:
+# Diagnostics: non-linearity and influential points
 par(mfrow = c(2, 2))
 plot(m0, which = 1:4)
 par(mfrow = c(1, 1))
 
-# The first plot clearly shows a non-linear pattern. Moreover, the Cook's distance signals the presence of an influence point (the first observation).
-# Here we are violating assumption A.1, i.e. linearity. The "outlier" is just a consequence of the bad fit.
-
-# Approach 1, rely on the Box-Cox transformation
+# Approach 1: Box-Cox suggests reciprocal transformation
 MASS::boxcox(m0)
-
-# The Box-Cox transform suggest to consider the reciprocal transformation, namely to consider the following model
 m1 <- lm(I(1 / tempo) ~ logu * lotto, data = Clotting)
+summary(m1)
 
-summary(m1) # The R2, in the trasformed scale, is almost perfect.
-
-# Predictions
+pred_m1 <- 1 / predict(m1, newdata = newdata)
 plot(Clotting$logu, Clotting$tempo,
   col = Clotting$lotto,
   xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16
 )
-
-pred_m1 <- 1 / predict(m1, newdata = newdata) # Remark: these are "predictions", but they do not coincide with an estimate for the mean of E(Y)
 lines(newdata$logu[newdata$lotto == "uno"], pred_m1[newdata$lotto == "uno"], lty = "dashed", col = "red")
 lines(newdata$logu[newdata$lotto == "due"], pred_m1[newdata$lotto == "due"], lty = "dashed")
 
-# Diagnostic: the predicted values are good there are probably still some small heteroschedasticity issue (i.e., the last three observations)
+# Diagnostics
 par(mfrow = c(2, 2))
 plot(m1, which = 1:4)
 par(mfrow = c(1, 1))
 
-# This might have an effect, for example, on the confidence intervals. Are they too narrow?
-library(lmtest) # Using a different library, which we are going to need later
-coeftest(m1) # Equivalent of summary(m1)
-coefci(m1) # Equivalent of confint(m1)
-
-# Adjust for heteroschedasticity using White's standard errors
+# Robust standard errors for heteroscedasticity
+library(lmtest)
 library(sandwich)
+coeftest(m1)
+coeftest(m1, vcov. = vcovHC(m1))
+coefci(m1, vcov. = vcovHC(m1))
 
-vcov(m1) # Original covariance matrix
-vcovHC(m1) # Heteroschedasticity corrected covariance matri
-
-coeftest(m1, vcov. = vcovHC(m1)) # Equivalent of summary(m1)
-coefci(m1, vcov. = vcovHC(m1)) # Equivalent of confint(m1)
-
-# The wider standard errors suggests that the main effect could be negligible. However, for the sake of facilitating the interpretation, we can also keep it as is.
-
-# Approach 2
-# Variance stabilizing transformation: let us take the log, assuming a Gamma model
-
-# Plot in the trasformed scale
-plot(Clotting$logu, log(Clotting$tempo),
-  col = Clotting$lotto,
-  xlab = "Log-plasma concentration", ylab = "Log-Clotting time (s)", pch = 16
-)
-
-# From a graphical inspection, it looks there is some curvature
+# Approach 2: log-transform with quadratic term (variance-stabilizing)
 m2 <- lm(I(log(tempo)) ~ logu + I(logu^2) + lotto, data = Clotting)
 summary(m2)
 
-# Predictions
-pred_m2 <- exp(predict(m2, newdata = newdata)) # As before, these are "predictions", but they do not coincide with an estimate for the mean of E(Y)
+pred_m2 <- exp(predict(m2, newdata = newdata))
 plot(Clotting$logu, Clotting$tempo,
   col = Clotting$lotto,
   xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16
@@ -243,23 +218,18 @@ plot(Clotting$logu, Clotting$tempo,
 lines(newdata$logu[newdata$lotto == "uno"], pred_m2[newdata$lotto == "uno"], lty = "dashed", col = "red")
 lines(newdata$logu[newdata$lotto == "due"], pred_m2[newdata$lotto == "due"], lty = "dashed")
 
-# We considered a variance/stabilizing transform, therefore (if the gamma hypothesis is roughly correct), we expect no additional heteroschedasticity
-
-# Diagnostic are fairly reasonable
+# Diagnostics
 par(mfrow = c(2, 2))
 plot(m2, which = 1:4)
 par(mfrow = c(1, 1))
 
-# There are no substantial changes
-coeftest(m2, vcov. = vcov(m2)) # Equivalent of summary(m1)
-coeftest(m2, vcov. = vcovHC(m2)) # Equivalent of summary(m1)
+# Compare prediction performance
+fit0 <- predict(m0)
+fit1 <- 1 / predict(m1)
+fit2 <- exp(predict(m2))
 
-# Overall, who get the best predictions?
-fit0 <- predict(m0) # Wrong model
-fit1 <- 1 / predict(m1) # Reciprocal transform + interaction
-fit2 <- exp(predict(m2)) # Logarithmic model + quadratic term
-
-# "R-squared" in the original scale
+# "R-squared" in original scale
 1 - sum((Clotting$tempo - fit0)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 1 - sum((Clotting$tempo - fit1)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 1 - sum((Clotting$tempo - fit2)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
+

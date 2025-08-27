@@ -77,9 +77,6 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | Lab 5 | | | |
 | *Exercises* | [Exercises D] |  |  |
 | | **ADVANCED TOPICS** | | |
-<!-- | **Contingency tables and log-linear models** | [Unit E] | [Slides Unit E] | [Code E] | -->
-| Lab 6 | | | |
-| *Exercises* | [Exercises E] |  |  |
 | **Quasi-likelihoods** | [Unit E] | [Slides Unit E] |  |
 | Lab 7 | | | |
 | *Exercises* | [Exercises F] |  |  |
