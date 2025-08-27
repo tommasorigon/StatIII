@@ -91,6 +91,13 @@ library(ggthemes)
 
 ## Log-linear models and contingency tables
 
+- Ciao ciao ciao
+
+- Come stai? Ecco il teorema di Pitagora, come si può leggere in @Agresti2015
+$$
+a^2 + b^2 = c^2.
+$$
+
 ## Logistic regression with paired data
 
 # Quasi likelihoods

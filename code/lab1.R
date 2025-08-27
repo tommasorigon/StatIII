@@ -3,121 +3,139 @@
 # Author: Tommaso Rigon
 
 # Dataset 1: Neonati --------------------------------------------------------------
-# This is an example in which all the assumptions of LM are satisfied
 
-library(MLGdata) # Library containing the dataset we need
 rm(list = ls())
+library(MLGdata)
 
-data(Neonati) # Weight at birth, data on the weight at birth. The duration of the gestation, and the smoke habit of the mother for n = 32 newborns. Daniel, W.W. (1999). Biostatistics: A Foundation for Analysis in the Health Sciences. New York: Wiley.
+# Weight at birth, gestational age, maternal smoking for n = 32 newborns
+# Source: Daniel, W.W. (1999). Biostatistics: A Foundation for Analysis in Health Sciences
+data(Neonati)
 
 str(Neonati)
-# View(Neonati) # Appropriate only if you have a small amount of data points
+# View(Neonati) # Only for small datasets
 
-# Do not rush into modelling. Always start with some descriptive statistics.
+# Descriptive statistics
 summary(Neonati)
 
+# Scatter plot: weight vs gestational age, colored by maternal smoking
 plot(Neonati$durata, Neonati$peso,
   col = Neonati$fumo,
   xlab = "Gestational Age", ylab = "Weight (g)", pch = 16
 )
 abline(v = 37, lty = "dotted") # Pre-term birth
 
-# A linear model seems appropriate. There is a factor variable, therefore we may want to check its encoding
+# Check encoding of factor variable
 contrasts(Neonati$fumo)
 
-# Fitting procedure
+# Fit linear model
 m1 <- lm(peso ~ durata + fumo, data = Neonati)
 
-# The matrix X should be coherent with our expectations
+# Inspect model matrix
 head(Neonati) # Original data
-head(model.matrix(~ durata + fumo, data = Neonati)) # Matrix X
+head(model.matrix(~ durata + fumo, data = Neonati)) # Design matrix
 
+# Model summary
 summary(m1)
 
-# $R^2$ is fairly high, and all regression coefficients are significantly different from zero. Confidence intervals for the model parameters can also be obtained.
-
+# Confidence intervals for regression coefficients (95% level)
 confint(m1, level = 0.95)
 
-# Diagnostic
+# Diagnostic plots: residuals, leverage, etc.
 par(mfrow = c(2, 2))
 plot(m1, which = 1:4)
 
-# Model predictions
+# Reset plotting layout
 par(mfrow = c(1, 1))
+
+# Model predictions vs. observed data
 plot(Neonati$durata, Neonati$peso,
   col = Neonati$fumo,
   xlab = "Gestational Age", ylab = "Weight (g)", pch = 16
 )
 
-abline(a = coef(m1)[1], b = coef(m1)[2], lty = "dashed") # Non-smokers prediction
-abline(a = coef(m1)[1] + coef(m1)[3], b = coef(m1)[2], lty = "dashed", col = "red") # Non-smokers prediction
+# Add regression lines for each smoking group
+abline(a = coef(m1)[1], b = coef(m1)[2], lty = "dashed") # Non-smokers
+abline(a = coef(m1)[1] + coef(m1)[3], b = coef(m1)[2], lty = "dashed", col = "red") # Smokers
 
 # Model 2, let us consider an interaction term
 
+# Fit linear model with interaction
 m2 <- lm(peso ~ durata * fumo, data = Neonati)
-head(model.matrix(~ durata * fumo, data = Neonati)) # Matrix X
 
-# According to this model, expected birth weight is a linear function of gestation length, with different intercepts and slopes for infants of non-smoking and smoking mothers.
+# Inspect design matrix
+head(model.matrix(~ durata * fumo, data = Neonati))
+
+# Interpretation:
+# Expected birth weight is a linear function of gestation length,
+# with different intercepts and slopes for infants of non-smoking vs. smoking mothers
 
 summary(m2)
 
-# The additional term beta_4 can be probably omitted. Why do you think beta_3 is non significant anymore? Does it mean we should remove it?
+# Note:
+# - beta_4 (interaction term) may be omitted if not significant
+# - beta_3 may change significance due to collinearity with interaction term
 
-# A similar conclusione can be obtained from here. Why the p-value is identical to that obtained in the summary? Is it a coincidence?
+# Compare models m1 (additive) vs. m2 (interaction)
 anova(m1, m2)
+# Question: Why is the p-value identical to that in summary(m2)? (Not a coincidence; same F-test)
 
-# Note that the model m2 would give the following predictions
+# Plot observed data and predicted regression lines
 plot(Neonati$durata, Neonati$peso,
   col = Neonati$fumo,
   xlab = "Gestational Age", ylab = "Weight (g)", pch = 16
 )
 
-# Predicted values
-abline(a = coef(m2)[1], b = coef(m2)[2], lty = "dashed") # Non-smokers prediction
-abline(a = coef(m2)[1] + coef(m2)[3], b = coef(m2)[2] + coef(m2)[4], lty = "dashed", col = "red") # Non-smokers prediction
+abline(a = coef(m2)[1], b = coef(m2)[2], lty = "dashed") # Non-smokers
+abline(
+  a = coef(m2)[1] + coef(m2)[3], b = coef(m2)[2] + coef(m2)[4],
+  lty = "dashed", col = "red"
+) # Smokers
 
-# Predictions and confidence intervals
-predict(m1, newdata = data.frame(
-  fumo = c("F", "NF"),
-  durata = rep(40, 2)
-), interval = "confidence", level = 0.95)
+# Predictions and 95% confidence intervals at 40 weeks
+predict(m1,
+  newdata = data.frame(fumo = c("F", "NF"), durata = rep(40, 2)),
+  interval = "confidence", level = 0.95
+)
 
-# Predictions and prediction intervals
-predict(m1, newdata = data.frame(
-  fumo = c("F", "NF"),
-  durata = rep(40, 2)
-), interval = "prediction", level = 0.95)
+# Predictions and 95% prediction intervals at 40 weeks
+predict(m1,
+  newdata = data.frame(fumo = c("F", "NF"), durata = rep(40, 2)),
+  interval = "prediction", level = 0.95
+)
 
-# Playing with contrasts
+# Current contrasts setup
+contrasts(Neonati$fumo) # Shows current coding
+contr.treatment(n = 2, base = 1) # Current baseline (default)
+contr.treatment(n = 2, base = 2) # Change baseline to second level
 
-contrasts(Neonati$fumo) # This is the current setup, that can be obtained as follows
+# Change baseline and refit the model
+contrasts(Neonati$fumo) <- contr.treatment(n = 2, base = 2)
 
-contr.treatment(n = 2, base = 1) # Current situation
-contr.treatment(n = 2, base = 2) # This changes the baseline
-
-# Let us change it and refit the model
-contrasts(Neonati$fumo) <- contr.treatment(n = 2, base = 2) # This changes the baseline
-
+# Inspect data and design matrix
 head(Neonati) # Original data
-head(model.matrix(~ durata + fumo, data = Neonati)) # Matrix X
+head(model.matrix(~ durata + fumo, data = Neonati)) # Design matrix
 
-# Refitting the model
+# Refit model with new baseline
 m3 <- lm(peso ~ durata + fumo, data = Neonati)
 summary(m3)
 
-# Is this a different model? Do we get different predictions?
-# What if we run anova(m1, m3)?
+# Questions to consider:
+# - Is this a different model?
+# - Do predictions change?
+# - What happens if we run anova(m1, m3)?
 
-# Zero-sum contrasts. This is less common, but very useful
+# Zero-sum contrasts (less common but useful)
 contr.sum(n = 2)
-contrasts(Neonati$fumo) <- contr.sum(n = 2) # This changes the baseline
+contrasts(Neonati$fumo) <- contr.sum(n = 2)
 
-head(Neonati) # Original data
-head(model.matrix(~ durata + fumo, data = Neonati)) # Matrix X
+# Inspect design matrix under zero-sum contrasts
+head(Neonati)
+head(model.matrix(~ durata + fumo, data = Neonati))
 
-# What is the interpretation of the parameters now?
+# Refit model with zero-sum contrasts
 m4 <- lm(peso ~ durata + fumo, data = Neonati)
 summary(m4)
+# Question: How do we interpret the parameters now?
 
 # Dataset 2: Clotting--------------------------------------------------------------------
 rm(list = ls())
