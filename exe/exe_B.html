@@ -144,7 +144,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise A 🤔🤔🤔
+Exercise A - 🤔🤔🤔
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -164,11 +164,41 @@ f(y \mid \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\s
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 🤔🤔🤔
+Exercise B - 🤔🤔
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">Y</span> be a random variable with a <span class="blue">negative binomial</span> distribution, representing the number of independent Bernoulli trials with constant success probability <span class="math inline">\pi \in (0,1)</span> required to obtain <span class="math inline">k</span> successes. The support is <span class="math inline">S = \{k, k+1, \dots\}</span> and the probability mass function is <span class="math display">
+P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
+</span></p>
+<ol type="i">
+<li><p>Verify that, assuming <span class="math inline">k</span> is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements (canonical parameter, <span class="math inline">a_i(\phi), b(\cdot), c(\cdot)</span> functions, dispersion parameter, variance function).</p></li>
+<li><p>Using the properties of exponential families, recover the well-known relations<br>
+<span class="math display">
+   \mathbb{E}(Y) = \frac{k(1-\pi)}{\pi},
+   \qquad
+   \text{var}(Y) = \frac{k(1-p)}{\pi^2}.
+   </span><br>
+</p></li>
+<li><p>Show that the variance function is quadratic in <span class="math inline">\mu</span>.</p></li>
+<li><p>Does the distribution still form an exponential-dispersion family if <span class="math inline">k</span> is treated as unknown?</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise C - 🤔🤔
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="i">
 <li><p>Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>) presented in the slides, using the canonical link function.</p></li>
@@ -180,18 +210,106 @@ Exercise 🤔🤔🤔
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise 🤔🤔
+Exercise D - 🤔
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Explicitly derive the contribution of a single observation to the deviance (i.e.&nbsp;<span class="math inline">d_i</span>) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance <span class="math inline">D(\hat{\bm{\mu}}; \boldsymbol{y})</span> for a sample of size <span class="math inline">n</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise E - 🤔🤔🤔
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">Y_i</span> be independent, with corresponding values <span class="math inline">x_1,\dots,x_n</span> of a <span class="blue">univariate</span> quantitative covariate. Consider a GLMs with <span class="blue">no intercept</span>, <span class="math display">
+\eta_i = \beta x_i, \qquad i=1,\dots,n,
+</span> under each of the following exponential–dispersion models (mean–variance pairs):</p>
+<ol type="1">
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> with <span class="math inline">V(\mu_i)=1</span>, with <span class="math inline">\phi</span> known.<br>
+</li>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi)</span> with <span class="math inline">V(\mu_i)=\mu_i^2</span>, with <span class="math inline">\phi</span> known.<br>
+</li>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi_i)</span> with <span class="math inline">V(\mu_i)=\mu_i(1-\mu_i)</span>.<br>
+</li>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi)</span> with <span class="math inline">V(\mu_i)=\mu_i</span>.</li>
+</ol>
+<p>For each model:</p>
+<ol type="i">
+<li><p>Specify the statistical model in terms of the “standard” probability distribution and write the log-likelihood as a function of <span class="math inline">\beta</span>.</p></li>
+<li><p>Derive the score function <span class="math inline">\ell_*(\beta)</span>, the observed information <span class="math inline">J</span>, and the expected Fisher information <span class="math inline">I</span>.</p></li>
+<li><p>Obtain the maximum likelihood estimator <span class="math inline">\hat\beta</span> and provide an approximation to its sampling distribution.</p></li>
+<li><p>For a fixed covariate value <span class="math inline">x_i</span>, construct an approximate 95% confidence interval for the linear predictor <span class="math inline">\eta_i = \beta x_i</span>. Then derive the corresponding confidence interval for <span class="math inline">\mu_i</span>. Indicate in which of the four cases these intervals are also <span class="blue">exact</span> 95% intervals.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise F - 🤔🤔🤔
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose <span class="math inline">y_i</span> has a Poisson distribution with <span class="math display">
+g(\mu_i) = \beta_0 + \beta_1 x_i,
+</span> where <span class="math inline">x_i = 1</span> for <span class="math inline">i = 1, \dots, n_A</span> (group A) and <span class="math inline">x_i = 0</span> for <span class="math inline">i = n_A + 1, \dots, n_A + n_B</span> (group B), i.e.&nbsp;a <span class="blue">dummy variable</span>. Assume all observations are independent.</p>
+<p>Show that, for the log-link function <span class="math inline">g(x) = \log{x}</span>, the GLM likelihood equations imply that the fitted means <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the respective sample means.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise G - 🤔🤔🤔
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In a Generalized Linear Model that uses a <span class="blue">non-canonical link function</span>, explain why it need not be true that<br>
+<span class="math display">
+\sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
+</span> Hence, the residuals need not have a mean of 0. Then, explain why a GLM with a <span class="orange">canonical link</span> function requires the inclusion of an intercept term in order to ensure that this equality holds.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise H - 🤔
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest <span class="math inline">R^2</span> in linear models)?</p>
 </div>
 </div>
 </div>

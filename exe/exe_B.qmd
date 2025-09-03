@@ -37,7 +37,7 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
-## Exercise A 🤔🤔🤔
+## Exercise A - 🤔🤔🤔
 
 Let $Y$ be a random variable with an [inverse Gaussian distribution]{.blue}, with support $[0, \infty)$ and probability density function
 
@@ -48,9 +48,30 @@ $$
 Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, $a_i(\phi), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).  
 :::
 
+:::{.callout-note collapse=true}
+## Exercise B - 🤔🤔
+
+Let $Y$ be a random variable with a [negative binomial]{.blue} distribution, representing the number of independent Bernoulli trials with constant success probability $\pi \in (0,1)$ required to obtain $k$ successes. The support is $S = \{k, k+1, \dots\}$ and the probability mass function is
+$$
+P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
+$$
+
+
+i. Verify that, assuming $k$ is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements (canonical parameter, $a_i(\phi), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).
+
+ii. Using the properties of exponential families, recover the well-known relations  
+   $$
+   \mathbb{E}(Y) = \frac{k(1-\pi)}{\pi}, 
+   \qquad 
+   \text{var}(Y) = \frac{k(1-p)}{\pi^2}.
+   $$  
+iii. Show that the variance function is quadratic in $\mu$.  
+
+iv. Does the distribution still form an exponential-dispersion family if $k$ is treated as unknown?
+:::
 
 :::{.callout-note collapse=true}
-#### Exercise 🤔🤔🤔
+#### Exercise C - 🤔🤔
 
 i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
 
@@ -62,9 +83,62 @@ iii. Obtain the likelihood equations for a binomial regression model (`Beetles` 
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise 🤔🤔
+#### Exercise D - 🤔
 
 Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise E - 🤔🤔🤔
+
+Let $Y_i$ be independent, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLMs with [no intercept]{.blue},
+$$
+\eta_i = \beta x_i, \qquad i=1,\dots,n,
+$$
+under each of the following exponential–dispersion models (mean–variance pairs):
+  
+1. $Y_i \sim \text{ED}(\mu_i, \phi)$ with $V(\mu_i)=1$, with $\phi$ known.  
+2. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i^2$, with $\phi$ known.  
+3. $Y_i \sim \text{ED}(\mu_i,\phi_i)$ with $V(\mu_i)=\mu_i(1-\mu_i)$.  
+4. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i$.
+
+For each model:
+
+i. Specify the statistical model in terms of the "standard" probability distribution and write the log-likelihood as a function of $\beta$.
+
+ii. Derive the score function $\ell_*(\beta)$, the observed information $J$, and the expected Fisher information $I$.
+
+iii. Obtain the maximum likelihood estimator $\hat\beta$ and provide an approximation to its sampling distribution. 
+
+iv. For a fixed covariate value $x_i$, construct an approximate 95% confidence interval for the linear predictor $\eta_i = \beta x_i$. Then derive the corresponding confidence interval for $\mu_i$.  Indicate in which of the four cases these intervals are also [exact]{.blue} 95% intervals.
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise F - 🤔🤔🤔
+
+Suppose $y_i$ has a Poisson distribution with
+$$
+g(\mu_i) = \beta_0 + \beta_1 x_i,
+$$
+where $x_i = 1$ for $i = 1, \dots, n_A$ (group A) and $x_i = 0$ for $i = n_A + 1, \dots, n_A + n_B$ (group B), i.e. a [dummy variable]{.blue}. Assume all observations are independent.  
+
+Show that, for the log-link function $g(x) = \log{x}$, the GLM likelihood equations imply that the fitted means $\hat\mu_A$ and $\hat\mu_B$ equal the respective sample means.
+:::
+
+:::{.callout-note collapse=true}
+## Exercise G - 🤔🤔🤔
+
+In a Generalized Linear Model that uses a [non-canonical link function]{.blue}, explain why it need not be true that  
+$$
+\sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
+$$
+Hence, the residuals need not have a mean of 0. Then, explain why a GLM with a [canonical link]{.orange} function requires the inclusion of an intercept term in order to ensure that this equality holds.
+:::
+
+:::{.callout-note collapse=true}
+## Exercise H - 🤔
+
+In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest $R^2$ in linear models)?
 :::
 
 ## Data analysis
