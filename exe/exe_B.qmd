@@ -128,7 +128,7 @@ Show that, for the log-link function $g(x) = \log{x}$, the GLM likelihood equati
 :::{.callout-note collapse=true}
 ## Exercise G - 🤔🤔🤔
 
-In a Generalized Linear Model that uses a [non-canonical link function]{.blue}, explain why it need not be true that  
+In a generalized linear model that uses a [non-canonical link function]{.blue}, explain why it need not be true that  
 $$
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
 $$
