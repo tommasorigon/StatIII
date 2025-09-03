@@ -37,6 +37,19 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
+## Exercise A
+
+Let $Y$ be a random variable with an [inverse Gaussian distribution]{.blue}, with support $[0, \infty)$ and probability density function
+
+$$
+f(y \mid \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt{\lambda\xi}}\exp\left\{-\frac{1}{2}\left(\frac{\lambda}{y} + \xi y\right)\right\}, 
+\qquad y > 0, \; \xi \ge 0, \; \lambda > 0.
+$$
+Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, $a_i(\phi), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).  
+:::
+
+
+:::{.callout-note collapse=true}
 #### Exercise
 
 i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
@@ -51,7 +64,7 @@ iii. Obtain the likelihood equations for a binomial regression model (`Beetles` 
 :::{.callout-note collapse=true}
 #### Exercise
 
-Explicitly derive the contribution of a single observation to the deviance $d_i$ for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
+Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
 :::
 
 ## Data analysis
