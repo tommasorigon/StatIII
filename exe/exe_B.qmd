@@ -37,7 +37,7 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
-#### Exercise 
+#### Exercise
 
 i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
 
@@ -46,6 +46,12 @@ ii. Specialize the general formulas and re-obtain the likelihood equations for t
 iii. Obtain the likelihood equations for a binomial regression model (`Beetles` data with $p = 2$), using the [Cauchy link]{.blue}, which is defined as $g(\mu) = \tan(\pi(\mu - 1/2))$. This link indeed is such that $g(\mu):(0, 1)\to \mathbb{R}$. 
 
 [Tip]{.blue}: there are almost no calculations to do at points i. and ii., this exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is $g'(\mu) = \pi /\sin^2(\pi x)$.
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise
+
+Explicitly derive the contribution of a single observation to the deviance $d_i$ for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
 :::
 
 ## Data analysis
