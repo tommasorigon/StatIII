@@ -973,9 +973,9 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <h2>Likelihood equations I 📖</h2>
 <ul>
 <li><p>To conduct inference using the <span class="orange">classical theory</span> (as in <em>Statistica II</em>), we need to consider the first and second derivative of the log-likelihood, that is, the <span class="blue">score function</span> <span class="math display">
-\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
+\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta}\ell(\beta, \phi),
 </span> and the <span class="orange">observed information matrix</span> <span class="math inline">\bm{J}</span>, whose elements are <span class="math display">
-j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
+j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta, \phi), \qquad r, s=1,\dots,p.
 </span></p></li>
 <li><p>These quantities have a <span class="blue">simple expression</span> in the end, but getting there requires quite a <span class="orange">bit of calculus</span>.</p></li>
 </ul>
@@ -994,11 +994,11 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 <h2>Likelihood equations II 📖</h2>
 <ul>
 <li><p>Let us begin by noting that <span class="math display">
-\ell_*(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+\ell_r(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta, \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
 </span> Such an expression can be <span class="blue">simplified</span> because <span class="math display">
 \frac{\partial b(\theta_i)}{\partial \beta_r} = b'(\theta_i)\frac{\partial \theta_i}{\partial \beta_r} = \mu_i\frac{\partial \theta_i}{\partial \beta_r},
 </span> which implies that the score function will have the following <span class="orange">structure</span>: <span class="math display">
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
+\frac{\partial}{\partial \beta_r}\ell(\beta, \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
 </span></p></li>
 <li><p>Recall that <span class="math inline">a_i(\phi) = \phi/\omega_i</span>, hence the <span class="blue">maximum likelihood estimator</span> is obtained by solving: <span class="math display">
 \textcolor{red}{\cancel{\frac{1}{\phi}}}\sum_{i=1}^n\omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} = 0, \qquad r=1,\dots,p.
@@ -1031,7 +1031,7 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 <h2>Likelihood equations IV 📖</h2>
 <ul>
 <li>Combining all the above equations, we obtain an explicit formula for the <span class="blue">score function</span> <span class="math display">
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
+\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
 </span></li>
 </ul>
 <div class="callout callout-note no-icon callout-style-simple">
@@ -1328,12 +1328,12 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <ul>
 <li><p>Let us first consider the negative derivative of the score function, that is the <span class="orange">observed information matrix</span> <span class="math inline">\bm{J}</span> with entries: <span class="math display">
 \begin{aligned}
-j_{rs} &amp;=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
+j_{rs} &amp;=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
 &amp;=\sum_{i=1}^n\frac{1}{a_i(\phi)}\left[\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r} - (y_i - \mu_i) \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s}\right], \qquad r,s = 1,\dots,p.
 \end{aligned}
 </span></p></li>
 <li><p>Let <span class="math inline">\bm{I} = \mathbb{E}(\bm{J})</span> be the <span class="math inline">p \times p</span> <span class="blue">Fisher information matrix</span> associated with <span class="math inline">\beta</span>, whose elements are <span class="math display">
-i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
+i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right), \qquad r,s = 1,\dots,p.
 </span></p></li>
 <li><p>Thus, the Fisher information matrix substantially simplifies because <span class="math inline">\mathbb{E}(Y_i) = \mu_i</span>, obtaining: <span class="math display">
 i_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}, \qquad r,s = 1,\dots,p.
@@ -1405,7 +1405,7 @@ w_i = \frac{1}{\phi} \omega_iv(\mu_i) = \frac{v(\mu_i)}{a_i(\phi)}, \qquad i=1,\
 <div class="fragment">
 <ul>
 <li>The Fisher information matrix could be computed exploiting <span class="grey">Bartlett identity</span>, namely <span class="math display">
-i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right)\right], \qquad r,s = 1,\dots,p.</span> as in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>. Of course, the final result <span class="orange">coincide</span> with ours.</li>
+i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right)\right], \qquad r,s = 1,\dots,p.</span> as in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>. Of course, the final result <span class="orange">coincide</span> with ours.</li>
 </ul>
 </div>
 </section>
@@ -1413,7 +1413,7 @@ i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta; \phi
 <h2>☠️ - Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\psi</span></h2>
 <ul>
 <li>Let us now consider the case in which <span class="math inline">\phi</span> is <span class="blue">unknown</span> so that <span class="math inline">a_i(\phi) = \phi/\omega_i</span>. We obtain: <span class="math display">
-j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta; \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
+j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta, \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
 </span> whose <span class="orange">expected value</span> is <span class="math inline">i_{r\phi} = \mathbb{E}(j_{r\phi}) = 0</span> since <span class="math inline">\mathbb{E}(Y_i) = \mu_i</span>.</li>
 </ul>
 <div class="fragment">
@@ -1537,7 +1537,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </div>
 <ul>
 <li>The above formula can <span class="blue">simplified</span> a bit. First, we rewrite the <span class="orange">score</span> as <span class="math display">
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
+\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
 </span> where the <span class="orange">weights</span> were defined as <span class="math inline">w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)</span>. In <span class="blue">matrix notation</span> we will write: <span class="math display">
 \ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
 </span> where <span class="math inline">\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T</span> and <span class="math inline">u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})</span> for <span class="math inline">i=1,\dots,n</span>.</li>

@@ -764,11 +764,11 @@ $$
 
 - To conduct inference using the [classical theory]{.orange} (as in _Statistica II_), we need to consider the first and second derivative of the log-likelihood, that is, the [score function]{.blue}
 $$
-\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta_r}\ell(\beta; \phi), \qquad r=1,\dots,p,
+\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta}\ell(\beta, \phi),
 $$
 and the [observed information matrix]{.orange} $\bm{J}$, whose elements are
 $$
-j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi), \qquad r, s=1,\dots,p.
+j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta, \phi), \qquad r, s=1,\dots,p.
 $$
 
 - These quantities have a [simple expression]{.blue} in the end, but getting there requires quite a [bit of calculus]{.orange}.
@@ -785,7 +785,7 @@ This assumption is not restrictive, even when $\phi$ is actually unknown. In fac
 
 - Let us begin by noting that
 $$
-\ell_*(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta; \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+\ell_r(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta, \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
 $$
 Such an expression can be [simplified]{.blue} because
 $$
@@ -793,7 +793,7 @@ $$
 $$
 which implies that the score function will have the following [structure]{.orange}:
 $$
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
+\frac{\partial}{\partial \beta_r}\ell(\beta, \phi) = \sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r=1,\dots,p.
 $$
 
 - Recall that $a_i(\phi) = \phi/\omega_i$, hence the [maximum likelihood estimator]{.blue} is obtained by solving:
@@ -827,7 +827,7 @@ $$
 
 - Combining all the above equations, we obtain an explicit formula for the [score function]{.blue}
 $$
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
+\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
 $$
 
 :::{.callout-note}
@@ -1007,14 +1007,14 @@ Aids$predictions <- predict(fit_Aids, type = "response")
 - Let us first consider the negative derivative of the score function, that is the [observed information matrix]{.orange} $\bm{J}$ with entries:
 $$
 \begin{aligned}
-j_{rs} &=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
+j_{rs} &=  -\frac{\partial}{\partial \beta_s}\left[\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right] = -\frac{\partial}{\partial \beta_s}\sum_{i=1}^n\frac{1}{a_i(\phi)}(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r} \\
 &=\sum_{i=1}^n\frac{1}{a_i(\phi)}\left[\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r} - (y_i - \mu_i) \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s}\right], \qquad r,s = 1,\dots,p.
 \end{aligned}
 $$
 
 - Let $\bm{I} = \mathbb{E}(\bm{J})$ be the $p \times p$ [Fisher information matrix]{.blue} associated with $\beta$, whose elements are
 $$
-i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right), \qquad r,s = 1,\dots,p.
+i_{rs} = \mathbb{E}(j_{rs}) = \mathbb{E}\left(- \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right), \qquad r,s = 1,\dots,p.
 $$
 
 - Thus, the Fisher information matrix substantially simplifies because $\mathbb{E}(Y_i) = \mu_i$, obtaining:
@@ -1084,7 +1084,7 @@ $$
 . . .
 
 - The Fisher information matrix could be computed exploiting [Bartlett identity]{.grey}, namely $$
-i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta; \phi)\right)\right], \qquad r,s = 1,\dots,p.$$
+i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right)\right], \qquad r,s = 1,\dots,p.$$
 as in @Agresti2015. Of course, the final result [coincide]{.orange} with ours. 
 
 
@@ -1093,7 +1093,7 @@ as in @Agresti2015. Of course, the final result [coincide]{.orange} with ours.
 
 - Let us now consider the case in which $\phi$ is [unknown]{.blue} so that $a_i(\phi) = \phi/\omega_i$. We obtain:
 $$
-j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta; \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
+j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta, \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
 $$
 whose [expected value]{.orange} is $i_{r\phi} = \mathbb{E}(j_{r\phi}) = 0$ since $\mathbb{E}(Y_i) = \mu_i$. 
 
@@ -1220,7 +1220,7 @@ This method is also called [Fisher scoring]{.orange}.
 
 - The above formula can [simplified]{.blue} a bit. First, we rewrite the [score]{.orange} as
 $$
-\frac{\partial}{\partial \beta_r}\ell(\beta; \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
+\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
 $$
 where the [weights]{.orange} were defined as $w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)$. In [matrix notation]{.blue} we will write:
 $$
