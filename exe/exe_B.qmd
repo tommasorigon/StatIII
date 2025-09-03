@@ -45,7 +45,7 @@ $$
 f(y \mid \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt{\lambda\xi}}\exp\left\{-\frac{1}{2}\left(\frac{\lambda}{y} + \xi y\right)\right\}, 
 \qquad y > 0, \; \xi \ge 0, \; \lambda > 0.
 $$
-Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, $a_i(\phi), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).  
+Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, $a_i(\cdot), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).  
 :::
 
 :::{.callout-note collapse=true}
@@ -57,7 +57,7 @@ P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 $$
 
 
-i. Verify that, assuming $k$ is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements (canonical parameter, $a_i(\phi), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).
+i. Verify that, assuming $k$ is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements (canonical parameter, $a_i(\cdot), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).
 
 ii. Using the properties of exponential families, recover the well-known relations  
    $$
