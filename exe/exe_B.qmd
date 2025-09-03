@@ -63,7 +63,7 @@ ii. Using the properties of exponential families, recover the well-known relatio
    $$
    \mathbb{E}(Y) = \frac{k(1-\pi)}{\pi}, 
    \qquad 
-   \text{var}(Y) = \frac{k(1-p)}{\pi^2}.
+   \text{var}(Y) = \frac{k(1-\pi)}{\pi^2}.
    $$  
 iii. Show that the variance function is quadratic in $\mu$.  
 
