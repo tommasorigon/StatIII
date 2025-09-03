@@ -122,7 +122,11 @@ g(\mu_i) = \beta_0 + \beta_1 x_i,
 $$
 where $x_i = 1$ for $i = 1, \dots, n_A$ (group A) and $x_i = 0$ for $i = n_A + 1, \dots, n_A + n_B$ (group B), i.e. a [dummy variable]{.blue}. Assume all observations are independent.  
 
-Show that, for the log-link function $g(x) = \log{x}$, the GLM likelihood equations imply that the fitted means $\hat\mu_A$ and $\hat\mu_B$ equal the respective sample means.
+i. Show that, for the log-link function $g(x) = \log{x}$, the GLM likelihood equations imply that the fitted means $\hat\mu_A$ and $\hat\mu_B$ equal the respective sample means.
+
+ii. Using the likelihood equations, show that the same result holds for any link function for this Poisson model, 
+
+iii. Using the likelihood equations, show that the same result holds for any GLM of the form $g(\mu_i) = \beta_0 + \beta_1 x_i$ with a binary indicator predictor.
 :::
 
 :::{.callout-note collapse=true}
