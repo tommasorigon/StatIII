@@ -39,9 +39,13 @@ editor_options:
 :::{.callout-note collapse=true}
 #### Exercise 
 
-i. Specialize the general formulas and re-obtain the likelihood equations (score function) for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
+i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
 
-ii. Specialize the general formulas and re-obtain the likelihood equations (score function) for the Poisson regression model (`Aids` data with $p = 2$) presented in the slides, using the canonical link function.
+ii. Specialize the general formulas and re-obtain the likelihood equations for the Poisson regression model (`Aids` data with $p = 2$) presented in the slides, using the canonical link function.
+
+iii. Obtain the likelihood equations for a binomial regression model (`Beetles` data with $p = 2$), using the [Cauchy link]{.blue}, which is defined as $g(\mu) = \tan(\pi(\mu - 1/2))$. This link indeed is such that $g(\mu):(0, 1)\to \mathbb{R}$. 
+
+[Tip]{.blue}: there are almost no calculations to do at points i. and ii., this exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is $g'(\mu) = \pi /\sin^2(\pi x)$.
 :::
 
 ## Data analysis
