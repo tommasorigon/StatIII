@@ -36,6 +36,13 @@ editor_options:
 
 ## Theoretical
 
+:::{.callout-note collapse=true}
+#### Exercise 
+
+i. Specialize the general formulas and re-obtain the likelihood equations (score function) for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
+
+ii. Specialize the general formulas and re-obtain the likelihood equations (score function) for the Poisson regression model (`Aids` data with $p = 2$) presented in the slides, using the canonical link function.
+:::
 
 ## Data analysis
 
