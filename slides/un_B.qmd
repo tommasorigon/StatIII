@@ -740,24 +740,24 @@ $$
 
 - In general, there is [no sufficient statistic]{.orange} with dimension smaller than $n$. 
 
-## ☠️ - Sufficient statistics and canonical link
+<!-- ## ☠️ - Sufficient statistics and canonical link -->
 
-- Consider the [canonical link]{.blue}, namely $\theta(\mu_i) = g(\mu_i)$ so that $\theta_i = \bm{x}_i^T\beta$. Then the log-likelihood function [simplifies]{.orange}:
-$$
-\begin{aligned}
-\ell(\beta, \phi) &= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\
-&= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi).
-\end{aligned}
-$$
-If $\phi$ were [known]{.blue}, say $a_i(\phi) = 1$ or $a_i(\phi) = 1/\omega_i$, then
-$$
-\left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right),
-$$
-is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$. 
+<!-- - Consider the [canonical link]{.blue}, namely $\theta(\mu_i) = g(\mu_i)$ so that $\theta_i = \bm{x}_i^T\beta$. Then the log-likelihood function [simplifies]{.orange}: -->
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- \ell(\beta, \phi) &= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\ -->
+<!-- &= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi). -->
+<!-- \end{aligned} -->
+<!-- $$ -->
+<!-- If $\phi$ were [known]{.blue}, say $a_i(\phi) = 1$ or $a_i(\phi) = 1/\omega_i$, then -->
+<!-- $$ -->
+<!-- \left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right), -->
+<!-- $$ -->
+<!-- is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$.  -->
 
-. . .
+<!-- . . . -->
 
-- In [logistic regression]{.blue} for binary observations and [Poisson regression]{.orange} with logarithmic link we have $a_i(\phi) = 1$. The [sufficient]{.blue} statistic is $\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).$
+<!-- - In [logistic regression]{.blue} for binary observations and [Poisson regression]{.orange} with logarithmic link we have $a_i(\phi) = 1$. The [sufficient]{.blue} statistic is $\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).$ -->
 
 
 ## Likelihood equations I 📖
@@ -2093,19 +2093,19 @@ Then the [deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$ and the $X^2$ [Pearson st
 
 - There exist several generalizations of the $R^2$ statistic for linear models, called [pseudo-$R^2$]{.blue} (e.g. McFadden, Cox \& Snell, Nagelkerke, Tjur, etc.).
 
-- These indices are [difficult to interpret]{.orange} and often mislead those accustomed with standard $R^2.$ A pseudo-$R^2 \approx 0.4$ may indicate a nearly perfect fit (i.e. `Beetles` data), which is confusing. 
+- These indices are [difficult to interpret]{.orange} and could mislead those accustomed with standard $R^2.$ A pseudo-$R^2 \approx 0.4$ may indicate a nearly perfect fit (i.e. `Beetles` data), which is confusing. 
 
 - On top of this, these pseudo-$R^2$ produce different answers depending on the [aggregation]{.blue} of the data. 
 
 . . .
 
-- The recommendation is to [avoid pseudo-$R^2$]{.orange} and rely instead on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between $\bm{y}$ and $\hat{\bm{\mu}}$.
+- The recommendation is to rely on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between $\bm{y}$ and $\hat{\bm{\mu}}$.
 
 - The residual [deviance]{.blue} is also a useful tool, especially for comparing models.
 
 . . .
 
-- It is not a coincidence that none of our textbooks @Agresti2015, @Salvan2020, @Azzalini2008, @McCullagh1989, nor the `glm` R function, even mention pseudo-$R^2$. 
+<!-- - It is not a coincidence that none of our textbooks @Agresti2015, @Salvan2020, @Azzalini2008, @McCullagh1989, nor the `glm` R function, even mention pseudo-$R^2$.  -->
 
 - Pseudo-$R^2$ are often shown by default in other software, such as SAS or SPSS. 
 

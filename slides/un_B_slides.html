@@ -952,24 +952,21 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <ul>
 <li>In general, there is <span class="orange">no sufficient statistic</span> with dimension smaller than <span class="math inline">n</span>.</li>
 </ul>
-</div>
-</section>
-<section id="sufficient-statistics-and-canonical-link" class="slide level2 center">
-<h2>☠️ - Sufficient statistics and canonical link</h2>
-<ul>
-<li>Consider the <span class="blue">canonical link</span>, namely <span class="math inline">\theta(\mu_i) = g(\mu_i)</span> so that <span class="math inline">\theta_i = \bm{x}_i^T\beta</span>. Then the log-likelihood function <span class="orange">simplifies</span>: <span class="math display">
-\begin{aligned}
-\ell(\beta, \phi) &amp;= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\
-&amp;= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi).
-\end{aligned}
-</span> If <span class="math inline">\phi</span> were <span class="blue">known</span>, say <span class="math inline">a_i(\phi) = 1</span> or <span class="math inline">a_i(\phi) = 1/\omega_i</span>, then <span class="math display">
-\left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right),
-</span> is (minimal) <span class="blue">sufficient</span> of dimension <span class="math inline">p \le n</span> for inference on <span class="math inline">\beta</span>.</li>
-</ul>
-<div class="fragment">
-<ul>
-<li>In <span class="blue">logistic regression</span> for binary observations and <span class="orange">Poisson regression</span> with logarithmic link we have <span class="math inline">a_i(\phi) = 1</span>. The <span class="blue">sufficient</span> statistic is <span class="math inline">\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).</span></li>
-</ul>
+<!-- ## ☠️ - Sufficient statistics and canonical link -->
+<!-- - Consider the [canonical link]{.blue}, namely $\theta(\mu_i) = g(\mu_i)$ so that $\theta_i = \bm{x}_i^T\beta$. Then the log-likelihood function [simplifies]{.orange}: -->
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- \ell(\beta, \phi) &= \sum_{i=1}^n\frac{y_i\bm{x}_i^T\beta - b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi) \\ -->
+<!-- &= \left[\beta_1\sum_{i=1}^n\frac{x_{i1}y_i}{a_i(\phi)} + \cdots + \beta_p\sum_{i=1}^n\frac{x_{ip}y_i}{a_i(\phi)} \right] - \sum_{i=1}^n\frac{b(\bm{x}_i^T\beta)}{a_i(\phi)} + c(y_i, \phi). -->
+<!-- \end{aligned} -->
+<!-- $$ -->
+<!-- If $\phi$ were [known]{.blue}, say $a_i(\phi) = 1$ or $a_i(\phi) = 1/\omega_i$, then -->
+<!-- $$ -->
+<!-- \left(\sum_{i=1}^n\frac{1}{a_i(\phi)}x_{i1}y_i, \dots, \sum_{i=1}^n\frac{1}{a_i(\phi)}x_{ip}y_i \right), -->
+<!-- $$ -->
+<!-- is (minimal) [sufficient]{.blue} of dimension $p \le n$ for inference on $\beta$.  -->
+<!-- . . . -->
+<!-- - In [logistic regression]{.blue} for binary observations and [Poisson regression]{.orange} with logarithmic link we have $a_i(\phi) = 1$. The [sufficient]{.blue} statistic is $\bm{X}^T\bm{y} = \sum_{i=1}^n\bm{x}_iy_i = \left(\sum_{i=1}^nx_{i1}y_i, \dots, \sum_{i=1}^nx_{ip}y_i \right).$ -->
 </div>
 </section>
 <section id="likelihood-equations-i" class="slide level2 center">
@@ -2547,19 +2544,19 @@ D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 <h2>On pseudo-<span class="math inline">R^2</span></h2>
 <ul>
 <li><p>There exist several generalizations of the <span class="math inline">R^2</span> statistic for linear models, called <span class="blue">pseudo-<span class="math inline">R^2</span></span> (e.g.&nbsp;McFadden, Cox &amp; Snell, Nagelkerke, Tjur, etc.).</p></li>
-<li><p>These indices are <span class="orange">difficult to interpret</span> and often mislead those accustomed with standard <span class="math inline">R^2.</span> A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (i.e.&nbsp;<code>Beetles</code> data), which is confusing.</p></li>
+<li><p>These indices are <span class="orange">difficult to interpret</span> and could mislead those accustomed with standard <span class="math inline">R^2.</span> A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (i.e.&nbsp;<code>Beetles</code> data), which is confusing.</p></li>
 <li><p>On top of this, these pseudo-<span class="math inline">R^2</span> produce different answers depending on the <span class="blue">aggregation</span> of the data.</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>The recommendation is to <span class="orange">avoid pseudo-<span class="math inline">R^2</span></span> and rely instead on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between <span class="math inline">\bm{y}</span> and <span class="math inline">\hat{\bm{\mu}}</span>.</p></li>
+<li><p>The recommendation is to rely on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between <span class="math inline">\bm{y}</span> and <span class="math inline">\hat{\bm{\mu}}</span>.</p></li>
 <li><p>The residual <span class="blue">deviance</span> is also a useful tool, especially for comparing models.</p></li>
 </ul>
 </div>
 <div class="fragment">
+<!-- - It is not a coincidence that none of our textbooks @Agresti2015, @Salvan2020, @Azzalini2008, @McCullagh1989, nor the `glm` R function, even mention pseudo-$R^2$.  -->
 <ul>
-<li><p>It is not a coincidence that none of our textbooks <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span>, <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span>, nor the <code>glm</code> R function, even mention pseudo-<span class="math inline">R^2</span>.</p></li>
-<li><p>Pseudo-<span class="math inline">R^2</span> are often shown by default in other software, such as SAS or SPSS.</p></li>
+<li>Pseudo-<span class="math inline">R^2</span> are often shown by default in other software, such as SAS or SPSS.</li>
 </ul>
 </div>
 </section>
@@ -3034,9 +3031,6 @@ Efron, B. (2023), <em><span class="nocase">Exponential Families in Theory and Pr
 </div>
 <div id="ref-Fisher1934" class="csl-entry" role="listitem">
 Fisher, R. A. (1934), <span>“<span class="nocase">Two new properties of mathematical likelihood</span>,”</span> <em>Proceedings of the Royal Society of London. Series A</em>, 144, 285–307.
-</div>
-<div id="ref-McCullagh1989" class="csl-entry" role="listitem">
-McCullagh, P., and Nelder, J. A. (1989), <em>Generalized linear models</em>, Chapman &amp; Hall/CRC.
 </div>
 <div id="ref-Nelder1972" class="csl-entry" role="listitem">
 Nelder, J. A., and Wedderburn, R. W. M. (1972), <span>“<span class="nocase">Generalized linear models</span>,”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em>, 135, 370–384.
