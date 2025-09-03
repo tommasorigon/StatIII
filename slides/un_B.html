@@ -1725,7 +1725,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <section id="iteratively-re-weighted-least-squares-i" class="level2">
 <h2 class="anchored" data-anchor-id="iteratively-re-weighted-least-squares-i">Iteratively re-weighted least squares I 📖</h2>
 <ul>
-<li>The matrix <span class="math inline">\bm{J}^(t)</span> is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the <span class="blue">expected information</span> <span class="math inline">\bm{I}^{(t)}</span>.</li>
+<li>The matrix <span class="math inline">\bm{J}^{(t)}</span> is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the <span class="blue">expected information</span> <span class="math inline">\bm{I}^{(t)}</span>.</li>
 </ul>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -1734,7 +1734,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </div>
 <div class="callout-body-container">
 <p>In the <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm, we consider the updates: <span class="math display">
-\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+\beta^{(t+1)} = \beta^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
 </span> This method is also called <span class="orange">Fisher scoring</span>.</p>
 </div>
 </div>
@@ -1765,7 +1765,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </span> where <span class="math inline">\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})</span> is called <span class="orange">pseudo-response</span> whose elements are defined as <span class="math display">
 z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
 </span> Hence, each update can be interpreted as the solution of a <span class="grey">weighted least square</span> problem: <span class="math display">
-\hat{\beta}^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
+\beta^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
 </span></p>
 </div>
 </div>
@@ -1781,7 +1781,7 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(
 g(y_i) \approx g(\mu_i) + (y_i - \mu_i)g'(\mu_i) = \eta_i + (y_i - \mu_i)g'(\mu_i) = z_i.
 </span></p></li>
 <li><p>Based on this approximation, a good <span class="blue">initialization</span> is <span class="math display">
-\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \hat{\beta}^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
+\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \beta^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
 </span> the <span class="orange">least square</span> solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in Binomial regression.</p></li>
 </ul>
 </section>
@@ -1805,7 +1805,7 @@ IRLS algorithm for logistic regression
 <li><p>For <span class="math inline">t=1,2, \dots</span> until <span class="orange">convergence</span> compute: <span class="math display">
 \beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)},
 </span> where the weights in <span class="math inline">\bm{W}^{(t)}</span> equals <span class="math inline">w_i^{(t)} = m_i \pi_i^{(t)} (1 - \pi_i^{(t)})</span> and the <span class="blue">pseudo-responses</span> <span class="math inline">\bm{z}^{(t)}</span> are <span class="math display">
-z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_i^{(t)})}, \qquad i=1,\dots,n,
+z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_i^{(t)})}, \qquad i=1,\dots,n,
 </span> with probabilities <span class="math inline">\pi_i^{(t)} = \exp(\bm{x}_i^T\beta^{(t)})/(1 + \exp(\bm{x}_i^T\beta^{(t)}))</span> for <span class="math inline">i=1,\dots,n</span>.</p></li>
 </ul>
 </div>

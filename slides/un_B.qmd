@@ -1208,12 +1208,12 @@ The Netwon-Raphson method essentially considers a series of [parabolic approxima
 
 ## Iteratively re-weighted least squares I 📖
 
-- The matrix $\bm{J}^(t)$ is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the [expected information]{.blue} $\bm{I}^{(t)}$.
+- The matrix $\bm{J}^{(t)}$ is not always invertible, therefore the algorithm may crash. To remedy this, we replace it with the [expected information]{.blue} $\bm{I}^{(t)}$.
 
 :::callout-note
 In the [iteratively re-weighted least squares]{.blue} (IRLS) algorithm, we consider the updates:
 $$
-\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+\beta^{(t+1)} = \beta^{(t)} + (\bm{I}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
 $$
 This method is also called [Fisher scoring]{.orange}. 
 :::
@@ -1248,7 +1248,7 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(
 $$
 Hence, each update can be interpreted as the solution of a [weighted least square]{.grey} problem:
 $$
-\hat{\beta}^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
+\beta^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
 $$
 :::
 
@@ -1265,7 +1265,7 @@ $$
 
 - Based on this approximation, a good [initialization]{.blue} is
 $$
-\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \hat{\beta}^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
+\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \beta^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
 $$
 the [least square]{.orange} solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in Binomial regression. 
 
@@ -1284,7 +1284,7 @@ the [least square]{.orange} solution for the transformed data. To avoid boundary
   $$
   where the weights in $\bm{W}^{(t)}$ equals $w_i^{(t)} = m_i \pi_i^{(t)} (1 - \pi_i^{(t)})$ and the [pseudo-responses]{.blue} $\bm{z}^{(t)}$ are
   $$
-  z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_i^{(t)})}, \qquad i=1,\dots,n,
+  z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_i^{(t)})}, \qquad i=1,\dots,n,
   $$
   with probabilities $\pi_i^{(t)} = \exp(\bm{x}_i^T\beta^{(t)})/(1 + \exp(\bm{x}_i^T\beta^{(t)}))$ for $i=1,\dots,n$.
 :::
