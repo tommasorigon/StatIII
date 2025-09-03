@@ -37,7 +37,7 @@ editor_options:
 ## Theoretical
 
 :::{.callout-note collapse=true}
-## Exercise A
+## Exercise A 🤔🤔🤔
 
 Let $Y$ be a random variable with an [inverse Gaussian distribution]{.blue}, with support $[0, \infty)$ and probability density function
 
@@ -50,7 +50,7 @@ Show that this distribution belongs to the exponential dispersion family, and id
 
 
 :::{.callout-note collapse=true}
-#### Exercise
+#### Exercise 🤔🤔🤔
 
 i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
 
@@ -62,7 +62,7 @@ iii. Obtain the likelihood equations for a binomial regression model (`Beetles` 
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise
+#### Exercise 🤔🤔
 
 Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
 :::
