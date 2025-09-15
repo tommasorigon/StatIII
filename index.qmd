@@ -74,18 +74,22 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | Lab 4 | [`lab4.R`](code/lab4.R) | | |
 | *Exercises* | [Exercises C] |  |  |
 | **Poisson regression** | [Unit D] | [Slides Unit D] |  |
-| Lab 5 | | | |
+| Lab 5 | [`lab5.R`](code/lab5.R) | | |
 | *Exercises* | [Exercises D] |  |  |
+| Lab 6 | [`lab6.R`](code/lab6.R) | | |
 | | **ADVANCED TOPICS** | | |
 | **Quasi-likelihoods** | [Unit E] | [Slides Unit E] |  |
-| Lab 7 | | | |
+| Lab 7 | [`lab7.R`](code/lab7.R) | | |
 | *Exercises* | [Exercises F] |  |  |
 
-<!-- ## Exam -->
+## Previous exams (ITA)
 
-<!-- #### Mock exam -->
+Example of previous exams are provided below, together with a solution.
 
-<!-- An example of written examination is provided at [this link](exe/exe_exam.html).  -->
+| Date | Dataset | Questions (ITA) | Solution |
+|------|---------|-----------|----------|
+| | | |
+
 
 <!-- ## Prerequisites -->
 
@@ -99,10 +103,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 
 I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course. 
 
-I have made use of several other books, scientific articles, and
-datasets to complement the main textbooks. They are all cited at the end
-of each unit. Students are encouraged to consult the books: these slides
-are just a concise summary.
+I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit. Students are encouraged to consult the books: these slides are just a concise summary.
 
 All the mistakes still present are mine.
 
