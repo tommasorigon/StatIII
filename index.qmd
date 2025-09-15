@@ -86,9 +86,9 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 
 Example of previous exams are provided below, together with a solution.
 
-| Date | Dataset | Questions (ITA) | Solution |
+| Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------|---------|-----------|----------|
-| | | |
+| 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) | |
 
 
 <!-- ## Prerequisites -->

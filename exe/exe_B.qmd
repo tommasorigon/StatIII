@@ -1,6 +1,6 @@
 ---
 title: "Exercises B"
-subtitle: "Statistical Inference - Ph.D. in Economics, Statistics, and Data Science"
+subtitle: "Statistics III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 page-layout: full

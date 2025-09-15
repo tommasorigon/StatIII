@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Statistics III: Generalized Linear Models</title>
+<title>Esame del 9 Luglio 2014</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,19 +24,62 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="2014_07_09_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2014_07_09_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="2014_07_09_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="2014_07_09_files/libs/quarto-html/popper.min.js"></script>
+<script src="2014_07_09_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2014_07_09_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2014_07_09_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2014_07_09_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2014_07_09_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2014_07_09_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2014_07_09_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -48,9 +91,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#teaching-material" id="toc-teaching-material" class="nav-link active" data-scroll-target="#teaching-material">Teaching material</a></li>
-  <li><a href="#previous-exams-ita" id="toc-previous-exams-ita" class="nav-link" data-scroll-target="#previous-exams-ita">Previous exams (ITA)</a></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
+  <ul class="collapse">
+  <li><a href="#the-orings-dataset" id="toc-the-orings-dataset" class="nav-link" data-scroll-target="#the-orings-dataset">The <code>orings</code> dataset</a></li>
+  <li><a href="#parte-teorica" id="toc-parte-teorica" class="nav-link" data-scroll-target="#parte-teorica">Parte Teorica</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -58,14 +103,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics III: Generalized Linear Models</h1>
-<p class="subtitle lead">CdL SSE</p>
+<h1 class="title">Esame del 9 Luglio 2014</h1>
+<p class="subtitle lead">Statistics III - CdL SSE</p>
 </div>
 
 
 <div class="quarto-title-meta-author column-page-left">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
+  <div class="quarto-title-meta-heading">Autore/Autrice</div>
+  <div class="quarto-title-meta-heading">Affiliazione</div>
   
     <div class="quarto-title-meta-contents">
     <p class="author"><span class="orange">Tommaso Rigon</span> </p>
@@ -89,206 +134,46 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the website of the <strong>Statistica III</strong> course (6 CFU) of the “<em>Corso di Laurea Triennale in Scienze Statistiche ed Economiche</em> (SSE)”, Università degli Studi di Milano-Bicocca. <strong>Statistica III</strong> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs).</p>
-<p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
+<section id="homepage" class="level1">
+<h1><a href="../index.html">Homepage</a></h1>
+<section id="the-orings-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-orings-dataset">The <code>orings</code> dataset</h2>
+<p>Il dataset <code>orings</code> contenuto nella libreria <code>faraway</code> contiene i dati relativi a <span class="math inline">n = 23</span> lanci dello <span class="blue">space shuttle Challenger</span>. Le variabili presenti sono:</p>
 <ul>
-<li><span class="blue">Simple linear regression and descriptive statistics</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, e.g.&nbsp;from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, e.g.&nbsp;from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
-<li><span class="grey">R software</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
+<li><code>damage</code>: numero di giunture danneggiate (su 6)<br>
+</li>
+<li><code>temp</code>: temperatura in gradi Fahrenheit</li>
 </ul>
-<p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</p>
-<section id="teaching-material" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-material">Teaching material</h2>
-<section id="recommended-textbooks-ita" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-ita">Recommended textbooks (ITA)</h4>
-<ul>
-<li>Salvan, A., Sartori, N. and L. Pace. 2020. <a href="https://doi.org/10.1007/978-88-470-3995-7_10"><em>Modelli Lineari Generalizzati</em></a>. Springer.</li>
-<li>Azzalini, A. 2008. <a href="https://link.springer.com/book/9788847001305"><em>Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza</em></a>. Springer</li>
-</ul>
+<ol type="a">
+<li><p>Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:</p>
+<ol type="i">
+<li>L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);</li>
+<li>AIC;</li>
+<li>Il p-value del test per la bontà del modello basato sulla devianza, commentando ipotesi nulla e valore numerico ottenuto.</li>
+</ol></li>
+<li><p>Si commenti (senza riportarla) la diagnostica grafica di base fornita da <strong>R</strong> per il modello stimato.</p></li>
+<li><p>Si fornisca un’interpretazione per la stima del coefficiente della variable esplicativa.</p></li>
+<li><p>Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura <span class="math inline">31</span> (cioè quella prevista in occasione del 24esimo lancio):</p></li>
+<li><p>Si riporti il grafico della curva stimata sovraimposta ai punti osservati. Il <em>range</em> per l’esplicativa deve essere <span class="math inline">(30, 85)</span>, cioè più esteso di quello osservato.</p></li>
+<li><p>Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti.</p></li>
+<li><p>Si vuole applicare il test di Hosmer–Lemeshow che sottopone a verifica la bontà del modello raggruppando i dati.</p>
+<ol type="i">
+<li>Si costruisca la matrice <span class="math inline">n \times 2</span> che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). So tratta delle stesse quantità calcolate al punto f.</li>
+<li>Si divida la matrice in 3 blocchi di numerosità simile (8, 8 e 7).</li>
+<li>Per ogni blocco si calcolino le 4 quantità utili ai fini del test (successi totali osservati e attesi, insuccessi totali osservati e attesi) e si riportino i valori ottenuti.</li>
+<li>Si calcoli il valore assunto dalla statistica test <span class="math inline">X^2_\text{HL}</span> e lo si riporti.<br>
+</li>
+<li>Si calcoli il p-value e si decida in merito all’accettazione o al rifiuto dell’ipotesi nulla.</li>
+</ol></li>
+</ol>
 </section>
-<section id="recommended-textbooks-eng" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-eng">Recommended textbooks (ENG)</h4>
-<ul>
-<li>Agresti, A. 2015. <a href="https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034"><em>Foundations of Linear and Generalized Linear Models</em></a>. Wiley.</li>
-<li>McCullagh, P., and J. A. Nelder. 1989. <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh"><em>Generalized Linear Models</em></a>. Second Edition. Springer.</li>
-</ul>
+<section id="parte-teorica" class="level2">
+<h2 class="anchored" data-anchor-id="parte-teorica">Parte Teorica</h2>
+<ol type="1">
+<li><p>Si illustri il concetto di residuo di devianza nell’ambito dei GLM e se ne illustri l’utilizzo.</p></li>
+<li><p><span class="blue">Omessa</span>. La domanda faceva riferimento a concetti di statistica nonparametrica, che non sono più parte del programma.</p></li>
+</ol>
 </section>
-<section id="slides-and-lecture-notes" class="level4">
-<h4 class="anchored" data-anchor-id="slides-and-lecture-notes">Slides and lecture notes</h4>
-<p>The slides are meant to be used in HTML. However, if you <em>really</em> want to convert the HTML slides into pdf files, you can <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf">follow the instruction of the quarto documentation</a>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Notes</th>
-<th>Slides</th>
-<th>Further material</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Introduction</strong></td>
-<td><a href="slides/un_intro.html">Introduction</a></td>
-<td><a href="slides/un_intro_slides.html">Slides Introduction</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>GENERAL THEORY</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Linear models and misspecification</strong></td>
-<td><a href="slides/un_A.html">Unit A</a></td>
-<td><a href="slides/un_A_slides.html">Slides Unit A</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_A.html">Exercises A</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 1</td>
-<td><a href="code/lab1.R"><code>lab1.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Generalized Linear Models</strong></td>
-<td><a href="slides/un_B.html">Unit B</a></td>
-<td><a href="slides/un_B_slides.html">Slides Unit B</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_B.html">Exercises B</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 2</td>
-<td><a href="code/lab2.R"><code>lab2.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 3</td>
-<td><a href="code/lab3.R"><code>lab3.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>NOTABLE MODELS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Binary and binomial regression</strong></td>
-<td>[Unit C]</td>
-<td>[Slides Unit C]</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 4</td>
-<td><a href="code/lab4.R"><code>lab4.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises C]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Poisson regression</strong></td>
-<td>[Unit D]</td>
-<td>[Slides Unit D]</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 5</td>
-<td><a href="code/lab5.R"><code>lab5.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td>[Exercises D]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 6</td>
-<td><a href="code/lab6.R"><code>lab6.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>ADVANCED TOPICS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Quasi-likelihoods</strong></td>
-<td>[Unit E]</td>
-<td>[Slides Unit E]</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 7</td>
-<td><a href="code/lab7.R"><code>lab7.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td>[Exercises F]</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="previous-exams-ita" class="level2">
-<h2 class="anchored" data-anchor-id="previous-exams-ita">Previous exams (ITA)</h2>
-<p>Example of previous exams are provided below, together with a solution.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Dataset</th>
-<th>Questions (ITA)</th>
-<th>Solution (ITA)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>9 July 2014</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/orings.html"><code>orings</code></a></td>
-<td><a href="exams/2014_07_09.html">Exam</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- ## Prerequisites -->
-<!-- Knowledge of the topics (i) linear algebra, (ii) linear models is highly recommended. -->
-<!-- Knowledge of topics covered in the courses Probability and Statistics M -->
-<!-- and Advanced Statistics M is also highly recommended. -->
-</section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course.</p>
-<p>I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit. Students are encouraged to consult the books: these slides are just a concise summary.</p>
-<p>All the mistakes still present are mine.</p>
-<hr>
 </section>
 
 </main>
@@ -318,12 +203,12 @@ ul.task-list li input[type="checkbox"] {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiato!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiato!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -697,5 +582,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="2014_07_09_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
