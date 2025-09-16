@@ -93,8 +93,8 @@ window.Quarto = {
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
   <ul class="collapse">
-  <li><a href="#the-orings-dataset" id="toc-the-orings-dataset" class="nav-link" data-scroll-target="#the-orings-dataset">The <code>orings</code> dataset</a></li>
-  <li><a href="#parte-teorica" id="toc-parte-teorica" class="nav-link" data-scroll-target="#parte-teorica">Parte Teorica</a></li>
+  <li><a href="#analisi-del-dataset-orings" id="toc-analisi-del-dataset-orings" class="nav-link" data-scroll-target="#analisi-del-dataset-orings">Analisi del dataset <code>orings</code></a></li>
+  <li><a href="#teoria" id="toc-teoria" class="nav-link" data-scroll-target="#teoria">Teoria</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -136,11 +136,11 @@ window.Quarto = {
 
 <section id="homepage" class="level1">
 <h1><a href="../index.html">Homepage</a></h1>
-<section id="the-orings-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="the-orings-dataset">The <code>orings</code> dataset</h2>
+<section id="analisi-del-dataset-orings" class="level2">
+<h2 class="anchored" data-anchor-id="analisi-del-dataset-orings">Analisi del dataset <code>orings</code></h2>
 <p>Il dataset <code>orings</code> contenuto nella libreria <code>faraway</code> contiene i dati relativi a <span class="math inline">n = 23</span> lanci dello <span class="blue">space shuttle Challenger</span>. Le variabili presenti sono:</p>
 <ul>
-<li><code>damage</code>: numero di giunture danneggiate (su 6)<br>
+<li><code>damage</code>: numero di giunture danneggiate (su <span class="math inline">m_i = 6</span>)<br>
 </li>
 <li><code>temp</code>: temperatura in gradi Fahrenheit</li>
 </ul>
@@ -148,17 +148,17 @@ window.Quarto = {
 <li><p>Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:</p>
 <ol type="i">
 <li>L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);</li>
-<li>AIC;</li>
+<li>il valore di AIC;</li>
 <li>Il p-value del test per la bontà del modello basato sulla devianza, commentando ipotesi nulla e valore numerico ottenuto.</li>
 </ol></li>
 <li><p>Si commenti (senza riportarla) la diagnostica grafica di base fornita da <strong>R</strong> per il modello stimato.</p></li>
 <li><p>Si fornisca un’interpretazione per la stima del coefficiente della variable esplicativa.</p></li>
-<li><p>Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura <span class="math inline">31</span> (cioè quella prevista in occasione del 24esimo lancio):</p></li>
+<li><p>Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura <span class="math inline">31</span>, cioè quella prevista in occasione del 24esimo lancio.</p></li>
 <li><p>Si riporti il grafico della curva stimata sovraimposta ai punti osservati. Il <em>range</em> per l’esplicativa deve essere <span class="math inline">(30, 85)</span>, cioè più esteso di quello osservato.</p></li>
 <li><p>Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti.</p></li>
 <li><p>Si vuole applicare il test di Hosmer–Lemeshow che sottopone a verifica la bontà del modello raggruppando i dati.</p>
 <ol type="i">
-<li>Si costruisca la matrice <span class="math inline">n \times 2</span> che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). So tratta delle stesse quantità calcolate al punto f.</li>
+<li>Si costruisca la matrice <span class="math inline">n \times 2</span> che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). Si tratta delle stesse quantità già calcolate al punto f.</li>
 <li>Si divida la matrice in 3 blocchi di numerosità simile (8, 8 e 7).</li>
 <li>Per ogni blocco si calcolino le 4 quantità utili ai fini del test (successi totali osservati e attesi, insuccessi totali osservati e attesi) e si riportino i valori ottenuti.</li>
 <li>Si calcoli il valore assunto dalla statistica test <span class="math inline">X^2_\text{HL}</span> e lo si riporti.<br>
@@ -167,11 +167,11 @@ window.Quarto = {
 </ol></li>
 </ol>
 </section>
-<section id="parte-teorica" class="level2">
-<h2 class="anchored" data-anchor-id="parte-teorica">Parte Teorica</h2>
+<section id="teoria" class="level2">
+<h2 class="anchored" data-anchor-id="teoria">Teoria</h2>
 <ol type="1">
 <li><p>Si illustri il concetto di residuo di devianza nell’ambito dei GLM e se ne illustri l’utilizzo.</p></li>
-<li><p><span class="blue">Omessa</span>. La domanda faceva riferimento a concetti di statistica nonparametrica, che non sono più parte del programma.</p></li>
+<li><p><span class="orange">Omessa</span>. La domanda faceva riferimento a concetti di statistica nonparametrica, che non sono più parte del programma.</p></li>
 </ol>
 </section>
 </section>

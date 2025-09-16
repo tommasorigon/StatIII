@@ -35,40 +35,39 @@ editor_options:
 
 # [Homepage](../index.html)
 
-## The `orings` dataset
-
+## Analisi del dataset `orings`
 
 Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi a $n = 23$ lanci dello [space shuttle Challenger]{.blue}. Le variabili presenti sono:  
 
-- `damage`: numero di giunture danneggiate (su 6)  
+- `damage`: numero di giunture danneggiate (su $m_i = 6$)  
 - `temp`: temperatura in gradi Fahrenheit  
 
 (a) Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:  
     i. L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);
-    ii. AIC;
+    ii. il valore di AIC;
     iii. Il p-value del test per la bontà del modello basato sulla devianza, commentando ipotesi nulla e valore numerico ottenuto.
 
 (b) Si commenti (senza riportarla) la diagnostica grafica di base fornita da **R** per il modello stimato.
 
 (c) Si fornisca un'interpretazione per la stima del coefficiente della variable esplicativa.  
 
-(d) Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura $31$ (cioè quella prevista in occasione del 24esimo lancio):  
+(d) Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura $31$, cioè quella prevista in occasione del 24esimo lancio.
 
 (e) Si riporti il grafico della curva stimata sovraimposta ai punti osservati. Il *range* per l’esplicativa deve essere $(30, 85)$, cioè più esteso di quello osservato.  
 
 (f) Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti.  
 
 (g) Si vuole applicare il test di Hosmer–Lemeshow che sottopone a verifica la bontà del modello raggruppando i dati.
-    i. Si costruisca la matrice $n \times 2$ che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). So tratta delle stesse quantità calcolate al punto f.
+    i. Si costruisca la matrice $n \times 2$ che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). Si tratta delle stesse quantità già calcolate al punto f.
     ii. Si divida la matrice in 3 blocchi di numerosità simile (8, 8 e 7).
     iii. Per ogni blocco si calcolino le 4 quantità utili ai fini del test (successi totali osservati e attesi, insuccessi totali osservati e attesi) e si riportino i valori ottenuti.
     iv. Si calcoli il valore assunto dalla statistica test $X^2_\text{HL}$ e lo si riporti.  
     v. Si calcoli il p-value e si decida in merito all’accettazione o al rifiuto dell'ipotesi nulla.  
 
-## Parte Teorica
+## Teoria
 
-1. Si illustri il concetto di residuo di devianza nell’ambito dei GLM e se ne illustri l’utilizzo.  
+1. Si illustri il concetto di residuo di devianza nell'ambito dei GLM e se ne illustri l’utilizzo.  
 
-2. [Omessa]{.blue}. La domanda faceva riferimento a concetti di statistica nonparametrica, che non sono più parte del programma. 
+2. [Omessa]{.orange}. La domanda faceva riferimento a concetti di statistica nonparametrica, che non sono più parte del programma. 
 
 
