@@ -34,6 +34,10 @@ editor_options:
 
 # [Homepage](../index.html)
 
+The theoretical exercises described below are quite [difficult]{.orange}. At the [exam]{.blue}, you can expect a [simplified version]{.blue} of them; otherwise, they would represent a formidable challenge for most of you.
+
+On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
+
 ## Theoretical
 
 :::{.callout-note collapse=true}
