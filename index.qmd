@@ -42,7 +42,7 @@ Regression is such an important topic that the [tour]{.orange} will [continue]{.
 
 #### Recommended textbooks (ITA)
 
-- Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://doi.org/10.1007/978-88-470-3995-7_10). Springer.
+- Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2). Springer.
 - Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza*](https://link.springer.com/book/9788847001305). Springer
 
     

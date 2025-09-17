@@ -44,7 +44,7 @@ Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi 
 
 (a) Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:  
     i. L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);
-    ii. il valore di AIC;
+    ii. il valore dell'indicatore AIC;
     iii. Il p-value del test per la bontà del modello basato sulla devianza, commentando ipotesi nulla e valore numerico ottenuto.
 
 (b) Si commenti (senza riportarla) la diagnostica grafica di base fornita da **R** per il modello stimato.

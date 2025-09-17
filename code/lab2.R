@@ -134,12 +134,12 @@ influence(m1_bis)$hat
 influence(m1_bis)$hat[c(1, 10)]
 
 # Standardized residuals
-rstandard(m1, type = "deviance")
-rstandard(m1, type = "pearson")
+rstandard(m1_bis, type = "deviance")
+rstandard(m1_bis, type = "pearson")
 
 # -------------------------------------------------------------------
 # Additional notes
-vcov(m1) # Covariance matrix of coefficients (X'WX)^(-1) in IRLS
+vcov(m1_bis) # Covariance matrix of coefficients (X'WX)^(-1) in IRLS
 fitted(m1_bis) # Fitted values
 predict(m1_bis, type = "response") # Fitted values on response scale
 predict(m1_bis) # Linear predictor

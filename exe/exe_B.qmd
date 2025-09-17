@@ -38,7 +38,6 @@ The theoretical exercises described below are quite [difficult]{.orange}. At the
 
 On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
 
-
 ## Theoretical
 
 :::{.callout-note collapse=true}
