@@ -191,8 +191,7 @@ We will use several textbooks throughout this course — some more specialized t
 ## Exam
 
 - The written exam has two parts, held on the same day:  
-  - [Theory and exercises]{.orange}: questions to assess understanding of concepts  
-    and the ability to correctly set up a statistical model.  
+  - [Theory and exercises]{.orange}: questions to assess understanding of concepts and the ability to correctly set up a statistical model.  
   - [Data set analysis]{.blue}: applied analysis of a dataset using R.  
 
 - The [overall mark]{.grey} is the average of the two parts.  
