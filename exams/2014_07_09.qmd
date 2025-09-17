@@ -42,6 +42,8 @@ Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi 
 - `damage`: numero di giunture danneggiate (su $m_i = 6$)  
 - `temp`: temperatura in gradi Fahrenheit  
 
+Facendo uso del software **R**, si risponda alle seguenti domande:
+
 (a) Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:  
     i. L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);
     ii. il valore dell'indicatore AIC;
