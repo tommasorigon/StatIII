@@ -38,64 +38,6 @@ The theoretical exercises described below are quite [difficult]{.orange}. At the
 
 On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
 
-## Theoretical
-
-:::{.callout-note collapse=true}
-#### Exercise A - 🤔🤔
-
-Prove that the variance-stabilizing transform for gamma random variables $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, is the logarithm $g(Y_i) = \log(Y_i)$. 
-
-[Hint]{.blue}: use the fact that if $Y_i \sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, then for large values of $\alpha$ we have the approximation $Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)$.
-:::
-
-:::{.callout-note collapse=true}
-#### Exercise B - 🤔🤔
-
-In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$.
-
-:::
-
-:::{.callout-note collapse=true}
-#### Exercise C - 🤔🤔🤔
-
-In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta_1 x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
-
-(a) Show that the weighted least squares estimator minimizes $\sum_{i=1}^n(y_i - \beta x_i)^2/x_i$ (i.e., giving more weight to observation with smaller $x_i$) and has $\hat{\beta}_\text{wls} = \bar{y}/\bar{x}$, with $\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i$.
-
-(b) Show that the ordinary least squares estimator is $\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2$ and has $\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2$. 
-
-(c) Show that $\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})$. 
-:::
-
-:::{.callout-note collapse=true}
-#### Exercise D - 🤔🤔
-
-Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
-$$
-\hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
-$$
-
-(a) Show that $$
-\bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}$$ 
-so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in the column space of $\bm{X}$?  
-
-(b) Explain why the [added-variable plot]{.blue} (residuals $\bm{r}$ vs. residuals from regressing $\bm{z}$ on $\bm{X}$) helps assess whether to include $\bm{z}$.  
-
-(c) Using the plots in the figure below, referring to the same set of data, comment on the results and suggest how to modify the model.
-
-```{r}
-set.seed(123)
-x1 <- runif(100, 0, 1)
-x2 <- runif(100, 0, 1)
-z <- 3 * x1 + rnorm(100, 0, 0.2)
-y <- 1 + x1 + x2 - 5 * z + rnorm(100, 0, 0.3)
-
-plot(z, residuals(lm(y ~ x1 + x2)), pch = 16)
-plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
-```
-:::
-
-
 ## Data analysis
 
 :::{.callout-note collapse=true}
@@ -181,3 +123,61 @@ knitr::kable(head(Anorexia))
 ```
 
 :::
+
+## Theoretical
+
+:::{.callout-note collapse=true}
+#### Exercise A
+
+Prove that the variance-stabilizing transform for gamma random variables $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, is the logarithm $g(Y_i) = \log(Y_i)$. 
+
+[Hint]{.blue}: use the fact that if $Y_i \sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, then for large values of $\alpha$ we have the approximation $Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)$.
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise B
+
+In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$.
+
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise C
+
+In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta_1 x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
+
+(a) Show that the weighted least squares estimator minimizes $\sum_{i=1}^n(y_i - \beta x_i)^2/x_i$ (i.e., giving more weight to observation with smaller $x_i$) and has $\hat{\beta}_\text{wls} = \bar{y}/\bar{x}$, with $\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i$.
+
+(b) Show that the ordinary least squares estimator is $\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2$ and has $\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2$. 
+
+(c) Show that $\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})$. 
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise D
+
+Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
+$$
+\hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
+$$
+
+(a) Show that $$
+\bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}$$ 
+so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in the column space of $\bm{X}$?  
+
+(b) Explain why the [added-variable plot]{.blue} (residuals $\bm{r}$ vs. residuals from regressing $\bm{z}$ on $\bm{X}$) helps assess whether to include $\bm{z}$.  
+
+(c) Using the plots in the figure below, referring to the same set of data, comment on the results and suggest how to modify the model.
+
+```{r}
+set.seed(123)
+x1 <- runif(100, 0, 1)
+x2 <- runif(100, 0, 1)
+z <- 3 * x1 + rnorm(100, 0, 0.2)
+y <- 1 + x1 + x2 - 5 * z + rnorm(100, 0, 0.3)
+
+plot(z, residuals(lm(y ~ x1 + x2)), pch = 16)
+plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
+```
+:::
+
