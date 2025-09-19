@@ -38,10 +38,13 @@ The theoretical exercises described below are quite [difficult]{.orange}. At the
 
 On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
 
+## Data analysis
+
+
 ## Theoretical
 
 :::{.callout-note collapse=true}
-## Exercise A - 🤔🤔🤔
+## Exercise A
 
 Let $Y$ be a random variable with an [inverse Gaussian distribution]{.blue}, with support $[0, \infty)$ and probability density function
 
@@ -53,7 +56,7 @@ Show that this distribution belongs to the exponential dispersion family, and id
 :::
 
 :::{.callout-note collapse=true}
-## Exercise B - 🤔🤔
+## Exercise B
 
 Let $Y$ be a random variable with a [negative binomial]{.blue} distribution, representing the number of independent Bernoulli trials with constant success probability $\pi \in (0,1)$ required to obtain $k$ successes. The support is $S = \{k, k+1, \dots\}$ and the probability mass function is
 $$
@@ -75,7 +78,7 @@ iv. Does the distribution still form an exponential-dispersion family if $k$ is 
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise C - 🤔🤔
+#### Exercise C
 
 i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
 
@@ -87,13 +90,13 @@ iii. Obtain the likelihood equations for a binomial regression model (`Beetles` 
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise D - 🤔
+#### Exercise D
 
 Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise E - 🤔🤔🤔
+#### Exercise E
 
 Let $Y_i$ be independent, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLMs with [no intercept]{.blue},
 $$
@@ -118,7 +121,7 @@ iv. For a fixed covariate value $x_i$, construct an approximate 95% confidence i
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise F - 🤔🤔🤔
+#### Exercise F
 
 Suppose $y_i$ has a Poisson distribution with
 $$
@@ -134,7 +137,7 @@ iii. Using the likelihood equations, show that the same result holds for any GLM
 :::
 
 :::{.callout-note collapse=true}
-## Exercise G - 🤔🤔🤔
+## Exercise G
 
 In a generalized linear model that uses a [non-canonical link function]{.blue}, explain why it need not be true that  
 $$
@@ -144,10 +147,8 @@ Hence, the residuals need not have a mean of 0. Then, explain why a GLM with a [
 :::
 
 :::{.callout-note collapse=true}
-## Exercise H - 🤔
+## Exercise H
 
 In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest $R^2$ in linear models)?
 :::
-
-## Data analysis
 
