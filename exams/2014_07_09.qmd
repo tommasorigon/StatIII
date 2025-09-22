@@ -45,7 +45,7 @@ Gli eventi del Challenger sono stati narrati nella docuserie originale Netflix d
 
 ## Analisi del dataset `orings`
 
-Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi a 23 precedenti lanci dello shuttle Challenger, con l’obiettivo di modellare la probabilità di guasto delle guarnizioni in funzione della temperatura esterna al momento del lancio. La temperatura esterna nel giorno del disastro era di 31 gradi Fahrenheit. 
+Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi a 23 precedenti lanci dello shuttle Challenger, con l’obiettivo di modellare la probabilità di guasto di ogni guarnizione in funzione della temperatura esterna al momento del lancio. La temperatura esterna nel giorno del disastro era di 31 gradi Fahrenheit. 
 
 Le variabili presenti sono:  
 
