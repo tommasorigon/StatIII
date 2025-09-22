@@ -179,8 +179,10 @@ plot(m1, which = 1:4) # Residuals, fitted values, leverage, Cook's distance
 par(mfrow = c(1, 1))
 
 # Overall goodness of fit
-X2 <- sum(residuals(m1)^2)
+X2 <- sum(residuals(m1, type = "pearson")^2)
 X2
+# This simply coincides with
+sum((stress$answer - stress$predicted1)^2 / stress$predicted1)
 
 # p-value of the overall goodness of fit. It is somewhat borderline...
 pchisq(q = X2, df = m1$df.residual, lower.tail = FALSE)

@@ -233,3 +233,8 @@ fit2 <- exp(predict(m2))
 1 - sum((Clotting$tempo - fit1)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 1 - sum((Clotting$tempo - fit2)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 
+coeftest(m2)
+coeftest(m2, vcov. = vcovHC(m2))
+
+coefci(m2)
+coefci(m2, vcov. = vcovHC(m2))
