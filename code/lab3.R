@@ -94,5 +94,6 @@ points(dde_means, prop, pch = 16)
 
 # This is also a nice example of the usefulness of "indirect evidence": the empirical proportions are less reliable estimates than the fitted GLM.
 
+# Dataset 2: Stress ----------------------------------------------------------------------------------
 
 
