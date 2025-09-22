@@ -40,7 +40,28 @@ On the other hand, the data analyses are more or less aligned with what you may 
 
 ## Data analysis
 
+::: {.callout-note collapse=true}
+#### `Seed` dataset
 
+The dataset `Seed` of the `MLGdata` was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:  
+
+- `fert` indicates the amount of fertilizer,  
+- `x` is a binary variable equal to 1 if the seed germinated, and 0 otherwise.  
+
+Import the data and then:
+
+(a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).  
+
+(b) Conduct an exploratory analysis to assess the relationship between the response and the covariates.  
+
+(c) Specify an appropriate Generalized Linear Model (GLM), adopting the canonical link function.  
+
+(d) Fit the GLM specified in (c) using R.  
+
+(e) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
+
+(f) For each element in the `summary` output of the fitted `glm` object in R, indicate what quantity is being computed, providing the correspondence with the formulas in the slides.  
+:::
 
 ## Theoretical
 
