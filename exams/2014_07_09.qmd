@@ -41,6 +41,10 @@ Il [disastro dello shuttle Challenger](https://it.wikipedia.org/wiki/Disastro_de
 
 L’incidente fu causato dal guasto delle guarnizioni (`orings`) in un razzo a propellente solido, che portò all’esplosione del serbatoio esterno. L’evento fu trasmesso in diretta TV e seguito da milioni di persone, anche perché era previsto che l’insegnante Christa McAuliffe tenesse una lezione dallo spazio. I voli con equipaggio ripresero solo due anni e mezzo dopo, con la missione dello Shuttle Discovery nel settembre 1988.
 
+I dati sono stati analizzati da una commissione d'inchiesta ed in seguito ben descritti nell'articolo scientifico:
+
+> S. Dalal, E. Fowlkes and B. Hoadley (1989). "Risk analysis of the space shuttle: pre-challenger prediction of failure." *Journal of the American Statistical Association*. **84** 945-957.
+
 Gli eventi del Challenger sono stati narrati nella docuserie originale Netflix di quattro episodi del 2020 dal titolo "[*Challenger: l'ultimo volo*](https://www.netflix.com/title/81012137)".
 
 ## Analisi del dataset `orings`
