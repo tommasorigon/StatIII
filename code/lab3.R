@@ -96,4 +96,92 @@ points(dde_means, prop, pch = 16)
 
 # Dataset 2: Stress ----------------------------------------------------------------------------------
 
+# The data in Table 5.1 (Haberman, 1978, p. 3) concern individuals who, within a larger randomly selected sample, reported having experienced, during the past 18 months, an event—chosen from a list of 41—that caused them exceptional nervous tension. The responses are classified according to how many months ago the anxiety-inducing event occurred.
+
+rm(list = ls())
+stress <- read.csv("../data/stress.csv", sep = ";")
+
+# As an alternative
+stress <- read.csv("https://tommasorigon.github.io/StatIII/data/stress.csv", sep = ";") # Download the file from the internet
+
+summary(stress)
+plot(stress, pch = 16)
+
+# Fitting a Poisson model with canonical link
+m1 <- glm(answer ~ month, data = stress, family = poisson(link = "log"))
+summary(m1)
+
+# The effect of month is negative, indicating that the number of individuals reporting anxiety decreases as time passes since the event.
+plot(stress, pch = 16)
+curve(exp(coef(m1)[1] + coef(m1)[2] * x), add = TRUE, col = "red")
+
+# Tests and confidence intervals --------------------------------------------
+
+# Let us fit the null model, i.e. the model without the covariate
+m_null <- glm(answer ~ 1, family = poisson, data = stress) # Model with only the intercept
+summary(m_null) # Null deviance and residual deviance coincide
+
+phi <- summary(m1)$dispersion # This is equal 1
+
+# Three test connected to the log-likelihood
+
+# Wald test
+W_e <- lmtest::waldtest(m_null, m1, test = "Chisq")$Chisq[2]
+
+# Note that z_value^2 displayed in summary(m1) coincide with (-4.986)^2 = 24.86
+# summary(m1)
+
+# Rao-score test
+W_u <- anova(m_null, m1, test = "Rao")$Rao[2]
+
+# Log-likelihood ratio test
+W <- (deviance(m_null) - deviance(m1)) / phi
+
+# Creating a table with all three test
+tests <- data.frame(value = c(W_e, W_u, W))
+tests$q <- 1
+tests$pvalue <- pchisq(tests$value, tests$q, lower.tail = FALSE)
+rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
+tests
+
+# Alternative commands
+anova(m_null, m1, test = "LRT")
+anova(m_null, m1, test = "Rao")
+
+# Wald confidence intervals
+
+lmtest::coefci(m1)
+# Alternatively, we can compute them "manually"
+coef(m1)[1] + c(-1,1) * qnorm(0.975) * sqrt(diag(vcov(m1)))[1]
+coef(m1)[2] + c(-1,1) * qnorm(0.975) * sqrt(diag(vcov(m1)))[2]
+
+# Rao confidence intervals
+confint(m1, test = "Rao")
+
+# Log-likelihood ratio confidence intervals
+confint(m1, test = "LRT")
+
+# Diagnostics ------------------------------------------------
+
+stress$predicted1 <- fitted(m1)
+View(stress)
+
+# Observed vs fitted values
+plot(stress$answer, stress$predicted1,
+  pch = 16,
+  xlab = "Observed values", ylab = "Fitted values"
+)
+abline(c(0, 1), lty = "dotted")
+
+# Standard diagnostic plots
+par(mfrow = c(2, 2))
+plot(m1, which = 1:4) # Residuals, fitted values, leverage, Cook's distance
+par(mfrow = c(1, 1))
+
+# Overall goodness of fit
+X2 <- sum(residuals(m1)^2)
+X2
+
+# p-value of the overall goodness of fit. It is somewhat borderline...
+pchisq(q = X2, df = m1$df.residual, lower.tail = FALSE)
 
