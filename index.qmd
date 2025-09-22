@@ -103,7 +103,9 @@ Example of previous exams are provided below, together with a solution.
 
 I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course. 
 
-I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit. Students are encouraged to consult the books: these slides are just a concise summary.
+<!-- I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit.  -->
+
+Students are encouraged to consult the books: these slides are just a concise summary.
 
 All the mistakes still present are mine.
 
