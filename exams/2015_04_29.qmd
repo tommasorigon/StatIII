@@ -1,0 +1,69 @@
+---
+title: "Esame del 9 Luglio 2014"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Il dataset `ships`
+
+Il dataset `ships` contenuto nella libreria `MASS` riguarda $n = 40$ navi. Le variabili sono:
+
+  - `type`: tipo di nave  
+  - `year`: anno di costruzione  
+  - `period`: periodo di operatività  
+  - `service`: numero totale di mesi di servizio  
+  - `incidents`: numero di incidenti  
+
+Facendo uso del software **R**, si risponda alle seguenti domande:
+
+(a) Stabilire se la variabile risposta `incidents` può ritenersi normalmente distribuita, portando argomentazioni qualitative.
+
+(b) Individuare le posizioni delle navi che [non hanno mai viaggiato]{.blue}, eliminarle dal dataset e giustificare tale eliminazione.  
+
+(c) Dopo aver ricodificato la variabile `period` come [qualitativa]{.orange}, stimare un [modello lineare]{.blue} con risposta `incidents` ed esplicative tutte le rimanenti. Si riportino:
+    i. La stima dell’iperpiano di regressione.
+    ii. Il *p-value* del test per la bontà del modello (modello stimato vs modello nullo) commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.
+    iii. Un unico coefficiente di regressione è statisticamente significativo all'1%. Quale? Si fornisca inoltre una spiegazione [qualitativa]{.orange} sul motivo per cui questo avviene. 
+    iv. La stima dell’intercetta $\hat{\beta}_0$ si può interpretare come numero medio di incidenti previsto dal modello per una nave con quali caratteristiche?
+
+(d) Stimare un GLM con risposta `incidents` ed esplicative tutte le rimanenti (senza interazioni). Qualora lo si ritenga opportuno si inserisca un *offset* relativo ad un'opportuna trasformata della variabile esplicativa che esprime il numero di esposizioni (modello di tasso). Si riportino:
+    i. L'equazione che esprime la risposta media stimata in funzione delle esplicative (equazione del modello stimato).       
+    ii. Il p-value del test per la bontà del modello (modello stimato vs modello nullo) basato sulla devianza commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.
+
+
+## Teoria
+
+1. Si illustri il concetto di devianza nell’ambito dei glm e se ne illustri l’utilizzo al fine di confrontare due glm annidati.
+
+2. Considerato un GLM per risposta binaria, si derivino la funzione della media, della varianza ed il link canonico.

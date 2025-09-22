@@ -24,17 +24,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="2014_07_09_files/libs/clipboard/clipboard.min.js"></script>
-<script src="2014_07_09_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="2014_07_09_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="2014_07_09_files/libs/quarto-html/popper.min.js"></script>
-<script src="2014_07_09_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="2014_07_09_files/libs/quarto-html/anchor.min.js"></script>
-<link href="2014_07_09_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="2014_07_09_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="2014_07_09_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="2014_07_09_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="2014_07_09_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="2015_04_29_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2015_04_29_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="2015_04_29_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="2015_04_29_files/libs/quarto-html/popper.min.js"></script>
+<script src="2015_04_29_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2015_04_29_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2015_04_29_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2015_04_29_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2015_04_29_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2015_04_29_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2015_04_29_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -93,8 +93,7 @@ window.Quarto = {
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
   <ul class="collapse">
-  <li><a href="#il-disastro-dello-shuttle-challenger" id="toc-il-disastro-dello-shuttle-challenger" class="nav-link" data-scroll-target="#il-disastro-dello-shuttle-challenger">Il disastro dello shuttle Challenger</a></li>
-  <li><a href="#analisi-del-dataset-orings" id="toc-analisi-del-dataset-orings" class="nav-link" data-scroll-target="#analisi-del-dataset-orings">Analisi del dataset <code>orings</code></a></li>
+  <li><a href="#il-dataset-ships" id="toc-il-dataset-ships" class="nav-link" data-scroll-target="#il-dataset-ships">Il dataset <code>ships</code></a></li>
   <li><a href="#teoria" id="toc-teoria" class="nav-link" data-scroll-target="#teoria">Teoria</a></li>
   </ul></li>
   </ul>
@@ -137,54 +136,44 @@ window.Quarto = {
 
 <section id="homepage" class="level1">
 <h1><a href="../index.html">Homepage</a></h1>
-<section id="il-disastro-dello-shuttle-challenger" class="level2">
-<h2 class="anchored" data-anchor-id="il-disastro-dello-shuttle-challenger">Il disastro dello shuttle Challenger</h2>
-<p>Il <a href="https://it.wikipedia.org/wiki/Disastro_dello_Space_Shuttle_Challenger">disastro dello shuttle Challenger</a> avvenne il 28 gennaio 1986, 73 secondi dopo il decollo. Morirono tutte le 7 persone a bordo, tra cui un’insegnante.</p>
-<p>L’incidente fu causato dal guasto delle guarnizioni (<code>orings</code>) in un razzo a propellente solido, che portò all’esplosione del serbatoio esterno. L’evento fu trasmesso in diretta TV e seguito da milioni di persone, anche perché era previsto che l’insegnante Christa McAuliffe tenesse una lezione dallo spazio. I voli con equipaggio ripresero solo due anni e mezzo dopo, con la missione dello Shuttle Discovery nel settembre 1988.</p>
-<p>I dati sono stati analizzati da una commissione d’inchiesta ed in seguito ben descritti nell’articolo scientifico:</p>
-<blockquote class="blockquote">
-<p>S. Dalal, E. Fowlkes and B. Hoadley (1989). “Risk analysis of the space shuttle: pre-challenger prediction of failure.” <em>Journal of the American Statistical Association</em>. <strong>84</strong> 945-957.</p>
-</blockquote>
-<p>Gli eventi del Challenger sono stati narrati nella docuserie originale Netflix di quattro episodi del 2020 dal titolo “<a href="https://www.netflix.com/title/81012137"><em>Challenger: l’ultimo volo</em></a>”.</p>
-</section>
-<section id="analisi-del-dataset-orings" class="level2">
-<h2 class="anchored" data-anchor-id="analisi-del-dataset-orings">Analisi del dataset <code>orings</code></h2>
-<p>Il dataset <code>orings</code> contenuto nella libreria <code>faraway</code> contiene i dati relativi a 23 precedenti lanci dello shuttle Challenger, con l’obiettivo di modellare la probabilità di guasto di ogni guarnizione in funzione della temperatura esterna al momento del lancio. La temperatura esterna nel giorno del disastro era di 31 gradi Fahrenheit.</p>
-<p>Le variabili presenti sono:</p>
+<section id="il-dataset-ships" class="level2">
+<h2 class="anchored" data-anchor-id="il-dataset-ships">Il dataset <code>ships</code></h2>
+<p>Il dataset <code>ships</code> contenuto nella libreria <code>MASS</code> riguarda <span class="math inline">n = 40</span> navi. Le variabili sono:</p>
 <ul>
-<li><code>damage</code>: numero di guarnizioni danneggiate (su <span class="math inline">m_i = 6</span>)<br>
+<li><code>type</code>: tipo di nave<br>
 </li>
-<li><code>temp</code>: temperatura in gradi Fahrenheit</li>
+<li><code>year</code>: anno di costruzione<br>
+</li>
+<li><code>period</code>: periodo di operatività<br>
+</li>
+<li><code>service</code>: numero totale di mesi di servizio<br>
+</li>
+<li><code>incidents</code>: numero di incidenti</li>
 </ul>
 <p>Facendo uso del software <strong>R</strong>, si risponda alle seguenti domande:</p>
 <ol type="a">
-<li><p>Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:</p>
+<li><p>Stabilire se la variabile risposta <code>incidents</code> può ritenersi normalmente distribuita, portando argomentazioni qualitative.</p></li>
+<li><p>Individuare le posizioni delle navi che <span class="blue">non hanno mai viaggiato</span>, eliminarle dal dataset e giustificare tale eliminazione.</p></li>
+<li><p>Dopo aver ricodificato la variabile <code>period</code> come <span class="orange">qualitativa</span>, stimare un <span class="blue">modello lineare</span> con risposta <code>incidents</code> ed esplicative tutte le rimanenti. Si riportino:</p>
 <ol type="i">
-<li>L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);</li>
-<li>il valore dell’indicatore AIC;</li>
-<li>Il p-value del test per la bontà del modello (modello stimato vs modello nullo) basato sulla devianza, commentando ipotesi nulla e valore numerico ottenuto.</li>
+<li>La stima dell’iperpiano di regressione.</li>
+<li>Il <em>p-value</em> del test per la bontà del modello (modello stimato vs modello nullo) commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.</li>
+<li>Un unico coefficiente di regressione è statisticamente significativo all’1%. Quale? Si fornisca inoltre una spiegazione <span class="orange">qualitativa</span> sul motivo per cui questo avviene.</li>
+<li>La stima dell’intercetta <span class="math inline">\hat{\beta}_0</span> si può interpretare come numero medio di incidenti previsto dal modello per una nave con quali caratteristiche?</li>
 </ol></li>
-<li><p>Si commenti (senza riportarla) la diagnostica grafica di base fornita da <strong>R</strong> per il modello stimato.</p></li>
-<li><p>Si fornisca un’interpretazione per la stima del coefficiente della variable esplicativa.</p></li>
-<li><p>Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura <span class="math inline">31</span>, cioè quella prevista in occasione del 24esimo lancio.</p></li>
-<li><p>Si riporti il grafico della curva stimata sovraimposta ai punti osservati. Il <em>range</em> per l’esplicativa deve essere <span class="math inline">(30, 85)</span>, cioè più esteso di quello osservato.</p></li>
-<li><p>Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti.</p></li>
-<li><p>Si vuole applicare il test di Hosmer–Lemeshow che sottopone a verifica la bontà del modello raggruppando i dati.</p>
+<li><p>Stimare un GLM con risposta <code>incidents</code> ed esplicative tutte le rimanenti (senza interazioni). Qualora lo si ritenga opportuno si inserisca un <em>offset</em> relativo ad un’opportuna trasformata della variabile esplicativa che esprime il numero di esposizioni (modello di tasso). Si riportino:</p>
 <ol type="i">
-<li>Si costruisca la matrice <span class="math inline">n \times 2</span> che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). Si tratta delle stesse quantità già calcolate al punto f.</li>
-<li>Si divida la matrice in 3 blocchi di numerosità simile (8, 8 e 7).</li>
-<li>Per ogni blocco si calcolino le 4 quantità utili ai fini del test (successi totali osservati e attesi, insuccessi totali osservati e attesi) e si riportino i valori ottenuti.</li>
-<li>Si calcoli il valore assunto dalla statistica test <span class="math inline">X^2_\text{HL}</span> e lo si riporti.<br>
+<li>L’equazione che esprime la risposta media stimata in funzione delle esplicative (equazione del modello stimato).<br>
 </li>
-<li>Si calcoli il p-value e si decida in merito all’accettazione o al rifiuto dell’ipotesi nulla.</li>
+<li>Il p-value del test per la bontà del modello (modello stimato vs modello nullo) basato sulla devianza commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.</li>
 </ol></li>
 </ol>
 </section>
 <section id="teoria" class="level2">
 <h2 class="anchored" data-anchor-id="teoria">Teoria</h2>
 <ol type="1">
-<li><p>Si illustri il concetto di residuo di devianza nell’ambito dei GLM e se ne illustri l’utilizzo.</p></li>
-<li><p><span class="orange">Omessa</span>. La domanda faceva riferimento a concetti di statistica nonparametrica, che non sono più parte del programma.</p></li>
+<li><p>Si illustri il concetto di devianza nell’ambito dei glm e se ne illustri l’utilizzo al fine di confrontare due glm annidati.</p></li>
+<li><p>Considerato un GLM per risposta binaria, si derivino la funzione della media, della varianza ed il link canonico.</p></li>
 </ol>
 </section>
 </section>
@@ -595,5 +584,5 @@ window.Quarto = {
 
 
 
-<script src="2014_07_09_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="2015_04_29_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
