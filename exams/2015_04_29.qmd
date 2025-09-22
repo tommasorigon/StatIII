@@ -61,6 +61,15 @@ Facendo uso del software **R**, si risponda alle seguenti domande:
     i. L'equazione che esprime la risposta media stimata in funzione delle esplicative (equazione del modello stimato).       
     ii. Il p-value del test per la bontà del modello (modello stimato vs modello nullo) basato sulla devianza commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.
 
+(e) Si individuino le unità che sono al contempo influenti e potenzialmente "anomale" (*outlier*) chiarendo quali misure/grafici sono stati usati allo scopo.
+
+(f) Dopo avere fornito la funzione di varianza del modello considerato, si fornisca un grafico utile a valutarne l'appropriatezza commentando il risultato ottenuto.
+
+(g) [Omessa]{.orange}.
+
+(h) È presente sovradispersione? Se si, si provi a trattarla tramite una quasi verosimiglianza e si commentino i risultati ottenuti.
+
+(i) Si fornisca ’interpretazione della stima del coefficiente della esplicativa `typeB`.
 
 ## Teoria
 
