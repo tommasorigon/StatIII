@@ -71,15 +71,15 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | Lab 3 | [`lab3.R`](code/lab3.R)| | |
 | | **NOTABLE MODELS** | | |
 | **Binary and binomial regression** | [Unit C] | [Slides Unit C] |  |
-| Lab 4 | [`lab4.R`](code/lab4.R) | | |
+| Lab 4 | [`lab4.R`] | | |
 | *Exercises* | [Exercises C] |  |  |
 | **Poisson regression** | [Unit D] | [Slides Unit D] |  |
-| Lab 5 | [`lab5.R`](code/lab5.R) | | |
+| Lab 5 | [`lab5.R`] | | |
 | *Exercises* | [Exercises D] |  |  |
-| Lab 6 | [`lab6.R`](code/lab6.R) | | |
+| Lab 6 | [`lab6.R`] | | |
 | | **ADVANCED TOPICS** | | |
 | **Quasi-likelihoods** | [Unit E] | [Slides Unit E] |  |
-| Lab 7 | [`lab7.R`](code/lab7.R) | | |
+| Lab 7 | [`lab7.R`] | | |
 | *Exercises* | [Exercises F] |  |  |
 
 ## Previous exams (ITA)
