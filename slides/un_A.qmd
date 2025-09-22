@@ -72,9 +72,9 @@ Attributed to [Albert Einstein]{.grey}
 -   This unit will cover the following [topics]{.orange}:
 
     - [Recap]{.blue}: linear models and the modeling process
-    - Box-Cox transform, variance stabilizing transformations
     - Robustness of OLS estimates, sandwich estimators
     - Weighted least squares
+    - Box-Cox transform, variance stabilizing transformations
     
 - The main theme is: what should we do when the [assumptions]{.blue} of linear models are [violated]{.orange}?
 
