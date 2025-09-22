@@ -93,6 +93,7 @@ window.Quarto = {
   <ul>
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
   <ul class="collapse">
+  <li><a href="#il-disastro-dello-shuttle-challenger" id="toc-il-disastro-dello-shuttle-challenger" class="nav-link" data-scroll-target="#il-disastro-dello-shuttle-challenger">Il disastro dello shuttle Challenger</a></li>
   <li><a href="#analisi-del-dataset-orings" id="toc-analisi-del-dataset-orings" class="nav-link" data-scroll-target="#analisi-del-dataset-orings">Analisi del dataset <code>orings</code></a></li>
   <li><a href="#teoria" id="toc-teoria" class="nav-link" data-scroll-target="#teoria">Teoria</a></li>
   </ul></li>
@@ -136,11 +137,18 @@ window.Quarto = {
 
 <section id="homepage" class="level1">
 <h1><a href="../index.html">Homepage</a></h1>
+<section id="il-disastro-dello-shuttle-challenger" class="level2">
+<h2 class="anchored" data-anchor-id="il-disastro-dello-shuttle-challenger">Il disastro dello shuttle Challenger</h2>
+<p>Il <a href="https://it.wikipedia.org/wiki/Disastro_dello_Space_Shuttle_Challenger">disastro dello shuttle Challenger</a> avvenne il 28 gennaio 1986, 73 secondi dopo il decollo. Morirono tutte le 7 persone a bordo, tra cui un’insegnante.</p>
+<p>L’incidente fu causato dal guasto delle guarnizioni (<code>orings</code>) in un razzo a propellente solido, che portò all’esplosione del serbatoio esterno. L’evento fu trasmesso in diretta TV e seguito da milioni di persone, anche perché era previsto che l’insegnante Christa McAuliffe tenesse una lezione dallo spazio. I voli con equipaggio ripresero solo due anni e mezzo dopo, con la missione dello Shuttle Discovery nel settembre 1988.</p>
+<p>Gli eventi del Challenger sono stati narrati nella docuserie originale Netflix di quattro episodi del 2020 dal titolo “<a href="https://www.netflix.com/title/81012137"><em>Challenger: l’ultimo volo</em></a>”.</p>
+</section>
 <section id="analisi-del-dataset-orings" class="level2">
 <h2 class="anchored" data-anchor-id="analisi-del-dataset-orings">Analisi del dataset <code>orings</code></h2>
-<p>Il dataset <code>orings</code> contenuto nella libreria <code>faraway</code> contiene i dati relativi a <span class="math inline">n = 23</span> lanci dello <span class="blue">space shuttle Challenger</span>. Le variabili presenti sono:</p>
+<p>Il dataset <code>orings</code> contenuto nella libreria <code>faraway</code> contiene i dati relativi a 23 precedenti lanci dello shuttle Challenger, con l’obiettivo di modellare la probabilità di guasto delle guarnizioni in funzione della temperatura esterna al momento del lancio. La temperatura esterna nel giorno del disastro era di 31 gradi Fahrenheit.</p>
+<p>Le variabili presenti sono:</p>
 <ul>
-<li><code>damage</code>: numero di giunture danneggiate (su <span class="math inline">m_i = 6</span>)<br>
+<li><code>damage</code>: numero di guarnizioni danneggiate (su <span class="math inline">m_i = 6</span>)<br>
 </li>
 <li><code>temp</code>: temperatura in gradi Fahrenheit</li>
 </ul>

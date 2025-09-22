@@ -35,11 +35,21 @@ editor_options:
 
 # [Homepage](../index.html)
 
+## Il disastro dello shuttle Challenger
+
+Il [disastro dello shuttle Challenger](https://it.wikipedia.org/wiki/Disastro_dello_Space_Shuttle_Challenger) avvenne il 28 gennaio 1986, 73 secondi dopo il decollo. Morirono tutte le 7 persone a bordo, tra cui un'insegnante.
+
+L’incidente fu causato dal guasto delle guarnizioni (`orings`) in un razzo a propellente solido, che portò all’esplosione del serbatoio esterno. L’evento fu trasmesso in diretta TV e seguito da milioni di persone, anche perché era previsto che l’insegnante Christa McAuliffe tenesse una lezione dallo spazio. I voli con equipaggio ripresero solo due anni e mezzo dopo, con la missione dello Shuttle Discovery nel settembre 1988.
+
+Gli eventi del Challenger sono stati narrati nella docuserie originale Netflix di quattro episodi del 2020 dal titolo "[*Challenger: l'ultimo volo*](https://www.netflix.com/title/81012137)".
+
 ## Analisi del dataset `orings`
 
-Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi a $n = 23$ lanci dello [space shuttle Challenger]{.blue}. Le variabili presenti sono:  
+Il dataset `orings` contenuto nella libreria `faraway` contiene i dati relativi a 23 precedenti lanci dello shuttle Challenger, con l’obiettivo di modellare la probabilità di guasto delle guarnizioni in funzione della temperatura esterna al momento del lancio. La temperatura esterna nel giorno del disastro era di 31 gradi Fahrenheit. 
 
-- `damage`: numero di giunture danneggiate (su $m_i = 6$)  
+Le variabili presenti sono:  
+
+- `damage`: numero di guarnizioni danneggiate (su $m_i = 6$)  
 - `temp`: temperatura in gradi Fahrenheit  
 
 Facendo uso del software **R**, si risponda alle seguenti domande:
