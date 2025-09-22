@@ -2696,8 +2696,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="example-aids-data-goodness-of-fit" class="slide level2 center">
 <h2>Example: <code>Aids</code> data, goodness of fit</h2>
 <ul>
-<li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 30.203</span>, with <span class="math inline">n - p = 14 - 2 = 12</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">30.203</span> (they coincide!)</p></li>
-<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">12</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 30.204) = 0.0026</span>, therefore <span class="orange">rejecting</span> the hypothesis that this model has a comparable fit with the saturated model.</p></li>
+<li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 30.203</span>, with <span class="math inline">n - p = 14 - 2 = 12</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">29.92</span>.</p></li>
+<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">12</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 29.92) = 0.0028</span>, therefore <span class="orange">rejecting</span> the hypothesis that this model has a comparable fit with the saturated model.</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -2705,7 +2705,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>A few remedies could be:</p>
 <ol type="a">
 <li>Choosing a different <span class="orange">link function</span>;</li>
-<li>Including an <span class="blue">additional covariate</span> (if available), and/or considering non-linear <span class="orange">trasformations</span> of the available ones;</li>
+<li>Including an <span class="blue">additional covariate</span> (if available), and/or considering non-linear <span class="orange">transformations</span> of the available ones;</li>
 <li>Choosing a different <span class="orange">distribution</span> instead of the Poisson, such as the negative binomial;</li>
 <li>Accounting for <span class="blue">overdispersion</span> using quasi-likelihoods, that is, estimating <span class="math inline">\phi</span> from the data rather than fixing it to <span class="math inline">\phi = 1</span>.</li>
 </ol></li>
@@ -2713,7 +2713,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="fragment">
 <ul>
-<li>It turns out that selecting the link function <span class="math inline">g(\mu_i) = \sqrt{\mu_i}</span> yields a much better fit with <span class="math inline">X^2 = 17.968</span>, whose p-value is <span class="math inline">0.12</span>. This is not the only possible solution.</li>
+<li>It turns out that selecting the link function <span class="math inline">g(\mu_i) = \sqrt{\mu_i}</span> yields a much better fit with <span class="math inline">X^2 = 17.09</span>, whose p-value is <span class="math inline">0.146</span>. This is not the only possible solution.</li>
 </ul>
 </div>
 </section>

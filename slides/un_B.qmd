@@ -2199,12 +2199,12 @@ lmtest::lrtest(fit_Aids0, fit_Aids)
 ## Example: `Aids` data, goodness of fit
 
 ```{r}
-X_Aids <- sum(residuals(fit_Aids)^2)
+X_Aids <- sum(residuals(fit_Aids, type = "pearson")^2)
 ```
 
-- The [deviance]{.blue} equals $D(\bm{y}; \hat{\bm{\mu}}) = 30.203$, with $n - p = 14 - 2 = 12$ degrees of freedom. The observed $X^2$ [Pearson statistic]{.orange} equals $30.203$ (they coincide!)
+- The [deviance]{.blue} equals $D(\bm{y}; \hat{\bm{\mu}}) = 30.203$, with $n - p = 14 - 2 = 12$ degrees of freedom. The observed $X^2$ [Pearson statistic]{.orange} equals $29.92$.
 
-- Using the $X^2$ statistic with $12$ degrees of freedom, we obtain the p-value $\mathbb{P}(X^2 > 30.204) = 0.0026$, therefore [rejecting]{.orange} the hypothesis that this model has a comparable fit with the saturated model.
+- Using the $X^2$ statistic with $12$ degrees of freedom, we obtain the p-value $\mathbb{P}(X^2 > 29.92) = 0.0028$, therefore [rejecting]{.orange} the hypothesis that this model has a comparable fit with the saturated model.
 
 . . .
 
@@ -2213,13 +2213,13 @@ X_Aids <- sum(residuals(fit_Aids)^2)
 - A few remedies could be:
   
   a. Choosing a different [link function]{.orange};
-  b. Including an [additional covariate]{.blue} (if available), and/or considering non-linear [trasformations]{.orange} of the available ones;
+  b. Including an [additional covariate]{.blue} (if available), and/or considering non-linear [transformations]{.orange} of the available ones;
   c. Choosing a different [distribution]{.orange} instead of the Poisson, such as the negative binomial;
   c. Accounting for [overdispersion]{.blue} using quasi-likelihoods, that is, estimating $\phi$ from the data rather than fixing it to $\phi = 1$.
   
 . . .
 
-- It turns out that selecting the link function $g(\mu_i) = \sqrt{\mu_i}$ yields a much better fit with $X^2 = 17.968$, whose p-value is $0.12$. This is not the only possible solution. 
+- It turns out that selecting the link function $g(\mu_i) = \sqrt{\mu_i}$ yields a much better fit with $X^2 = 17.09$, whose p-value is $0.146$. This is not the only possible solution. 
 
 ## Residuals
 

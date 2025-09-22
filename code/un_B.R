@@ -164,7 +164,7 @@ anova(fit_Aids0, fit_Aids)
 
 lmtest::lrtest(fit_Aids0, fit_Aids)
 
-X_Aids <- sum(residuals(fit_Aids)^2)
+X_Aids <- sum(residuals(fit_Aids, type = "pearson")^2)
 
 par(mfrow = c(1, 2))
 plot(predict(fit_Beetles, type = "response"), rstandard(fit_Beetles, type = "deviance"),
