@@ -199,7 +199,7 @@ ggplot(data = auto, aes(x = engine.size, y = city.distance, col = fuel)) +
     [optimal value]{.orange} is denoted by $\hat{\beta}$.
 
 -   The [predicted values]{.blue} are
-    $\hat{y}_i = \mathbb{E}(Y_i) = f(\bm{x}_i; \hat{\beta})$, for
+    $\hat{y}_i = \widehat{\mathbb{E}(Y_i)} = f(\bm{x}_i; \hat{\beta})$, for
     $i=1,\dots,n.$
 :::
 
@@ -759,7 +759,7 @@ suggesting the [estimate]{.blue} $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)$.
 
 - This leads to the so-called [sandwich estimator]{.orange} of the covariance matrix:
 $$
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1})
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1},
 $$
 where $\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $\hat{w}_i = r_i^2 / (1 - h_i)$. 
 

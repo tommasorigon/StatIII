@@ -304,7 +304,7 @@ Y_i = f(\bm{x}_i; \beta) + \epsilon_i, \qquad i=1,\dots,n,
 <li><p>To estimate the unknown parameters <span class="math inline">\beta</span>, a possibility is to rely on the <span class="blue">least squares criterion</span>: we seek the <span class="orange">minimum</span> of the objective function <span class="math display">
 D(\beta) = \sum_{i=1}^n\{y_i - f(\bm{x}_i; \beta)\}^2,
 </span> using <span class="math inline">n</span> pairs of covariates <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T</span> and the observed realizations <span class="math inline">y_i</span> of the random variables <span class="math inline">Y_i</span>, for <span class="math inline">i = 1,\dots,n</span>. The <span class="orange">optimal value</span> is denoted by <span class="math inline">\hat{\beta}</span>.</p></li>
-<li><p>The <span class="blue">predicted values</span> are <span class="math inline">\hat{y}_i = \mathbb{E}(Y_i) = f(\bm{x}_i; \hat{\beta})</span>, for <span class="math inline">i=1,\dots,n.</span></p></li>
+<li><p>The <span class="blue">predicted values</span> are <span class="math inline">\hat{y}_i = \widehat{\mathbb{E}(Y_i)} = f(\bm{x}_i; \hat{\beta})</span>, for <span class="math inline">i=1,\dots,n.</span></p></li>
 </ul>
 </div>
 </section>
@@ -909,7 +909,7 @@ Classical assumptions of linear models
 \text{var}(r_i) = \text{var}(y_i - \bm{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
 </span> suggesting the <span class="blue">estimate</span> <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>This leads to the so-called <span class="orange">sandwich estimator</span> of the covariance matrix: <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1})
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1},
 </span> where <span class="math inline">\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)</span> and <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>These are known as <span class="blue">White’s</span> heteroscedasticity-consistent <span class="blue">standard errors</span>. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p></li>
 </ul>
