@@ -137,7 +137,7 @@ Prove that the variance-stabilizing transform for gamma random variables $Y_i\si
 :::{.callout-note collapse=true}
 #### Exercise B
 
-In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$.
+In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$, with $\mathbb{E}(u_i) = \mu_u$ and $\text{var}(u_i) = \sigma^2_u$. Analyze the expected impact of this [measurement error]{.orange} on $\hat{\beta}_1$ and the residuals $\bm{r}$. What does it happen if $\mu_u = 0$?
 
 :::
 
