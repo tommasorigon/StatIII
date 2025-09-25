@@ -163,7 +163,7 @@ $$
 
 (a) Show that $$
 \bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}$$ 
-so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in the column space of $\bm{X}$?  
+so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in the column space of $\bm{X}$? What if $\bm{z}$ is orthogonal to the column space of $\bm{X}$?
 
 (b) Explain why the [added-variable plot]{.blue} (residuals $\bm{r}$ vs. residuals from regressing $\bm{z}$ on $\bm{X}$) helps assess whether to include $\bm{z}$.  
 
