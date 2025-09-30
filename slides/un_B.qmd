@@ -116,7 +116,7 @@ The content of this Unit is covered in [Chapter 2]{.orange} of @Salvan2020. Alte
 
 ```{r}
 data("Beetles")
-colnames(Beetles) <- c("n", "deaths", "logdose")
+colnames(Beetles) <- c("m", "deaths", "logdose")
 knitr::kable(Beetles)
 ```
 
@@ -130,7 +130,7 @@ knitr::kable(Beetles)
 #| fig-width: 7.8
 #| fig-height: 4.55
 #| fig-align: center
-ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   geom_point() +
   theme_light() +
   xlab("log-dose") +
@@ -141,7 +141,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
 
 ## Modelling the `Beetles` data
 
-- Let $Y_i$ be the number of dead beetles out of $m_i$, and let $x_i$ denote the log-dose. By definition, $S_i \in \{0, 1, \dots, m_i\}$ for $i = 1,\dots,8$.  
+- Let $S_i$ be the number of dead beetles out of $m_i$, and let $x_i$ denote the log-dose. By definition, $S_i \in \{0, 1, \dots, m_i\}$ for $i = 1,\dots,8$.  
 
 - It is natural to model each $Y_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $m_i$ individuals. In other words:
 $$
@@ -165,9 +165,9 @@ for some parameters $\beta_1, \beta_2 \in \mathbb{R}$. [Note]{.orange} that $\pi
 #| fig-height: 4.55
 #| fig-align: center
 
-fit_Beetles <- glm(cbind(deaths, n - deaths) ~ logdose, family = "binomial", data = Beetles)
+fit_Beetles <- glm(cbind(deaths, m - deaths) ~ logdose, family = "binomial", data = Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   geom_point() +
   geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
   theme_light() +
@@ -226,10 +226,10 @@ in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text
 #| fig-height: 4.55
 #| fig-align: center
 
-fit_Beetles_lm <- lm(I(deaths / n) ~ logdose, data = Beetles)
-fit_Beetles_logit <- lm(qlogis((deaths + 0.5) / (n + 1)) ~ logdose, data = Beetles)
+fit_Beetles_lm <- lm(I(deaths / m) ~ logdose, data = Beetles)
+fit_Beetles_logit <- lm(qlogis((deaths + 0.5) / (m + 1)) ~ logdose, data = Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   xlim(c(1.65, 1.92)) +
   geom_point() +
   geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
@@ -923,7 +923,7 @@ $$
 
 
 ```{r}
-Beetles$Proportions <- Beetles$deaths / Beetles$n
+Beetles$Proportions <- Beetles$deaths / Beetles$m
 Beetles$predictions <- predict(fit_Beetles, type = "response")
 
 # knitr::kable(Beetles, digits = 3)
@@ -1647,7 +1647,7 @@ where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is
 - In this case, we have $q = 1$ ($\texttt{Df}$) because there is only one parameter under scrutiny.
 
 ```{r}
-fit_Beetles0 <- glm(cbind(deaths, n - deaths) ~ 1,
+fit_Beetles0 <- glm(cbind(deaths, m - deaths) ~ 1,
   family = "binomial",
   data = Beetles
 )

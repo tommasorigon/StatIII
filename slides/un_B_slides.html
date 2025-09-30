@@ -242,7 +242,7 @@
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: right;">n</th>
+<th style="text-align: right;">m</th>
 <th style="text-align: right;">deaths</th>
 <th style="text-align: right;">logdose</th>
 </tr>
@@ -307,7 +307,7 @@
 <section id="modelling-the-beetles-data" class="slide level2 center">
 <h2>Modelling the <code>Beetles</code> data</h2>
 <ul>
-<li><p>Let <span class="math inline">Y_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">S_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
+<li><p>Let <span class="math inline">S_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">S_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
 <li><p>It is natural to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
 </span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, we have <span class="math display">
@@ -2569,7 +2569,7 @@ D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = cbind(deaths, n - deaths) ~ logdose, family = "binomial", 
+glm(formula = cbind(deaths, m - deaths) ~ logdose, family = "binomial", 
     data = Beetles)
 
 Coefficients:
@@ -2602,8 +2602,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
-Model 1: cbind(deaths, n - deaths) ~ 1
-Model 2: cbind(deaths, n - deaths) ~ logdose
+Model 1: cbind(deaths, m - deaths) ~ 1
+Model 2: cbind(deaths, m - deaths) ~ logdose
   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
 1         7    284.202                          
 2         6     11.232  1   272.97 &lt; 2.2e-16 ***

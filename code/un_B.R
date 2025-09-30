@@ -1,26 +1,26 @@
 data("Beetles")
-colnames(Beetles) <- c("n", "deaths", "logdose")
+colnames(Beetles) <- c("m", "deaths", "logdose")
 knitr::kable(Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   geom_point() +
   theme_light() +
   xlab("log-dose") +
   ylab("Proportion of deaths")
 
-fit_Beetles <- glm(cbind(deaths, n - deaths) ~ logdose, family = "binomial", data = Beetles)
+fit_Beetles <- glm(cbind(deaths, m - deaths) ~ logdose, family = "binomial", data = Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   geom_point() +
   geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
   theme_light() +
   xlab("log-dose") +
   ylab("Proportion of deaths")
 
-fit_Beetles_lm <- lm(I(deaths / n) ~ logdose, data = Beetles)
-fit_Beetles_logit <- lm(qlogis((deaths + 0.5) / (n + 1)) ~ logdose, data = Beetles)
+fit_Beetles_lm <- lm(I(deaths / m) ~ logdose, data = Beetles)
+fit_Beetles_logit <- lm(qlogis((deaths + 0.5) / (m + 1)) ~ logdose, data = Beetles)
 
-ggplot(data = Beetles, aes(x = logdose, y = deaths / n)) +
+ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   xlim(c(1.65, 1.92)) +
   geom_point() +
   geom_function(fun = function(x) plogis(coef(fit_Beetles)[1] + coef(fit_Beetles)[2] * x), linetype = "dashed", linewidth = 0.6) +
@@ -63,7 +63,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
   xlab("Period") +
   ylab("Deaths")
 
-Beetles$Proportions <- Beetles$deaths / Beetles$n
+Beetles$Proportions <- Beetles$deaths / Beetles$m
 Beetles$predictions <- predict(fit_Beetles, type = "response")
 
 # knitr::kable(Beetles, digits = 3)
@@ -88,7 +88,7 @@ lmtest::coeftest(fit_Aids)
 
 lmtest::coefci(fit_Aids)
 
-fit_Beetles0 <- glm(cbind(deaths, n - deaths) ~ 1,
+fit_Beetles0 <- glm(cbind(deaths, m - deaths) ~ 1,
   family = "binomial",
   data = Beetles
 )
