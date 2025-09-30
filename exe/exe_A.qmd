@@ -38,6 +38,11 @@ The theoretical exercises described below are quite [difficult]{.orange}. At the
 
 On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
 
+:::callout-tip
+The vast majority of these exercises are taken from the textbooks @Salvan2020 and @Agresti2015, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.
+:::
+
+
 ## Data analysis
 
 :::{.callout-note collapse=true}

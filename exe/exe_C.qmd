@@ -1,0 +1,45 @@
+---
+title: "Exercises C"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+The theoretical exercises described below are quite [difficult]{.orange}. At the [exam]{.blue}, you can expect a [simplified version]{.blue} of them; otherwise, they would represent a formidable challenge for most of you.
+
+On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
+
+:::callout-tip
+The vast majority of these exercises is taken from the textbooks @Salvan2020 and @Agresti2015, possibly after a few minor modifications. If can consult these textbook if you need additional exercises. 
+:::
+
+## Data analysis
