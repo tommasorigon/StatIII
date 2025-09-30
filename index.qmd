@@ -72,7 +72,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | | **NOTABLE MODELS** | | |
 | **Binary and binomial regression** | [Unit C] | [Slides Unit C] |  |
 | Lab 4 | [`lab4.R`] | | |
-| *Exercises* | [Exercises C] |  |  |
+| *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
 | **Poisson regression** | [Unit D] | [Slides Unit D] |  |
 | Lab 5 | [`lab5.R`] | | |
 | *Exercises* | [Exercises D] |  |  |
@@ -84,11 +84,11 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 
 ## Previous exams (ITA)
 
-Example of previous exams are provided below, together with a solution.
+Example of previous exams are provided below.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------|---------|-----------|----------|
-| 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) | |
+| 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
 | 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) | |
 
 

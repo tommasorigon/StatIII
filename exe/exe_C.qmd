@@ -39,7 +39,46 @@ The theoretical exercises described below are quite [difficult]{.orange}. At the
 On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
 
 :::callout-tip
-The vast majority of these exercises is taken from the textbooks @Salvan2020 and @Agresti2015, possibly after a few minor modifications. If can consult these textbook if you need additional exercises. 
+The vast majority of these exercises are taken from the textbooks @Salvan2020 and @Agresti2015, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.
 :::
 
 ## Data analysis
+
+:::{.callout-note collapse=true}
+#### `Heart` dataset
+
+
+The data in the `Heart` dataframe included in the `MLGdata` library report the number of confirmed myocardial infarctions in a sample of 360 patients hospitalized with suspected infarction (Hand et al., 1994, p. 45).  
+
+For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (`ck`), the dataset provides:  
+
+- the number of confirmed infarctions (`ha`),  
+- the number of non-confirmed infarctions (`nha`),  
+- and the midpoint value of the variable `ck` (`mck`).  
+
+The goal is to evaluate the influence of the Creatine Kinase enzyme level on the probability of infarction.  
+
+Import the data and then:
+
+(a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).  
+
+(b) Conduct a graphical analysis to assess whether a linear regression model may be appropriate.  
+
+(c) Specify a generalized linear model to analyze the problem.  
+
+(d) Fit in R the generalized linear model from the previous point and comment on the results.  
+
+(e) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.  
+
+(f) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.  
+
+(g) Evaluate the goodness of fit of the model.  
+
+(h) Assess whether it is appropriate to introduce a quadratic term in `mck` in the linear predictor and evaluate the goodness of fit of the expanded model.  
+
+(i) Plot the scatter diagram of the points $(x_i, y_i)$, $i = 1, \dots, 13$, with $x_i$ equal to `mck` and $y_i$ equal to the corresponding proportion of infarctions. Superimpose on this diagram the curves of the predicted values from the two fitted models.  
+
+(j) Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
+
+(k) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.  
+:::

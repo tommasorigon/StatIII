@@ -57,6 +57,49 @@ div.csl-indent {
 <link href="exe_C_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,17 +163,57 @@ div.csl-indent {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The vast majority of these exercises is taken from the textbooks <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span> and <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>, possibly after a few minor modifications. If can consult these textbook if you need additional exercises.</p>
+<p>The vast majority of these exercises are taken from the textbooks <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span> and <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.</p>
 </div>
 </div>
 </div>
-<section id="data-analysis" class="level2 unnumbered">
-
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Heart</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The data in the <code>Heart</code> dataframe included in the <code>MLGdata</code> library report the number of confirmed myocardial infarctions in a sample of 360 patients hospitalized with suspected infarction (Hand et al., 1994, p.&nbsp;45).</p>
+<p>For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (<code>ck</code>), the dataset provides:</p>
+<ul>
+<li>the number of confirmed infarctions (<code>ha</code>),<br>
+</li>
+<li>the number of non-confirmed infarctions (<code>nha</code>),<br>
+</li>
+<li>and the midpoint value of the variable <code>ck</code> (<code>mck</code>).</li>
+</ul>
+<p>The goal is to evaluate the influence of the Creatine Kinase enzyme level on the probability of infarction.</p>
+<p>Import the data and then:</p>
+<ol type="a">
+<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
+<li><p>Conduct a graphical analysis to assess whether a linear regression model may be appropriate.</p></li>
+<li><p>Specify a generalized linear model to analyze the problem.</p></li>
+<li><p>Fit in R the generalized linear model from the previous point and comment on the results.</p></li>
+<li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.</p></li>
+<li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.</p></li>
+<li><p>Evaluate the goodness of fit of the model.</p></li>
+<li><p>Assess whether it is appropriate to introduce a quadratic term in <code>mck</code> in the linear predictor and evaluate the goodness of fit of the expanded model.</p></li>
+<li><p>Plot the scatter diagram of the points <span class="math inline">(x_i, y_i)</span>, <span class="math inline">i = 1, \dots, 13</span>, with <span class="math inline">x_i</span> equal to <code>mck</code> and <span class="math inline">y_i</span> equal to the corresponding proportion of infarctions. Superimpose on this diagram the curves of the predicted values from the two fitted models.</p></li>
+<li><p>Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.</p></li>
+<li><p>Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.<br>
+</p></li>
+</ol>
+</div>
+</div>
+</div>
 
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Data analysis</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Agresti2015" class="csl-entry" role="listitem">
 Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
 </div>
