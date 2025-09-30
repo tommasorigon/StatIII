@@ -149,6 +149,7 @@ window.Quarto = {
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
   <ul class="collapse">
   <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#theoretical" id="toc-theoretical" class="nav-link" data-scroll-target="#theoretical">Theoretical</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -323,17 +324,59 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="theoretical" class="level4">
-<h4 class="anchored" data-anchor-id="theoretical">Theoretical</h4>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Germination</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The data contained in the <code>Germination</code> dataframe (Cox and Snell, 1989, Example 3.2), that can be found in the <code>MLGdata</code> library, were obtained from a <span class="math inline">2 \times 2</span> factorial experiment (two factors, each with two levels) to compare two seeds, <em>Orobanche aegyptiaca</em> 75 and <em>Orobanche aegyptiaca</em> 73, germinated on two different root extracts: bean and cucumber.</p>
+<p>For each combination, the total number of seeds <span class="math inline">m</span> and the number of seeds that germinate <span class="math inline">s</span> are reported.</p>
+<p>Import the data and then:</p>
+<ol type="a">
+<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
+<li><p>Specify an appropriate model to evaluate the effect of the two factors (seed and root used) on the probability of germination. Indicate both the model without interaction and the model with interaction.</p></li>
+<li><p>Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities <span class="math inline">\pi_i</span>, <span class="math inline">i=1,\dots,21</span>, corresponding to:<br>
+</p></li>
+</ol>
+<ul>
+<li><span class="math inline">\pi_{75F}</span> for <em>O. aegyptiaca</em> 75 on bean root<br>
+</li>
+<li><span class="math inline">\pi_{75C}</span> for <em>O. aegyptiaca</em> 75 on cucumber root<br>
+</li>
+<li><span class="math inline">\pi_{73F}</span> for <em>O. aegyptiaca</em> 73 on bean root<br>
+</li>
+<li><span class="math inline">\pi_{73C}</span> for <em>O. aegyptiaca</em> 73 on cucumber root</li>
+</ul>
+<ol start="4" type="a">
+<li><p>Fit the generalized linear model in <strong>R</strong> using the canonical link, and assess the significance of the interaction effect.</p></li>
+<li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.</p></li>
+<li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is calculated, providing a correspondence with the formulas in the slides.</p></li>
+<li><p>Evaluate the goodness of fit of the model, with particular attention to potential <span class="orange">overdispersion</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Exercise A
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y \sim \mathrm{Binomial}(\pi, m)</span>. Consider the logit parametrization <span class="math inline">\theta = \log\{\pi/(1-\pi)\}</span>.</p>
 <ol type="a">
@@ -344,8 +387,8 @@ Exercise A
 </ol>
 </div>
 </div>
+</div>
 
-</section>
 </section>
 </section>
 

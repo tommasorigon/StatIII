@@ -123,9 +123,38 @@ kalythos <- data.frame(
 
 :::
 
-#### Theoretical
+:::{.callout-note collapse=true}
+#### `Germination` dataset
 
-:::callout-note
+The data contained in the `Germination` dataframe (Cox and Snell, 1989, Example 3.2), that can be found in the `MLGdata` library, were obtained from a $2 \times 2$ factorial experiment (two factors, each with two levels) to compare two seeds, *Orobanche aegyptiaca* 75 and *Orobanche aegyptiaca* 73, germinated on two different root extracts: bean and cucumber.  
+
+For each combination, the total number of seeds $m$ and the number of seeds that germinate $s$ are reported.  
+
+Import the data and then:
+
+(a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).  
+
+(b) Specify an appropriate model to evaluate the effect of the two factors (seed and root used) on the probability of germination. Indicate both the model without interaction and the model with interaction.  
+
+(c) Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities $\pi_i$, $i=1,\dots,21$, corresponding to:  
+- $\pi_{75F}$ for *O. aegyptiaca* 75 on bean root  
+- $\pi_{75C}$ for *O. aegyptiaca* 75 on cucumber root  
+- $\pi_{73F}$ for *O. aegyptiaca* 73 on bean root  
+- $\pi_{73C}$ for *O. aegyptiaca* 73 on cucumber root  
+
+(d) Fit the generalized linear model in **R** using the canonical link, and assess the significance of the interaction effect.  
+
+(e) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.  
+
+(f) For each element of the `summary` output of the `glm` object in R, indicate which quantity is calculated, providing a correspondence with the formulas in the slides.  
+
+(g) Evaluate the goodness of fit of the model, with particular attention to potential [overdispersion]{.orange}.  
+
+:::
+
+## Theoretical
+
+:::{.callout-note collapse=true}
 #### Exercise A
 
 Let $Y \sim \mathrm{Binomial}(\pi, m)$. Consider the logit parametrization $\theta = \log\{\pi/(1-\pi)\}$.  
