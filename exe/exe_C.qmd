@@ -82,3 +82,57 @@ Import the data and then:
 
 (k) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.  
 :::
+
+
+:::{.callout-note collapse=true}
+#### `Beetles` dataset
+
+For the logit model considered in the slides applied to the `Beetles` data, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$. 
+
+(a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.  
+
+(b) Obtain the analogous interval for the dose, defined as $\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}$ (lethal dose 50). 
+:::
+
+:::{.callout-note collapse=true}
+#### `kalythos` dataset
+
+Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages.  
+
+A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below (Silvey, 1975, Exercise 4.2).  
+
+| Age | 20 | 35 | 45 | 55 | 70 |  
+|-----|----|----|----|----|----|  
+| Number of observed individuals | 50 | 50 | 50 | 50 | 50 |  
+| Number of blind individuals    |  6 | 17 | 26 | 37 | 44 |  
+
+Using a logit or probit model:
+
+(a) Estimate the `LD50`, i.e., the age at which the probability of blindness is equal to 0.5, and its corresponding variance.  
+
+(b) Compare the results between the logit and probit models.  
+
+```{r}
+#| echo: true
+kalythos <- data.frame(
+  age   = c(20, 35, 45, 55, 70),
+  blind = c(6, 17, 26, 37, 44),
+  total = c(50, 50, 50, 50, 50)
+)
+```
+
+:::
+
+#### Theoretical
+
+:::callout-note
+#### Exercise A
+
+Let $Y \sim \mathrm{Binomial}(\pi, m)$. Consider the logit parametrization $\theta = \log\{\pi/(1-\pi)\}$.  
+
+(a) Obtain the Wald test for $H_0: \theta = 0$ against $H_1: \theta > 0$.  
+
+(b) Assume $m = 25$ and verify that the test statistic with $y = 24$ is smaller than the test statistic with $y = 23$. Explain why this behavior is anomalous.  
+
+(c) Verify that the anomaly does not occur for the likelihood-ratio test.  
+:::

@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -209,7 +244,108 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Beetles</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the logit model considered in the slides applied to the <code>Beetles</code> data, verify that <span class="math inline">\psi = \beta_1 / \beta_2</span> corresponds to the log-dose <span class="math inline">x_{0.5}</span> at which the probability that an insect is killed is equal to <span class="math inline">0.5</span>.</p>
+<ol type="a">
+<li><p>Apply the delta method to obtain an approximate 95% Wald confidence interval for <span class="math inline">\psi</span>.</p></li>
+<li><p>Obtain the analogous interval for the dose, defined as <span class="math inline">\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}</span> (lethal dose 50).</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>kalythos</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages.</p>
+<p>A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below (Silvey, 1975, Exercise 4.2).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Age</th>
+<th>20</th>
+<th>35</th>
+<th>45</th>
+<th>55</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Number of observed individuals</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>Number of blind individuals</td>
+<td>6</td>
+<td>17</td>
+<td>26</td>
+<td>37</td>
+<td>44</td>
+</tr>
+</tbody>
+</table>
+<p>Using a logit or probit model:</p>
+<ol type="a">
+<li><p>Estimate the <code>LD50</code>, i.e., the age at which the probability of blindness is equal to 0.5, and its corresponding variance.</p></li>
+<li><p>Compare the results between the logit and probit models.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>kalythos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="at">age   =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">35</span>, <span class="dv">45</span>, <span class="dv">55</span>, <span class="dv">70</span>),</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">blind =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">17</span>, <span class="dv">26</span>, <span class="dv">37</span>, <span class="dv">44</span>),</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="at">total =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<section id="theoretical" class="level4">
+<h4 class="anchored" data-anchor-id="theoretical">Theoretical</h4>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise A
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">Y \sim \mathrm{Binomial}(\pi, m)</span>. Consider the logit parametrization <span class="math inline">\theta = \log\{\pi/(1-\pi)\}</span>.</p>
+<ol type="a">
+<li><p>Obtain the Wald test for <span class="math inline">H_0: \theta = 0</span> against <span class="math inline">H_1: \theta &gt; 0</span>.</p></li>
+<li><p>Assume <span class="math inline">m = 25</span> and verify that the test statistic with <span class="math inline">y = 24</span> is smaller than the test statistic with <span class="math inline">y = 23</span>. Explain why this behavior is anomalous.</p></li>
+<li><p>Verify that the anomaly does not occur for the likelihood-ratio test.<br>
+</p></li>
+</ol>
+</div>
+</div>
 
+</section>
 </section>
 </section>
 
