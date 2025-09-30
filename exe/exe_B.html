@@ -152,7 +152,7 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The dataset <code>Seed</code> of the <code>MLGdata</code> was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:</p>
+<p>The dataset <code>Seed</code> of the <code>MLGdata</code> library was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:</p>
 <ul>
 <li><code>fert</code> indicates the amount of fertilizer,<br>
 </li>
@@ -171,11 +171,53 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Wool</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The dataset <code>Wool</code> (Hand et al., 1994, p.&nbsp;328) contained in the <code>MLGdata</code> library were obtained from an experiment aimed at evaluating the effect of three variables, length (<code>x1</code>), width (<code>x2</code>), and load (<code>x3</code>), on the number of test cycles until rupture (<code>y</code>) of a wool yarn.</p>
+<p>For each of the three variables <code>x1</code>, <code>x2</code>, and <code>x3</code>, three levels were fixed:</p>
+<ul>
+<li>Length: 250, 300, 350 mm (coded as <code>1</code>, <code>0</code>, <code>1</code>)<br>
+</li>
+<li>Width: 8, 9, 10 mm (coded as <code>1</code>, <code>0</code>, <code>1</code>)<br>
+</li>
+<li>Load: 40, 45, 50 g (coded as <code>1</code>, <code>0</code>, <code>1</code>)</li>
+</ul>
+<p>Import the data and then:</p>
+<ol type="a">
+<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
+<li><p>Specify a normal linear model for the logarithmic transformation of the response.</p></li>
+<li><p>Fit in <strong>R</strong> the linear model from the previous point.</p></li>
+<li><p>Assess the goodness of fit of the model and consider whether a transformation of the response other than the logarithmic one may be more appropriate.</p></li>
+<li><p>Write down the expression of the estimated curve.</p></li>
+<li><p>Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.</p></li>
+<li><p>For the same data, considering the untransformed response, specify a generalized linear model with Gamma response and logarithmic link function.</p></li>
+<li><p>Fit in <strong>R</strong> the generalized linear model from the previous point.</p></li>
+<li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.</p></li>
+<li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.</p></li>
+<li><p>Evaluate the goodness of fit of the Gamma model.</p></li>
+<li><p>Write down the expression of the estimated curve.</p></li>
+<li><p>Obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, width = 10 mm, and load = 40 g, using the fitted Gamma model.</p></li>
+<li><p>Compare the results of the analysis based on the normal linear model with those of the analysis based on the Gamma model.<br>
+</p></li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 <section id="theoretical" class="level2">
 <h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -184,7 +226,7 @@ Exercise A
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y</span> be a random variable with an <span class="blue">inverse Gaussian distribution</span>, with support <span class="math inline">[0, \infty)</span> and probability density function</p>
 <p><span class="math display">
@@ -195,7 +237,7 @@ f(y \mid \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\s
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -204,7 +246,7 @@ Exercise B
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y</span> be a random variable with a <span class="blue">negative binomial</span> distribution, representing the number of independent Bernoulli trials with constant success probability <span class="math inline">\pi \in (0,1)</span> required to obtain <span class="math inline">k</span> successes. The support is <span class="math inline">S = \{k, k+1, \dots\}</span> and the probability mass function is <span class="math display">
 P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
@@ -225,7 +267,7 @@ P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -234,7 +276,7 @@ Exercise C
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="i">
 <li><p>Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>) presented in the slides, using the canonical link function.</p></li>
@@ -246,7 +288,7 @@ Exercise C
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -255,14 +297,14 @@ Exercise D
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Explicitly derive the contribution of a single observation to the deviance (i.e.&nbsp;<span class="math inline">d_i</span>) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance <span class="math inline">D(\hat{\bm{\mu}}; \boldsymbol{y})</span> for a sample of size <span class="math inline">n</span>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -271,7 +313,7 @@ Exercise E
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y_i</span> be independent, with corresponding values <span class="math inline">x_1,\dots,x_n</span> of a <span class="blue">univariate</span> quantitative covariate. Consider a GLMs with <span class="blue">no intercept</span>, <span class="math display">
 \eta_i = \beta x_i, \qquad i=1,\dots,n,
@@ -296,7 +338,7 @@ Exercise E
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -305,7 +347,7 @@ Exercise F
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Suppose <span class="math inline">y_i</span> has a Poisson distribution with <span class="math display">
 g(\mu_i) = \beta_0 + \beta_1 x_i,
@@ -319,7 +361,7 @@ g(\mu_i) = \beta_0 + \beta_1 x_i,
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -328,7 +370,7 @@ Exercise G
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In a generalized linear model that uses a <span class="blue">non-canonical link function</span>, explain why it need not be true that<br>
 <span class="math display">
@@ -338,7 +380,7 @@ Exercise G
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -347,7 +389,7 @@ Exercise H
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest <span class="math inline">R^2</span> in linear models)?</p>
 </div>

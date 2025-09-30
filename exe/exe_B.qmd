@@ -43,7 +43,7 @@ On the other hand, the data analyses are more or less aligned with what you may 
 ::: {.callout-note collapse=true}
 #### `Seed` dataset
 
-The dataset `Seed` of the `MLGdata` was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:  
+The dataset `Seed` of the `MLGdata` library was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:  
 
 - `fert` indicates the amount of fertilizer,  
 - `x` is a binary variable equal to 1 if the seed germinated, and 0 otherwise.  
@@ -61,6 +61,48 @@ Import the data and then:
 (e) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
 
 (f) For each element in the `summary` output of the fitted `glm` object in R, indicate what quantity is being computed, providing the correspondence with the formulas in the slides.  
+:::
+
+:::{.callout-note collapse=true}
+#### `Wool` dataset
+
+The dataset `Wool` (Hand et al., 1994, p. 328) contained in the `MLGdata` library were obtained from an experiment  aimed at evaluating the effect of three variables, length (`x1`), width (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.  
+
+For each of the three variables `x1`, `x2`, and `x3`, three levels were fixed:  
+
+- Length: 250, 300, 350 mm (coded as `1`, `0`, `1`)  
+- Width: 8, 9, 10 mm (coded as `1`, `0`, `1`)  
+- Load: 40, 45, 50 g (coded as `1`, `0`, `1`)  
+
+Import the data and then:
+
+(a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).  
+
+(b) Specify a normal linear model for the logarithmic transformation of the response.  
+
+(c) Fit in **R** the linear model from the previous point.  
+
+(d) Assess the goodness of fit of the model and consider whether a transformation of the response other than the logarithmic one may be more appropriate.  
+
+(e) Write down the expression of the estimated curve.  
+
+(f) Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.  
+
+(g) For the same data, considering the untransformed response, specify a generalized linear model with Gamma response and logarithmic link function.  
+
+(h) Fit in **R** the generalized linear model from the previous point.  
+
+(i) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
+
+(j) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.  
+
+(k) Evaluate the goodness of fit of the Gamma model.
+
+(l) Write down the expression of the estimated curve.  
+
+(m) Obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, width = 10 mm, and load = 40 g, using the fitted Gamma model.  
+
+(n) Compare the results of the analysis based on the normal linear model with those of the analysis based on the Gamma model.  
 :::
 
 ## Theoretical
