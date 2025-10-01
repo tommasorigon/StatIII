@@ -342,19 +342,16 @@ window.Quarto = {
 <ol type="a">
 <li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
 <li><p>Specify an appropriate model to evaluate the effect of the two factors (seed and root used) on the probability of germination. Indicate both the model without interaction and the model with interaction.</p></li>
-<li><p>Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities <span class="math inline">\pi_i</span>, <span class="math inline">i=1,\dots,21</span>, corresponding to:<br>
-</p></li>
-</ol>
+<li><p>Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities <span class="math inline">\pi_i</span>, <span class="math inline">i=1,\dots,21</span>, corresponding to:</p>
 <ul>
-<li><span class="math inline">\pi_{75F}</span> for <em>O. aegyptiaca</em> 75 on bean root<br>
+<li><span class="math inline">\pi_{75F}</span> for <em>Orobanche aegyptiaca</em> 75 on bean root;<br>
 </li>
-<li><span class="math inline">\pi_{75C}</span> for <em>O. aegyptiaca</em> 75 on cucumber root<br>
+<li><span class="math inline">\pi_{75C}</span> for <em>Orobanche aegyptiaca</em> 75 on cucumber root;<br>
 </li>
-<li><span class="math inline">\pi_{73F}</span> for <em>O. aegyptiaca</em> 73 on bean root<br>
+<li><span class="math inline">\pi_{73F}</span> for <em>Orobanche aegyptiaca</em> 73 on bean root;<br>
 </li>
-<li><span class="math inline">\pi_{73C}</span> for <em>O. aegyptiaca</em> 73 on cucumber root</li>
-</ul>
-<ol start="4" type="a">
+<li><span class="math inline">\pi_{73C}</span> for <em>Orobanche aegyptiaca</em> 73 on cucumber root.</li>
+</ul></li>
 <li><p>Fit the generalized linear model in <strong>R</strong> using the canonical link, and assess the significance of the interaction effect.</p></li>
 <li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.</p></li>
 <li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is calculated, providing a correspondence with the formulas in the slides.</p></li>
@@ -378,7 +375,7 @@ Exercise A
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">Y \sim \mathrm{Binomial}(\pi, m)</span>. Consider the logit parametrization <span class="math inline">\theta = \log\{\pi/(1-\pi)\}</span>.</p>
+<p>Let <span class="math inline">Y \sim \mathrm{Binomial}(m, \pi)</span>. Consider the logit parametrization <span class="math inline">\theta = \log\{\pi/(1-\pi)\}</span>.</p>
 <ol type="a">
 <li><p>Obtain the Wald test for <span class="math inline">H_0: \theta = 0</span> against <span class="math inline">H_1: \theta &gt; 0</span>.</p></li>
 <li><p>Assume <span class="math inline">m = 25</span> and verify that the test statistic with <span class="math inline">y = 24</span> is smaller than the test statistic with <span class="math inline">y = 23</span>. Explain why this behavior is anomalous.</p></li>

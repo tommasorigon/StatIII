@@ -137,10 +137,10 @@ Import the data and then:
 (b) Specify an appropriate model to evaluate the effect of the two factors (seed and root used) on the probability of germination. Indicate both the model without interaction and the model with interaction.  
 
 (c) Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities $\pi_i$, $i=1,\dots,21$, corresponding to:  
-- $\pi_{75F}$ for *O. aegyptiaca* 75 on bean root  
-- $\pi_{75C}$ for *O. aegyptiaca* 75 on cucumber root  
-- $\pi_{73F}$ for *O. aegyptiaca* 73 on bean root  
-- $\pi_{73C}$ for *O. aegyptiaca* 73 on cucumber root  
+    - $\pi_{75F}$ for *Orobanche aegyptiaca* 75 on bean root;  
+    - $\pi_{75C}$ for *Orobanche aegyptiaca* 75 on cucumber root;  
+    - $\pi_{73F}$ for *Orobanche aegyptiaca* 73 on bean root;  
+    - $\pi_{73C}$ for *Orobanche aegyptiaca* 73 on cucumber root.  
 
 (d) Fit the generalized linear model in **R** using the canonical link, and assess the significance of the interaction effect.  
 
@@ -157,7 +157,7 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### Exercise A
 
-Let $Y \sim \mathrm{Binomial}(\pi, m)$. Consider the logit parametrization $\theta = \log\{\pi/(1-\pi)\}$.  
+Let $Y \sim \mathrm{Binomial}(m, \pi)$. Consider the logit parametrization $\theta = \log\{\pi/(1-\pi)\}$.  
 
 (a) Obtain the Wald test for $H_0: \theta = 0$ against $H_1: \theta > 0$.  
 
