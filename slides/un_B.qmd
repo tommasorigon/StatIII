@@ -178,7 +178,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
 - The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = -60.72$ and $\hat{\beta}_2 = 34.3$. This yields the [predictive curve]{.blue} $\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean proportion $\mathbb{E}(S_i / m_i)$.  
 
 
-## A comparison with old tools I 📖
+## A comparison with old tools I
 
 :::callout-tip
 Let $Y_i = S_i / m_i$ be the proportion of deaths. A direct application of linear models implies:
@@ -198,7 +198,7 @@ The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Y_i
 This approach is sometimes called the [linear probability model]{.blue}. Before GLMs, it was considered acceptable despite its issues, but by modern standards it should [not be used]{.orange}.
 :::
 
-## A comparison with old tools II 📖
+## A comparison with old tools II
 
 :::callout-tip
 We consider the [empirical logit]{.blue} variable transformation of $S_i = Y_i / m_i$, obtaining  
