@@ -143,13 +143,13 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
 
 - Let $S_i$ be the number of dead beetles out of $m_i$, and let $x_i$ denote the log-dose. By definition, $S_i \in \{0, 1, \dots, m_i\}$ for $i = 1,\dots,8$.  
 
-- It is natural to model each $Y_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $m_i$ individuals. In other words:
+- It is natural to model each $S_i$ as [independent binomial]{.blue} random variables, counting the number of deaths out of $m_i$ individuals. In other words:
 $$
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
 $$
-where $\pi_i$ is the [probability]{.orange} of death at a given dose $x_i$. Moreover, we have
+where $\pi_i$ is the [probability]{.orange} of death at a given dose $x_i$. Moreover, et $Y_i = S_i / m_i$ be the proportion of deaths, then:
 $$
-\mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
+\mathbb{E}(Y_i) = \mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
 $$
 
 - A modeling approach, called [logistic regression]{.blue}, specifies:  

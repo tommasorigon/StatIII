@@ -308,10 +308,10 @@
 <h2>Modelling the <code>Beetles</code> data</h2>
 <ul>
 <li><p>Let <span class="math inline">S_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">S_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
-<li><p>It is natural to model each <span class="math inline">Y_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
+<li><p>It is natural to model each <span class="math inline">S_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
-</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, we have <span class="math display">
-\mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
+</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, et <span class="math inline">Y_i = S_i / m_i</span> be the proportion of deaths, then: <span class="math display">
+\mathbb{E}(Y_i) = \mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
 </span></p></li>
 <li><p>A modeling approach, called <span class="blue">logistic regression</span>, specifies:<br>
 <span class="math display">
