@@ -762,7 +762,7 @@ b(\theta_i) &amp;= e^{\theta_i}, \quad &amp;&amp;c(y_i, \phi) = c(y_i) = -\log(y
 <ul>
 <li><p>Let <span class="math inline">Y_i \sim \text{Gamma}(\alpha, \lambda_i)</span>. The <span class="blue">density</span> function of <span class="math inline">Y_i</span> can be written as <span class="math display">
 \begin{aligned}
-p(y_i; \alpha, \lambda_i) &amp;= \frac{\lambda_i^\alpha y_i^{\alpha-1}\alpha e^{-\lambda_i y_i}}{\Gamma(\alpha)}
+p(y_i; \alpha, \lambda_i) &amp;= \frac{\lambda_i^\alpha y_i^{\alpha-1} e^{-\lambda_i y_i}}{\Gamma(\alpha)}
 \\
 &amp;=\exp\left\{\alpha\log{\lambda_i} - \lambda_i y_i + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
 &amp;=\exp\left\{\alpha\left(\log{\lambda_i} - \frac{\lambda_i}{\alpha} y_i\right) + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\

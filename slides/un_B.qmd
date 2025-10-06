@@ -605,7 +605,7 @@ The [variance function]{.blue} $v(\mu_i) = \mu_i$ is [linear]{.orange}. We will 
 - Let $Y_i \sim \text{Gamma}(\alpha, \lambda_i)$. The [density]{.blue} function of $Y_i$ can be written as
 $$
 \begin{aligned}
-p(y_i; \alpha, \lambda_i) &= \frac{\lambda_i^\alpha y_i^{\alpha-1}\alpha e^{-\lambda_i y_i}}{\Gamma(\alpha)}
+p(y_i; \alpha, \lambda_i) &= \frac{\lambda_i^\alpha y_i^{\alpha-1} e^{-\lambda_i y_i}}{\Gamma(\alpha)}
 \\
 &=\exp\left\{\alpha\log{\lambda_i} - \lambda_i y_i + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
 &=\exp\left\{\alpha\left(\log{\lambda_i} - \frac{\lambda_i}{\alpha} y_i\right) + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
