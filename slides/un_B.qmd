@@ -2140,7 +2140,7 @@ anova(fit_Beetles0, fit_Beetles)
 
 - `Df` refers to the [degrees of freedom]{.blue} $q = p- p_0$ of the test, which is $q = 1$ in this case.
 
-- `Deviance` indicates the [change in deviance]{.blue}, that is $\phi W = D(\bm{y}; \hat{\bm{\mu}}) - D(\bm{y}; \hat{\bm{\mu}}_0)$.
+- `Deviance` indicates the [change in deviance]{.blue}, that is $\phi W = D(\bm{y}; \hat{\bm{\mu}}_0) - D(\bm{y}; \hat{\bm{\mu}})$.
 
 - `Pr(>Chi)` is the [p-value]{.blue} of the log-likelihood ratio test $W$.
 
