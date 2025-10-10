@@ -1591,7 +1591,7 @@ The Rao-score test arguably the [less common]{.orange}. When $\phi$ is unknown, 
 ## Three asymptotically equivalent tests
 
 :::callout-warning
-The Wald test, the Score test and the log-likelihood ration test are [asymptotically equivalent]{.blue}, that is, these tests give the same [same number]{.blue} for large values of $n$. We have that
+The Wald test, the Score test and the log-likelihood ratio test are [asymptotically equivalent]{.blue}, that is, these tests give the same [same number]{.blue} for large values of $n$. We have that
 $$
 W_e = W + o_p(1), \qquad W_u = W + o_p(1),
 $$
@@ -1764,7 +1764,7 @@ CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
 
 - Thanks to [invariance property]{.blue} of the Rao-score and the log-likelihood ratio tests, we can simply [transform]{.orange} the [original intervals]{.blue} for $\beta_2$.
 
-- If the extremes of the log-likelihood ration interval are $C_\text{low}, C_\text{high}$, then the new interval is
+- If the extremes of the log-likelihood ratio interval are $C_\text{low}, C_\text{high}$, then the new interval is
 $$
 [100\times(\exp(C_\text{low}) - 1), \:100\times(\exp(C_\text{high}) - 1)].
 $$
@@ -1918,7 +1918,7 @@ Let us consider two [nested models]{.grey} $M_0 \subset M_1$. The [reduced model
 
 The [log-likelihood ratio test]{.blue} $W$ for testing model $M_0$ against model $M_1$[^testing] can be written as
 $$
-W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm{\mu}}_0, \hat{\phi})] = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_0)}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q.
+W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm{\mu}}_0, \hat{\phi})] = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q.
 $$
 where $q = p - p_0$ are the degrees of freedom. 
 
@@ -1949,7 +1949,7 @@ $$
 
 - It is sometimes useful to test the current model against the null model:
 $$
-W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
+W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_\text{null}) - D(\bm{Y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
 $$
 If the $H_0$ is not rejected, it means all the [covariates]{.orange} are regarded as [irrelevant]{.orange}. 
 

@@ -2127,7 +2127,7 @@ W_u \: \dot{\sim} \; \chi^2_q,
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The Wald test, the Score test and the log-likelihood ration test are <span class="blue">asymptotically equivalent</span>, that is, these tests give the same <span class="blue">same number</span> for large values of <span class="math inline">n</span>. We have that <span class="math display">
+<p>The Wald test, the Score test and the log-likelihood ratio test are <span class="blue">asymptotically equivalent</span>, that is, these tests give the same <span class="blue">same number</span> for large values of <span class="math inline">n</span>. We have that <span class="math display">
 W_e = W + o_p(1), \qquad W_u = W + o_p(1),
 </span> where <span class="math inline">o_p(1)</span> is a quantity that goes to <span class="math inline">0</span> in probability as <span class="math inline">n \to \infty</span>.</p>
 </div>
@@ -2337,7 +2337,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <ul>
 <li><p>We are actually interested in a confidence interval for the quantity <span class="math inline">100\times(\exp(\beta_2) - 1)</span>, which is the <span class="blue">percentage increase</span> of <code>deaths</code> after each period.</p></li>
 <li><p>Thanks to <span class="blue">invariance property</span> of the Rao-score and the log-likelihood ratio tests, we can simply <span class="orange">transform</span> the <span class="blue">original intervals</span> for <span class="math inline">\beta_2</span>.</p></li>
-<li><p>If the extremes of the log-likelihood ration interval are <span class="math inline">C_\text{low}, C_\text{high}</span>, then the new interval is <span class="math display">
+<li><p>If the extremes of the log-likelihood ratio interval are <span class="math inline">C_\text{low}, C_\text{high}</span>, then the new interval is <span class="math display">
 [100\times(\exp(C_\text{low}) - 1), \:100\times(\exp(C_\text{high}) - 1)].
 </span> and similarly for the Rao-score case. These are reported below.</p></li>
 </ul>
@@ -2584,7 +2584,7 @@ D(\bm{y}; \hat{\bm{\mu}}) &amp;:=\phi W =\phi \: 2[\ell_\mathcal{M}(\bm{y},\phi)
 <div class="callout-body-container">
 <p>Let us consider two <span class="grey">nested models</span> <span class="math inline">M_0 \subset M_1</span>. The <span class="orange">reduced model</span> <span class="math inline">M_0</span> has <span class="math inline">p_0</span> parameters and predictions <span class="math inline">\hat{\bm{\mu}}_0</span>. The <span class="blue">full model</span> <span class="math inline">M_1</span> has <span class="math inline">p</span> parameters <span class="math inline">\hat{\bm{\mu}}_1</span>.</p>
 <p>The <span class="blue">log-likelihood ratio test</span> <span class="math inline">W</span> for testing model <span class="math inline">M_0</span> against model <span class="math inline">M_1</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> can be written as <span class="math display">
-W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm{\mu}}_0, \hat{\phi})] = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_0)}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q.
+W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm{\mu}}_0, \hat{\phi})] = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q.
 </span> where <span class="math inline">q = p - p_0</span> are the degrees of freedom.</p>
 </div>
 </div>
@@ -2614,7 +2614,7 @@ W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm
 0 = D(\bm{y}; \bm{y}) \le D(\bm{y}; \hat{\bm{\mu}}) \le D(\bm{y}; \hat{\bm{\mu}}_\text{null}).
 </span></p></li>
 <li><p>It is sometimes useful to test the current model against the null model: <span class="math display">
-W = \frac{D(\bm{Y}; \hat{\bm{\mu}}) - D(\bm{Y}; \hat{\bm{\mu}}_\text{null})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
+W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_\text{null}) - D(\bm{Y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
 </span> If the <span class="math inline">H_0</span> is not rejected, it means all the <span class="orange">covariates</span> are regarded as <span class="orange">irrelevant</span>.</p></li>
 </ul>
 </section>
