@@ -375,7 +375,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 
 - [Linear predictor]{.blue}. For a parameter vector $\bm{\beta} = (\beta_1,\dots,\beta_p)^T$ and an $n \times p$ design matrix $\bm{X}$, the linear predictor is $\bm{\eta} = \bm{X}\beta$. We will also write
 $$
-\eta_i = \bm{x}_i^T\beta = \beta_1x_{i1} + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
+\eta_i = \bm{x}_i^T\beta = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
 $$
 
 . . .
@@ -1047,7 +1047,7 @@ $$
 ## Canonical link: simplifications 📖
 
 :::callout-note
-Under the [canonical link]{.orange} we have that $\theta_i = \beta_1x_{i1} + \cdots \beta_p x_{ip}$, which means that
+Under the [canonical link]{.orange} we have that $\theta_i = x_{i1}\beta_1 + \cdots +\beta_p x_{ip}$, which means that
 $$
 \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s} = 0 \qquad \Longrightarrow \qquad i_{rs} = j_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}.
 $$
@@ -1322,7 +1322,7 @@ for large values of $n$ and under mild regularity conditions on $\bm{X}$.
 
 - Under correct specification and mild conditions on $\bm{X}$, the maximum likelihood estimator is [asymptotically unbiased]{.orange} and with known asymptotic [variance]{.blue}
 $$
-\mathbb{E}(\hat{\beta}) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
+\mathbb{E}(\hat{\beta} - \beta) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
 $$
 
 - In practice, since $\bm{W}$ depends on $\beta$ and $\phi$, we rely on the following approximation

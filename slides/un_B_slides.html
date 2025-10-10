@@ -544,7 +544,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 <div class="fragment">
 <ul>
 <li><span class="blue">Linear predictor</span>. For a parameter vector <span class="math inline">\bm{\beta} = (\beta_1,\dots,\beta_p)^T</span> and an <span class="math inline">n \times p</span> design matrix <span class="math inline">\bm{X}</span>, the linear predictor is <span class="math inline">\bm{\eta} = \bm{X}\beta</span>. We will also write <span class="math display">
-\eta_i = \bm{x}_i^T\beta = \beta_1x_{i1} + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
+\eta_i = \bm{x}_i^T\beta = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
 </span></li>
 </ul>
 </div>
@@ -1366,7 +1366,7 @@ w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Under the <span class="orange">canonical link</span> we have that <span class="math inline">\theta_i = \beta_1x_{i1} + \cdots \beta_p x_{ip}</span>, which means that <span class="math display">
+<p>Under the <span class="orange">canonical link</span> we have that <span class="math inline">\theta_i = x_{i1}\beta_1 + \cdots +\beta_p x_{ip}</span>, which means that <span class="math display">
 \frac{\partial^2\theta_i}{\partial \beta_r \partial \beta_s} = 0 \qquad \Longrightarrow \qquad i_{rs} = j_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\frac{\partial\theta_i}{\partial \beta_r}.
 </span> The <span class="blue">observed information</span> <span class="math inline">\bm{J}</span> is <span class="orange">non-stochastic</span>, which means that observed information and expected (Fisher) information coincide, that is <span class="math inline">i_{rs} = j_{rs}</span> and <span class="math inline">\bm{I} = \bm{J}</span>.</p>
 </div>
@@ -1638,7 +1638,7 @@ z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_
 </div>
 <ul>
 <li><p>Under correct specification and mild conditions on <span class="math inline">\bm{X}</span>, the maximum likelihood estimator is <span class="orange">asymptotically unbiased</span> and with known asymptotic <span class="blue">variance</span> <span class="math display">
-\mathbb{E}(\hat{\beta}) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
+\mathbb{E}(\hat{\beta} - \beta) \approx 0, \qquad \text{var}(\hat{\beta}) \approx (\bm{X}^T\bm{W}\bm{X})^{-1}.
 </span></p></li>
 <li><p>In practice, since <span class="math inline">\bm{W}</span> depends on <span class="math inline">\beta</span> and <span class="math inline">\phi</span>, we rely on the following approximation <span class="math display">
 \widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1},
