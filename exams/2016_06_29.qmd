@@ -1,0 +1,73 @@
+---
+title: "Esame del 9 Luglio 2014"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Analisi del dataset `berk`
+
+Il dataset `berk` è disponibile a [questo link](../data/berk.txt) e contiene i dati relativi a $4526$ studenti che hanno fatto domanda di ammissione all'Università di Berkeley in un dato anno. Le variabili presenti sono:
+
+- `Dept`: il dipartimento presso il quale è stata fatta domanda  
+- `Gender`: il genere
+- `Admit`: il numero di ammessi
+- `Reject`: il numero di respinti
+
+Facendo uso del software **R**, si risponda alle seguenti domande:
+
+(a) Si ottenga una tabella a doppia entrata che, in corrispondenza di ciascuna combinazione delle esplicative `Dept` e `Gender`, fornisca le percentuali degli ammessi (rispetto al totale degli studenti che hanno fatto domanda). Ad esempio: il 62,1% dei maschi che hanno fatto domanda presso il dipartimento A sono stati ammessi. Si forniscano inoltre le percentuali di ammessi distinte solamente per `Gender`. Si commentino i risultati.
+
+(b) Si stimi un GLM opportuno (senza interazioni) facendo ricorso al link canonico. Si riportino:
+    i. le legge della distribuzione della variabile risposta.
+    ii. l'equazione che esprime la risposta media stimata in funzione delle esplicative (equazione del modello stimato)
+    iii. Un commento informale sul valore della devianza del modello
+    iv. Il *p-value* del test per la bontà del modello (modello stimato vs modello saturo), commentando ipotesi nulla e valore numerico ottenuto.
+    v. Quale combinazione di `Gender` e `Dept` contribuisce maggiormente alla devianza (cioè ha un valore $d_i$ più elevato)? [Suggerimento]{.blue}: basta ricordare in che relazione stanno $d_i$ con i residui di devianza. 
+    
+(c) Si fornisca un'interpretazione per la stima del coefficiente della esplicativa `Gender`. Tale interpretazione vi sembra coerente le percentuali di ammessi distinte per maschi e femmine calcolate nella seconda parte della domanda 1? Perchè?
+
+(d) Si decida se esistono valori delle esplicative che rappresentano potenziali valori anomali e se tali valori sono influenti.
+
+(e) Si stimi un nuovo modello in cui sono stati esclusi i dati del dipartimento "A". Si ottenga la nuova equazione del modello stimata, la devianza, e i gradi di libertà. Si commentino i risultati.
+
+(f) Si stimi un nuovo modello sui dati completi scegliendo un link alternativo a quello canonico e si confrontino i due modelli (domanda b. e domanda f.) in termini di AIC, frequenze assolute assolute di ammessi (arrotondate all'intero più vicino)
+
+(g) Come mai stimando (sui dati completi) un modello con interazioni la devianza, i residui di devianza e i gradi di libertà risultano tutti nulli?
+
+## Teoria
+
+(a) Si fornisca la definizione di famiglia di dispersione esponenziale e si decida se la distribuzione esponenziale, la cui densità è $f(x; \mu) = \mu^{-1}e^{-x/\mu}$ con $x > 0, \mu  > 0$, vi appartiene. In caso affermativo, fornire la funzione della media $\mu(\theta)$ e della varianza $v(\mu)$.
+
+(b) [Omessa]{.orange}. 
+

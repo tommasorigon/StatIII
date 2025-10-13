@@ -89,8 +89,9 @@ Example of previous exams are provided below.
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------|---------|-----------|----------|
 | 13 July 2016 | `awards` | [Exam](exams/2016_07_13.html) |  |
-| 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
+| 29 Giugno 2016 | `berk` | [Exam](exams/2016_06_29.qmd) |  |
 | 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) | |
+| 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
 
 
 <!-- ## Prerequisites -->
