@@ -1,0 +1,13 @@
+"Dept" "Gender" "Admit" "Reject"
+"1" "A" "Male" 512 313
+"2" "A" "Female" 89 19
+"3" "B" "Male" 353 207
+"4" "B" "Female" 17 8
+"5" "C" "Male" 120 205
+"6" "C" "Female" 202 391
+"7" "D" "Male" 138 279
+"8" "D" "Female" 131 244
+"9" "E" "Male" 53 138
+"10" "E" "Female" 94 299
+"11" "F" "Male" 22 351
+"12" "F" "Female" 24 317

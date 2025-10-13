@@ -1,0 +1,74 @@
+---
+title: "Esame del 9 Luglio 2014"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Analisi del dataset `awards`
+
+Il dataset `awards` è disponibile a [questo link](../data/awards.txt) e contiene i dati relativi a $200$ studenti. Le variabili presenti sono:
+
+- `num_awards`: numero di premi ricevuti  
+- `prog`: tipo di programma scolastico cui si è iscritti
+- `math`: voto ottenuto nell'esame finale di matematica
+- `id`: numerico identificativo dello studente
+
+Facendo uso del software **R**, si risponda alle seguenti domande:
+
+(a) Dopo aver riclassificato la variabile `math` in 6 classi, si costruisca un grafico che riporta l'andamento di `num_awards` al variare di `math`, distinto per programma scolastico (`prog`). Si commentino i risultati.
+
+(b) [Omessa]{.orange}.
+
+(c) Si stimi un GLM opportuno avente come variabile risposta `num_awards` ed esplicative `math` e `prog` (senza interazioni). Si riportino:
+    i. L'equazione che esprime la risposta media stimata in funzione delle esplicative (equazione del modello stimato).
+    ii. I *p-value* del test per la bontà del modello (modello stimato vs modello nullo), commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.
+    iii. Si giustifichi l'affermazione presente nell'output di **R** "*dispersion parameter for Poisson family taken to be 1*".
+
+(d) Si fornisca un'interpretazione per la stima del coefficiente della esplicativa `math` e si decida se tale interpretazione è coerente con il commento al grafico al punto (a).
+    
+(e) Si decida tramite un opportuno test se conservare o meno l'esplicativa `prog` nel modello. Si riporti la statistica test, i gradi di libertà, il *p-value* e si commenti il risultato.
+
+(f) Dopo avere fornito la funzione varianza del modello considerato, si ottenga un grafico utile a valutarne l'appropriatezza commendando il risultato ottenuto.
+
+(g) Si fornisca una stima per un ipotetico parametro aggiuntivo utile a trattare l'eventuale sovra-dispersione e si commenti il risultato ottenuto.
+
+(h) Si fornisca una previsione per i numero di premi di due studenti entrambi con il voto massimo in matematica che seguano, rispettivamente, il programma "academic" e quello "general".
+  
+
+## Teoria
+
+(a) Si illustrino i principali tipi di residui calcolabili nell'ambito dei GLM.
+
+(b) Si fornisca la definizione di quasi verosimiglianza e si decida se tale concetto è utile l'ambito di un GLM con legame identità e funzione varianza costante. 
+
