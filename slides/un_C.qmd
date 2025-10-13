@@ -1,6 +1,6 @@
 ---
-title: "Generalized linear models"
-subtitle: "Statistical Inference - PhD EcoStatData"
+title: "Binary and binomial regression"
+subtitle: "Statistics III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 page-layout: full
@@ -25,26 +25,23 @@ format:
     theme: [default, ../template.css] # alternative themes (subset): default, night, dark
     embed-resources: false
     echo: false
-    fig-dpi: 200
+    fig-dpi: 250
     # incremental: true  # Remove comment if you like incremental bullet points
     logo: img/logoB.png
-    footer: "[Home page](https://tommasorigon.github.io/InferentialStat)"
-    highlight-style: github
+    footer: "[Home page](https://tommasorigon.github.io/StatIII)"
   html:
     html-math-method: katex
     echo: false
     callout-appearance: minimal
     theme: [simplex, ../template.css]
     toc: true
+    execute: 
+      message: false
+      warning: false
     toc-title: Table of contents
     embed-resources: false
-    code-line-numbers: true
     smooth-scroll: true
-    code-fold: false
-    code-summary: "Show the code"
-    fig-dpi: 150
-    toc-location: right
-    highlight-style: github
+    fig-dpi: 250
 editor: 
   markdown: 
     wrap: 72
@@ -85,25 +82,16 @@ library(ggthemes)
 - sdf
 :::
 
-# Likelihood and inference
+## Grouped vs ungrouped data
 
-# Special models
+## Link functions
 
-## Log-linear models and contingency tables
+## Interpretation as latent responses
 
-- Ciao ciao ciao
+## Logistic regression
 
-- Come stai? Ecco il teorema di Pitagora, come si può leggere in @Agresti2015
-$$
-a^2 + b^2 = c^2.
-$$
+## Comments on the residuals
 
-## Logistic regression with paired data
+## Overdispersion
 
-# Quasi likelihoods
-
-# Bias correction and robustness
-
-# Case study I
-
-# Case study II
+## Goodness-of-fit test

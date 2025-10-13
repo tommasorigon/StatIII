@@ -6,11 +6,11 @@
 <script src="un_C_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="un_C_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="un_C_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="un_C_files/libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="un_C_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Tommaso Rigon">
-  <title>Generalized linear models</title>
+  <title>Binary and binomial regression</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,44 +28,8 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-      margin-bottom: 0em;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <link rel="stylesheet" href="un_C_files/libs/revealjs/dist/theme/quarto-8fd9a32a7a1f1c24c97cc70db42e1276.css">
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="un_C_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="un_C_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="un_C_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -163,8 +127,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Generalized linear models</h1>
-  <p class="subtitle">Statistical Inference - PhD EcoStatData</p>
+  <h1 class="title">Binary and binomial regression</h1>
+  <p class="subtitle">Statistics III - CdL SSE</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -194,57 +158,33 @@
 </ul>
 </div>
 </section>
-<section id="likelihood-and-inference" class="title-slide slide level1 center">
-<h1>Likelihood and inference</h1>
-
+<section id="grouped-vs-ungrouped-data" class="slide level2 center">
+<h2>Grouped vs ungrouped data</h2>
 </section>
-
-<section>
-<section id="special-models" class="title-slide slide level1 center">
-<h1>Special models</h1>
-
+<section id="link-functions" class="slide level2 center">
+<h2>Link functions</h2>
 </section>
-<section id="log-linear-models-and-contingency-tables" class="slide level2 center">
-<h2>Log-linear models and contingency tables</h2>
-<ul>
-<li><p>Ciao ciao ciao</p></li>
-<li><p>Come stai? Ecco il teorema di Pitagora, come si può leggere in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/case-study-ii" role="doc-biblioref" onclick="">2015</a>)</span> <span class="math display">
-a^2 + b^2 = c^2.
-</span></p></li>
-</ul>
+<section id="interpretation-as-latent-responses" class="slide level2 center">
+<h2>Interpretation as latent responses</h2>
 </section>
-<section id="logistic-regression-with-paired-data" class="slide level2 center">
-<h2>Logistic regression with paired data</h2>
-</section></section>
-<section id="quasi-likelihoods" class="title-slide slide level1 center">
-<h1>Quasi likelihoods</h1>
-
+<section id="logistic-regression" class="slide level2 center">
+<h2>Logistic regression</h2>
 </section>
-
-<section id="bias-correction-and-robustness" class="title-slide slide level1 center">
-<h1>Bias correction and robustness</h1>
-
+<section id="comments-on-the-residuals" class="slide level2 center">
+<h2>Comments on the residuals</h2>
 </section>
-
-<section id="case-study-i" class="title-slide slide level1 center">
-<h1>Case study I</h1>
-
+<section id="overdispersion" class="slide level2 center">
+<h2>Overdispersion</h2>
 </section>
+<section id="goodness-of-fit-test" class="slide level2 center">
+<h2>Goodness-of-fit test</h2>
 
-<section id="case-study-ii" class="title-slide slide level1 smaller scrollable">
-<h1>Case study II</h1>
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Agresti2015" class="csl-entry" role="listitem">
-Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
-</div>
-</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="img/logoB.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p><a href="https://tommasorigon.github.io/InferentialStat">Home page</a></p>
+<p><a href="https://tommasorigon.github.io/StatIII">Home page</a></p>
 </div>
 </div></div>
 
