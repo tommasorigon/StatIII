@@ -156,6 +156,8 @@ In some applications, such as regressing annual income on the number of years of
 (b) Show that the ordinary least squares estimator is $\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2$ and has $\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2$. 
 
 (c) Show that $\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})$. 
+
+[Hint]{.blue}: part (c) is not easy, but it can be solved in two ways: (i) by applying the Cauchy–Schwarz inequality to a suitable transformation of the $x_i$, or (ii) by relying on the Gauss–Markov theorem.
 :::
 
 :::{.callout-note collapse=true}
