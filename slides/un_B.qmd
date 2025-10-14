@@ -1591,7 +1591,7 @@ The Rao-score test arguably the [less common]{.orange}. When $\phi$ is unknown, 
 ## Three asymptotically equivalent tests
 
 :::callout-warning
-The Wald test, the Score test and the log-likelihood ratio test are [asymptotically equivalent]{.blue}, that is, these tests give the same [same number]{.blue} for large values of $n$. We have that
+The Wald test, the Score test and the log-likelihood ratio test are [asymptotically equivalent]{.blue}, that is, these tests give the [same number]{.blue} for large values of $n$. We have that
 $$
 W_e = W + o_p(1), \qquad W_u = W + o_p(1),
 $$
@@ -1975,7 +1975,7 @@ which is known as generalized [Pearson chi-squared statistic]{.blue}.
 
 ## Deviance of a Gaussian linear model
 
-- In the classical [Gaussian linear model]{.blue}, we have that $\theta_i = \mu_i$ and $b(\theta_i) = \theta_i^2$. Thus $\theta(y_i) = y_i$ and
+- In the classical [Gaussian linear model]{.blue}, we have that $\theta_i = \mu_i$ and $b(\theta_i) = \theta_i^2/2$. Thus $\theta(y_i) = y_i$ and
 $$
 \begin{aligned}
 D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\} \\

@@ -1906,7 +1906,7 @@ W_u \: \dot{\sim} \; \chi^2_q,
 <div class="callout callout-warning no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The Wald test, the Score test and the log-likelihood ratio test are <span class="blue">asymptotically equivalent</span>, that is, these tests give the same <span class="blue">same number</span> for large values of <span class="math inline">n</span>. We have that <span class="math display">
+<p>The Wald test, the Score test and the log-likelihood ratio test are <span class="blue">asymptotically equivalent</span>, that is, these tests give the <span class="blue">same number</span> for large values of <span class="math inline">n</span>. We have that <span class="math display">
 W_e = W + o_p(1), \qquad W_u = W + o_p(1),
 </span> where <span class="math inline">o_p(1)</span> is a quantity that goes to <span class="math inline">0</span> in probability as <span class="math inline">n \to \infty</span>.</p>
 </div>
@@ -2433,7 +2433,7 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_\text{null}) - D(\bm{Y}; \hat{\bm{\mu}})}{\ha
 <section id="deviance-of-a-gaussian-linear-model" class="slide level2 center">
 <h2>Deviance of a Gaussian linear model</h2>
 <ul>
-<li>In the classical <span class="blue">Gaussian linear model</span>, we have that <span class="math inline">\theta_i = \mu_i</span> and <span class="math inline">b(\theta_i) = \theta_i^2</span>. Thus <span class="math inline">\theta(y_i) = y_i</span> and <span class="math display">
+<li>In the classical <span class="blue">Gaussian linear model</span>, we have that <span class="math inline">\theta_i = \mu_i</span> and <span class="math inline">b(\theta_i) = \theta_i^2/2</span>. Thus <span class="math inline">\theta(y_i) = y_i</span> and <span class="math display">
 \begin{aligned}
 D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\} \\
 &amp;=2\sum_{i=1}^n\{y_i(y_i - \hat{\mu}_i) - y_i^2/2 + \hat{\mu}_i^2/2\}\\
