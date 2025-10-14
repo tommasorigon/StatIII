@@ -1691,7 +1691,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <ul>
 <li><p>In the Newton-Raphson algorithm, we consider a second-order <span class="blue">Taylor expansion</span> of the log-likelihood <span class="math inline">\ell(\beta) = \ell(\beta,\phi)</span> centered in <span class="math inline">\beta^{(t)}</span>, namely: <span class="math display">
 \ell(\beta) \approx \ell(\beta^{(t)}) + \ell_*(\beta^{(t)})^T(\beta - \beta^{(t)}) - \frac{1}{2}(\beta -
-\beta^{(t)})^T\bm{J}^{(t)}
+\beta^{(t)})^T\bm{J}^{(t)}(\beta - \beta^{(t)})
 </span> where <span class="math inline">\ell_*(\beta^{(t)})</span> is the <span class="orange">score function</span> and <span class="math inline">\bm{J}^{(t)}</span> is the <span class="blue">observed information</span>, evaluated at <span class="math inline">\beta^{(t)}</span>.</p></li>
 <li><p>In other words, we <span class="orange">approximate</span> the log-likelihood <span class="math inline">\ell(\beta)</span> with a <span class="blue">parabola</span>. This gives the <span class="grey">approximate likelihood equations</span>: <span class="math display">
 \ell_*(\beta^{(t)}) - \bm{J}^{(t)}(\beta - \beta^{(t)}) = \bm{0}.

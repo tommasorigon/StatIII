@@ -1181,7 +1181,7 @@ $$
 - In the Newton-Raphson algorithm, we consider a second-order [Taylor expansion]{.blue} of the log-likelihood $\ell(\beta) = \ell(\beta,\phi)$ centered in $\beta^{(t)}$, namely:
 $$
 \ell(\beta) \approx \ell(\beta^{(t)}) + \ell_*(\beta^{(t)})^T(\beta - \beta^{(t)}) - \frac{1}{2}(\beta - 
-\beta^{(t)})^T\bm{J}^{(t)}
+\beta^{(t)})^T\bm{J}^{(t)}(\beta - \beta^{(t)})
 $$
 where $\ell_*(\beta^{(t)})$ is the [score function]{.orange} and $\bm{J}^{(t)}$ is the [observed information]{.blue}, evaluated at  $\beta^{(t)}$.
 
