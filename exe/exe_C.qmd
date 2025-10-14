@@ -87,7 +87,7 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### `Beetles` dataset
 
-For the logit model considered in the slides applied to the `Beetles` data, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$. 
+For the logit model considered in the slides applied to the `Beetles` data, available in the library `MLGdata`, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$. 
 
 (a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.  
 

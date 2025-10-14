@@ -95,6 +95,10 @@ The content of this Unit is covered in [Chapter 3]{.orange} of @Salvan2020. Alte
 :::
 
 
+## Notation and recap
+
+- 
+
 ## Grouped vs ungrouped data
 
 ## Link functions

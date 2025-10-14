@@ -167,16 +167,16 @@ Explicitly derive the contribution of a single observation to the deviance (i.e.
 :::{.callout-note collapse=true}
 #### Exercise E
 
-Let $Y_i$ be independent, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLMs with [no intercept]{.blue},
+Let $Y_i$ be independent, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLM with [no intercept]{.blue} and $p=1$, i.e.
 $$
 \eta_i = \beta x_i, \qquad i=1,\dots,n,
 $$
 under each of the following exponential–dispersion models (mean–variance pairs):
   
-1. $Y_i \sim \text{ED}(\mu_i, \phi)$ with $V(\mu_i)=1$, with $\phi$ known.  
-2. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i^2$, with $\phi$ known.  
-3. $Y_i \sim \text{ED}(\mu_i,\phi_i)$ with $V(\mu_i)=\mu_i(1-\mu_i)$.  
-4. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i$.
+1. $Y_i \sim \text{ED}(\mu_i, \phi)$ with $V(\mu_i)=1$ and $\mu_i \in \mathbb{R}$, with $\phi$ known.  
+2. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i^2$ and $\mu_i \in (0, \infty)$, with $\phi$ known.  
+3. $Y_i \sim \text{ED}(\mu_i,\phi_i)$ with $V(\mu_i)=\mu_i(1-\mu_i)$ and$\mu_i \in (0, 1)$.  
+4. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i$ and $\mu_i \in (0, \infty)$.
 
 For each model:
 
@@ -212,7 +212,7 @@ In a generalized linear model that uses a [non-canonical link function]{.blue}, 
 $$
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
 $$
-Hence, the residuals need not have a mean of 0. Then, explain why a GLM with a [canonical link]{.orange} function requires the inclusion of an intercept term in order to ensure that this equality holds.
+Hence, the response residuals need not have a mean of 0. Then, explain why a GLM with a [canonical link]{.orange} function requires the inclusion of an intercept term in order to ensure that this equality holds.
 :::
 
 :::{.callout-note collapse=true}
