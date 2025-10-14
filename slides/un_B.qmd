@@ -2359,7 +2359,7 @@ Overreliance on residual analysis can encourage automatic decisions rather than 
 
 - In the vast majority of cases, the presence of outliers should be carefully dealt with by carefully modifying the model.
 
-- There are instances in which outliers are actually [contaminated data points]{.blue} (e.g. `age = -3`). If there is strong and contextual evidence that this might the case, then these points should be [removed]{.orange}. Otherwise, removing data points is a [bad practice]{.orange}.
+- There are instances in which outliers are actually [contaminated data points]{.blue} (e.g. `age = -3`). If there is strong and contextual evidence that this might be the case, then these points should be [removed]{.orange}. Otherwise, removing data points is a [bad practice]{.orange}.
 
 :::callout-tip
 In statistical modelling, we wish to find a model that fits our data, not a dataset that is aligned with our prescribed model. 

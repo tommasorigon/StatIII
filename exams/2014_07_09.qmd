@@ -39,7 +39,7 @@ editor_options:
 
 Il [disastro dello shuttle Challenger](https://it.wikipedia.org/wiki/Disastro_dello_Space_Shuttle_Challenger) avvenne il 28 gennaio 1986, 73 secondi dopo il decollo. Morirono tutte le 7 persone a bordo, tra cui un'insegnante.
 
-L’incidente fu causato dal guasto delle guarnizioni (`orings`) in un razzo a propellente solido, che portò all’esplosione del serbatoio esterno. L’evento fu trasmesso in diretta TV e seguito da milioni di persone, anche perché era previsto che l’insegnante Christa McAuliffe tenesse una lezione dallo spazio. I voli con equipaggio ripresero solo due anni e mezzo dopo, con la missione dello Shuttle Discovery nel settembre 1988.
+L’incidente fu causato dal guasto delle guarnizioni (`orings`), che portò all’esplosione del serbatoio esterno del razzo. L’evento fu trasmesso in diretta TV e seguito da milioni di persone, anche perché era previsto che l’insegnante Christa McAuliffe tenesse una lezione dallo spazio. I voli con equipaggio ripresero solo due anni e mezzo dopo, con la missione dello Shuttle Discovery nel settembre 1988.
 
 I dati sono stati analizzati da una commissione d'inchiesta ed in seguito ben descritti nell'articolo scientifico:
 

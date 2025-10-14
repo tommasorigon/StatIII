@@ -66,20 +66,21 @@ library(ggthemes)
 ```
 
 ::: columns
-::: {.column width="20%"}
-![](img/target.png)
+::: {.column width="30%"}
+![](img/challenger.png){width="100%"}
 
+[Original paper](https://doi.org/10.2307/2290069)
 <!-- *"Pluralitas non est ponenda sine necessitate."* -->
 
 <!-- [William of Ockham]{.grey} -->
 :::
 
-::: {.column width="80%"}
-- This unit will cover the following [topics]{.orange}:
+::: {.column width="70%"}
+
+- [Binary data]{.blue} are very common in applications, therefore it makes sense to focus on them.
 
 :::
 
-- sdf
 :::
 
 ## Grouped vs ungrouped data
