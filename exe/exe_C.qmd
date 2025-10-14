@@ -165,3 +165,33 @@ Let $Y \sim \mathrm{Binomial}(m, \pi)$. Consider the logit parametrization $\the
 
 (c) Verify that the anomaly does not occur for the likelihood-ratio test.  
 :::
+
+:::{.callout-note collapse=true}
+#### Exercise B
+
+Explain how the expression for $\text{var}(\hat{\beta})$ in logistic regression suggest that the standard errors of $\hat{\beta}_j$ tend to b smaller as you obtain more data. Answer this for (a) grouped data with $m_i$ increasing, and (b) ungrouped data with $n$ increasing.
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise C
+
+Suppose the logistic model holds in which $x$ is uniformly distributed on the interval $[0, 100]$ and $\text{logit}(\pi_i) = -2.0 + 0.04 x_i$. Randomly generate $100$ independent observations from this model. Plot the residuals against $x$ and against the fitted values. Why do residual plots for binary data have this appearance?
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise D
+
+Let $m_i Y_i$ be independent $\text{Binomial}(m_i, \pi_i)$ random variables for $i=1,\dots,n$. Consider the null model, for which $\pi_1 = \cdots = \pi_n$. 
+
+(a) Show that $\hat{\pi} = \sum_{i=1}^n m_i Y_i / \sum_{i=1}^n m_i$, i.e. the weighted average of the proportions. 
+
+(b) When all $m_i = 1$ (binary data), show that $X^2 = n$. Conclude that the $X^2$ is uninformative in this case. 
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise E
+
+Let $Y_i$ be independent $\text{Bernoulli}(\pi_i)$ random variables, for $i=1,\dots,n$. For the logit model $\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i$, show that the deviance depends on $\hat{\pi}_i$ but not on $y_i$. Hence, it is not useful for checking model fit.
+
+(This exercise and the previous one show that goodness of fit statistics are not useful for binary data.)
+:::

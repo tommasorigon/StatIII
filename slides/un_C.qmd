@@ -66,7 +66,7 @@ library(ggthemes)
 ```
 
 ::: columns
-::: {.column width="30%"}
+::: {.column width="20%"}
 ![](img/challenger.png){width="100%"}
 
 [Original paper](https://doi.org/10.2307/2290069)
@@ -75,13 +75,25 @@ library(ggthemes)
 <!-- [William of Ockham]{.grey} -->
 :::
 
-::: {.column width="70%"}
+::: {.column width="80%"}
 
-- [Binary data]{.blue} are very common in applications, therefore it makes sense to focus on them.
+- GLMs for [binary data]{.blue} and [binomial data]{.orange} are very common, whenever the response variable is dichotomous (e.g., success/failure, yes/no, dead/alive, diseased/healthy, etc.).
 
+- This unit will cover a few additional topics related to binary and binomial regression, including:
+  - grouped vs ungrouped data;
+  - the choice of the link function;
+  - interpretation of responses via latent "utilities";
+  - and more...
+
+- Clearly, the most important aspects have been already covered in [Unit B](un_.B.html).
 :::
 
 :::
+
+:::callout-tip
+The content of this Unit is covered in [Chapter 3]{.orange} of @Salvan2020. Alternatively, see [Chapter 5]{.blue} of @Agresti2015.
+:::
+
 
 ## Grouped vs ungrouped data
 
