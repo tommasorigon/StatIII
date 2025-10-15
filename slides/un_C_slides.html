@@ -50,6 +50,22 @@
       margin-left: 2em;
     }  </style>
   <link rel="stylesheet" href="un_C_files/libs/revealjs/dist/theme/quarto-8fd9a32a7a1f1c24c97cc70db42e1276.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="un_C_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="un_C_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="un_C_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -190,14 +206,59 @@
 </div>
 </div>
 </section>
+<section id="notation-and-recap" class="slide level2 center">
+<h2>Notation and recap</h2>
+<ul>
+<li><p>In a <span class="blue">binomial regression</span> model, we observe <span class="math inline">S_i</span> <span class="blue">successes</span> out of <span class="math inline">m_i</span> <span class="orange">trials</span> <span class="math display">
+S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+</span> We model the proportions <span class="math inline">Y_i = S_i / m_i</span>, whose mean is indeed <span class="math inline">\pi_i</span>.</p></li>
+<li><p>In a <span class="blue">binary regression</span> model, we observe <span class="math inline">Y_i \in \{0,1\}</span>, which is a special case of the model above with number of trials <span class="math inline">m_i = 1</span> for all <span class="math inline">i</span>. Thus, we have <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+</span></p></li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In this Unit, we distinguish between <span class="orange">two sample size measures</span>:</p>
+<ul>
+<li>a measure <span class="math inline">m_i</span> for the number of Bernoulli trials that constitute a particular binomial observation;</li>
+<li>a measure <span class="math inline">n</span> for the number of binomial observations.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 <section id="grouped-vs-ungrouped-data" class="slide level2 center">
 <h2>Grouped vs ungrouped data</h2>
+<ul>
+<li><p>If <span class="math inline">Y_{ij} \in \{0,1\}</span> are independent <span class="blue">Bernoulli</span> random variables with success probability <span class="math inline">\pi_i</span>, for <span class="math inline">j=1,\dots, m_i</span> and <span class="math inline">i=1,\dots, n</span>, then <span class="math display">
+S_i = \sum_{j=1}^{m_i} Y_{ij} \sim \text{Binomial}(m_i, \pi_i).
+</span></p></li>
+<li><p>Thus, any binomial regression model can be <span class="orange">ungrouped</span> into a binary regression model with <span class="math inline">N = \sum_{i=1}^n m_i</span> observations, by simply repeating the same response and covariate <span class="math inline">m_i</span> times.</p></li>
+<li><p>On the other hand, a binary regression model can be <span class="blue">grouped</span> only if multiple subjects share the same values for explanatory variables, which is common if they are all categorical.</p></li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The likelihood function of these two representation coincide up to a proportionality constant, which means that the maximum likelihood <span class="math inline">\hat{\beta}</span> and and the standard errors are identical.</p>
+<p>However, the deviance and the residuals are different, which has implications for goodness-of-fit tests and model diagnostics. The diagnostics for binary data are typically uninformative.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="latent-variable-threshold-models" class="slide level2 center">
+<h2>Latent variable threshold models</h2>
+<ul>
+<li><p>A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function <span class="math inline">g</span>. Let <span class="math inline">Y_i^*</span> be a <span class="orange">latent</span> and <span class="orange">continuous</span> random variables such that <span class="math display">
+Y_i^* = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \overset{\text{iid}}{\sim} F.
+</span></p></li>
+<li><p>A variable is called latent because we do not observe it directly. Instead, we observe only a <span class="blue">binary variable</span> encoding whether it exceeds a certain threshold, i.e. <span class="math display">
+Y_i = \mathbb{I}(Y_i^* &gt; \tau),
+</span> where <span class="math inline">\mathbb{I}(\cdot)</span> is the indicator function and <span class="math inline">\tau</span> is a threshold.</p></li>
+</ul>
 </section>
 <section id="link-functions" class="slide level2 center">
 <h2>Link functions</h2>
-</section>
-<section id="interpretation-as-latent-responses" class="slide level2 center">
-<h2>Interpretation as latent responses</h2>
 </section>
 <section id="logistic-regression" class="slide level2 center">
 <h2>Logistic regression</h2>

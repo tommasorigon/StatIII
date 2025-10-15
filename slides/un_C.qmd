@@ -97,13 +97,55 @@ The content of this Unit is covered in [Chapter 3]{.orange} of @Salvan2020. Alte
 
 ## Notation and recap
 
-- 
+- In a [binomial regression]{.blue} model, we observe $S_i$ [successes]{.blue} out of $m_i$ [trials]{.orange}
+$$
+S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+$$
+We model the proportions $Y_i = S_i / m_i$, whose mean is indeed $\pi_i$. 
+
+- In a [binary regression]{.blue} model, we observe $Y_i \in \{0,1\}$, which is a special case of the model above with number of trials $m_i = 1$ for all $i$. Thus, we have
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+$$
+
+:::callout-note
+In this Unit, we distinguish between [two sample size measures]{.orange}:
+
+  - a measure $m_i$ for the number of Bernoulli trials that constitute a particular binomial observation;
+  - a measure $n$ for the number of binomial observations. 
+:::
 
 ## Grouped vs ungrouped data
 
-## Link functions
+- If $Y_{ij} \in \{0,1\}$ are independent [Bernoulli]{.blue} random variables with success probability $\pi_i$, for $j=1,\dots, m_i$ and $i=1,\dots, n$, then
+$$
+S_i = \sum_{j=1}^{m_i} Y_{ij} \sim \text{Binomial}(m_i, \pi_i).
+$$
+- Thus, any binomial regression model can be [ungrouped]{.orange} into a binary regression model with $N = \sum_{i=1}^n m_i$ observations, by simply repeating the same response and covariate $m_i$ times. 
 
-## Interpretation as latent responses
+- On the other hand, a binary regression model can be [grouped]{.blue} only if multiple subjects share the same values for explanatory variables, which is common if they are all categorical. 
+
+:::callout-note
+The likelihood function of these two representation coincide up to a proportionality constant, which means that the maximum likelihood $\hat{\beta}$ and and the standard errors are identical.
+
+However, the deviance and the residuals are different, which has implications for goodness-of-fit tests and model diagnostics. The diagnostics for binary data are typically uninformative.
+:::
+
+## Latent variable threshold models
+
+- A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function $g$. Let  $Y_i^*$ be a [latent]{.orange} and [continuous]{.orange} random variables such that
+$$
+Y_i^* = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \overset{\text{iid}}{\sim} F.
+$$
+
+- A variable is called latent because we do not observe it directly. Instead, we observe only a [binary variable]{.blue} encoding whether it exceeds a certain threshold, i.e.
+$$
+Y_i = \mathbb{I}(Y_i^* > \tau),
+$$
+where $\mathbb{I}(\cdot)$ is the indicator function and $\tau$ is a threshold.
+
+
+## Link functions
 
 ## Logistic regression
 
