@@ -355,7 +355,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>We consider the <span class="blue">empirical logit</span> variable transformation of <span class="math inline">S_i = Y_i / m_i</span>, obtaining<br>
+<p>We consider the <span class="blue">empirical logit</span> variable transformation of <span class="math inline">Y_i = S_i / m_i</span>, obtaining<br>
 <span class="math display">
 \text{logit}(\tilde{Y}_i) = \log\left(\frac{S_i + 0.5}{m_i - S_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Y}_i = \frac{S_i + 0.5}{m_i +1}.
 </span> A correction term is necessary because otherwise <span class="math inline">g(\cdot) = \text{logit}(\cdot)</span> is undefined. The predictions belong to <span class="math inline">(0, 1)</span>, since <span class="math display">
