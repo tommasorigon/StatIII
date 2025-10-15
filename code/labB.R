@@ -75,7 +75,7 @@ beta_old <- c(0, 0)
 
 while (!converged && iter < maxit) {
   iter <- iter + 1
-  
+
   # Linear predictor
   eta <- X %*% beta_old
   # Estimated probabilities
@@ -86,18 +86,24 @@ while (!converged && iter < maxit) {
   W <- diag(as.vector(m * mu * (1 - mu)))
   # Update estimates
   beta_new <- solve(t(X) %*% W %*% X) %*% t(X) %*% W %*% z
-  
+
   # Check convergence
   if (max(abs(beta_new - beta_old)) < tol) converged <- TRUE
-  
+
   beta_old <- beta_new
-  cat("Iteration", iter, ": ", round(beta_new, 6), "\n")
+  cat("Iteration", iter, "---------------------------\n")
+  cat("Coefficients: ", round(beta_new, 6), "\n")
+  cat("Score: ", round(t(X) %*% diag(m) %*% (y - mu), 6), "\n\n")
 }
 
 # Final estimates ----------------------------------------------------------------
 
 beta_hat <- beta_new
 beta_hat
+
+# Estimating equations
+Omega <- diag(m)
+t(X) %*% Omega %*% (y - mu)
 
 # Variance / covariance matrix of the estimates
 vars <- solve(t(X) %*% W %*% X)
