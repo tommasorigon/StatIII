@@ -101,7 +101,7 @@ The content of this Unit is covered in [Chapter 3]{.orange} of @Salvan2020. Alte
 $$
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 $$
-We model the proportions $Y_i = S_i / m_i$, whose mean is indeed $\pi_i$. 
+We model the proportions $Y_i = S_i / m_i$, whose mean is indeed $\pi_i$ and $Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)$. 
 
 - In a [binary regression]{.blue} model, we observe $Y_i \in \{0,1\}$, which is a special case of the model above with number of trials $m_i = 1$ for all $i$. Thus, we have
 $$
@@ -109,7 +109,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i
 $$
 
 :::callout-note
-In this Unit, we distinguish between [two sample size measures]{.orange}:
+In this unit, we distinguish between [two sample size measures]{.orange}:
 
   - a measure $m_i$ for the number of Bernoulli trials that constitute a particular binomial observation;
   - a measure $n$ for the number of binomial observations. 
@@ -126,14 +126,127 @@ $$
 - On the other hand, a binary regression model can be [grouped]{.blue} only if multiple subjects share the same values for explanatory variables, which is common if they are all categorical. 
 
 :::callout-note
-The likelihood function of these two representation coincide up to a proportionality constant, which means that the maximum likelihood $\hat{\beta}$ and and the standard errors are identical.
+The [likelihood]{.blue} function of these two representation [coincide]{.blue} up to a proportionality constant, which means that the maximum likelihood $\hat{\beta}$ and and the standard errors are identical.
 
 However, the deviance and the residuals are different, which has implications for goodness-of-fit tests and model diagnostics. The diagnostics for binary data are typically uninformative.
 :::
 
-## Latent variable threshold models
 
-- A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function $g$. Let  $Y_i^*$ be a [latent]{.orange} and [continuous]{.orange} random variables such that
+## Link functions I
+
+- As discussed, the [link function]{.blue} is usually set to $g(\cdot) = F^{-1}(\cdot)$ for some [continuous cumulative distribution function]{.orange} $F(\cdot) : \mathbb{R} \to (0,1)$. In other words,
+$$
+g(\pi_i) = F^{-1}(\pi_i) = \bm{x}_i^T\beta,
+$$
+that is
+$$
+\mu_i = \pi_i = F(\bm{x}_i^T\beta).
+$$
+The function $F(\cdot)$ is monotone increasing, differentiable, and maps the real line to the unit interval.
+
+- [Logit link]{.blue}. The canonical link is the logistic link (or logit link), that is
+$$
+g(\pi_i) = \log\left(\frac{\pi_i}{1-\pi_i}\right) = \bm{x}_i^T\beta, \qquad \text{ with inverse} \qquad \pi_i = \frac{\exp(\bm{x}_i^T\beta)}{1 + \exp(\bm{x}_i^T\beta)}.
+$$
+Indeed, the function $F(z) = \exp(z)/(1+\exp(z))$ with $z \in \mathbb{R}$ is the cdf of a [logistic distribution]{.orange} with mean $0$ and variance $\pi^2/3$.
+
+## Link functions II
+
+- [Probit link]{.blue}. The probit link is based on the standard normal cdf $\Phi(\cdot)$, i.e.
+$$
+g(\pi_i) = \Phi^{-1}(\pi_i) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = \Phi(\bm{x}_i^T\beta).
+$$
+The function $\Phi(z)$ with $z \in \mathbb{R}$ is usually computed numerically and equals
+$$
+\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{u^2}{2}\right) du.
+$$
+- [Complementary log-log link]{.blue}. The complementary log-log (cloglog) link is 
+$$
+g(\pi_i) = \log(-\log(1-\pi_i)) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = 1 - \exp(-\exp(\bm{x}_i^T\beta)).
+$$
+The distribution function $F(z) = 1 - \exp(-\exp(z))$ with $z \in \mathbb{R}$ is called extreme value distribution. This link function is [asymmetric]{.orange}.
+
+- [Cauchy link]{.blue}. The Cauchy link is 
+$$
+g(\pi_i) = \tan(\pi(\pi_i - 1/2)), \qquad \text{with inverse} \qquad \pi_i = \frac{1}{2} +  \frac{\text{arctan}(\bm{x}_i^T\beta)}{\pi}.
+$$
+$F(z) = 1/2 + \text{arctan}(z)/\pi$ with $z \in \mathbb{R}$ is the cdf of a [standard Cauchy distribution]{.orange}.
+
+## Link functions III
+
+```{r}
+library(ggplot2)
+library(ggthemes)
+
+mu <- seq(0.001, 0.999, length.out = 400)
+
+# Compute probabilities for each link
+df <- data.frame(
+  mu = mu,
+  logit = qlogis(mu),
+  probit = qnorm(mu),
+  cloglog = log(-log(1-mu)),
+  cauchit = qcauchy(mu)
+)
+
+# Reshape for ggplot
+df_long <- reshape2::melt(df, id.vars = "mu", 
+                          variable.name = "Link", 
+                          value.name = "eta")
+
+# Plot
+ggplot(df_long, aes(x = mu, y = eta, color = Link)) +
+  geom_line(size = 1.1) +
+  theme_bw() +
+  labs(
+    x = expression(mu),
+    y = expression(eta),
+    color = "Link function"
+  ) +
+  scale_color_tableau(palette = "Color Blind") +
+  theme(legend.position = "top" ) + ylim(c(-4, 4))
+```
+
+
+## Link functions IV
+
+```{r}
+library(ggplot2)
+library(ggthemes)
+
+eta <- seq(-4, 4, length.out = 400)
+
+# Compute probabilities for each link
+df <- data.frame(
+  eta = eta,
+  logit = plogis(eta),
+  probit = pnorm(eta),
+  cloglog = 1 - exp(-exp(eta)),
+  cauchit = pcauchy(eta)
+)
+
+# Reshape for ggplot
+df_long <- reshape2::melt(df, id.vars = "eta", 
+                          variable.name = "Link", 
+                          value.name = "Probability")
+
+# Plot
+ggplot(df_long, aes(x = eta, y = Probability, color = Link)) +
+  geom_line(size = 1.1) +
+  theme_bw() +
+  labs(
+    x = expression(eta),
+    y = expression(mu),
+    color = "Link function"
+  ) +
+  scale_color_tableau(palette = "Color Blind") +
+  theme(legend.position = "top" )
+```
+
+
+## Latent variable threshold models I
+
+- A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function $g(\cdot)$. Let  $Y_i^*$ be a [latent]{.orange} and [continuous]{.orange} random variables such that
 $$
 Y_i^* = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \overset{\text{iid}}{\sim} F.
 $$
@@ -142,15 +255,45 @@ $$
 $$
 Y_i = \mathbb{I}(Y_i^* > \tau),
 $$
-where $\mathbb{I}(\cdot)$ is the indicator function and $\tau$ is a threshold.
+where $\mathbb{I}(\cdot)$ is the indicator function and $\tau$ is a threshold. 
+
+- By construction, we have $Y_i \sim \text{Bernoulli}(\pi_i)$, with
+$$
+\begin{aligned}
+\pi_i &= \mathbb{P}(Y_i = 1) = \mathbb{P}(Y_i^* > \tau) = \mathbb{P}(\bm{x}_i^T\beta + \epsilon_i > \tau) = 1 - \mathbb{P}(\epsilon_i \le \tau - \bm{x}_i^T\beta)= 1 - F(\tau - \bm{x}_i^T\beta).
+\end{aligned}
+$$
+
+- The data contain [no information]{.orange} about $\tau$, so we can set $\tau = 0$ without loss of generality. Otherwise, the value of $\tau$ is incorporated into the intercept term. 
+
+- Likewise, an equivalent model results if we multiply all parameters by any positive constant, so we can take $F$ to have a [standard form]{.blue} with fixed variance, such as the standard normal cdf.
 
 
-## Link functions
+## Latent variable threshold models II
+
+
+- For most models $F$ corresponds to a pdf that is symmetric around 0, so $F(z) = 1− F(−z)$. Thus, we obtain
+$$
+\begin{aligned}
+\pi_i = 1 - F(- \bm{x}_i^T\beta) = F(\bm{x}_i^T\beta), \qquad \text{and} \qquad F^{-1}(\pi_i) = g(\pi_i) = \bm{x}_i^T\beta.
+\end{aligned}
+$$
+That is, models for binary data naturally take the [link function]{.blue} to be the [inverse of the standard cdf]{.orange} for a family of continuous distributions for a latent variable.
+
+:::callout-note
+This dichotomization often corresponds to a real process — for instance, in medical diagnosis, preterm birth can be seen as a dichotomization of gestational age at delivery.
+
+However, there are cases where the existence of a latent quantity is more questionable, such as $Y_i^*$ corresponding to a notion of "ability" and $Y_i$ to "passing an exam".
+:::
 
 ## Logistic regression
+
+## Parameter interpretation
 
 ## Comments on the residuals
 
 ## Overdispersion
 
 ## Goodness-of-fit test
+
+## References

@@ -201,7 +201,7 @@
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The content of this Unit is covered in <span class="orange">Chapter 3</span> of <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/goodness-of-fit-test" role="doc-biblioref" onclick="">2020</a>)</span>. Alternatively, see <span class="blue">Chapter 5</span> of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/goodness-of-fit-test" role="doc-biblioref" onclick="">2015</a>)</span>.</p>
+<p>The content of this Unit is covered in <span class="orange">Chapter 3</span> of <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>. Alternatively, see <span class="blue">Chapter 5</span> of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -211,7 +211,7 @@
 <ul>
 <li><p>In a <span class="blue">binomial regression</span> model, we observe <span class="math inline">S_i</span> <span class="blue">successes</span> out of <span class="math inline">m_i</span> <span class="orange">trials</span> <span class="math display">
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
-</span> We model the proportions <span class="math inline">Y_i = S_i / m_i</span>, whose mean is indeed <span class="math inline">\pi_i</span>.</p></li>
+</span> We model the proportions <span class="math inline">Y_i = S_i / m_i</span>, whose mean is indeed <span class="math inline">\pi_i</span> and <span class="math inline">Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)</span>.</p></li>
 <li><p>In a <span class="blue">binary regression</span> model, we observe <span class="math inline">Y_i \in \{0,1\}</span>, which is a special case of the model above with number of trials <span class="math inline">m_i = 1</span> for all <span class="math inline">i</span>. Thus, we have <span class="math display">
 Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 </span></p></li>
@@ -219,7 +219,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>In this Unit, we distinguish between <span class="orange">two sample size measures</span>:</p>
+<p>In this unit, we distinguish between <span class="orange">two sample size measures</span>:</p>
 <ul>
 <li>a measure <span class="math inline">m_i</span> for the number of Bernoulli trials that constitute a particular binomial observation;</li>
 <li>a measure <span class="math inline">n</span> for the number of binomial observations.</li>
@@ -240,28 +240,90 @@ S_i = \sum_{j=1}^{m_i} Y_{ij} \sim \text{Binomial}(m_i, \pi_i).
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The likelihood function of these two representation coincide up to a proportionality constant, which means that the maximum likelihood <span class="math inline">\hat{\beta}</span> and and the standard errors are identical.</p>
+<p>The <span class="blue">likelihood</span> function of these two representation <span class="blue">coincide</span> up to a proportionality constant, which means that the maximum likelihood <span class="math inline">\hat{\beta}</span> and and the standard errors are identical.</p>
 <p>However, the deviance and the residuals are different, which has implications for goodness-of-fit tests and model diagnostics. The diagnostics for binary data are typically uninformative.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="latent-variable-threshold-models" class="slide level2 center">
-<h2>Latent variable threshold models</h2>
+<section id="link-functions-i" class="slide level2 center">
+<h2>Link functions I</h2>
 <ul>
-<li><p>A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function <span class="math inline">g</span>. Let <span class="math inline">Y_i^*</span> be a <span class="orange">latent</span> and <span class="orange">continuous</span> random variables such that <span class="math display">
+<li><p>As discussed, the <span class="blue">link function</span> is usually set to <span class="math inline">g(\cdot) = F^{-1}(\cdot)</span> for some <span class="orange">continuous cumulative distribution function</span> <span class="math inline">F(\cdot) : \mathbb{R} \to (0,1)</span>. In other words, <span class="math display">
+g(\pi_i) = F^{-1}(\pi_i) = \bm{x}_i^T\beta,
+</span> that is <span class="math display">
+\mu_i = \pi_i = F(\bm{x}_i^T\beta).
+</span> The function <span class="math inline">F(\cdot)</span> is monotone increasing, differentiable, and maps the real line to the unit interval.</p></li>
+<li><p><span class="blue">Logit link</span>. The canonical link is the logistic link (or logit link), that is <span class="math display">
+g(\pi_i) = \log\left(\frac{\pi_i}{1-\pi_i}\right) = \bm{x}_i^T\beta, \qquad \text{ with inverse} \qquad \pi_i = \frac{\exp(\bm{x}_i^T\beta)}{1 + \exp(\bm{x}_i^T\beta)}.
+</span> Indeed, the function <span class="math inline">F(z) = \exp(z)/(1+\exp(z))</span> with <span class="math inline">z \in \mathbb{R}</span> is the cdf of a <span class="orange">logistic distribution</span> with mean <span class="math inline">0</span> and variance <span class="math inline">\pi^2/3</span>.</p></li>
+</ul>
+</section>
+<section id="link-functions-ii" class="slide level2 center">
+<h2>Link functions II</h2>
+<ul>
+<li><p><span class="blue">Probit link</span>. The probit link is based on the standard normal cdf <span class="math inline">\Phi(\cdot)</span>, i.e. <span class="math display">
+g(\pi_i) = \Phi^{-1}(\pi_i) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = \Phi(\bm{x}_i^T\beta).
+</span> The function <span class="math inline">\Phi(z)</span> with <span class="math inline">z \in \mathbb{R}</span> is usually computed numerically and equals <span class="math display">
+\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{u^2}{2}\right) du.
+</span></p></li>
+<li><p><span class="blue">Complementary log-log link</span>. The complementary log-log (cloglog) link is <span class="math display">
+g(\pi_i) = \log(-\log(1-\pi_i)) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = 1 - \exp(-\exp(\bm{x}_i^T\beta)).
+</span> The distribution function <span class="math inline">F(z) = 1 - \exp(-\exp(z))</span> with <span class="math inline">z \in \mathbb{R}</span> is called extreme value distribution. This link function is <span class="orange">asymmetric</span>.</p></li>
+<li><p><span class="blue">Cauchy link</span>. The Cauchy link is <span class="math display">
+g(\pi_i) = \tan(\pi(\pi_i - 1/2)), \qquad \text{with inverse} \qquad \pi_i = \frac{1}{2} +  \frac{\text{arctan}(\bm{x}_i^T\beta)}{\pi}.
+</span> <span class="math inline">F(z) = 1/2 + \text{arctan}(z)/\pi</span> with <span class="math inline">z \in \mathbb{R}</span> is the cdf of a <span class="orange">standard Cauchy distribution</span>.</p></li>
+</ul>
+</section>
+<section id="link-functions-iii" class="slide level2 center">
+<h2>Link functions III</h2>
+
+<img data-src="un_C_files/figure-revealjs/unnamed-chunk-2-1.png" width="2500" class="r-stretch"></section>
+<section id="link-functions-iv" class="slide level2 center">
+<h2>Link functions IV</h2>
+
+<img data-src="un_C_files/figure-revealjs/unnamed-chunk-3-1.png" width="2500" class="r-stretch"></section>
+<section id="latent-variable-threshold-models-i" class="slide level2 center">
+<h2>Latent variable threshold models I</h2>
+<ul>
+<li><p>A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function <span class="math inline">g(\cdot)</span>. Let <span class="math inline">Y_i^*</span> be a <span class="orange">latent</span> and <span class="orange">continuous</span> random variables such that <span class="math display">
 Y_i^* = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \overset{\text{iid}}{\sim} F.
 </span></p></li>
 <li><p>A variable is called latent because we do not observe it directly. Instead, we observe only a <span class="blue">binary variable</span> encoding whether it exceeds a certain threshold, i.e. <span class="math display">
 Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 </span> where <span class="math inline">\mathbb{I}(\cdot)</span> is the indicator function and <span class="math inline">\tau</span> is a threshold.</p></li>
+<li><p>By construction, we have <span class="math inline">Y_i \sim \text{Bernoulli}(\pi_i)</span>, with <span class="math display">
+\begin{aligned}
+\pi_i &amp;= \mathbb{P}(Y_i = 1) = \mathbb{P}(Y_i^* &gt; \tau) = \mathbb{P}(\bm{x}_i^T\beta + \epsilon_i &gt; \tau) = 1 - \mathbb{P}(\epsilon_i \le \tau - \bm{x}_i^T\beta)= 1 - F(\tau - \bm{x}_i^T\beta).
+\end{aligned}
+</span></p></li>
+<li><p>The data contain <span class="orange">no information</span> about <span class="math inline">\tau</span>, so we can set <span class="math inline">\tau = 0</span> without loss of generality. Otherwise, the value of <span class="math inline">\tau</span> is incorporated into the intercept term.</p></li>
+<li><p>Likewise, an equivalent model results if we multiply all parameters by any positive constant, so we can take <span class="math inline">F</span> to have a <span class="blue">standard form</span> with fixed variance, such as the standard normal cdf.</p></li>
 </ul>
 </section>
-<section id="link-functions" class="slide level2 center">
-<h2>Link functions</h2>
+<section id="latent-variable-threshold-models-ii" class="slide level2 center">
+<h2>Latent variable threshold models II</h2>
+<ul>
+<li>For most models <span class="math inline">F</span> corresponds to a pdf that is symmetric around 0, so <span class="math inline">F(z) = 1− F(−z)</span>. Thus, we obtain <span class="math display">
+\begin{aligned}
+\pi_i = 1 - F(- \bm{x}_i^T\beta) = F(\bm{x}_i^T\beta), \qquad \text{and} \qquad F^{-1}(\pi_i) = g(\pi_i) = \bm{x}_i^T\beta.
+\end{aligned}
+</span> That is, models for binary data naturally take the <span class="blue">link function</span> to be the <span class="orange">inverse of the standard cdf</span> for a family of continuous distributions for a latent variable.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>This dichotomization often corresponds to a real process — for instance, in medical diagnosis, preterm birth can be seen as a dichotomization of gestational age at delivery.</p>
+<p>However, there are cases where the existence of a latent quantity is more questionable, such as <span class="math inline">Y_i^*</span> corresponding to a notion of “ability” and <span class="math inline">Y_i</span> to “passing an exam”.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="logistic-regression" class="slide level2 center">
 <h2>Logistic regression</h2>
+</section>
+<section id="parameter-interpretation" class="slide level2 center">
+<h2>Parameter interpretation</h2>
 </section>
 <section id="comments-on-the-residuals" class="slide level2 center">
 <h2>Comments on the residuals</h2>
@@ -269,8 +331,11 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <section id="overdispersion" class="slide level2 center">
 <h2>Overdispersion</h2>
 </section>
-<section id="goodness-of-fit-test" class="slide level2 smaller scrollable">
+<section id="goodness-of-fit-test" class="slide level2 center">
 <h2>Goodness-of-fit test</h2>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Agresti2015" class="csl-entry" role="listitem">

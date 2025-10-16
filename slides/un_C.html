@@ -114,16 +114,22 @@ window.Quarto = {
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
   <li><a href="#notation-and-recap" id="toc-notation-and-recap" class="nav-link" data-scroll-target="#notation-and-recap">Notation and recap</a></li>
   <li><a href="#grouped-vs-ungrouped-data" id="toc-grouped-vs-ungrouped-data" class="nav-link" data-scroll-target="#grouped-vs-ungrouped-data">Grouped vs ungrouped data</a></li>
-  <li><a href="#link-functions" id="toc-link-functions" class="nav-link" data-scroll-target="#link-functions">Link functions</a></li>
-  <li><a href="#interpretation-as-latent-responses" id="toc-interpretation-as-latent-responses" class="nav-link" data-scroll-target="#interpretation-as-latent-responses">Interpretation as latent responses</a></li>
+  <li><a href="#link-functions-i" id="toc-link-functions-i" class="nav-link" data-scroll-target="#link-functions-i">Link functions I</a></li>
+  <li><a href="#link-functions-ii" id="toc-link-functions-ii" class="nav-link" data-scroll-target="#link-functions-ii">Link functions II</a></li>
+  <li><a href="#link-functions-iii" id="toc-link-functions-iii" class="nav-link" data-scroll-target="#link-functions-iii">Link functions III</a></li>
+  <li><a href="#link-functions-iv" id="toc-link-functions-iv" class="nav-link" data-scroll-target="#link-functions-iv">Link functions IV</a></li>
+  <li><a href="#latent-variable-threshold-models-i" id="toc-latent-variable-threshold-models-i" class="nav-link" data-scroll-target="#latent-variable-threshold-models-i">Latent variable threshold models I</a></li>
+  <li><a href="#latent-variable-threshold-models-ii" id="toc-latent-variable-threshold-models-ii" class="nav-link" data-scroll-target="#latent-variable-threshold-models-ii">Latent variable threshold models II</a></li>
   <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
+  <li><a href="#parameter-interpretation" id="toc-parameter-interpretation" class="nav-link" data-scroll-target="#parameter-interpretation">Parameter interpretation</a></li>
   <li><a href="#comments-on-the-residuals" id="toc-comments-on-the-residuals" class="nav-link" data-scroll-target="#comments-on-the-residuals">Comments on the residuals</a></li>
   <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion">Overdispersion</a></li>
   <li><a href="#goodness-of-fit-test" id="toc-goodness-of-fit-test" class="nav-link" data-scroll-target="#goodness-of-fit-test">Goodness-of-fit test</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_C_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
 </div>
-<main class="content page-columns page-full column-page-left" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -195,7 +201,7 @@ window.Quarto = {
 <ul>
 <li><p>In a <span class="blue">binomial regression</span> model, we observe <span class="math inline">S_i</span> <span class="blue">successes</span> out of <span class="math inline">m_i</span> <span class="orange">trials</span> <span class="math display">
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
-</span> We model the proportions <span class="math inline">Y_i = S_i / m_i</span>, whose mean is indeed <span class="math inline">\pi_i</span>.</p></li>
+</span> We model the proportions <span class="math inline">Y_i = S_i / m_i</span>, whose mean is indeed <span class="math inline">\pi_i</span> and <span class="math inline">Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)</span>.</p></li>
 <li><p>In a <span class="blue">binary regression</span> model, we observe <span class="math inline">Y_i \in \{0,1\}</span>, which is a special case of the model above with number of trials <span class="math inline">m_i = 1</span> for all <span class="math inline">i</span>. Thus, we have <span class="math display">
 Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 </span></p></li>
@@ -206,12 +212,16 @@ Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>We distinguish between two sample size measures: a measure <span class="math inline">m_i</span> for the number of Bernoulli trials that constitute a particular binomial observation, and a measure <span class="math inline">n</span> for the number of binomial observations.</p>
+<p>In this unit, we distinguish between <span class="orange">two sample size measures</span>:</p>
+<ul>
+<li>a measure <span class="math inline">m_i</span> for the number of Bernoulli trials that constitute a particular binomial observation;</li>
+<li>a measure <span class="math inline">n</span> for the number of binomial observations.</li>
+</ul>
 </div>
 </div>
 </div>
 </section>
-<section id="grouped-vs-ungrouped-data" class="level2 page-columns page-full">
+<section id="grouped-vs-ungrouped-data" class="level2">
 <h2 class="anchored" data-anchor-id="grouped-vs-ungrouped-data">Grouped vs ungrouped data</h2>
 <ul>
 <li><p>If <span class="math inline">Y_{ij} \in \{0,1\}</span> are independent <span class="blue">Bernoulli</span> random variables with success probability <span class="math inline">\pi_i</span>, for <span class="math inline">j=1,\dots, m_i</span> and <span class="math inline">i=1,\dots, n</span>, then <span class="math display">
@@ -220,18 +230,115 @@ S_i = \sum_{j=1}^{m_i} Y_{ij} \sim \text{Binomial}(m_i, \pi_i).
 <li><p>Thus, any binomial regression model can be <span class="orange">ungrouped</span> into a binary regression model with <span class="math inline">N = \sum_{i=1}^n m_i</span> observations, by simply repeating the same response and covariate <span class="math inline">m_i</span> times.</p></li>
 <li><p>On the other hand, a binary regression model can be <span class="blue">grouped</span> only if multiple subjects share the same values for explanatory variables, which is common if they are all categorical.</p></li>
 </ul>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>What is the sample size? Is it <span class="math inline">n</span>, <span class="math inline">N</span>, or we simply accept that there are “multiple sample sizes <span class="math inline">m_i</span>”, one for each subject?</p>
-</div></div></section>
-<section id="link-functions" class="level2">
-<h2 class="anchored" data-anchor-id="link-functions">Link functions</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <span class="blue">likelihood</span> function of these two representation <span class="blue">coincide</span> up to a proportionality constant, which means that the maximum likelihood <span class="math inline">\hat{\beta}</span> and and the standard errors are identical.</p>
+<p>However, the deviance and the residuals are different, which has implications for goodness-of-fit tests and model diagnostics. The diagnostics for binary data are typically uninformative.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="interpretation-as-latent-responses" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation-as-latent-responses">Interpretation as latent responses</h2>
+<section id="link-functions-i" class="level2">
+<h2 class="anchored" data-anchor-id="link-functions-i">Link functions I</h2>
+<ul>
+<li><p>As discussed, the <span class="blue">link function</span> is usually set to <span class="math inline">g(\cdot) = F^{-1}(\cdot)</span> for some <span class="orange">continuous cumulative distribution function</span> <span class="math inline">F(\cdot) : \mathbb{R} \to (0,1)</span>. In other words, <span class="math display">
+g(\pi_i) = F^{-1}(\pi_i) = \bm{x}_i^T\beta,
+</span> that is <span class="math display">
+\mu_i = \pi_i = F(\bm{x}_i^T\beta).
+</span> The function <span class="math inline">F(\cdot)</span> is monotone increasing, differentiable, and maps the real line to the unit interval.</p></li>
+<li><p><span class="blue">Logit link</span>. The canonical link is the logistic link (or logit link), that is <span class="math display">
+g(\pi_i) = \log\left(\frac{\pi_i}{1-\pi_i}\right) = \bm{x}_i^T\beta, \qquad \text{ with inverse} \qquad \pi_i = \frac{\exp(\bm{x}_i^T\beta)}{1 + \exp(\bm{x}_i^T\beta)}.
+</span> Indeed, the function <span class="math inline">F(z) = \exp(z)/(1+\exp(z))</span> with <span class="math inline">z \in \mathbb{R}</span> is the cdf of a <span class="orange">logistic distribution</span> with mean <span class="math inline">0</span> and variance <span class="math inline">\pi^2/3</span>.</p></li>
+</ul>
+</section>
+<section id="link-functions-ii" class="level2">
+<h2 class="anchored" data-anchor-id="link-functions-ii">Link functions II</h2>
+<ul>
+<li><p><span class="blue">Probit link</span>. The probit link is based on the standard normal cdf <span class="math inline">\Phi(\cdot)</span>, i.e. <span class="math display">
+g(\pi_i) = \Phi^{-1}(\pi_i) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = \Phi(\bm{x}_i^T\beta).
+</span> The function <span class="math inline">\Phi(z)</span> with <span class="math inline">z \in \mathbb{R}</span> is usually computed numerically and equals <span class="math display">
+\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{u^2}{2}\right) du.
+</span></p></li>
+<li><p><span class="blue">Complementary log-log link</span>. The complementary log-log (cloglog) link is <span class="math display">
+g(\pi_i) = \log(-\log(1-\pi_i)) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = 1 - \exp(-\exp(\bm{x}_i^T\beta)).
+</span> The distribution function <span class="math inline">F(z) = 1 - \exp(-\exp(z))</span> with <span class="math inline">z \in \mathbb{R}</span> is called extreme value distribution. This link function is <span class="orange">asymmetric</span>.</p></li>
+<li><p><span class="blue">Cauchy link</span>. The Cauchy link is <span class="math display">
+g(\pi_i) = \tan(\pi(\pi_i - 1/2)), \qquad \text{with inverse} \qquad \pi_i = \frac{1}{2} +  \frac{\text{arctan}(\bm{x}_i^T\beta)}{\pi}.
+</span> <span class="math inline">F(z) = 1/2 + \text{arctan}(z)/\pi</span> with <span class="math inline">z \in \mathbb{R}</span> is the cdf of a <span class="orange">standard Cauchy distribution</span>.</p></li>
+</ul>
+</section>
+<section id="link-functions-iii" class="level2">
+<h2 class="anchored" data-anchor-id="link-functions-iii">Link functions III</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_C_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1750"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="link-functions-iv" class="level2">
+<h2 class="anchored" data-anchor-id="link-functions-iv">Link functions IV</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="un_C_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1750"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="latent-variable-threshold-models-i" class="level2">
+<h2 class="anchored" data-anchor-id="latent-variable-threshold-models-i">Latent variable threshold models I</h2>
+<ul>
+<li><p>A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function <span class="math inline">g(\cdot)</span>. Let <span class="math inline">Y_i^*</span> be a <span class="orange">latent</span> and <span class="orange">continuous</span> random variables such that <span class="math display">
+Y_i^* = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \overset{\text{iid}}{\sim} F.
+</span></p></li>
+<li><p>A variable is called latent because we do not observe it directly. Instead, we observe only a <span class="blue">binary variable</span> encoding whether it exceeds a certain threshold, i.e. <span class="math display">
+Y_i = \mathbb{I}(Y_i^* &gt; \tau),
+</span> where <span class="math inline">\mathbb{I}(\cdot)</span> is the indicator function and <span class="math inline">\tau</span> is a threshold.</p></li>
+<li><p>By construction, we have <span class="math inline">Y_i \sim \text{Bernoulli}(\pi_i)</span>, with <span class="math display">
+\begin{aligned}
+\pi_i &amp;= \mathbb{P}(Y_i = 1) = \mathbb{P}(Y_i^* &gt; \tau) = \mathbb{P}(\bm{x}_i^T\beta + \epsilon_i &gt; \tau) = 1 - \mathbb{P}(\epsilon_i \le \tau - \bm{x}_i^T\beta)= 1 - F(\tau - \bm{x}_i^T\beta).
+\end{aligned}
+</span></p></li>
+<li><p>The data contain <span class="orange">no information</span> about <span class="math inline">\tau</span>, so we can set <span class="math inline">\tau = 0</span> without loss of generality. Otherwise, the value of <span class="math inline">\tau</span> is incorporated into the intercept term.</p></li>
+<li><p>Likewise, an equivalent model results if we multiply all parameters by any positive constant, so we can take <span class="math inline">F</span> to have a <span class="blue">standard form</span> with fixed variance, such as the standard normal cdf.</p></li>
+</ul>
+</section>
+<section id="latent-variable-threshold-models-ii" class="level2">
+<h2 class="anchored" data-anchor-id="latent-variable-threshold-models-ii">Latent variable threshold models II</h2>
+<ul>
+<li>For most models <span class="math inline">F</span> corresponds to a pdf that is symmetric around 0, so <span class="math inline">F(z) = 1− F(−z)</span>. Thus, we obtain <span class="math display">
+\begin{aligned}
+\pi_i = 1 - F(- \bm{x}_i^T\beta) = F(\bm{x}_i^T\beta), \qquad \text{and} \qquad F^{-1}(\pi_i) = g(\pi_i) = \bm{x}_i^T\beta.
+\end{aligned}
+</span> That is, models for binary data naturally take the <span class="blue">link function</span> to be the <span class="orange">inverse of the standard cdf</span> for a family of continuous distributions for a latent variable.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This dichotomization often corresponds to a real process — for instance, in medical diagnosis, preterm birth can be seen as a dichotomization of gestational age at delivery.</p>
+<p>However, there are cases where the existence of a latent quantity is more questionable, such as <span class="math inline">Y_i^*</span> corresponding to a notion of “ability” and <span class="math inline">Y_i</span> to “passing an exam”.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
+</section>
+<section id="parameter-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-interpretation">Parameter interpretation</h2>
 </section>
 <section id="comments-on-the-residuals" class="level2">
 <h2 class="anchored" data-anchor-id="comments-on-the-residuals">Comments on the residuals</h2>
@@ -239,12 +346,15 @@ S_i = \sum_{j=1}^{m_i} Y_{ij} \sim \text{Binomial}(m_i, \pi_i).
 <section id="overdispersion" class="level2">
 <h2 class="anchored" data-anchor-id="overdispersion">Overdispersion</h2>
 </section>
-<section id="goodness-of-fit-test" class="level2 unnumbered">
+<section id="goodness-of-fit-test" class="level2">
+<h2 class="anchored" data-anchor-id="goodness-of-fit-test">Goodness-of-fit test</h2>
+</section>
+<section id="references" class="level2 unnumbered">
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Goodness-of-fit test</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Agresti2015" class="csl-entry" role="listitem">
 Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
 </div>
