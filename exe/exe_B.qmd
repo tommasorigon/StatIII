@@ -137,7 +137,7 @@ i. Verify that, assuming $k$ is known, this distribution belongs to the exponent
 
 ii. Using the properties of exponential families, recover the well-known relations  
    $$
-   \mathbb{E}(Y) = \frac{k(1-\pi)}{\pi}, 
+   \mathbb{E}(Y) = \frac{k}{\pi}, 
    \qquad 
    \text{var}(Y) = \frac{k(1-\pi)}{\pi^2}.
    $$  

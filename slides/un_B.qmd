@@ -201,7 +201,7 @@ This approach is sometimes called the [linear probability model]{.blue}. Before 
 ## A comparison with old tools II
 
 :::callout-tip
-We consider the [empirical logit]{.blue} variable transformation of $S_i = Y_i / m_i$, obtaining  
+We consider the [empirical logit]{.blue} variable transformation of $Y_i = S_i / m_i$, obtaining  
 $$
 \text{logit}(\tilde{Y}_i) = \log\left(\frac{S_i + 0.5}{m_i - S_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Y}_i = \frac{S_i + 0.5}{m_i +1}.
 $$
