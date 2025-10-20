@@ -8,8 +8,6 @@
 
 # In a sample of n = 2312 pregnant women, DDE is measured, i.e., a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable GAD (Gestational Age at Delivery) measures the day of pregnancy on which delivery occurred.
 
-# Research question: Is the amount of DDE higher among women who delivered prematurely?
-
 rm(list = ls())
 dde <- read.csv("../data/dde.csv")
 
@@ -153,7 +151,6 @@ anova(m_null, m1, test = "LRT")
 anova(m_null, m1, test = "Rao")
 
 # Wald confidence intervals
-
 lmtest::coefci(m1)
 # Alternatively, we can compute them "manually"
 coef(m1)[1] + c(-1,1) * qnorm(0.975) * sqrt(diag(vcov(m1)))[1]

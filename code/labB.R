@@ -3,7 +3,7 @@
 # Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
-# Dataset: Beetles - THEORY: the IRLS algorithm
+# Dataset: Beetles - THEORY (IRLS algorithm)
 # -------------------------------------------------------------------
 
 rm(list = ls())
