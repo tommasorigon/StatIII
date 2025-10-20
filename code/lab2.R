@@ -2,53 +2,11 @@
 # Title: "Generalized linear models". Datasets: Clotting, Chimps
 # Author: Tommaso Rigon
 
-# Overview of the glm() function in R -------------------------------------------------
-
-# - The main function for fitting linear models in R is: lm()
-# - The main function for fitting generalized linear models in R is: glm()
-
-# The general syntax is:
-#   glm(formula, family, data, weights)
-
-# Arguments:
-#   - formula: an object of class "formula", i.e. a symbolic description of the model to be fitted.
-#              (This works in the same way as in lm().)
-#
-#   - family:  specifies the error distribution and link function.
-#              Common families include:
-#
-#       * binomial(link = "logit")
-#            Links: "logit", "probit", "cauchit" (logistic, normal, and Cauchy CDFs),
-#                   "log", "cloglog" (complementary log-log).
-#
-#       * gaussian(link = "identity")
-#            Links: "identity", "log", "inverse".
-#
-#       * Gamma(link = "inverse")
-#            Links: "inverse", "identity", "log".
-#
-#       * inverse.gaussian(link = "1/mu^2")
-#            Links: "1/mu^2", "inverse", "identity", "log".
-#
-#       * poisson(link = "log")
-#            Links: "log", "identity", "sqrt".
-#
-#   - data:    a data frame containing the variables in the model.
-#
-#   - weights: optional vector of weights to be used in the fitting process.
-#              These can be frequency weights (replicating observations)
-#              or prior weights (adjusting contribution to the likelihood).
-
-# -------------------------------------------------------------------
-# Notes:
-#   - The result of glm() is an object of class "glm".
-#   - Standard extractor functions apply: summary(), coefficients(), fitted(),
-#     residuals(), anova(), predict(), etc.
-#   - Use ?family for more details on available families and links.
-
 # -------------------------------------------------------------------
 # Dataset 1: Clotting
 # -------------------------------------------------------------------
+
+? glm
 
 # Load data: clotting times (seconds) for nine plasma concentrations and two clotting agents
 # Source: McCullagh & Nelder (1989), Generalized Linear Models, 2nd Edition
@@ -138,14 +96,6 @@ rstandard(m1_bis, type = "deviance")
 rstandard(m1_bis, type = "pearson")
 
 # -------------------------------------------------------------------
-# Additional notes
-vcov(m1_bis) # Covariance matrix of coefficients (X'WX)^(-1) in IRLS
-fitted(m1_bis) # Fitted values
-predict(m1_bis, type = "response") # Fitted values on response scale
-predict(m1_bis) # Linear predictor
-1 / predict(m1_bis) # Same as above; demonstrates inverse link interpretation
-
-# -------------------------------------------------------------------
 # Dataset 2: Chimps
 # -------------------------------------------------------------------
 
@@ -154,6 +104,14 @@ data("Chimps")
 
 str(Chimps)
 # View(Chimps) # Use only for small datasets
+
+# ----------------------------------------------------------
+# y (learning times) is the response variable
+# word is encoding the 10 words
+# chimp is encoding the 4 chimps
+# QUESTION 1: are there different difficulties among words?
+# QUESTION 2: are there different capabilities among chimps?
+# QUESTION 3: explain in plain words what an interaction effect between word and chimp would mean. Is it present in these data?
 
 # Times (in minutes) taken by four chimpanzees to learn each of four words
 boxplot(y ~ chimp, data = Chimps)
@@ -165,7 +123,6 @@ summary(m1)
 
 # Predicted values
 muhat <- fitted(m1)
-
 phihat <- sum((Chimps$y - muhat)^2 / muhat^2) / m1$df.residual
 phihat # Matches the dispersion estimate reported in the summary
 
@@ -173,8 +130,8 @@ phihat # Matches the dispersion estimate reported in the summary
 D0 <- m1$null.deviance # Null deviance
 DC <- m1$deviance # Residual deviance
 df <- m1$df.null - m1$df.residual # Parameter "q" in the slides
-z_test <- (D0 - DC) / phihat
-alphaoss <- 1 - pchisq(z_test, df)
+W_test <- (D0 - DC) / phihat
+alphaoss <- 1 - pchisq(W_test, df)
 alphaoss # The null hypothesis is rejected
 
 # Alternatively, we could obtain the same results as follows:
@@ -186,16 +143,24 @@ anova(m_null, m1, test = "Chisq")
 D0
 DC
 D0 - DC
-z_test # Not reported in the anova table (but used to compute the p-value)
+W_test # Not reported in the anova table (but used to compute the p-value)
 
-# Test whether "word" can be removed
-m1_reduced <- glm(y ~ chimp, family = Gamma, data = Chimps)
-summary(m1_reduced)
-anova(m1_reduced, m1) # Null hypothesis is rejected
+# Test whether "word" can be removed -----------------------------------------------
+m1_no_word <- glm(y ~ chimp, family = Gamma, data = Chimps)
+summary(m1_no_word)
+anova(m1_no_word, m1, test = "Chisq") # Null hypothesis is rejected --> QUESTION 1
 
 # Another way is to use anova(m1), but note that this introduces covariates
 # sequentially according to the formula order (sometimes useful, often not)
 anova(m1)
+
+# QUESTION 1: YES, there are different difficulties among words, because the associated estimated coefficients (i.e. the average learning times) are significantly different.
+
+# Test whether "chimp" can be removed
+m1_no_chimp <- glm(y ~ word, family = Gamma, data = Chimps)
+anova(m1_no_chimp, m1, test = "Chisq") # Conclusion is dubious, p-value is borderline --> QUESTION 2
+
+# QUESTION 2: UNSURE, there is weak evidence that different chimps have different learning capabilities, as the associated p-value is borderline (about 0.05).
 
 # Diagnostics
 Chimps$predicted1 <- muhat
@@ -212,6 +177,14 @@ abline(c(0, 1), lty = "dotted")
 par(mfrow = c(2, 2))
 plot(m1, which = 1:4) # Residuals, fitted values, leverage, Cook's distance
 par(mfrow = c(1, 1))
+
+# Can an interaction effect between word and chimp be present in these data? 
+m1_interaction <- glm(y ~ word * chimp, family = Gamma, data = Chimps)
+
+# We get a warning! Why? This is the saturated model, with p = n (the same chimp cannot learn the same word twice!). The following output clarifies this
+summary(m1_interaction)
+
+# QUESTION 3: an interaction effect would mean that each chimp has its own "ranking" of word difficulties, i.e. that some chimps find certain words easier or harder to learn compared to other chimps. In these data, an interaction effect cannot be reliably estimated, as the model is saturated (each chimp learns each word only once).
 
 # --------------------------------------------------------------------
 # Model 2: Gamma GLM with log link
@@ -242,3 +215,4 @@ plot(Chimps$predicted1, Chimps$predicted2,
      xlab = "Fitted values (m1)", ylab = "Fitted values (m2)"
 )
 abline(c(0, 1), lty = "dotted")
+

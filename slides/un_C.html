@@ -122,9 +122,9 @@ window.Quarto = {
   <li><a href="#latent-variable-threshold-models-ii" id="toc-latent-variable-threshold-models-ii" class="nav-link" data-scroll-target="#latent-variable-threshold-models-ii">Latent variable threshold models II</a></li>
   <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
   <li><a href="#parameter-interpretation" id="toc-parameter-interpretation" class="nav-link" data-scroll-target="#parameter-interpretation">Parameter interpretation</a></li>
-  <li><a href="#comments-on-the-residuals" id="toc-comments-on-the-residuals" class="nav-link" data-scroll-target="#comments-on-the-residuals">Comments on the residuals</a></li>
-  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion">Overdispersion</a></li>
+  <li><a href="#residuals-and-diagonistics-for-binary-data" id="toc-residuals-and-diagonistics-for-binary-data" class="nav-link" data-scroll-target="#residuals-and-diagonistics-for-binary-data">Residuals and diagonistics for binary data</a></li>
   <li><a href="#goodness-of-fit-test" id="toc-goodness-of-fit-test" class="nav-link" data-scroll-target="#goodness-of-fit-test">Goodness-of-fit test</a></li>
+  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion">Overdispersion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_C_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -336,18 +336,23 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 </section>
 <section id="logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
+<ul>
+<li>The likelihood equations of a binomial regression model are quite simple: <span class="math display">
+\sum_{i=1}^n \frac{m_i (y_i - \pi_i)}{\pi_i(1 - \pi_i)} x_{ir} f(\eta_i) = 0, \qquad r=1,\dots, p,
+</span> where <span class="math inline">f(\cdot)</span> is the density associated with <span class="math inline">F(\cdot)</span>.</li>
+</ul>
 </section>
 <section id="parameter-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="parameter-interpretation">Parameter interpretation</h2>
 </section>
-<section id="comments-on-the-residuals" class="level2">
-<h2 class="anchored" data-anchor-id="comments-on-the-residuals">Comments on the residuals</h2>
-</section>
-<section id="overdispersion" class="level2">
-<h2 class="anchored" data-anchor-id="overdispersion">Overdispersion</h2>
+<section id="residuals-and-diagonistics-for-binary-data" class="level2">
+<h2 class="anchored" data-anchor-id="residuals-and-diagonistics-for-binary-data">Residuals and diagonistics for binary data</h2>
 </section>
 <section id="goodness-of-fit-test" class="level2">
 <h2 class="anchored" data-anchor-id="goodness-of-fit-test">Goodness-of-fit test</h2>
+</section>
+<section id="overdispersion" class="level2">
+<h2 class="anchored" data-anchor-id="overdispersion">Overdispersion</h2>
 </section>
 <section id="references" class="level2 unnumbered">
 

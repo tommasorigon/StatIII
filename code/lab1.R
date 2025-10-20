@@ -14,7 +14,15 @@ library(MLGdata)
 data(Neonati)
 
 str(Neonati)
-# View(Neonati) # Only for small datasets
+
+# Peso (g) is the response variable (Weight of the baby, in grams)
+# Durata is the gestational age (weeks)
+# Fumo is a factor variable indicating whether the mother smokes (F = smoker, NF = non-smoker)
+
+# QUESTION 1: does the weight of newborns depend on gestational age?
+# QUESTION 2: does the smoking habit of the mother affect the birth weight?
+# QUESTION 3: is there an interaction between gestational age and maternal smoking?
+# QUESTION 4: provide a predictive interval for a baby born 40 weeks of gestation, whose mother is a smoker and another one whose mother is a non-smoker.
 
 # Descriptive statistics
 summary(Neonati)
@@ -59,6 +67,10 @@ plot(Neonati$durata, Neonati$peso,
 abline(a = coef(m1)[1], b = coef(m1)[2], lty = "dashed") # Non-smokers
 abline(a = coef(m1)[1] + coef(m1)[3], b = coef(m1)[2], lty = "dashed", col = "red") # Smokers
 
+# QUESTION 1: Yes, gestational age significantly affects birth weight (p-value about 0). Each additional week increases weight by about 140 g (beta coefficient), on average and all else equal.
+
+# QUESTION 2: Yes, smoking has a significant negative effect on birth weight (p-value about 0). On average, infants of smoking mothers weigh about 244 g less than those of non-smoking mothers, all else equal.
+
 # Model 2, let us consider an interaction term
 
 # Fit linear model with interaction
@@ -93,13 +105,15 @@ abline(
   lty = "dashed", col = "red"
 ) # Smokers
 
+# QUESTION 3: No, there is no significant interaction between gestational age and maternal smoking (p-value = 0.66). The effect of gestational age on birth weight appears similar for both groups.
+
 # Predictions and 95% confidence intervals at 40 weeks
 predict(m1,
   newdata = data.frame(fumo = c("F", "NF"), durata = rep(40, 2)),
   interval = "confidence", level = 0.95
 )
 
-# Predictions and 95% prediction intervals at 40 weeks
+# QUESTION 4: Predictions and 95% prediction intervals at 40 weeks, for a mother being smoker and non-smoker
 predict(m1,
   newdata = data.frame(fumo = c("F", "NF"), durata = rep(40, 2)),
   interval = "prediction", level = 0.95
@@ -121,11 +135,6 @@ head(model.matrix(~ durata + fumo, data = Neonati)) # Design matrix
 m3 <- lm(peso ~ durata + fumo, data = Neonati)
 summary(m3)
 
-# Questions to consider:
-# - Is this a different model?
-# - Do predictions change?
-# - What happens if we run anova(m1, m3)?
-
 # Zero-sum contrasts (less common but useful)
 contr.sum(n = 2)
 contrasts(Neonati$fumo) <- contr.sum(n = 2)
@@ -137,7 +146,6 @@ head(model.matrix(~ durata + fumo, data = Neonati))
 # Refit model with zero-sum contrasts
 m4 <- lm(peso ~ durata + fumo, data = Neonati)
 summary(m4)
-# Question: How do we interpret the parameters now?
 
 # -------------------------------------------------------------------
 # Dataset 2: Clotting

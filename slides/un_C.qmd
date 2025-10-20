@@ -288,12 +288,65 @@ However, there are cases where the existence of a latent quantity is more questi
 
 ## Logistic regression
 
+- The [likelihood equations]{.blue} of a binomial regression model are fairly simple:
+$$
+\sum_{i=1}^n \frac{m_i (y_i - \pi_i)}{\pi_i(1 - \pi_i)} x_{ir} f(\eta_i) = 0, \qquad r=1,\dots, p,
+$$
+where $f(z)$ is the density associated with $F(z)$, i.e. its derivative, and the [link]{.orange} is $g(\cdot) = F^{-1}(\cdot)$. 
+
+- In logistic regression $f(\eta_i) = F(\eta_i)(1 - F(\eta_i)) = \pi_i(1 - \pi_i)$, therefore
+$$
+\sum_{i=1}^n m_i (y_i - \pi_i) x_{ir} = 0, \qquad r=1,\dots, p.
+$$
+The solutions therefore has a nice interpretation as a [method of moments]{.blue} estimator, in that
+$$
+\sum_{i=1}^n s_i x_{ir} = \sum_{i=1}^n \mathbb{E}(S_i) x_{ir}, \qquad r=1,\dots, p,
+$$
+Moreover, the estimated covariance matrix of $\hat{\beta}$ has a simple form:
+$$
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T \hat{\bm{W}} \bm{X})^{-1} = (\bm{X}^T \text{diag}[m_1 \hat{\pi}_1 (1-\hat{\pi}_1),\dots,m_n \hat{\pi}_n (1-\hat{\pi}_n)] \bm{X})^{-1}
+$$
+
 ## Parameter interpretation
 
-## Comments on the residuals
+- We wish to [compare two estimated probabilities]{.blue}, corresponding to two different covariate vectors $\bm{x} = (x_1,\dots,x_p)$ and $\bm{z} = (z_1,\dots,z_p)$, namely
+$$
+\hat{\pi}(\bm{x}) = F(\bm{x}^T\hat{\beta})\qquad \text{and} \qquad \hat{\pi}(\bm{z}) = F(\bm{z}^T\hat{\beta}).
+$$
+This is useful to understand the effect of changing covariates on the response probability.
+
+- There are several ways to compare them, listed below, each with its advantages and disadvantages:
+
+- The [absolute risk]{.blue}, namely the difference 
+  $$
+  (\text{absolute risk}) = \hat{\pi}(\bm{x}) - \hat{\pi}(\bm{z}).
+  $$
+
+- The [relative risk]{.orange}, a standardized difference
+  $$
+  (\text{relative risk}) = \frac{\hat{\pi}(\bm{x}) -\hat{\pi}(\bm{z})}{\hat{\pi}(\bm{z})} = \frac{\hat{\pi}(\bm{x})}{\hat{\pi}(\bm{z})} - 1.
+  $$
+
+- Both these indicators are quite interpretable but depend on the specific values of $\bm{z}$ and $\bm{x}$, which makes it difficult to summarize the effect of a given covariate in a single number.
+
+
+## Odds ratio and logistic regression
+
+- The [odd]{.blue} is another way of summarizing probabilities, familiar to those who gamble:
+$$
+\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})}, \qquad \widehat{\text{odd}}(\bm{z}) = \frac{\hat{\pi}(\bm{z})}{1-\hat{\pi}(\bm{z})}.
+$$
+An odd represents the money you get if you win the game, for each unit you bet.
+
+  - the [odds]{.orange} $\hat{\pi}(\bm{x}) / (1-\hat{\pi}(\bm{x}))$ and $\hat{\pi}(\bm{z}) / (1-\hat{\pi}(\bm{z}))$;
+  - the [odds ratio]{.blue} $\frac{\hat{\pi}(\bm{x}) / (1-\hat{\pi}(\bm{x}))}{\hat{\pi}(\bm{z}) / (1-\hat{\pi}(\bm{z}))}$.
+
+
+## Residuals and diagonistics for binary data
+
+## Goodness-of-fit test
 
 ## Overdispersion
 
-## Goodness-of-fit test
 
 ## References
