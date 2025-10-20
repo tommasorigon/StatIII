@@ -242,3 +242,5 @@ fit2 <- exp(predict(m2))
 1 - sum((Clotting$tempo - fit2)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 
 # In terms of predictive accuracy, m2 > m1 >> m0. I would choose m2 as the final model.
+
+

@@ -122,6 +122,8 @@ window.Quarto = {
   <li><a href="#latent-variable-threshold-models-ii" id="toc-latent-variable-threshold-models-ii" class="nav-link" data-scroll-target="#latent-variable-threshold-models-ii">Latent variable threshold models II</a></li>
   <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
   <li><a href="#parameter-interpretation" id="toc-parameter-interpretation" class="nav-link" data-scroll-target="#parameter-interpretation">Parameter interpretation</a></li>
+  <li><a href="#odds-ratio-and-logistic-regression-i" id="toc-odds-ratio-and-logistic-regression-i" class="nav-link" data-scroll-target="#odds-ratio-and-logistic-regression-i">Odds ratio and logistic regression I</a></li>
+  <li><a href="#odds-ratio-and-logistic-regression-ii" id="toc-odds-ratio-and-logistic-regression-ii" class="nav-link" data-scroll-target="#odds-ratio-and-logistic-regression-ii">Odds ratio and logistic regression II</a></li>
   <li><a href="#residuals-and-diagonistics-for-binary-data" id="toc-residuals-and-diagonistics-for-binary-data" class="nav-link" data-scroll-target="#residuals-and-diagonistics-for-binary-data">Residuals and diagonistics for binary data</a></li>
   <li><a href="#goodness-of-fit-test" id="toc-goodness-of-fit-test" class="nav-link" data-scroll-target="#goodness-of-fit-test">Goodness-of-fit test</a></li>
   <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion">Overdispersion</a></li>
@@ -337,13 +339,62 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <section id="logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
 <ul>
-<li>The likelihood equations of a binomial regression model are quite simple: <span class="math display">
+<li><p>The <span class="blue">likelihood equations</span> of a binomial regression model are fairly simple: <span class="math display">
 \sum_{i=1}^n \frac{m_i (y_i - \pi_i)}{\pi_i(1 - \pi_i)} x_{ir} f(\eta_i) = 0, \qquad r=1,\dots, p,
-</span> where <span class="math inline">f(\cdot)</span> is the density associated with <span class="math inline">F(\cdot)</span>.</li>
+</span> where <span class="math inline">f(z)</span> is the density associated with <span class="math inline">F(z)</span>, i.e.&nbsp;its derivative, and the <span class="orange">link</span> is <span class="math inline">g(\cdot) = F^{-1}(\cdot)</span>.</p></li>
+<li><p>In logistic regression <span class="math inline">f(\eta_i) = F(\eta_i)(1 - F(\eta_i)) = \pi_i(1 - \pi_i)</span>, therefore <span class="math display">
+\sum_{i=1}^n m_i (y_i - \pi_i) x_{ir} = 0, \qquad r=1,\dots, p.
+</span> The solutions therefore has a nice interpretation as a <span class="blue">method of moments</span> estimator, in that <span class="math display">
+\sum_{i=1}^n s_i x_{ir} = \sum_{i=1}^n \mathbb{E}(S_i) x_{ir}, \qquad r=1,\dots, p,
+</span> Moreover, the estimated covariance matrix of <span class="math inline">\hat{\beta}</span> has a simple form: <span class="math display">
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T \hat{\bm{W}} \bm{X})^{-1} = (\bm{X}^T \text{diag}[m_1 \hat{\pi}_1 (1-\hat{\pi}_1),\dots,m_n \hat{\pi}_n (1-\hat{\pi}_n)] \bm{X})^{-1}
+</span></p></li>
 </ul>
 </section>
 <section id="parameter-interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="parameter-interpretation">Parameter interpretation</h2>
+<ul>
+<li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{x}' = (x_1',\dots,x_p')</span>, namely <span class="math display">
+\hat{\pi}(\bm{x}) = F(\bm{x}^T\hat{\beta})\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\hat{\beta}).
+</span> This is useful to understand the effect of changing covariates on the response probability.</p></li>
+<li><p>There are several ways to compare them, listed below, each with its advantages and disadvantages:</p></li>
+<li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
+(\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
+</span></p></li>
+<li><p>The <span class="orange">relative risk</span>, a standardized difference <span class="math display">
+(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}') -\hat{\pi}(\bm{x})}{\hat{\pi}(\bm{x})} = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} - 1.
+</span></p></li>
+<li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
+</ul>
+</section>
+<section id="odds-ratio-and-logistic-regression-i" class="level2">
+<h2 class="anchored" data-anchor-id="odds-ratio-and-logistic-regression-i">Odds ratio and logistic regression I</h2>
+<ul>
+<li><p>The <span class="blue">odd</span> is another way of summarizing probabilities, familiar to those who gamble: <span class="math display">
+\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})}, \qquad \widehat{\text{odd}}(\bm{x}') = \frac{\hat{\pi}(\bm{x}')}{1-\hat{\pi}(\bm{x}')}.
+</span> An odd represents the money you get if you win the game, for each unit you bet.</p></li>
+<li><p>The <span class="orange">odds ratio</span> is another popular risk measure for comparing the two probabilities<span class="math display">
+(\text{odds ratio})  = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
+</span></p></li>
+<li><p>The odds ratio is <span class="orange">less intuitive</span> than other risk measures, but it is tightly related to logistic regression.</p></li>
+<li><p>Let <span class="math inline">\bm{x} = (x_1,\dots, x_j, \dots, x_p)</span> and <span class="math inline">\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)</span>, i.e.&nbsp;we compare two situations in which the <span class="math inline">j</span>th covariate is increased by a fixed amount <span class="math inline">c</span>, then in <span class="blue">logistic regression</span>: <span class="math display">
+(\text{odds ratio}) = \exp(c \hat{\beta}_j),
+</span> which is a <span class="orange">constant number</span> that does not depend on <span class="math inline">\bm{x}</span>. This is not true e.g.&nbsp;in probit.</p></li>
+</ul>
+</section>
+<section id="odds-ratio-and-logistic-regression-ii" class="level2">
+<h2 class="anchored" data-anchor-id="odds-ratio-and-logistic-regression-ii">Odds ratio and logistic regression II</h2>
+<ul>
+<li><p>Let us consider a covariate <span class="math inline">\bm{x}</span> and let us compute the associated odd, in a logistic regression model: <span class="math display">
+\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
+</span> Thus, the odd of any predicted value is simply the exponential of the linear predictor <span class="math inline">\bm{x}^T\hat{\beta}</span>.</p></li>
+<li><p>Consequently, in general the <span class="blue">odds ratio</span> is <span class="math display">
+(\text{odds ratio}) = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
+</span></p></li>
+<li><p>If the only change is in the <span class="math inline">j</span>th covariate, from <span class="math inline">x_j</span> to <span class="math inline">x_j + c</span>, then the odds ratio becomes <span class="math display">
+(\text{odds ratio}) = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \} = \exp(c \hat{\beta}_j).
+</span> In particular, <span class="math inline">\exp(\hat{\beta}_j)</span> represents the odds ratio after a <span class="orange">unitary increase</span> of the <span class="math inline">j</span>th covariate.</p></li>
+</ul>
 </section>
 <section id="residuals-and-diagonistics-for-binary-data" class="level2">
 <h2 class="anchored" data-anchor-id="residuals-and-diagonistics-for-binary-data">Residuals and diagonistics for binary data</h2>

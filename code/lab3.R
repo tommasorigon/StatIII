@@ -121,6 +121,8 @@ odds(fit[4]) / odds(fit[3]) # From 0 to 10, odds ratio of 1.34, sometimes report
 # It coincides with:
 exp(20 * coef(m1)[2])
 
+# This is not a coincidence, as we will see in Unit C.
+
 # -------------------------------------------------------------------
 # Dataset 2: Stress - THEORY AND MODELLING
 # -------------------------------------------------------------------

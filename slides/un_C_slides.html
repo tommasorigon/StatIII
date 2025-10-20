@@ -337,29 +337,46 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <section id="parameter-interpretation" class="slide level2 center">
 <h2>Parameter interpretation</h2>
 <ul>
-<li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{z} = (z_1,\dots,z_p)</span>, namely <span class="math display">
-\hat{\pi}(\bm{x}) = F(\bm{x}^T\hat{\beta})\qquad \text{and} \qquad \hat{\pi}(\bm{z}) = F(\bm{z}^T\hat{\beta}).
+<li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{x}' = (x_1',\dots,x_p')</span>, namely <span class="math display">
+\hat{\pi}(\bm{x}) = F(\bm{x}^T\hat{\beta})\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\hat{\beta}).
 </span> This is useful to understand the effect of changing covariates on the response probability.</p></li>
 <li><p>There are several ways to compare them, listed below, each with its advantages and disadvantages:</p></li>
 <li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
-(\text{absolute risk}) = \hat{\pi}(\bm{x}) - \hat{\pi}(\bm{z}).
+(\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
 </span></p></li>
 <li><p>The <span class="orange">relative risk</span>, a standardized difference <span class="math display">
-(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}) -\hat{\pi}(\bm{z})}{\hat{\pi}(\bm{z})} = \frac{\hat{\pi}(\bm{x})}{\hat{\pi}(\bm{z})} - 1.
+(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}') -\hat{\pi}(\bm{x})}{\hat{\pi}(\bm{x})} = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} - 1.
 </span></p></li>
-<li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{z}</span> and <span class="math inline">\bm{x}</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
+<li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
 </ul>
 </section>
-<section id="odds-ratio-and-logistic-regression" class="slide level2 center">
-<h2>Odds ratio and logistic regression</h2>
+<section id="odds-ratio-and-logistic-regression-i" class="slide level2 center">
+<h2>Odds ratio and logistic regression I</h2>
 <ul>
 <li><p>The <span class="blue">odd</span> is another way of summarizing probabilities, familiar to those who gamble: <span class="math display">
-\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})}, \qquad \widehat{\text{odd}}(\bm{z}) = \frac{\hat{\pi}(\bm{z})}{1-\hat{\pi}(\bm{z})}.
-</span> An odd represents the money you get if you win the game, for each unit you bet.</p>
+\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})}, \qquad \widehat{\text{odd}}(\bm{x}') = \frac{\hat{\pi}(\bm{x}')}{1-\hat{\pi}(\bm{x}')}.
+</span> An odd represents the money you get if you win the game, for each unit you bet.</p></li>
+<li><p>The <span class="orange">odds ratio</span> is another popular risk measure for comparing the two probabilities<span class="math display">
+(\text{odds ratio})  = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
+</span></p></li>
+<li><p>The odds ratio is <span class="orange">less intuitive</span> than other risk measures, but it is tightly related to logistic regression.</p></li>
+<li><p>Let <span class="math inline">\bm{x} = (x_1,\dots, x_j, \dots, x_p)</span> and <span class="math inline">\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)</span>, i.e.&nbsp;we compare two situations in which the <span class="math inline">j</span>th covariate is increased by a fixed amount <span class="math inline">c</span>, then in <span class="blue">logistic regression</span>: <span class="math display">
+(\text{odds ratio}) = \exp(c \hat{\beta}_j),
+</span> which is a <span class="orange">constant number</span> that does not depend on <span class="math inline">\bm{x}</span>. This is not true e.g.&nbsp;in probit.</p></li>
+</ul>
+</section>
+<section id="odds-ratio-and-logistic-regression-ii" class="slide level2 center">
+<h2>Odds ratio and logistic regression II</h2>
 <ul>
-<li>the <span class="orange">odds</span> <span class="math inline">\hat{\pi}(\bm{x}) / (1-\hat{\pi}(\bm{x}))</span> and <span class="math inline">\hat{\pi}(\bm{z}) / (1-\hat{\pi}(\bm{z}))</span>;</li>
-<li>the <span class="blue">odds ratio</span> <span class="math inline">\frac{\hat{\pi}(\bm{x}) / (1-\hat{\pi}(\bm{x}))}{\hat{\pi}(\bm{z}) / (1-\hat{\pi}(\bm{z}))}</span>.</li>
-</ul></li>
+<li><p>Let us consider a covariate <span class="math inline">\bm{x}</span> and let us compute the associated odd, in a logistic regression model: <span class="math display">
+\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
+</span> Thus, the odd of any predicted value is simply the exponential of the linear predictor <span class="math inline">\bm{x}^T\hat{\beta}</span>.</p></li>
+<li><p>Consequently, in general the <span class="blue">odds ratio</span> is <span class="math display">
+(\text{odds ratio}) = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
+</span></p></li>
+<li><p>If the only change is in the <span class="math inline">j</span>th covariate, from <span class="math inline">x_j</span> to <span class="math inline">x_j + c</span>, then the odds ratio becomes <span class="math display">
+(\text{odds ratio}) = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \} = \exp(c \hat{\beta}_j).
+</span> In particular, <span class="math inline">\exp(\hat{\beta}_j)</span> represents the odds ratio after a <span class="orange">unitary increase</span> of the <span class="math inline">j</span>th covariate.</p></li>
 </ul>
 </section>
 <section id="residuals-and-diagonistics-for-binary-data" class="slide level2 center">
