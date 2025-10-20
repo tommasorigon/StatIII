@@ -3,7 +3,7 @@
 # Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
-# Dataset 1: Neonati
+# Dataset 1: Neonati (APPLIED ANALYSIS)
 # -------------------------------------------------------------------
 
 rm(list = ls())
@@ -33,9 +33,6 @@ plot(Neonati$durata, Neonati$peso,
   xlab = "Gestational Age", ylab = "Weight (g)", pch = 16
 )
 abline(v = 37, lty = "dotted") # Pre-term birth
-
-# Check encoding of factor variable
-contrasts(Neonati$fumo)
 
 # Fit linear model
 m1 <- lm(peso ~ durata + fumo, data = Neonati)
@@ -73,25 +70,17 @@ abline(a = coef(m1)[1] + coef(m1)[3], b = coef(m1)[2], lty = "dashed", col = "re
 
 # Model 2, let us consider an interaction term
 
-# Fit linear model with interaction
-m2 <- lm(peso ~ durata * fumo, data = Neonati)
-
 # Inspect design matrix
 head(model.matrix(~ durata * fumo, data = Neonati))
 
-# Interpretation:
-# Expected birth weight is a linear function of gestation length,
-# with different intercepts and slopes for infants of non-smoking vs. smoking mothers
+# Fit linear model with interaction
+m2 <- lm(peso ~ durata * fumo, data = Neonati)
 
 summary(m2)
 
-# Note:
-# - beta_4 (interaction term) may be omitted if not significant
-# - beta_3 may change significance due to collinearity with interaction term
-
 # Compare models m1 (additive) vs. m2 (interaction)
 anova(m1, m2)
-# Question: Why is the p-value identical to that in summary(m2)? (Not a coincidence; same F-test)
+# The interaction term is not relevant
 
 # Plot observed data and predicted regression lines
 plot(Neonati$durata, Neonati$peso,
@@ -118,34 +107,6 @@ predict(m1,
   newdata = data.frame(fumo = c("F", "NF"), durata = rep(40, 2)),
   interval = "prediction", level = 0.95
 )
-
-# Current contrasts setup
-contrasts(Neonati$fumo) # Shows current coding
-contr.treatment(n = 2, base = 1) # Current baseline (default)
-contr.treatment(n = 2, base = 2) # Change baseline to second level
-
-# Change baseline and refit the model
-contrasts(Neonati$fumo) <- contr.treatment(n = 2, base = 2)
-
-# Inspect data and design matrix
-head(Neonati) # Original data
-head(model.matrix(~ durata + fumo, data = Neonati)) # Design matrix
-
-# Refit model with new baseline
-m3 <- lm(peso ~ durata + fumo, data = Neonati)
-summary(m3)
-
-# Zero-sum contrasts (less common but useful)
-contr.sum(n = 2)
-contrasts(Neonati$fumo) <- contr.sum(n = 2)
-
-# Inspect design matrix under zero-sum contrasts
-head(Neonati)
-head(model.matrix(~ durata + fumo, data = Neonati))
-
-# Refit model with zero-sum contrasts
-m4 <- lm(peso ~ durata + fumo, data = Neonati)
-summary(m4)
 
 # -------------------------------------------------------------------
 # Dataset 2: Clotting

@@ -6,7 +6,7 @@
 
 # DDT is extremely effective against malaria mosquitoes and is therefore widely used in areas where malaria is endemic. At the same time, DDT may pose a health risk, especially for pregnant women.
 
-# In a sample of n=2312 pregnant women, DDE is measured, i.e., a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable GAD (Gestational Age at Delivery) measures the day of pregnancy on which delivery occurred.
+# In a sample of n = 2312 pregnant women, DDE is measured, i.e., a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable GAD (Gestational Age at Delivery) measures the day of pregnancy on which delivery occurred.
 
 # Research question: Is the amount of DDE higher among women who delivered prematurely?
 
@@ -21,6 +21,10 @@ summary(dde)
 
 # Scatterplot of the data
 plot(dde, pch = 16)
+
+# QUESTION 1: Doctors are typically interested in measuring the risk of preterm delivery (before the 37th week of gestation). WHat is a good model for estimating it? 
+# QUESTION 2: Is there an effect of DDE on preterm delivery?
+# QUESTION 3: Provide an estimate of the "increase in risk" of preterm delivery associated with a 10-unit increase in DDE. Use various methods for measuring it. 
 
 # Instead of considering GAD as the response variable (which is very noisy), we can dichotomize it in a clinically relevant way, i.e., at the 37th week of gestation (preterm vs. full-term).
 dde$preterm <- as.numeric(dde$GAD < 37 * 7) # Preterm delivery group
