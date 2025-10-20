@@ -65,7 +65,7 @@ beta2 <- solve(t(X) %*% W %*% X) %*% t(X) %*% W %*% z
 
 cbind(beta0, beta1, beta2)
 
-# IRLS algorithm, properly implemented -----------------------------------------------------------
+# IRLS algorithm, (almost) properly implemented -----------------------------------------------------------
 
 iter <- 0
 maxit <- 100 # Maximum number of iterations

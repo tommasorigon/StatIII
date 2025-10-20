@@ -114,6 +114,8 @@ predict(m1,
 
 rm(list = ls())
 
+# Load data: clotting times (seconds) for nine plasma concentrations and two clotting agents
+# Source: McCullagh & Nelder (1989), Generalized Linear Models, 2nd Edition
 library(MLGdata)
 data("Clotting")
 

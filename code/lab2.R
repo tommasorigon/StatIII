@@ -3,21 +3,18 @@
 # Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
-# Dataset 1: Clotting
+# Dataset 1: Clotting - THEORY AND MODELLING
 # -------------------------------------------------------------------
 
 ? glm
 
-# Load data: clotting times (seconds) for nine plasma concentrations and two clotting agents
-# Source: McCullagh & Nelder (1989), Generalized Linear Models, 2nd Edition
+# Let us consider again the Clotting datataset we have already analyzed in lab1.R
 library(MLGdata)
 data("Clotting")
-
 str(Clotting)
-# View(Clotting) # Only for small datasets
 
-# Descriptive statistics
-summary(Clotting)
+# QUESTION 0: Create a new variable called logu which corresponds to the logarithm of the plasma concentration
+# QUESTION 1: 
 
 # Log-transform plasma concentration
 Clotting$logu <- log(Clotting$u)
@@ -56,7 +53,6 @@ lines(newdata$logu[newdata$lotto == "due"], pred_m1_bis[newdata$lotto == "due"],
 plot(Clotting$tempo, fitted(m1_bis), pch = 16, xlab = "Observed values", ylab = "Fitted values")
 abline(c(0, 1), lty = "dotted")
 
-# -------------------------------------------------------------------
 # Diagnostics
 
 # Response residuals (not recommended for GLMs with non-identity link)
@@ -96,7 +92,7 @@ rstandard(m1_bis, type = "deviance")
 rstandard(m1_bis, type = "pearson")
 
 # -------------------------------------------------------------------
-# Dataset 2: Chimps
+# Dataset 2: Chimps - APPLIED ANALYSIS
 # -------------------------------------------------------------------
 
 rm(list = ls())
