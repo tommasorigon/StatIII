@@ -75,9 +75,9 @@ The dataset `Wool` (Hand et al., 1994, p. 328) contained in the `MLGdata` librar
 
 For each of the three variables `x1`, `x2`, and `x3`, three levels were fixed:  
 
-- Length: 250, 300, 350 mm (coded as `1`, `0`, `1`)  
-- Width: 8, 9, 10 mm (coded as `1`, `0`, `1`)  
-- Load: 40, 45, 50 g (coded as `1`, `0`, `1`)  
+- Length: 250, 300, 350 mm (coded as `-1`, `0`, `1`)  
+- Width: 8, 9, 10 mm (coded as `-1`, `0`, `1`)  
+- Load: 40, 45, 50 g (coded as `-1`, `0`, `1`)  
 
 Import the data and then:
 

@@ -195,7 +195,6 @@ summary(m1_interaction)
 
 # QUESTION 3: an interaction effect would mean that each chimp has its own "ranking" of word difficulties, i.e. that some chimps find certain words easier or harder to learn compared to other chimps. In these data, an interaction effect cannot be reliably estimated, as the model is saturated (each chimp learns each word only once).
 
-# --------------------------------------------------------------------
 # Model 2: Gamma GLM with log link
 
 m2 <- glm(y ~ chimp + word, family = Gamma(link = log), data = Chimps)
@@ -225,7 +224,7 @@ plot(Chimps$predicted1, Chimps$predicted2,
 )
 abline(c(0, 1), lty = "dotted")
 
-# EXERCISE. Answer to questions 1,2 and 3 using the log-link model m2. Do you get the same conclusions?
+# EXERCISE. Answer to questions 1,2 and 3 using the log link as in m2. Do you get the same conclusions?
 
 # QUESTION 1:
 # QUESTION 2:
