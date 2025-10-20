@@ -385,7 +385,7 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <section id="odds-ratio-and-logistic-regression-ii" class="level2">
 <h2 class="anchored" data-anchor-id="odds-ratio-and-logistic-regression-ii">Odds ratio and logistic regression II</h2>
 <ul>
-<li><p>Let us consider a covariate <span class="math inline">\bm{x}</span> and let us compute the associated odd, in a logistic regression model: <span class="math display">
+<li><p>Let <span class="math inline">\bm{x}</span> be a generic covariate vector and consider its odd under a logistic regression model: <span class="math display">
 \widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
 </span> Thus, the odd of any predicted value is simply the exponential of the linear predictor <span class="math inline">\bm{x}^T\hat{\beta}</span>.</p></li>
 <li><p>Consequently, in general the <span class="blue">odds ratio</span> is <span class="math display">

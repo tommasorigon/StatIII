@@ -352,7 +352,7 @@ which is a [constant number]{.orange} that does not depend on $\bm{x}$. This is 
 
 ## Odds ratio and logistic regression II
 
-- Let us consider a covariate $\bm{x}$ and let us compute the associated odd, in a logistic regression model:
+- Let $\bm{x}$ be a generic covariate vector and consider its odd under a logistic regression model:
 $$
 \widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
 $$
