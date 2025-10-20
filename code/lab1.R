@@ -109,7 +109,7 @@ predict(m1,
 )
 
 # -------------------------------------------------------------------
-# Dataset 2: Clotting
+# Dataset 2: Clotting (THEORY AND MODELLING)
 # -------------------------------------------------------------------
 
 rm(list = ls())
@@ -118,6 +118,10 @@ library(MLGdata)
 data("Clotting")
 
 str(Clotting)
+
+# QUESTION 0: Create a new variable called logu which corresponds to the logarithm of the plasma concentration
+# QUESTION 1: Explore the relationship between clotting time and plasma concentration. Is a linear model appropriate?
+# QUESTION 2: Propose alternative modeling strategies to improve model fit. Make use to the Box-Cox transformation, of variance-stabilizing transformations, and other tools at your disposal to fix potential heteroskedasticity issues.
 
 # Log-transform plasma concentration
 Clotting$logu <- log(Clotting$u)
@@ -128,11 +132,7 @@ plot(Clotting$logu, Clotting$tempo,
   xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16
 )
 
-# Observations:
-# 1. Non-linear relationship
-# 2. Response variable always positive
-
-# Approach 0: fit linear model anyway
+# Approach 0: fit linear model anyway (with an interaction term)
 m0 <- lm(tempo ~ logu * lotto, data = Clotting)
 summary(m0)
 
@@ -150,8 +150,20 @@ par(mfrow = c(2, 2))
 plot(m0, which = 1:4)
 par(mfrow = c(1, 1))
 
-# Approach 1: Box-Cox suggests reciprocal transformation
-MASS::boxcox(m0)
+# QUESTION 1. The linear model is definitely NOT APPROPRIATE. The predictions are inaccurate, the diagnostics are terrible. 
+
+# Alternative approach 1: Box-Cox transformation, which suggests the reciprocal transformation
+library(MASS)
+boxcox(m0)
+
+# Is it a good idea? Let's confirm it by having a look at the plot
+plot(Clotting$logu, 1 / Clotting$tempo,
+  col = Clotting$lotto,
+  xlab = "Log-plasma concentration", ylab = "Reciprocal of clotting time (1/s)", pch = 16
+)
+# In the transformed scale, the relationship looks indeed much more linear
+
+# Let us fit the suggested model
 m1 <- lm(I(1 / tempo) ~ logu * lotto, data = Clotting)
 summary(m1)
 
@@ -168,14 +180,28 @@ par(mfrow = c(2, 2))
 plot(m1, which = 1:4)
 par(mfrow = c(1, 1))
 
-# Robust standard errors for heteroscedasticity
+# COMMENT: the predictions are significantly improved compared to the linear model m0. There is MAYBE some heteroskedasticity (look at observations 16, 17, and 18 from the residual plots), which we may correct using robust standard-errors. Otherwise, this is a decent model.
+
+# Robust standard errors for heteroskedasticity
 library(lmtest)
 library(sandwich)
 coeftest(m1)
 coeftest(m1, vcov. = vcovHC(m1))
 coefci(m1, vcov. = vcovHC(m1))
 
-# Approach 2: log-transform with quadratic term (variance-stabilizing)
+# The adjusted standard errors do not alter the main conclusions: logu and lotto are significant predictors. 
+# The main effect of "lotto" becomes not significant after the heteroskedasticity correction, but for interpretability reasons I would not remove it from the model (at least as long as the interaction term is present). 
+
+# Alternative approach 2: log-transform (variance-stabilizing transform, assuming a gamma model)
+
+# Let us first have a look at the log-transformation. This is motivated by the fact that if the response is Gamma distributed, then a log-transformation stabilizes the variance (making it homoskedastic).
+plot(Clotting$logu, log(Clotting$tempo),
+     col = Clotting$lotto,
+     xlab = "Log-plasma concentration", ylab = "Logarithm of Clotting time", pch = 16
+)
+
+# The relationship looks non-linear, but it may be fixed with a quadratic term
+# Moreover, it does not seem we need an interaction between logu and lotto.
 m2 <- lm(I(log(tempo)) ~ logu + I(logu^2) + lotto, data = Clotting)
 summary(m2)
 
@@ -192,7 +218,18 @@ par(mfrow = c(2, 2))
 plot(m2, which = 1:4)
 par(mfrow = c(1, 1))
 
-# Compare prediction performance
+# COMMENT: the predictions are extremely accurate, and the diagnostics do not show major issues. However, there is a single observation (the first one) which has a very high Cook's distance, indicating that it is highly influential and with high residual. We should not remove it, because it is not a "contaminated" data: it is simply a data point that we fail to accurately predict. This is probably an indication of some form of misspecification at the extreme low values of logu (maybe the response variable was not a gamma? maybe the relationship is not quadratic? with this limited amount of data it is hard to say). 
+
+# Witht that said, this is an excellent model in terms of prediction accuracy. We can "forgive" the presence of a single influential point, given the overall quality of the fit and account for its uncertainty by using a sandwich estimator for the variance.
+
+# Robust standard errors for heteroscedasticity
+coeftest(m2)
+coeftest(m2, vcov. = vcovHC(m2))
+coefci(m2, vcov. = vcovHC(m2))
+# The robust standard errors do not alter the main conclusions: logu, logu^2, and lotto are significant predictors.
+
+
+# OVERALL PREDICTIVE EVALUTATION. Let us compare predictive performance on the same scale
 fit0 <- predict(m0)
 fit1 <- 1 / predict(m1)
 fit2 <- exp(predict(m2))
@@ -202,8 +239,4 @@ fit2 <- exp(predict(m2))
 1 - sum((Clotting$tempo - fit1)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 1 - sum((Clotting$tempo - fit2)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 
-coeftest(m2)
-coeftest(m2, vcov. = vcovHC(m2))
-
-coefci(m2)
-coefci(m2, vcov. = vcovHC(m2))
+# In terms of predictive accuracy, m2 > m1 >> m0. I would choose m2 as the final model.
