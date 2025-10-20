@@ -3,7 +3,7 @@
 # Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
-# Dataset 1: Neonati (APPLIED ANALYSIS)
+# Dataset 1: Neonati - APPLIED ANALYSIS
 # -------------------------------------------------------------------
 
 rm(list = ls())
@@ -109,7 +109,7 @@ predict(m1,
 )
 
 # -------------------------------------------------------------------
-# Dataset 2: Clotting (THEORY AND MODELLING)
+# Dataset 2: Clotting - THEORY AND MODELLING
 # -------------------------------------------------------------------
 
 rm(list = ls())
