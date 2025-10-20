@@ -142,6 +142,8 @@ str(Chimps)
 # y (learning times) is the response variable
 # word is encoding the 10 words
 # chimp is encoding the 4 chimps
+
+
 # QUESTION 1: are there different difficulties among words?
 # QUESTION 2: are there different capabilities among chimps?
 # QUESTION 3: explain in plain words what an interaction effect between word and chimp would mean. Is it present in these data?
@@ -154,7 +156,7 @@ boxplot(y ~ word, data = Chimps)
 m1 <- glm(y ~ chimp + word, family = Gamma, data = Chimps)
 summary(m1)
 
-# Test whether "word" can be removed -----------------------------------------------
+# Test whether "word" can be removed
 m1_no_word <- glm(y ~ chimp, family = Gamma, data = Chimps)
 summary(m1_no_word)
 anova(m1_no_word, m1, test = "Chisq") # Null hypothesis is rejected --> QUESTION 1
@@ -200,9 +202,7 @@ summary(m1_interaction)
 m2 <- glm(y ~ chimp + word, family = Gamma(link = log), data = Chimps)
 summary(m2)
 
-# This model (with the log link) guarantees positive fitted values.
-# The deviance is slightly lower compared to m1, but it is not straightforward
-# to formally test whether the improvement is significant.
+# This model (with the log link) guarantees positive fitted values. The deviance is slightly lower compared to m1, but it is not straightforward to formally test whether the improvement is significant.
 
 deviance(m1)
 deviance(m2)
