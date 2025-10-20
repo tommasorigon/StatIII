@@ -152,7 +152,7 @@ par(mfrow = c(2, 2))
 plot(m0, which = 1:4)
 par(mfrow = c(1, 1))
 
-# QUESTION 1. The linear model is definitely NOT APPROPRIATE. The predictions are inaccurate, the diagnostics are terrible. 
+# QUESTION 1. The linear model is definitely NOT APPROPRIATE. The predictions are inaccurate, the diagnostics are terrible.
 
 # Alternative approach 1: Box-Cox transformation, which suggests the reciprocal transformation
 library(MASS)
@@ -191,15 +191,15 @@ coeftest(m1)
 coeftest(m1, vcov. = vcovHC(m1))
 coefci(m1, vcov. = vcovHC(m1))
 
-# The adjusted standard errors do not alter the main conclusions: logu and lotto are significant predictors. 
-# The main effect of "lotto" becomes not significant after the heteroskedasticity correction, but for interpretability reasons I would not remove it from the model (at least as long as the interaction term is present). 
+# The adjusted standard errors do not alter the main conclusions: logu and lotto are significant predictors.
+# The main effect of "lotto" becomes not significant after the heteroskedasticity correction, but for interpretability reasons I would not remove it from the model (at least as long as the interaction term is present).
 
 # Alternative approach 2: log-transform (variance-stabilizing transform, assuming a gamma model)
 
 # Let us first have a look at the log-transformation. This is motivated by the fact that if the response is Gamma distributed, then a log-transformation stabilizes the variance (making it homoskedastic).
 plot(Clotting$logu, log(Clotting$tempo),
-     col = Clotting$lotto,
-     xlab = "Log-plasma concentration", ylab = "Logarithm of Clotting time", pch = 16
+  col = Clotting$lotto,
+  xlab = "Log-plasma concentration", ylab = "Logarithm of Clotting time", pch = 16
 )
 
 # The relationship looks non-linear, but it may be fixed with a quadratic term
@@ -220,7 +220,7 @@ par(mfrow = c(2, 2))
 plot(m2, which = 1:4)
 par(mfrow = c(1, 1))
 
-# COMMENT: the predictions are extremely accurate, and the diagnostics do not show major issues. However, there is a single observation (the first one) which has a very high Cook's distance, indicating that it is highly influential and with high residual. We should not remove it, because it is not a "contaminated" data: it is simply a data point that we fail to accurately predict. This is probably an indication of some form of misspecification at the extreme low values of logu (maybe the response variable was not a gamma? maybe the relationship is not quadratic? with this limited amount of data it is hard to say). 
+# COMMENT: the predictions are extremely accurate, and the diagnostics do not show major issues. However, there is a single observation (the first one) which has a very high Cook's distance, indicating that it is highly influential and with high residual. We should not remove it, because it is not a "contaminated" data: it is simply a data point that we fail to accurately predict. This is probably an indication of some form of misspecification at the extreme low values of logu (maybe the response variable was not a gamma? maybe the relationship is not quadratic? with this limited amount of data it is hard to say).
 
 # Witht that said, this is an excellent model in terms of prediction accuracy. We can "forgive" the presence of a single influential point, given the overall quality of the fit and account for its uncertainty by using a sandwich estimator for the variance.
 

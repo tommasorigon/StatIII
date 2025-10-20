@@ -74,8 +74,8 @@ newdata <- data.frame(
 pred_m1_bis <- predict(m1_bis, newdata = newdata, type = "response")
 
 plot(Clotting$logu, Clotting$tempo,
-     col = Clotting$lotto,
-     xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16
+  col = Clotting$lotto,
+  xlab = "Log-plasma concentration", ylab = "Clotting time (s)", pch = 16
 )
 lines(newdata$logu[newdata$lotto == "uno"], pred_m1_bis[newdata$lotto == "uno"], lty = "dashed", col = "red")
 lines(newdata$logu[newdata$lotto == "due"], pred_m1_bis[newdata$lotto == "due"], lty = "dashed")
@@ -98,14 +98,14 @@ rstandard(m1_bis, type = "deviance")
 rstandard(m1_bis, type = "pearson")
 
 # Plot standardized residuals vs fitted values
-par(mfrow=c(2, 2))
+par(mfrow = c(2, 2))
 plot(fitted(m1_bis), residuals(m1_bis, type = "pearson"), pch = 16)
 plot(fitted(m1_bis), residuals(m1_bis, type = "deviance"), pch = 16)
 
 plot(fitted(m1_bis), rstandard(m1_bis, type = "pearson"), pch = 16)
 plot(fitted(m1_bis), rstandard(m1_bis, type = "deviance"), pch = 16)
 
-# QUESTION 4: According to the standardized Pearson residuals, observations 1, 2 and 10 could be considered outliers, as their absolute value is close or higher than 2. 
+# QUESTION 4: According to the standardized Pearson residuals, observations 1, 2 and 10 could be considered outliers, as their absolute value is close or higher than 2.
 
 # Standard diagnostic plots
 par(mfrow = c(2, 2))
@@ -126,7 +126,7 @@ Clotting[c(1, 10), ]
 
 # QUESTION 5: the Cook's distance of observations 1 and 10, previosly identified as outliers, is massively high. These points appear as "influentials" (leverage points + outliers) in diagnostics despite the predictions look fairly good. This is because they are predicted with less precision compared to other points, while the prediction for most points is extremely precise. Excluding them would bias coefficient estimates and reduce reliability.
 
-# The solution to this situation depends on the goal. If are only interested in making predictions, we can just use model m1_bis even if it is a bit misspecified. Alternatively, we may use sandwich estimators for robustifying the estimates of the standard errors. Indeed, the work even for GLMs. 
+# The solution to this situation depends on the goal. If are only interested in making predictions, we can just use model m1_bis even if it is a bit misspecified. Alternatively, we may use sandwich estimators for robustifying the estimates of the standard errors. Indeed, the work even for GLMs.
 
 # -------------------------------------------------------------------
 # Dataset 2: Chimps - APPLIED ANALYSIS
@@ -189,7 +189,7 @@ par(mfrow = c(2, 2))
 plot(m1, which = 1:4) # Residuals, fitted values, leverage, Cook's distance
 par(mfrow = c(1, 1))
 
-# Can an interaction effect between word and chimp be present in these data? 
+# Can an interaction effect between word and chimp be present in these data?
 m1_interaction <- glm(y ~ word * chimp, family = Gamma, data = Chimps)
 
 # We get a warning! Why? This is the saturated model, with p = n (the same chimp cannot learn the same word twice!). The following output clarifies this
@@ -212,15 +212,15 @@ View(Chimps)
 
 # Observed vs fitted values (log-link model)
 plot(Chimps$y, Chimps$predicted2,
-     pch = 16,
-     xlab = "Observed values", ylab = "Fitted values (log-link model)"
+  pch = 16,
+  xlab = "Observed values", ylab = "Fitted values (log-link model)"
 )
 abline(c(0, 1), lty = "dotted")
 
 # Comparison of fitted values from m1 (canonical link) vs m2 (log link)
 plot(Chimps$predicted1, Chimps$predicted2,
-     pch = 16,
-     xlab = "Fitted values (m1)", ylab = "Fitted values (m2)"
+  pch = 16,
+  xlab = "Fitted values (m1)", ylab = "Fitted values (m2)"
 )
 abline(c(0, 1), lty = "dotted")
 
@@ -229,4 +229,3 @@ abline(c(0, 1), lty = "dotted")
 # QUESTION 1:
 # QUESTION 2:
 # QUESTION 3:
-
