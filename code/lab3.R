@@ -114,6 +114,11 @@ odds <- function(p) {
   p / (1 - p)
 }
 
+odds(fit[1]) # 100 : 11.52 of preterm delivery when DDE = 0
+odds(fit[2]) # 100 : 15.45 of preterm delivery when DDE = 10
+odds(fit[3]) # 100 : 37.27 of preterm delivery when DDE = 100
+odds(fit[4]) # 100 : 50.00 of preterm delivery when DDE = 110
+
 # Odds ratios. They do NOT depend on the baseline in logistic regression!
 odds(fit[2]) / odds(fit[1]) # From 0 to 10, odds ratio of 1.34, sometimes reported as 34.11%
 odds(fit[4]) / odds(fit[3]) # From 0 to 10, odds ratio of 1.34, sometimes reported as 34.11%
@@ -121,7 +126,8 @@ odds(fit[4]) / odds(fit[3]) # From 0 to 10, odds ratio of 1.34, sometimes report
 # It coincides with:
 exp(20 * coef(m1)[2])
 
-# This is not a coincidence, as we will see in Unit C.
+# This is not a coincidence, as we will see in Unit C. In particular, we have that the odds ratio for a unitary increase in the log-dose is
+exp(coef(m1)[2])
 
 # -------------------------------------------------------------------
 # Dataset 2: Stress - THEORY AND MODELLING
