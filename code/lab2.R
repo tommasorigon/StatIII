@@ -133,6 +133,7 @@ Clotting[c(1, 10), ]
 # -------------------------------------------------------------------
 
 rm(list = ls())
+library(MLGdata)
 data("Chimps")
 
 str(Chimps)
@@ -174,7 +175,7 @@ anova(m1_no_chimp, m1, test = "Chisq") # Conclusion is dubious, p-value is borde
 # QUESTION 2: UNSURE, there is weak evidence that different chimps have different learning capabilities, as the associated p-value is borderline (about 0.05).
 
 # Diagnostics
-Chimps$predicted1 <- muhat
+Chimps$predicted1 <- predict(m1, type = "response")
 View(Chimps)
 
 # Observed vs fitted values
@@ -206,6 +207,9 @@ summary(m2)
 
 deviance(m1)
 deviance(m2)
+
+cor(Chimps$y, Chimps$predicted1)
+cor(Chimps$y, Chimps$predicted2)
 
 Chimps$predicted2 <- fitted(m2)
 View(Chimps)
