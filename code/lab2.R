@@ -212,7 +212,6 @@ cor(Chimps$y, Chimps$predicted1)
 cor(Chimps$y, Chimps$predicted2)
 
 Chimps$predicted2 <- fitted(m2)
-View(Chimps)
 
 # Observed vs fitted values (log-link model)
 plot(Chimps$y, Chimps$predicted2,
