@@ -394,9 +394,17 @@ X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\pi})^2}{\hat{\pi}(1 - \hat{\pi})} = n.
 <section id="overdispersion" class="slide level2 center">
 <h2>Overdispersion</h2>
 <ul>
-<li>In binomial regression with <span class="math inline">m_i &gt; 1</span> the main assumption is that <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, implying that <span class="math display">
+<li><p>In binomial regression the main <span class="blue">assumption</span> is that <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, implying that <span class="math display">
 \text{var}(Y_i) = \frac{\pi_i(1-\pi_i)}{m_i},
-</span> where implicitly we have set <span class="math inline">\phi = 1</span>.</li>
+</span> where implicitly we have set <span class="math inline">\phi = 1</span>.</p></li>
+<li><p>However, from the analysis of the residuals or by computing the <span class="math inline">X^2</span> statistic we may realize that the data present <span class="orange">overdispersion</span>, namely the <span class="blue">correct model</span> is such that <span class="math display">
+\text{var}(Y_i) = \textcolor{red}{\phi} \frac{\pi_i(1-\pi_i)}{m_i},
+</span> with <span class="math inline">\phi &gt; 1</span>. This implies that the binomial regression model is <span class="orange">misspecified</span>.</p></li>
+<li><p>The two most common solutions to overdispersion are the following:</p>
+<ol type="i">
+<li>the usage of <span class="blue">quasi-likelihoods</span>;</li>
+<li>using another parametric distribution, beyond the class of exponential dispersion families; a typical choice is the <span class="orange">beta-binomial</span>.</li>
+</ol></li>
 </ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable">

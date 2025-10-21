@@ -389,10 +389,21 @@ $$
 
 ## Overdispersion
 
-- In binomial regression with $m_i > 1$ the main assumption is that $S_i \sim \text{Binomial}(m_i, \pi_i)$, implying that
+- In binomial regression the main [assumption]{.blue} is that $S_i \sim \text{Binomial}(m_i, \pi_i)$, implying that
 $$
 \text{var}(Y_i) = \frac{\pi_i(1-\pi_i)}{m_i},
 $$
-where implicitly we have set $\phi = 1$.  
+where implicitly we have set $\phi = 1$. 
+
+- However, from the analysis of the residuals or by computing the $X^2$ statistic we may realize that the data present [overdispersion]{.orange}, namely the [correct model]{.blue} is such that
+$$
+\text{var}(Y_i) = \textcolor{red}{\phi} \frac{\pi_i(1-\pi_i)}{m_i},
+$$
+with $\phi > 1$. This implies that the binomial regression model is [misspecified]{.orange}. 
+
+- The two most common solutions to overdispersion are the following: 
+  (i) the usage of [quasi-likelihoods]{.blue};
+  (ii) using another parametric distribution, beyond the class of exponential dispersion families; a typical choice is the [beta-binomial]{.orange}.
+
 
 ## References
