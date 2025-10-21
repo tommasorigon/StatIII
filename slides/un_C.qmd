@@ -322,13 +322,11 @@ This is useful to understand the effect of changing covariates on the response p
   (\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
   $$
 
-- The [relative risk]{.orange}, a standardized difference
+- The [relative risk]{.orange} is the fraction
   $$
-  (\text{relative risk}) = \frac{\hat{\pi}(\bm{x}') -\hat{\pi}(\bm{x})}{\hat{\pi}(\bm{x})} = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} - 1.
+  (\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
   $$
-
 - Both these indicators are quite interpretable but depend on the specific values of $\bm{x}$ and $\bm{x}'$, which makes it difficult to summarize the effect of a given covariate in a single number.
-
 
 ## Odds ratio
 
@@ -341,7 +339,7 @@ The odds are non-negative, with $\text{odds}(\bm{x}) > 1$ when a [success is mor
 - When $\pi(\bm{x}) = 0.75$ then $\text{odds}(\bm{x}) = 0.75/0.25 = 3$; a success is three times as likely as a failure. That is, we bet 3 to get 1 if we win. If instead $\text{odds}(\bm{x}) = 1 / 3$, we bet 1 to get 3 if we win. 
 
 - The [odds ratio]{.orange} is another popular risk measure for comparing the two probabilities$$
-(\text{odds ratio})  = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
+(\text{odds ratio})  = \frac{\widehat{\text{odds}}(\bm{x}') }{\widehat{\text{odds}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
 $$
 
 - Let $\bm{x} = (x_1,\dots, x_j, \dots, x_p)$ and $\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)$, i.e. we compare two situations in which the $j$th covariate is increased by a fixed amount $c$, then in [logistic regression]{.blue}:
@@ -352,15 +350,15 @@ which is a [constant number]{.orange} that does not depend on $\bm{x}$. This is 
 
 ## Odds ratio and logistic regression
 
-- Let $\bm{x}$ be a generic covariate vector and consider its odd under a [logistic regression]{.blue} model:
+- Let $\bm{x}$ be a generic covariate vector and consider its odds under a [logistic regression]{.blue} model:
 $$
-\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
+\widehat{\text{odds}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
 $$
-Thus, the odd of any predicted value is simply the exponential of the linear predictor $\bm{x}^T\hat{\beta}$. 
+Thus, the odds of any predicted value is simply the exponential of the linear predictor $\bm{x}^T\hat{\beta}$. 
 
 - Consequently, in general the [odds ratio]{.blue} is
 $$
-(\text{odds ratio}) = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
+(\text{odds ratio}) = \frac{\widehat{\text{odds}}(\bm{x}') }{\widehat{\text{odds}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
 $$
 
 - If the only change is in the $j$th covariate, from $x_j$ to $x_j + c$, then the odds ratio becomes

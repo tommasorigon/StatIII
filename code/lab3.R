@@ -106,8 +106,8 @@ fit[2] - fit[1] # From 0 to 10, absolute risk increase of 3%
 fit[4] - fit[3] # From 100 to 110, absolute risk increase of 6%
 
 # Relative risks, they depend on the baseline
-(fit[2] - fit[1]) / fit[1] # From 0 to 10, relative risk increase 29.54%
-(fit[4] - fit[3]) / fit[3] # From 100 to 110, relative risk increase of 22.74%
+fit[2] / fit[1] # From 0 to 10, relative risk increase of 29.54%
+fit[4] / fit[3]  # From 100 to 110, relative risk increase of 22.74%
 
 # Odds ratio
 odds <- function(p) {

@@ -344,8 +344,8 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
 (\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
 </span></p></li>
-<li><p>The <span class="orange">relative risk</span>, a standardized difference <span class="math display">
-(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}') -\hat{\pi}(\bm{x})}{\hat{\pi}(\bm{x})} = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} - 1.
+<li><p>The <span class="orange">relative risk</span> is the fraction <span class="math display">
+(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
 </span></p></li>
 <li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
 </ul>
@@ -358,7 +358,7 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 </span> The odds are non-negative, with <span class="math inline">\text{odds}(\bm{x}) &gt; 1</span> when a <span class="blue">success is more likely than a failure</span>.</p></li>
 <li><p>When <span class="math inline">\pi(\bm{x}) = 0.75</span> then <span class="math inline">\text{odds}(\bm{x}) = 0.75/0.25 = 3</span>; a success is three times as likely as a failure. That is, we bet 3 to get 1 if we win. If instead <span class="math inline">\text{odds}(\bm{x}) = 1 / 3</span>, we bet 1 to get 3 if we win.</p></li>
 <li><p>The <span class="orange">odds ratio</span> is another popular risk measure for comparing the two probabilities<span class="math display">
-(\text{odds ratio})  = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
+(\text{odds ratio})  = \frac{\widehat{\text{odds}}(\bm{x}') }{\widehat{\text{odds}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
 </span></p></li>
 <li><p>Let <span class="math inline">\bm{x} = (x_1,\dots, x_j, \dots, x_p)</span> and <span class="math inline">\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)</span>, i.e.&nbsp;we compare two situations in which the <span class="math inline">j</span>th covariate is increased by a fixed amount <span class="math inline">c</span>, then in <span class="blue">logistic regression</span>: <span class="math display">
 (\text{odds ratio}) = \exp(c \hat{\beta}_j),
@@ -368,11 +368,11 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <section id="odds-ratio-and-logistic-regression" class="slide level2 center">
 <h2>Odds ratio and logistic regression</h2>
 <ul>
-<li><p>Let <span class="math inline">\bm{x}</span> be a generic covariate vector and consider its odd under a <span class="blue">logistic regression</span> model: <span class="math display">
-\widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
-</span> Thus, the odd of any predicted value is simply the exponential of the linear predictor <span class="math inline">\bm{x}^T\hat{\beta}</span>.</p></li>
+<li><p>Let <span class="math inline">\bm{x}</span> be a generic covariate vector and consider its odds under a <span class="blue">logistic regression</span> model: <span class="math display">
+\widehat{\text{odds}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
+</span> Thus, the odds of any predicted value is simply the exponential of the linear predictor <span class="math inline">\bm{x}^T\hat{\beta}</span>.</p></li>
 <li><p>Consequently, in general the <span class="blue">odds ratio</span> is <span class="math display">
-(\text{odds ratio}) = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
+(\text{odds ratio}) = \frac{\widehat{\text{odds}}(\bm{x}') }{\widehat{\text{odds}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
 </span></p></li>
 <li><p>If the only change is in the <span class="math inline">j</span>th covariate, from <span class="math inline">x_j</span> to <span class="math inline">x_j + c</span>, then the odds ratio becomes <span class="math display">
 (\text{odds ratio}) = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \} = \exp(c \hat{\beta}_j).
