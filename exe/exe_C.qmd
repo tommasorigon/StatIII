@@ -181,7 +181,7 @@ Suppose the logistic model holds in which $x$ is uniformly distributed on the in
 :::{.callout-note collapse=true}
 #### Exercise D
 
-Let $m_i Y_i$ be independent $\text{Binomial}(m_i, \pi_i)$ random variables for $i=1,\dots,n$. Consider the null model, for which $\pi_1 = \cdots = \pi_n$. 
+Let $m_i Y_i$ be independent $\text{Binomial}(m_i, \pi_i)$ random variables for $i=1,\dots,n$. Consider the [null model]{.blue}, in which which $\pi_1 = \cdots = \pi_n$. 
 
 (a) Show that $\hat{\pi} = \sum_{i=1}^n m_i Y_i / \sum_{i=1}^n m_i$, i.e. the weighted average of the proportions. 
 

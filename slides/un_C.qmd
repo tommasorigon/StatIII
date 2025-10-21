@@ -330,7 +330,7 @@ This is useful to understand the effect of changing covariates on the response p
 - Both these indicators are quite interpretable but depend on the specific values of $\bm{x}$ and $\bm{x}'$, which makes it difficult to summarize the effect of a given covariate in a single number.
 
 
-## Odds ratio and logistic regression I
+## Odds ratio
 
 - The [odd]{.blue} is another way of summarizing probabilities, familiar to those who gamble:
 $$
@@ -341,8 +341,7 @@ An odd represents the money you get if you win the game, for each unit you bet.
 - The [odds ratio]{.orange} is another popular risk measure for comparing the two probabilities$$
 (\text{odds ratio})  = \frac{\widehat{\text{odd}}(\bm{x}') }{\widehat{\text{odd}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
 $$
-
-- The odds ratio is [less intuitive]{.orange} than other risk measures, but it is tightly related to logistic regression. 
+The odds ratio is [less intuitive]{.orange} than other risk measures, but it is related to logistic regression. 
 
 - Let $\bm{x} = (x_1,\dots, x_j, \dots, x_p)$ and $\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)$, i.e. we compare two situations in which the $j$th covariate is increased by a fixed amount $c$, then in [logistic regression]{.blue}:
 $$
@@ -350,9 +349,9 @@ $$
 $$
 which is a [constant number]{.orange} that does not depend on $\bm{x}$. This is not true e.g. in probit.
 
-## Odds ratio and logistic regression II
+## Odds ratio and logistic regression
 
-- Let $\bm{x}$ be a generic covariate vector and consider its odd under a logistic regression model:
+- Let $\bm{x}$ be a generic covariate vector and consider its odd under a [logistic regression]{.blue} model:
 $$
 \widehat{\text{odd}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
 $$
@@ -370,11 +369,30 @@ $$
 In particular, $\exp(\hat{\beta}_j)$ represents the odds ratio after a [unitary increase]{.orange} of the $j$th covariate. 
 
 
-## Residuals and diagonistics for binary data
+## Residuals and diagnostics for binary data
 
-## Goodness-of-fit test
+- In presence of [binary data]{.orange}, namely when $m_i = 1$ and $Y_i \sim \text{Bernoulli}(\pi_i)$, many the diagnostic tools are [degenerate]{.orange} and uninformative.
+
+- For example, the `fitted` vs `residuals` plot, namely the dispersion plot of the points $(\hat{\pi}_i, y_i - \hat{\pi}_i)$, simply shows two parallel lines with slope $-1$, which is uninformative. 
+
+
+- As an extreme case, consider the [null model]{.blue} in which $\pi_1 = \dots = \pi_n$, then the $X^2$ statistic is
+$$
+X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\pi})^2}{\hat{\pi}(1 - \hat{\pi})} = n.
+$$
+
+- A common solution is to [group the data]{.blue} according to some criteria, although this introduces approximations and some arbitrariness (i.e. the Hosmer-Lemeshow test). 
+
+- In terms of prediction, there exists various indices and techniques that you will cover in Data Mining. The simplest index is the [accuracy]{.orange}, i.e. the fraction of correct predictions.
+
+<!-- ## Goodness-of-fit test -->
 
 ## Overdispersion
 
+- In binomial regression with $m_i > 1$ the main assumption is that $S_i \sim \text{Binomial}(m_i, \pi_i)$, implying that
+$$
+\text{var}(Y_i) = \frac{\pi_i(1-\pi_i)}{m_i},
+$$
+where implicitly we have set $\phi = 1$.  
 
 ## References

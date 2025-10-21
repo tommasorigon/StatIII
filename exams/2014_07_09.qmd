@@ -73,12 +73,7 @@ Facendo uso del software **R**, si risponda alle seguenti domande:
 
 (f) Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti.  
 
-(g) Si vuole applicare il test di Hosmer–Lemeshow che sottopone a verifica la bontà del modello raggruppando i dati.
-    i. Si costruisca la matrice $n \times 2$ che contiene le frequenze assolute osservate (I colonna) e attese (II colonna). Si tratta delle stesse quantità già calcolate al punto f.
-    ii. Si divida la matrice in 3 blocchi di numerosità simile (8, 8 e 7).
-    iii. Per ogni blocco si calcolino le 4 quantità utili ai fini del test (successi totali osservati e attesi, insuccessi totali osservati e attesi) e si riportino i valori ottenuti.
-    iv. Si calcoli il valore assunto dalla statistica test $X^2_\text{HL}$ e lo si riporti.  
-    v. Si calcoli il p-value e si decida in merito all’accettazione o al rifiuto dell'ipotesi nulla.  
+(g) [Omessa]{.orange}.
 
 ## Teoria
 
