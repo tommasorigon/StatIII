@@ -162,10 +162,6 @@ m1_no_word <- glm(y ~ chimp, family = Gamma, data = Chimps)
 summary(m1_no_word)
 anova(m1_no_word, m1, test = "Chisq") # Null hypothesis is rejected --> QUESTION 1
 
-# Another way is to use anova(m1), but note that this introduces covariates
-# sequentially according to the formula order (sometimes useful, often not)
-anova(m1)
-
 # QUESTION 1: YES, there are different difficulties among words, because the associated estimated coefficients (i.e. the average learning times) are significantly different.
 
 # Test whether "chimp" can be removed
