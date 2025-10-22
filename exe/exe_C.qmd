@@ -175,7 +175,7 @@ Explain how the expression for $\text{var}(\hat{\beta})$ in logistic regression 
 :::{.callout-note collapse=true}
 #### Exercise C
 
-Suppose the logistic model holds in which $x$ is uniformly distributed on the interval $[0, 100]$ and $\text{logit}(\pi_i) = -2.0 + 0.04 x_i$. Randomly generate $100$ independent observations from this model. Plot the residuals against $x$ and against the fitted values. Why do residual plots for binary data have this appearance?
+Suppose the logistic model holds in which $x$ is uniformly distributed on the interval $[0, 100]$ and $\text{logit}(\pi_i) = -2.0 + 0.04 x_i$. Randomly generate $100$ independent observations from this model. Plot the response residuals against $x$ and against the fitted values. Why do residual plots for binary data have this appearance?
 :::
 
 :::{.callout-note collapse=true}
