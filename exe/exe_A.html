@@ -191,14 +191,14 @@ window.Quarto = {
 <ol type="a">
 <li><p>Identify the statistical units, the response variable, and the explanatory variables, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).</p></li>
 <li><p>Perform a graphical analysis to assess whether a linear regression model may be appropriate.</p></li>
-<li><p>Specify a simple linear regression model, choosing an appropriate explanatory variable.</p></li>
-<li><p>Fit the simple linear regression model from (c) in <strong>R</strong>.</p></li>
+<li><p>Write the main equation of a <span class="blue">simple linear regression</span> model, choosing the <span class="orange">most correlated</span> explanatory variable.</p></li>
+<li><p>Fit the simple linear regression model specified in point (c) in <strong>R</strong>.</p></li>
 <li><p>Report the estimates and 95% confidence intervals for the coefficients. Interpret the estimated values.</p></li>
 <li><p>For each element of the R <code>summary</code> output of the <code>lm</code> object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.</p></li>
-<li><p>Evaluate the goodness of fit of the model.</p></li>
-<li><p>Fit a multiple regression model in <strong>R</strong> including both explanatory variables. Interpret the estimated coefficients.</p></li>
-<li><p>Evaluate the goodness of fit of the multiple regression model.</p></li>
-<li><p>Obtain a 95% confidence interval for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% prediction interval for the response.</p></li>
+<li><p>Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment the results. See also <span class="orange">Exercise D</span> (below) for a refined and alternative diagnostic plot.</p></li>
+<li><p>Fit a multiple regression model in <strong>R</strong> including <span class="blue">both explanatory variables</span>. Interpret the estimated coefficients.</p></li>
+<li><p>Evaluate the goodness of fit of the multiple regression model, using all the diagnostic tools at your disposal.</p></li>
+<li><p>Obtain a 95% <span class="orange">confidence interval</span> for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% <span class="blue">prediction interval</span> for the response.</p></li>
 </ol>
 </div>
 </div>
@@ -491,21 +491,14 @@ Exercise D
 <ol type="a">
 <li><p>Show that <span class="math display">
 \bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}</span> so <span class="math inline">\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma</span>. What if <span class="math inline">\bm{z}</span> lies in the column space of <span class="math inline">\bm{X}</span>? What if <span class="math inline">\bm{z}</span> is orthogonal to the column space of <span class="math inline">\bm{X}</span>?</p></li>
-<li><p>Explain why the <span class="blue">added-variable plot</span> (residuals <span class="math inline">\bm{r}</span> vs.&nbsp;residuals from regressing <span class="math inline">\bm{z}</span> on <span class="math inline">\bm{X}</span>) helps assess whether to include <span class="math inline">\bm{z}</span>.</p></li>
+<li><p>Explain why the <span class="blue">added-variable plot</span> (residuals from regressing <span class="math inline">\bm{z}</span> on <span class="math inline">\bm{X}</span> vs.&nbsp;residuals <span class="math inline">\bm{r}</span>) helps assess whether to include <span class="math inline">\bm{z}</span>.</p></li>
 <li><p>Using the plots in the figure below, referring to the same set of data, comment on the results and suggest how to modify the model.</p></li>
 </ol>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="exe_A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1050"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="exe_A_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="exe_A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></p>
 </figure>
 </div>
 </div>

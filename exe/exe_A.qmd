@@ -57,21 +57,21 @@ The dataset `Abrasion` (Hand et al., 1994), available in the `MLGdata` R package
 
 (b) Perform a graphical analysis to assess whether a linear regression model may be appropriate.
 
-(c) Specify a simple linear regression model, choosing an appropriate explanatory variable.
+(c) Write the main equation of a [simple linear regression]{.blue} model, choosing the [most correlated]{.orange} explanatory variable.
 
-(d) Fit the simple linear regression model from (c) in **R**.
+(d) Fit the simple linear regression model specified in point (c) in **R**.
 
 (e) Report the estimates and 95% confidence intervals for the coefficients. Interpret the estimated values.
 
 (f) For each element of the R  `summary` output of the `lm` object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.
 
-(g) Evaluate the goodness of fit of the model.
+(g) Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment the results. See also [Exercise D]{.orange} (below) for a refined and alternative diagnostic plot. 
 
-(h) Fit a multiple regression model in **R** including both explanatory variables. Interpret the estimated coefficients.
+(h) Fit a multiple regression model in **R** including [both explanatory variables]{.blue}. Interpret the estimated coefficients.
 
-(i) Evaluate the goodness of fit of the multiple regression model.
+(i) Evaluate the goodness of fit of the multiple regression model, using all the diagnostic tools at your disposal.
 
-(j) Obtain a 95% confidence interval for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% prediction interval for the response.
+(j) Obtain a 95% [confidence interval]{.orange} for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% [prediction interval]{.blue} for the response.
 :::
 
 ::: {.callout-note collapse=true}
@@ -172,17 +172,21 @@ $$
 \bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}$$ 
 so $\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma$. What if $\bm{z}$ lies in the column space of $\bm{X}$? What if $\bm{z}$ is orthogonal to the column space of $\bm{X}$?
 
-(b) Explain why the [added-variable plot]{.blue} (residuals $\bm{r}$ vs. residuals from regressing $\bm{z}$ on $\bm{X}$) helps assess whether to include $\bm{z}$.  
+(b) Explain why the [added-variable plot]{.blue} (residuals from regressing $\bm{z}$ on $\bm{X}$ vs. residuals $\bm{r}$) helps assess whether to include $\bm{z}$.  
 
 (c) Using the plots in the figure below, referring to the same set of data, comment on the results and suggest how to modify the model.
 
 ```{r}
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
 set.seed(123)
 x1 <- runif(100, 0, 1)
 x2 <- runif(100, 0, 1)
 z <- 3 * x1 + rnorm(100, 0, 0.2)
 y <- 1 + x1 + x2 - 5 * z + rnorm(100, 0, 0.3)
 
+par(mfrow=c(1, 2))
 plot(z, residuals(lm(y ~ x1 + x2)), pch = 16)
 plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
 ```
