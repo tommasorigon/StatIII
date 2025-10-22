@@ -17,7 +17,7 @@ data("Beetles10")
 
 # QUESTION 2. Compare the predictions with the observed values. Perform a goodness of fit test against the saturated model.
 
-# QUESTION 3. Obtain a Wald confidence interval for the quantity \beta_1 + \beta_2 x, with x = 1.8. Compare you results with those obtained using the function "predict". Then, compute a confidence interval for the logistic transform of the above quantity (i.e., for the probability of dying when x = 1.8).
+# QUESTION 3. Obtain a Wald confidence interval for the quantity \beta_1 + \beta_2 x, with x = 1.85. Compare you results with those obtained using the function "predict". Then, compute a confidence interval for the probability of dying when x = 1.85.
 
 # QUESTION 4. Propose alternative link functions, compare the results with the logistic model in terms of predicted curves, diagnostics and goodness of fit.
 
@@ -50,7 +50,7 @@ plot(fitted(m1_grouped), rstandard(m1_grouped))
 plot(fitted(m1_ungrouped), rstandard(m1_ungrouped))
 
 # QUESTION 2
-newdata <- data.frame(logdose = seq(from = 1.65, to = 1.90, length = 100))
+newdata <- data.frame(logdose = seq(from = 1.655, to = 1.90, length = 100))
 pred_m1 <- predict(m1_grouped, type = "response", newdata = newdata)
 
 # Plot
@@ -71,13 +71,53 @@ q <- m1_grouped$df.residual
 # QUESTION 3
 
 # Manual answer
-
 var_beta <- vcov(m1_grouped)
-pred <- coef(m1_grouped)[1] + coef(m1_grouped)[2] * 1.8
-se_pred <- sqrt(var_beta[1, 1] + 1.8^2 * var_beta[2, 2] + 2 * 1.8 * var_beta[1, 2])
+eta <- coef(m1_grouped)[1] + coef(m1_grouped)[2] * 1.85
+se_eta <- sqrt(var_beta[1, 1] + 1.85^2 * var_beta[2, 2] + 2 * 1.85 * var_beta[1, 2])
 
-predict(m1_grouped, se.fit = TRUE, newdata = data.frame(logdose = 1.8))
+c(eta, se_eta)
+predict(m1_grouped, se.fit = TRUE, newdata = data.frame(logdose = 1.85))
 
+CI_eta <- eta + c(-1, 1) * qnorm(0.975) * se_eta
+CI_eta
+
+# The "wrong" Wald CI, based on a direct transformation of CI_eta
+CI_pred1 <- plogis(CI_eta) # The "wrong" wald
+CI_pred1
+
+# The Wald CI, based on the delta method
+m_pred <- predict(m1_grouped, se.fit = TRUE, newdata = data.frame(logdose = 1.85), type = "response")
+
+CI_pred2 <- m_pred$fit + c(-1, 1) * qnorm(0.975) * m_pred$se.fit
+CI_pred2
+
+# QUESTION 4
+
+m_logit <- glm(cbind(uccisi, num - uccisi) ~ logdose, data = Beetles, family = binomial(link = "logit"))
+summary(m_logit)
+
+m_probit <- glm(cbind(uccisi, num - uccisi) ~ logdose, data = Beetles, family = binomial(link = "probit"))
+summary(m_probit)
+
+m_cauchit <- glm(cbind(uccisi, num - uccisi) ~ logdose, data = Beetles, family = binomial(link = "cauchit"))
+summary(m_cauchit)
+
+m_cloglog <- glm(cbind(uccisi, num - uccisi) ~ logdose, data = Beetles, family = binomial(link = "cloglog"))
+summary(m_cloglog)
+
+pred_logit <- predict(m_logit, type = "response", newdata = newdata)
+pred_probit <- predict(m_probit, type = "response", newdata = newdata)
+pred_cauchit <- predict(m_cauchit, type = "response", newdata = newdata)
+pred_cloglog <- predict(m_cloglog, type = "response", newdata = newdata)
+
+# Plot
+plot(Beetles$logdose, Beetles$uccisi / Beetles$num, pch = 16)
+lines(newdata$logdose, pred_logit, lty = "dashed", col = "black")
+lines(newdata$logdose, pred_probit, lty = "dashed", col = "red")
+lines(newdata$logdose, pred_cauchit, lty = "dashed", col = "green")
+lines(newdata$logdose, pred_cloglog, lty = "dashed", col = "blue")
+
+# QUESTION 5: the graphical analysis and the residual deviances show that the cloglog model has an excellent fit. The cauchit model is much worse. The probit/logit are comparable and both have good fit, but not as good as the cloglog.
 
 # -------------------------------------------------------------------
 # Dataset 2: Credit scoring - APPLIED ANALYSIS
