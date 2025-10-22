@@ -113,9 +113,9 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### `dde` dataset
 
-The dataset `dde` dataset collect data from a sample of $n = 2312$ pregnant women and can be [downloaded here](https://tommasorigon.github.io/StatIII/data/dde.csv). This dataset was also analyzed in [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_B.pdf). The original data are described [this study](https://www.sciencedirect.com/science/article/pii/S0140673601053296):
+The dataset `dde` dataset collect data from a sample of $n = 2312$ pregnant women and can be [downloaded here](https://tommasorigon.github.io/StatIII/data/dde.csv). This dataset was also analyzed in [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_B.pdf). The original data are described in [this study](https://www.sciencedirect.com/science/article/pii/S0140673601053296):
 
-> Longnecker, M.P, Klebanoff, M.A., Zhou, H., Brock, J.W (2001).  Association between maternal serum concentration of the DDT metabolite DDE and preterm and small-for-gestational-age babies at birth. *Lancet*, **358** (9276), 110-114.
+> Longnecker, M. P., Klebanoff, M. A., Zhou, H., J. W. Brock (2001).  Association between maternal serum concentration of the DDT metabolite DDE and preterm and small-for-gestational-age babies at birth. *Lancet*, **358** (9276), 110-114.
 
 The `DDE` is measured, i.e., a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable `GAD` (Gestational Age at Delivery) measures the day of pregnancy on which delivery occurred.
 
@@ -129,14 +129,14 @@ Import the data and then:
 
 (b) Does the DDT impact the gestational age at delivery?
 
-(c) Provide a prediction interval for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE`
+(c) Provide a prediction interval for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE`,
 
 (d) Compute the probabilities of pre-term birth for all the observed values, namely
 $$
 \psi_i = \mathbb{P}(Y_i < 259; \bm{x}_i), \qquad i=1,\dots,n.
 $$
 
-(e) Provide a confidence interval for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE`.
+(e) Provide an estimate and a confidence interval for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE`.
 
 :::
 
