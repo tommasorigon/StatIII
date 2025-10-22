@@ -23,7 +23,7 @@ data("Beetles10")
 
 # QUESTION 5. Which model do you prefer in the end? Why?
 
-# The Beetles and Beetles10 datasets are, respectively, the same data in a grouped and ungrouped format. 
+# The Beetles and Beetles10 datasets are, respectively, the same data in a grouped and ungrouped format.
 Beetles
 Beetles10
 
@@ -41,7 +41,7 @@ summary(m1_ungrouped)
 deviance(m1_grouped)
 deviance(m1_ungrouped)
 
-# The residuals do NOT coincide. The number of observations is actually different
+# The residuals do NOT coincide. The number of observations is different...
 residuals(m1_grouped)
 residuals(m1_ungrouped)
 
@@ -50,6 +50,34 @@ plot(fitted(m1_grouped), rstandard(m1_grouped))
 plot(fitted(m1_ungrouped), rstandard(m1_ungrouped))
 
 # QUESTION 2
+newdata <- data.frame(logdose = seq(from = 1.65, to = 1.90, length = 100))
+pred_m1 <- predict(m1_grouped, type = "response", newdata = newdata)
+
+# Plot
+plot(Beetles$logdose, Beetles$uccisi / Beetles$num, pch = 16)
+lines(newdata$logdose, pred_m1, lty = "dotted")
+
+# Goodness of fit
+deviance(m1_grouped)
+X2 <- sum(residuals(m1_grouped, type = "pearson")^2)
+X2
+# df
+q <- m1_grouped$df.residual
+# p-value
+1 - pchisq(X2, df = q)
+
+# COMMENT: as shown in the slides, the p-value is borderline which can be interpreted as a slight lack of fit.
+
+# QUESTION 3
+
+# Manual answer
+
+var_beta <- vcov(m1_grouped)
+pred <- coef(m1_grouped)[1] + coef(m1_grouped)[2] * 1.8
+se_pred <- sqrt(var_beta[1, 1] + 1.8^2 * var_beta[2, 2] + 2 * 1.8 * var_beta[1, 2])
+
+predict(m1_grouped, se.fit = TRUE, newdata = data.frame(logdose = 1.8))
+
 
 # -------------------------------------------------------------------
 # Dataset 2: Credit scoring - APPLIED ANALYSIS

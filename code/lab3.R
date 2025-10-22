@@ -214,7 +214,7 @@ anova(m_null, m1, test = "Rao")
 # QUESTION 4: confidence intervals
 
 # Wald confidence intervals
-lmtest::coefci(m1)
+confint.default(m1)
 # Alternatively, we can compute them "manually"
 coef(m1)[1] + c(-1, 1) * qnorm(0.975) * sqrt(diag(vcov(m1)))[1]
 coef(m1)[2] + c(-1, 1) * qnorm(0.975) * sqrt(diag(vcov(m1)))[2]
