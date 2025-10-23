@@ -1,5 +1,5 @@
 # LAB 6, Statistica III (Generalized Linear Models)
-# Title: "GLM: identifying issues". Datasets: 
+# Title: "GLM: identifying issues". Datasets: Endometrial
 # Author: Tommaso Rigon
 
 

@@ -120,16 +120,28 @@ lines(newdata$logdose, pred_cloglog, lty = "dashed", col = "blue")
 # QUESTION 5: the graphical analysis and the residual deviances show that the cloglog model has an excellent fit. The cauchit model is much worse. The probit/logit are comparable and both have good fit, but not as good as the cloglog.
 
 # -------------------------------------------------------------------
-# Dataset 2: Credit scoring - APPLIED ANALYSIS
+# Dataset 2: Juice data - APPLIED ANALYSIS
 # -------------------------------------------------------------------
 
 rm(list = ls())
-library(MLGdata)
-data("Credit")
 
-# Data for 1000 clients of a south german bank, 700 good payers and 300 bad payers. They are used to construct a credit scoring method.
-str(Credit)
+# The data on fruit juice purchases are taken from Chapter 11 of Foster, Stine and Waterman "Business Analysis Using Regression".
 
-summary(Credit)
+# The data refer to 1070 fruit juice purchases of two different brands (MM and CH) in certain US supermarkets, supplied with some contributory variables. The variables are
 
-# This is a case-control study, therefore logistic regression is very much a good idea
+# Variable     Description 
+
+# choice       pre-chosen brand (factor, with 2 levels)
+# id.cust      customer identification 
+# week         identifier of week of purchase 
+# priceCH      reference price for  brand CH (USD)
+# priceMM      reference price for  brand MM (USD)
+# discountCH   discount applied to  product CH (USD)
+# discountMM   discount applied to product MM (USD)
+# loyaltyCH    loyalty indicator for  product CH 
+# loyaltyMM    loyalty indicator for  product MM 
+# store        store identifier (factor, with 5 levels) 
+
+# Variable loyaltyMM is constructed starting from the value 0.5 and updating with every purchase by the same customer, with a value which increases by 20% of the current difference between the current value and 1, if the customer chose MM, and falls by 20% of the  difference between the current value and 0 if the customer chose CH. The corresponding variable loyaltyCH is given by  1-loyaltyMM. 
+
+juice <- read.table("../data/juice.txt", header = TRUE)

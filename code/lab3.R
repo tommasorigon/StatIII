@@ -224,5 +224,3 @@ confint(m1, test = "Rao")
 
 # Log-likelihood ratio confidence intervals
 confint(m1, test = "LRT")
-
-
