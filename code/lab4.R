@@ -144,4 +144,15 @@ rm(list = ls())
 
 # Variable loyaltyMM is constructed starting from the value 0.5 and updating with every purchase by the same customer, with a value which increases by 20% of the current difference between the current value and 1, if the customer chose MM, and falls by 20% of the  difference between the current value and 0 if the customer chose CH. The corresponding variable loyaltyCH is given by  1-loyaltyMM. 
 
-juice <- read.table("../data/juice.txt", header = TRUE)
+juice <- read.table("../data/juice.txt", header = TRUE, stringsAsFactors = TRUE)
+str(juice)
+
+# QUESTION 1. We are interested in predicting the preference of customers towards CH and MM as a function of relevant covariates. What kind of model could be appropriate? What covariates do you think might be useful?
+
+# QUESTION 2: let us consider the following "wrong" approach, which causes an error. Why do you think it happens?
+
+# A WRONG idea - the "automatic" data scientist
+m_wrong <- glm(choice ~ ., family = binomial, data = juice)
+summary(m_wrong)
+
+# QUESTION 3: provide some descriptive analysis that may be helpful to understand the relationship between variables and the response. 
