@@ -1,0 +1,120 @@
+---
+title: "Poisson regression"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+filters: 
+  - remove-pause.lua
+format:
+  revealjs:
+    auto-stretch: true
+    center: true
+    html-math-method: katex
+    transition: none
+    output-file: un_D_slides.html
+    slide-number: true
+    callout-appearance: minimal
+    code-line-numbers: true
+    theme: [default, ../template.css] # alternative themes (subset): default, night, dark
+    embed-resources: false
+    echo: false
+    fig-dpi: 250
+    # incremental: true  # Remove comment if you like incremental bullet points
+    logo: img/logoB.png
+    footer: "[Home page](https://tommasorigon.github.io/StatIII)"
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    execute: 
+      message: false
+      warning: false
+    toc-title: Table of contents
+    embed-resources: false
+    smooth-scroll: true
+    fig-dpi: 250
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+## [Homepage](../index.html)
+
+```{r}
+#| warning: false
+#| echo: false
+#| include: false
+#| message: false
+#| purl: false
+
+knitr::purl("un_D.qmd", output = "../code/un_D.R", documentation = 0)
+styler:::style_file("../code/un_D.R")
+
+library(ggplot2)
+library(ggthemes)
+```
+
+::: columns
+::: {.column width="20%"}
+![](img/challenger.png){width="100%"}
+
+[Original paper](https://doi.org/10.2307/2290069)
+<!-- *"Pluralitas non est ponenda sine necessitate."* -->
+
+<!-- [William of Ockham]{.grey} -->
+:::
+
+::: {.column width="80%"}
+
+- GLMs for [count data]{.blue} are very common and have theoretical connections with binary and binomial models.
+
+- This unit will cover a single topic, i.e. the analysis of Poisson [rate models]{.blue}. 
+
+- Due to time constraints, I will not cover a major topic, namely the analysis of [contingency tables]{.orange}, which are nonetheless fully covered in the textbook but are not part of the exam.
+
+- Clearly, the most important aspects have been already covered in [Unit B](un_.B.html).
+:::
+
+:::
+
+:::callout-tip
+The content of this Unit is covered in [Chapter 5]{.orange} of @Salvan2020. Alternatively, see [Chapter 7]{.blue} of @Agresti2015.
+:::
+
+
+## Notation and recap
+
+- In a [Poisson regression]{.blue} model, we observe $Y_i$ independent Poisson random variables, so that
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+$$
+
+
+- We model the proportions $Y_i = S_i / m_i$, whose mean is indeed $\pi_i$ and $Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)$. 
+
+- In a [binary regression]{.blue} model, we observe $Y_i \in \{0,1\}$, which is a special case of the model above with number of trials $m_i = 1$ for all $i$. Thus, we have
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+$$
+
+:::callout-note
+In this unit, we distinguish between [two sample size measures]{.orange}:
+
+  - a measure $m_i$ for the number of Bernoulli trials that constitute a particular binomial observation;
+  - a measure $n$ for the number of binomial observations. 
+:::
+
+
+
+## References

@@ -46,7 +46,7 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 ## Data analysis
 
 ::: {.callout-note collapse=true}
-#### `Seed` dataset
+#### `Seed` dataset - Partial solution: [`seed.R`](../code/seed.R)
 
 The dataset `Seed` of the `MLGdata` library was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:  
 
@@ -83,8 +83,7 @@ Import the data and then:
 
 (a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).  
 
-(b) Using pen and paper, specify a normal linear model for the logarithmic transformation of the response.  
-
+(b) Using pen and paper, specify a [normal linear model]{.blue} for the logarithmic transformation of the response.  
 (c) Fit in **R** the linear model from the previous point.  
 
 (d) Assess the goodness of fit of the model and consider whether a transformation of the response other than the logarithmic one may be more appropriate.  
@@ -93,7 +92,7 @@ Import the data and then:
 
 (f) Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.  
 
-(g) For the same data, considering the untransformed response, specify a generalized linear model with Gamma response and logarithmic link function.  
+(g) For the same data, considering the untransformed response, specify a [generalized linear model]{.orange} with Gamma response and logarithmic link function.  
 
 (h) Fit in **R** the generalized linear model from the previous point.  
 

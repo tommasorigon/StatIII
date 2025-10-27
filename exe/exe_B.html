@@ -176,7 +176,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Seed</code> dataset
+<code>Seed</code> dataset - Partial solution: <a href="../code/seed.R"><code>seed.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -224,12 +224,13 @@ window.Quarto = {
 <p>Import the data and then:</p>
 <ol type="a">
 <li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
-<li><p>Using pen and paper, specify a normal linear model for the logarithmic transformation of the response.</p></li>
+<li><p>Using pen and paper, specify a <span class="blue">normal linear model</span> for the logarithmic transformation of the response.<br>
+</p></li>
 <li><p>Fit in <strong>R</strong> the linear model from the previous point.</p></li>
 <li><p>Assess the goodness of fit of the model and consider whether a transformation of the response other than the logarithmic one may be more appropriate.</p></li>
 <li><p>Write down the expression of the estimated curve.</p></li>
 <li><p>Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.</p></li>
-<li><p>For the same data, considering the untransformed response, specify a generalized linear model with Gamma response and logarithmic link function.</p></li>
+<li><p>For the same data, considering the untransformed response, specify a <span class="orange">generalized linear model</span> with Gamma response and logarithmic link function.</p></li>
 <li><p>Fit in <strong>R</strong> the generalized linear model from the previous point.</p></li>
 <li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.</p></li>
 <li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.</p></li>
