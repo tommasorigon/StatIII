@@ -48,6 +48,10 @@ plogis(coef(m1)[1])
 plogis(coef(m1)[1] + coef(m1)[2])
 # The difference is very high. 
 
+# Finally, from the confidence intervals we see that there is a lot of variability in these estimates. For example, the probability of germination with no fertilizer has an associated CI:
+plogis(confint(m1)[1, ])
+# i.e., between almost 0% and 34%. Indeed, the sample size is small (n = 20).
+
 # (f) ---------------------------------------------------------------------
 
 # Omitted. 
