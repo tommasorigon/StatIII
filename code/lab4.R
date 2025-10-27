@@ -259,3 +259,5 @@ prop <- tapply(as.numeric(juice$choice) - 1, class_m3, mean)
 plot(prop, pred_avg, pch = 16, xlab = "Empirical proportions (binned)", ylab = "Predicted proportions (binned)")
 rug(pred_m3)
 abline(c(0, 1), lty = "dotted")
+
+# There are also specialized approaches, such as the ROC curve and the lift curve. You will study them in other courses such as Data Mining.
