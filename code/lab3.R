@@ -107,7 +107,7 @@ fit[4] - fit[3] # From 100 to 110, absolute risk increase of 6%
 
 # Relative risks, they depend on the baseline
 fit[2] / fit[1] # From 0 to 10, relative risk increase of 29.54%
-fit[4] / fit[3]  # From 100 to 110, relative risk increase of 22.74%
+fit[4] / fit[3] # From 100 to 110, relative risk increase of 22.74%
 
 # Odds ratio
 odds <- function(p) {
@@ -142,7 +142,7 @@ stress <- read.csv("https://tommasorigon.github.io/StatIII/data/stress.csv", sep
 
 # QUESTION 1: Fit a suitable GLM using answer as response and month as a covariate.
 # QUESTION 2: Check the predictions and the diagnostic plots for the above fitted model. Test the fitted model againts the the saturated model.
-# QUESTION 3: Test the effect of month using the three classical tests (Wald, Rao-score, and log-likelihood ratio). Do they lead to the same conclusion? 
+# QUESTION 3: Test the effect of month using the three classical tests (Wald, Rao-score, and log-likelihood ratio). Do they lead to the same conclusion?
 # QUESTION 4: Compute 95% confidence intervals for the regression coefficients using the three classical methods (Wald, Rao-score, and log-likelihood ratio). Do they lead to similar results?
 
 summary(stress)
@@ -159,8 +159,8 @@ curve(exp(coef(m1)[1] + coef(m1)[2] * x), add = TRUE, col = "red")
 # Observed vs fitted values
 pred_m1 <- fitted(m1)
 plot(stress$answer, pred_m1,
-     pch = 16,
-     xlab = "Observed values", ylab = "Fitted values"
+  pch = 16,
+  xlab = "Observed values", ylab = "Fitted values"
 )
 abline(c(0, 1), lty = "dotted")
 
@@ -169,7 +169,7 @@ par(mfrow = c(2, 2))
 plot(m1, which = 1:4) # Residuals, fitted values, leverage, Cook's distance
 par(mfrow = c(1, 1))
 
-# COMMENT: Overall, the fit is quite satisfactory. There are no particularly alarming points in the diagnostic plots. The predictions are reasonably good, although not as closely aligned with the data as in other example we previously analyzed. 
+# COMMENT: Overall, the fit is quite satisfactory. There are no particularly alarming points in the diagnostic plots. The predictions are reasonably good, although not as closely aligned with the data as in other example we previously analyzed.
 
 # Overall goodness of fit
 X2 <- sum(residuals(m1, type = "pearson")^2)
@@ -180,7 +180,7 @@ sum((stress$answer - pred_m1)^2 / pred_m1)
 # Test
 pchisq(q = X2, df = m1$df.residual, lower.tail = FALSE)
 
-# COMMENT: the p-value is somewhat borderline, but we can nonetheless conclude that the fit is quite satisfactory. 
+# COMMENT: the p-value is somewhat borderline, but we can nonetheless conclude that the fit is quite satisfactory.
 
 # QUESTION 3: Tests againts the null model
 
