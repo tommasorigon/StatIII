@@ -208,7 +208,7 @@ add1(m0, scope = scope, test = "LRT")
 
 # Loyalty is the most relevance variable. Let us include it (one of them, because they are obviously collinear)
 m1 <- glm(choice ~ loyaltyMM, family = binomial, data = juice)
-summary(m1)  
+summary(m1)
 
 add1(m1, scope = scope, test = "LRT")
 m2 <- glm(choice ~ loyaltyMM + pricediff, family = binomial, data = juice)
@@ -257,4 +257,5 @@ pred_avg <- tapply(pred_m3, class_m3, mean)
 prop <- tapply(as.numeric(juice$choice) - 1, class_m3, mean)
 
 plot(prop, pred_avg, pch = 16, xlab = "Empirical proportions (binned)", ylab = "Predicted proportions (binned)")
+rug(pred_m3)
 abline(c(0, 1), lty = "dotted")

@@ -71,7 +71,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | Lab 3 | [`lab3.R`](code/lab3.R)| | |
 | | **NOTABLE MODELS** | | |
 | **Binary and binomial regression** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_C_slides.html) |  |
-| Lab 4 | [`lab4.R`] | | |
+| Lab 4 | [`lab4.R`](code/lab4.R) | | |
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
 | **Poisson regression** | [Unit D] | [Slides Unit D] |  |
 | Lab 5 | [`lab5.R`] | | |
