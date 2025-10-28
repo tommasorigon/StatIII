@@ -346,7 +346,7 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 </span> The solutions therefore has a nice interpretation as a <span class="blue">method of moments</span> estimator, in that <span class="math display">
 \sum_{i=1}^n s_i x_{ir} = \sum_{i=1}^n \mathbb{E}(S_i) x_{ir}, \qquad r=1,\dots, p,
 </span> Moreover, the estimated covariance matrix of <span class="math inline">\hat{\beta}</span> has a simple form: <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T \hat{\bm{W}} \bm{X})^{-1} = (\bm{X}^T \text{diag}[m_1 \pi_1 (1-\pi_1),\dots,m_n \pi_n (1-\pi_n)] \bm{X})^{-1}
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T \hat{\bm{W}} \bm{X})^{-1} = (\bm{X}^T \text{diag}[m_1 \hat{\pi}_1 (1-\hat{\pi}_1),\dots,m_n \hat{\pi}_n (1-\hat{\pi}_n)] \bm{X})^{-1}
 </span></p></li>
 </ul>
 </section>
@@ -354,14 +354,14 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <h2 class="anchored" data-anchor-id="parameter-interpretation">Parameter interpretation</h2>
 <ul>
 <li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{x}' = (x_1',\dots,x_p')</span>, namely <span class="math display">
-\pi(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \pi(\bm{x}') = F((\bm{x}')^T\beta).
+\hat{\pi}(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\beta).
 </span> This is useful to understand the effect of changing covariates on the response probability.</p></li>
 <li><p>There are several ways to compare them, listed below, each with its advantages and disadvantages:</p></li>
 <li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
-(\text{absolute risk}) = \pi(\bm{x}') - \pi(\bm{x}).
+(\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
 </span></p></li>
 <li><p>The <span class="orange">relative risk</span> is the fraction <span class="math display">
-(\text{relative risk}) = \frac{\pi(\bm{x}')}{\pi(\bm{x})}.
+(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
 </span></p></li>
 <li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
 </ul>
@@ -370,11 +370,11 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <h2 class="anchored" data-anchor-id="odds-ratio">Odds ratio</h2>
 <ul>
 <li><p>The <span class="blue">odds</span> is another way of summarizing probabilities, familiar to those who gamble: <span class="math display">
-\text{odds}(\bm{x}) = \frac{\pi(\bm{x})}{1-\pi(\bm{x})}.
+\text{odds}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})}.
 </span> The odds are non-negative, with <span class="math inline">\text{odds}(\bm{x}) &gt; 1</span> when a <span class="blue">success is more likely than a failure</span>.</p></li>
 <li><p>When <span class="math inline">\pi(\bm{x}) = 0.75</span> then <span class="math inline">\text{odds}(\bm{x}) = 0.75/0.25 = 3</span>; a success is three times as likely as a failure. That is, we bet 3 to get 1 if we win. If instead <span class="math inline">\text{odds}(\bm{x}) = 1 / 3</span>, we bet 1 to get 3 if we win.</p></li>
 <li><p>The <span class="orange">odds ratio</span> is another popular risk measure for comparing the two probabilities<span class="math display">
-(\text{odds ratio})  = \frac{\text{odds}(\bm{x}') }{\text{odds}(\bm{x}) }= \frac{\pi(\bm{x}')}{\pi(\bm{x})} \cdot \frac{1-\pi(\bm{x})}{1-\pi(\bm{x}')}.
+(\text{odds ratio})  = \frac{\text{odds}(\bm{x}') }{\text{odds}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
 </span></p></li>
 <li><p>Let <span class="math inline">\bm{x} = (x_1,\dots, x_j, \dots, x_p)</span> and <span class="math inline">\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)</span>, i.e.&nbsp;we compare two situations in which the <span class="math inline">j</span>th covariate is increased by a fixed amount <span class="math inline">c</span>, then in <span class="blue">logistic regression</span>: <span class="math display">
 (\text{odds ratio}) = \exp(c \beta_j),
@@ -399,9 +399,9 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <h2 class="anchored" data-anchor-id="residuals-and-diagnostics-for-binary-data">Residuals and diagnostics for binary data</h2>
 <ul>
 <li><p>In presence of <span class="orange">binary data</span>, namely when <span class="math inline">m_i = 1</span> and <span class="math inline">Y_i \sim \text{Bernoulli}(\pi_i)</span>, many the diagnostic tools are <span class="orange">degenerate</span> and uninformative.</p></li>
-<li><p>For example, the <code>fitted</code> vs <code>residuals</code> plot, namely the dispersion plot of the points <span class="math inline">(\pi_i, y_i - \pi_i)</span>, simply shows two parallel lines with slope <span class="math inline">-1</span>, which is uninformative.</p></li>
+<li><p>For example, the <code>fitted</code> vs <code>residuals</code> plot, namely the dispersion plot of the points <span class="math inline">(\hat{\pi}_i, y_i - \hat{\pi}_i)</span>, simply shows two parallel lines with slope <span class="math inline">-1</span>, which is uninformative.</p></li>
 <li><p>As an extreme case, consider the <span class="blue">null model</span> in which <span class="math inline">\pi_1 = \dots = \pi_n</span>, then the <span class="math inline">X^2</span> statistic is <span class="math display">
-X^2 = \sum_{i=1}^n \frac{(y_i - \pi)^2}{\pi(1 - \pi)} = n.
+X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\pi})^2}{\hat{\pi}(1 - \hat{\pi})} = n.
 </span></p></li>
 <li><p>A common solution is to <span class="blue">group the data</span> according to some criteria, although this introduces approximations and some arbitrariness (i.e.&nbsp;the Hosmer-Lemeshow test).</p></li>
 <li><p>In terms of prediction, there exists various indices and techniques that you will cover in Data Mining. The simplest index is the <span class="orange">accuracy</span>, i.e.&nbsp;the fraction of correct predictions.</p></li>

@@ -142,10 +142,60 @@ The interpretation in terms of relative changes is a consequence of the [logarit
 
 ## Exposure rate
 
+- Often the expected value of a response count $Y_i$ is proportional to an index $t_i$, the [exposure]{.orange}. 
+
+- For instance, $t_i$ might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species. 
+
+- In these case, the [sample rate]{.blue} is $Y_i / t_i$, with expected value $\mu_i / t_i$. With explanatory variables, a model for the expected rate under a [logarithmic link]{.orange} has the form
+$$
+\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta, \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i},
+$$
+Because $\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}$, the model makes the adjustment $\log{t_i}$ to the linear predictor. This adjustment term is called an [offset]{.orange}, implemented in **R** using the `offset` option. 
+
+- The fit corresponds to using $\log{t_i}$ as an [explanatory variable]{.blue} in the linear predictor for $\log(\mu_i)$ and [forcing its coefficient]{.orange} to equal $1$. 
+
+- Summarising, for this model, the response counts $Y_i \sim \text{Poisson}(\mu_i)$ satisfy
+$$
+\mu_i = t_i \exp(\bm{x}_i^T\beta). 
+$$
+The mean has a proportionality constant for $t_i$ that depends on the values of the covariates. 
+
 ## Overdispersion
+
+- In Poisson regression the main [assumption]{.blue} is that $Y_i \sim \text{Poisson}(\mu_i)$, implying that
+$$
+\text{var}(Y_i) = \mu_i,
+$$
+where implicitly we have set $\phi = 1$. 
+
+- However, from the analysis of the residuals or by computing the $X^2$ statistic we may realize that the data present [overdispersion]{.orange}, namely the [correct model]{.blue} is such that
+$$
+\text{var}(Y_i) = \textcolor{red}{\phi} \mu_i,
+$$
+with $\phi > 1$. This implies that the Poisson regression model is [misspecified]{.orange}. 
+
+- The two most common solutions to overdispersion are the following: 
+  (i) the usage of [quasi-likelihoods]{.blue};
+  (ii) using another parametric distribution; a typical choice is the [negative-binomial]{.orange}.
 
 ## Zero-inflation
 
-## Poisson-multinomial models for contingency tables
+- In practice, the frequency of [zero outcomes]{.orange} is often [larger than expected]{.orange} under a Poisson regression. 
 
+- Because the [mode]{.orange} of a Poisson distribution is the integer part of its mean, a Poisson GLM can be inadequate when the mean is relatively large but the modal response is 0.
+
+- Such data are called [zero-inflated]{.blue}. This often occurs when:
+  - many subjects have a true zero response (structural zeros), and  
+  - many others have positive counts, so the overall mean is not near zero.
+
+- Example: the number of times individuals report exercising (e.g., going to a gym) in the past week:
+  - some people exercise frequently,  
+  - some exercise occasionally but not in the past week (a random zero),  
+  - others never exercise (a structural zero),  
+
+- The two most common solutions to zero-inflation are the following: 
+  - Zero-inflated Poisson mixture model
+  - Hurdle models
+However, none of these will be covered in this course.
+  
 ## References

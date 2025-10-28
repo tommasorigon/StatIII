@@ -117,7 +117,6 @@ window.Quarto = {
   <li><a href="#exposure-rate" id="toc-exposure-rate" class="nav-link" data-scroll-target="#exposure-rate">Exposure rate</a></li>
   <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion">Overdispersion</a></li>
   <li><a href="#zero-inflation" id="toc-zero-inflation" class="nav-link" data-scroll-target="#zero-inflation">Zero-inflation</a></li>
-  <li><a href="#poisson-multinomial-models-for-contingency-tables" id="toc-poisson-multinomial-models-for-contingency-tables" class="nav-link" data-scroll-target="#poisson-multinomial-models-for-contingency-tables">Poisson-multinomial models for contingency tables</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_D_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -229,15 +228,36 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 </section>
 <section id="exposure-rate" class="level2">
 <h2 class="anchored" data-anchor-id="exposure-rate">Exposure rate</h2>
+<ul>
+<li><p>Often the expected value of a response count <span class="math inline">Y_i</span> is proportional to an index <span class="math inline">t_i</span>, the <span class="orange">exposure</span>.</p></li>
+<li><p>For instance, <span class="math inline">t_i</span> might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species.</p></li>
+<li><p>In these case, the <span class="blue">sample rate</span> is <span class="math inline">Y_i / t_i</span>, with expected value <span class="math inline">\mu_i / t_i</span>. With explanatory variables, a model for the expected rate under a <span class="orange">logarithmic link</span> has the form <span class="math display">
+\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta, \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i},
+</span> Because <span class="math inline">\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}</span>, the model makes the adjustment <span class="math inline">\log{t_i}</span> to the linear predictor. This adjustment term is called an <span class="orange">offset</span>, implemented in <strong>R</strong> using the <code>offset</code> option.</p></li>
+<li><p>The fit corresponds to using <span class="math inline">\log{t_i}</span> as an <span class="blue">explanatory variable</span> in the linear predictor for <span class="math inline">\log(\mu_i)</span> and <span class="orange">forcing its coefficient</span> to equal <span class="math inline">1</span>.</p></li>
+<li><p>Summarising, for this model, the response counts <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> satisfy <span class="math display">
+\mu_i = t_i \exp(\bm{x}_i^T\beta).
+</span> The mean has a proportionality constant for <span class="math inline">t_i</span> that depends on the values of the covariates.</p></li>
+</ul>
 </section>
 <section id="overdispersion" class="level2">
 <h2 class="anchored" data-anchor-id="overdispersion">Overdispersion</h2>
+<ul>
+<li><p>In Poisson regression the main <span class="blue">assumption</span> is that <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span>, implying that <span class="math display">
+\text{var}(Y_i) = \mu_i,
+</span> where implicitly we have set <span class="math inline">\phi = 1</span>.</p></li>
+<li><p>However, from the analysis of the residuals or by computing the <span class="math inline">X^2</span> statistic we may realize that the data present <span class="orange">overdispersion</span>, namely the <span class="blue">correct model</span> is such that <span class="math display">
+\text{var}(Y_i) = \textcolor{red}{\phi} \mu_i,
+</span> with <span class="math inline">\phi &gt; 1</span>. This implies that the Poisson regression model is <span class="orange">misspecified</span>.</p></li>
+<li><p>The two most common solutions to overdispersion are the following:</p>
+<ol type="i">
+<li>the usage of <span class="blue">quasi-likelihoods</span>;</li>
+<li>using another parametric distribution; a typical choice is the <span class="orange">negative-binomial</span>.</li>
+</ol></li>
+</ul>
 </section>
 <section id="zero-inflation" class="level2">
 <h2 class="anchored" data-anchor-id="zero-inflation">Zero-inflation</h2>
-</section>
-<section id="poisson-multinomial-models-for-contingency-tables" class="level2">
-<h2 class="anchored" data-anchor-id="poisson-multinomial-models-for-contingency-tables">Poisson-multinomial models for contingency tables</h2>
 </section>
 <section id="references" class="level2 unnumbered">
 
