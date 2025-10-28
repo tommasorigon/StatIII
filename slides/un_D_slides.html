@@ -190,7 +190,7 @@
 <ul>
 <li><p>GLMs for <span class="blue">count data</span> are very common and have theoretical connections with binary and binomial models.</p></li>
 <li><p>This unit focuses on <span class="blue">Poisson regression models</span>.</p></li>
-<li><p>I will not cover a major topic, namely the analysis of <span class="orange">contingency tables</span>.</p></li>
+<li><p>I will not cover the analysis of <span class="orange">contingency tables</span>.</p></li>
 <li><p>Such a topic is nonetheless discussed in the textbook but is not part of the exam.</p></li>
 <li><p>The most important aspects have been already covered in <a href="un_.B.html">Unit B</a>.</p></li>
 </ul>
@@ -207,10 +207,39 @@
 <h2>Notation and recap</h2>
 <ul>
 <li><p>In a <span class="blue">Poisson regression</span> model, we observe <span class="math inline">Y_i</span> independent Poisson random variables, so that <span class="math display">
-Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 </span></p></li>
-<li></li>
+<li><p>The <span class="orange">canonical link</span> is <span class="math inline">g(\cdot) = \log(\cdot)</span>, which implies a <span class="blue">multiplicative structure</span> <span class="math display">
+\mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
+</span></p></li>
+<li><p>Under the canonical link, the <span class="blue">likelihood equations</span> are <span class="math display">
+\sum_{i=1}^n(y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
+</span> The solution therefore has a nice interpretation as a <span class="blue">method of moments</span> estimator, in that <span class="math display">
+\sum_{i=1}^n y_i x_{ir} = \sum_{i=1}^n\mathbb{E}(Y_i) x_{ir}, \qquad r=1,\dots,p.
+</span></p></li>
 </ul>
+</section>
+<section id="interpretation-of-the-regression-coefficients" class="slide level2 center">
+<h2>Interpretation of the regression coefficients</h2>
+<ul>
+<li><p>Under the <span class="orange">logarithmic link</span>, the mean has a multiplicative structure, namely <span class="math display">
+\mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
+</span></p></li>
+<li><p>As a result, a <span class="blue">unitary increase</span> of the <span class="math inline">j</span>th covariate from <span class="math inline">x_{ij}</span> to <span class="math inline">x_{ij} + 1</span> has the following impact on the new mean, say <span class="math inline">\mu_\text{new}</span> <span class="math display">
+\mu_\text{new} = \alpha_1^{x_{i1}} \times \cdots \times \alpha_j^{x_{ij} + 1} \times \cdots \times \alpha_p^{x_{ip}}
+= \alpha_j \left( \alpha_1^{x_{i1}} \times \cdots \times \alpha_p^{x_{ip}} \right)
+= \alpha_j \mu_i.
+</span> In other words, the regression parameters, once exponentiated, can be interpreted as <span class="orange">relative changes</span> of the mean, namely <span class="math display">
+\alpha_j - 1 = \exp(\beta_j) - 1 = \frac{\mu_\text{new} - \mu_i}{\mu_i}.
+</span></p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The interpretation in terms of relative changes is a consequence of the <span class="blue">logarithmic link</span> function. Therefore, the same interpretation applies whenever this link is used, including the Gamma GLM.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="exposure-rate" class="slide level2 center">
 <h2>Exposure rate</h2>

@@ -83,7 +83,7 @@ Distinguished Professor Emeritus, University of Florida
 
 - This unit focuses on [Poisson regression models]{.blue}. 
 
-- I will not cover a major topic, namely the analysis of [contingency tables]{.orange}.
+- I will not cover the analysis of [contingency tables]{.orange}.
 
 - Such a topic is nonetheless discussed in the textbook but is not part of the exam.
 
@@ -101,11 +101,44 @@ The content of this Unit is covered in [Chapter 5]{.orange} of @Salvan2020. Alte
 
 - In a [Poisson regression]{.blue} model, we observe $Y_i$ independent Poisson random variables, so that
 $$
-Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 $$
 
 
-- 
+- The [canonical link]{.orange} is $g(\cdot) = \log(\cdot)$, which implies a [multiplicative structure]{.blue}
+$$
+\mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
+$$
+- Under the canonical link, the [likelihood equations]{.blue} are
+$$
+\sum_{i=1}^n(y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
+$$
+The solution therefore has a nice interpretation as a [method of moments]{.blue} estimator, in that
+$$
+\sum_{i=1}^n y_i x_{ir} = \sum_{i=1}^n\mathbb{E}(Y_i) x_{ir}, \qquad r=1,\dots,p.
+$$
+
+## Interpretation of the regression coefficients
+
+- Under the [logarithmic link]{.orange}, the mean has a multiplicative structure, namely
+$$
+\mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
+$$
+
+- As a result, a [unitary increase]{.blue} of the $j$th covariate from $x_{ij}$ to $x_{ij} + 1$ has the following impact on the new mean, say $\mu_\text{new}$
+$$
+\mu_\text{new} = \alpha_1^{x_{i1}} \times \cdots \times \alpha_j^{x_{ij} + 1} \times \cdots \times \alpha_p^{x_{ip}} 
+= \alpha_j \left( \alpha_1^{x_{i1}} \times \cdots \times \alpha_p^{x_{ip}} \right) 
+= \alpha_j \mu_i.
+$$
+In other words, the regression parameters, once exponentiated, can be interpreted as [relative changes]{.orange} of the mean, namely
+$$
+\alpha_j - 1 = \exp(\beta_j) - 1 = \frac{\mu_\text{new} - \mu_i}{\mu_i}.
+$$
+
+:::callout-tip
+The interpretation in terms of relative changes is a consequence of the [logarithmic link]{.blue} function. Therefore, the same interpretation applies whenever this link is used, including the Gamma GLM.
+:::
 
 ## Exposure rate
 
