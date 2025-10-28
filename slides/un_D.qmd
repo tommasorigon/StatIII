@@ -194,8 +194,7 @@ with $\phi > 1$. This implies that the Poisson regression model is [misspecified
   - others never exercise (a structural zero),  
 
 - The two most common solutions to zero-inflation are the following: 
-  - Zero-inflated Poisson mixture model
-  - Hurdle models
-However, none of these will be covered in this course.
-  
+  - Zero-inflated Poisson (ZIP) model, a [mixture model]{.blue};
+  - Hurdle models.
+
 ## References

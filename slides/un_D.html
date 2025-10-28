@@ -258,6 +258,29 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 </section>
 <section id="zero-inflation" class="level2">
 <h2 class="anchored" data-anchor-id="zero-inflation">Zero-inflation</h2>
+<ul>
+<li><p>In practice, the frequency of <span class="orange">zero outcomes</span> is often <span class="orange">larger than expected</span> under a Poisson regression.</p></li>
+<li><p>Because the <span class="orange">mode</span> of a Poisson distribution is the integer part of its mean, a Poisson GLM can be inadequate when the mean is relatively large but the modal response is 0.</p></li>
+<li><p>Such data are called <span class="blue">zero-inflated</span>. This often occurs when:</p>
+<ul>
+<li>many subjects have a true zero response (structural zeros), and<br>
+</li>
+<li>many others have positive counts, so the overall mean is not near zero.</li>
+</ul></li>
+<li><p>Example: the number of times individuals report exercising (e.g., going to a gym) in the past week:</p>
+<ul>
+<li>some people exercise frequently,<br>
+</li>
+<li>some exercise occasionally but not in the past week (a random zero),<br>
+</li>
+<li>others never exercise (a structural zero),</li>
+</ul></li>
+<li><p>The two most common solutions to zero-inflation are the following:</p>
+<ul>
+<li>Zero-inflated Poisson (ZIP) model, a <span class="blue">mixture model</span>;</li>
+<li>Hurdle models.</li>
+</ul></li>
+</ul>
 </section>
 <section id="references" class="level2 unnumbered">
 
