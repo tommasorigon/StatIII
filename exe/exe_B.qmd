@@ -69,7 +69,7 @@ Import the data and then:
 :::
 
 :::{.callout-note collapse=true}
-#### `Wool` dataset
+#### `Wool` dataset  - Partial solution: [`Wool.R`](../code/Wool.R)
 
 The dataset `Wool` (Hand et al., 1994, p. 328) contained in the `MLGdata` library were obtained from an experiment  aimed at evaluating the effect of three variables, length (`x1`), width (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.  
 
@@ -84,25 +84,26 @@ Import the data and then:
 (a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).  
 
 (b) Using pen and paper, specify a [normal linear model]{.blue} for the logarithmic transformation of the response.  
+
 (c) Fit in **R** the linear model from the previous point.  
 
-(d) Assess the goodness of fit of the model and consider whether a transformation of the response other than the logarithmic one may be more appropriate.  
+(d) Assess the goodness of fit of the model, compare the usual standard errors with the robust ones. Discuss whether a transformation of the response other than the logarithmic one may be more appropriate. 
 
 (e) Write down the expression of the estimated curve.  
 
 (f) Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.  
 
-(g) For the same data, considering the untransformed response, specify a [generalized linear model]{.orange} with Gamma response and logarithmic link function.  
+(g) For the same data, considering the untransformed response and using pen and paper, specify a [generalized linear model]{.orange} with Gamma response and logarithmic link function.  
 
 (h) Fit in **R** the generalized linear model from the previous point.  
 
-(i) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
+(i) Write down the expression of the estimated curve.  
 
-(j) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.  
+(j) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
 
-(k) Evaluate the goodness of fit of the Gamma model.
+(k) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.  
 
-(l) Write down the expression of the estimated curve.  
+(l) Evaluate the goodness of fit of the Gamma model.
 
 (m) Obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, width = 10 mm, and load = 40 g, using the fitted Gamma model.  
 

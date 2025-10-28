@@ -17,52 +17,137 @@ str(Wool)
 summary(Wool)
 
 # (a) ---------------------------------------------------------------------
+
 # Omitted
 
-# (b) Using pen and paper, specify a normal linear model]{.blue} for the logarithmic transformation of the response.
+# (b) ---------------------------------------------------------------------
+
+# log(Y_i) = \beta_1 + \beta_2 x1 + \beta_3 x2 + \beta_4 x3 + \epsilon_i
+# where \epsilon_i are iid normal with 0 mean and variance \sigma^2.
+
+# What follows are some basic descriptive statistics (not required, but still useful)
 
 boxplot(log(y) ~ x1, data = Wool)
 boxplot(log(y) ~ x2, data = Wool)
 boxplot(log(y) ~ x3, data = Wool)
 
-# (c) Fit in **R** the linear model from the previous point.
+# (c) ---------------------------------------------------------------------
 
 m_log <- lm(log(y) ~ x1 + x2 + x3, data = Wool)
 summary(m_log)
 
-# (d) Assess the goodness of fit of the model and consider whether a transformation of the response other than the logarithmic one may be more appropriate.
+# (d) ---------------------------------------------------------------------
 
 par(mfrow = c(2, 2))
 plot(m_log, which = 1:4)
 par(mfrow = c(1, 1))
 
+plot(exp(fitted(m_log)), Wool$y, pch = 16, xlab = "Predicted values", ylab = "Observed values")
+abline(c(0, 1), lty = "dotted")
+
+library(sandwich)
+library(lmtest)
+coeftest(m_log)
+coeftest(m_log, vcov. = vcovHC(m_log))
+
+# COMMENT: The diagnostic plots appear generally satisfactory, with no major issues. There may be some (very) mild heteroskedasticity, but overdispersion is clearly negligible: the conventional and robust standard errors are nearly identical, and the inferential conclusions remain unchanged.
+
 m_lin <- lm(y ~ x1 + x2 + x3, data = Wool)
 library(MASS)
 boxcox(m_lin)
 
-# (e) Write down the expression of the estimated curve.
+# COMMENT: the Box-Cox transform actually support the log-transformation.
 
-# (f) Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.
+# (e) ---------------------------------------------------------------------
 
-# (g) For the same data, considering the untransformed response, specify a [generalized linear model]{.orange} with Gamma response and logarithmic link function.
+# E(log(Y_i)) = 6.3346 + 0.832384 x1 - 0.630992 x2 - 0.392494 x3.
 
-# (h) Fit in **R** the generalized linear model from the previous point.
+# (f) ---------------------------------------------------------------------
+
+newdata <- data.frame(x1 = 0, x2 = -1, x3 = -1)
+
+# Confidence interval - This is NOT a Wald confidence interval, but it is a valid confidence interval
+exp(predict(m_log, newdata = newdata, interval = "confidence"))
+
+# Prediction interval
+exp(predict(m_log, newdata = newdata, interval = "prediction"))
+
+# COMMENT: the value "fit" is not the mean of Y_i, but it is nonetheless a "reasonable prediction".
+
+# (g) ---------------------------------------------------------------------
+
+# Y_i ~ Gamma(\mu_i, \phi),   E(Y_i) = \mu_i = exp(\beta_1 + \beta_2 x1 + \beta_3 x2 + \beta_4 x3)
+
+# (h) ---------------------------------------------------------------------
 
 m_gamma <- glm(y ~ x1 + x2 + x3, family = Gamma(link = "log"), data = Wool)
 summary(m_gamma)
 
-# (i) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.
+# (i) ---------------------------------------------------------------------
 
-# (j) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.
+# E(Y_i) = exp(6.34891 + 0.84251 x1 - 0.63132 x2 - 0.38513 x3).
 
-# (k) Evaluate the goodness of fit of the Gamma model.
+# (j) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.
+
+coef(m_gamma) # summary(m_gamma) is also ok
+confint(m_gamma)
+
+# COMMENT: All estimated coefficients are significantly different from zero. Moreover:
+
+# Interpretation of \beta1 (intercept). The value
+exp(coef(m_gamma)[1]) # 571.874
+# represents the expected number of test cycles until rupture for a wool yarn with x_1 = x_2 = x_3 = 0, corresponding to the "typical" wool yarn.
+
+# Interpretation of \beta2 (x1). The value
+100 * (exp(coef(m_gamma)[2]) - 1) # 132.2%
+# represents the percentage increase in the average number of test cycles until rupture when x_1 increases by one unit (i.e., from −1 to 0, or from 0 to 1). This indicates that longer wool yarns tend to withstand, on average, a higher number of test cycles before rupture.
+
+# Interpretation of \beta3 (x2). The value
+100 * (exp(coef(m_gamma)[3]) - 1) # -46.8%
+# represents the percentage decrease in the average number of test cycles until rupture when x_2 increases by one unit (i.e., from −1 to 0, or from 0 to 1). This indicates that wider wool yarns tend to withstand, on average, a lower number of test cycles before rupture.
+
+# Interpretation of \beta4 (x2). The value
+100 * (exp(coef(m_gamma)[4]) - 1) # -31.9%
+# represents the percentage decrease in the average number of test cycles until rupture when x_3 increases by one unit (i.e., from −1 to 0, or from 0 to 1). This indicates that more loaded wool yarns tend to withstand, on average, a lower number of test cycles before rupture.
+
+# (k) ---------------------------------------------------------------------
+
+# Omitted
+
+# (l) ---------------------------------------------------------------------
 
 par(mfrow = c(2, 2))
 plot(m_gamma, which = 1:4)
 par(mfrow = c(1, 1))
 
-# (l) Write down the expression of the estimated curve.
+plot(fitted(m_gamma), Wool$y, pch = 16, xlab = "Predicted values", ylab = "Observed values")
+abline(c(0, 1), lty = "dotted")
 
-# (m) Obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, width = 10 mm, and load = 40 g, using the fitted Gamma model.
+# COMMENT: the diagnostic plots are fully satisfactory with no major issues.
 
-# (n) Compare the results of the analysis based on the normal linear model with those of the analysis based on the Gamma model.
+# (m) ---------------------------------------------------------------------
+
+# Wald CI, based on the delta method
+m_pred <- predict(m_gamma, se.fit = TRUE, newdata = newdata, type = "response")
+
+CI_gamma <- m_pred$fit + c(-1, 1) * qnorm(0.975) * m_pred$se.fit
+CI_gamma
+
+# (n) ---------------------------------------------------------------------
+
+fit_log <- exp(fitted(m_log))
+fit_gamma <- fitted(m_gamma)
+
+# The predictions of the two models are nearly indistinguishable.
+plot(fit_log, fit_gamma, pch = 16)
+abline(c(0, 1))
+
+# The estimated values and the standard errors are also nearly identical:
+coeftest(m_log)
+coeftest(m_gamma)
+
+# The correlation with the response are also extremely similar
+cor(fit_log, Wool$y)
+cor(fit_gamma, Wool$y)
+
+# In practice, these two models yield almost identical results. I would personally favor the gamma model for its conceptual clarity—since the response is positive and the coefficients directly relate to the mean—but this is admittedly a subjective preference.
