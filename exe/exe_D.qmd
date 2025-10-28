@@ -1,0 +1,88 @@
+---
+title: "Exercises D"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+The theoretical exercises described below are quite [difficult]{.orange}. At the [exam]{.blue}, you can expect a [simplified version]{.blue} of them; otherwise, they would represent a formidable challenge for most of you.
+
+On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
+
+:::callout-tip
+The vast majority of these exercises are taken from the textbooks @Salvan2020 and @Agresti2015, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.
+:::
+
+## Data analysis
+
+:::{.callout-note collapse=true}
+#### `Britishdoc` dataset
+
+The data in the `Britishdoc` data frame, available in the `MLGdata` library (Agresti, 2015, Exercise 7.36) come from a prospective study on mortality among doctors in the United Kingdom.  
+
+For different age groups (`age`), and for smokers and non-smokers (`smoke`, with levels `y` and `n`), the dataset reports the total number of person-years observed (`person.years`) and the number of deaths due to heart attack (`deaths`).
+
+Import the data and then:
+
+(a) Identify the statistical units, the response variable, and the explanatory variables, indicating the type (quantitative or qualitative) of each variable.
+
+(b) Conduct a graphical analysis to assess the dependence of the mortality rate  
+$$
+\text{mortality rate} = \frac{\text{deaths}}{\text{person.years}}
+$$
+on age, and to compare the trends between smokers and non-smokers.
+
+(c) Using pen and paper, specify a [Poisson regression model]{.blue}, additive in age and smoking status, for the logarithm of the mortality rate. Treat `age` as a [numerical variable]{.orange} for example using the midpoints of the age classes.
+
+(d) Fit the model described in (c) using **R**.
+
+(e) Report the estimates and confidence intervals for the model coefficients. Provide an interpretation of the estimated parameters.
+
+(f) Evaluate the goodness of fit of the model.
+
+(g) Fit a model that also includes the [interaction]{.blue} between smoking status and age. Test whether it can be omitted or not.
+
+(h) Assess whether it is appropriate to add the square of the age variable as an additional explanatory variable.
+
+:::
+
+## Theoretical
+
+:::{.callout-note collapse=true}
+#### Exercise A
+
+Conditionally on positive covariates $U_i = u_i$, the random variable $Y_i \mid U_i = u$ are Poisson distributed with mean $\mu u_i$, where $\mu > 0$ is an unknown parameter. Suppose the covariates $U_i$ are iid with mean $\mathbb{E}(U_i)=1$ and variance $\mathrm{Var}(U_i)=\tau$.
+
+Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{Var}(Y_i) = \mu + \tau\mu^2$. Comment on the result and the issue of [overdispersion]{.orange}.
+
+:::
+

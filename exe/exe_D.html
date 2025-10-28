@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Statistics III: Generalized Linear Models</title>
+<title>Exercises D</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,22 +21,85 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="exe_D_files/libs/clipboard/clipboard.min.js"></script>
+<script src="exe_D_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="exe_D_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="exe_D_files/libs/quarto-html/popper.min.js"></script>
+<script src="exe_D_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="exe_D_files/libs/quarto-html/anchor.min.js"></script>
+<link href="exe_D_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="exe_D_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="exe_D_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="exe_D_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="exe_D_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -48,9 +111,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#teaching-material" id="toc-teaching-material" class="nav-link active" data-scroll-target="#teaching-material">Teaching material</a></li>
-  <li><a href="#previous-exams-ita" id="toc-previous-exams-ita" class="nav-link" data-scroll-target="#previous-exams-ita">Previous exams (ITA)</a></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
+  <ul class="collapse">
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#theoretical" id="toc-theoretical" class="nav-link" data-scroll-target="#theoretical">Theoretical</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -58,8 +123,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics III: Generalized Linear Models</h1>
-<p class="subtitle lead">CdL SSE</p>
+<h1 class="title">Exercises D</h1>
+<p class="subtitle lead">Statistics III - CdL SSE</p>
 </div>
 
 
@@ -89,217 +154,85 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the website of the <strong>Statistica III</strong> course (6 CFU) of the “<em>Corso di Laurea Triennale in Scienze Statistiche ed Economiche</em> (SSE)”, Università degli Studi di Milano-Bicocca. <strong>Statistica III</strong> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs).</p>
-<p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
-<ul>
-<li><span class="blue">Simple linear regression and descriptive statistics</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, e.g.&nbsp;from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, e.g.&nbsp;from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
-<li><span class="grey">R software</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
-</ul>
-<p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</p>
-<section id="teaching-material" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-material">Teaching material</h2>
-<section id="recommended-textbooks-ita" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-ita">Recommended textbooks (ITA)</h4>
-<ul>
-<li>Salvan, A., Sartori, N. and L. Pace. 2020. <a href="https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2"><em>Modelli Lineari Generalizzati</em></a>. Springer.</li>
-<li>Azzalini, A. 2008. <a href="https://link.springer.com/book/9788847001305"><em>Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza</em></a>. Springer</li>
-</ul>
+<section id="homepage" class="level1">
+<h1><a href="../index.html">Homepage</a></h1>
+<p>The theoretical exercises described below are quite <span class="orange">difficult</span>. At the <span class="blue">exam</span>, you can expect a <span class="blue">simplified version</span> of them; otherwise, they would represent a formidable challenge for most of you.</p>
+<p>On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The vast majority of these exercises are taken from the textbooks <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span> and <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.</p>
+</div>
+</div>
+</div>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Britishdoc</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The data in the <code>Britishdoc</code> data frame, available in the <code>MLGdata</code> library (Agresti, 2015, Exercise 7.36) come from a prospective study on mortality among doctors in the United Kingdom.</p>
+<p>For different age groups (<code>age</code>), and for smokers and non-smokers (<code>smoke</code>, with levels <code>y</code> and <code>n</code>), the dataset reports the total number of person-years observed (<code>person.years</code>) and the number of deaths due to heart attack (<code>deaths</code>).</p>
+<p>Import the data and then:</p>
+<ol type="a">
+<li><p>Identify the statistical units, the response variable, and the explanatory variables, indicating the type (quantitative or qualitative) of each variable.</p></li>
+<li><p>Conduct a graphical analysis to assess the dependence of the mortality rate<br>
+<span class="math display">
+\text{mortality rate} = \frac{\text{deaths}}{\text{person.years}}
+</span> on age, and to compare the trends between smokers and non-smokers.</p></li>
+<li><p>Using pen and paper, specify a <span class="blue">Poisson regression model</span>, additive in age and smoking status, for the logarithm of the mortality rate. Treat <code>age</code> as a <span class="orange">numerical variable</span> for example using the midpoints of the age classes.</p></li>
+<li><p>Fit the model described in (c) using <strong>R</strong>.</p></li>
+<li><p>Report the estimates and confidence intervals for the model coefficients. Provide an interpretation of the estimated parameters.</p></li>
+<li><p>Evaluate the goodness of fit of the model.</p></li>
+<li><p>Fit a model that also includes the <span class="blue">interaction</span> between smoking status and age. Test whether it can be omitted or not.</p></li>
+<li><p>Assess whether it is appropriate to add the square of the age variable as an additional explanatory variable.</p></li>
+</ol>
+</div>
+</div>
+</div>
 </section>
-<section id="recommended-textbooks-eng" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-eng">Recommended textbooks (ENG)</h4>
-<ul>
-<li>Agresti, A. 2015. <a href="https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034"><em>Foundations of Linear and Generalized Linear Models</em></a>. Wiley.</li>
-<li>McCullagh, P., and J. A. Nelder. 1989. <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh"><em>Generalized Linear Models</em></a>. Second Edition. Springer.</li>
-</ul>
+<section id="theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise A
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Conditionally on positive covariates <span class="math inline">U_i = u_i</span>, the random variable <span class="math inline">Y_i \mid U_i = u</span> are Poisson distributed with mean <span class="math inline">\mu u_i</span>, where <span class="math inline">\mu &gt; 0</span> is an unknown parameter. Suppose the covariates <span class="math inline">U_i</span> are iid with mean <span class="math inline">\mathbb{E}(U_i)=1</span> and variance <span class="math inline">\mathrm{Var}(U_i)=\tau</span>.</p>
+<p>Show that <span class="math inline">Y_i</span>’s are iid with mean <span class="math inline">\mathbb{E}(Y_i)=\mu</span> and variance <span class="math inline">\mathrm{Var}(Y_i) = \mu + \tau\mu^2</span>. Comment on the result and the issue of <span class="orange">overdispersion</span>.</p>
+</div>
+</div>
+</div>
+
 </section>
-<section id="slides-and-lecture-notes" class="level4">
-<h4 class="anchored" data-anchor-id="slides-and-lecture-notes">Slides and lecture notes</h4>
-<p>The slides are meant to be used in HTML. However, if you <em>really</em> want to convert the HTML slides into pdf files, you can <a href="https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf">follow the instruction of the quarto documentation</a>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Notes</th>
-<th>Slides</th>
-<th>Further material</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Introduction</strong></td>
-<td><a href="slides/un_intro.html">Introduction</a></td>
-<td><a href="slides/un_intro_slides.html">Slides Introduction</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>GENERAL THEORY</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Linear models and misspecification</strong></td>
-<td><a href="slides/un_A.html">Unit A</a></td>
-<td><a href="slides/un_A_slides.html">Slides Unit A</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 1</td>
-<td><a href="code/lab1.R"><code>lab1.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_A.html">Exercises A</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Generalized Linear Models</strong></td>
-<td><a href="slides/un_B.html">Unit B</a></td>
-<td><a href="slides/un_B_slides.html">Slides Unit B</a></td>
-<td><a href="code/labB.R"><code>labB.R</code></a></td>
-</tr>
-<tr class="odd">
-<td>Lab 2</td>
-<td><a href="code/lab2.R"><code>lab2.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 3</td>
-<td><a href="code/lab3.R"><code>lab3.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_B.html">Exercises B</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>NOTABLE MODELS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Binary and binomial regression</strong></td>
-<td><a href="slides/un_C.html">Unit C</a></td>
-<td><a href="slides/un_C_slides.html">Slides Unit C</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 4</td>
-<td><a href="code/lab4.R"><code>lab4.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_C.html">Exercises C</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Poisson regression</strong></td>
-<td><a href="slides/un_D.html">Unit D</a></td>
-<td><a href="slides/un_D_slides.html">Slides Unit D</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 5</td>
-<td><a href="code/lab5.R"><code>lab5.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_D.html">Exercises D</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><strong>ADVANCED TOPICS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Quasi-likelihoods</strong></td>
-<td>[Unit E]</td>
-<td>[Slides Unit E]</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 6</td>
-<td>[<code>lab6.R</code>]</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td>[Exercises E]</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="previous-exams-ita" class="level2">
-<h2 class="anchored" data-anchor-id="previous-exams-ita">Previous exams (ITA)</h2>
-<p>Example of previous exams are provided below.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Dataset</th>
-<th>Questions (ITA)</th>
-<th>Solution (ITA)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>13 July 2016</td>
-<td><code>awards</code></td>
-<td><a href="exams/2016_07_13.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>29 Giugno 2016</td>
-<td><code>berk</code></td>
-<td><a href="exams/2016_06_29.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>29 April 2015</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/MASS/html/ships.html"><code>ships</code></a></td>
-<td><a href="exams/2015_04_29.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>9 July 2014</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/orings.html"><code>orings</code></a></td>
-<td><a href="exams/2014_07_09.html">Exam</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course.</p>
-<p>Students are encouraged to consult the books: these slides are just a concise summary.</p>
-<p>All the mistakes still present are mine.</p>
-<hr>
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Agresti2015" class="csl-entry" role="listitem">
+Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
+</div>
+<div id="ref-Salvan2020" class="csl-entry" role="listitem">
+Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -705,5 +638,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="exe_D_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

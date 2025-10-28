@@ -75,7 +75,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
 | **Poisson regression** | [Unit D](slides/un_D.html) | [Slides Unit D](slides/un_D_slides.html) |  |
 | Lab 5 | [`lab5.R`](code/lab5.R) | | |
-| *Exercises* | [Exercises D] |  |  |
+| *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
 | | **ADVANCED TOPICS** | | |
 | **Quasi-likelihoods** | [Unit E] | [Slides Unit E] |  |
 | Lab 6 | [`lab6.R`] | | |
