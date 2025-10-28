@@ -93,7 +93,7 @@ Import the data and then:
 
 (f) Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.  
 
-(g) For the same data, considering the untransformed response and using pen and paper, specify a [generalized linear model]{.orange} with Gamma response and logarithmic link function.  
+(g) For the same data, considering the untransformed response and using pen and paper, specify a [generalized linear model]{.orange} with [Gamma response]{.blue} and logarithmic link function.  
 
 (h) Fit in **R** the generalized linear model from the previous point.  
 
