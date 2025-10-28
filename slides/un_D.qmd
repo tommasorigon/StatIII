@@ -66,24 +66,28 @@ library(ggthemes)
 ```
 
 ::: columns
-::: {.column width="20%"}
-![](img/challenger.png){width="100%"}
+::: {.column width="30%"}
+![](img/agresti.jpg){width="100%"}
 
-[Original paper](https://doi.org/10.2307/2290069)
+[Alan Agresti](https://en.wikipedia.org/wiki/Alan_Agresti)
+
+Distinguished Professor Emeritus, University of Florida
 <!-- *"Pluralitas non est ponenda sine necessitate."* -->
 
 <!-- [William of Ockham]{.grey} -->
 :::
 
-::: {.column width="80%"}
+::: {.column width="70%"}
 
 - GLMs for [count data]{.blue} are very common and have theoretical connections with binary and binomial models.
 
-- This unit will cover a single topic, i.e. the analysis of Poisson [rate models]{.blue}. 
+- This unit focuses on [Poisson regression models]{.blue}. 
 
-- Due to time constraints, I will not cover a major topic, namely the analysis of [contingency tables]{.orange}, which are nonetheless fully covered in the textbook but are not part of the exam.
+- I will not cover a major topic, namely the analysis of [contingency tables]{.orange}.
 
-- Clearly, the most important aspects have been already covered in [Unit B](un_.B.html).
+- Such a topic is nonetheless discussed in the textbook but is not part of the exam.
+
+- The most important aspects have been already covered in [Unit B](un_.B.html).
 :::
 
 :::
@@ -101,20 +105,14 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu), \qquad g(\mu_i) = \eta_i = \
 $$
 
 
-- We model the proportions $Y_i = S_i / m_i$, whose mean is indeed $\pi_i$ and $Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)$. 
+- 
 
-- In a [binary regression]{.blue} model, we observe $Y_i \in \{0,1\}$, which is a special case of the model above with number of trials $m_i = 1$ for all $i$. Thus, we have
-$$
-Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
-$$
+## Exposure rate
 
-:::callout-note
-In this unit, we distinguish between [two sample size measures]{.orange}:
+## Overdispersion
 
-  - a measure $m_i$ for the number of Bernoulli trials that constitute a particular binomial observation;
-  - a measure $n$ for the number of binomial observations. 
-:::
+## Zero-inflation
 
-
+## Poisson-multinomial models for contingency tables
 
 ## References

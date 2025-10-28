@@ -73,7 +73,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | **Binary and binomial regression** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_C_slides.html) |  |
 | Lab 4 | [`lab4.R`](code/lab4.R) | | |
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
-| **Poisson regression** | [Unit D] | [Slides Unit D] |  |
+| **Poisson regression** | [Unit D](slides/un_D.html) | [Slides Unit D](slides/un_D_slides.html) |  |
 | Lab 5 | [`lab5.R`](code/lab5.R) | | |
 | *Exercises* | [Exercises D] |  |  |
 | | **ADVANCED TOPICS** | | |
@@ -92,20 +92,9 @@ Example of previous exams are provided below.
 | 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) | |
 | 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
 
-
-<!-- ## Prerequisites -->
-
-<!-- Knowledge of the topics (i) linear algebra, (ii) linear models is highly recommended. -->
-
-<!-- Knowledge of topics covered in the courses Probability and Statistics M -->
-
-<!-- and Advanced Statistics M is also highly recommended. -->
-
 ## Acknowledgments
 
 I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course. 
-
-<!-- I have made use of several other books, scientific articles, and datasets to complement the main textbooks. They are all cited at the end of each unit.  -->
 
 Students are encouraged to consult the books: these slides are just a concise summary.
 

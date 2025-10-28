@@ -181,16 +181,18 @@
 <section id="homepage" class="slide level2 center">
 <h2><a href="../index.html">Homepage</a></h2>
 <div class="columns">
-<div class="column" style="width:20%;">
-<p><img data-src="img/challenger.png" style="width:100.0%"></p>
-<p><a href="https://doi.org/10.2307/2290069">Original paper</a> <!-- *"Pluralitas non est ponenda sine necessitate."* --></p>
+<div class="column" style="width:30%;">
+<p><img data-src="img/agresti.jpg" style="width:100.0%"></p>
+<p><a href="https://en.wikipedia.org/wiki/Alan_Agresti">Alan Agresti</a></p>
+<p>Distinguished Professor Emeritus, University of Florida <!-- *"Pluralitas non est ponenda sine necessitate."* --></p>
 <!-- [William of Ockham]{.grey} -->
-</div><div class="column" style="width:80%;">
+</div><div class="column" style="width:70%;">
 <ul>
 <li><p>GLMs for <span class="blue">count data</span> are very common and have theoretical connections with binary and binomial models.</p></li>
-<li><p>This unit will cover a single topic, i.e.&nbsp;the analysis of Poisson <span class="blue">rate models</span>.</p></li>
-<li><p>Due to time constraints, I will not cover a major topic, namely the analysis of <span class="orange">contingency tables</span>, which are nonetheless fully covered in the textbook but are not part of the exam.</p></li>
-<li><p>Clearly, the most important aspects have been already covered in <a href="un_.B.html">Unit B</a>.</p></li>
+<li><p>This unit focuses on <span class="blue">Poisson regression models</span>.</p></li>
+<li><p>I will not cover a major topic, namely the analysis of <span class="orange">contingency tables</span>.</p></li>
+<li><p>Such a topic is nonetheless discussed in the textbook but is not part of the exam.</p></li>
+<li><p>The most important aspects have been already covered in <a href="un_.B.html">Unit B</a>.</p></li>
 </ul>
 </div></div>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -204,204 +206,23 @@
 <section id="notation-and-recap" class="slide level2 center">
 <h2>Notation and recap</h2>
 <ul>
-<li><p>In a <span class="blue">binomial regression</span> model, we observe <span class="math inline">S_i</span> <span class="blue">successes</span> out of <span class="math inline">m_i</span> <span class="orange">trials</span> <span class="math display">
-S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
-</span> We model the proportions <span class="math inline">Y_i = S_i / m_i</span>, whose mean is indeed <span class="math inline">\pi_i</span> and <span class="math inline">Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)</span>.</p></li>
-<li><p>In a <span class="blue">binary regression</span> model, we observe <span class="math inline">Y_i \in \{0,1\}</span>, which is a special case of the model above with number of trials <span class="math inline">m_i = 1</span> for all <span class="math inline">i</span>. Thus, we have <span class="math display">
-Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \qquad g(\pi_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
+<li><p>In a <span class="blue">Poisson regression</span> model, we observe <span class="math inline">Y_i</span> independent Poisson random variables, so that <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 </span></p></li>
-</ul>
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>In this unit, we distinguish between <span class="orange">two sample size measures</span>:</p>
-<ul>
-<li>a measure <span class="math inline">m_i</span> for the number of Bernoulli trials that constitute a particular binomial observation;</li>
-<li>a measure <span class="math inline">n</span> for the number of binomial observations.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="grouped-vs-ungrouped-data" class="slide level2 center">
-<h2>Grouped vs ungrouped data</h2>
-<ul>
-<li><p>If <span class="math inline">Y_{ij} \in \{0,1\}</span> are independent <span class="blue">Bernoulli</span> random variables with success probability <span class="math inline">\pi_i</span>, for <span class="math inline">j=1,\dots, m_i</span> and <span class="math inline">i=1,\dots, n</span>, then <span class="math display">
-S_i = \sum_{j=1}^{m_i} Y_{ij} \sim \text{Binomial}(m_i, \pi_i).
-</span></p></li>
-<li><p>Thus, any binomial regression model can be <span class="orange">ungrouped</span> into a binary regression model with <span class="math inline">N = \sum_{i=1}^n m_i</span> observations, by simply repeating the same response and covariate <span class="math inline">m_i</span> times.</p></li>
-<li><p>On the other hand, a binary regression model can be <span class="blue">grouped</span> only if multiple subjects share the same values for explanatory variables, which is common if they are all categorical.</p></li>
-</ul>
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>The <span class="blue">likelihood</span> function of these two representation <span class="blue">coincide</span> up to a proportionality constant, which means that the maximum likelihood <span class="math inline">\hat{\beta}</span> and and the standard errors are identical.</p>
-<p>However, the deviance and the residuals are different, which has implications for goodness-of-fit tests and model diagnostics. The diagnostics for binary data are typically uninformative.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="link-functions-i" class="slide level2 center">
-<h2>Link functions I</h2>
-<ul>
-<li><p>As discussed, the <span class="blue">link function</span> is usually set to <span class="math inline">g(\cdot) = F^{-1}(\cdot)</span> for some <span class="orange">continuous cumulative distribution function</span> <span class="math inline">F(\cdot) : \mathbb{R} \to (0,1)</span>. In other words, <span class="math display">
-g(\pi_i) = F^{-1}(\pi_i) = \bm{x}_i^T\beta,
-</span> that is <span class="math display">
-\mu_i = \pi_i = F(\bm{x}_i^T\beta).
-</span> The function <span class="math inline">F(\cdot)</span> is monotone increasing, differentiable, and maps the real line to the unit interval.</p></li>
-<li><p><span class="blue">Logit link</span>. The canonical link is the logistic link (or logit link), that is <span class="math display">
-g(\pi_i) = \log\left(\frac{\pi_i}{1-\pi_i}\right) = \bm{x}_i^T\beta, \qquad \text{ with inverse} \qquad \pi_i = \frac{\exp(\bm{x}_i^T\beta)}{1 + \exp(\bm{x}_i^T\beta)}.
-</span> Indeed, the function <span class="math inline">F(z) = \exp(z)/(1+\exp(z))</span> with <span class="math inline">z \in \mathbb{R}</span> is the cdf of a <span class="orange">logistic distribution</span> with mean <span class="math inline">0</span> and variance <span class="math inline">\pi^2/3</span>.</p></li>
+<li></li>
 </ul>
 </section>
-<section id="link-functions-ii" class="slide level2 center">
-<h2>Link functions II</h2>
-<ul>
-<li><p><span class="blue">Probit link</span>. The probit link is based on the standard normal cdf <span class="math inline">\Phi(\cdot)</span>, i.e. <span class="math display">
-g(\pi_i) = \Phi^{-1}(\pi_i) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = \Phi(\bm{x}_i^T\beta).
-</span> The function <span class="math inline">\Phi(z)</span> with <span class="math inline">z \in \mathbb{R}</span> is usually computed numerically and equals <span class="math display">
-\Phi(z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{u^2}{2}\right) du.
-</span></p></li>
-<li><p><span class="blue">Complementary log-log link</span>. The complementary log-log (cloglog) link is <span class="math display">
-g(\pi_i) = \log(-\log(1-\pi_i)) = \bm{x}_i^T\beta, \qquad \text{with inverse} \qquad \pi_i = 1 - \exp(-\exp(\bm{x}_i^T\beta)).
-</span> The distribution function <span class="math inline">F(z) = 1 - \exp(-\exp(z))</span> with <span class="math inline">z \in \mathbb{R}</span> is called extreme value distribution. This link function is <span class="orange">asymmetric</span>.</p></li>
-<li><p><span class="blue">Cauchy link</span>. The Cauchy link is <span class="math display">
-g(\pi_i) = \tan(\pi(\pi_i - 1/2)), \qquad \text{with inverse} \qquad \pi_i = \frac{1}{2} +  \frac{\text{arctan}(\bm{x}_i^T\beta)}{\pi}.
-</span> <span class="math inline">F(z) = 1/2 + \text{arctan}(z)/\pi</span> with <span class="math inline">z \in \mathbb{R}</span> is the cdf of a <span class="orange">standard Cauchy distribution</span>.</p></li>
-</ul>
-</section>
-<section id="link-functions-iii" class="slide level2 center">
-<h2>Link functions III</h2>
-
-<img data-src="un_D_files/figure-revealjs/unnamed-chunk-2-1.png" width="2500" class="r-stretch"></section>
-<section id="link-functions-iv" class="slide level2 center">
-<h2>Link functions IV</h2>
-
-<img data-src="un_D_files/figure-revealjs/unnamed-chunk-3-1.png" width="2500" class="r-stretch"></section>
-<section id="latent-variable-threshold-models-i" class="slide level2 center">
-<h2>Latent variable threshold models I</h2>
-<ul>
-<li><p>A latent variable threshold model is a useful way to interpret binary regression models and choosing their link function <span class="math inline">g(\cdot)</span>. Let <span class="math inline">Y_i^*</span> be a <span class="orange">latent</span> and <span class="orange">continuous</span> random variables such that <span class="math display">
-Y_i^* = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \overset{\text{iid}}{\sim} F.
-</span></p></li>
-<li><p>A variable is called latent because we do not observe it directly. Instead, we observe only a <span class="blue">binary variable</span> encoding whether it exceeds a certain threshold, i.e. <span class="math display">
-Y_i = \mathbb{I}(Y_i^* &gt; \tau),
-</span> where <span class="math inline">\mathbb{I}(\cdot)</span> is the indicator function and <span class="math inline">\tau</span> is a threshold.</p></li>
-<li><p>By construction, we have <span class="math inline">Y_i \sim \text{Bernoulli}(\pi_i)</span>, with <span class="math display">
-\begin{aligned}
-\pi_i &amp;= \mathbb{P}(Y_i = 1) = \mathbb{P}(Y_i^* &gt; \tau) = \mathbb{P}(\bm{x}_i^T\beta + \epsilon_i &gt; \tau) = 1 - \mathbb{P}(\epsilon_i \le \tau - \bm{x}_i^T\beta)= 1 - F(\tau - \bm{x}_i^T\beta).
-\end{aligned}
-</span></p></li>
-<li><p>The data contain <span class="orange">no information</span> about <span class="math inline">\tau</span>, so we can set <span class="math inline">\tau = 0</span> without loss of generality. Otherwise, the value of <span class="math inline">\tau</span> is incorporated into the intercept term.</p></li>
-<li><p>Likewise, an equivalent model results if we multiply all parameters by any positive constant, so we can take <span class="math inline">F</span> to have a <span class="blue">standard form</span> with fixed variance, such as the standard normal cdf.</p></li>
-</ul>
-</section>
-<section id="latent-variable-threshold-models-ii" class="slide level2 center">
-<h2>Latent variable threshold models II</h2>
-<ul>
-<li>For most models <span class="math inline">F</span> corresponds to a pdf that is symmetric around 0, so <span class="math inline">F(z) = 1− F(−z)</span>. Thus, we obtain <span class="math display">
-\begin{aligned}
-\pi_i = 1 - F(- \bm{x}_i^T\beta) = F(\bm{x}_i^T\beta), \qquad \text{and} \qquad F^{-1}(\pi_i) = g(\pi_i) = \bm{x}_i^T\beta.
-\end{aligned}
-</span> That is, models for binary data naturally take the <span class="blue">link function</span> to be the <span class="orange">inverse of the standard cdf</span> for a family of continuous distributions for a latent variable.</li>
-</ul>
-<div class="callout callout-note no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>This dichotomization often corresponds to a real process — for instance, in medical diagnosis, preterm birth can be seen as a dichotomization of gestational age at delivery.</p>
-<p>However, there are cases where the existence of a latent quantity is more questionable, such as <span class="math inline">Y_i^*</span> corresponding to a notion of “ability” and <span class="math inline">Y_i</span> to “passing an exam”.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="logistic-regression" class="slide level2 center">
-<h2>Logistic regression</h2>
-<ul>
-<li><p>The <span class="blue">likelihood equations</span> of a binomial regression model are fairly simple: <span class="math display">
-\sum_{i=1}^n \frac{m_i (y_i - \pi_i)}{\pi_i(1 - \pi_i)} x_{ir} f(\eta_i) = 0, \qquad r=1,\dots, p,
-</span> where <span class="math inline">f(z)</span> is the density associated with <span class="math inline">F(z)</span>, i.e.&nbsp;its derivative, and the <span class="orange">link</span> is <span class="math inline">g(\cdot) = F^{-1}(\cdot)</span>.</p></li>
-<li><p>In logistic regression <span class="math inline">f(\eta_i) = F(\eta_i)(1 - F(\eta_i)) = \pi_i(1 - \pi_i)</span>, therefore <span class="math display">
-\sum_{i=1}^n m_i (y_i - \pi_i) x_{ir} = 0, \qquad r=1,\dots, p.
-</span> The solutions therefore has a nice interpretation as a <span class="blue">method of moments</span> estimator, in that <span class="math display">
-\sum_{i=1}^n s_i x_{ir} = \sum_{i=1}^n \mathbb{E}(S_i) x_{ir}, \qquad r=1,\dots, p,
-</span> Moreover, the estimated covariance matrix of <span class="math inline">\hat{\beta}</span> has a simple form: <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T \hat{\bm{W}} \bm{X})^{-1} = (\bm{X}^T \text{diag}[m_1 \hat{\pi}_1 (1-\hat{\pi}_1),\dots,m_n \hat{\pi}_n (1-\hat{\pi}_n)] \bm{X})^{-1}
-</span></p></li>
-</ul>
-</section>
-<section id="parameter-interpretation" class="slide level2 center">
-<h2>Parameter interpretation</h2>
-<ul>
-<li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{x}' = (x_1',\dots,x_p')</span>, namely <span class="math display">
-\hat{\pi}(\bm{x}) = F(\bm{x}^T\hat{\beta})\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\hat{\beta}).
-</span> This is useful to understand the effect of changing covariates on the response probability.</p></li>
-<li><p>There are several ways to compare them, listed below, each with its advantages and disadvantages:</p></li>
-<li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
-(\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
-</span></p></li>
-<li><p>The <span class="orange">relative risk</span> is the fraction <span class="math display">
-(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
-</span></p></li>
-<li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
-</ul>
-</section>
-<section id="odds-ratio" class="slide level2 center">
-<h2>Odds ratio</h2>
-<ul>
-<li><p>The <span class="blue">odds</span> is another way of summarizing probabilities, familiar to those who gamble: <span class="math display">
-\widehat{\text{odds}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})}.
-</span> The odds are non-negative, with <span class="math inline">\text{odds}(\bm{x}) &gt; 1</span> when a <span class="blue">success is more likely than a failure</span>.</p></li>
-<li><p>When <span class="math inline">\pi(\bm{x}) = 0.75</span> then <span class="math inline">\text{odds}(\bm{x}) = 0.75/0.25 = 3</span>; a success is three times as likely as a failure. That is, we bet 3 to get 1 if we win. If instead <span class="math inline">\text{odds}(\bm{x}) = 1 / 3</span>, we bet 1 to get 3 if we win.</p></li>
-<li><p>The <span class="orange">odds ratio</span> is another popular risk measure for comparing the two probabilities<span class="math display">
-(\text{odds ratio})  = \frac{\widehat{\text{odds}}(\bm{x}') }{\widehat{\text{odds}}(\bm{x}) }= \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})} \cdot \frac{1-\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x}')}.
-</span></p></li>
-<li><p>Let <span class="math inline">\bm{x} = (x_1,\dots, x_j, \dots, x_p)</span> and <span class="math inline">\bm{x}' = (x_1, \dots, x_j + c, \dots, x_p)</span>, i.e.&nbsp;we compare two situations in which the <span class="math inline">j</span>th covariate is increased by a fixed amount <span class="math inline">c</span>, then in <span class="blue">logistic regression</span>: <span class="math display">
-(\text{odds ratio}) = \exp(c \hat{\beta}_j),
-</span> which is a <span class="orange">constant number</span> that does not depend on <span class="math inline">\bm{x}</span>. This is not true e.g.&nbsp;in probit.</p></li>
-</ul>
-</section>
-<section id="odds-ratio-and-logistic-regression" class="slide level2 center">
-<h2>Odds ratio and logistic regression</h2>
-<ul>
-<li><p>Let <span class="math inline">\bm{x}</span> be a generic covariate vector and consider its odds under a <span class="blue">logistic regression</span> model: <span class="math display">
-\widehat{\text{odds}}(\bm{x}) = \frac{\hat{\pi}(\bm{x})}{1-\hat{\pi}(\bm{x})} = \frac{\exp(\bm{x}^T\hat{\beta})}{1 + \exp(\bm{x}^T\hat{\beta})} \cdot \left(\frac{1}{1 + \exp(\bm{x}^T\hat{\beta})}\right)^{-1} = \exp(\bm{x}^T\hat{\beta}).
-</span> Thus, the odds of any predicted value is simply the exponential of the linear predictor <span class="math inline">\bm{x}^T\hat{\beta}</span>.</p></li>
-<li><p>Consequently, in general the <span class="blue">odds ratio</span> is <span class="math display">
-(\text{odds ratio}) = \frac{\widehat{\text{odds}}(\bm{x}') }{\widehat{\text{odds}}(\bm{x}) } = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \}
-</span></p></li>
-<li><p>If the only change is in the <span class="math inline">j</span>th covariate, from <span class="math inline">x_j</span> to <span class="math inline">x_j + c</span>, then the odds ratio becomes <span class="math display">
-(\text{odds ratio}) = \exp\{(\bm{x}'- \bm{x})^T\hat{\beta} \} = \exp(c \hat{\beta}_j).
-</span> In particular, <span class="math inline">\exp(\hat{\beta}_j)</span> represents the odds ratio after a <span class="orange">unitary increase</span> of the <span class="math inline">j</span>th covariate.</p></li>
-</ul>
-</section>
-<section id="residuals-and-diagnostics-for-binary-data" class="slide level2 center">
-<h2>Residuals and diagnostics for binary data</h2>
-<ul>
-<li><p>In presence of <span class="orange">binary data</span>, namely when <span class="math inline">m_i = 1</span> and <span class="math inline">Y_i \sim \text{Bernoulli}(\pi_i)</span>, many the diagnostic tools are <span class="orange">degenerate</span> and uninformative.</p></li>
-<li><p>For example, the <code>fitted</code> vs <code>residuals</code> plot, namely the dispersion plot of the points <span class="math inline">(\hat{\pi}_i, y_i - \hat{\pi}_i)</span>, simply shows two parallel lines with slope <span class="math inline">-1</span>, which is uninformative.</p></li>
-<li><p>As an extreme case, consider the <span class="blue">null model</span> in which <span class="math inline">\pi_1 = \dots = \pi_n</span>, then the <span class="math inline">X^2</span> statistic is <span class="math display">
-X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\pi})^2}{\hat{\pi}(1 - \hat{\pi})} = n.
-</span></p></li>
-<li><p>A common solution is to <span class="blue">group the data</span> according to some criteria, although this introduces approximations and some arbitrariness (i.e.&nbsp;the Hosmer-Lemeshow test).</p></li>
-<li><p>In terms of prediction, there exists various indices and techniques that you will cover in Data Mining. The simplest index is the <span class="orange">accuracy</span>, i.e.&nbsp;the fraction of correct predictions.</p></li>
-</ul>
-<!-- ## Goodness-of-fit test -->
+<section id="exposure-rate" class="slide level2 center">
+<h2>Exposure rate</h2>
 </section>
 <section id="overdispersion" class="slide level2 center">
 <h2>Overdispersion</h2>
-<ul>
-<li><p>In binomial regression the main <span class="blue">assumption</span> is that <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, implying that <span class="math display">
-\text{var}(Y_i) = \frac{\pi_i(1-\pi_i)}{m_i},
-</span> where implicitly we have set <span class="math inline">\phi = 1</span>.</p></li>
-<li><p>However, from the analysis of the residuals or by computing the <span class="math inline">X^2</span> statistic we may realize that the data present <span class="orange">overdispersion</span>, namely the <span class="blue">correct model</span> is such that <span class="math display">
-\text{var}(Y_i) = \textcolor{red}{\phi} \frac{\pi_i(1-\pi_i)}{m_i},
-</span> with <span class="math inline">\phi &gt; 1</span>. This implies that the binomial regression model is <span class="orange">misspecified</span>.</p></li>
-<li><p>The two most common solutions to overdispersion are the following:</p>
-<ol type="i">
-<li>the usage of <span class="blue">quasi-likelihoods</span>;</li>
-<li>using another parametric distribution, beyond the class of exponential dispersion families; a typical choice is the <span class="orange">beta-binomial</span>.</li>
-</ol></li>
-</ul>
+</section>
+<section id="zero-inflation" class="slide level2 center">
+<h2>Zero-inflation</h2>
+</section>
+<section id="poisson-multinomial-models-for-contingency-tables" class="slide level2 center">
+<h2>Poisson-multinomial models for contingency tables</h2>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
