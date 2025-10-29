@@ -157,7 +157,7 @@ Import the data and then
 
 (a) Summarize the data with descriptive statistics and plots. 
 
-(b) Using a forward selection procedure with all five predictors together with judgments about practical significance, select and interpret a (generalized) linear model for selling price.
+(b) Using a forward/stepwise/backward selection procedures with all five predictors together with judgments about practical significance, select and interpret a (generalized) linear model for selling price.
 
 (c) Check whether results depend on any influential observations.
 
