@@ -157,13 +157,15 @@ Import the data and then
 
 (a) Summarize the data with descriptive statistics and plots. 
 
-(b) Using a forward selection procedure with all five predictors together with judgments about practical signiicance, select and interpret a (generalized) linear model for selling price.
+(b) Using a forward selection procedure with all five predictors together with judgments about practical significance, select and interpret a (generalized) linear model for selling price.
 
-(c) Check whether results depend on any inluential observations.
+(c) Check whether results depend on any influential observations.
 
 ```{r}
 Houses <- read.table("../data/Houses.txt", header = TRUE)
 ```
+
+This exercise is intentionally left without strict instructions, so you can freely explore the data and develop your own modeling strategy. As is often the case, multiple approaches can yield reasonable results. A detailed discussion of this dataset can be found in Sections 3.4 and 4.7 of Agresti (2015).
 
 :::
 
