@@ -182,9 +182,13 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The dataset <code>Abrasion</code> (Hand et al., 1994), available in the <code>MLGdata</code> R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (<code>perdita</code>, in grams per hour) was recorded. For each sample, the following variables were also measured:</p>
+<p>The dataset <code>Abrasion</code>, available in the <code>MLGdata</code> R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. The original data are described in</p>
+<blockquote class="blockquote">
+<p>Davies, O.L. and Goldsmith, P.L. (eds.) (1972) <em>Statistical Methods in Research and Production</em>, 4th Edition, Edinburgh: Oliverand Boyd, 239.</p>
+</blockquote>
+<p>Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (<code>perdita</code>, in grams per hour) was recorded. For each sample, the following variables were also measured:</p>
 <ul>
-<li><code>D</code>: hardness (in Shore degrees),<br>
+<li><code>D</code>: hardness (in Shore degrees; the larger the number, the harder the rubber),<br>
 </li>
 <li><code>Re</code>: tensile strength (kg/cm²).</li>
 </ul>
@@ -215,8 +219,11 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Littell et al.&nbsp;(2000) reported a pharmaceutical clinical trial involving <span class="math inline">n = 72</span> patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset <code>FEV.dat</code> is <a href="../data/FEV.dat">available here</a>; the first six observations are shown below.</p>
-<p>In this analysis, let <span class="math inline">y</span> denote the FEV1 value after one hour of treatment (variable <code>fev1</code> in the dataset). Define</p>
+<p>Littell et al.&nbsp;(2000) reported a pharmaceutical clinical trial involving <span class="math inline">n = 72</span> patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The source of the data is</p>
+<blockquote class="blockquote">
+<p>Littell R. C., Pendergast J., Natarajan R. (2000). Modelling covariance structure in the analysis of repeated measures data. <em>Statistics in Medicine</em>, <strong>19</strong> (13), 1793-1819.</p>
+</blockquote>
+<p>The dataset <code>FEV.dat</code> is <a href="../data/FEV.dat">available here</a>; the first six observations are shown below. In this analysis, let <span class="math inline">y</span> denote the FEV1 value after one hour of treatment (variable <code>fev1</code> in the dataset). Define</p>
 <ul>
 <li><span class="math inline">x_1</span>: baseline FEV1 measurement prior to treatment (<code>base</code>),<br>
 </li>

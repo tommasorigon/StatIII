@@ -48,9 +48,13 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 :::{.callout-note collapse=true}
 #### `Abrasion` dataset
 
-The dataset `Abrasion` (Hand et al., 1994), available in the `MLGdata` R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (`perdita`, in grams per hour) was recorded. For each sample, the following variables were also measured:  
+The dataset `Abrasion`, available in the `MLGdata` R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. The original data are described in
 
-- `D`: hardness (in Shore degrees),  
+> Davies, O.L. and Goldsmith, P.L. (eds.) (1972) *Statistical Methods in Research and Production*, 4th Edition, Edinburgh: Oliverand Boyd, 239.
+
+Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (`perdita`, in grams per hour) was recorded. For each sample, the following variables were also measured:  
+
+- `D`: hardness (in Shore degrees; the larger the number, the harder the rubber),  
 - `Re`: tensile strength (kg/cm²).  
 
 (a) Identify the statistical units, the response variable, and the explanatory variables, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).
@@ -77,9 +81,11 @@ The dataset `Abrasion` (Hand et al., 1994), available in the `MLGdata` R package
 ::: {.callout-note collapse=true}
 #### `FEV` dataset
 
-Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset `FEV.dat` is [available here](../data/FEV.dat); the first six observations are shown below.
+Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The source of the data is
 
-In this analysis, let $y$ denote the FEV1 value after one hour of treatment (variable `fev1` in the dataset). Define 
+> Littell R. C., Pendergast J., Natarajan R. (2000). Modelling covariance structure in the analysis of repeated measures data. *Statistics in Medicine*, **19** (13), 1793-1819. 
+
+The dataset `FEV.dat` is [available here](../data/FEV.dat); the first six observations are shown below. In this analysis, let $y$ denote the FEV1 value after one hour of treatment (variable `fev1` in the dataset). Define 
 
 - $x_1$: baseline FEV1 measurement prior to treatment (`base`),  
 - $x_2$: treatment group (categorical variable `drug` with labels `a`, `b`, `p`).  
