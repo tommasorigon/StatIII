@@ -205,28 +205,14 @@ window.Quarto = {
 </div>
 <section id="data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
+<!-- :::{.callout-note collapse=true} -->
+<!-- #### `Beetles` dataset (missing details) -->
+<!-- For the logit model considered in the slides applied to the `Beetles` data, available in the library `MLGdata`, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$.  -->
+<!-- (a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.   -->
+<!-- (b) Obtain the analogous interval for the dose, defined as $\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}$ (lethal dose 50).  -->
+<!-- ::: -->
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<code>Beetles</code> dataset (missing details)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>For the logit model considered in the slides applied to the <code>Beetles</code> data, available in the library <code>MLGdata</code>, verify that <span class="math inline">\psi = \beta_1 / \beta_2</span> corresponds to the log-dose <span class="math inline">x_{0.5}</span> at which the probability that an insect is killed is equal to <span class="math inline">0.5</span>.</p>
-<ol type="a">
-<li><p>Apply the delta method to obtain an approximate 95% Wald confidence interval for <span class="math inline">\psi</span>.</p></li>
-<li><p>Obtain the analogous interval for the dose, defined as <span class="math inline">\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}</span> (lethal dose 50).</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -235,17 +221,16 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The data in the <code>Heart</code> dataframe included in the <code>MLGdata</code> library report the number of confirmed myocardial infarctions in a sample of 360 patients hospitalized with suspected infarction (Hand et al., 1994, p.&nbsp;45).</p>
-<p>For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (<code>ck</code>), the dataset provides:</p>
-<ul>
-<li>the number of confirmed infarctions (<code>ha</code>),<br>
-</li>
-<li>the number of non-confirmed infarctions (<code>nha</code>),<br>
-</li>
-<li>and the midpoint value of the variable <code>ck</code> (<code>mck</code>).</li>
-</ul>
+<p>The data in the <code>Heart</code> dataframe included in the <code>MLGdata</code> library report the number of confirmed myocardial infarctions in a sample of <span class="math inline">360</span> patients hospitalized with suspected infarction. These data were originally collected in Edinburgh Royal Infirmary; the original study was published as</p>
+<blockquote class="blockquote">
+<p>Smith, A. F. (1967) Diagnostic value of serum-creatinine-kinase in a coronary care unit. Lancet, <strong>2</strong>, 178.</p>
+</blockquote>
+<p>For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (<code>ck</code>), the dataset provides:<br>
+- the number of confirmed infarctions (<code>ha</code>),<br>
+- the number of non-confirmed infarctions (<code>nha</code>),<br>
+- and the midpoint value of the variable <code>ck</code> (<code>mck</code>).</p>
 <p>The goal is to evaluate the influence of the Creatine Kinase enzyme level on the probability of infarction.</p>
 <p>Import the data and then:</p>
 <ol type="a">
@@ -266,7 +251,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -275,7 +260,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages.</p>
 <p>A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below (Silvey, 1975, Exercise 4.2).</p>
@@ -325,7 +310,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -334,7 +319,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The data contained in the <code>Germination</code> dataframe (Cox and Snell, 1989, Example 3.2), that can be found in the <code>MLGdata</code> library, were obtained from a <span class="math inline">2 \times 2</span> factorial experiment (two factors, each with two levels) to compare two seeds, <em>Orobanche aegyptiaca</em> 75 and <em>Orobanche aegyptiaca</em> 73, germinated on two different root extracts: bean and cucumber.</p>
 <p>For each combination, the total number of seeds <span class="math inline">m</span> and the number of seeds that germinate <span class="math inline">s</span> are reported.</p>
@@ -361,7 +346,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -370,7 +355,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>TO BE ADDED</p>
 </div>
@@ -380,7 +365,7 @@ window.Quarto = {
 <section id="theoretical" class="level2">
 <h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -389,7 +374,7 @@ Exercise A
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y \sim \mathrm{Binomial}(m, \pi)</span>. Consider the logit parametrization <span class="math inline">\theta = \log\{\pi/(1-\pi)\}</span>.</p>
 <ol type="a">
@@ -402,7 +387,7 @@ Exercise A
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -411,10 +396,27 @@ Exercise B
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Explain how the expression for <span class="math inline">\text{var}(\hat{\beta})</span> in logistic regression suggest that the standard errors of <span class="math inline">\hat{\beta}_j</span> tend to be smaller as you obtain more data.</p>
 <p>Answer this for (a) grouped data with <span class="math inline">m_i</span> increasing, and (b) ungrouped data with <span class="math inline">n</span> increasing.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise C
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose the logistic model holds in which <span class="math inline">x</span> is uniformly distributed on the interval <span class="math inline">[0, 100]</span> and <span class="math inline">\text{logit}(\pi_i) = -2.0 + 0.04 x_i</span>. Randomly generate <span class="math inline">100</span> independent observations from this model. Plot the response residuals against <span class="math inline">x</span> and against the fitted values.</p>
+<p>Why do residual plots for binary data have this appearance?</p>
 </div>
 </div>
 </div>
@@ -424,28 +426,11 @@ Exercise B
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise C
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Suppose the logistic model holds in which <span class="math inline">x</span> is uniformly distributed on the interval <span class="math inline">[0, 100]</span> and <span class="math inline">\text{logit}(\pi_i) = -2.0 + 0.04 x_i</span>. Randomly generate <span class="math inline">100</span> independent observations from this model. Plot the response residuals against <span class="math inline">x</span> and against the fitted values.</p>
-<p>Why do residual plots for binary data have this appearance?</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
 Exercise D
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">S_i = m_i Y_i</span> be independent <span class="math inline">S_i \overset{\textup{ind}}{\sim} \text{Binomial}(m_i, \pi_i)</span> random variables for <span class="math inline">i=1,\dots,n</span>. Consider the <span class="blue">null model</span>, in which which <span class="math inline">\pi_1 = \cdots = \pi_n</span>.</p>
 <ol type="a">
@@ -456,7 +441,7 @@ Exercise D
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -465,7 +450,7 @@ Exercise E
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y_i</span> be independent <span class="math inline">\text{Bernoulli}(\pi_i)</span> random variables, for <span class="math inline">i=1,\dots,n</span>. For the logit model <span class="math inline">\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i</span>, show that the deviance depends on <span class="math inline">\hat{\pi}_i</span> but not on <span class="math inline">y_i</span>. Hence, it is not useful for checking model fit.</p>
 <p>(This exercise and the previous one show that goodness of fit statistics are not useful for binary data.)</p>

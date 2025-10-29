@@ -44,24 +44,24 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 
 ## Data analysis
 
-:::{.callout-note collapse=true}
-#### `Beetles` dataset (missing details)
+<!-- :::{.callout-note collapse=true} -->
+<!-- #### `Beetles` dataset (missing details) -->
 
-For the logit model considered in the slides applied to the `Beetles` data, available in the library `MLGdata`, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$. 
+<!-- For the logit model considered in the slides applied to the `Beetles` data, available in the library `MLGdata`, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$.  -->
 
-(a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.  
+<!-- (a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.   -->
 
-(b) Obtain the analogous interval for the dose, defined as $\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}$ (lethal dose 50). 
-:::
+<!-- (b) Obtain the analogous interval for the dose, defined as $\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}$ (lethal dose 50).  -->
+<!-- ::: -->
 
 :::{.callout-note collapse=true}
 #### `Heart` dataset
 
+The data in the `Heart` dataframe included in the `MLGdata` library report the number of confirmed myocardial infarctions in a sample of $360$ patients hospitalized with suspected infarction. These data were originally collected in Edinburgh Royal Infirmary; the original study was published as
 
-The data in the `Heart` dataframe included in the `MLGdata` library report the number of confirmed myocardial infarctions in a sample of 360 patients hospitalized with suspected infarction (Hand et al., 1994, p. 45).  
+> Smith, A. F. (1967) Diagnostic value of serum-creatinine-kinase in a coronary care unit. Lancet, **2**, 178.
 
 For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (`ck`), the dataset provides:  
-
 - the number of confirmed infarctions (`ha`),  
 - the number of non-confirmed infarctions (`nha`),  
 - and the midpoint value of the variable `ck` (`mck`).  
