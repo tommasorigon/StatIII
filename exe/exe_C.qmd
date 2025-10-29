@@ -180,7 +180,7 @@ Endometrial <- read.table("../data/Endometrial.txt", header = TRUE)
 # summary(m1)
 ```
 
-The issue with this dataset is known as [quasi-separation]{.blue}, which complicates estimation because the maximum likelihood estimate for some coefficients does not exist (e.g., $\hat{\beta}_2 = \infty$). This dataset is discussed in detail in Section 5.7.1 of Agresti (2015). An [advanced solution]{.orange} is provided below, whose details are obviously not required at the exam.
+The issue with this dataset is known as [quasi-separation]{.blue}, which complicates estimation because the maximum likelihood estimate for some coefficients does not exist (e.g., $\hat{\beta}_2 = \infty$). This dataset is discussed in detail in Section 5.7.1 of Agresti (2015). An [advanced solution]{.orange} is provided below, whose details are obviously not required at the exam. 
 
 ```{r, echo = TRUE}
 library(brglm2)
