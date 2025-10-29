@@ -151,6 +151,12 @@ Import the data and then:
 
 :::
 
+:::{.callout-note collapse=true}
+#### `Endometrial` dataset
+
+TO BE ADDED
+:::
+
 ## Theoretical
 
 :::{.callout-note collapse=true}
@@ -184,7 +190,7 @@ Why do residual plots for binary data have this appearance?
 :::{.callout-note collapse=true}
 #### Exercise D
 
-Let $m_i Y_i$ be independent $\text{Binomial}(m_i, \pi_i)$ random variables for $i=1,\dots,n$. Consider the [null model]{.blue}, in which which $\pi_1 = \cdots = \pi_n$. 
+Let $S_i = m_i Y_i$ be independent $S_i \overset{\textup{ind}}{\sim} \text{Binomial}(m_i, \pi_i)$ random variables for $i=1,\dots,n$. Consider the [null model]{.blue}, in which which $\pi_1 = \cdots = \pi_n$. 
 
 (a) Show that $\hat{\pi} = \sum_{i=1}^n m_i Y_i / \sum_{i=1}^n m_i$, i.e. the weighted average of the proportions. 
 

@@ -60,7 +60,6 @@ Import the data and then
 (b) Describe a factor that could cause [overdispersion]{.blue}. Adjust the standard error for overdispersion and obtain another confidence interval based on this correction.
 
 (c) Compare the two confidence intervals and interpret the results. 
-
 :::
 
 :::{.callout-note collapse=true}

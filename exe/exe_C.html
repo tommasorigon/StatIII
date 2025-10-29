@@ -360,11 +360,27 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Endometrial</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>TO BE ADDED</p>
+</div>
+</div>
+</div>
 </section>
 <section id="theoretical" class="level2">
 <h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -373,7 +389,7 @@ Exercise A
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y \sim \mathrm{Binomial}(m, \pi)</span>. Consider the logit parametrization <span class="math inline">\theta = \log\{\pi/(1-\pi)\}</span>.</p>
 <ol type="a">
@@ -386,7 +402,7 @@ Exercise A
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -395,27 +411,10 @@ Exercise B
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Explain how the expression for <span class="math inline">\text{var}(\hat{\beta})</span> in logistic regression suggest that the standard errors of <span class="math inline">\hat{\beta}_j</span> tend to be smaller as you obtain more data.</p>
 <p>Answer this for (a) grouped data with <span class="math inline">m_i</span> increasing, and (b) ungrouped data with <span class="math inline">n</span> increasing.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise C
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Suppose the logistic model holds in which <span class="math inline">x</span> is uniformly distributed on the interval <span class="math inline">[0, 100]</span> and <span class="math inline">\text{logit}(\pi_i) = -2.0 + 0.04 x_i</span>. Randomly generate <span class="math inline">100</span> independent observations from this model. Plot the response residuals against <span class="math inline">x</span> and against the fitted values.</p>
-<p>Why do residual plots for binary data have this appearance?</p>
 </div>
 </div>
 </div>
@@ -425,17 +424,14 @@ Exercise C
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise D
+Exercise C
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">m_i Y_i</span> be independent <span class="math inline">\text{Binomial}(m_i, \pi_i)</span> random variables for <span class="math inline">i=1,\dots,n</span>. Consider the <span class="blue">null model</span>, in which which <span class="math inline">\pi_1 = \cdots = \pi_n</span>.</p>
-<ol type="a">
-<li><p>Show that <span class="math inline">\hat{\pi} = \sum_{i=1}^n m_i Y_i / \sum_{i=1}^n m_i</span>, i.e.&nbsp;the weighted average of the proportions.</p></li>
-<li><p>When all <span class="math inline">m_i = 1</span> (binary data), show that <span class="math inline">X^2 = n</span>. Conclude that the <span class="math inline">X^2</span> is uninformative in this case.</p></li>
-</ol>
+<p>Suppose the logistic model holds in which <span class="math inline">x</span> is uniformly distributed on the interval <span class="math inline">[0, 100]</span> and <span class="math inline">\text{logit}(\pi_i) = -2.0 + 0.04 x_i</span>. Randomly generate <span class="math inline">100</span> independent observations from this model. Plot the response residuals against <span class="math inline">x</span> and against the fitted values.</p>
+<p>Why do residual plots for binary data have this appearance?</p>
 </div>
 </div>
 </div>
@@ -445,11 +441,31 @@ Exercise D
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise E
+Exercise D
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">S_i = m_i Y_i</span> be independent <span class="math inline">S_i \overset{\textup{ind}}{\sim} \text{Binomial}(m_i, \pi_i)</span> random variables for <span class="math inline">i=1,\dots,n</span>. Consider the <span class="blue">null model</span>, in which which <span class="math inline">\pi_1 = \cdots = \pi_n</span>.</p>
+<ol type="a">
+<li><p>Show that <span class="math inline">\hat{\pi} = \sum_{i=1}^n m_i Y_i / \sum_{i=1}^n m_i</span>, i.e.&nbsp;the weighted average of the proportions.</p></li>
+<li><p>When all <span class="math inline">m_i = 1</span> (binary data), show that <span class="math inline">X^2 = n</span>. Conclude that the <span class="math inline">X^2</span> is uninformative in this case.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise E
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y_i</span> be independent <span class="math inline">\text{Bernoulli}(\pi_i)</span> random variables, for <span class="math inline">i=1,\dots,n</span>. For the logit model <span class="math inline">\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i</span>, show that the deviance depends on <span class="math inline">\hat{\pi}_i</span> but not on <span class="math inline">y_i</span>. Hence, it is not useful for checking model fit.</p>
 <p>(This exercise and the previous one show that goodness of fit statistics are not useful for binary data.)</p>
