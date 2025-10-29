@@ -266,11 +266,11 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The data contained in the <code>Germination</code> dataframe, that can be found in the <code>MLGdata</code> library, were obtained from a <span class="math inline">2 \times 2</span> factorial experiment (two factors, each with two levels) to compare two seeds, <em>Orobanche aegyptiaca</em> 75 and <em>Orobanche aegyptiaca</em> 73, germinated on two different root extracts: bean and cucumber. The source of the data is</p>
+<p>The data contained in the <code>Germination</code> dataframe, that can be found in the <code>MLGdata</code> library, were obtained from a <span class="math inline">2 \times 2</span> factorial experiment (two factors <code>seed</code> and <code>root</code>, each with two levels) to compare two seeds, <em>Orobanche aegyptiaca</em> 75 (<code>seed</code> = <code>075</code>) and <em>Orobanche aegyptiaca</em> 73 (<code>seed = 073</code>), germinated on two different root extracts: bean (<code>root</code> = <code>F</code>) and cucumber (<code>root</code> = <code>C</code>). The source of the data is</p>
 <blockquote class="blockquote">
 <p>Cox, D. R. e Snell, E. J. (1989). <em>Analysis of Binary Data</em>, 2nd ed.&nbsp;London: Chapman &amp; Hall/CRC.</p>
 </blockquote>
-<p>For each combination, the total number of seeds <span class="math inline">m_i</span> and the number of seeds that germinate <span class="math inline">S_i</span> are reported.</p>
+<p>For each combination, the total number of seeds <span class="math inline">m_i</span> (variable <code>m</code>) and the number of seeds that germinate <span class="math inline">S_i</span> (variable <code>s</code>) are reported.</p>
 <p>Import the data and then:</p>
 <ol type="a">
 <li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
@@ -368,7 +368,50 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>TO BE ADDED</p>
+<p>Heinze and Schemper (2002) described a study about endometrial cancer that analyzed how <code>HG</code> = histology grade (<code>0</code> = low grade, <code>1</code> = high grade) relates to three risk factors: <code>NV</code> = neovasculation (<code>1</code>= present, <code>0</code> = absent), <code>PI</code> = pulsatility index of arteria uterina (ranging from 0 to 49), and <code>EH</code> = endometrium height (ranging from 0.27 to 3.61).</p>
+<p>The <code>Endometrial</code> dataset is <a href="../data/Endometrial.txt">available here</a>; the source is the following paper:</p>
+<blockquote class="blockquote">
+<p>Heinze, G., and Schemper, M. (2002). A solution to the problem of separation in logistic regression. <em>Statistics in Medicine</em>, <strong>21</strong> (16), 2409–2419.</p>
+</blockquote>
+<p>Import the data and consider the main effects <span class="blue">logistic regression model</span> in which the binary variable <code>HG</code> is the response and <code>NV</code>, <code>PI</code>, and <code>EH</code> are the covariates. Then</p>
+<ol type="a">
+<li><p>Compute the contingency table for the variable <code>HG</code> and <code>NV</code>. Comment the results.</p></li>
+<li><p>Fit a logistic regression model using all covariates. Do you note anything suspicious? Would you trust the estimate for <span class="math inline">\beta_2</span>, its p-value and the associated confidence intervals? What happened?</p></li>
+</ol>
+<p>The issue with this dataset is known as <span class="blue">quasi-separation</span>, which complicates estimation because the maximum likelihood estimate for some coefficients does not exist (e.g., <span class="math inline">\hat{\beta}_2 = \infty</span>). This dataset is discussed in detail in Section 5.7.1 of Agresti (2015). An <span class="orange">advanced solution</span> is provided below, whose details are obviously not required at the exam.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(brglm2)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>m_corrected <span class="ot">&lt;-</span> <span class="fu">glm</span>(HG <span class="sc">~</span> NV <span class="sc">+</span> PI <span class="sc">+</span> EH, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> Endometrial, <span class="at">method =</span> <span class="st">"brglmFit"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">summary</span>(m_corrected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = HG ~ NV + PI + EH, family = "binomial", data = Endometrial, 
+    method = "brglmFit")
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.4740  -0.6706  -0.3411   0.3252   2.6123  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  3.77456    1.48869   2.535 0.011229 *  
+NV           2.92927    1.55076   1.889 0.058902 .  
+PI          -0.03475    0.03958  -0.878 0.379915    
+EH          -2.60416    0.77602  -3.356 0.000791 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 104.903  on 78  degrees of freedom
+Residual deviance:  56.575  on 75  degrees of freedom
+AIC:  64.575
+
+Type of estimator: AS_mixed (mixed bias-reducing adjusted score equations)
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>

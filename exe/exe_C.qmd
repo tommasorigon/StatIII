@@ -97,11 +97,11 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### `Germination` dataset
 
-The data contained in the `Germination` dataframe, that can be found in the `MLGdata` library, were obtained from a $2 \times 2$ factorial experiment (two factors, each with two levels) to compare two seeds, *Orobanche aegyptiaca* 75 and *Orobanche aegyptiaca* 73, germinated on two different root extracts: bean and cucumber. The source of the data is
+The data contained in the `Germination` dataframe, that can be found in the `MLGdata` library, were obtained from a $2 \times 2$ factorial experiment (two factors `seed` and `root`, each with two levels) to compare two seeds, *Orobanche aegyptiaca* 75 (`seed` = `075`) and *Orobanche aegyptiaca* 73 (`seed = 073`), germinated on two different root extracts: bean (`root` = `F`) and cucumber (`root` = `C`). The source of the data is
 
 > Cox, D. R. e Snell, E. J. (1989). *Analysis of Binary Data*, 2nd ed. London: Chapman & Hall/CRC.
 
-For each combination, the total number of seeds $m_i$ and the number of seeds that germinate $S_i$ are reported.  
+For each combination, the total number of seeds $m_i$ (variable `m`) and the number of seeds that germinate $S_i$ (variable `s`) are reported.  
 
 Import the data and then:
 
@@ -160,7 +160,34 @@ kalythos <- data.frame(
 :::{.callout-note collapse=true}
 #### `Endometrial` dataset
 
-TO BE ADDED
+
+Heinze and Schemper (2002) described a study about endometrial cancer that analyzed how `HG` = histology grade (`0` = low grade, `1` = high grade) relates to three risk factors: `NV` = neovasculation (`1`= present, `0` = absent), `PI` = pulsatility index of arteria uterina (ranging from 0 to 49), and `EH` = endometrium height (ranging from 0.27 to 3.61). 
+
+The `Endometrial` dataset is [available here](../data/Endometrial.txt); the source is the following paper:
+
+> Heinze, G., and Schemper, M. (2002). A solution to the problem of separation in logistic regression.  *Statistics in Medicine*, **21** (16), 2409–2419. 
+
+Import the data and consider the main effects [logistic regression model]{.blue} in which the binary variable `HG` is the response and `NV`, `PI`, and `EH` are the covariates. Then
+
+(a) Compute the contingency table for the variable `HG` and `NV`. Comment the results.
+
+(b) Fit a logistic regression model using all covariates. Do you note anything suspicious? Would you trust the estimate for $\beta_2$, its p-value and the associated confidence intervals? What happened?
+
+```{r}
+Endometrial <- read.table("../data/Endometrial.txt", header = TRUE)
+# table(Endometrial$HG, Endometrial$NV)
+# m1 <- glm(HG ~ NV + PI + EH, family = "binomial", data = Endometrial)
+# summary(m1)
+```
+
+The issue with this dataset is known as [quasi-separation]{.blue}, which complicates estimation because the maximum likelihood estimate for some coefficients does not exist (e.g., $\hat{\beta}_2 = \infty$). This dataset is discussed in detail in Section 5.7.1 of Agresti (2015). An [advanced solution]{.orange} is provided below, whose details are obviously not required at the exam.
+
+```{r, echo = TRUE}
+library(brglm2)
+m_corrected <- glm(HG ~ NV + PI + EH, family = "binomial", data = Endometrial, method = "brglmFit")
+summary(m_corrected)
+```
+
 :::
 
 ## Theoretical
