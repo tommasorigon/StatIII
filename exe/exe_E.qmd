@@ -51,7 +51,15 @@ The `Basketball` dataset can be [downloaded here](../data/Basketball.dat) and sh
 
 In the $i$th game, suppose that $S_i = m_i Y_i$ is the number three-points shots made out of $m_i$ attempts is distributed as $S_i \sim \text{Binomial}(m_i, \pi_i)$, and that the $S_i$ are independent.
 
-[Download](../data/Basketball.dat) and import the data and then
+Import the data and then
+
+(a) Fit the null model, with $\pi_i = \pi$. Find and interpret the estimate $\hat{\pi}$, obtain its standard error and a confidence interval.
+
+(b) Is there evidence of overdispersion? Motivate your answer based on the data. 
+
+(b) Describe a factor that could cause [overdispersion]{.blue}. Adjust the standard error for overdispersion and obtain another confidence interval based on this correction.
+
+(c) Compare the two confidence intervals and interpret the results. 
 
 :::
 

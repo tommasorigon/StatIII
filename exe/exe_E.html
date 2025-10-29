@@ -184,7 +184,13 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p>The <code>Basketball</code> dataset can be <a href="../data/Basketball.dat">downloaded here</a> and shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made <span class="math inline">0</span> of <span class="math inline">4</span> shots in game <span class="math inline">1</span>). Commentators remarked that his shooting varied dramatically from game to game.</p>
 <p>In the <span class="math inline">i</span>th game, suppose that <span class="math inline">S_i = m_i Y_i</span> is the number three-points shots made out of <span class="math inline">m_i</span> attempts is distributed as <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, and that the <span class="math inline">S_i</span> are independent.</p>
-<p><a href="../data/Basketball.dat">Download</a> and import the data and then</p>
+<p>Import the data and then</p>
+<ol type="a">
+<li><p>Fit the null model, with <span class="math inline">\pi_i = \pi</span>. Find and interpret the estimate <span class="math inline">\hat{\pi}</span>, obtain its standard error and a confidence interval.</p></li>
+<li><p>Is there evidence of overdispersion? Motivate your answer based on the data.</p></li>
+<li><p>Describe a factor that could cause <span class="blue">overdispersion</span>. Adjust the standard error for overdispersion and obtain another confidence interval based on this correction.</p></li>
+<li><p>Compare the two confidence intervals and interpret the results.</p></li>
+</ol>
 </div>
 </div>
 </div>
