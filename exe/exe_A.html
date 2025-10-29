@@ -223,120 +223,19 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>Littell R. C., Pendergast J., Natarajan R. (2000). Modelling covariance structure in the analysis of repeated measures data. <em>Statistics in Medicine</em>, <strong>19</strong> (13), 1793-1819.</p>
 </blockquote>
-<p>The dataset <code>FEV.dat</code> is <a href="../data/FEV.dat">available here</a>; the first six observations are shown below. In this analysis, let <span class="math inline">y</span> denote the FEV1 value after one hour of treatment (variable <code>fev1</code> in the dataset). Define</p>
+<p>The dataset <code>FEV.dat</code> is <a href="../data/FEV.dat">available here</a>. In this analysis, let <span class="math inline">y</span> denote the FEV1 value after one hour of treatment (variable <code>fev1</code> in the dataset). Define</p>
 <ul>
 <li><span class="math inline">x_1</span>: baseline FEV1 measurement prior to treatment (<code>base</code>),<br>
 </li>
 <li><span class="math inline">x_2</span>: treatment group (categorical variable <code>drug</code> with labels <code>a</code>, <code>b</code>, <code>p</code>).</li>
 </ul>
-<p><a href="../data/FEV.dat">Download the data</a> and then:</p>
+<p>Import the data and then:</p>
 <ol type="a">
 <li><p>Fit linear models for <span class="math inline">y</span> using the following sets of predictors: (i) <span class="math inline">x_1</span> only, (ii) <span class="math inline">x_2</span> only, (iii) both <span class="math inline">x_1</span> and <span class="math inline">x_2</span></p></li>
 <li><p>Test to see whether the interaction terms are needed.</p></li>
 <li><p>Check the underlying assumptions of the fitted models. If they are violated, propose a solution.</p></li>
 <li><p>For each model, <span class="blue">interpret</span> the estimated parameters.</p></li>
 </ol>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">patient</th>
-<th style="text-align: right;">base</th>
-<th style="text-align: right;">fev1</th>
-<th style="text-align: right;">fev2</th>
-<th style="text-align: right;">fev3</th>
-<th style="text-align: right;">fev4</th>
-<th style="text-align: right;">fev5</th>
-<th style="text-align: right;">fev6</th>
-<th style="text-align: right;">fev7</th>
-<th style="text-align: right;">fev8</th>
-<th style="text-align: left;">drug</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2.46</td>
-<td style="text-align: right;">2.68</td>
-<td style="text-align: right;">2.76</td>
-<td style="text-align: right;">2.50</td>
-<td style="text-align: right;">2.30</td>
-<td style="text-align: right;">2.14</td>
-<td style="text-align: right;">2.40</td>
-<td style="text-align: right;">2.33</td>
-<td style="text-align: right;">2.20</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3.50</td>
-<td style="text-align: right;">3.95</td>
-<td style="text-align: right;">3.65</td>
-<td style="text-align: right;">2.93</td>
-<td style="text-align: right;">2.53</td>
-<td style="text-align: right;">3.04</td>
-<td style="text-align: right;">3.37</td>
-<td style="text-align: right;">3.14</td>
-<td style="text-align: right;">2.62</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1.96</td>
-<td style="text-align: right;">2.28</td>
-<td style="text-align: right;">2.34</td>
-<td style="text-align: right;">2.29</td>
-<td style="text-align: right;">2.43</td>
-<td style="text-align: right;">2.06</td>
-<td style="text-align: right;">2.18</td>
-<td style="text-align: right;">2.28</td>
-<td style="text-align: right;">2.29</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3.44</td>
-<td style="text-align: right;">4.08</td>
-<td style="text-align: right;">3.87</td>
-<td style="text-align: right;">3.79</td>
-<td style="text-align: right;">3.30</td>
-<td style="text-align: right;">3.80</td>
-<td style="text-align: right;">3.24</td>
-<td style="text-align: right;">2.98</td>
-<td style="text-align: right;">2.91</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2.80</td>
-<td style="text-align: right;">4.09</td>
-<td style="text-align: right;">3.90</td>
-<td style="text-align: right;">3.54</td>
-<td style="text-align: right;">3.35</td>
-<td style="text-align: right;">3.15</td>
-<td style="text-align: right;">3.23</td>
-<td style="text-align: right;">3.46</td>
-<td style="text-align: right;">3.27</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">2.36</td>
-<td style="text-align: right;">3.79</td>
-<td style="text-align: right;">3.97</td>
-<td style="text-align: right;">3.78</td>
-<td style="text-align: right;">3.69</td>
-<td style="text-align: right;">3.31</td>
-<td style="text-align: right;">2.83</td>
-<td style="text-align: right;">2.72</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: left;">a</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -364,65 +263,13 @@ window.Quarto = {
 </li>
 <li>Cognitive behavioral therapy (label <code>b</code>).</li>
 </ul>
-<p><a href="../data/Anorexia.dat">Download the data</a> and</p>
+<p>Import the data and</p>
 <ol type="a">
 <li><p>Fit a linear model where the outcome is the <span class="blue">post-treatment weight</span> and the predictors are the <span class="orange">baseline weight</span> and the <span class="orange">therapy group</span></p></li>
 <li><p>Check the underlying assumptions of the fitted models. If they are violated, propose a solution.</p></li>
 <li><p><span class="blue">Interpret</span> the estimated parameters of the model.</p></li>
 <li><p>Convert the weights to kilograms (<span class="math inline">1\ \text{lb} = 0.453592\ \text{kg}</span>), repeat the analysis, and discuss whether the results change and why.</p></li>
 </ol>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">subj</th>
-<th style="text-align: left;">therapy</th>
-<th style="text-align: right;">before</th>
-<th style="text-align: right;">after</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">80.5</td>
-<td style="text-align: right;">82.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">84.9</td>
-<td style="text-align: right;">85.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">81.5</td>
-<td style="text-align: right;">81.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">82.6</td>
-<td style="text-align: right;">81.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">79.9</td>
-<td style="text-align: right;">76.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">88.7</td>
-<td style="text-align: right;">103.6</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -441,7 +288,7 @@ Exercise A
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Prove that the variance-stabilizing transform for gamma random variables <span class="math inline">Y_i\sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, is the logarithm <span class="math inline">g(Y_i) = \log(Y_i)</span>.</p>
+<p>Prove that the <span class="blue">variance-stabilizing</span> transform for <span class="orange">gamma random variables</span> <span class="math inline">Y_i\sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, is the logarithm <span class="math inline">g(Y_i) = \log(Y_i)</span>.</p>
 <p><span class="blue">Hint</span>: use the fact that if <span class="math inline">Y_i \sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, then for large values of <span class="math inline">\alpha</span> we have the approximation <span class="math inline">Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)</span>.</p>
 </div>
 </div>
@@ -459,7 +306,7 @@ Exercise B
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In the linear model <span class="math inline">\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i</span>, suppose that instead of observing <span class="math inline">x_i</span> we observe <span class="math inline">x_i^* = x_i + u_i</span>, where <span class="math inline">u_i</span> is independent of <span class="math inline">x_i</span> for all <span class="math inline">i</span>, with <span class="math inline">\mathbb{E}(u_i) = \mu_u</span> and <span class="math inline">\text{var}(u_i) = \sigma^2_u</span>.</p>
-<p>Analyze the expected impact of this <span class="orange">measurement error</span> on <span class="math inline">\hat{\beta}_1</span> and the residuals <span class="math inline">\bm{r}</span>. What does it happen in the special case <span class="math inline">\mu_u = 0</span>?</p>
+<p>Analyze the expected impact of this <span class="blue">measurement error</span> on <span class="math inline">\hat{\beta}_1</span> and the residuals <span class="math inline">\bm{r}</span>. What does it happen in the special case <span class="math inline">\mu_u = 0</span>?</p>
 </div>
 </div>
 </div>
