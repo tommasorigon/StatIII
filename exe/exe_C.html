@@ -225,12 +225,16 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p>The data in the <code>Heart</code> dataframe included in the <code>MLGdata</code> library report the number of confirmed myocardial infarctions in a sample of <span class="math inline">360</span> patients hospitalized with suspected infarction. These data were originally collected in Edinburgh Royal Infirmary; the original study was published as</p>
 <blockquote class="blockquote">
-<p>Smith, A. F. (1967) Diagnostic value of serum-creatinine-kinase in a coronary care unit. Lancet, <strong>2</strong>, 178.</p>
+<p>Smith, A. F. (1967) Diagnostic value of serum-creatinine-kinase in a coronary care unit. <em>Lancet</em>, <strong>2</strong>, 178.</p>
 </blockquote>
-<p>For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (<code>ck</code>), the dataset provides:<br>
-- the number of confirmed infarctions (<code>ha</code>),<br>
-- the number of non-confirmed infarctions (<code>nha</code>),<br>
-- and the midpoint value of the variable <code>ck</code> (<code>mck</code>).</p>
+<p>For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (<code>ck</code>), the dataset provides:</p>
+<ul>
+<li>the number of confirmed infarctions (<code>ha</code>),<br>
+</li>
+<li>the number of non-confirmed infarctions (<code>nha</code>),<br>
+</li>
+<li>and the midpoint value of the variable <code>ck</code> (<code>mck</code>).</li>
+</ul>
 <p>The goal is to evaluate the influence of the Creatine Kinase enzyme level on the probability of infarction.</p>
 <p>Import the data and then:</p>
 <ol type="a">
@@ -256,14 +260,56 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>kalythos</code> dataset
+<code>Germination</code> dataset
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages.</p>
-<p>A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below (Silvey, 1975, Exercise 4.2).</p>
+<p>The data contained in the <code>Germination</code> dataframe, that can be found in the <code>MLGdata</code> library, were obtained from a <span class="math inline">2 \times 2</span> factorial experiment (two factors, each with two levels) to compare two seeds, <em>Orobanche aegyptiaca</em> 75 and <em>Orobanche aegyptiaca</em> 73, germinated on two different root extracts: bean and cucumber. The source of the data is</p>
+<blockquote class="blockquote">
+<p>Cox, D. R. e Snell, E. J. (1989). <em>Analysis of Binary Data</em>, 2nd ed.&nbsp;London: Chapman &amp; Hall/CRC.</p>
+</blockquote>
+<p>For each combination, the total number of seeds <span class="math inline">m_i</span> and the number of seeds that germinate <span class="math inline">S_i</span> are reported.</p>
+<p>Import the data and then:</p>
+<ol type="a">
+<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
+<li><p>Specify an appropriate model to evaluate the effect of the two factors (seed and root used) on the probability of germination. Indicate both the model without interaction and the model with interaction.</p></li>
+<li><p>Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities <span class="math inline">\pi_i</span>, <span class="math inline">i=1,\dots,21</span>, corresponding to:</p>
+<ul>
+<li><span class="math inline">\pi_{75F}</span> for <em>Orobanche aegyptiaca</em> 75 on bean root;<br>
+</li>
+<li><span class="math inline">\pi_{75C}</span> for <em>Orobanche aegyptiaca</em> 75 on cucumber root;<br>
+</li>
+<li><span class="math inline">\pi_{73F}</span> for <em>Orobanche aegyptiaca</em> 73 on bean root;<br>
+</li>
+<li><span class="math inline">\pi_{73C}</span> for <em>Orobanche aegyptiaca</em> 73 on cucumber root.</li>
+</ul></li>
+<li><p>Fit the generalized linear model in <strong>R</strong> using the canonical link, and assess the significance of the interaction effect.</p></li>
+<li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.</p></li>
+<li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is calculated, providing a correspondence with the formulas in the slides.</p></li>
+<li><p>Evaluate the goodness of fit of the model, with particular attention to potential <span class="orange">overdispersion</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>kalythos</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages. Data are taken from</p>
+<blockquote class="blockquote">
+<p>Silvey, S. D. (1970), Statistical Inference. Penguin, London.</p>
+</blockquote>
+<p>A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -296,9 +342,10 @@ window.Quarto = {
 </table>
 <p>Using a logit or probit model:</p>
 <ol type="a">
-<li><p>Estimate the <code>LD50</code>, i.e., the age at which the probability of blindness is equal to 0.5, and its corresponding variance.</p></li>
+<li><p>Estimate the <code>LD50</code>, i.e., the age at which the probability of blindness is equal to <span class="math inline">0.5</span>, and its corresponding variance.</p></li>
 <li><p>Compare the results between the logit and probit models.</p></li>
 </ol>
+<p>Code for importing the data in <strong>R</strong>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>kalythos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="at">age   =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">35</span>, <span class="dv">45</span>, <span class="dv">55</span>, <span class="dv">70</span>),</span>
@@ -306,42 +353,6 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4"></a>  <span class="at">total =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>)</span>
 <span id="cb1-5"><a href="#cb1-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<code>Germination</code> dataset
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The data contained in the <code>Germination</code> dataframe (Cox and Snell, 1989, Example 3.2), that can be found in the <code>MLGdata</code> library, were obtained from a <span class="math inline">2 \times 2</span> factorial experiment (two factors, each with two levels) to compare two seeds, <em>Orobanche aegyptiaca</em> 75 and <em>Orobanche aegyptiaca</em> 73, germinated on two different root extracts: bean and cucumber.</p>
-<p>For each combination, the total number of seeds <span class="math inline">m</span> and the number of seeds that germinate <span class="math inline">s</span> are reported.</p>
-<p>Import the data and then:</p>
-<ol type="a">
-<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
-<li><p>Specify an appropriate model to evaluate the effect of the two factors (seed and root used) on the probability of germination. Indicate both the model without interaction and the model with interaction.</p></li>
-<li><p>Verify that the model with interaction is equivalent to a model that assumes the number of seeds that germinate in each experiment is a realization of a binomial distribution with success probabilities <span class="math inline">\pi_i</span>, <span class="math inline">i=1,\dots,21</span>, corresponding to:</p>
-<ul>
-<li><span class="math inline">\pi_{75F}</span> for <em>Orobanche aegyptiaca</em> 75 on bean root;<br>
-</li>
-<li><span class="math inline">\pi_{75C}</span> for <em>Orobanche aegyptiaca</em> 75 on cucumber root;<br>
-</li>
-<li><span class="math inline">\pi_{73F}</span> for <em>Orobanche aegyptiaca</em> 73 on bean root;<br>
-</li>
-<li><span class="math inline">\pi_{73C}</span> for <em>Orobanche aegyptiaca</em> 73 on cucumber root.</li>
-</ul></li>
-<li><p>Fit the generalized linear model in <strong>R</strong> using the canonical link, and assess the significance of the interaction effect.</p></li>
-<li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.</p></li>
-<li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is calculated, providing a correspondence with the formulas in the slides.</p></li>
-<li><p>Evaluate the goodness of fit of the model, with particular attention to potential <span class="orange">overdispersion</span>.</p></li>
-</ol>
 </div>
 </div>
 </div>

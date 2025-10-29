@@ -59,9 +59,10 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 
 The data in the `Heart` dataframe included in the `MLGdata` library report the number of confirmed myocardial infarctions in a sample of $360$ patients hospitalized with suspected infarction. These data were originally collected in Edinburgh Royal Infirmary; the original study was published as
 
-> Smith, A. F. (1967) Diagnostic value of serum-creatinine-kinase in a coronary care unit. Lancet, **2**, 178.
+> Smith, A. F. (1967) Diagnostic value of serum-creatinine-kinase in a coronary care unit. *Lancet*, **2**, 178.
 
-For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (`ck`), the dataset provides:  
+For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (`ck`), the dataset provides:
+
 - the number of confirmed infarctions (`ha`),  
 - the number of non-confirmed infarctions (`nha`),  
 - and the midpoint value of the variable `ck` (`mck`).  
@@ -94,40 +95,13 @@ Import the data and then:
 :::
 
 :::{.callout-note collapse=true}
-#### `kalythos` dataset
-
-Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages.  
-
-A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below (Silvey, 1975, Exercise 4.2).  
-
-| Age | 20 | 35 | 45 | 55 | 70 |  
-|-----|----|----|----|----|----|  
-| Number of observed individuals | 50 | 50 | 50 | 50 | 50 |  
-| Number of blind individuals    |  6 | 17 | 26 | 37 | 44 |  
-
-Using a logit or probit model:
-
-(a) Estimate the `LD50`, i.e., the age at which the probability of blindness is equal to 0.5, and its corresponding variance.  
-
-(b) Compare the results between the logit and probit models.  
-
-```{r}
-#| echo: true
-kalythos <- data.frame(
-  age   = c(20, 35, 45, 55, 70),
-  blind = c(6, 17, 26, 37, 44),
-  total = c(50, 50, 50, 50, 50)
-)
-```
-
-:::
-
-:::{.callout-note collapse=true}
 #### `Germination` dataset
 
-The data contained in the `Germination` dataframe (Cox and Snell, 1989, Example 3.2), that can be found in the `MLGdata` library, were obtained from a $2 \times 2$ factorial experiment (two factors, each with two levels) to compare two seeds, *Orobanche aegyptiaca* 75 and *Orobanche aegyptiaca* 73, germinated on two different root extracts: bean and cucumber.  
+The data contained in the `Germination` dataframe, that can be found in the `MLGdata` library, were obtained from a $2 \times 2$ factorial experiment (two factors, each with two levels) to compare two seeds, *Orobanche aegyptiaca* 75 and *Orobanche aegyptiaca* 73, germinated on two different root extracts: bean and cucumber. The source of the data is
 
-For each combination, the total number of seeds $m$ and the number of seeds that germinate $s$ are reported.  
+> Cox, D. R. e Snell, E. J. (1989). *Analysis of Binary Data*, 2nd ed. London: Chapman & Hall/CRC.
+
+For each combination, the total number of seeds $m_i$ and the number of seeds that germinate $S_i$ are reported.  
 
 Import the data and then:
 
@@ -148,6 +122,38 @@ Import the data and then:
 (f) For each element of the `summary` output of the `glm` object in R, indicate which quantity is calculated, providing a correspondence with the formulas in the slides.  
 
 (g) Evaluate the goodness of fit of the model, with particular attention to potential [overdispersion]{.orange}.  
+
+:::
+
+:::{.callout-note collapse=true}
+#### `kalythos` dataset
+
+Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages. Data are taken from
+
+> Silvey, S. D. (1970), Statistical Inference. Penguin, London.
+
+A sample of male islanders of different ages was examined, and the number of blind individuals was recorded, yielding the results in the table below
+
+| Age | 20 | 35 | 45 | 55 | 70 |  
+|-----|----|----|----|----|----|  
+| Number of observed individuals | 50 | 50 | 50 | 50 | 50 |  
+| Number of blind individuals    |  6 | 17 | 26 | 37 | 44 |  
+
+Using a logit or probit model:
+
+(a) Estimate the `LD50`, i.e., the age at which the probability of blindness is equal to $0.5$, and its corresponding variance.  
+
+(b) Compare the results between the logit and probit models.  
+
+Code for importing the data in **R**:
+```{r}
+#| echo: true
+kalythos <- data.frame(
+  age   = c(20, 35, 45, 55, 70),
+  blind = c(6, 17, 26, 37, 44),
+  total = c(50, 50, 50, 50, 50)
+)
+```
 
 :::
 
