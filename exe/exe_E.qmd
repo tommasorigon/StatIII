@@ -64,6 +64,16 @@ Import the data and then
 :::
 
 :::{.callout-note collapse=true}
+#### `Bioassay` dataset
+
+The data in the `Bioassay` dataset, available in the `MLGdata` library, refer to a biological experiment (Finney, 1947, Table 9). The variable `y` represents the number of observed events out of a total of subjects ( `den`) exposed to a dose `z`.
+
+(a) Fit a binomial model with a probit link function. 
+
+(b) To check for possible overdispersion, consider a quasi-likelihood model, also evaluating the standard errors using a robust approach.
+:::
+
+:::{.callout-note collapse=true}
 ##### `Germination` dataset (continuation)
 
 Reconsider the `Germination` dataset previously analyzed in [Exercises C](exe_C.html).
