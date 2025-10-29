@@ -143,7 +143,7 @@ $$
 :::
 
 :::{.callout-note collapse=true}
-#### `Housing` dataset - To be added
+#### `Houses` dataset
 
 To be added
 :::
