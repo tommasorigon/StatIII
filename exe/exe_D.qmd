@@ -44,6 +44,7 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 
 ## Data analysis
 
+
 :::{.callout-note collapse=true}
 #### `Britishdoc` dataset
 
@@ -100,6 +101,12 @@ Import the data and then
 (d) Evaluate whether the data exhibit [overdispersion]{.orange} relative to the Poisson model.
 
 (e) [Optional]{.orange}: assess whether it might be appropriate to fit a [zero-inflated]{.blue} model to these data.
+:::
+
+:::{.callout-note collapse=true}
+#### `Crabs` dataset
+
+TO BE ADDED
 :::
 
 ## Theoretical
