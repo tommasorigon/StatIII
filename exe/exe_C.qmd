@@ -45,6 +45,16 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 ## Data analysis
 
 :::{.callout-note collapse=true}
+#### `Beetles` dataset (missing details)
+
+For the logit model considered in the slides applied to the `Beetles` data, available in the library `MLGdata`, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$. 
+
+(a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.  
+
+(b) Obtain the analogous interval for the dose, defined as $\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}$ (lethal dose 50). 
+:::
+
+:::{.callout-note collapse=true}
 #### `Heart` dataset
 
 
@@ -81,17 +91,6 @@ Import the data and then:
 (j) Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
 
 (k) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.  
-:::
-
-
-:::{.callout-note collapse=true}
-#### `Beetles` dataset
-
-For the logit model considered in the slides applied to the `Beetles` data, available in the library `MLGdata`, verify that  $\psi = \beta_1 / \beta_2$ corresponds to the log-dose $x_{0.5}$ at which the probability that an insect is killed is equal to $0.5$. 
-
-(a) Apply the delta method to obtain an approximate 95% Wald confidence interval for $\psi$.  
-
-(b) Obtain the analogous interval for the dose, defined as $\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}$ (lethal dose 50). 
 :::
 
 :::{.callout-note collapse=true}
@@ -169,13 +168,17 @@ Let $Y \sim \mathrm{Binomial}(m, \pi)$. Consider the logit parametrization $\the
 :::{.callout-note collapse=true}
 #### Exercise B
 
-Explain how the expression for $\text{var}(\hat{\beta})$ in logistic regression suggest that the standard errors of $\hat{\beta}_j$ tend to b smaller as you obtain more data. Answer this for (a) grouped data with $m_i$ increasing, and (b) ungrouped data with $n$ increasing.
+Explain how the expression for $\text{var}(\hat{\beta})$ in logistic regression suggest that the standard errors of $\hat{\beta}_j$ tend to be smaller as you obtain more data. 
+
+Answer this for (a) grouped data with $m_i$ increasing, and (b) ungrouped data with $n$ increasing.
 :::
 
 :::{.callout-note collapse=true}
 #### Exercise C
 
-Suppose the logistic model holds in which $x$ is uniformly distributed on the interval $[0, 100]$ and $\text{logit}(\pi_i) = -2.0 + 0.04 x_i$. Randomly generate $100$ independent observations from this model. Plot the response residuals against $x$ and against the fitted values. Why do residual plots for binary data have this appearance?
+Suppose the logistic model holds in which $x$ is uniformly distributed on the interval $[0, 100]$ and $\text{logit}(\pi_i) = -2.0 + 0.04 x_i$. Randomly generate $100$ independent observations from this model. Plot the response residuals against $x$ and against the fitted values. 
+
+Why do residual plots for binary data have this appearance?
 :::
 
 :::{.callout-note collapse=true}

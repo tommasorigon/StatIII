@@ -75,6 +75,33 @@ on age, and to compare the trends between smokers and non-smokers.
 
 :::
 
+:::{.callout-note collapse=true}
+### `Homicide` dataset
+
+The data contained in the data frame `Homicide`, available in the `MLGdata` R package, report the responses of $n = 1308$ individuals in the United States to the question:
+
+> "How many people do you personally know who have been victims of homicide in the past 12 months?"
+
+The observed variables are:
+
+- `count`: the reported number of victims  
+- `race`: the race of the respondent (`0` = White, `1` = Black)
+
+Let $y_i$ denote the response of subject $i$, for $i = 1, \dots, 1308$, and let $x_i = 1$ for Black respondents and $x_i = 0$ for White respondents.
+
+Import the data and then
+
+(a) Fit a Poisson regression model with canonical link and linear predictor  $\eta_i = \beta_1 + \beta_2 x_i$. Interpret the estimates of the regression coefficients.
+
+(b) Compute the observed frequency of the response variable for White and Black respondents and compare them with those expected under the fitted Poisson model.
+
+(c) Compute the $X^2$ Pearson goodness-of-fit statistic. If necessary, combine higher response values into a single category and assess the overall goodness of fit of the model.
+
+(d) Evaluate whether the data exhibit [overdispersion]{.orange} relative to the Poisson model.
+
+(e) [Optional]{.orange}: assess whether it might be appropriate to fit a [zero-inflated]{.blue} model to these data.
+:::
+
 ## Theoretical
 
 :::{.callout-note collapse=true}

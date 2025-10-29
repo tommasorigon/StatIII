@@ -211,11 +211,31 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Heart</code> dataset
+<code>Beetles</code> dataset (missing details)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the logit model considered in the slides applied to the <code>Beetles</code> data, available in the library <code>MLGdata</code>, verify that <span class="math inline">\psi = \beta_1 / \beta_2</span> corresponds to the log-dose <span class="math inline">x_{0.5}</span> at which the probability that an insect is killed is equal to <span class="math inline">0.5</span>.</p>
+<ol type="a">
+<li><p>Apply the delta method to obtain an approximate 95% Wald confidence interval for <span class="math inline">\psi</span>.</p></li>
+<li><p>Obtain the analogous interval for the dose, defined as <span class="math inline">\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}</span> (lethal dose 50).</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Heart</code> dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The data in the <code>Heart</code> dataframe included in the <code>MLGdata</code> library report the number of confirmed myocardial infarctions in a sample of 360 patients hospitalized with suspected infarction (Hand et al., 1994, p.&nbsp;45).</p>
 <p>For each level of the enzyme Creatine Kinase (IU per liter), grouped into classes (<code>ck</code>), the dataset provides:</p>
@@ -241,26 +261,6 @@ window.Quarto = {
 <li><p>Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.</p></li>
 <li><p>Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.<br>
 </p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<code>Beetles</code> dataset
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>For the logit model considered in the slides applied to the <code>Beetles</code> data, available in the library <code>MLGdata</code>, verify that <span class="math inline">\psi = \beta_1 / \beta_2</span> corresponds to the log-dose <span class="math inline">x_{0.5}</span> at which the probability that an insect is killed is equal to <span class="math inline">0.5</span>.</p>
-<ol type="a">
-<li><p>Apply the delta method to obtain an approximate 95% Wald confidence interval for <span class="math inline">\psi</span>.</p></li>
-<li><p>Obtain the analogous interval for the dose, defined as <span class="math inline">\tilde{\psi} = 10^{x_{0.5}} = 10^{\psi}</span> (lethal dose 50).</p></li>
 </ol>
 </div>
 </div>
@@ -397,7 +397,8 @@ Exercise B
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Explain how the expression for <span class="math inline">\text{var}(\hat{\beta})</span> in logistic regression suggest that the standard errors of <span class="math inline">\hat{\beta}_j</span> tend to b smaller as you obtain more data. Answer this for (a) grouped data with <span class="math inline">m_i</span> increasing, and (b) ungrouped data with <span class="math inline">n</span> increasing.</p>
+<p>Explain how the expression for <span class="math inline">\text{var}(\hat{\beta})</span> in logistic regression suggest that the standard errors of <span class="math inline">\hat{\beta}_j</span> tend to be smaller as you obtain more data.</p>
+<p>Answer this for (a) grouped data with <span class="math inline">m_i</span> increasing, and (b) ungrouped data with <span class="math inline">n</span> increasing.</p>
 </div>
 </div>
 </div>
@@ -413,7 +414,8 @@ Exercise C
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Suppose the logistic model holds in which <span class="math inline">x</span> is uniformly distributed on the interval <span class="math inline">[0, 100]</span> and <span class="math inline">\text{logit}(\pi_i) = -2.0 + 0.04 x_i</span>. Randomly generate <span class="math inline">100</span> independent observations from this model. Plot the response residuals against <span class="math inline">x</span> and against the fitted values. Why do residual plots for binary data have this appearance?</p>
+<p>Suppose the logistic model holds in which <span class="math inline">x</span> is uniformly distributed on the interval <span class="math inline">[0, 100]</span> and <span class="math inline">\text{logit}(\pi_i) = -2.0 + 0.04 x_i</span>. Randomly generate <span class="math inline">100</span> independent observations from this model. Plot the response residuals against <span class="math inline">x</span> and against the fitted values.</p>
+<p>Why do residual plots for binary data have this appearance?</p>
 </div>
 </div>
 </div>

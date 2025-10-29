@@ -59,7 +59,7 @@ Import the data and then:
 
 (b) Conduct an exploratory analysis to assess the relationship between the response and the covariates.  
 
-(c) Using pen and paper, specify an appropriate Generalized Linear Model (GLM), adopting the canonical link function. 
+(c) Using pen and paper, specify an appropriate GLM adopting the canonical link function. 
 
 (d) Fit the GLM specified in (c) using **R**.  
 

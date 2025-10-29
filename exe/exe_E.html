@@ -200,31 +200,33 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Homicide</code> dataset
+<code>Germination</code> dataset (continuation)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The data contained in the data frame <code>Homicide</code>, available in the <code>MLGdata</code> R package, report the responses of <span class="math inline">n = 1308</span> individuals in the United States to the question:</p>
-<blockquote class="blockquote">
-<p>“How many people do you personally know who have been victims of homicide in the past 12 months?”</p>
-</blockquote>
-<p>The observed variables are:</p>
-<ul>
-<li><code>count</code>: the reported number of victims<br>
-</li>
-<li><code>race</code>: the race of the respondent (<code>0</code> = White, <code>1</code> = Black)</li>
-</ul>
-<p>Let <span class="math inline">y_i</span> denote the response of subject <span class="math inline">i</span>, for <span class="math inline">i = 1, \dots, 1308</span>, and let <span class="math inline">x_i = 1</span> for Black respondents and <span class="math inline">x_i = 0</span> for White respondents.</p>
-<p>Import the data and then</p>
+<p>Reconsider the <code>Germination</code> dataset previously analyzed in <a href="exe_C.html">Exercises C</a>.</p>
+<p>Evaluate the possible presence of <span class="orange">overdispersion</span>, and compare the results obtained from fitting the different models that account for it. Propose a <span class="blue">final model</span> and interpret the results.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Homicide</code> dataset (continuation)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Reconsider the <code>Homicide</code> dataset previously analyzed in <a href="exe_D.html">Exercises D</a>.</p>
 <ol type="a">
-<li><p>Fit a Poisson regression model with canonical link and linear predictor <span class="math inline">\eta_i = \beta_1 + \beta_2 x_i</span>. Interpret the estimates of the regression coefficients.</p></li>
-<li><p>Compute the observed frequency of the response variable for White and Black respondents and compare them with those expected under the fitted Poisson model.</p></li>
-<li><p>Compute the <span class="math inline">X^2</span> Pearson goodness-of-fit statistic. If necessary, combine higher response values into a single category and assess the overall goodness of fit of the model.</p></li>
-<li><p>Evaluate whether the data exhibit <span class="orange">overdispersion</span> relative to the Poisson model.</p></li>
+<li><p>Evaluate the possible presence of <span class="orange">overdispersion</span>.</p></li>
 <li><p>Construct an approximate 95% confidence interval for the ratio of the mean number of reported homicides between White and Black respondents, using both the Poisson and a quasi-likelihood approach. Comment on the results.</p></li>
-<li><p><span class="orange">Optional</span>: assess whether it might be appropriate to fit a <span class="blue">zero-inflated</span> model to these data.</p></li>
 </ol>
 </div>
 </div>
@@ -233,7 +235,7 @@ window.Quarto = {
 <section id="theoretical" class="level2">
 <h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -242,14 +244,14 @@ Exercise A
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Does the inflated-variance quasi-likelihood approach make sense as a way to generalize the ordinary normal model with <span class="math inline">v(\mu_i) = \sigma^2</span>? Why or why not?</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -258,7 +260,7 @@ Exercise B
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Altham (1978) introduced the discrete distribution <span class="math display">
 f(x; \pi, \theta) = c(\pi, \theta) \binom{n}{x}\pi^x(1 - \pi)^{n - x}\theta^{x(n-x)}, \qquad x = 0, 1,\dots, n,
