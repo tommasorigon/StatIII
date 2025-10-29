@@ -145,7 +145,26 @@ $$
 :::{.callout-note collapse=true}
 #### `Houses` dataset
 
-To be added
+What affects the selling price of a house? The `Houses` dataset is [available here](../data/Houses.txt) and comprises $n = 100$ observations on recent home sales in Gainesville, Florida. 
+
+Variables listed are selling price (in thousands of dollars, `price`), size of house (in square feet, `size`), annual property tax bill (in dollars, `taxes`), number of bedrooms (`beds`), number of bathrooms (`baths`), and whether the house is new (`new`, with `1` = new and `0` = not new). The original source of the dataset is the textbook:
+
+> Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
+
+Since these $100$ observations are from one city alone, we cannot use them to make inferences about the relationships in general. But for illustrative purposes, we treat them as a random sample of a conceptual population of home sales in this market and analyze how selling price seems to relate to these characteristics. The goal is the [predict the sale price]{.blue} as a function of other characteristics
+
+Import the data and then
+
+(a) Summarize the data with descriptive statistics and plots. 
+
+(b) Using a forward selection procedure with all five predictors together with judgments about practical signiicance, select and interpret a (generalized) linear model for selling price.
+
+(c) Check whether results depend on any inluential observations.
+
+```{r}
+Houses <- read.table("../data/Houses.txt", header = TRUE)
+```
+
 :::
 
 ## Theoretical

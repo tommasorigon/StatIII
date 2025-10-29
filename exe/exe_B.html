@@ -289,7 +289,18 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>To be added</p>
+<p>What affects the selling price of a house? The <code>Houses</code> dataset is <a href="../data/Houses.txt">available here</a> and comprises <span class="math inline">n = 100</span> observations on recent home sales in Gainesville, Florida.</p>
+<p>Variables listed are selling price (in thousands of dollars, <code>price</code>), size of house (in square feet, <code>size</code>), annual property tax bill (in dollars, <code>taxes</code>), number of bedrooms (<code>beds</code>), number of bathrooms (<code>baths</code>), and whether the house is new (<code>new</code>, with <code>1</code> = new and <code>0</code> = not new). The original source of the dataset is the textbook:</p>
+<blockquote class="blockquote">
+<p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
+</blockquote>
+<p>Since these <span class="math inline">100</span> observations are from one city alone, we cannot use them to make inferences about the relationships in general. But for illustrative purposes, we treat them as a random sample of a conceptual population of home sales in this market and analyze how selling price seems to relate to these characteristics. The goal is the <span class="blue">predict the sale price</span> as a function of other characteristics</p>
+<p>Import the data and then</p>
+<ol type="a">
+<li><p>Summarize the data with descriptive statistics and plots.</p></li>
+<li><p>Using a forward selection procedure with all five predictors together with judgments about practical signiicance, select and interpret a (generalized) linear model for selling price.</p></li>
+<li><p>Check whether results depend on any inluential observations.</p></li>
+</ol>
 </div>
 </div>
 </div>
