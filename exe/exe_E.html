@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Exercises A</title>
+<title>Exercises E</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -44,17 +44,17 @@ div.csl-indent {
 }</style>
 
 
-<script src="exe_A_files/libs/clipboard/clipboard.min.js"></script>
-<script src="exe_A_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="exe_A_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="exe_A_files/libs/quarto-html/popper.min.js"></script>
-<script src="exe_A_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="exe_A_files/libs/quarto-html/anchor.min.js"></script>
-<link href="exe_A_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="exe_A_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="exe_A_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="exe_A_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="exe_A_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="exe_E_files/libs/clipboard/clipboard.min.js"></script>
+<script src="exe_E_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="exe_E_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="exe_E_files/libs/quarto-html/popper.min.js"></script>
+<script src="exe_E_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="exe_E_files/libs/quarto-html/anchor.min.js"></script>
+<link href="exe_E_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="exe_E_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="exe_E_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="exe_E_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="exe_E_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -123,7 +123,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercises A</h1>
+<h1 class="title">Exercises E</h1>
 <p class="subtitle lead">Statistics III - CdL SSE</p>
 </div>
 
@@ -176,160 +176,34 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Abrasion</code> dataset
+<code>Basketball</code> dataset
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The dataset <code>Abrasion</code> (Hand et al., 1994), available in the <code>MLGdata</code> R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (<code>perdita</code>, in grams per hour) was recorded. For each sample, the following variables were also measured:</p>
-<ul>
-<li><code>D</code>: hardness (in Shore degrees),<br>
-</li>
-<li><code>Re</code>: tensile strength (kg/cm²).</li>
-</ul>
-<ol type="a">
-<li><p>Identify the statistical units, the response variable, and the explanatory variables, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).</p></li>
-<li><p>Perform a graphical analysis to assess whether a linear regression model may be appropriate.</p></li>
-<li><p>Write the main equation of a <span class="blue">simple linear regression</span> model, choosing the <span class="orange">most correlated</span> explanatory variable.</p></li>
-<li><p>Fit the simple linear regression model specified in point (c) in <strong>R</strong>.</p></li>
-<li><p>Report the estimates and 95% confidence intervals for the coefficients. Interpret the estimated values.</p></li>
-<li><p>For each element of the R <code>summary</code> output of the <code>lm</code> object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.</p></li>
-<li><p>Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment the results. See also <span class="orange">Exercise D</span> (below) for a refined and alternative diagnostic plot.</p></li>
-<li><p>Fit a multiple regression model in <strong>R</strong> including <span class="blue">both explanatory variables</span>. Interpret the estimated coefficients.</p></li>
-<li><p>Evaluate the goodness of fit of the multiple regression model, using all the diagnostic tools at your disposal.</p></li>
-<li><p>Obtain a 95% <span class="orange">confidence interval</span> for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% <span class="blue">prediction interval</span> for the response.</p></li>
-</ol>
+<p>The <code>Basketball</code> dataset can be <a href="../data/Basketball.dat">downloaded here</a> and shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made <span class="math inline">0</span> of <span class="math inline">4</span> shots in game <span class="math inline">1</span>). Commentators remarked that his shooting varied dramatically from game to game.</p>
+<p>In the <span class="math inline">i</span>th game, suppose that <span class="math inline">S_i = m_i Y_i</span> is the number three-points shots made out of <span class="math inline">m_i</span> attempts is distributed as <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, and that the <span class="math inline">S_i</span> are independent.</p>
+<p><a href="../data/Basketball.dat">Download</a> and import the data and then</p>
 </div>
 </div>
 </div>
+</section>
+<section id="theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>FEV</code> dataset
+Exercise A
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Littell et al.&nbsp;(2000) reported a pharmaceutical clinical trial involving <span class="math inline">n = 72</span> patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The dataset <code>FEV.dat</code> is <a href="../data/FEV.dat">available here</a>; the first six observations are shown below.</p>
-<p>In this analysis, let <span class="math inline">y</span> denote the FEV1 value after one hour of treatment (variable <code>fev1</code> in the dataset). Define</p>
-<ul>
-<li><span class="math inline">x_1</span>: baseline FEV1 measurement prior to treatment (<code>base</code>),<br>
-</li>
-<li><span class="math inline">x_2</span>: treatment group (categorical variable <code>drug</code> with labels <code>a</code>, <code>b</code>, <code>p</code>).</li>
-</ul>
-<p><a href="../data/FEV.dat">Download the data</a> and then:</p>
-<ol type="a">
-<li><p>Fit linear models for <span class="math inline">y</span> using the following sets of predictors: (i) <span class="math inline">x_1</span> only, (ii) <span class="math inline">x_2</span> only, (iii) both <span class="math inline">x_1</span> and <span class="math inline">x_2</span></p></li>
-<li><p>Test to see whether the interaction terms are needed.</p></li>
-<li><p>Check the underlying assumptions of the fitted models. If they are violated, propose a solution.</p></li>
-<li><p>For each model, <span class="blue">interpret</span> the estimated parameters.</p></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">patient</th>
-<th style="text-align: right;">base</th>
-<th style="text-align: right;">fev1</th>
-<th style="text-align: right;">fev2</th>
-<th style="text-align: right;">fev3</th>
-<th style="text-align: right;">fev4</th>
-<th style="text-align: right;">fev5</th>
-<th style="text-align: right;">fev6</th>
-<th style="text-align: right;">fev7</th>
-<th style="text-align: right;">fev8</th>
-<th style="text-align: left;">drug</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2.46</td>
-<td style="text-align: right;">2.68</td>
-<td style="text-align: right;">2.76</td>
-<td style="text-align: right;">2.50</td>
-<td style="text-align: right;">2.30</td>
-<td style="text-align: right;">2.14</td>
-<td style="text-align: right;">2.40</td>
-<td style="text-align: right;">2.33</td>
-<td style="text-align: right;">2.20</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3.50</td>
-<td style="text-align: right;">3.95</td>
-<td style="text-align: right;">3.65</td>
-<td style="text-align: right;">2.93</td>
-<td style="text-align: right;">2.53</td>
-<td style="text-align: right;">3.04</td>
-<td style="text-align: right;">3.37</td>
-<td style="text-align: right;">3.14</td>
-<td style="text-align: right;">2.62</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1.96</td>
-<td style="text-align: right;">2.28</td>
-<td style="text-align: right;">2.34</td>
-<td style="text-align: right;">2.29</td>
-<td style="text-align: right;">2.43</td>
-<td style="text-align: right;">2.06</td>
-<td style="text-align: right;">2.18</td>
-<td style="text-align: right;">2.28</td>
-<td style="text-align: right;">2.29</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3.44</td>
-<td style="text-align: right;">4.08</td>
-<td style="text-align: right;">3.87</td>
-<td style="text-align: right;">3.79</td>
-<td style="text-align: right;">3.30</td>
-<td style="text-align: right;">3.80</td>
-<td style="text-align: right;">3.24</td>
-<td style="text-align: right;">2.98</td>
-<td style="text-align: right;">2.91</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2.80</td>
-<td style="text-align: right;">4.09</td>
-<td style="text-align: right;">3.90</td>
-<td style="text-align: right;">3.54</td>
-<td style="text-align: right;">3.35</td>
-<td style="text-align: right;">3.15</td>
-<td style="text-align: right;">3.23</td>
-<td style="text-align: right;">3.46</td>
-<td style="text-align: right;">3.27</td>
-<td style="text-align: left;">a</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">2.36</td>
-<td style="text-align: right;">3.79</td>
-<td style="text-align: right;">3.97</td>
-<td style="text-align: right;">3.78</td>
-<td style="text-align: right;">3.69</td>
-<td style="text-align: right;">3.31</td>
-<td style="text-align: right;">2.83</td>
-<td style="text-align: right;">2.72</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: left;">a</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>Does the inflated-variance quasi-likelihood approach make sense as a way to generalize the ordinary normal model with <span class="math inline">v(\mu_i) = \sigma^2</span>? Why or why not?</p>
 </div>
 </div>
 </div>
@@ -339,171 +213,17 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Anorexia</code> dataset
+Exercise B
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For <span class="math inline">n = 72</span> young girls diagnosed with anorexia, the dataset <code>Anorexia.dat</code> <a href="../data/Anorexia.dat">available here</a> records their body weights (in lbs) before and after an experimental treatment period. The data format is illustrated below. During the study, the participants were randomly assigned to one of three <code>therapy</code> groups:</p>
-<ul>
-<li>Control group: received the standard therapy (label <code>c</code>),<br>
-</li>
-<li>Family therapy (label <code>f</code>),<br>
-</li>
-<li>Cognitive behavioral therapy (label <code>b</code>).</li>
-</ul>
-<p><a href="../data/Anorexia.dat">Download the data</a> and</p>
-<ol type="a">
-<li><p>Fit a linear model where the outcome is the <span class="blue">post-treatment weight</span> and the predictors are the <span class="orange">baseline weight</span> and the <span class="orange">therapy group</span></p></li>
-<li><p>Check the underlying assumptions of the fitted models. If they are violated, propose a solution.</p></li>
-<li><p><span class="blue">Interpret</span> the estimated parameters of the model.</p></li>
-<li><p>Convert the weights to kilograms (<span class="math inline">1\ \text{lb} = 0.453592\ \text{kg}</span>), repeat the analysis, and discuss whether the results change and why.</p></li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">subj</th>
-<th style="text-align: left;">therapy</th>
-<th style="text-align: right;">before</th>
-<th style="text-align: right;">after</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">80.5</td>
-<td style="text-align: right;">82.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">84.9</td>
-<td style="text-align: right;">85.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">81.5</td>
-<td style="text-align: right;">81.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">82.6</td>
-<td style="text-align: right;">81.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">79.9</td>
-<td style="text-align: right;">76.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">b</td>
-<td style="text-align: right;">88.7</td>
-<td style="text-align: right;">103.6</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="theoretical" class="level2">
-<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise A
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Prove that the variance-stabilizing transform for gamma random variables <span class="math inline">Y_i\sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, is the logarithm <span class="math inline">g(Y_i) = \log(Y_i)</span>.</p>
-<p><span class="blue">Hint</span>: use the fact that if <span class="math inline">Y_i \sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, then for large values of <span class="math inline">\alpha</span> we have the approximation <span class="math inline">Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)</span>.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise B
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>In the linear model <span class="math inline">\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i</span>, suppose that instead of observing <span class="math inline">x_i</span> we observe <span class="math inline">x_i^* = x_i + u_i</span>, where <span class="math inline">u_i</span> is independent of <span class="math inline">x_i</span> for all <span class="math inline">i</span>, with <span class="math inline">\mathbb{E}(u_i) = \mu_u</span> and <span class="math inline">\text{var}(u_i) = \sigma^2_u</span>.</p>
-<p>Analyze the expected impact of this <span class="orange">measurement error</span> on <span class="math inline">\hat{\beta}_1</span> and the residuals <span class="math inline">\bm{r}</span>. What does it happen in the special case <span class="math inline">\mu_u = 0</span>?</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise C
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>In some applications, such as regressing annual income on the number of years of education, the variance of <span class="math inline">Y_i</span> tends to be larger at higher values of <span class="math inline">x_i &gt; 0</span>. Consider the model <span class="math inline">\mathbb{E}(Y_i) = \beta_1 x_i</span>, assuming <span class="math inline">\text{var}(Y_i) = \sigma^2 x_i</span> for unknown <span class="math inline">\sigma^2</span>.</p>
-<ol type="a">
-<li><p>Show that the weighted least squares estimator minimizes <span class="math inline">\sum_{i=1}^n(y_i - \beta x_i)^2/x_i</span> (i.e., giving more weight to observation with smaller <span class="math inline">x_i</span>) and has <span class="math inline">\hat{\beta}_\text{wls} = \bar{y}/\bar{x}</span>, with <span class="math inline">\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i</span>.</p></li>
-<li><p>Show that the ordinary least squares estimator is <span class="math inline">\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2</span> and has <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2</span>.</p></li>
-<li><p>Show that <span class="math inline">\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})</span>.</p></li>
-</ol>
-<p><span class="blue">Hint</span>: part (c) is not easy, but it can be solved in two ways: (i) by applying the Cauchy–Schwarz inequality to a suitable transformation of the <span class="math inline">x_i</span>, or (ii) by relying on the Gauss–Markov theorem.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise D
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Suppose the normal linear model <span class="math inline">\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}</span>, with <span class="math inline">\bm{X}</span> an <span class="math inline">n \times p</span> matrix (rank <span class="math inline">p&lt;n</span>), <span class="math inline">\bm{z}</span> an <span class="math inline">n \times 1</span> vector, and <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)</span>. We instead fit <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\varepsilon}</span>, with <span class="math display">
-\hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
-</span></p>
-<ol type="a">
-<li><p>Show that <span class="math display">
-\bm{r} = (I_n - \bm{H})\bm{z}\gamma + (I_n - \bm{H})\bm{\epsilon}</span> so <span class="math inline">\mathbb{E}(\bm{r}) = (I_n - \bm{H})\bm{z}\gamma</span>. What if <span class="math inline">\bm{z}</span> lies in the column space of <span class="math inline">\bm{X}</span>? What if <span class="math inline">\bm{z}</span> is orthogonal to the column space of <span class="math inline">\bm{X}</span>?</p></li>
-<li><p>Explain why the <span class="blue">added-variable plot</span> (residuals from regressing <span class="math inline">\bm{z}</span> on <span class="math inline">\bm{X}</span> vs.&nbsp;residuals <span class="math inline">\bm{r}</span>) helps assess whether to include <span class="math inline">\bm{z}</span>.</p></li>
-<li><p>Using the plots in the figure below, referring to the same set of data, comment on the results and suggest how to modify the model.</p></li>
-</ol>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="exe_A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>Altham (1978) introduced the discrete distribution <span class="math display">
+f(x; \pi, \theta) = c(\pi, \theta) \binom{n}{x}\pi^x(1 - \pi)^{n - x}\theta^{x(n-x)}, \qquad x = 0, 1,\dots, n,
+</span> where <span class="math inline">c(\pi, \theta)</span> is a normalizing constant.</p>
+<p>Show that this is in the two-parameter exponential family and that the binomial occurs when <span class="math inline">\theta = 1</span>.</p>
+<p><span class="blue">Comment</span>: Altham noted that overdispersion occurs when <span class="math inline">\theta &lt; 1</span>. Lindsey and Altham (1998) used this as the basis of an alternative model to the beta-binomial.</p>
 </div>
 </div>
 </div>
@@ -924,5 +644,5 @@ Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati<
 
 
 
-<script src="exe_A_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="exe_E_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

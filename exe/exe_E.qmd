@@ -1,0 +1,80 @@
+---
+title: "Exercises E"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+The theoretical exercises described below are quite [difficult]{.orange}. At the [exam]{.blue}, you can expect a [simplified version]{.blue} of them; otherwise, they would represent a formidable challenge for most of you.
+
+On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
+
+:::callout-tip
+The vast majority of these exercises are taken from the textbooks @Salvan2020 and @Agresti2015, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.
+:::
+
+## Data analysis
+
+:::{.callout-note collapse=true}
+#### `Basketball` dataset
+
+The `Basketball` dataset can be [downloaded here](../data/Basketball.dat) and shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made $0$ of $4$ shots in game $1$). Commentators remarked that his shooting varied dramatically from game to game.
+
+In the $i$th game, suppose that $S_i = m_i Y_i$ is the number three-points shots made out of $m_i$ attempts is distributed as $S_i \sim \text{Binomial}(m_i, \pi_i)$, and that the $S_i$ are independent.
+
+[Download](../data/Basketball.dat) and import the data and then
+
+:::
+
+## Theoretical
+
+:::{.callout-note collapse=true}
+#### Exercise A
+
+Does the inflated-variance quasi-likelihood approach make sense as a way to generalize the ordinary normal model with $v(\mu_i) = \sigma^2$? Why or why not?
+
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise B
+
+Altham (1978) introduced the discrete distribution
+$$
+f(x; \pi, \theta) = c(\pi, \theta) \binom{n}{x}\pi^x(1 - \pi)^{n - x}\theta^{x(n-x)}, \qquad x = 0, 1,\dots, n,
+$$
+where $c(\pi, \theta)$ is a normalizing constant. 
+
+Show that this is in the two-parameter exponential family and that the binomial occurs when $\theta = 1$. 
+
+[Comment]{.blue}: Altham noted that overdispersion occurs when $\theta < 1$. Lindsey and Altham (1998) used this as the basis of an alternative model to the beta-binomial.
+:::
+
