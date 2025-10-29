@@ -71,7 +71,7 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### `Wool` dataset  - Partial solution: [`Wool.R`](../code/Wool.R)
 
-The dataset `Wool` contained in the `MLGdata` library were obtained from an experiment  aimed at evaluating the effect of three variables, length (`x1`), width (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.  The data were originally analyzed in the famous paper Box and Cox (1964) paper
+The dataset `Wool` contained in the `MLGdata` library were obtained from an experiment  aimed at evaluating the effect of three variables, length (`x1`), width (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.  The data were originally analyzed in the famous paper Box and Cox (1964) paper:
 
 > Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations (with discussion). *Journal of the Royal Statistical Society, Series A*, **143**, 383-430.
 
