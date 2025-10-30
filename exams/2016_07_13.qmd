@@ -50,7 +50,7 @@ Facendo uso del software **R**, si risponda alle seguenti domande:
 
 (b) [Omessa]{.orange}.
 
-(c) Si stimi un GLM opportuno avente come variabile risposta `num_awards` ed esplicative `math` e `prog` (senza interazioni). Si riportino:
+(c) Si stimi un GLM opportuno, usando il legame canonico, avente come variabile risposta `num_awards` ed esplicative `math` e `prog` (senza interazioni). Si riportino:
     i. L'equazione che esprime la risposta media stimata in funzione delle esplicative (equazione del modello stimato).
     ii. I *p-value* del test per la bontà del modello (modello stimato vs modello nullo), commentando ipotesi nulla, valore numerico ottenuto e giustificando i gradi di libertà della statistica test.
     iii. Si giustifichi l'affermazione presente nell'output di **R** "*dispersion parameter for Poisson family taken to be 1*".
@@ -59,11 +59,11 @@ Facendo uso del software **R**, si risponda alle seguenti domande:
     
 (e) Si decida tramite un opportuno test se conservare o meno l'esplicativa `prog` nel modello. Si riporti la statistica test, i gradi di libertà, il *p-value* e si commenti il risultato.
 
-(f) Dopo avere fornito la funzione varianza del modello considerato, si ottenga un grafico utile a valutarne l'appropriatezza commendando il risultato ottenuto.
+(f) Dopo avere descritto la funzione varianza del modello considerato, si ottenga un grafico utile a valutarne l'appropriatezza commentando il risultato ottenuto.
 
-(g) Si fornisca una stima per un ipotetico parametro aggiuntivo utile a trattare l'eventuale sovra-dispersione e si commenti il risultato ottenuto.
+(g) Si fornisca una stima per un ipotetico parametro aggiuntivo utile a trattare l'eventuale sovradispersione e si commenti il risultato ottenuto.
 
-(h) Si fornisca una previsione per i numero di premi di due studenti entrambi con il voto massimo in matematica che seguano, rispettivamente, il programma "academic" e quello "general".
+(h) Si fornisca una previsione per i numero di premi di due studenti entrambi con il voto massimo in matematica che seguano, rispettivamente, il programma "*academic*" e quello "*general*".
   
 
 ## Teoria

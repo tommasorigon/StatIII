@@ -60,18 +60,18 @@ Facendo uso del software **R**, si risponda alle seguenti domande:
 
 (a) Si stimi un GLM opportuno facendo ricorso al link canonico considerando la temperatura come variable esplicativa. Si riportino:  
     i. L’equazione che esprime la risposta media stimata in funzione della esplicativa (equazione del modello stimato);
-    ii. il valore dell'indicatore AIC;
+    ii. la devianza;
     iii. Il p-value del test per la bontà del modello (modello stimato vs modello nullo) basato sulla devianza, commentando ipotesi nulla e valore numerico ottenuto.
 
 (b) Si commenti (senza riportarla) la diagnostica grafica di base fornita da **R** per il modello stimato.
 
 (c) Si fornisca un'interpretazione per la stima del coefficiente della variable esplicativa.  
 
-(d) Si fornisca una previsione per la probabilità di guasto in corrispondenza della temperatura $31$, cioè quella prevista in occasione del 24esimo lancio.
+(d) Si riporti una previsione per la probabilità di guasto in corrispondenza della temperatura $31$, cioè quella prevista in occasione del 24esimo lancio. Si riporti inoltre un intervallo di confidenza. 
 
-(e) Si riporti il grafico della curva stimata sovraimposta ai punti osservati. Il *range* per l’esplicativa deve essere $(30, 85)$, cioè più esteso di quello osservato.  
+(e) Si ottenga il grafico della curva stimata sovraimposta ai punti osservati.  Il *range* per l’esplicativa deve essere $(30, 85)$, cioè più esteso di quello osservato. Si commentino i risultati. 
 
-(f) Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti.  
+(f) Si riportino le frequenze assolute osservate dei guasti e quelle previste dal modello, arrotondate al secondo decimale, e si commentino i valori ottenuti. [Suggerimento]{.blue}: la domanda chiede esplicitamente le frequenze, non le probabilità.
 
 (g) [Omessa]{.orange}.
 
