@@ -1,9 +1,48 @@
 # LAB 5, Statistica III (Generalized Linear Models)
-# Title: "Poisson regression". Datasets: Cancer, Drugs
+# Title: "Miscellanea". Datasets: Drugs
 # Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
-# Dataset 1: Cancer - APPLIED ANALYSIS
+# Dataset 1: Drugs - APPLIED ANALYSIS
+# -------------------------------------------------------------------
+
+# Data refers to a survey by Wright State University that asked 2276 students in their final year of high school in a rural area near Dayton, Ohio whether they had ever used alcohol, cigarettes, or marijuana. 
+
+library(MLGdata)
+data(Drugs2)
+Drugs2
+
+# M_yes = number of people who tried marijuana 
+# M_no = number of people who haven't tried marijuana
+# alc = Alcohol, sig = cigarettes
+
+# QUESTION 1: does the usage of alcohol and cigarettes predict the usage of marijuana?
+# QUESTION 2: is there an interaction effect between alcohol and cigarettes consumption?
+
+Drugs2$prop <- Drugs2$M_yes / Drugs2$n
+Drugs2
+
+m_additive <- glm(cbind(M_yes, M_no) ~ alc + sig, family = binomial, data = Drugs2)
+summary(m_additive)
+
+# The odds ratio are fairly strong
+exp(coef(m_additive)[c(2, 3)])
+
+Drugs2$pred_additive <- fitted(m_additive)
+Drugs2
+
+m_full <- glm(cbind(M_yes, M_no) ~ alc * sig, family = binomial, data = Drugs2)
+summary(m_full)
+
+# The deviance is almost 0, why? This is indeed the saturated model. The predictions coincide with the proportions
+Drugs2$full <- fitted(m_full)
+Drugs2
+
+# The usual test is equivalent to a goodness of fit, which suggests that an interaction effect is not necessary.
+anova(m_additive, m_full)
+
+# -------------------------------------------------------------------
+# Dataset 2: Cancer - APPLIED ANALYSIS - OPTIONAL
 # -------------------------------------------------------------------
 
 rm(list = ls())
@@ -55,41 +94,3 @@ anova(m_stage, m_full)
 X2 <- sum(residuals(m_stage, type = "pearson")^2)
 X2 / m_stage$df.residual
 
-# -------------------------------------------------------------------
-# Dataset 2: Drugs - APPLIED ANALYSIS
-# -------------------------------------------------------------------
-
-# Data refers to a survey by Wright State University that asked 2276 students in their final year of high school in a rural area near Dayton, Ohio whether they had ever used alcohol, cigarettes, or marijuana. 
-
-library(MLGdata)
-data(Drugs2)
-Drugs2
-
-# M_yes = number of people who tried marijuana 
-# M_no = number of people who haven't tried marijuana
-# alc = Alcohol, sig = cigarettes
-
-# QUESTION 1: does the usage of alcohol and cigarettes predict the usage of marijuana?
-# QUESTION 2: is there an interaction effect between alcohol and cigarettes consumption?
-
-Drugs2$prop <- Drugs2$M_yes / Drugs2$n
-Drugs2
-
-m_additive <- glm(cbind(M_yes, M_no) ~ alc + sig, family = binomial, data = Drugs2)
-summary(m_additive)
-
-# The odds ratio are fairly strong
-exp(coef(m_additive)[c(2, 3)])
-
-Drugs2$pred_additive <- fitted(m_additive)
-Drugs2
-
-m_full <- glm(cbind(M_yes, M_no) ~ alc * sig, family = binomial, data = Drugs2)
-summary(m_full)
-
-# The deviance is almost 0, why? This is indeed the saturated model. The predictions coincide with the proportions
-Drugs2$full <- fitted(m_full)
-Drugs2
-
-# The usual test is equivalent to a goodness of fit, which suggests that an interaction effect is not necessary.
-anova(m_additive, m_full)
