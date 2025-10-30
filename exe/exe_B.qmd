@@ -253,7 +253,7 @@ iv. For a fixed covariate value $x_i$, construct an approximate 95% confidence i
 
 Suppose $Y_i$ has a Poisson distribution with
 $$
-g(\mu_i) = \beta_0 + \beta_1 x_i,
+g(\mu_i) = \beta_1 + \beta_2 x_i,
 $$
 where $x_i = 1$ for $i = 1, \dots, n_A$ (group A) and $x_i = 0$ for $i = n_A + 1, \dots, n_A + n_B$ (group B), i.e. a [dummy variable]{.blue}. Assume all observations are independent.  
 
@@ -261,7 +261,7 @@ i. Show that, for the log-link function $g(x) = \log{x}$, the GLM likelihood equ
 
 ii. Using the likelihood equations, show that the same result holds for any link function for this Poisson model, 
 
-iii. Using the likelihood equations, show that the same result holds for any GLM of the form $g(\mu_i) = \beta_0 + \beta_1 x_i$ with a binary indicator predictor.
+iii. Using the likelihood equations, show that the same result holds for any GLM of the form $g(\mu_i) = \beta_1 + \beta_2 x_i$ with a binary indicator predictor. [Note]{.orange}: if the weights $\omega_i$ are non-constant, then $\hat\mu_A$ and $\hat\mu_B$ equal the respective weighted means.
 :::
 
 :::{.callout-note collapse=true}
@@ -271,7 +271,7 @@ In a generalized linear model that uses a [non-canonical link function]{.blue}, 
 $$
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
 $$
-Hence, the response residuals need not have a mean of 0. Then, explain why a GLM with a [canonical link]{.orange} function requires the inclusion of an intercept term in order to ensure that this equality holds.
+Hence, the response residuals need not have a mean of $0$. Then, explain why a GLM with a [canonical link]{.orange} function requires the inclusion of an intercept term in order to ensure that this equality holds (assume constant weights $\omega_i$ for simplicity).
 :::
 
 :::{.callout-note collapse=true}

@@ -442,12 +442,12 @@ Exercise F
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Suppose <span class="math inline">Y_i</span> has a Poisson distribution with <span class="math display">
-g(\mu_i) = \beta_0 + \beta_1 x_i,
+g(\mu_i) = \beta_1 + \beta_2 x_i,
 </span> where <span class="math inline">x_i = 1</span> for <span class="math inline">i = 1, \dots, n_A</span> (group A) and <span class="math inline">x_i = 0</span> for <span class="math inline">i = n_A + 1, \dots, n_A + n_B</span> (group B), i.e.&nbsp;a <span class="blue">dummy variable</span>. Assume all observations are independent.</p>
 <ol type="i">
 <li><p>Show that, for the log-link function <span class="math inline">g(x) = \log{x}</span>, the GLM likelihood equations imply that the fitted means <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the respective sample means.</p></li>
 <li><p>Using the likelihood equations, show that the same result holds for any link function for this Poisson model,</p></li>
-<li><p>Using the likelihood equations, show that the same result holds for any GLM of the form <span class="math inline">g(\mu_i) = \beta_0 + \beta_1 x_i</span> with a binary indicator predictor.</p></li>
+<li><p>Using the likelihood equations, show that the same result holds for any GLM of the form <span class="math inline">g(\mu_i) = \beta_1 + \beta_2 x_i</span> with a binary indicator predictor. <span class="orange">Note</span>: if the weights <span class="math inline">\omega_i</span> are non-constant, then <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the respective weighted means.</p></li>
 </ol>
 </div>
 </div>
@@ -467,7 +467,7 @@ Exercise G
 <p>In a generalized linear model that uses a <span class="blue">non-canonical link function</span>, explain why it need not be true that<br>
 <span class="math display">
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
-</span> Hence, the response residuals need not have a mean of 0. Then, explain why a GLM with a <span class="orange">canonical link</span> function requires the inclusion of an intercept term in order to ensure that this equality holds.</p>
+</span> Hence, the response residuals need not have a mean of <span class="math inline">0</span>. Then, explain why a GLM with a <span class="orange">canonical link</span> function requires the inclusion of an intercept term in order to ensure that this equality holds (assume constant weights <span class="math inline">\omega_i</span> for simplicity).</p>
 </div>
 </div>
 </div>
