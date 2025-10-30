@@ -109,14 +109,14 @@ Import the data and then
 TO BE ADDED
 :::
 
-## Theoretical
+<!-- ## Theoretical -->
 
-:::{.callout-note collapse=true}
-#### Exercise A
+<!-- :::{.callout-note collapse=true} -->
+<!-- #### Exercise A -->
 
-Conditionally on positive covariates $U_i = u_i$, the random variable $Y_i \mid U_i = u$ are Poisson distributed with mean $\mu u_i$, where $\mu > 0$ is an unknown parameter. Suppose the covariates $U_i$ are iid with mean $\mathbb{E}(U_i)=1$ and variance $\mathrm{Var}(U_i)=\tau$.
+<!-- Conditionally on positive covariates $U_i = u_i$, the random variable $Y_i \mid U_i = u$ are Poisson distributed with mean $\mu u_i$, where $\mu > 0$ is an unknown parameter. Suppose the covariates $U_i$ are iid with mean $\mathbb{E}(U_i)=1$ and variance $\mathrm{Var}(U_i)=\tau$. -->
 
-Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{Var}(Y_i) = \mu + \tau\mu^2$. Comment on the result and the issue of [overdispersion]{.orange}.
+<!-- Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{Var}(Y_i) = \mu + \tau\mu^2$. Comment on the result and the issue of [overdispersion]{.orange}. -->
 
-:::
+<!-- ::: -->
 

@@ -131,14 +131,14 @@ Import the data and then:
 
 (b) Does the DDT impact the gestational age at delivery?
 
-(c) Provide a prediction interval for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE`,
+(c) Provide a prediction interval for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the prediction for a mother not being exposed to `DDE`. 
 
 (d) Compute the probabilities of pre-term birth for all the observed values, namely
 $$
 \psi_i = \mathbb{P}(Y_i < 259; \bm{x}_i), \qquad i=1,\dots,n.
 $$
 
-(e) Provide an estimate and a confidence interval for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE`.
+(e) Provide an estimate and a confidence interval for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the probability for a mother not being exposed to `DDE`. 
 
 :::
 
@@ -192,7 +192,7 @@ P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 $$
 
 
-i. Verify that, assuming $k$ is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements (canonical parameter, $a_i(\cdot), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).
+i. Verify that, assuming $k$ is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements: canonical parameter, $a_i(\cdot), b(\cdot), c(\cdot)$ functions, dispersion parameter, and variance function.
 
 ii. Using the properties of exponential families, recover the well-known relations  
    $$
