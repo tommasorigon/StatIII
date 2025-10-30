@@ -251,7 +251,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>dde</code> dataset
+<code>dde</code> dataset - Partial solution: <a href="../code/dde.R"><code>dde.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -268,11 +268,12 @@ window.Quarto = {
 <ol type="a">
 <li><p>Specify a several “reasonable” models for the main research question. Decide which model is the most appropriate, based on predictive accuracy and diagnostic tools.</p></li>
 <li><p>Does the DDT impact the gestational age at delivery?</p></li>
-<li><p>Provide a prediction interval for the <code>GAD</code> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code>,</p></li>
+<li><p>Provide a prediction for the <code>GAD</code> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code> and compare it with the prediction for a mother not being exposed to <code>DDE</code>.</p></li>
 <li><p>Compute the probabilities of pre-term birth for all the observed values, namely <span class="math display">
 \psi_i = \mathbb{P}(Y_i &lt; 259; \bm{x}_i), \qquad i=1,\dots,n.
-</span></p></li>
-<li><p>Provide an estimate and a confidence interval for the probability of pre-term delivery <span class="math inline">\psi</span> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code>.</p></li>
+</span> Do they differ across models? <span class="blue">Hint</span>: use the function <code>pnorm</code> if you considered a normal model and <code>pgamma</code> if you considered a gamma GLM. Be careful with the parametrization!</p></li>
+<li><p>Provide an estimate for the probability of pre-term delivery <span class="math inline">\psi</span> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code> and compare it with the probability for a mother not being exposed to <code>DDE</code>.</p></li>
+<li><p>☠️ - <span class="orange">Optional</span>. Provide a <span class="blue">prediction interval</span> for the <code>GAD</code> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code> and compare it with the prediction for a mother not being exposed to <code>DDE</code>.</p></li>
 </ol>
 </div>
 </div>

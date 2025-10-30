@@ -113,7 +113,7 @@ Import the data and then:
 :::
 
 :::{.callout-note collapse=true}
-#### `dde` dataset
+#### `dde` dataset - Partial solution: [`dde.R`](../code/dde.R)
 
 The dataset `dde` dataset collect data from a sample of $n = 2312$ pregnant women and can be [downloaded here](https://tommasorigon.github.io/StatIII/data/dde.csv). This dataset was also analyzed in [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_B.pdf). The original data are described in [this study](https://www.sciencedirect.com/science/article/pii/S0140673601053296):
 
@@ -131,15 +131,17 @@ Import the data and then:
 
 (b) Does the DDT impact the gestational age at delivery?
 
-(c) Provide a prediction interval for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the prediction for a mother not being exposed to `DDE`. 
+(c) Provide a prediction for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the prediction for a mother not being exposed to `DDE`. 
 
 (d) Compute the probabilities of pre-term birth for all the observed values, namely
 $$
 \psi_i = \mathbb{P}(Y_i < 259; \bm{x}_i), \qquad i=1,\dots,n.
 $$
+Do they differ across models? [Hint]{.blue}: use the function `pnorm` if you considered a normal model and `pgamma` if you considered a gamma GLM. Be careful with the parametrization!
 
-(e) Provide an estimate and a confidence interval for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the probability for a mother not being exposed to `DDE`. 
+(e) Provide an estimate for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the probability for a mother not being exposed to `DDE`. 
 
+(f) ☠️ - [Optional]{.orange}. Provide a [prediction interval]{.blue}  for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the prediction for a mother not being exposed to `DDE`. 
 :::
 
 :::{.callout-note collapse=true}

@@ -85,14 +85,51 @@ deviance(m_gamma_log)
 # (c) ---------------------------------------------------------------------
 
 # Linear model
+predict(m_linear, newdata = data.frame(DDE = c(0, 100)))
+
+# Gamma model, identity link
+predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response")
+
+# Gamma model, log link
+predict(m_gamma_log, newdata = data.frame(DDE = c(0, 100)), type = "response")
+
+# (d) ---------------------------------------------------------------------
+
+# Compute the parameters a gamma distribution (see slides and ? dgamma documentation)
+alpha_lin <- 1 / summary(m_gamma_lin)$dispersion
+lambda_lin <- alpha_lin / fit_gamma_lin
+
+# Gamma model with log-ling
+alpha_log <- 1 / summary(m_gamma_log)$dispersion
+lambda_log <- alpha_log / fit_gamma_log
+
+# Psi under normal model
+probs_linear <- pnorm(259, fitted(m_linear), sd = summary(m_linear)$sigma)
+# Psi under gamma model, identity link
+probs_gamma_lin <- pgamma(259, shape = alpha_lin, rate = alpha_lin / fitted(m_gamma_lin))
+# Psi under gamma model, log-link
+probs_gamma_log <- pgamma(259, shape = alpha_log, rate = alpha_log / fitted(m_gamma_log))
+
+cor(cbind(probs_linear, probs_gamma_lin, probs_gamma_log)) # The probabilities are ALMOST identical
+
+# (e) ---------------------------------------------------------------------
+
+# This is just a special case of the former point.
+
+# Normal model
+pnorm(259, predict(m_linear, newdata = data.frame(DDE = c(0, 100))), sd = summary(m_linear)$sigma)
+# Gamma model, identity link
+pgamma(259, shape = alpha_lin, rate = alpha_lin / predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response"))
+# Gamma model, log-link
+pgamma(259, shape = alpha_log, rate = alpha_log / predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response"))
+
+# (f) OPTIONAL ---------------------------------------------------------------------
+
+# Linear model
 predict(m_linear, newdata = data.frame(DDE = c(0, 100)), interval = "prediction")
 
 # Gamma model, identity link
 fit_gamma_lin <- predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response")
-
-# Compute the parameters in the parametrizations of R
-alpha_lin <- 1 / summary(m_gamma_lin)$dispersion
-lambda_lin <- alpha_lin / fit_gamma_lin
 
 # Compute a prediction intervals based on quantiles
 tab_lin <- rbind(
@@ -105,10 +142,6 @@ tab_lin
 # Gamma model, log link
 fit_gamma_log <- predict(m_gamma_log, newdata = data.frame(DDE = c(0, 100)), type = "response")
 
-# Compute the parameters in the parametrizations of R
-alpha_log <- 1 / summary(m_gamma_log)$dispersion
-lambda_log <- alpha_log / fit_gamma_log
-
 # Compute a prediction intervals based on quantiles
 tab_log <- rbind(
   c(fit_gamma_log[1], qgamma(p = c(0.025, 0.975), shape = alpha_log, rate = lambda_log[1])),
@@ -116,7 +149,3 @@ tab_log <- rbind(
 )
 colnames(tab_log) <- c("fit", "lwr", "upr")
 tab_log
-
-# (d) ---------------------------------------------------------------------
-
-#  (e) Provide an estimate and a confidence interval for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the probability for a mother not being exposed to `DDE`.
