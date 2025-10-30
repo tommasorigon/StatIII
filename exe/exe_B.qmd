@@ -271,7 +271,9 @@ In a generalized linear model that uses a [non-canonical link function]{.blue}, 
 $$
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
 $$
-Hence, the response residuals need not have a mean of $0$. Then, explain why a GLM with a [canonical link]{.orange} function requires the inclusion of an intercept term in order to ensure that this equality holds (assume constant weights $\omega_i$ for simplicity).
+Hence, the response residuals need not have a mean of $0$. 
+
+Then, explain why a GLM with a [canonical link]{.orange} function and constant weights $\omega_i$ requires the inclusion of an intercept term in order to ensure that this equality holds.
 :::
 
 :::{.callout-note collapse=true}
