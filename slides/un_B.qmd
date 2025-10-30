@@ -2271,7 +2271,7 @@ $$
 
 The deviance of a GLM can be written as a sum of individual contributions $D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n d_i$ and 
 $$
-d_i = \omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}, \qquad i=1,\dots,n.
+d_i = 2 \omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}, \qquad i=1,\dots,n.
 $$
 We call [deviance residuals]{.blue} the following quantities:
 $$

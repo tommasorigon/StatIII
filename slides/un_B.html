@@ -2979,7 +2979,7 @@ X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^
 </div>
 <div class="callout-body-container">
 <p>The deviance of a GLM can be written as a sum of individual contributions <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n d_i</span> and <span class="math display">
-d_i = \omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}, \qquad i=1,\dots,n.
+d_i = 2 \omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\}, \qquad i=1,\dots,n.
 </span> We call <span class="blue">deviance residuals</span> the following quantities: <span class="math display">
 r_{i, D} = \text{sign}(y_i - \hat{\mu}_i) \sqrt{d_i}, \qquad i=1,\dots,n.
 </span></p>
