@@ -222,7 +222,7 @@ par(mfrow = c(1, 1))
 
 # COMMENT: the predictions are extremely accurate, and the diagnostics do not show major issues. However, there is a single observation (the first one) which has a very high Cook's distance, indicating that it is highly influential and with high residual. We should not remove it, because it is not a "contaminated" data: it is simply a data point that we fail to accurately predict. This is probably an indication of some form of misspecification at the extreme low values of logu (maybe the response variable was not a gamma? maybe the relationship is not quadratic? with this limited amount of data it is hard to say).
 
-# Witht that said, this is an excellent model in terms of prediction accuracy. We can "forgive" the presence of a single influential point, given the overall quality of the fit and account for its uncertainty by using a sandwich estimator for the variance.
+# With that said, this is an excellent model in terms of prediction accuracy. We can "forgive" the presence of a single influential point, given the overall quality of the fit and account for its uncertainty by using a sandwich estimator for the variance.
 
 # Robust standard errors for heteroscedasticity
 coeftest(m2)
@@ -242,5 +242,4 @@ fit2 <- exp(predict(m2))
 1 - sum((Clotting$tempo - fit2)^2) / sum((Clotting$tempo - mean(Clotting$tempo))^2)
 
 # In terms of predictive accuracy, m2 > m1 >> m0. I would choose m2 as the final model.
-
 
