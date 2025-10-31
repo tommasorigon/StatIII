@@ -323,7 +323,7 @@ Exercise A - Solution: <a href="exe_B_A.pdf"><code>notes.pdf</code></a>
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y</span> be a random variable with an <span class="blue">inverse Gaussian distribution</span>, with support <span class="math inline">[0, \infty)</span> and probability density function</p>
 <p><span class="math display">
-f(y ; \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt{\lambda\xi}}\exp\left\{-\frac{1}{2}\left(\frac{\lambda}{y} + \xi y\right)\right\},
+p(y ; \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt{\lambda\xi}}\exp\left\{-\frac{1}{2}\left(\frac{\lambda}{y} + \xi y\right)\right\},
 \qquad y &gt; 0, \; \xi \ge 0, \; \lambda &gt; 0.
 </span> Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span> functions, dispersion parameter, variance function).</p>
 </div>
@@ -335,14 +335,14 @@ f(y ; \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise B
+Exercise B - Solution: <a href="exe_B_B.pdf"><code>notes.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">Y</span> be a random variable with a <span class="blue">negative binomial</span> distribution, representing the number of independent Bernoulli trials with constant success probability <span class="math inline">\pi \in (0,1)</span> required to obtain <span class="math inline">k</span> successes. The support is <span class="math inline">S = \{k, k+1, \dots\}</span> and the probability mass function is <span class="math display">
-P(Y = y) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
+p(y; \pi) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 </span></p>
 <ol type="i">
 <li><p>Verify that, assuming <span class="math inline">k</span> is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements: canonical parameter, <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span> functions, dispersion parameter, and variance function.</p></li>
