@@ -77,7 +77,7 @@ on age, and to compare the trends between smokers and non-smokers.
 :::
 
 :::{.callout-note collapse=true}
-### `Homicide` dataset
+### `Homicide` dataset - Partial solution: [`Homicide.R`](../code/Homicide.R)
 
 The data contained in the data frame `Homicide`, available in the `MLGdata` R package, report the responses of $n = 1308$ individuals in the United States to the question:
 
@@ -96,11 +96,11 @@ Import the data and then
 
 (b) Compute the observed frequency of the response variable for White and Black respondents and compare them with those expected under the fitted Poisson model.
 
-(c) Compute the $X^2$ Pearson goodness-of-fit statistic. If necessary, combine higher response values into a single category and assess the overall goodness of fit of the model.
+(c) Compute the $X^2$ Pearson goodness-of-fit statistic. 
 
 (d) Evaluate whether the data exhibit [overdispersion]{.orange} relative to the Poisson model.
 
-(e) [Optional]{.orange}: assess whether it might be appropriate to fit a [zero-inflated]{.blue} model to these data.
+(e) Assess whether it might be appropriate to fit a [zero-inflated]{.blue} model to these data.
 :::
 
 :::{.callout-note collapse=true}
