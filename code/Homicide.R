@@ -3,12 +3,12 @@
 # DISCLAIMER: This solution is provided in partial form. Certain steps, justifications, and details have been omitted for clarity and brevity.
 # ---------------------------------------------------------------------
 
-# The data contained in the data frame `Homicide`, available in the `MLGdata` R package, report the responses of $n = 1308$ individuals in the United States to the question:
+# The data contained in the data frame Homicide, available in the MLGdata R package, report the responses of n = 1308 individuals in the United States to the question:
 
 #  "How many people do you personally know who have been victims of homicide in the past 12 months?"
 
-# `count`: the reported number of victims
-# `race`: the race of the respondent (`0` = White, `1` = Black)
+# count: the reported number of victims
+# race: the race of the respondent (0 = White, 1 = Black)
 
 library(MLGdata)
 
@@ -16,6 +16,16 @@ data("Homicide")
 str(Homicide)
 
 boxplot(count ~ race, data = Homicide)
+
+y_white <- Homicide$count[Homicide$race == 0] # Observations of group A
+y_black <- Homicide$count[Homicide$race == 1] # Observations of group B
+
+par(mfrow = c(1, 2))
+plot(table(y_white))
+plot(table(y_black))
+par(mfrow = c(1, 1))
+
+# In a Poisson model, y_white and y_black are assumed to be i.i.d. draws from a Poisson distribution, with different means for each group. From the graphical inspection above, we can already see some issues (too many zeros!).
 
 # (a) ---------------------------------------------------------------------
 
@@ -30,12 +40,10 @@ summary(m_log)
 # In this specific example, however, the interpretation is much simpler (see the theoretical exercises in Unit B).
 # Indeed, these coefficients are directly related to the means:
 
-y_white <- Homicide$count[Homicide$race == 0] # Observations of group A
 avg_white <- mean(y_white)
 avg_white
 exp(coef(m_log)[1]) # Average for White people
 
-y_black <- Homicide$count[Homicide$race == 1] # Observations of group B
 avg_black <- mean(y_black)
 avg_black
 exp(coef(m_log)[1] + coef(m_log)[2]) # Average for Black people
@@ -91,9 +99,9 @@ par(mfrow = c(1, 1))
 
 # (e) ---------------------------------------------------------------------
 
-# YES, a zero-inflated model would be appropriate in this case. In this simple case, the two groups (y_white, y_black) are i.i.d. from some distribution that is clearly not Poisson.
+# YES, a zero-inflated model would be appropriate in this case. In this simple case, the two groups (y_white, y_black) are i.i.d. from some distribution that is clearly not Poisson. 
 
-# OPTIONAL, NOT REQUIRED: Fit a zero-inflated model.
+# OPTIONAL, NOT REQUIRED: Fit a zero-inflated model. Spoiler: it works very well!
 library(pscl)
 m_zeroinf <- zeroinfl(count ~ race | race, data = Homicide)
 summary(m_zeroinf)
