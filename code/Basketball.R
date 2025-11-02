@@ -3,7 +3,7 @@
 # DISCLAIMER: This solution is provided in partial form. Certain steps, justifications, and details have been omitted for clarity and brevity.
 # ---------------------------------------------------------------------
 
-# The `Basketball` dataset shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made 0 of 4 shots in game 1). Commentators remarked that his shooting varied dramatically from game to game.
+# The Basketball dataset shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made 0 of 4 shots in game 1). Commentators remarked that his shooting varied dramatically from game to game.
 
 basket <- read.table("https://tommasorigon.github.io/StatIII/data/Basketball.dat", header = TRUE)
 basket
@@ -23,7 +23,7 @@ plogis(confint(m_null, test = "Rao"))
 # The standard error can be obtained from here (any number works, they are all identical)
 predict(m_null, se.fit = TRUE, type = "response")$se.fit[1]
 
-# SIDE NOTE: this model is a "fake" glm because there are no covariates.  The same result can be easily obtained by simply using the binom.test function (confidence interval is exact, not approximate)
+# SIDE NOTE: this model is a "fake" glm because there are no covariates.  The same result can be easily obtained by simply using the binom.test function (confidence interval is exact, not approximate, so the CI is slightly different)
 binom.test(x = sum(basket$made), n = sum(basket$attempts))
 
 # (b) ---------------------------------------------------------------------

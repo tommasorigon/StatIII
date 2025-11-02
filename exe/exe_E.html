@@ -183,7 +183,10 @@ window.Quarto = {
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>Basketball</code> dataset can be <a href="../data/Basketball.dat">downloaded here</a> and shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made <span class="math inline">0</span> of <span class="math inline">4</span> shots in game <span class="math inline">1</span>). Commentators remarked that his shooting varied dramatically from game to game.</p>
-<p>In the <span class="math inline">i</span>th game, suppose that <span class="math inline">S_i = m_i Y_i</span> is the number three-points shots made out of <span class="math inline">m_i</span> attempts is distributed as <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, and that the <span class="math inline">S_i</span> are independent.</p>
+<p>In the <span class="math inline">i</span>th game, suppose that <span class="math inline">S_i = m_i Y_i</span> is the number three-points shots made out of <span class="math inline">m_i</span> attempts is distributed as <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>, and that the <span class="math inline">S_i</span> are independent. The original source of the dataset is the textbook:</p>
+<blockquote class="blockquote">
+<p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
+</blockquote>
 <p>Import the data and then</p>
 <ol type="a">
 <li><p>Fit the null model, with <span class="math inline">\pi_i = \pi</span>. Find and interpret the estimate <span class="math inline">\hat{\pi}</span>, obtain its standard error and a confidence interval.</p></li>
@@ -200,16 +203,21 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Bioassay</code> dataset
+<code>Bioassay</code> dataset - Partial solution: <a href="../code/Bioassay.R"><code>Bioassay.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The data in the <code>Bioassay</code> dataset, available in the <code>MLGdata</code> library, refer to a biological experiment (Finney, 1947, Table 9). The variable <code>y</code> represents the number of observed events out of a total of subjects (<code>den</code>) exposed to a dose <code>z</code>.</p>
+<p>The data in the <code>Bioassay</code> dataset, available in the <code>MLGdata</code> library, refer to a biological experiment. The variable <code>y</code> represents the number of observed events out of a total of subjects (<code>den</code>) exposed to a dose <code>z</code>. The original source of the data is</p>
+<blockquote class="blockquote">
+<p>Finney, D. J. (1947). <em>Probit Analysis</em>. Cambridge: Cambridge University Press.</p>
+</blockquote>
+<p>Import the data and then:</p>
 <ol type="a">
 <li><p>Fit a binomial model with a probit link function.</p></li>
-<li><p>To check for possible overdispersion, consider a quasi-likelihood model, also evaluating the standard errors using a robust approach.</p></li>
+<li><p>To check for possible overdispersion, consider a quasi-likelihood model. Compute the standard errors using a robust approach.</p></li>
+<li><p>Compute the variance of the standardized Pearson residuals for the probit model and the quasi-likelihood model. Comment the results.</p></li>
 </ol>
 </div>
 </div>

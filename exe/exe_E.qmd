@@ -49,7 +49,9 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 
 The `Basketball` dataset can be [downloaded here](../data/Basketball.dat) and shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made $0$ of $4$ shots in game $1$). Commentators remarked that his shooting varied dramatically from game to game.
 
-In the $i$th game, suppose that $S_i = m_i Y_i$ is the number three-points shots made out of $m_i$ attempts is distributed as $S_i \sim \text{Binomial}(m_i, \pi_i)$, and that the $S_i$ are independent.
+In the $i$th game, suppose that $S_i = m_i Y_i$ is the number three-points shots made out of $m_i$ attempts is distributed as $S_i \sim \text{Binomial}(m_i, \pi_i)$, and that the $S_i$ are independent. The original source of the dataset is the textbook:
+
+> Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
 
 Import the data and then
 
@@ -63,13 +65,19 @@ Import the data and then
 :::
 
 :::{.callout-note collapse=true}
-#### `Bioassay` dataset
+#### `Bioassay` dataset - Partial solution: [`Bioassay.R`](../code/Bioassay.R)
 
-The data in the `Bioassay` dataset, available in the `MLGdata` library, refer to a biological experiment (Finney, 1947, Table 9). The variable `y` represents the number of observed events out of a total of subjects (`den`) exposed to a dose `z`.
+The data in the `Bioassay` dataset, available in the `MLGdata` library, refer to a biological experiment. The variable `y` represents the number of observed events out of a total of subjects (`den`) exposed to a dose `z`. The original source of the data is
+
+> Finney, D. J. (1947). *Probit Analysis*. Cambridge: Cambridge University Press.
+
+Import the data and then:
 
 (a) Fit a binomial model with a probit link function. 
 
-(b) To check for possible overdispersion, consider a quasi-likelihood model, also evaluating the standard errors using a robust approach.
+(b) To check for possible overdispersion, consider a quasi-likelihood model. Compute the standard errors using a robust approach.
+
+(c) Compute the variance of the standardized Pearson residuals for the probit model and the quasi-likelihood model. Comment the results.
 :::
 
 :::{.callout-note collapse=true}
