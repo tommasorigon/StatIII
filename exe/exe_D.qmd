@@ -114,7 +114,7 @@ Import the data and then:
 
 (j) Check the diagnostic plots of `m_quasi_full` as well as the potential presence of overdispersion. Are there influential observations?
 
-(k) Interpret the estimated coefficients of `m_quasi_red` and `m_lin_red`. Provide a confidence interval. 
+(k) Interpret the estimated coefficients of `m_quasi_red` and `m_lin_red`. Provide confidence intervals for the considered quantities. 
 
 [^1]: See [https://horseshoecrab.org](https://horseshoecrab.org) and [https://en.wikipedia.org/wiki/Horseshoe_crab](https://en.wikipedia.org/wiki/Horseshoe_crab) for details about horseshoe crabs, including pictures of their mating.
 
