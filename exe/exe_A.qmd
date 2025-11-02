@@ -46,7 +46,7 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 ## Data analysis
 
 :::{.callout-note collapse=true}
-#### `Abrasion` dataset
+#### `Abrasion` dataset - Partial solution: [`Abrasion.R`](../code/Abrasion.R)
 
 The dataset `Abrasion`, available in the `MLGdata` R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. The original data are described in
 
