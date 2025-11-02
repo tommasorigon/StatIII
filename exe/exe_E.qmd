@@ -45,7 +45,7 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 ## Data analysis
 
 :::{.callout-note collapse=true}
-#### `Basketball` dataset
+#### `Basketball` dataset - Partial solution: [`Basketball.R`](../code/Basketball.R)
 
 The `Basketball` dataset can be [downloaded here](../data/Basketball.dat) and shows the three-point shooting, by game, of Ray Allen of the Boston Celtics during the 2010 NBA (basketball) playoffs (e.g, he made $0$ of $4$ shots in game $1$). Commentators remarked that his shooting varied dramatically from game to game.
 
@@ -57,9 +57,9 @@ Import the data and then
 
 (b) Is there evidence of overdispersion? Motivate your answer based on the data. 
 
-(b) Describe a factor that could cause [overdispersion]{.blue}. Adjust the standard error for overdispersion and obtain another confidence interval based on this correction.
+(c) Describe a factor that could cause [overdispersion]{.blue}. Adjust the standard error for overdispersion and obtain another confidence interval based on this correction.
 
-(c) Compare the two confidence intervals and interpret the results. 
+(d) Compare the two confidence intervals and interpret the results. 
 :::
 
 :::{.callout-note collapse=true}
