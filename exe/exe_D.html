@@ -215,11 +215,50 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <code>Crabs</code> dataset is <a href="../data/Crabs.dat">available here</a> and come from a study of female horseshoe crabs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> on an island in the Gulf of Mexico. During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other male crabs may cluster around the pair and may also fertilize the eggs. These male crabs are called satellites.</p>
-<p>The response outcome for each of the <span class="math inline">n = 173</span> female crabs is her <code>y</code> = number of satellites. Explanatory variables are the female crab’s color, spine condition, weight, and carapace width. The original source of the dataset is the textbook:</p>
+<p>The <code>Crabs</code> dataset is <a href="../data/Crabs.dat">available here</a> and come from a study of female horseshoe crabs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> on an island in the Gulf of Mexico.</p>
+<p>During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other <span class="blue">male crabs</span> may cluster around the pair and may also fertilize the eggs. These male crabs are called <span class="blue">satellites</span>.</p>
+<p>The response outcome for each of the <span class="math inline">n = 173</span> female crabs is her <code>y</code> = number of satellites. Explanatory variables are the female crab’s color (<code>color</code>), spine condition (<code>spine</code>), weight (<code>weight</code>), and carapace width (<code>width</code>). The source of the dataset is the textbook:</p>
 <blockquote class="blockquote">
 <p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
 </blockquote>
+<p>Import the data and then:</p>
+<ol type="a">
+<li></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;See <a href="https://horseshoecrab.org">https://horseshoecrab.org</a> and <a href="https://en.wikipedia.org/wiki/Horseshoe_crab">https://en.wikipedia.org/wiki/Horseshoe_crab</a> for details about horseshoe crabs, including pictures of their mating.</p></div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>Homicide</code> dataset - Partial solution: <a href="../code/Homicide.R"><code>Homicide.R</code></a>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The data contained in the data frame <code>Homicide</code>, available in the <code>MLGdata</code> R package, report the responses of <span class="math inline">n = 1308</span> individuals in the United States to the question:</p>
+<blockquote class="blockquote">
+<p>“How many people do you personally know who have been victims of homicide in the past 12 months?”</p>
+</blockquote>
+<p>The observed variables are:</p>
+<ul>
+<li><code>count</code>: the reported number of victims<br>
+</li>
+<li><code>race</code>: the race of the respondent (<code>0</code> = White, <code>1</code> = Black)</li>
+</ul>
+<p>Let <span class="math inline">y_i</span> denote the response of subject <span class="math inline">i</span>, for <span class="math inline">i = 1, \dots, 1308</span>, and let <span class="math inline">x_i = 1</span> for Black respondents and <span class="math inline">x_i = 0</span> for White respondents.</p>
+<p>Import the data and then</p>
+<ol type="a">
+<li><p>Fit a Poisson regression model with canonical link and linear predictor <span class="math inline">\eta_i = \beta_1 + \beta_2 x_i</span>. Interpret the estimates of the regression coefficients.</p></li>
+<li><p>Compute the observed frequency of the response variable for White and Black respondents and compare them with those expected under the fitted Poisson model.</p></li>
+<li><p>Compute the <span class="math inline">X^2</span> Pearson goodness-of-fit statistic. Can it be used to test the goodness of fit of the model, in this case? Why?</p></li>
+<li><p>Evaluate whether the data exhibit <span class="orange">overdispersion</span> relative to the Poisson model. Moreover, fit a quasi-Poisson model and check the diagnostics. <span class="orange">Note</span>: this point requires you have already studied quasi-likelihoods, discussed in Unit E.</p></li>
+<li><p>Assess whether it might be appropriate to fit a <span class="blue">zero-inflated</span> model to these data.</p></li>
+</ol>
 </div>
 </div>
 </div>
@@ -230,7 +269,7 @@ window.Quarto = {
 <!-- Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{Var}(Y_i) = \mu + \tau\mu^2$. Comment on the result and the issue of [overdispersion]{.orange}. -->
 <!-- ::: -->
 
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;See <a href="https://horseshoecrab.org">https://horseshoecrab.org</a> and <a href="https://en.wikipedia.org/wiki/Horseshoe_crab">https://en.wikipedia.org/wiki/Horseshoe_crab</a> for details about horseshoe crabs, including pictures of their mating.</p></div></div></section>
+</section>
 </section>
 
 

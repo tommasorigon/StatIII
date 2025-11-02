@@ -83,17 +83,49 @@ on age, and to compare the trends between smokers and non-smokers.
 :::{.callout-note collapse=true}
 #### `Crabs` dataset
 
-The `Crabs` dataset is [available here](../data/Crabs.dat) and come from a study of female horseshoe crabs[^1] on an island in the Gulf of Mexico. During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other male crabs may cluster around the pair and may also fertilize the eggs. These male crabs are called satellites.
+The `Crabs` dataset is [available here](../data/Crabs.dat) and come from a study of female horseshoe crabs[^1] on an island in the Gulf of Mexico. 
+
+During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other [male crabs]{.blue} may cluster around the pair and may also fertilize the eggs. These male crabs are called [satellites]{.blue}.
 
 The response outcome for each of the $n = 173$ female crabs is her `y` = number of
-satellites. Explanatory variables are the female crab’s color, spine condition, weight,
-and carapace width. The original source of the dataset is the textbook:
+satellites. Explanatory variables are the female crab's color (`color`), spine condition (`spine`), weight (`weight`), and carapace width (`width`). The source of the dataset is the textbook:
 
 > Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
 
+Import the data and then:
+
+(a) 
 
 [^1]: See [https://horseshoecrab.org](https://horseshoecrab.org) and [https://en.wikipedia.org/wiki/Horseshoe_crab](https://en.wikipedia.org/wiki/Horseshoe_crab) for details about horseshoe crabs, including pictures of their mating.
 
+:::
+
+
+:::{.callout-note collapse=true}
+### `Homicide` dataset - Partial solution: [`Homicide.R`](../code/Homicide.R)
+
+The data contained in the data frame `Homicide`, available in the `MLGdata` R package, report the responses of $n = 1308$ individuals in the United States to the question:
+
+> "How many people do you personally know who have been victims of homicide in the past 12 months?"
+
+The observed variables are:
+
+- `count`: the reported number of victims  
+- `race`: the race of the respondent (`0` = White, `1` = Black)
+
+Let $y_i$ denote the response of subject $i$, for $i = 1, \dots, 1308$, and let $x_i = 1$ for Black respondents and $x_i = 0$ for White respondents.
+
+Import the data and then
+
+(a) Fit a Poisson regression model with canonical link and linear predictor  $\eta_i = \beta_1 + \beta_2 x_i$. Interpret the estimates of the regression coefficients.
+
+(b) Compute the observed frequency of the response variable for White and Black respondents and compare them with those expected under the fitted Poisson model.
+
+(c) Compute the $X^2$ Pearson goodness-of-fit statistic. Can it be used to test the goodness of fit of the model, in this case? Why?
+
+(d) Evaluate whether the data exhibit [overdispersion]{.orange} relative to the Poisson model. Moreover, fit a quasi-Poisson model and check the diagnostics. [Note]{.orange}: this point requires you have already studied quasi-likelihoods, discussed in Unit E. 
+
+(e) Assess whether it might be appropriate to fit a [zero-inflated]{.blue} model to these data.
 :::
 
 <!-- ## Theoretical -->
