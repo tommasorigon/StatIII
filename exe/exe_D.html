@@ -118,7 +118,7 @@ window.Quarto = {
   </ul>
 </nav>
 </div>
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -153,7 +153,7 @@ window.Quarto = {
 </header>
 
 
-<section id="homepage" class="level1">
+<section id="homepage" class="level1 page-columns page-full">
 <h1><a href="../index.html">Homepage</a></h1>
 <p>The theoretical exercises described below are quite <span class="orange">difficult</span>. At the <span class="blue">exam</span>, you can expect a <span class="blue">simplified version</span> of them; otherwise, they would represent a formidable challenge for most of you.</p>
 <p>On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.</p>
@@ -167,7 +167,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="data-analysis" class="level2">
+<section id="data-analysis" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -181,7 +181,10 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The data in the <code>Britishdoc</code> data frame, available in the <code>MLGdata</code> library (Agresti, 2015, Exercise 7.36) come from a prospective study on mortality among doctors in the United Kingdom.</p>
+<p>The data in the <code>Britishdoc</code> data frame, available in the <code>MLGdata</code> library come from a prospective study on mortality among doctors in the United Kingdom. The original source of the dataset is the textbook:</p>
+<blockquote class="blockquote">
+<p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
+</blockquote>
 <p>For different age groups (<code>age</code>), and for smokers and non-smokers (<code>smoke</code>, with levels <code>y</code> and <code>n</code>), the dataset reports the total number of person-years observed (<code>person.years</code>) and the number of deaths due to heart attack (<code>deaths</code>).</p>
 <p>Import the data and then:</p>
 <ol type="a">
@@ -212,7 +215,11 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>TO BE ADDED</p>
+<p>The <code>Crabs</code> dataset is <a href="../data/Crabs.dat">available here</a> and come from a study of female horseshoe crabs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> on an island in the Gulf of Mexico. During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other male crabs may cluster around the pair and may also fertilize the eggs. These male crabs are called satellites.</p>
+<p>The response outcome for each of the <span class="math inline">n = 173</span> female crabs is her <code>y</code> = number of satellites. Explanatory variables are the female crab’s color, spine condition, weight, and carapace width. The original source of the dataset is the textbook:</p>
+<blockquote class="blockquote">
+<p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
+</blockquote>
 </div>
 </div>
 </div>
@@ -223,8 +230,9 @@ window.Quarto = {
 <!-- Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{Var}(Y_i) = \mu + \tau\mu^2$. Comment on the result and the issue of [overdispersion]{.orange}. -->
 <!-- ::: -->
 
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;See <a href="https://horseshoecrab.org">https://horseshoecrab.org</a> and <a href="https://en.wikipedia.org/wiki/Horseshoe_crab">https://en.wikipedia.org/wiki/Horseshoe_crab</a> for details about horseshoe crabs, including pictures of their mating.</p></div></div></section>
 </section>
-</section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Agresti2015" class="csl-entry" role="listitem">

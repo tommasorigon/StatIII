@@ -48,7 +48,10 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 :::{.callout-note collapse=true}
 #### `Britishdoc` dataset
 
-The data in the `Britishdoc` data frame, available in the `MLGdata` library (Agresti, 2015, Exercise 7.36) come from a prospective study on mortality among doctors in the United Kingdom.  
+The data in the `Britishdoc` data frame, available in the `MLGdata` library come from a prospective study on mortality among doctors in the United Kingdom. The original source of the dataset is the textbook:
+
+> Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
+
 
 For different age groups (`age`), and for smokers and non-smokers (`smoke`, with levels `y` and `n`), the dataset reports the total number of person-years observed (`person.years`) and the number of deaths due to heart attack (`deaths`).
 
@@ -80,7 +83,17 @@ on age, and to compare the trends between smokers and non-smokers.
 :::{.callout-note collapse=true}
 #### `Crabs` dataset
 
-TO BE ADDED
+The `Crabs` dataset is [available here](../data/Crabs.dat) and come from a study of female horseshoe crabs[^1] on an island in the Gulf of Mexico. During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other male crabs may cluster around the pair and may also fertilize the eggs. These male crabs are called satellites.
+
+The response outcome for each of the $n = 173$ female crabs is her `y` = number of
+satellites. Explanatory variables are the female crab’s color, spine condition, weight,
+and carapace width. The original source of the dataset is the textbook:
+
+> Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
+
+
+[^1]: See [https://horseshoecrab.org](https://horseshoecrab.org) and [https://en.wikipedia.org/wiki/Horseshoe_crab](https://en.wikipedia.org/wiki/Horseshoe_crab) for details about horseshoe crabs, including pictures of their mating.
+
 :::
 
 <!-- ## Theoretical -->
