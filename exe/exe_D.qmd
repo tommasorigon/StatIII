@@ -83,19 +83,38 @@ on age, and to compare the trends between smokers and non-smokers.
 :::{.callout-note collapse=true}
 #### `Crabs` dataset
 
-The `Crabs` dataset is [available here](../data/Crabs.dat) and come from a study of female horseshoe crabs[^1] on an island in the Gulf of Mexico. 
+The `Crabs` dataset is [available here](../data/Crabs.dat) and comes from a study of female horseshoe crabs[^1] on an island in the Gulf of Mexico.
 
 During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other [male crabs]{.blue} may cluster around the pair and may also fertilize the eggs. These male crabs are called [satellites]{.blue}.
 
 The [response outcome]{.blue} for each of the $n = 173$ female crabs is her `y` = number of satellites. Explanatory variables are the female crab's color (`color`; `1` = medium light; `2` = medium; `3` = medium dark; `4` = dark), spine condition (`spine`; `1` = both good; `2` = one worn or broken; `3` = both worn or broken), weight (`weight` in kg), and carapace width (`width` in cm). The source of the dataset is the textbook:
 
 > Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
-
 Import the data and then:
 
-(a) Visualize the data using scatterplots and other descriptive measures (tables, boxplot, etc). The variables `color` and `spine` should be regarded as categorical. 
+(a) Obtain a scatterplot of `width` vs `y`, coloring points according to `color`.  
 
-(b) 
+(b) Fit two [linear models]{.blue}, say `m_lin_red` and `m_lin_full`, having `y` as the response variable and:  
+    i. `width` as covariate;  
+    ii. `width` and `color` as covariates (treat `color` as categorical).  
+
+(c) Test if `color` can be dropped from the linear model using an F test.  
+
+(d) The response variable `y` is a count; therefore, its distribution cannot be Gaussian. Does this mean we should not use a linear model in this case? Under which assumption is this still a valid method?
+
+(e) Check the diagnostic plots of model `m_lin_full`. Is there any evidence of heteroskedasticity? In particular, does the variance depend on the mean? If so, adjust the standard errors and obtain a corrected F-test for the same hypothesis of point c., using robust standard errors.
+
+(f) Fit two [Poisson regression models]{.orange} using the canonical link, say `m_pois_red` and `m_pois_full`, having `y` as the response variable and the same covariates of point b.  
+
+(g) Test if `color` can be dropped from the Poisson model using a log-likelihood ratio test. Compare the results with those obtained in point b. and e. Which result is more trustworthy?
+
+(h) Check the diagnostic plots of `m_pois_full` as well as the potential presence of overdispersion. Are there influential observations?
+
+(i) Fit two quasi-likelihood models, say `m_quasi_red` and `m_quasi_full`, using the same covariates of points b. and f. Repeat the test of point g and comment the results.
+
+(j) Check the diagnostic plots of `m_quasi_full` as well as the potential presence of overdispersion. Are there influential observations?
+
+(k) Interpret the estimated coefficients of `m_quasi_red` and `m_lin_red`. Provide a confidence interval. 
 
 [^1]: See [https://horseshoecrab.org](https://horseshoecrab.org) and [https://en.wikipedia.org/wiki/Horseshoe_crab](https://en.wikipedia.org/wiki/Horseshoe_crab) for details about horseshoe crabs, including pictures of their mating.
 

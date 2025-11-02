@@ -215,16 +215,29 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The <code>Crabs</code> dataset is <a href="../data/Crabs.dat">available here</a> and come from a study of female horseshoe crabs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> on an island in the Gulf of Mexico.</p>
+<p>The <code>Crabs</code> dataset is <a href="../data/Crabs.dat">available here</a> and comes from a study of female horseshoe crabs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> on an island in the Gulf of Mexico.</p>
 <p>During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other <span class="blue">male crabs</span> may cluster around the pair and may also fertilize the eggs. These male crabs are called <span class="blue">satellites</span>.</p>
 <p>The <span class="blue">response outcome</span> for each of the <span class="math inline">n = 173</span> female crabs is her <code>y</code> = number of satellites. Explanatory variables are the female crab’s color (<code>color</code>; <code>1</code> = medium light; <code>2</code> = medium; <code>3</code> = medium dark; <code>4</code> = dark), spine condition (<code>spine</code>; <code>1</code> = both good; <code>2</code> = one worn or broken; <code>3</code> = both worn or broken), weight (<code>weight</code> in kg), and carapace width (<code>width</code> in cm). The source of the dataset is the textbook:</p>
 <blockquote class="blockquote">
-<p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
+<p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley. Import the data and then:</p>
 </blockquote>
-<p>Import the data and then:</p>
 <ol type="a">
-<li><p>Visualize the data using scatterplots and other descriptive measures (tables, boxplot, etc). The variables <code>color</code> and <code>spine</code> should be regarded as categorical.</p></li>
-<li></li>
+<li><p>Obtain a scatterplot of <code>width</code> vs <code>y</code>, coloring points according to <code>color</code>.</p></li>
+<li><p>Fit two <span class="blue">linear models</span>, say <code>m_lin_red</code> and <code>m_lin_full</code>, having <code>y</code> as the response variable and:</p>
+<ol type="i">
+<li><code>width</code> as covariate;<br>
+</li>
+<li><code>width</code> and <code>color</code> as covariates (treat <code>color</code> as categorical).</li>
+</ol></li>
+<li><p>Test if <code>color</code> can be dropped from the linear model using an F test.</p></li>
+<li><p>The response variable <code>y</code> is a count; therefore, its distribution cannot be Gaussian. Does this mean we should not use a linear model in this case? Under which assumption is this still a valid method?</p></li>
+<li><p>Check the diagnostic plots of model <code>m_lin_full</code>. Is there any evidence of heteroskedasticity? In particular, does the variance depend on the mean? If so, adjust the standard errors and obtain a corrected F-test for the same hypothesis of point c., using robust standard errors.</p></li>
+<li><p>Fit two <span class="orange">Poisson regression models</span> using the canonical link, say <code>m_pois_red</code> and <code>m_pois_full</code>, having <code>y</code> as the response variable and the same covariates of point b.</p></li>
+<li><p>Test if <code>color</code> can be dropped from the Poisson model using a log-likelihood ratio test. Compare the results with those obtained in point b. and e. Which result is more trustworthy?</p></li>
+<li><p>Check the diagnostic plots of <code>m_pois_full</code> as well as the potential presence of overdispersion. Are there influential observations?</p></li>
+<li><p>Fit two quasi-likelihood models, say <code>m_quasi_red</code> and <code>m_quasi_full</code>, using the same covariates of points b. and f.&nbsp;Repeat the test of point g and comment the results.</p></li>
+<li><p>Check the diagnostic plots of <code>m_quasi_full</code> as well as the potential presence of overdispersion. Are there influential observations?</p></li>
+<li><p>Interpret the estimated coefficients of <code>m_quasi_red</code> and <code>m_lin_red</code>. Provide a confidence interval.</p></li>
 </ol>
 </div>
 </div>
