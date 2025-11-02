@@ -17,8 +17,11 @@ summary(m_null)
 plogis(coef(m_null))
 sum(basket$made) / sum(basket$attempts)
 
-# Its standard error can be computed in the usual way. Let us consider the Rao test (this is the best option, although explaining why would take hours).
+# Its standard error and confidence interval can be computed in the usual way. Let us consider the Rao test (this is the best option, although explaining why would take hours).
 plogis(confint(m_null, test = "Rao"))
+
+# The standard error can be obtained from here (any number works, they are all identical)
+predict(m_null, se.fit = TRUE, type = "response")$se.fit[1]
 
 # SIDE NOTE: this model is a "fake" glm because there are no covariates.  The same result can be easily obtained by simply using the binom.test function (confidence interval is exact, not approximate)
 binom.test(x = sum(basket$made), n = sum(basket$attempts))
