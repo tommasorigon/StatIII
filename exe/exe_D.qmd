@@ -87,14 +87,15 @@ The `Crabs` dataset is [available here](../data/Crabs.dat) and come from a study
 
 During spawning season, a female migrates to the shore to breed. With a male attached to her posterior spine, she burrows into the sand and lays clusters of eggs. The eggs are fertilized externally, in the sand beneath the pair. During spawning, other [male crabs]{.blue} may cluster around the pair and may also fertilize the eggs. These male crabs are called [satellites]{.blue}.
 
-The response outcome for each of the $n = 173$ female crabs is her `y` = number of
-satellites. Explanatory variables are the female crab's color (`color`), spine condition (`spine`), weight (`weight`), and carapace width (`width`). The source of the dataset is the textbook:
+The [response outcome]{.blue} for each of the $n = 173$ female crabs is her `y` = number of satellites. Explanatory variables are the female crab's color (`color`; `1` = medium light; `2` = medium; `3` = medium dark; `4` = dark), spine condition (`spine`; `1` = both good; `2` = one worn or broken; `3` = both worn or broken), weight (`weight` in kg), and carapace width (`width` in cm). The source of the dataset is the textbook:
 
 > Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
 
 Import the data and then:
 
-(a) 
+(a) Visualize the data using scatterplots and other descriptive measures (tables, boxplot, etc). The variables `color` and `spine` should be regarded as categorical. 
+
+(b) 
 
 [^1]: See [https://horseshoecrab.org](https://horseshoecrab.org) and [https://en.wikipedia.org/wiki/Horseshoe_crab](https://en.wikipedia.org/wiki/Horseshoe_crab) for details about horseshoe crabs, including pictures of their mating.
 
