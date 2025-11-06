@@ -228,7 +228,7 @@ Explicitly derive the contribution of a single observation to the deviance (i.e.
 :::{.callout-note collapse=true}
 #### Exercise E
 
-Let $Y_i$ be independent, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLM with [no intercept]{.blue} and $p=1$, i.e.
+Let $Y_i$ be independent random variables, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLM with [no intercept]{.blue} and $p=1$, i.e.
 $$
 \eta_i = \beta x_i, \qquad i=1,\dots,n,
 $$
@@ -239,7 +239,7 @@ under each of the following exponential–dispersion models (mean–variance pai
 3. $Y_i \sim \text{ED}(\mu_i,\phi_i)$ with $V(\mu_i)=\mu_i(1-\mu_i)$ and $\mu_i \in (0, 1)$.  
 4. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i$ and $\mu_i \in (0, \infty)$.
 
-For each model:
+For each model use the [canonical link]{.orange} and:
 
 i. Specify the statistical model in terms of the "standard" probability distribution and write the log-likelihood as a function of $\beta$.
 
