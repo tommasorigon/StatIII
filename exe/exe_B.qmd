@@ -237,7 +237,7 @@ under each of the following exponential–dispersion models (mean–variance pai
 1. $Y_i \sim \text{ED}(\mu_i, \phi)$ and $\mu_i \in \mathbb{R}$, with $\phi > 0$ known.  
 2. $Y_i \sim \text{ED}(\mu_i, \mu_i)$ and $\mu_i \in (0, \infty)$.
 3. $Y_i \sim \text{ED}(\mu_i,\mu_i(1 - \mu_i))$ and $\mu_i \in (0, 1)$.  
-4. $Y_i \sim \text{ED}(\mu_i,\phi \mu_i^2)$ and $\mu_i \in (0, \infty)$, with $\phi$ known.  
+4. $Y_i \sim \text{ED}(\mu_i,\phi \mu_i^2)$ and $\mu_i \in (0, \infty)$, with $\phi > 0$ known.  
 
 For each model consider the [canonical link]{.orange} and:
 
