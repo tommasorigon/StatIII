@@ -150,7 +150,7 @@ Prove that the [variance-stabilizing]{.blue} transform for [gamma random variabl
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise B
+#### Exercise B - Solution: [`notes.pdf`](exe_A_B.pdf)
 
 In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$, with $\mathbb{E}(u_i) = \mu_u$ and $\text{var}(u_i) = \sigma^2_u$. 
 
@@ -158,7 +158,7 @@ Analyze the expected impact of this [measurement error]{.blue} on $\hat{\beta}_1
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise C
+#### Exercise C - Solution: [`notes.pdf`](exe_A_C.pdf)
 
 In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta_1 x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
 
