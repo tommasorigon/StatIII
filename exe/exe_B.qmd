@@ -234,16 +234,16 @@ $$
 $$
 under each of the following exponential–dispersion models (mean–variance pairs):
   
-1. $Y_i \sim \text{ED}(\mu_i, \phi)$ with $V(\mu_i)=1$ and $\mu_i \in \mathbb{R}$, with $\phi$ known.  
-2. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i^2$ and $\mu_i \in (0, \infty)$, with $\phi$ known.  
-3. $Y_i \sim \text{ED}(\mu_i,\phi_i)$ with $V(\mu_i)=\mu_i(1-\mu_i)$ and $\mu_i \in (0, 1)$.  
-4. $Y_i \sim \text{ED}(\mu_i,\phi)$ with $V(\mu_i)=\mu_i$ and $\mu_i \in (0, \infty)$.
+1. $Y_i \sim \text{ED}(\mu_i, \phi)$ and $\mu_i \in \mathbb{R}$, with $\phi > 0$ known.  
+2. $Y_i \sim \text{ED}(\mu_i,\phi \mu_i^2)$ and $\mu_i \in (0, \infty)$, with $\phi$ known.  
+3. $Y_i \sim \text{ED}(\mu_i,\mu_i(1 - \mu_i))$ and $\mu_i \in (0, 1)$.  
+4. $Y_i \sim \text{ED}(\mu_i, \mu_i)$ and $\mu_i \in (0, \infty)$.
 
-For each model use the [canonical link]{.orange} and:
+For each model consider the [canonical link]{.orange} and:
 
 i. Specify the statistical model in terms of the "standard" probability distribution and write the log-likelihood as a function of $\beta$.
 
-ii. Derive the score function $\ell_*(\beta)$, the observed information $J$, and the expected Fisher information $I$.
+ii. Derive the score function $\ell_*(\beta)$ and the expected Fisher information $I$.
 
 iii. Obtain the maximum likelihood estimator $\hat\beta$ and provide an approximation to its sampling distribution. 
 

@@ -412,15 +412,15 @@ Exercise E
 \eta_i = \beta x_i, \qquad i=1,\dots,n,
 </span> under each of the following exponential–dispersion models (mean–variance pairs):</p>
 <ol type="1">
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> with <span class="math inline">V(\mu_i)=1</span> and <span class="math inline">\mu_i \in \mathbb{R}</span>, with <span class="math inline">\phi</span> known.<br>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> and <span class="math inline">\mu_i \in \mathbb{R}</span>, with <span class="math inline">\phi &gt; 0</span> known.<br>
 </li>
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi)</span> with <span class="math inline">V(\mu_i)=\mu_i^2</span> and <span class="math inline">\mu_i \in (0, \infty)</span>, with <span class="math inline">\phi</span> known.<br>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi \mu_i^2)</span> and <span class="math inline">\mu_i \in (0, \infty)</span>, with <span class="math inline">\phi</span> known.<br>
 </li>
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi_i)</span> with <span class="math inline">V(\mu_i)=\mu_i(1-\mu_i)</span> and <span class="math inline">\mu_i \in (0, 1)</span>.<br>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\mu_i(1 - \mu_i))</span> and <span class="math inline">\mu_i \in (0, 1)</span>.<br>
 </li>
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\phi)</span> with <span class="math inline">V(\mu_i)=\mu_i</span> and <span class="math inline">\mu_i \in (0, \infty)</span>.</li>
+<li><span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> and <span class="math inline">\mu_i \in (0, \infty)</span>.</li>
 </ol>
-<p>For each model use the <span class="orange">canonical link</span> and:</p>
+<p>For each model consider the <span class="orange">canonical link</span> and:</p>
 <ol type="i">
 <li><p>Specify the statistical model in terms of the “standard” probability distribution and write the log-likelihood as a function of <span class="math inline">\beta</span>.</p></li>
 <li><p>Derive the score function <span class="math inline">\ell_*(\beta)</span>, the observed information <span class="math inline">J</span>, and the expected Fisher information <span class="math inline">I</span>.</p></li>
