@@ -220,9 +220,9 @@ iii. Obtain the likelihood equations for a binomial regression model (`Beetles` 
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise D
+#### Exercise D - Solution: [`notes.pdf`](exe_B_D.pdf)
 
-Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model with a canonical link (inverse link). Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
+Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model. Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
 :::
 
 :::{.callout-note collapse=true}
