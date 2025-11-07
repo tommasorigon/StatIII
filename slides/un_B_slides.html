@@ -300,7 +300,7 @@
 <section id="beetles-data-a-dose-response-plot" class="slide level2 center">
 <h2><code>Beetles</code> data, a dose-response plot</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
 <li>There is a clear <span class="orange">positive</span> and <span class="blue">non-linear</span> pattern between the <span class="orange">proportion of deaths</span> as a function of the logdose. The response variable take values in <span class="math inline">[0, 1]</span>.</li>
 </ul>
 </section>
@@ -322,7 +322,7 @@ g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \qua
 <section id="beetles-data-fitted-model" class="slide level2 center">
 <h2><code>Beetles</code> data, fitted model</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
 <li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean proportion <span class="math inline">\mathbb{E}(S_i / m_i)</span>.</li>
 </ul>
 </section>
@@ -373,7 +373,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <section id="a-comparison-with-old-tools-iii" class="slide level2 center">
 <h2>A comparison with old tools III</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
 <li>The black line is the predicted curve of a <span class="grey">logistic regression GLM</span>. The orange line is the predictived curve of a <span class="orange">linear model</span>. The blue line is the predictive curve of a <span class="blue">linear model</span> after an <span class="blue">empirical logit variable transformation</span>.</li>
 </ul>
 </section>
@@ -470,7 +470,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <section id="aids-data-scatter-plot" class="slide level2 center">
 <h2><code>Aids</code> data, scatter plot</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
 <li>There is a clear positive association between period and deaths. However, the increase appears to be <span class="orange">faster</span> than <span class="orange">linear</span>. Note that both the mean and the <span class="blue">variability</span> of <span class="math inline">Y_i</span> increase over time.</li>
 </ul>
 </section>
@@ -498,7 +498,7 @@ g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i
 <section id="aids-data-fitted-model" class="slide level2 center">
 <h2><code>Aids</code> data, fitted model</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
 <li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean <span class="math inline">\mathbb{E}(Y_i)</span>.</li>
 </ul>
 </section>
@@ -532,7 +532,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 <section id="a-comparison-with-old-tools-ii-1" class="slide level2 center">
 <h2>A comparison with old tools II</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1950"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
 <li>The black line is the predicted curve of a <span class="grey">Poisson regression GLM</span> with <span class="gray">logarithmic link</span>. The orange line is the predicted curve of a <span class="orange">linear model</span> with a <span class="orange">square-root transformation</span>. The blue line is the predictive curve of a <span class="blue">Poisson regression GLM</span> with <span class="blue">square-root link</span>.</li>
 </ul>
 </section>
@@ -2624,7 +2624,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="example-beetles-data-goodness-of-fit" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data, goodness of fit</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1200"><ul>
 <li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 11.232</span>, with <span class="math inline">n - p = 8 - 2 = 6</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">10.027</span>.</p></li>
 <li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">6</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 10.027) = 0.124</span>, as pictured above, which can be interpreted as a <span class="orange">slight</span> lack of fit.</p></li>
 </ul>
@@ -2863,7 +2863,7 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <section id="example-beetles-data-6" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1500"><ul>
 <li><p>A formal test already confirmed that there are <span class="orange">no</span> noticeable <span class="orange">differences</span> between this model and the saturated model. The analysis of the residuals confirms it.</p></li>
 <li><p>Deviance residuals and Pearson residuals are very similar, as expected.</p></li>
 </ul>
@@ -2871,14 +2871,14 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <section id="example-beetles-data-7" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2000"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1200"><ul>
 <li>The Cook’s distance also confirms that there are not strong influence points.</li>
 </ul>
 </section>
 <section id="example-aids-data-7" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1500"><ul>
 <li><p>From both residuals plots it is evident that three observations are highly underestimated, while the others are slightly underestimated.</p></li>
 <li><p>The lack of fit can be solved, in this case, by using a different link function.</p></li>
 </ul>
@@ -2886,7 +2886,7 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <section id="example-aids-data-8" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 
-<img data-src="un_B_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" width="2500"><ul>
+<img data-src="un_B_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1500"><ul>
 <li><p>We estimated a Poisson regression model with a <span class="blue">non-canonical link</span> function <span class="math inline">g(\mu_i) = \sqrt{\mu_i}</span>.</p></li>
 <li><p>This yields a much <span class="blue">better fit</span>, as we previously discussed. The residuals are also better behaved.</p></li>
 </ul>

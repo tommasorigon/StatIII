@@ -7,7 +7,7 @@ library(ggthemes)
 
 rm(list = ls())
 # The dataset can also be downloaded here: https://tommasorigon.github.io/datamining/data/auto.txt
-auto <- read.table("../data/auto.txt", header = TRUE) %>% select(city.distance, engine.size, n.cylinders, curb.weight, fuel)
+auto <- read.table("../data/auto.txt", header = TRUE, stringsAsFactors = TRUE) %>% select(city.distance, engine.size, n.cylinders, curb.weight, fuel)
 
 p0 <- ggpairs(auto,
   columns = 1:4, aes(colour = fuel),
@@ -16,9 +16,7 @@ p0 <- ggpairs(auto,
   diag = "blank"
 ) +
   theme_light() +
-  scale_color_tableau(palette = "Color Blind") +
-  xlab("") +
-  ylab("")
+  scale_color_tableau(palette = "Color Blind")
 p0
 
 ggplot(data = auto, aes(x = engine.size, y = city.distance, col = fuel)) +
