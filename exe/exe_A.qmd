@@ -79,7 +79,7 @@ Thirty rubber samples were subjected to constant abrasion for a fixed duration, 
 :::
 
 ::: {.callout-note collapse=true}
-#### `FEV` dataset
+#### `FEV` dataset - Partial solution: [`FEV.R`](../code/FEV.R)
 
 Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The source of the data is
 
