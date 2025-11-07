@@ -19,24 +19,55 @@ anorexia$therapy <- as.factor(anorexia$therapy)
 str(anorexia)
 head(anorexia)
 
-boxplot(after - before ~ therapy, data = anorexia)
+# (a) ---------------------------------------------------------------------
 
-# (a) Fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}
+anorexia$change <- anorexia$after - anorexia$before
+boxplot(change ~ therapy, data = anorexia)
 
-m1 <- lm( after - before ~ therapy, data = anorexia)
+m1 <- lm(change ~ therapy, data = anorexia)
 summary(m1)
+
+# (b) ---------------------------------------------------------------------
 
 par(mfrow = c(2, 2))
 plot(m1, which = 1:4)
 par(mfrow = c(1, 1))
 
+# COMMENT: The diagnostic plots do not reveal any major issues.
 
-# (b) Check the underlying assumptions of the fitted models. If they are violated, propose a solution. 
+# (c) ---------------------------------------------------------------------
 
-# (c) [Interpret]{.blue} the estimated parameters of the model. 
+coef(m1)
+# (Intercept)    therapyc    therapyf 
+#    3.006897   -3.456897    4.257809 
 
-# (d) Convert the weights to kilograms ($1\ \text{lb} = 0.453592\ \text{kg}$), repeat the analysis, and discuss whether the results change and why.  
+# COMMENTS: The reference category is the cognitive behavioral therapy group. 
 
-# Optional: change the baseline for therapy
-contrasts(anorexia$therapy) <- contr.treatment(n = 3, base = 2)
-colnames(contrasts(anorexia$therapy)) <- c("b", "f")
+# The intercept (3.006 lbs) corresponds to the mean change in that group. In this case, the significance of the intercept is meaningful (p-value = 0.03), suggesting that the average weight increase in the reference group is likely positive, although the evidence is somewhat borderline.
+
+# The remaining two coefficients represent the differences in mean weight change for the control group and the family therapy group, respectively, relative to the cognitive behavioral therapy group: approximately -3.45 lbs and 4.25 lbs.
+
+# (d) ---------------------------------------------------------------------
+
+# Approach based on linear models
+anorexia$therapy <- relevel(anorexia$therapy, ref = "f")
+m2 <- lm(change ~ therapy, data = anorexia)
+summary(m2)
+
+# Approach based on basic inferential methods (from Statistica II).
+# Minor differences in the t-statistics arise from different estimates of the variance.
+t.test(anorexia$change[anorexia$therapy == "f"])
+
+# COMMENT: The mean change in the family therapy group is 7.26 lbs, which is significantly different from zero.
+
+# (e) ---------------------------------------------------------------------
+
+anorexia$change_kg <- anorexia$change * 0.453592
+
+m3 <- lm(change ~ therapy, data = anorexia)
+summary(m3)
+
+m4 <- lm(change_kg ~ therapy, data = anorexia)
+summary(m4)
+
+# COMMENT: The coefficients and standard errors are rescaled because of the unit conversion, but the R-squared values, tests, and t-statistics remain identical. This is a general property of linear models: changing the measurement scale of the response only rescales the coefficients, not the statistical conclusions.

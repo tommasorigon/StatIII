@@ -110,7 +110,8 @@ Import the data and then:
 
 
 :::{.callout-note collapse=true}
-#### `Anorexia` dataset
+#### `Anorexia` dataset - Partial solution: [`Anorexia.R`](../code/Anorexia.R)
+
 
 For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The original source of the dataset is the textbook:
 
