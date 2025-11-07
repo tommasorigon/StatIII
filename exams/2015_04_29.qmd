@@ -73,6 +73,6 @@ Facendo uso del software **R**, si risponda alle seguenti domande:
 
 ## Teoria
 
-1. Si illustri il concetto di devianza nell’ambito dei glm e se ne illustri l’utilizzo al fine di confrontare due glm annidati.
+1. Si illustri il concetto di devianza nell’ambito dei GLM e se ne illustri l’utilizzo al fine di confrontare due GLM annidati.
 
 2. Considerato un GLM per risposta binaria, si derivino la funzione della media, della varianza ed il link canonico.
