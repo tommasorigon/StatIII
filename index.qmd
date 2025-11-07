@@ -83,7 +83,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 
 ## Previous exams (ITA)
 
-Example of previous exams are provided below.
+Example of previous exams are provided below. During the exam, you will have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------|---------|-----------|----------|
