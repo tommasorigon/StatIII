@@ -78,7 +78,7 @@ documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#pr
 | *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
 | | **ADVANCED TOPICS** | | |
 | **Quasi-likelihoods** | [Unit E] | [Slides Unit E] |  |
-| Lab 6 | [`lab6.R`] | | |
+| Lab 6 | [`lab6.R`](code/lab6.R) | | |
 | *Exercises* | [Exercises E](exe/exe_E.html) |  |  |
 
 ## Previous exams (ITA)
