@@ -311,7 +311,7 @@ $$
 
 - We wish to [compare two estimated probabilities]{.blue}, corresponding to two different covariate vectors $\bm{x} = (x_1,\dots,x_p)$ and $\bm{x}' = (x_1',\dots,x_p')$, namely
 $$
-\hat{\pi}(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\beta).
+\pi(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \pi(\bm{x}') = F((\bm{x}')^T\beta).
 $$
 This is useful to understand the effect of changing covariates on the response probability.
 
@@ -319,12 +319,12 @@ This is useful to understand the effect of changing covariates on the response p
 
 - The [absolute risk]{.blue}, namely the difference 
   $$
-  (\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
+  (\text{absolute risk}) = \pi(\bm{x}') - \pi(\bm{x}).
   $$
 
 - The [relative risk]{.orange} is the fraction
   $$
-  (\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
+  (\text{relative risk}) = \frac{\pi(\bm{x}')}{\pi(\bm{x})}.
   $$
 - Both these indicators are quite interpretable but depend on the specific values of $\bm{x}$ and $\bm{x}'$, which makes it difficult to summarize the effect of a given covariate in a single number.
 

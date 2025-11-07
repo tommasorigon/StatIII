@@ -278,11 +278,11 @@ g(\pi_i) = \tan(\pi(\pi_i - 1/2)), \qquad \text{with inverse} \qquad \pi_i = \fr
 <section id="link-functions-iii" class="slide level2 center">
 <h2>Link functions III</h2>
 
-<img data-src="un_C_files/figure-revealjs/unnamed-chunk-2-1.png" width="900" class="r-stretch"></section>
+<img data-src="un_C_files/figure-revealjs/unnamed-chunk-2-1.png" width="1500" class="r-stretch"></section>
 <section id="link-functions-iv" class="slide level2 center">
 <h2>Link functions IV</h2>
 
-<img data-src="un_C_files/figure-revealjs/unnamed-chunk-3-1.png" width="900" class="r-stretch"></section>
+<img data-src="un_C_files/figure-revealjs/unnamed-chunk-3-1.png" width="1500" class="r-stretch"></section>
 <section id="latent-variable-threshold-models-i" class="slide level2 center">
 <h2>Latent variable threshold models I</h2>
 <ul>
@@ -338,14 +338,14 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <h2>Parameter interpretation</h2>
 <ul>
 <li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{x}' = (x_1',\dots,x_p')</span>, namely <span class="math display">
-\hat{\pi}(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\beta).
+\pi(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \pi(\bm{x}') = F((\bm{x}')^T\beta).
 </span> This is useful to understand the effect of changing covariates on the response probability.</p></li>
 <li><p>There are several ways to compare them, listed below, each with its advantages and disadvantages:</p></li>
 <li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
-(\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
+(\text{absolute risk}) = \pi(\bm{x}') - \pi(\bm{x}).
 </span></p></li>
 <li><p>The <span class="orange">relative risk</span> is the fraction <span class="math display">
-(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
+(\text{relative risk}) = \frac{\pi(\bm{x}')}{\pi(\bm{x})}.
 </span></p></li>
 <li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
 </ul>

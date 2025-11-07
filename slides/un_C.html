@@ -354,14 +354,14 @@ Y_i = \mathbb{I}(Y_i^* &gt; \tau),
 <h2 class="anchored" data-anchor-id="parameter-interpretation">Parameter interpretation</h2>
 <ul>
 <li><p>We wish to <span class="blue">compare two estimated probabilities</span>, corresponding to two different covariate vectors <span class="math inline">\bm{x} = (x_1,\dots,x_p)</span> and <span class="math inline">\bm{x}' = (x_1',\dots,x_p')</span>, namely <span class="math display">
-\hat{\pi}(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \hat{\pi}(\bm{x}') = F((\bm{x}')^T\beta).
+\pi(\bm{x}) = F(\bm{x}^T\beta)\qquad \text{and} \qquad \pi(\bm{x}') = F((\bm{x}')^T\beta).
 </span> This is useful to understand the effect of changing covariates on the response probability.</p></li>
 <li><p>There are several ways to compare them, listed below, each with its advantages and disadvantages:</p></li>
 <li><p>The <span class="blue">absolute risk</span>, namely the difference <span class="math display">
-(\text{absolute risk}) = \hat{\pi}(\bm{x}') - \hat{\pi}(\bm{x}).
+(\text{absolute risk}) = \pi(\bm{x}') - \pi(\bm{x}).
 </span></p></li>
 <li><p>The <span class="orange">relative risk</span> is the fraction <span class="math display">
-(\text{relative risk}) = \frac{\hat{\pi}(\bm{x}')}{\hat{\pi}(\bm{x})}.
+(\text{relative risk}) = \frac{\pi(\bm{x}')}{\pi(\bm{x})}.
 </span></p></li>
 <li><p>Both these indicators are quite interpretable but depend on the specific values of <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span>, which makes it difficult to summarize the effect of a given covariate in a single number.</p></li>
 </ul>
