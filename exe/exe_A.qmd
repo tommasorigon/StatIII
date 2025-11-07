@@ -112,9 +112,9 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### `Anorexia` dataset
 
-For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The original data are reported here:
+For $n = 72$ young girls diagnosed with anorexia, the dataset `Anorexia.dat` [available here](../data/Anorexia.dat) records their body weights (in lbs) before and after an experimental treatment period. The original source of the dataset is the textbook:
 
-> Hand, D. J., F. Daly, A. D. Lunn, K. J. McConway, and E. Ostrowski. 1994. *A Handbook of Small Data Sets*. Springer US.
+> Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
 
 During the study, the participants were randomly assigned to one of three `therapy` groups:  
 
@@ -124,13 +124,16 @@ During the study, the participants were randomly assigned to one of three `thera
 
 Import the data and 
 
-(a) Fit a linear model where the outcome is the [post-treatment weight]{.blue} and the predictors are the [baseline weight]{.orange} and the [therapy group]{.orange}
+(a) Fit a linear model where the outcome is the [difference]{.orange} between the post-treatment weight and the baseline weight, and the predictor is the therapy group.
 
-(b) Check the underlying assumptions of the fitted models. If they are violated, propose a solution. 
+(b) Check whether the assumptions underlying the fitted model are satisfied. If any assumption is violated, propose an appropriate remedy.
 
-(c) [Interpret]{.blue} the estimated parameters of the model. 
+(c) Interpret the estimated parameters of the model.
 
-(d) Convert the weights to kilograms ($1\ \text{lb} = 0.453592\ \text{kg}$), repeat the analysis, and discuss whether the results change and why.  
+(d) Test whether family therapy is effective in increasing weight.
+
+(e) Convert all weight measurements to kilograms (using the conversion factor $1\,\text{lb} = 0.453592 \text{kg}$), repeat the analysis, and discuss whether and why the results change.
+
 
 ```{r}
 #Anorexia <- read.table("../data/Anorexia.dat", header = TRUE)
