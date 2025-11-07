@@ -41,7 +41,7 @@ format:
     toc-title: Table of contents
     embed-resources: false
     smooth-scroll: true
-    fig-dpi: 250
+    fig-dpi: 90
 editor: 
   markdown: 
     wrap: 72

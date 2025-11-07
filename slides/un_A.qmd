@@ -671,7 +671,7 @@ It is also commonly asked that $\text{rk}(\bm{X}) = p$, otherwise the model is n
 
 ## Robust estimation and assumptions
 
-![](img/plane.png){.nostretch fig-align="center" width="600px"}
+![](img/plane.jpg){.nostretch fig-align="center" width="500px"}
 
 - A plane can still fly with one of its [engines on fire]{.orange}, but this is hardly an appealing situation.
 
