@@ -114,6 +114,7 @@ window.Quarto = {
   <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
   <ul class="collapse">
   <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#theoretical" id="toc-theoretical" class="nav-link" data-scroll-target="#theoretical">Theoretical</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -276,12 +277,26 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<!-- ## Theoretical -->
-<!-- :::{.callout-note collapse=true} -->
-<!-- #### Exercise A -->
-<!-- Conditionally on positive covariates $U_i = u_i$, the random variable $Y_i \mid U_i = u$ are Poisson distributed with mean $\mu u_i$, where $\mu > 0$ is an unknown parameter. Suppose the covariates $U_i$ are iid with mean $\mathbb{E}(U_i)=1$ and variance $\mathrm{Var}(U_i)=\tau$. -->
-<!-- Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{Var}(Y_i) = \mu + \tau\mu^2$. Comment on the result and the issue of [overdispersion]{.orange}. -->
-<!-- ::: -->
+</section>
+<section id="theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical">Theoretical</h2>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise A
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Conditionally on positive covariates <span class="math inline">U_i = u_i</span>, the random variable <span class="math inline">Y_i \mid U_i = u</span> are Poisson distributed with mean <span class="math inline">\mu u_i</span>, where <span class="math inline">\mu &gt; 0</span> is an unknown parameter. Suppose the covariates <span class="math inline">U_i</span> are iid with mean <span class="math inline">\mathbb{E}(U_i)=1</span> and variance <span class="math inline">\mathrm{Var}(U_i)=\tau</span>.</p>
+<p>Show that <span class="math inline">Y_i</span>’s are iid with mean <span class="math inline">\mathbb{E}(Y_i)=\mu</span> and variance <span class="math inline">\mathrm{Var}(Y_i) = \mu + \tau\mu^2</span>. Comment on the result and the issue of <span class="orange">overdispersion</span>.</p>
+</div>
+</div>
+</div>
 
 </section>
 </section>
