@@ -176,7 +176,7 @@ In some applications, such as regressing annual income on the number of years of
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise D
+#### Exercise D - Solution: [`notes.pdf`](exe_A_C.pdf)
 
 Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
 $$
