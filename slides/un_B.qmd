@@ -682,7 +682,7 @@ from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-
 | Model | $\text{N}(\mu_i, \sigma^2)$ | $\text{Gamma}(\alpha, \alpha/\mu_i)$ | $\frac{1}{m_i}\text{Binomial}(m_i, \mu_i)$ | $\text{Poisson}(\mu_i)$ |
 |--------------------|---------------|---------------|---------------|---------------|
 | [Support]{.blue} $\mathcal{Y}$ |  $\mathbb{R}$| $[0, \infty)$ | $\{0, 1/m_i,\dots, 1\}$ | $\mathbb{N}$ |
-| $\theta_i$ | $\mu_i$ | $- 1/\mu_i$ | $\log\left(\frac{\mu_i}{1 - \mu_i}\right)$ | $\log{\mu_i}$ |
+| $\theta_i = \theta(\mu_i)$ | $\mu_i$ | $- 1/\mu_i$ | $\log\left(\frac{\mu_i}{1 - \mu_i}\right)$ | $\log{\mu_i}$ |
 | [Parametric space]{.orange} $\Theta$ | $\mathbb{R}$ | $(-\infty, 0)$ | $\mathbb{R}$ | $\mathbb{R}$ | 
 | $b(\theta_i)$ | $\theta_i^2/2$ | $-\log(-\theta_i)$ | $\log\{1 + \exp(\theta_i)\}$| $\exp(\theta_i)$ |
 | $\phi$ | $\sigma^2$ | $1/\alpha$ | $1$ | $1$ |
