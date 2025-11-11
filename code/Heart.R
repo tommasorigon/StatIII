@@ -33,11 +33,11 @@ abline(lm(prop ~ mck, data = Heart), lty = "dotted")
 
 # COMMENT: the linear probability model is catastrophically bad. It predicts probabilities > 1, the fit is terrible. 
 
-# (c) Specify a generalized linear model to analyze the problem.
+# (c) ---------------------------------------------------------------------
 
 # ha ~ Binomial(num, pi_i), independently, with logit(pi_i) = \beta_1 + \beta_2 mck.
 
-# (d) Fit in R the generalized linear model from the previous point and comment on the results.  
+# (d) ---------------------------------------------------------------------
 
 m1 <- glm(cbind(ha, nha) ~ mck, family = binomial, data = Heart)
 summary(m1)
@@ -48,17 +48,24 @@ confint(m1)
 
 # (f) ---------------------------------------------------------------------
 
+newdata <- data.frame(mck = seq(from = 0, to = 600, length = 200))
+fit1 <- predict(m1, newdata = newdata, type = "response")
+
+plot(Heart$mck, Heart$prop, pch = 16)
+lines(newdata$mck, fit1)
+
+# (g) ---------------------------------------------------------------------
+
 # Omitted
 
-# (g) Evaluate the goodness of fit of the model.  
+# (h) Evaluate the goodness of fit of the model.  
 
-# (h) Assess whether it is appropriate to introduce a quadratic term in `mck` in the linear predictor and evaluate the goodness of fit of the expanded model.  
+# (i) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.  
 
-# (i) Plot the scatter diagram of the points (x_i, y_i), i = 1, ..., 13$, with $x_i$ equal to `mck` and $y_i$ equal to the corresponding proportion of infarctions. Superimpose on this diagram the curves of the predicted values from the two fitted models.  
-
-# (j) Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
+# (l) Assess whether it is appropriate to introduce a quadratic term in mck in the linear predictor and evaluate the goodness of fit of the expanded model.  
 
 m2 <- glm(cbind(ha, nha) ~ mck + I(mck^2), family = binomial, data = Heart)
 summary(m2)
 
-# (k) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150. 
+# (m) Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
+

@@ -1,3 +1,3 @@
-# Inferential Statistics
+# Statistics III
 
-Webpage: https://tommasorigon.github.io/InferentialStat/
+Webpage: https://tommasorigon.github.io/StatIII/
