@@ -250,7 +250,7 @@ iv. For a fixed covariate value $x_i$, construct an approximate $1-\alpha$ confi
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise F
+#### Exercise F - Solution: [`notes.pdf`](exe_B_F.pdf)
 
 Suppose $Y_i$ has a Poisson distribution with
 $$
@@ -266,7 +266,7 @@ iii. Using the likelihood equations, show that the same result holds for any GLM
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise G
+#### Exercise G - Solution: [`notes.pdf`](exe_B_G.pdf)
 
 In a generalized linear model that uses a [non-canonical link function]{.blue}, explain why it need not be true that  
 $$
