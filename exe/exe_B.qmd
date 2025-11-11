@@ -278,7 +278,7 @@ Then, explain why a GLM with a [canonical link]{.orange} function and constant w
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise H
+#### Exercise H - Solution: [`notes.pdf`](exe_B_H.pdf)
 
 In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest $R^2$ in linear models)?
 :::
