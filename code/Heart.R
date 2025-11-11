@@ -33,7 +33,9 @@ abline(lm(prop ~ mck, data = Heart), lty = "dotted")
 
 # COMMENT: the linear probability model is catastrophically bad. It predicts probabilities > 1, the fit is terrible. 
 
-# (c) Specify a generalized linear model to analyze the problem.  
+# (c) Specify a generalized linear model to analyze the problem.
+
+# ha ~ Binomial(num, pi_i), independently, with logit(pi_i) = \beta_1 + \beta_2 mck.
 
 # (d) Fit in R the generalized linear model from the previous point and comment on the results.  
 
