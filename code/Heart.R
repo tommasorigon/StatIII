@@ -117,6 +117,6 @@ round(sqrt(diag(vcov(m2))), 3)
 predict(m1, newdata = data.frame(mck= c(150, 300)), type = "response", se.fit = TRUE)$se.fit
 predict(m2, newdata = data.frame(mck= c(150, 300)), type = "response", se.fit = TRUE)$se.fit
 
-# COMMENT 1: The variability of the estimated coefficients appears to have improved (although the coefficients themselves are not directly comparable at this point). The standard errors of the predicted probabilities have also changed, but the situation is more nuanced: depending on the predicted value, the standard error may either increase or decrease.
+# COMMENT 1: The variability of the estimated coefficients appears to have increased (although the coefficients themselves are not directly comparable at this point). The standard errors of the predicted probabilities have also changed, but the situation is more nuanced: depending on the predicted value, the standard error may either increase or decrease.
 
 # COMMENT 2: The quadratic model may yield better predictions but definitely complicates interpretation. The coefficients of m2 are no longer easily interpretable as log odds ratios.
