@@ -55,7 +55,7 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 <!-- ::: -->
 
 :::{.callout-note collapse=true}
-#### `Heart` dataset
+#### `Heart` dataset - Partial solution: [`Heart.R`](../code/Heart.R)
 
 The data in the `Heart` dataframe included in the `MLGdata` library report the number of confirmed myocardial infarctions in a sample of $360$ patients hospitalized with suspected infarction. These data were originally collected in Edinburgh Royal Infirmary; the original study was published as
 
@@ -75,7 +75,7 @@ Import the data and then:
 
 (b) Conduct a graphical analysis to assess whether a linear regression model may be appropriate.  
 
-(c) Specify a generalized linear model to analyze the problem.  
+(c) Specify a [generalized linear model]{.blue} to analyze the problem.  
 
 (d) Fit in R the generalized linear model from the previous point.  
 
@@ -85,9 +85,9 @@ Import the data and then:
 
 (g) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.  
 
-(h) Evaluate the goodness of fit of the model.  
+(h) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.  
 
-(i) Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.  
+(i) Evaluate the goodness of fit of the model.  
 
 (l) Assess whether it is appropriate to introduce a quadratic term in `mck` in the linear predictor and evaluate the goodness of fit of the expanded model.  
 

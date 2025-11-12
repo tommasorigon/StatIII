@@ -88,6 +88,14 @@ Reconsider the `Germination` dataset previously analyzed in [Exercises C](exe_C.
 Evaluate the possible presence of [overdispersion]{.orange}, and compare the results obtained from fitting the different models that account for it. Propose a [final model]{.blue} and interpret the results.
 :::
 
+:::{.callout-note collapse=true}
+##### `Heart` dataset (continuation)
+
+Reconsider the `Heart` dataset previously analyzed in [Exercises C](exe_C.html).
+
+Evaluate the possible presence of [overdispersion]{.orange}, and compare the results obtained from fitting the different models that account for it. Propose a [final model]{.blue} and interpret the results.
+:::
+
 ## Theoretical
 
 :::{.callout-note collapse=true}

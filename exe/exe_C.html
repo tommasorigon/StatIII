@@ -217,7 +217,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Heart</code> dataset
+<code>Heart</code> dataset - Partial solution: <a href="../code/Heart.R"><code>Heart.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -240,15 +240,15 @@ window.Quarto = {
 <ol type="a">
 <li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
 <li><p>Conduct a graphical analysis to assess whether a linear regression model may be appropriate.</p></li>
-<li><p>Specify a generalized linear model to analyze the problem.</p></li>
-<li><p>Fit in R the generalized linear model from the previous point and comment on the results.</p></li>
+<li><p>Specify a <span class="blue">generalized linear model</span> to analyze the problem.</p></li>
+<li><p>Fit in R the generalized linear model from the previous point.</p></li>
 <li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained estimates.</p></li>
+<li><p>Plot the scatter diagram of the points <span class="math inline">(x_i, y_i)</span>, <span class="math inline">i = 1, \dots, 13</span>, with <span class="math inline">x_i</span> equal to <code>mck</code> and <span class="math inline">y_i</span> equal to the corresponding proportion of infarctions. Superimpose on this diagram the curves of the predicted values from the two fitted models.</p></li>
 <li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.</p></li>
+<li><p>Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.</p></li>
 <li><p>Evaluate the goodness of fit of the model.</p></li>
 <li><p>Assess whether it is appropriate to introduce a quadratic term in <code>mck</code> in the linear predictor and evaluate the goodness of fit of the expanded model.</p></li>
-<li><p>Plot the scatter diagram of the points <span class="math inline">(x_i, y_i)</span>, <span class="math inline">i = 1, \dots, 13</span>, with <span class="math inline">x_i</span> equal to <code>mck</code> and <span class="math inline">y_i</span> equal to the corresponding proportion of infarctions. Superimpose on this diagram the curves of the predicted values from the two fitted models.</p></li>
-<li><p>Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.</p></li>
-<li><p>Obtain a 95% confidence interval for the probability of infarction corresponding to a Creatine Kinase value of 150.<br>
+<li><p>Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.<br>
 </p></li>
 </ol>
 </div>
