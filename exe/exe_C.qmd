@@ -91,7 +91,7 @@ Import the data and then:
 
 (l) Assess whether it is appropriate to introduce a quadratic term in `mck` in the linear predictor and evaluate the goodness of fit of the expanded model.  
 
-(m) Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
+(m) Evaluate whether the introduction of the quadratic term increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
 :::
 
 :::{.callout-note collapse=true}

@@ -273,13 +273,13 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad i=1,\dots,n,
 <section id="regression-models" class="slide level2 center">
 <h2>Regression models</h2>
 <ul>
-<li class="fragment"><p>A <span class="orange">general</span> and <span class="orange">more flexible formulation</span> for modeling the relationship between a vector of <span class="blue">fixed covariates</span> <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T \in \mathbb{R}^p</span> and a random variable <span class="math inline">Y_i \in \mathbb{R}</span> is <span class="math display">
-Y_i = f(\bm{x}_i; \beta) + \epsilon_i, \qquad i=1,\dots,n,
+<li class="fragment"><p>A <span class="orange">general</span> and <span class="orange">more flexible formulation</span> for modeling the relationship between a vector of <span class="blue">fixed covariates</span> <span class="math inline">\boldsymbol{x}_i = (x_{i1},\dots,x_{ip})^T \in \mathbb{R}^p</span> and a random variable <span class="math inline">Y_i \in \mathbb{R}</span> is <span class="math display">
+Y_i = f(\boldsymbol{x}_i; \beta) + \epsilon_i, \qquad i=1,\dots,n,
 </span> where the “errors” <span class="math inline">\epsilon_i</span> are iid random variables, having zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
 <li class="fragment"><p>To estimate the unknown parameters <span class="math inline">\beta</span>, a possibility is to rely on the <span class="blue">least squares criterion</span>: we seek the <span class="orange">minimum</span> of the objective function <span class="math display">
-D(\beta) = \sum_{i=1}^n\{y_i - f(\bm{x}_i; \beta)\}^2,
-</span> using <span class="math inline">n</span> pairs of covariates <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T</span> and the observed realizations <span class="math inline">y_i</span> of the random variables <span class="math inline">Y_i</span>, for <span class="math inline">i = 1,\dots,n</span>. The <span class="orange">optimal value</span> is denoted by <span class="math inline">\hat{\beta}</span>.</p></li>
-<li class="fragment"><p>The <span class="blue">predicted values</span> are <span class="math inline">\hat{y}_i = \widehat{\mathbb{E}(Y_i)} = f(\bm{x}_i; \hat{\beta})</span>, for <span class="math inline">i=1,\dots,n.</span></p></li>
+D(\beta) = \sum_{i=1}^n\{y_i - f(\boldsymbol{x}_i; \beta)\}^2,
+</span> using <span class="math inline">n</span> pairs of covariates <span class="math inline">\boldsymbol{x}_i = (x_{i1},\dots,x_{ip})^T</span> and the observed realizations <span class="math inline">y_i</span> of the random variables <span class="math inline">Y_i</span>, for <span class="math inline">i = 1,\dots,n</span>. The <span class="orange">optimal value</span> is denoted by <span class="math inline">\hat{\beta}</span>.</p></li>
+<li class="fragment"><p>The <span class="blue">predicted values</span> are <span class="math inline">\hat{y}_i = \widehat{\mathbb{E}(Y_i)} = f(\boldsymbol{x}_i; \hat{\beta})</span>, for <span class="math inline">i=1,\dots,n.</span></p></li>
 </ul>
 </section>
 <section id="linear-models" class="slide level2 center">
@@ -303,8 +303,8 @@ f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z =
 </div>
 <div class="callout-content">
 <p>In a <span class="blue">linear model</span> the response variable <span class="math inline">Y_i</span> is related to the covariates through the function<span class="math display">
-    \mathbb{E}(Y_i) =f(\bm{x}_i; \beta) = \beta_1 x_{i1} + \cdots + \beta_p x_{ip} =\bm{x}_i^T\beta,
-    </span> where <span class="math inline">\bm{x}_i = (x_{i1},\dots,x_{ip})^T</span> is a vector of <span class="orange">covariates</span> and <span class="math inline">\beta = (\beta_1,\dots,\beta_p)^T</span> is the corresponding vector of <span class="orange">coefficients</span>.</p>
+    \mathbb{E}(Y_i) =f(\boldsymbol{x}_i; \beta) = \beta_1 x_{i1} + \cdots + \beta_p x_{ip} =\boldsymbol{x}_i^T\beta,
+    </span> where <span class="math inline">\boldsymbol{x}_i = (x_{i1},\dots,x_{ip})^T</span> is a vector of <span class="orange">covariates</span> and <span class="math inline">\beta = (\beta_1,\dots,\beta_p)^T</span> is the corresponding vector of <span class="orange">coefficients</span>.</p>
 </div>
 </div>
 </div>
@@ -313,9 +313,9 @@ f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z =
 <section id="matrix-notation" class="slide level2 center">
 <h2>Matrix notation</h2>
 <ul>
-<li><p>The <span class="orange">response random variables</span> are collected in the random vector <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)^T</span>, whose <span class="blue">observed realization</span> is <span class="math inline">\bm{y} = (y_1,\dots,y_n)^T</span>.</p></li>
+<li><p>The <span class="orange">response random variables</span> are collected in the random vector <span class="math inline">\boldsymbol{Y} = (Y_1,\dots,Y_n)^T</span>, whose <span class="blue">observed realization</span> is <span class="math inline">\boldsymbol{y} = (y_1,\dots,y_n)^T</span>.</p></li>
 <li><p>The <span class="blue">design matrix</span> is a <span class="math inline">n \times p</span> matrix, comprising the covariate’s values, defined by <span class="math display">
-\bm{X} =
+\boldsymbol{X} =
 \begin{bmatrix}
 x_{11} &amp; \cdots &amp; x_{1p}\\
 \vdots &amp; \ddots &amp; \vdots \\
@@ -325,16 +325,16 @@ x_{n1} &amp; \cdots &amp; x_{np}
 </ul>
 <div class="fragment">
 <ul>
-<li>The <span class="math inline">j</span>th variable (column) is denoted with <span class="math inline">\tilde{\bm{x}}_j</span>, whereas the <span class="math inline">i</span>th observation (row) is <span class="math inline">\bm{x}_i</span>: <span class="math display">
-\bm{X} = (\tilde{\bm{x}}_1,\dots,\tilde{\bm{x}}_p) = (\bm{x}_1, \dots,\bm{x}_n)^T.
+<li>The <span class="math inline">j</span>th variable (column) is denoted with <span class="math inline">\tilde{\boldsymbol{x}}_j</span>, whereas the <span class="math inline">i</span>th observation (row) is <span class="math inline">\boldsymbol{x}_i</span>: <span class="math display">
+\boldsymbol{X} = (\tilde{\boldsymbol{x}}_1,\dots,\tilde{\boldsymbol{x}}_p) = (\boldsymbol{x}_1, \dots,\boldsymbol{x}_n)^T.
 </span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
 <li>Then, a <span class="blue">linear model</span> can be written using the <span class="orange">compact notation</span>: <span class="math display">
-\bm{Y} = \bm{X}\beta + \bm{\epsilon},
-</span> where <span class="math inline">\bm{\epsilon} = (\epsilon_1,\dots,\epsilon_n)^T</span> is a vector of iid error terms with zero mean and variance <span class="math inline">\sigma^2</span>.</li>
+\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon},
+</span> where <span class="math inline">\boldsymbol{\epsilon} = (\epsilon_1,\dots,\epsilon_n)^T</span> is a vector of iid error terms with zero mean and variance <span class="math inline">\sigma^2</span>.</li>
 </ul>
 </div>
 </section>
@@ -342,9 +342,9 @@ x_{n1} &amp; \cdots &amp; x_{np}
 <h2>Linear regression: estimation I</h2>
 <ul>
 <li>The optimal set of coefficients <span class="math inline">\hat{\beta}</span> is the minimizer of the <span class="orange">least squared criterion</span> <span class="math display">
-D(\beta) = (\bm{y} - \bm{X}\beta)^T(\bm{y} - \bm{X}\beta) = ||\bm{y} - \bm{X}\beta||^2,
+D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol{X}\beta) = ||\boldsymbol{y} - \boldsymbol{X}\beta||^2,
 </span> also known as <span class="orange">residual sum of squares (RSS)</span>, where <span class="math display">
-||\bm{y}|| = \sqrt{y_1^2 + \cdots + y_n^2},</span> denotes the <span class="blue">Euclidean norm</span>.</li>
+||\boldsymbol{y}|| = \sqrt{y_1^2 + \cdots + y_n^2},</span> denotes the <span class="blue">Euclidean norm</span>.</li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-titled callout-style-simple">
@@ -353,8 +353,8 @@ D(\beta) = (\bm{y} - \bm{X}\beta)^T(\bm{y} - \bm{X}\beta) = ||\bm{y} - \bm{X}\be
 <p><strong>Least square estimate (OLS)</strong></p>
 </div>
 <div class="callout-content">
-<p>If the design matrix has <span class="blue">full rank</span>, that is, if <span class="math inline">\text{rk}(\bm{X}^T\bm{X}) = p</span>, then the <span class="orange">least square estimate</span> has an explicit solution: <span class="math display">
-    \hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T \bm{y}.
+<p>If the design matrix has <span class="blue">full rank</span>, that is, if <span class="math inline">\text{rk}(\boldsymbol{X}^T\boldsymbol{X}) = p</span>, then the <span class="orange">least square estimate</span> has an explicit solution: <span class="math display">
+    \hat{\beta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y}.
     </span></p>
 </div>
 </div>
@@ -365,16 +365,16 @@ D(\beta) = (\bm{y} - \bm{X}\beta)^T(\bm{y} - \bm{X}\beta) = ||\bm{y} - \bm{X}\be
 <h2>Linear regression: estimation II</h2>
 <ul>
 <li>In matrix notation, the predicted values can be obtained as <span class="math display">
-\hat{\bm{y}} = \bm{X}\hat{\beta} = \bm{H}\bm{y}, \qquad \bm{H} = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T,
-</span> where <span class="math inline">\bm{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\bm{H} = \bm{H}^T</span> and <span class="math inline">\bm{H}^2 = \bm{H}</span>.</li>
+\hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
+</span> where <span class="math inline">\boldsymbol{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>The quantity <span class="math inline">D(\hat{\beta})</span> is the so-called <span class="blue">deviance</span>, which is equal to <span class="math display">
-D(\hat{\beta}) = ||\bm{y} - \hat{\bm{y}}||^2 = \bm{y}^T(I_n - \bm{H})\bm{y}.
+D(\hat{\beta}) = ||\boldsymbol{y} - \hat{\boldsymbol{y}}||^2 = \boldsymbol{y}^T(I_n - \boldsymbol{H})\boldsymbol{y}.
 </span></p></li>
 <li><p>Moreover, a typical estimate for the <span class="orange">residual variance</span> <span class="math inline">\sigma^2</span> is obtained as follows: <span class="math display">
-s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \bm{x}_i^T\hat{\beta})^2.
+s^2 = \frac{D(\hat{\beta})}{n - p} = \frac{1}{n-p}\sum_{i=1}^n(y_i - \boldsymbol{x}_i^T\hat{\beta})^2.
 </span></p></li>
 <li><p>To evaluate the goodness of fit, we can calculate the <span class="orange">coefficient of determination</span>: <span class="math display">
 R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i - \bar{y})^2}.
@@ -385,9 +385,9 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 <section id="linear-regression-inference" class="slide level2 center">
 <h2>Linear regression: inference</h2>
 <ul>
-<li><p>Recall that the errors <span class="math inline">\bm{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>.</p></li>
-<li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\bm{X}^T\bm{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> as follows: <span class="math display">
-  \widehat{\text{var}}(\hat{\beta}) = s^2 (\bm{X}^T\bm{X})^{-1}.
+<li><p>Recall that the errors <span class="math inline">\boldsymbol{\epsilon}</span> have zero mean <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span> and are <span class="orange">uncorrelated</span> <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2I_n</span>.</p></li>
+<li><p>Then, the estimator <span class="math inline">\hat{\beta}</span> is <span class="orange">unbiased</span> <span class="math inline">\mathbb{E}(\hat{\beta}) = \beta</span> and its <span class="blue">variance</span> is <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\boldsymbol{X}^T\boldsymbol{X})^{-1}</span>. Since <span class="math inline">\sigma^2</span> is also unknown, we can estimate the variances of <span class="math inline">\hat{\beta}</span> as follows: <span class="math display">
+  \widehat{\text{var}}(\hat{\beta}) = s^2 (\boldsymbol{X}^T\boldsymbol{X})^{-1}.
   </span></p></li>
 <li><p>The <span class="orange">standard errors</span> of the components of <span class="math inline">\hat{\beta}</span> correspond to the square root of the diagonal of the above covariance matrix.</p></li>
 </ul>
@@ -395,7 +395,7 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 <ul>
 <li><p>Let us additionally assume that the errors follow a Gaussian distribution: <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} \text{N}(0, \sigma^2)</span>.</p></li>
 <li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
-\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\bm{X}^T\bm{X})^{-1}).
+\hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\boldsymbol{X}^T\boldsymbol{X})^{-1}).
 </span></p></li>
 <li><p>Confidence interval and Wald’s tests can be obtained through classical inferential theory.</p></li>
 </ul>
@@ -404,12 +404,12 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 <section id="linear-regression-diagnostic" class="slide level2 center">
 <h2>Linear regression: diagnostic</h2>
 <ul>
-<li><p>The diagonal elements <span class="math inline">h_i \in [0, 1]</span> of the matrix <span class="math inline">\bm{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
+<li><p>The diagonal elements <span class="math inline">h_i \in [0, 1]</span> of the matrix <span class="math inline">\boldsymbol{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
 \text{var}(\hat{Y}_i) = \sigma^2 h_i, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_i), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_i}.
 </span> The leverage <span class="math inline">h_i</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_i</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
 <li><p>Leverages also appear in the definition of <span class="blue">standardized residuals</span>: <span class="math display">
-\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_i)}} = \frac{y_i - \bm{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_i)}},
-</span> where <span class="math inline">r_i = y_i - \bm{x}_i^T\hat{\beta}</span> are the (raw) <span class="orange">residuals</span>.</p></li>
+\tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_i)}} = \frac{y_i - \boldsymbol{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_i)}},
+</span> where <span class="math inline">r_i = y_i - \boldsymbol{x}_i^T\hat{\beta}</span> are the (raw) <span class="orange">residuals</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -751,11 +751,11 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 <div class="callout-content">
 <ul>
-<li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\epsilon}</span> with <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\bm{Y}) = \bm{X}\beta</span>. <sup>1</sup></p></li>
-<li><p><strong>(A.2)</strong> <span class="orange">Homoschedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>.</p></li>
-<li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
+<li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon}</span> with <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\boldsymbol{Y}) = \boldsymbol{X}\beta</span>. <sup>1</sup></p></li>
+<li><p><strong>(A.2)</strong> <span class="orange">Homoschedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n</span>.</p></li>
+<li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\boldsymbol{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
 </ul>
-<p>It is also commonly asked that <span class="math inline">\text{rk}(\bm{X}) = p</span>, otherwise the model is not identifiable.</p>
+<p>It is also commonly asked that <span class="math inline">\text{rk}(\boldsymbol{X}) = p</span>, otherwise the model is not identifiable.</p>
 </div>
 </div>
 </div>
@@ -768,7 +768,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </ul>
 <!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
 <!-- - Even if the data are [heroschedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
-<aside><ol class="aside-footnotes"><li id="fn1"><p>If the intercept is included in <span class="math inline">\bm{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span>.</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>If the intercept is included in <span class="math inline">\boldsymbol{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>.</p></li></ol></aside></section>
 <section id="robust-estimation-and-assumptions" class="slide level2 center">
 <h2>Robust estimation and assumptions</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -784,7 +784,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <section id="non-normality-of-the-errors-i" class="slide level2 center">
 <h2>Non-normality of the errors I 📖</h2>
 <ul>
-<li><p>Let us consider the case in which assumptions <strong>(A.1)</strong>-<strong>(A.2)</strong> are <span class="blue">valid</span> but <strong>(A.3)</strong> <span class="orange">is not</span>, that is <span class="math inline">\mathbb{E}(\bm{\epsilon}) = 0</span> and <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>, but <span class="math inline">\epsilon</span> does <span class="orange">not</span> follow <span class="orange">a Gaussian</span> distribution.</p></li>
+<li><p>Let us consider the case in which assumptions <strong>(A.1)</strong>-<strong>(A.2)</strong> are <span class="blue">valid</span> but <strong>(A.3)</strong> <span class="orange">is not</span>, that is <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span> and <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n</span>, but <span class="math inline">\epsilon</span> does <span class="orange">not</span> follow <span class="orange">a Gaussian</span> distribution.</p></li>
 <li><p>For example, <span class="math inline">\epsilon_i</span> may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student’s t distribution, etc.</p></li>
 </ul>
 <div class="fragment">
@@ -795,8 +795,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <div class="callout-body">
 <div class="callout-content">
 <p>Under <strong>(A.1)</strong>-<strong>(A.2)</strong>, even without requiring normality of the errors <strong>(A.3)</strong>, we obtain the usual formulas: <span class="math display">
-\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}.
-</span> Moreover, because of <span class="blue">Gauss-Markov</span> theorem, the OLS estimator <span class="math inline">\hat{\beta}</span> is the most <span class="orange">efficient</span> within the class of linear and unbiased estimators (<span class="blue">BLUE</span>) for any distribution of the errors <span class="math inline">\bm{\epsilon}</span>.</p>
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = \sigma^2(\boldsymbol{X}^T\boldsymbol{X})^{-1}.
+</span> Moreover, because of <span class="blue">Gauss-Markov</span> theorem, the OLS estimator <span class="math inline">\hat{\beta}</span> is the most <span class="orange">efficient</span> within the class of linear and unbiased estimators (<span class="blue">BLUE</span>) for any distribution of the errors <span class="math inline">\boldsymbol{\epsilon}</span>.</p>
 </div>
 </div>
 </div>
@@ -809,9 +809,9 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <h2>Non-normality of the errors II</h2>
 <ul>
 <li><p>When the errors are non Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> does not follow anymore a Gaussian distribution.</p></li>
-<li><p>However, a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\bm{X}</span>.</p></li>
+<li><p>However, a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\boldsymbol{X}</span>.</p></li>
 <li><p>Thus, when the sample size <span class="math inline">n</span> is large enough, then the following <span class="orange">approximation</span> holds <span class="math display">
-\hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}),
+\hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\boldsymbol{X}^T\boldsymbol{X})^{-1}),
 </span> from which <span class="blue">confidence intervals</span> and <span class="blue">test statistics</span> can be obtained as usual. The approximation is <span class="orange">excellent</span> if the errors are <span class="blue">symmetric</span> around <span class="math inline">0</span>.</p></li>
 </ul>
 <div class="fragment">
@@ -829,15 +829,15 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <h2>Heteroschedasticity of the errors I 📖</h2>
 <ul>
 <li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoschedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroschedastic errors</span>: <span class="math display">
-\text{var}(\bm{\epsilon}) = \bm{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
-</span> where <span class="math inline">\bm{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> is a diagonal matrix with positive entries.</p></li>
+\text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
+</span> where <span class="math inline">\boldsymbol{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> is a diagonal matrix with positive entries.</p></li>
 <li><p>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<sup>1</sup> <span class="math display">
-\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}.
-</span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\bm{\Sigma})</span>, then <span class="math display">
-\hat{\beta} \sim \text{N}_p(\beta, (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{\Sigma}\bm{X} (\bm{X}^T\bm{X})^{-1}).
-</span> Under suitable but mild conditions on <span class="math inline">\bm{X}</span> and <span class="math inline">\bm{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
+\mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\Sigma}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1}.
+</span> If in addition we assume Gaussianity of the errors, that is <span class="math inline">\boldsymbol{\epsilon} \sim \text{N}_n(0,\boldsymbol{\Sigma})</span>, then <span class="math display">
+\hat{\beta} \sim \text{N}_p(\beta, (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\Sigma}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1}).
+</span> Under suitable but mild conditions on <span class="math inline">\boldsymbol{X}</span> and <span class="math inline">\boldsymbol{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>These results are valid even when the matrix <span class="math inline">\bm{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>These results are valid even when the matrix <span class="math inline">\boldsymbol{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></li></ol></aside></section>
 <section id="heteroschedasticity-of-the-errors-ii" class="slide level2 center">
 <h2>Heteroschedasticity of the errors II</h2>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -849,12 +849,12 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 <ul>
 <li><p>A potential approach is to <span class="orange">accept the inefficiency</span> of the OLS estimator in this scenario and <span class="blue">correct</span> the standard errors.</p></li>
-<li><p>The elements of <span class="math inline">\bm{\Sigma}</span> are <span class="orange">unknown</span>, but we can estimate them from the data. Note that <span class="math display">
-\text{var}(r_i) = \text{var}(y_i - \bm{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
+<li><p>The elements of <span class="math inline">\boldsymbol{\Sigma}</span> are <span class="orange">unknown</span>, but we can estimate them from the data. Note that <span class="math display">
+\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
 </span> suggesting the <span class="blue">estimate</span> <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>This leads to the so-called <span class="orange">sandwich estimator</span> of the covariance matrix: <span class="math display">
-\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\hat{\bm{\Sigma}}\bm{X} (\bm{X}^T\bm{X})^{-1},
-</span> where <span class="math inline">\hat{\bm{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)</span> and <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)</span>.</p></li>
+\widehat{\text{var}}(\hat{\beta}) = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\hat{\boldsymbol{\Sigma}}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1},
+</span> where <span class="math inline">\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)</span> and <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>These are known as <span class="blue">White’s</span> heteroscedasticity-consistent <span class="blue">standard errors</span>. <sup>1</sup></p></li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn3"><p>White originally proposed the simpler version <span class="math inline">\hat{\sigma}^2_i = r_i^2</span>. Another variant is <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)^2</span>.</p></li></ol></aside></section>
@@ -862,12 +862,12 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <h2>Weighted least squares I 📖</h2>
 <ul>
 <li><p>Let us consider again the case of <span class="blue">heteroschedastic errors</span>: <span class="math display">
-\text{var}(\bm{\epsilon}) = \sigma^2\bm{\Omega}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
-</span> where <span class="math inline">\bm{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">\omega_1,\dots,\omega_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
+\text{var}(\boldsymbol{\epsilon}) = \sigma^2\boldsymbol{\Omega}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
+</span> where <span class="math inline">\boldsymbol{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">\omega_1,\dots,\omega_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
 <li><p>Let us define the <span class="orange">standardized</span> quantities: <span class="math display">
-\bm{Y}^* = \bm{\Omega}^{1/2}\bm{Y}, \qquad \bm{X}^* = \bm{\Omega}^{1/2}\bm{X}.
+\boldsymbol{Y}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{Y}, \qquad \boldsymbol{X}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{X}.
 </span> This is equivalent to say that <span class="math inline">Y_i^* = \sqrt{\omega_i} Y_i</span> and <span class="math inline">x_{ij}^* = \sqrt{\omega_i} x_{ij}</span>. Then, it is easy to show that <span class="math display">
-\mathbb{E}(\bm{Y}^*) = \bm{X}^*\beta, \qquad \text{var}(\bm{Y}^*) = \sigma^2\bm{\Omega}^{1/2}\bm{\Omega}^{-1}\bm{\Omega}^{1/2}= \sigma^2 I_n,
+\mathbb{E}(\boldsymbol{Y}^*) = \boldsymbol{X}^*\beta, \qquad \text{var}(\boldsymbol{Y}^*) = \sigma^2\boldsymbol{\Omega}^{1/2}\boldsymbol{\Omega}^{-1}\boldsymbol{\Omega}^{1/2}= \sigma^2 I_n,
 </span> namely the <span class="orange">assumptions</span> <strong>(A.1)</strong> and <strong>(A.2)</strong> are valid in the <span class="blue">transformed scale</span>.</p></li>
 <li><p>In other words, <span class="orange">after</span> a suitable <span class="orange">transformation</span>, we reconducted the problem to a <span class="blue">standard linear model</span>.</p></li>
 </ul>
@@ -877,16 +877,16 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <ul>
 <li><p>Thus an estimator for <span class="math inline">\beta</span>, based on the transformed data, is obtained minimizing the deviance <span class="math display">
 \begin{aligned}
-D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta) = (\bm{y} - \bm{X}\beta)^T\bm{\Omega}(\bm{y} - \bm{X}\beta) \\
-&amp;=\sum_{i=1}^n \omega_i (y_i - \bm{x}_i^T\beta)^2.
+D_\text{wls}(\beta) &amp;= (\boldsymbol{y}^* - \boldsymbol{X}^*\beta)^T(\boldsymbol{y}^* - \boldsymbol{X}^*\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T\boldsymbol{\Omega}(\boldsymbol{y} - \boldsymbol{X}\beta) \\
+&amp;=\sum_{i=1}^n \omega_i (y_i - \boldsymbol{x}_i^T\beta)^2.
 \end{aligned}
 </span> which is a <span class="orange">weighted</span> version of the original <span class="blue">quadratic loss</span>, with <span class="orange">high weight = low variance</span>.</p></li>
 <li><p>The resulting OLS estimate minimizing <span class="math inline">D_\text{wls}(\beta)</span> in the transformed and original scales is <span class="math display">
-\hat{\beta}_\text{wls} = [(\bm{X}^*)^T\bm{X}^*]^{-1}(\bm{X}^*)^T\bm{y}^* = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}
+\hat{\beta}_\text{wls} = [(\boldsymbol{X}^*)^T\boldsymbol{X}^*]^{-1}(\boldsymbol{X}^*)^T\boldsymbol{y}^* = (\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{y}
 </span> and it is referred to as <span class="blue">weighted least squares</span> estimator of <span class="math inline">\beta</span>.</p></li>
 <li><p>Such an estimator is <span class="orange">unbiased</span> and <span class="orange">efficient</span> (<span class="blue">BLUE</span>), with <span class="math display">
-\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\bm{X}^T\bm{\Omega}\bm{X})^{-1}.
-</span> Moreover, if <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0, \sigma^2\bm{\Omega}^{-1})</span> it also coincides with the <span class="orange">maximum likelihood</span> estimator.</p></li>
+\mathbb{E}(\hat{\beta}_\text{wls}) = \beta, \qquad \text{var}(\hat{\beta}_\text{wls}) = \sigma^2 (\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{X})^{-1}.
+</span> Moreover, if <span class="math inline">\boldsymbol{\epsilon} \sim \text{N}_n(0, \sigma^2\boldsymbol{\Omega}^{-1})</span> it also coincides with the <span class="orange">maximum likelihood</span> estimator.</p></li>
 </ul>
 </section>
 <section id="variable-transformations" class="slide level2 center">
@@ -898,7 +898,7 @@ D_\text{wls}(\beta) &amp;= (\bm{y}^* - \bm{X}^*\beta)^T(\bm{y}^* - \bm{X}^*\beta
 <div class="callout-body">
 <div class="callout-content">
 <p>While the model may have been incorrectly specified for the original data, it could become <span class="blue">appropriate</span> once the <span class="orange">transformations</span> are considered, namely <span class="math display">
-g(Y_i) = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+g(Y_i) = h_1(\boldsymbol{x}_i)\beta_1 + \cdots + h_p(\boldsymbol{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
 </span> where <span class="math inline">g(\cdot)</span> and <span class="math inline">h_j(\cdot)</span> for <span class="math inline">j=1,\dots,p</span> are <span class="orange">non-linear</span> and <span class="blue">known</span> functions.</p>
 </div>
 </div>
@@ -934,7 +934,7 @@ g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 <div class="fragment">
 <ul>
 <li><p>We estimate <span class="math inline">\lambda</span> from the data using <span class="orange">maximum likelihood</span>, so that the data themselves can inform us about the best transformation. We assume <span class="math display">
-g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
+g_\lambda(Y_i) = \boldsymbol{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0, \sigma^2), \qquad i=1,\dots,n.
 </span></p></li>
 <li><p>The aim of the transformation is to produce a response for which the <span class="blue">variance</span> of <span class="math inline">\epsilon_i</span> is <span class="blue">constant</span> with an <span class="orange">approximately normal</span> distribution.</p></li>
 </ul>
@@ -943,13 +943,13 @@ g_\lambda(Y_i) = \bm{x}_i^T\beta + \epsilon_i, \qquad \epsilon_i \sim \text{N}(0
 <section id="box-cox-transform-derivation-i" class="slide level2 center">
 <h2>Box-Cox transform: derivation I 📖</h2>
 <ul>
-<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\bm{Z}_\lambda  = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
-f_Z(\bm{z}_\lambda) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\bm{z}_\lambda - \bm{X}\beta)^T(\bm{z}_\lambda - \bm{X}\beta)\right\}.
+<li><p>By assumption, the distribution of the <span class="blue">transformed data</span> <span class="math inline">\boldsymbol{Z}_\lambda  = (g_\lambda(Y_1), \dots,g_\lambda(Y_n))^T</span> is Gaussian, therefore their joint density is <span class="math display">
+f_Z(\boldsymbol{z}_\lambda) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}(\boldsymbol{z}_\lambda - \boldsymbol{X}\beta)^T(\boldsymbol{z}_\lambda - \boldsymbol{X}\beta)\right\}.
 </span></p></li>
 <li><p>Using standard tools of probability theory, we can obtain the density of the <span class="orange">original data</span>: <span class="math display">
-f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right|, \quad \text{where}\quad \left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right| = y_i^{\lambda - 1}.</span> The additional term is the determinant of the <span class="orange">Jacobian</span> of the transformation.</p></li>
+f_Y(\boldsymbol{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right|, \quad \text{where}\quad \left|\frac{\partial g_\lambda(y_i)}{\partial y_i}\right| = y_i^{\lambda - 1}.</span> The additional term is the determinant of the <span class="orange">Jacobian</span> of the transformation.</p></li>
 <li><p>The <span class="blue">log-likelihood</span> therefore is <span class="math display">
-\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\bm{z}_\lambda - \bm{X}\beta)^T(\bm{z}_\lambda - \bm{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
+\ell(\beta, \sigma^2, \lambda) = -\frac{n}{2}\log{\sigma^2} - \frac{1}{2\sigma^2}(\boldsymbol{z}_\lambda - \boldsymbol{X}\beta)^T(\boldsymbol{z}_\lambda - \boldsymbol{X}\beta) + (\lambda - 1)\sum_{i=1}^n\log{y_i}.
 </span></p></li>
 </ul>
 </section>
@@ -957,7 +957,7 @@ f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\p
 <h2>Box-Cox transform: derivation II 📖</h2>
 <ul>
 <li><p>Note that, for any given value of <span class="math inline">\lambda</span>, the maximum likelihood estimates are <span class="math display">
-\hat{\beta}_\lambda = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{z}_\lambda, \qquad \hat{\sigma}^2_\lambda = \frac{1}{n}(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda)^T(\bm{z}_\lambda - \bm{X}\hat{\beta}_\lambda),
+\hat{\beta}_\lambda = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{z}_\lambda, \qquad \hat{\sigma}^2_\lambda = \frac{1}{n}(\boldsymbol{z}_\lambda - \boldsymbol{X}\hat{\beta}_\lambda)^T(\boldsymbol{z}_\lambda - \boldsymbol{X}\hat{\beta}_\lambda),
 </span></p></li>
 <li><p>We can <span class="orange">plug-in</span> the above estimates into the log-likelihood. This gives the <span class="blue">profile log-likelihood</span> for <span class="math inline">\lambda</span>, which admits a very simple expression: <span class="math display">
 \ell_P(\lambda) = \ell(\hat{\beta}_\lambda, \hat{\sigma}^2_\lambda, \lambda) = -\frac{n}{2}\log{\hat{\sigma}^2_\lambda} + (\lambda -1)\sum_{i=1}^n\log{y_i},
@@ -990,7 +990,7 @@ f_Y(\bm{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|\frac{\p
 <section id="variance-stabilizing-transformations-i" class="slide level2 center">
 <h2>Variance stabilizing transformations I 📖</h2>
 <ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\bm{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
+<li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\boldsymbol{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
 </span> is <span class="blue">asymptotically Gaussian</span> for large values of <span class="math inline">\mu_i</span>. However, data are <span class="orange">heteroschedastic</span>.</p></li>
 <li><p>In modeling count data, we could transform the counts so that, at least <span class="orange">approximately</span>, the <span class="blue">variance</span> of <span class="math inline">g(Y_i)</span> is <span class="blue">constant</span> and ordinary least squares methods can be used.</p></li>
@@ -1014,7 +1014,7 @@ g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\q
 <h2>Variance stabilizing transformations II 📖</h2>
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 <ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\bm{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
+<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\boldsymbol{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
 </span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
 <li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
@@ -1037,18 +1037,18 @@ g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
 <div class="fragment">
 <ul>
 <li>In the case of transformations applied only to the <span class="blue">explanatory variables</span>, the model is <span class="math display">
-Y_i = h_1(\bm{x}_i)\beta_1 + \cdots + h_p(\bm{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
+Y_i = h_1(\boldsymbol{x}_i)\beta_1 + \cdots + h_p(\boldsymbol{x}_i)\beta_p + \epsilon_i, \qquad i=1,\dots,n,
 </span> Thus, the coefficient <span class="math inline">\beta_j</span> can <span class="orange">no longer</span> be <span class="orange">interpreted</span> as the change in the mean of <span class="math inline">Y_i</span> corresponding to a <span class="blue">one-unit increase</span> <span class="math inline">x_{ij} \rightarrow x_{ij}+1</span> of the <span class="math inline">j</span>th covariate.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \bm{x}_i^T\beta</span>. However:<br>
+<li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \boldsymbol{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\bm{x}_i^T\beta).
-</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\bm{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and <span class="orange">not an estimate</span> for its <span class="orange">mean</span>.</p></li>
+g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\boldsymbol{x}_i^T\beta).
+</span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\boldsymbol{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and <span class="orange">not an estimate</span> for its <span class="orange">mean</span>.</p></li>
 <li><p>When <span class="math inline">g(y) = \log{y}</span> this distinction can be made explicit, because we have <span class="math display">
-g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\bm{x}_i^T\beta + \sigma^2/2),
+g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\boldsymbol{x}_i^T\beta) = \exp(\boldsymbol{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\boldsymbol{x}_i^T\beta + \sigma^2/2),
 </span> the former being the <span class="orange">geometric mean</span> of <span class="math inline">Y_i</span>, whereas the latter is the usual <span class="blue">mean</span>.</p></li>
 </ul>
 </div>
@@ -1062,7 +1062,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\bm{x}_i^T\beta) = \exp(\bm{x}_i^T\beta), 
 <ul>
 <li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
 <li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">m_i \rightarrow \infty</span>.</li>
-<li>The transform depends on <span class="math inline">m_i</span>, therefore we cannot make predictions for a generic covariate value <span class="math inline">\bm{x}_i</span> without knowing the associated <span class="math inline">m_i</span>.</li>
+<li>The transform depends on <span class="math inline">m_i</span>, therefore we cannot make predictions for a generic covariate value <span class="math inline">\boldsymbol{x}_i</span> without knowing the associated <span class="math inline">m_i</span>.</li>
 </ul>
 <p>Besides, this transform is clearly not applicable when <span class="math inline">m_i = 1</span> and <span class="math inline">Y_i \in \{0, 1\}</span>, a very common problem called <span class="orange">binary regression</span>.</p>
 </div>
