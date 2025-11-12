@@ -109,7 +109,7 @@ sum(residuals(m2, type = "pearson")^2) / m2$df.residual
 
 # COMMENT: The statistical test supports the idea that we should incorporate a quadratic term. HOWEVER, note that this test is not reliable due to the presence of overdispersion, so the result should be interpreted with caution. From a graphical inspection, the predictions appear to improve, but this is expected whenever a new variable is added to the model. The residual values also improve, and the estimate of the overdispersion parameter decreases substantially, although it remains significantly greater than 1. Finally, note that the quadratic model introduces a spurious deflection in the probability of infarction at high values of mck.
 
-# (m) Evaluate whether the introduction of the quadratic term significantly increases the variability of the estimates. Discuss the interpretability of the quadratic model.
+# (m) ---------------------------------------------------------------------
 
 round(sqrt(diag(vcov(m1))), 3)
 round(sqrt(diag(vcov(m2))), 3)
