@@ -362,7 +362,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>Endometrial</code> dataset
+<code>Endometrial</code> dataset - Partial solution: <a href="../code/Endometrial.R"><code>Endometrial.R</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -378,40 +378,6 @@ window.Quarto = {
 <li><p>Compute the contingency table for the variable <code>HG</code> and <code>NV</code>. Comment the results.</p></li>
 <li><p>Fit a logistic regression model using all covariates. Do you note anything suspicious? Would you trust the estimate for <span class="math inline">\beta_2</span>, its p-value and the associated confidence intervals? What happened?</p></li>
 </ol>
-<p>The issue with this dataset is known as <span class="blue">quasi-separation</span>, which complicates estimation because the maximum likelihood estimate for some coefficients does not exist (e.g., <span class="math inline">\hat{\beta}_2 = \infty</span>). This dataset is discussed in detail in Section 5.7.1 of Agresti (2015). An <span class="orange">advanced solution</span> is provided below, whose details are obviously not required at the exam.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(brglm2)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>m_corrected <span class="ot">&lt;-</span> <span class="fu">glm</span>(HG <span class="sc">~</span> NV <span class="sc">+</span> PI <span class="sc">+</span> EH, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> Endometrial, <span class="at">method =</span> <span class="st">"brglmFit"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">summary</span>(m_corrected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = HG ~ NV + PI + EH, family = "binomial", data = Endometrial, 
-    method = "brglmFit")
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--1.4740  -0.6706  -0.3411   0.3252   2.6123  
-
-Coefficients:
-            Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  3.77456    1.48869   2.535 0.011229 *  
-NV           2.92927    1.55076   1.889 0.058902 .  
-PI          -0.03475    0.03958  -0.878 0.379915    
-EH          -2.60416    0.77602  -3.356 0.000791 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 104.903  on 78  degrees of freedom
-Residual deviance:  56.575  on 75  degrees of freedom
-AIC:  64.575
-
-Type of estimator: AS_mixed (mixed bias-reducing adjusted score equations)
-Number of Fisher Scoring iterations: 6</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
