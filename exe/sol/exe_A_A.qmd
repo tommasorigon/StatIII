@@ -1,0 +1,53 @@
+---
+title: "Solution of exercise A"
+page-layout: full
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../../template.css]
+    toc: false
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+Suppose that $Y_i \sim \text{Gamma}(\alpha, \beta_i)$
+with 
+$$
+\mathbb{E}(Y_i) = \frac{\alpha}{\beta_i} = \mu_i, \quad \text{and} \quad \text{var}(Y_i) = \frac{\alpha}{\beta_i^2} = \frac{\mu_i}{\beta}.
+$$
+For large values of $\alpha$, we have by the Central Limit Theorem that
+$$
+Y_i \; \dot{\sim}\; \mathrm{N}\left(\frac{\alpha}{\beta_i}, \frac{\alpha}{\beta_i^2} \right).
+$$
+
+Using the logarithmic transformation,
+\[
+Z_i = \log Y_i,
+\]
+we can approximate the distribution of $Z_i$ via the Delta Method:
+\[
+Z_i \approx \mathcal{N}\!\left( \log\!\left( \frac{\alpha}{\beta_i} \right), \frac{1}{\alpha} \right),
+\]
+since 
+\[
+g(y) = \log y \quad \text{and} \quad g'\!\left( \mathbb{E}[Y_i] \right) = \frac{1}{\mathbb{E}[Y_i]} = \frac{\beta_i}{\alpha}.
+\]
+
+Hence,
+\[
+\operatorname{Var}(Z_i) \approx \left( g'\!\left( \mathbb{E}[Y_i] \right) \right)^2 \operatorname{Var}(Y_i) 
+= \left( \frac{\beta_i}{\alpha} \right)^2 \frac{\alpha}{\beta_i^2} 
+= \frac{1}{\alpha}.
+\]

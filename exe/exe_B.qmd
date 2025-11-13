@@ -145,7 +145,7 @@ Do they differ across models? [Hint]{.blue}: use the function `pnorm` if you con
 :::
 
 :::{.callout-note collapse=true}
-#### `Houses` dataset
+#### `Houses` dataset - Solution: Sections 3.4 and 4.7 in @Agresti2015.
 
 What affects the selling price of a house? The `Houses` dataset is [available here](../data/Houses.txt) and comprises $n = 100$ observations on recent home sales in Gainesville, Florida. 
 
@@ -167,8 +167,7 @@ Import the data and then
 Houses <- read.table("../data/Houses.txt", header = TRUE)
 ```
 
-This exercise is intentionally left without strict instructions, so you can freely explore the data and develop your own modeling strategy. As is often the case, multiple approaches can yield reasonable results. A detailed discussion of this dataset can be found in Sections 3.4 and 4.7 of Agresti (2015).
-
+This exercise is intentionally left without strict instructions, so you can freely explore the data and develop your own modeling strategy. As is often the case, multiple approaches can yield reasonable results. 
 :::
 
 ## Theoretical
