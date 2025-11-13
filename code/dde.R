@@ -3,14 +3,11 @@
 # DISCLAIMER: This solution is provided in partial form. Certain steps, justifications, and details have been omitted for clarity and brevity.
 # ---------------------------------------------------------------------
 
-# The `dde` dataset contains data from a sample of n = 2312 pregnant women. The original data are described in:
-# Longnecker, M. P., Klebanoff, M. A., Zhou, H., & Brock, J. W. (2001). Association between maternal serum concentration of the DDT metabolite DDE and preterm and small-for-gestational-age babies at birth. *Lancet*, **358**(9276), 110–114.
-
-# `DDE` measures the concentration of a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable `GAD` (Gestational Age at Delivery) records the day of pregnancy on which delivery occurred.
+# The dde dataset contains data from a sample of n = 2312 pregnant women. DDE measures the concentration of a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable GAD (Gestational Age at Delivery) records the day of pregnancy on which delivery occurred.
 
 # DDT is extremely effective against malaria-carrying mosquitoes and is therefore widely used in areas where malaria is endemic. At the same time, DDT may pose a health risk, particularly for pregnant women.
 
-# We are interested in understanding the impact of `DDE` on `GAD`, and in particular, in estimating the probability of preterm delivery (< 37th week, i.e., < 259 days).
+# We are interested in understanding the impact of DDE on GAD, and in particular, in estimating the probability of preterm delivery (< 37th week, i.e., < 259 days).
 
 rm(list = ls())
 
