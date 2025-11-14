@@ -46,7 +46,7 @@ pred_logit <- predict(fit_logit, type = "response", newdata = newdata)
 pred_probit <- predict(fit_probit, type = "response", newdata = newdata)
 
 plot(newdata$age, pred_logit, type = "l", lty = "dotted")
-lines(newdata$age, pred_probit, type = "l", lty = "dotted", col = "red", add = TRUE)
+lines(newdata$age, pred_probit, type = "l", lty = "dotted", col = "red")
 points(kalythos$age, kalythos$prop, pch = 16)
 
 # The deviance of the logit model is slightly lower, but in practice the two models are virtually indistinguishable.
@@ -64,9 +64,9 @@ varLD <- (eta - beta_logit[1])^2 / beta_logit[2]^2 * (vars_logit[1, 1] / (eta - 
 c(psi, sqrt(varLD), varLD)
 psi + c(-1, 1) * qnorm(0.975) * sqrt(varLD)
 
-# ADVANCED AND EVEN MORE OPTIONAL ----------------------------------------------------
+# VERY ADVANCED AND EVEN MORE OPTIONAL ----------------------------------------------------
 
-# This is a bootstrap approach, which you will encounter, for example, at CLAMSES. It provides an alternative and often more reliable estimator for the variance ands confidence intervals, based on simulation.
+# This is a bootstrap approach, which you will encounter, for example, at CLAMSES. It provides an alternative and often more reliable estimator for the variance and confidence intervals, based on simulation.
 
 boot.fn <- function(data, index = 1:nrow(data), p = 0.5) {
   fit <- glm(cbind(blind, total - blind) ~ age, data = data, subset = index, family = "binomial")
@@ -84,8 +84,9 @@ ran.gen <- function(data, mle) {
 set.seed(123)
 
 library(boot)
+# This may take a few seconds
 boot_est <- boot(data = kalythos, statistic = boot.fn, 
-                 R = 1000, sim = "parametric", ran.gen = ran.gen, mle = fitted(fit_logit))
+                 R = 10000, sim = "parametric", ran.gen = ran.gen, mle = fitted(fit_logit))
 
 boot_est
 boot.ci(boot_est,type = c("norm", "basic", "perc"))
