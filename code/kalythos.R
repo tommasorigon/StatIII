@@ -66,7 +66,7 @@ psi + c(-1, 1) * qnorm(0.975) * sqrt(varLD)
 
 # ADVANCED AND EVEN MORE OPTIONAL ----------------------------------------------------
 
-# This is a bootstrap approach, you will see it e.g. at CLAMSES. It produces an alternative and more reliable estimator for the variance and confidence intervals, based on simulations. 
+# This is a bootstrap approach, which you will encounter, for example, at CLAMSES. It provides an alternative and often more reliable estimator for the variance ands confidence intervals, based on simulation.
 
 boot.fn <- function(data, index = 1:nrow(data), p = 0.5) {
   fit <- glm(cbind(blind, total - blind) ~ age, data = data, subset = index, family = "binomial")
