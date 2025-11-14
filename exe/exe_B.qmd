@@ -207,7 +207,9 @@ iv. Does the distribution still form an exponential-dispersion family if $k$ is 
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise C
+#### Exercise C - Solution: [`notes.pdf`](exe_B_C.pdf)
+
+Consider the general likelihood equations for a GLM:
 
 i. Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (`Beetles` data with $p = 2$) presented in the slides, using the canonical link function.
 
@@ -215,7 +217,7 @@ ii. Specialize the general formulas and re-obtain the likelihood equations for t
 
 iii. Obtain the likelihood equations for a binomial regression model (`Beetles` data with $p = 2$), using the [Cauchy link]{.blue}, which is defined as $g(\mu) = \tan(\pi(\mu - 1/2))$. This link indeed is such that $g(\mu):(0, 1)\to \mathbb{R}$. 
 
-[Hint]{.blue}: there are almost no calculations to do at points i. and ii., this exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is $g'(\mu) = \pi /\sin^2(\pi \mu)$.
+[Hint]{.blue}: there are almost no calculations to do at points i. and ii., only substitutions. This exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is $g'(\mu) = \pi /\sin^2(\pi \mu)$.
 :::
 
 :::{.callout-note collapse=true}

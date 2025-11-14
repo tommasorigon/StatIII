@@ -365,18 +365,19 @@ p(y; \pi) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise C
+Exercise C - Solution: <a href="exe_B_C.pdf"><code>notes.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>Consider the general likelihood equations for a GLM:</p>
 <ol type="i">
 <li><p>Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>) presented in the slides, using the canonical link function.</p></li>
 <li><p>Specialize the general formulas and re-obtain the likelihood equations for the Poisson regression model (<code>Aids</code> data with <span class="math inline">p = 2</span>) presented in the slides, using the canonical link function.</p></li>
 <li><p>Obtain the likelihood equations for a binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>), using the <span class="blue">Cauchy link</span>, which is defined as <span class="math inline">g(\mu) = \tan(\pi(\mu - 1/2))</span>. This link indeed is such that <span class="math inline">g(\mu):(0, 1)\to \mathbb{R}</span>.</p></li>
 </ol>
-<p><span class="blue">Hint</span>: there are almost no calculations to do at points i. and ii., this exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is <span class="math inline">g'(\mu) = \pi /\sin^2(\pi \mu)</span>.</p>
+<p><span class="blue">Hint</span>: there are almost no calculations to do at points i. and ii., only substitutions. This exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is <span class="math inline">g'(\mu) = \pi /\sin^2(\pi \mu)</span>.</p>
 </div>
 </div>
 </div>
