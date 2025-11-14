@@ -84,11 +84,11 @@ ran.gen <- function(data, mle) {
 set.seed(123)
 
 library(boot)
-# This may take a few seconds
+# This may take a few seconds to execute
 boot_est <- boot(data = kalythos, statistic = boot.fn, 
                  R = 10000, sim = "parametric", ran.gen = ran.gen, mle = fitted(fit_logit))
 
 boot_est
 boot.ci(boot_est,type = c("norm", "basic", "perc"))
 
-# COMMENT: The bootstrap approach produced the same confidence intervals and standard errors as those based on asymptotic considerations. However, it did not require any additional calculus.
+# COMMENT: The bootstrap approach produced the same confidence intervals and standard errors as those based on asymptotic considerations. However, it did not require any additional "manual" calculus.
