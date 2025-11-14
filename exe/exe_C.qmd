@@ -89,13 +89,13 @@ Import the data and then:
 
 (i) Evaluate the goodness of fit of the model.  
 
-(l) Assess whether it is appropriate to introduce a quadratic term in `mck` in the linear predictor and evaluate the goodness of fit of the expanded model.  
+(l) Assess whether it is appropriate to introduce a quadratic term in `mck` in the linear predictor and evaluate the goodness of fit of the expanded model. 
 
 (m) Evaluate whether the introduction of the quadratic term increases the variability of the estimates. Discuss the interpretability of the quadratic model.  
 :::
 
 :::{.callout-note collapse=true}
-#### `Germination` dataset
+#### `Germination` dataset  - Partial solution: [`Germination.R`](../code/Germination.R)
 
 The data contained in the `Germination` dataframe, that can be found in the `MLGdata` library, were obtained from a $2 \times 2$ factorial experiment (two factors `seed` and `root`, each with two levels) to compare two seeds, *Orobanche aegyptiaca* 75 (`seed` = `075`) and *Orobanche aegyptiaca* 73 (`seed = 073`), germinated on two different root extracts: bean (`root` = `F`) and cucumber (`root` = `C`). The source of the data is
 
@@ -126,7 +126,7 @@ Import the data and then:
 :::
 
 :::{.callout-note collapse=true}
-#### `kalythos` dataset
+#### `kalythos` dataset - Partial solution: [`kalythos.R`](../code/kalythos.R)
 
 Male inhabitants of the Greek island of Kalythos suffer from a congenital eye disease, whose effects become more pronounced at older ages. Data are taken from
 
@@ -141,9 +141,11 @@ A sample of male islanders of different ages was examined, and the number of bli
 
 Using a logit or probit model:
 
-(a) Estimate the `LD50`, i.e., the age at which the probability of blindness is equal to $0.5$, and its corresponding variance.  
+(a) Estimate the `LD50` (lethal dose), i.e., the age at which the probability of blindness is equal to $0.5$.  
 
 (b) Compare the results between the logit and probit models.  
+
+(c) ☠️ - [Optional]{.orange}. Compute an estimate for the variance of `LD50` and use it to construct a confidence interval. 
 
 Code for importing the data in **R**:
 ```{r}
