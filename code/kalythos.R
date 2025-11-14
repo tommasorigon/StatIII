@@ -63,32 +63,3 @@ varLD <- (eta - beta_logit[1])^2 / beta_logit[2]^2 * (vars_logit[1, 1] / (eta - 
 
 c(psi, sqrt(varLD), varLD)
 psi + c(-1, 1) * qnorm(0.975) * sqrt(varLD)
-
-# VERY ADVANCED AND EVEN MORE OPTIONAL ----------------------------------------------------
-
-# This is a bootstrap approach, which you will encounter, for example, at CLAMSES. It provides an alternative and often more reliable estimator for the variance and confidence intervals, based on simulation.
-
-boot.fn <- function(data, index = 1:nrow(data), p = 0.5) {
-  fit <- glm(cbind(blind, total - blind) ~ age, data = data, subset = index, family = "binomial")
-  eta <- qlogis(p)
-  psi <- (eta - coef(fit)[1]) / coef(fit)[2]
-  psi
-}
-
-ran.gen <- function(data, mle) {
-  out <- data
-  out$blind <- rbinom(nrow(out), size = out$total, prob = mle)
-  out
-}
-
-set.seed(123)
-
-library(boot)
-# This may take a few seconds to execute
-boot_est <- boot(data = kalythos, statistic = boot.fn, 
-                 R = 10000, sim = "parametric", ran.gen = ran.gen, mle = fitted(fit_logit))
-
-boot_est
-boot.ci(boot_est,type = c("norm", "basic", "perc"))
-
-# COMMENT: The bootstrap approach produced the same confidence intervals and standard errors as those based on asymptotic considerations. However, it did not require any additional "manual" calculus.
