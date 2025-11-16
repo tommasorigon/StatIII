@@ -33,7 +33,7 @@ eta <- qlogis(p)
 LD_logit <- (eta - coef(fit_logit)[1]) / coef(fit_logit)[2]
 LD_logit
 
-LD_probit <- (eta - coef(fit_probit)[1]) / coef(fit_probit)[2]
+LD_probit <- (qnorm(p) - coef(fit_probit)[1]) / coef(fit_probit)[2]
 LD_probit
 
 # (b) ---------------------------------------------------------------------
