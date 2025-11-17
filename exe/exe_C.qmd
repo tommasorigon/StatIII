@@ -178,7 +178,7 @@ Import the data and consider the main effects [logistic regression model]{.blue}
 ## Theoretical
 
 :::{.callout-note collapse=true}
-#### Exercise A
+#### Exercise A - Solution: [`notes.pdf`](exe_C_A.pdf)
 
 Let $Y \sim \mathrm{Binomial}(m, \pi)$. Consider the logit parametrization $\theta = \log\{\pi/(1-\pi)\}$.  
 
