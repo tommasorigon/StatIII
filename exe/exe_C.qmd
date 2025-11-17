@@ -190,7 +190,7 @@ Let $Y \sim \mathrm{Binomial}(m, \pi)$. Consider the logit parametrization $\the
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise B
+#### Exercise B - Solution: [`notes.pdf`](exe_C_B.pdf)
 
 Explain how the expression for $\text{var}(\hat{\beta})$ in logistic regression suggest that the standard errors of $\hat{\beta}_j$ tend to be smaller as you obtain more data. 
 
