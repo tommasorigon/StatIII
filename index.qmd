@@ -87,6 +87,8 @@ Example of previous exams are provided below. During the exam, you will have acc
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------|---------|-----------|----------|
+| 11 November 2025 | `beetle` | [Exam](exams/2025_11_18.html) |  |
+| **Old exams** |
 | 13 July 2016 | `awards` | [Exam](exams/2016_07_13.html) |  |
 | 29 Giugno 2016 | `berk` | [Exam](exams/2016_06_29.html) |  |
 | 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) | |

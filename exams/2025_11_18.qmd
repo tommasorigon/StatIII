@@ -1,0 +1,89 @@
+---
+title: "Esame del 18 Novembre 2025"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+Il tempo a disposizione per lo svolgimento della prova è di **2 ore e 30 minuti**. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.
+
+Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.
+
+## Parte I: analisi dei dati
+
+Si considerino i dati `beetle` della libreria `faraway`, che contengono 10 osservazioni relative a dei coleotteri dei cereali (*grain beetles*), i quali sono stati esposti all’ossido di etilene, una sostanza tossica. Le variabili presenti sono:
+
+- `conc`: concentrazione di ossido di etilene in mg/l;
+- `affected`: numero di coleotteri deceduti;
+- `exposed`: numero totale di coleotteri.
+
+Facendo uso del software **R**, si rispondano alle seguenti domande:
+
+(a) Si costruisca un grafico che riporti l'andamento della proporzione di decessi al variare di `conc` (senza riportarlo). Si commentino i risultati.
+
+(b) Si stimi un GLM opportuno, usando il legame canonico, avente come variabile risposta la proporzione di decessi (`affected / exposed`) e come variabile esplicativa `conc`. Si riportino:
+    i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza.  
+    ii. Il valore delle statistiche test e i *p-value* dei test di Wald e di log-rapporto di verosimiglianza per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà delle statistiche test. Infine, si commentino i risultati.
+
+(c) Si ottenga il grafico della curva stimata sovrapposta ai punti osservati (senza riportarlo). Il *range* della variabile esplicativa deve essere $(10, 25)$. Si commentino i risultati.
+
+
+(d) Si individuino le unità statistiche che sono al contempo influenti e potenzialmente "anomale" (*outlier*) chiarendo quali indici / grafici sono stati usati allo scopo.
+
+(e) Si fornisca un'interpretazione della stima del coefficiente della variabile esplicativa `conc` e si valuti se tale interpretazione è coerente con i commenti ai grafici dei punti (a) e (c).
+
+(f) Si riporti la previsione per la probabilità di decesso in corrispondenza della concentrazione `conc = 15`. Si riporti inoltre un intervallo di confidenza. 
+
+(g) Si verifichi se è presente sovradispersione. In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti.
+
+(h) Si riporti un intervallo di confidenza per la stessa quantità calcolata al punto (f), basato su una quasi-verosimiglianza. Si commentino i risultati.
+
+## Parte II: teoria ed esercizi
+
+#### Problema 1
+
+Sia $Y$ una variabile aleatoria di Poisson di media $\lambda$, la cui funzione di probabilità è
+
+$$
+p(y ; \lambda) = \frac{e^{-\lambda} \lambda^y}{y!}, 
+\qquad y = 0,1,2,\dots, \qquad  \lambda > 0.
+$$
+Si mostri che questa distribuzione appartiene alla famiglia a dispersione esponenziale e si descrivano (svolgendo tutti i passaggi) le sue caratteristiche, cioè il parametro naturale, l'eventuale parametro di dispersione, le funzioni $a_i(\cdot), b(\cdot), c(\cdot)$, la funzione media e la funzione varianza.
+
+#### Problema 2
+
+Si riporti, senza ricalcolarla da zero, l’equazione di aggiornamento per i pesi $\beta^{(t+1)}$ all’iterazione $t$ dell’algoritmo IRLS, definendo tutte le quantità coinvolte. Si spieghi perché questo algoritmo viene chiamato dei "minimi quadrati iterati pesati".
+
+#### Problema 3
+
+Si illustri il concetto di devianza nell’ambito dei GLM e se ne illustri l’utilizzo al fine di confrontare due GLM annidati.
