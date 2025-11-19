@@ -244,7 +244,7 @@ window.Quarto = {
 1.406733 </code></pre>
 </div>
 </div>
-<p>Il valore <span class="math inline">\exp(\beta_2) = 1.4067</span> si può interpretare come rapporto tra quote relativo (<em>odds ratio</em>) relativo all’aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile <code>conc</code>.</p>
+<p>Il valore <span class="math inline">\exp(\hat{\beta}_2) = 1.4067</span> si può interpretare come rapporto tra quote relativo (<em>odds ratio</em>) relativo all’aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile <code>conc</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Punto (f)</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>new15 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="dv">15</span>)</span>
@@ -309,7 +309,7 @@ window.Quarto = {
 <pre><code>[1] 0.1505894 0.4867872</code></pre>
 </div>
 </div>
-<p>Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata significativamente come conseguenza della sovradispersione.</p>
+<p>Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata come conseguenza della sovradispersione.</p>
 </section>
 </section>
 

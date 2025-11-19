@@ -121,7 +121,7 @@ Pur fornendo una risposta ragionevole, fare uso di quantità e comandi **R** di 
 exp(coef(m1)[2])
 ```
 
-Il valore $\exp(\beta_2) = 1.4067$ si può interpretare come rapporto tra quote relativo (*odds ratio*) relativo all'aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile `conc`.
+Il valore $\exp(\hat{\beta}_2) = 1.4067$ si può interpretare come rapporto tra quote relativo (*odds ratio*) relativo all'aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile `conc`.
 
 ```{r}
 # Punto (f)
@@ -175,4 +175,4 @@ fit15_lin_quasi <- predict(mquasi, newdata = new15, se.fit = TRUE)
 plogis(fit15_lin_quasi$fit + c(-1, 1) * qnorm(0.975) * fit15_lin_quasi$se.fit)
 ```
 
-Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata significativamente come conseguenza della sovradispersione.
+Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata come conseguenza della sovradispersione.
