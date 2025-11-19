@@ -281,31 +281,10 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>mquasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">quasibinomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="fu">summary</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = cbind(affected, exposed - affected) ~ conc, family = quasibinomial(link = "logit"), 
-    data = beetle)
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)   
-(Intercept) -6.01047    1.64075  -3.663  0.00637 **
-conc         0.34127    0.08743   3.903  0.00452 **
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for quasibinomial family taken to be 4.432008)
-
-    Null deviance: 138.001  on 9  degrees of freedom
-Residual deviance:  37.697  on 8  degrees of freedom
-AIC: NA
-
-Number of Fisher Scoring iterations: 5</code></pre>
 </div>
-</div>
-<p>Lo stimatore di quasi-verosimiglianza produce le medesime stime puntuali, ma corregge gli errori standard. Fortunatamente, questo non altera le conclusioni inferenziali a cui eravamo giunti in precedenza. Tuttavia, si noti che le osservazioni che in precedenza erano state registrate come “anomale” ed “influenti”, rientrano nella norma una volta che si tiene conto della sovradispersione:</p>
+<p>Lo stimatore di quasi-verosimiglianza produce le medesime stime per <span class="math inline">\beta</span> ottenute in precedenza, ma corregge gli errori standard. Fortunatamente, questo non altera le conclusioni inferenziali a cui eravamo giunti allo step (b). Tuttavia, si noti che le osservazioni che in precedenza erano state registrate come “anomale” ed “influenti”, rientrano nella norma una volta che si tiene conto della sovradispersione:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">cooks.distance</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">cooks.distance</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          1           2           3           4           5           6 
 0.340202840 0.097436676 0.051853929 0.003587901 0.067895298 0.197381176 
@@ -313,18 +292,19 @@ Number of Fisher Scoring iterations: 5</code></pre>
 0.008272056 0.260612233 0.025526217 0.107654922 </code></pre>
 </div>
 </div>
+<p>Non si trattava quindi di osservazioni influenti o anomale, bensì probabilmente di un modello non correttamente specificato.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Punto (h)</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a>fit15_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb26-5"><a href="#cb26-5"></a>fit15_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_quasi<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Punto (h)</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>fit15_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb25-5"><a href="#cb25-5"></a>fit15_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_quasi<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1178694 0.4637624</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>fit15_lin_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">plogis</span>(fit15_lin_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin_quasi<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>fit15_lin_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">plogis</span>(fit15_lin_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin_quasi<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1505894 0.4867872</code></pre>
 </div>

@@ -150,15 +150,18 @@ round(c(X2, X2 / m1$df.residual, 1 - pchisq(X2, m1$df.residual)), 4)
 È senz'altro presente sovradispersione. Il valore di $X^2$ è elevato e al di fuori dei valori tipici, come confermato dal *p-value* associato. Si ottiene inoltre che $\hat{\phi} = X^2 / (n - p) = 4.432$.
 
 ```{r}
+#| results: hide
 mquasi <- glm(cbind(affected, exposed - affected) ~ conc, data = beetle, family = quasibinomial(link = "logit"))
 summary(mquasi)
 ```
 
-Lo stimatore di quasi-verosimiglianza produce le medesime stime puntuali, ma corregge gli errori standard. Fortunatamente, questo non altera le conclusioni inferenziali a cui eravamo giunti in precedenza. Tuttavia, si noti che le osservazioni che in precedenza erano state registrate come "anomale" ed "influenti", rientrano nella norma una volta che si tiene conto della sovradispersione:
+Lo stimatore di quasi-verosimiglianza produce le medesime stime per $\beta$ ottenute in precedenza, ma corregge gli errori standard. Fortunatamente, questo non altera le conclusioni inferenziali a cui eravamo giunti allo step (b). Tuttavia, si noti che le osservazioni che in precedenza erano state registrate come "anomale" ed "influenti", rientrano nella norma una volta che si tiene conto della sovradispersione:
 
 ```{r}
 cooks.distance(mquasi)
 ```
+
+Non si trattava quindi di osservazioni influenti o anomale, bensì probabilmente di un modello non correttamente specificato. 
 
 ```{r}
 # Punto (h)
