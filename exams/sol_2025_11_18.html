@@ -121,19 +121,8 @@ window.Quarto = {
 <body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a>
-  <ul class="collapse">
-  <li><a href="#parte-i-analisi-dei-dati" id="toc-parte-i-analisi-dei-dati" class="nav-link" data-scroll-target="#parte-i-analisi-dei-dati">Parte I: analisi dei dati</a></li>
-  </ul></li>
-  </ul>
-</nav>
-</div>
-<main class="content column-page-left" id="quarto-document-content">
+
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -142,7 +131,7 @@ window.Quarto = {
 </div>
 
 
-<div class="quarto-title-meta-author column-page-left">
+<div class="quarto-title-meta-author column-page">
   <div class="quarto-title-meta-heading">Autore/Autrice</div>
   <div class="quarto-title-meta-heading">Affiliazione</div>
   
@@ -156,7 +145,7 @@ window.Quarto = {
       </div>
   </div>
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
       
   
@@ -175,77 +164,172 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(faraway)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">data</span>(beetle)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>beetle</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">head</span>(beetle, <span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   conc affected exposed
-1  24.8       23      30
-2  24.6       30      30
-3  23.0       29      31
-4  21.0       22      30
-5  20.6       23      26
-6  18.2        7      27
-7  16.8       12      31
-8  15.8       17      30
-9  14.7       10      31
-10 10.8        0      24</code></pre>
+<pre><code>  conc affected exposed
+1 24.8       23      30
+2 24.6       30      30
+3 23.0       29      31
+4 21.0       22      30</code></pre>
 </div>
 </div>
-<blockquote class="blockquote">
-<ol type="a">
-<li>Si costruisca un grafico che riporti l’andamento della proporzione di decessi al variare di <code>conc</code> (senza riportarlo). Si commentino i risultati.</li>
-</ol>
-</blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>beetle<span class="sc">$</span>prop <span class="ot">&lt;-</span> beetle<span class="sc">$</span>affected <span class="sc">/</span> beetle<span class="sc">$</span>exposed</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="sol_2025_11_18_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1050"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Punto (a)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>beetle<span class="sc">$</span>prop <span class="ot">&lt;-</span> beetle<span class="sc">$</span>affected <span class="sc">/</span> beetle<span class="sc">$</span>exposed <span class="co"># Proporzioni</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">"Concentrazione"</span>, <span class="at">ylab =</span> <span class="st">"Proporzione di decessi"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Il grafico mostra una chiara dipendenza positiva tra la concentrazione di ossido di etilene e la proporzione di decessi. <strong>Nota</strong>: gli abbellimenti estetici, come ad esempio i nomi corretti negli assi o la creazione della nuova variabile prop, erano apprezzati ma non richiesti.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Punto (b)</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La scelta del GLM appropriato in questo caso era una regressione per dati <strong>binomiali</strong> per la variabile <code>affected</code> (<span class="math inline">S_i</span>), in cui <code>exposed</code> (<span class="math inline">m_i</span>) rappresenta il numero di tentativi e <code>conc</code> (<span class="math inline">x_i</span>) l’unica variabile esplicativa, per <span class="math inline">i = 1,\dots,10</span>. La variabile risposta <span class="math inline">Y_i</span> era pertanto pari alla proporzione <span class="math inline">Y_i = S_i / m_i</span>, la cui distribuzione è stata trattata a lezione.</p>
+<p><strong>Nota</strong>: un modello di regressione lineare semplice, applicato direttamente alle proporzioni <span class="math inline">Y_i</span> è un approccio errato e corrisponde al “<em>linear probability model</em>” menzionato in classe, che è molto problematico per tutte le ragioni discusse a lezione e nel materiale online.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Punto (b.i)</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)        conc 
+ -6.0104702   0.3412697 </code></pre>
 </div>
 </div>
+<p>Otteniamo quindi che l’equazione stimata è <span class="math display">
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{\exp^{-6.01 + 0.3412 x_i}}{1 + \exp^{-6.01 + 0.3412 x_i}}, \qquad i=1,\dots,10.
+</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Punto (b.ii)</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)) <span class="co"># Modello nullo</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente conc. </span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="fu">summary</span>(m1) </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<blockquote class="blockquote">
-<ol start="2" type="a">
-<li>Si stimi un GLM opportuno, usando il legame canonico, avente come variabile risposta la proporzione di decessi (<code>affected / exposed</code>) e come variabile esplicativa <code>conc</code>. Si riportino:</li>
-</ol>
-<ol type="i">
-<li>L’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza.<br>
-</li>
-<li>Il valore delle statistiche test e i <em>p-value</em> dei test di Wald e di log-rapporto di verosimiglianza per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà delle statistiche test. Infine, si commentino i risultati.</li>
-</ol>
-</blockquote>
-<blockquote class="blockquote">
-<ol start="3" type="a">
-<li>Si ottenga il grafico della curva stimata sovrapposta ai punti osservati (senza riportarlo). Il <em>range</em> della variabile esplicativa deve essere <span class="math inline">(10, 25)</span>. Si commentino i risultati.</li>
-</ol>
-</blockquote>
-<blockquote class="blockquote">
-<ol start="4" type="a">
-<li>Si individuino le unità statistiche che sono al contempo influenti e potenzialmente “anomale” (<em>outlier</em>) chiarendo quali indici / grafici sono stati usati allo scopo.</li>
-</ol>
-</blockquote>
-<blockquote class="blockquote">
-<ol start="5" type="a">
-<li>Si fornisca un’interpretazione della stima del coefficiente della variabile esplicativa <code>conc</code> e si valuti se tale interpretazione è coerente con i commenti ai grafici dei punti (a) e (c).</li>
-</ol>
-</blockquote>
-<blockquote class="blockquote">
-<ol start="6" type="a">
-<li>Si riporti la previsione per la probabilità di decesso in corrispondenza della concentrazione <code>conc = 15</code>. Si riporti inoltre un intervallo di confidenza.</li>
-</ol>
-</blockquote>
-<blockquote class="blockquote">
-<ol start="7" type="a">
-<li>Si verifichi se è presente sovradispersione. In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti.</li>
-</ol>
-</blockquote>
-<blockquote class="blockquote">
-<ol start="8" type="a">
-<li>Si riporti un intervallo di confidenza per la stessa quantità calcolata al punto (f), basato su una quasi-verosimiglianza. Si commentino i risultati.</li>
-</ol>
-</blockquote>
+<p>Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono, rispettivamente: <span class="math inline">W_e = 67.522</span> (Wald) e <span class="math inline">W = 100.3 / \phi = 100.3</span> (log-rapporto di verosimiglianza), poichè <span class="math inline">\phi = 1</span> nel modello binomiale. Nel caso del test di Wald, era anche corretto riportare la statistica test <code>z-value</code>, pari a <span class="math inline">8.217</span>, il cui quadrato coincide con <span class="math inline">W_e</span> a meno di approssimazioni numeriche.</p>
+<p>Come riportato nelle tabelle, i gradi di liberà di entrambi i test è <span class="math inline">q = 1</span>, perché è uno solo il parametro vincolato nel sistema d’ipotesi. Quest’ultimo è infatti pari a <span class="math inline">H_0: \beta_2 = 0</span> e <span class="math inline">H_1: \beta_2 \neq 0</span>.</p>
+<p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span> e <span class="math inline">W</span> e la loro distribuzione asintotica sotto <span class="math inline">H_0</span>, si ottiene in entrambi i casi un <em>p-value</em> praticamente pari a <span class="math inline">0</span>. In altri termini si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = 0</span>. Questo significa che la probabilità di decesso varia con la concentrazione di etilene (<code>conc</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Punto (c)</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">length =</span> <span class="dv">200</span>))</span>
+<span id="cb8-3"><a href="#cb8-3"></a>pred_m1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">"Concentrazione"</span>, <span class="at">ylab =</span> <span class="st">"Proporzione di decessi"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">lines</span>(newdata<span class="sc">$</span>conc, pred_m1)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Vi erano innumerevoli sintassi equivalenti per produrre lo stesso risultato. Ecco un'alternativa:</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> x), <span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">ylab =</span> <span class="st">"Estimated probability"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">points</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Le probabilità previste dal modello sono compatibili con l’andamento medio dei dati, anche se si osserva una variabilità eccessiva rispetto alle aspettative. Questo è un primo segnale, informale, della possibile presenza di sovradispersione.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Punto (d)</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">cooks.distance</span>(m1) <span class="co"># Valori influenti (leva + anomali)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1          2          3          4          5          6          7 
+1.50778167 0.43184011 0.22981702 0.01590161 0.30091250 0.87479492 0.03666182 
+         8          9         10 
+1.15503547 0.11313239 0.47712746 </code></pre>
+</div>
+</div>
+<p>La 1a osservazione e l’8a osservazione hanno una distanza di Cooks elevata, superiore a <span class="math inline">1</span>, mentre la sesta osservazione è <em>borderline</em> (ulteriori comandi mostrano che la 6a osservazione ha residuo molto alto ma valore leva relativamente basso). Valori alti della distanza di Cooks identificano appunto osservazioni influenti, cioè al contempo punti leva e potenzialmente anomale.</p>
+<p><strong>Nota</strong>: alcuni studenti hanno fatto uso di strumenti grafici diagnostici, come ad esempio <code>plot(m1, which = 4)</code>, oppure si sono affidati a librerie esterne, come il comando <code>influencePlot</code> della libreria <code>car</code>. Si tratta di soluzioni corrette, per cui non ho dato penalizzazioni, tuttavia in nel caso del comando <code>InfluencePlot</code> viene fatto uso dei cosiddetti <strong>residui studentizzati</strong>, la cui definizione non è mai stata discussa a lezione nel caso dei GLM e non è presente in nessuno dei libri di testo. Ciò che la funzione <code>rstudent</code> sta calcolando nel caso dei GLM è la seguente “media pesata” tra residui di Pearson e residui di devianza standardizzati: <span class="math display">
+\tilde{r}_{i,\text{stud}} = \text{sign}(y_i - \hat{\mu}_i) \sqrt{(1 - h_{i, W})\tilde{r}_{i, D}^2 + h_{i, W} \tilde{r}_{i, P}^2}, \qquad i=1,\dots,n.
+</span> Pur fornendo una risposta ragionevole, fare uso di quantità e comandi <strong>R</strong> di cui non si conoscono i dettagli <strong>non è una prassi raccomandabile</strong>, soprattutto considerato che nulla di tutto ciò era richiesto dalla prova.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Punto (e)</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>])</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    conc 
+1.406733 </code></pre>
+</div>
+</div>
+<p>Il valore <span class="math inline">\exp(\beta_2) = 1.4067</span> si può interpretare come rapporto tra quote relativo (<em>odds ratio</em>) relativo all’aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile <code>conc</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Punto (f)</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>new15 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="dv">15</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Probabilità prevista</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1 
+0.2908159 </code></pre>
+</div>
+</div>
+<p>Poichè il testo non lo specificava, per gli intervalli di confidenza c’erano due possibili soluzioni, entrambe corrette:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>fit15 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb16-3"><a href="#cb16-3"></a>fit15<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2086652 0.3729667</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>fit15_lin <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">plogis</span>(fit15_lin<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2158957 0.3791630</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Punto (g)</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m1, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">round</span>(<span class="fu">c</span>(X2, X2 <span class="sc">/</span> m1<span class="sc">$</span>df.residual, <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(X2, m1<span class="sc">$</span>df.residual)), <span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35.4561  4.4320  0.0000</code></pre>
+</div>
+</div>
+<p>È senz’altro presente sovradispersione. Il valore di <span class="math inline">X^2</span> è elevato e al di fuori dei valori tipici, come confermato dal <em>p-value</em> associato. Si ottiene inoltre che <span class="math inline">\hat{\phi} = X^2 / (n - p) = 4.432</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>mquasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">quasibinomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">summary</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = cbind(affected, exposed - affected) ~ conc, family = quasibinomial(link = "logit"), 
+    data = beetle)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept) -6.01047    1.64075  -3.663  0.00637 **
+conc         0.34127    0.08743   3.903  0.00452 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasibinomial family taken to be 4.432008)
+
+    Null deviance: 138.001  on 9  degrees of freedom
+Residual deviance:  37.697  on 8  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<p>Lo stimatore di quasi-verosimiglianza produce le medesime stime puntuali, ma corregge gli errori standard. Fortunatamente, questo non altera le conclusioni inferenziali a cui eravamo giunti in precedenza. Tuttavia, si noti che le osservazioni che in precedenza erano state registrate come “anomale” ed “influenti”, rientrano nella norma una volta che si tiene conto della sovradispersione:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">cooks.distance</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          1           2           3           4           5           6 
+0.340202840 0.097436676 0.051853929 0.003587901 0.067895298 0.197381176 
+          7           8           9          10 
+0.008272056 0.260612233 0.025526217 0.107654922 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Punto (h)</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>fit15_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb26-5"><a href="#cb26-5"></a>fit15_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_quasi<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1178694 0.4637624</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>fit15_lin_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">plogis</span>(fit15_lin_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin_quasi<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1505894 0.4867872</code></pre>
+</div>
+</div>
+<p>Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata significativamente come conseguenza della sovradispersione.</p>
 </section>
 </section>
 

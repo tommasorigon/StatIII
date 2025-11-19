@@ -17,8 +17,6 @@ format:
     echo: false
     callout-appearance: minimal
     theme: [simplex, ../template.css]
-    toc: true
-    toc-title: Table of contents
     embed-resources: false
     code-line-numbers: true
     smooth-scroll: true
@@ -57,8 +55,7 @@ Facendo uso del software **R**, si rispondano alle seguenti domande:
 
 (c) Si ottenga il grafico della curva stimata sovrapposta ai punti osservati (senza riportarlo). Il *range* della variabile esplicativa deve essere $(10, 25)$. Si commentino i risultati.
 
-
-(d) Si individuino le unità statistiche che sono al contempo influenti e potenzialmente "anomale" (*outlier*) chiarendo quali indici / grafici sono stati usati allo scopo.
+(d) Si individuino le unità statistiche che sono al contempo punti leva e potenzialmente "anomale" (*outlier*) chiarendo quali indici / grafici sono stati usati allo scopo.
 
 (e) Si fornisca un'interpretazione della stima del coefficiente della variabile esplicativa `conc` e si valuti se tale interpretazione è coerente con i commenti ai grafici dei punti (a) e (c).
 

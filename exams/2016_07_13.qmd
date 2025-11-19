@@ -17,8 +17,6 @@ format:
     echo: false
     callout-appearance: minimal
     theme: [simplex, ../template.css]
-    toc: true
-    toc-title: Table of contents
     embed-resources: false
     code-line-numbers: true
     smooth-scroll: true
