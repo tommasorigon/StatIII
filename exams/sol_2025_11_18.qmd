@@ -1,0 +1,69 @@
+---
+title: "Soluzione esame del 18 Novembre 2025"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    toc: true
+    toc-title: Table of contents
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Parte I: analisi dei dati
+
+```{r}
+library(faraway)
+data(beetle)
+beetle
+```
+
+
+> (a) Si costruisca un grafico che riporti l'andamento della proporzione di decessi al variare di `conc` (senza riportarlo). Si commentino i risultati.
+
+```{r}
+beetle$prop <- beetle$affected / beetle$exposed
+plot(beetle$conc, beetle$prop, pch = 16)
+```
+
+> (b) Si stimi un GLM opportuno, usando il legame canonico, avente come variabile risposta la proporzione di decessi (`affected / exposed`) e come variabile esplicativa `conc`. Si riportino:
+    i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza.  
+    ii. Il valore delle statistiche test e i *p-value* dei test di Wald e di log-rapporto di verosimiglianza per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà delle statistiche test. Infine, si commentino i risultati.
+
+> (c) Si ottenga il grafico della curva stimata sovrapposta ai punti osservati (senza riportarlo). Il *range* della variabile esplicativa deve essere $(10, 25)$. Si commentino i risultati.
+
+
+> (d) Si individuino le unità statistiche che sono al contempo influenti e potenzialmente "anomale" (*outlier*) chiarendo quali indici / grafici sono stati usati allo scopo.
+
+> (e) Si fornisca un'interpretazione della stima del coefficiente della variabile esplicativa `conc` e si valuti se tale interpretazione è coerente con i commenti ai grafici dei punti (a) e (c).
+
+> (f) Si riporti la previsione per la probabilità di decesso in corrispondenza della concentrazione `conc = 15`. Si riporti inoltre un intervallo di confidenza. 
+
+> (g) Si verifichi se è presente sovradispersione. In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti.
+
+> (h) Si riporti un intervallo di confidenza per la stessa quantità calcolata al punto (f), basato su una quasi-verosimiglianza. Si commentino i risultati.
