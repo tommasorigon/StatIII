@@ -128,9 +128,10 @@ exp(coef(m1)[2])
 Il valore $\exp(\hat{\beta}_2) = 1.4067$ si può interpretare come rapporto tra quote (*odds ratio*) relativo all'aumento unitario della concentrazione di etilene. Tale rapporto è maggiore di $1$ e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile `conc`.
 
 ```{r}
+#| results: hide
 # Punto (f)
 new15 <- data.frame(conc = 15)
-predict(m1, newdata = new15, type = "response") # Probabilità prevista
+predict(m1, newdata = new15, type = "response") # Probabilità prevista: 0.2908159 
 ```
 
 Poichè il testo non lo specificava, per gli intervalli di confidenza c'erano due possibili soluzioni, entrambe corrette:
@@ -146,12 +147,15 @@ plogis(fit15_lin$fit + c(-1, 1) * qnorm(0.975) * fit15_lin$se.fit)
 ```
 
 ```{r}
+#| results: hide
 # Punto (g)
 X2 <- sum(residuals(m1, type = "pearson")^2)
-round(c(X2, X2 / m1$df.residual, 1 - pchisq(X2, m1$df.residual)), 4)
+X2 # Statistica X2 di Pearson
+1 - pchisq(X2, m1$df.residual) # p-value test bontà d'adattamento.
+X2 / m1$df.residual # Stima del parametro di dispersione
 ```
 
-È presente sovradispersione. Il valore di $X^2$ è elevato e al di fuori dei valori tipici, come confermato dal *p-value* associato. Si ottiene inoltre che $\hat{\phi} = X^2 / (n - p) = 4.432$.
+È presente sovradispersione. Il valore di $X^2 = 35.456$ è elevato e al di fuori dei valori tipici, come confermato dal *p-value* associato, praticamente pari a $0$. Si ottiene inoltre che $\hat{\phi} = X^2 / (n - p) = 4.432$.
 
 ```{r}
 #| results: hide
