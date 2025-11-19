@@ -68,7 +68,7 @@ coef(m1) # In alternativa, anche summary(m1) mostrava le stime dei coefficienti
 
 Otteniamo quindi che l'equazione stimata è
 $$
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{\exp^{-6.010 + 0.341 x_i}}{1 + \exp^{-6.010 + 0.341 x_i}}, \qquad i=1,\dots,10.
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{e^{-6.010 + 0.341 x_i}}{1 + e^{-6.010 + 0.341 x_i}}, \qquad i=1,\dots,10.
 $$
 ```{r}
 #| results: hide
