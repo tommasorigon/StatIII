@@ -164,7 +164,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(faraway)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">data</span>(beetle)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">head</span>(beetle, <span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">head</span>(beetle, <span class="dv">4</span>) <span class="co"># Mostro le prime 4 osservazioni</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  conc affected exposed
 1 24.8       23      30
@@ -184,7 +184,16 @@ window.Quarto = {
 <span id="cb4-2"><a href="#cb4-2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>La scelta del GLM appropriato in questo caso era una regressione per dati <strong>binomiali</strong> per la variabile <code>affected</code> (<span class="math inline">S_i</span>), in cui <code>exposed</code> (<span class="math inline">m_i</span>) rappresenta il numero di tentativi e <code>conc</code> (<span class="math inline">x_i</span>) l’unica variabile esplicativa, per <span class="math inline">i = 1,\dots,10</span>. La variabile risposta <span class="math inline">Y_i</span> era pertanto pari alla proporzione <span class="math inline">Y_i = S_i / m_i</span>, la cui distribuzione è stata trattata a lezione.</p>
-<p><strong>Nota</strong>: un modello di regressione lineare semplice, applicato direttamente alle proporzioni <span class="math inline">Y_i</span> è un approccio errato e corrisponde al “<em>linear probability model</em>” menzionato in classe, che è molto problematico per tutte le ragioni discusse a lezione e nel materiale online.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Un modello di regressione lineare semplice, applicato direttamente alle proporzioni <span class="math inline">Y_i</span> è un approccio gravemente errato e corrisponde al “<em>linear probability model</em>” menzionato in classe, che è molto problematico per tutte le ragioni discusse a lezione e nel materiale online.</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Punto (b.i)</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -194,7 +203,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Otteniamo quindi che l’equazione stimata è <span class="math display">
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{\exp^{-6.01 + 0.3412 x_i}}{1 + \exp^{-6.01 + 0.3412 x_i}}, \qquad i=1,\dots,10.
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{\exp^{-6.010 + 0.341 x_i}}{1 + \exp^{-6.010 + 0.341 x_i}}, \qquad i=1,\dots,10.
 </span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Punto (b.ii)</span></span>
@@ -208,9 +217,9 @@ window.Quarto = {
 <span id="cb7-9"><a href="#cb7-9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
 <span id="cb7-10"><a href="#cb7-10"></a><span class="fu">summary</span>(m1) </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono, rispettivamente: <span class="math inline">W_e = 67.522</span> (Wald) e <span class="math inline">W = 100.3 / \phi = 100.3</span> (log-rapporto di verosimiglianza), poichè <span class="math inline">\phi = 1</span> nel modello binomiale. Nel caso del test di Wald, era anche corretto riportare la statistica test <code>z-value</code>, pari a <span class="math inline">8.217</span>, il cui quadrato coincide con <span class="math inline">W_e</span> a meno di approssimazioni numeriche.</p>
+<p>Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono rispettivamente pari a: <span class="math inline">W_e = 67.522</span> (Wald) e <span class="math inline">W = 100.3 / \phi = 100.3</span> (log-rapporto di verosimiglianza), poichè <span class="math inline">\phi = 1</span> nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica test <code>z-value</code> presente nel <code>summary</code>, pari a <span class="math inline">8.217</span>, il cui quadrato coincide con <span class="math inline">W_e</span> a meno di piccole discrepanze numeriche.</p>
 <p>Come riportato nelle tabelle, i gradi di liberà di entrambi i test è <span class="math inline">q = 1</span>, perché è uno solo il parametro vincolato nel sistema d’ipotesi. Quest’ultimo è infatti pari a <span class="math inline">H_0: \beta_2 = 0</span> e <span class="math inline">H_1: \beta_2 \neq 0</span>.</p>
-<p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span> e <span class="math inline">W</span> e la loro distribuzione asintotica sotto <span class="math inline">H_0</span>, si ottiene in entrambi i casi un <em>p-value</em> praticamente pari a <span class="math inline">0</span>. In altri termini si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = 0</span>. Questo significa che la probabilità di decesso varia con la concentrazione di etilene (<code>conc</code>).</p>
+<p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span> e <span class="math inline">W</span> e la loro distribuzione asintotica sotto <span class="math inline">H_0</span>, si ottiene in entrambi i casi un <em>p-value</em> quasi pari a <span class="math inline">0</span>. In altri termini, si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = 0</span>. Questo significa che la probabilità di decesso varia con la concentrazione di etilene (<code>conc</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Punto (c)</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">length =</span> <span class="dv">200</span>))</span>
@@ -232,10 +241,19 @@ window.Quarto = {
 1.15503547 0.11313239 0.47712746 </code></pre>
 </div>
 </div>
-<p>La 1a osservazione e l’8a osservazione hanno una distanza di Cooks elevata, superiore a <span class="math inline">1</span>, mentre la sesta osservazione è <em>borderline</em> (ulteriori comandi mostrano che la 6a osservazione ha residuo molto alto ma valore leva relativamente basso). Valori alti della distanza di Cooks identificano appunto osservazioni influenti, cioè al contempo punti leva e potenzialmente anomale.</p>
-<p><strong>Nota</strong>: alcuni studenti hanno fatto uso di strumenti grafici diagnostici, come ad esempio <code>plot(m1, which = 4)</code>, oppure si sono affidati a librerie esterne, come il comando <code>influencePlot</code> della libreria <code>car</code>. Si tratta di soluzioni corrette, per cui non ho dato penalizzazioni, tuttavia in nel caso del comando <code>InfluencePlot</code> viene fatto uso dei cosiddetti <strong>residui studentizzati</strong>, la cui definizione non è mai stata discussa a lezione nel caso dei GLM e non è presente in nessuno dei libri di testo. Ciò che la funzione <code>rstudent</code> sta calcolando nel caso dei GLM è la seguente “media pesata” tra residui di Pearson e residui di devianza standardizzati: <span class="math display">
+<p>La 1a osservazione e l’8a osservazione hanno una distanza di Cooks elevata, superiore a <span class="math inline">1</span>, mentre la sesta osservazione è <em>borderline</em> (ulteriori analisi mostrano che la 6a osservazione ha residuo molto alto ma valore leva relativamente basso). Valori alti della distanza di Cooks identificano osservazioni influenti, cioè al contempo punti leva e potenzialmente anomale.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Alcuni studenti hanno fatto uso di strumenti grafici diagnostici, come ad esempio <code>plot(m1, which = 4)</code>, oppure si sono affidati a librerie esterne, come il comando <code>influencePlot</code> della libreria <code>car</code>. Si tratta di soluzioni corrette, per le quali non ho assegnato penalizzazioni, tuttavia nel caso del comando <code>InfluencePlot</code> vengono utilizzati i <strong>residui studentizzati</strong>, la cui definizione non è mai stata discussa a lezione nel caso dei GLM e non è nemmeno presente nei libri di testo. Ciò che la funzione <code>rstudent</code> sta calcolando nel caso dei GLM è la seguente “media pesata” tra residui di Pearson e residui di devianza standardizzati: <span class="math display">
 \tilde{r}_{i,\text{stud}} = \text{sign}(y_i - \hat{\mu}_i) \sqrt{(1 - h_{i, W})\tilde{r}_{i, D}^2 + h_{i, W} \tilde{r}_{i, P}^2}, \qquad i=1,\dots,n.
 </span> Pur fornendo una risposta ragionevole, fare uso di quantità e comandi <strong>R</strong> di cui non si conoscono i dettagli <strong>non è una prassi raccomandabile</strong>, soprattutto considerato che nulla di tutto ciò era richiesto dalla prova.</p>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Punto (e)</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>])</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -244,7 +262,7 @@ window.Quarto = {
 1.406733 </code></pre>
 </div>
 </div>
-<p>Il valore <span class="math inline">\exp(\hat{\beta}_2) = 1.4067</span> si può interpretare come rapporto tra quote relativo (<em>odds ratio</em>) relativo all’aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile <code>conc</code>.</p>
+<p>Il valore <span class="math inline">\exp(\hat{\beta}_2) = 1.4067</span> si può interpretare come rapporto tra quote (<em>odds ratio</em>) relativo all’aumento unitario della concentrazione di etilene. Tale rapporto è maggiore di <span class="math inline">1</span> e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile <code>conc</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Punto (f)</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>new15 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="dv">15</span>)</span>
@@ -277,7 +295,7 @@ window.Quarto = {
 <pre><code>[1] 35.4561  4.4320  0.0000</code></pre>
 </div>
 </div>
-<p>È senz’altro presente sovradispersione. Il valore di <span class="math inline">X^2</span> è elevato e al di fuori dei valori tipici, come confermato dal <em>p-value</em> associato. Si ottiene inoltre che <span class="math inline">\hat{\phi} = X^2 / (n - p) = 4.432</span>.</p>
+<p>È presente sovradispersione. Il valore di <span class="math inline">X^2</span> è elevato e al di fuori dei valori tipici, come confermato dal <em>p-value</em> associato. Si ottiene inoltre che <span class="math inline">\hat{\phi} = X^2 / (n - p) = 4.432</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>mquasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">quasibinomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="fu">summary</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -309,7 +327,7 @@ window.Quarto = {
 <pre><code>[1] 0.1505894 0.4867872</code></pre>
 </div>
 </div>
-<p>Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata come conseguenza della sovradispersione.</p>
+<p>Anche in questo caso era possibile considerare uno dei due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata come conseguenza della sovradispersione.</p>
 </section>
 </section>
 

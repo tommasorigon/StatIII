@@ -38,7 +38,7 @@ editor_options:
 ```{r}
 library(faraway)
 data(beetle)
-head(beetle, 4)
+head(beetle, 4) # Mostro le prime 4 osservazioni
 ```
 
 ```{r}
@@ -57,7 +57,9 @@ m1 <- glm(cbind(affected, exposed - affected) ~ conc, data = beetle, family = bi
 
 La scelta del GLM appropriato in questo caso era una regressione per dati **binomiali** per la variabile `affected` ($S_i$), in cui `exposed` ($m_i$) rappresenta il numero di tentativi e `conc` ($x_i$) l'unica variabile esplicativa, per $i = 1,\dots,10$. La variabile risposta $Y_i$ era pertanto pari alla proporzione $Y_i = S_i / m_i$, la cui distribuzione è stata trattata a lezione. 
 
-**Nota**: un modello di regressione lineare semplice, applicato direttamente alle proporzioni $Y_i$ è un approccio errato e corrisponde al "*linear probability model*" menzionato in classe, che è molto problematico per tutte le ragioni discusse a lezione e nel materiale online.
+:::{.callout-warning}
+Un modello di regressione lineare semplice, applicato direttamente alle proporzioni $Y_i$ è un approccio gravemente errato e corrisponde al "*linear probability model*" menzionato in classe, che è molto problematico per tutte le ragioni discusse a lezione e nel materiale online. 
+:::
 
 ```{r}
 # Punto (b.i)
@@ -66,7 +68,7 @@ coef(m1) # In alternativa, anche summary(m1) mostrava le stime dei coefficienti
 
 Otteniamo quindi che l'equazione stimata è
 $$
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{\exp^{-6.01 + 0.3412 x_i}}{1 + \exp^{-6.01 + 0.3412 x_i}}, \qquad i=1,\dots,10.
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{\exp^{-6.010 + 0.341 x_i}}{1 + \exp^{-6.010 + 0.341 x_i}}, \qquad i=1,\dots,10.
 $$
 ```{r}
 #| results: hide
@@ -82,11 +84,11 @@ anova(m0, m1, test = "LRT") # Test log-rapporto di verosimiglianza
 summary(m1) 
 ```
 
-Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono, rispettivamente: $W_e = 67.522$ (Wald) e $W = 100.3 / \phi = 100.3$ (log-rapporto di verosimiglianza), poichè $\phi = 1$ nel modello binomiale. Nel caso del test di Wald, era anche corretto riportare la statistica test `z-value`, pari a $8.217$, il cui quadrato coincide con $W_e$ a meno di approssimazioni numeriche.
+Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono rispettivamente pari a: $W_e = 67.522$ (Wald) e $W = 100.3 / \phi = 100.3$ (log-rapporto di verosimiglianza), poichè $\phi = 1$ nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica test `z-value` presente nel `summary`, pari a $8.217$, il cui quadrato coincide con $W_e$ a meno di piccole discrepanze numeriche.
 
 Come riportato nelle tabelle, i gradi di liberà di entrambi i test è $q = 1$, perché è uno solo il parametro vincolato nel sistema d'ipotesi. Quest'ultimo è infatti pari a $H_0: \beta_2 = 0$ e $H_1: \beta_2 \neq 0$. 
 
-Considerati i gradi di libertà dei test $W_e$ e $W$ e la loro distribuzione asintotica sotto $H_0$, si ottiene in entrambi i casi un *p-value* praticamente pari a $0$. In altri termini si rigetta l'ipotesi nulla che $\beta_2 = 0$. Questo significa che la probabilità di decesso varia con la concentrazione di etilene (`conc`). 
+Considerati i gradi di libertà dei test $W_e$ e $W$ e la loro distribuzione asintotica sotto $H_0$, si ottiene in entrambi i casi un *p-value* quasi pari a $0$. In altri termini, si rigetta l'ipotesi nulla che $\beta_2 = 0$. Questo significa che la probabilità di decesso varia con la concentrazione di etilene (`conc`). 
 
 ```{r}
 #| fig-show: hide
@@ -108,20 +110,22 @@ Le probabilità previste dal modello sono compatibili con l'andamento medio dei 
 cooks.distance(m1) # Valori influenti (leva + anomali)
 ```
 
-La 1a osservazione e l'8a osservazione hanno una distanza di Cooks elevata, superiore a $1$, mentre la sesta osservazione è *borderline* (ulteriori comandi mostrano che la 6a osservazione ha residuo molto alto ma valore leva relativamente basso). Valori alti della distanza di Cooks identificano appunto osservazioni influenti, cioè al contempo punti leva e potenzialmente anomale. 
+La 1a osservazione e l'8a osservazione hanno una distanza di Cooks elevata, superiore a $1$, mentre la sesta osservazione è *borderline* (ulteriori analisi mostrano che la 6a osservazione ha residuo molto alto ma valore leva relativamente basso). Valori alti della distanza di Cooks identificano  osservazioni influenti, cioè al contempo punti leva e potenzialmente anomale. 
 
-**Nota**: alcuni studenti hanno fatto uso di strumenti grafici diagnostici, come ad esempio `plot(m1, which = 4)`, oppure si sono affidati a librerie esterne, come il comando `influencePlot` della libreria `car`. Si tratta di soluzioni corrette, per cui non ho dato penalizzazioni, tuttavia in nel caso del comando `InfluencePlot` viene fatto uso dei cosiddetti **residui studentizzati**, la cui definizione non è mai stata discussa a lezione nel caso dei GLM e non è presente in nessuno dei libri di testo. Ciò che la funzione `rstudent` sta calcolando nel caso dei GLM è la seguente "media pesata" tra residui di Pearson e residui di devianza standardizzati:
+:::{.callout-warning}
+Alcuni studenti hanno fatto uso di strumenti grafici diagnostici, come ad esempio `plot(m1, which = 4)`, oppure si sono affidati a librerie esterne, come il comando `influencePlot` della libreria `car`. Si tratta di soluzioni corrette, per le quali non ho assegnato penalizzazioni, tuttavia nel caso del comando `InfluencePlot` vengono utilizzati i **residui studentizzati**, la cui definizione non è mai stata discussa a lezione nel caso dei GLM e non è nemmeno presente nei libri di testo. Ciò che la funzione `rstudent` sta calcolando nel caso dei GLM è la seguente "media pesata" tra residui di Pearson e residui di devianza standardizzati:
 $$
 \tilde{r}_{i,\text{stud}} = \text{sign}(y_i - \hat{\mu}_i) \sqrt{(1 - h_{i, W})\tilde{r}_{i, D}^2 + h_{i, W} \tilde{r}_{i, P}^2}, \qquad i=1,\dots,n.
 $$
 Pur fornendo una risposta ragionevole, fare uso di quantità e comandi **R** di cui non si conoscono i dettagli **non è una prassi raccomandabile**, soprattutto considerato che nulla di tutto ciò era richiesto dalla prova.
+:::
 
 ```{r}
 # Punto (e)
 exp(coef(m1)[2])
 ```
 
-Il valore $\exp(\hat{\beta}_2) = 1.4067$ si può interpretare come rapporto tra quote relativo (*odds ratio*) relativo all'aumentare unitario della concentrazione di etilene. Tale rapporto è positivo e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile `conc`.
+Il valore $\exp(\hat{\beta}_2) = 1.4067$ si può interpretare come rapporto tra quote (*odds ratio*) relativo all'aumento unitario della concentrazione di etilene. Tale rapporto è maggiore di $1$ e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile `conc`.
 
 ```{r}
 # Punto (f)
@@ -147,7 +151,7 @@ X2 <- sum(residuals(m1, type = "pearson")^2)
 round(c(X2, X2 / m1$df.residual, 1 - pchisq(X2, m1$df.residual)), 4)
 ```
 
-È senz'altro presente sovradispersione. Il valore di $X^2$ è elevato e al di fuori dei valori tipici, come confermato dal *p-value* associato. Si ottiene inoltre che $\hat{\phi} = X^2 / (n - p) = 4.432$.
+È presente sovradispersione. Il valore di $X^2$ è elevato e al di fuori dei valori tipici, come confermato dal *p-value* associato. Si ottiene inoltre che $\hat{\phi} = X^2 / (n - p) = 4.432$.
 
 ```{r}
 #| results: hide
@@ -175,4 +179,4 @@ fit15_lin_quasi <- predict(mquasi, newdata = new15, se.fit = TRUE)
 plogis(fit15_lin_quasi$fit + c(-1, 1) * qnorm(0.975) * fit15_lin_quasi$se.fit)
 ```
 
-Anche in questo caso, è possibile specificare due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata come conseguenza della sovradispersione.
+Anche in questo caso era possibile considerare uno dei due intervalli di confidenza alternativi (entrambi corretti). Confrontati con quelli ottenuti in precedenza, si nota che la loro ampiezza è aumentata come conseguenza della sovradispersione.
