@@ -1,0 +1,45 @@
+---
+title: "Esiti esame del 18 Novembre 2025"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+outcome <- read.csv("esiti.csv", sep = ";", dec = ",")
+outcome <- subset(outcome, select=c(Matricola, Esito, Analisi.dati, Teoria))
+outcome <- outcome[outcome$Esito != "ASS" & outcome$Esito != "RIT", ]
+outcome$Esito[outcome$Esito == "31"] <- "30 cum laude"
+outcome$Analisi.dati[outcome$Analisi.dati < 18] <- "INS"
+outcome$Teoria[outcome$Teoria < 18] <- "INS"
+```
+
+
+## Grades
+
+```{r}
+#| echo: false
+colnames(outcome) <- c("Matricola", "Esito", "PARTE I (Analisi dei dati)", "PARTE 2 (Teoria)")
+knitr::kable(outcome[order(outcome$Matricola), c(1, 3, 4, 2)], row.names = FALSE, align = c('l', 'l', "l", "r"))
+```
