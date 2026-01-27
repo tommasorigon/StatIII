@@ -45,7 +45,7 @@ Si considerino i dati `beetle` della libreria `faraway`, che contengono 10 osser
 - `affected`: numero di coleotteri deceduti;
 - `exposed`: numero totale di coleotteri.
 
-Facendo uso del software **R**, si rispondano alle seguenti domande:
+Facendo uso del software **R**, si risponda alle seguenti domande:
 
 (a) Si costruisca un grafico che riporti l'andamento della proporzione di decessi al variare di `conc` (senza riportarlo). Si commentino i risultati.
 

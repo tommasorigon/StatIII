@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Esame del 18 Novembre 2025</title>
+<title>Esame del 27 Gennaio 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,17 +24,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="2025_11_18_files/libs/clipboard/clipboard.min.js"></script>
-<script src="2025_11_18_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="2025_11_18_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="2025_11_18_files/libs/quarto-html/popper.min.js"></script>
-<script src="2025_11_18_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="2025_11_18_files/libs/quarto-html/anchor.min.js"></script>
-<link href="2025_11_18_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="2025_11_18_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="2025_11_18_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="2025_11_18_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="2025_11_18_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="2026_01_27_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2026_01_27_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="2026_01_27_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="2026_01_27_files/libs/quarto-html/popper.min.js"></script>
+<script src="2026_01_27_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2026_01_27_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2026_01_27_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2026_01_27_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2026_01_27_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2026_01_27_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2026_01_27_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -91,7 +91,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Esame del 18 Novembre 2025</h1>
+<h1 class="title">Esame del 27 Gennaio 2026</h1>
 <p class="subtitle lead">Statistics III - CdL SSE</p>
 </div>
 
@@ -128,46 +128,55 @@ window.Quarto = {
 <p>Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.</p>
 <section id="parte-i-analisi-dei-dati" class="level2">
 <h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
-<p>Si considerino i dati <code>beetle</code> della libreria <code>faraway</code>, che contengono 10 osservazioni relative a dei coleotteri dei cereali (<em>grain beetles</em>), i quali sono stati esposti all’ossido di etilene, una sostanza tossica. Le variabili presenti sono:</p>
+<p>Si considerino i dati <code>anaesthetic</code> della libreria <code>faraway</code>, relativi a uno studio condotto da un medico di un ospedale di Londra, che ha confrontato gli effetti di quattro anestetici utilizzati in interventi chirurgici maggiori su un totale di ottanta pazienti, suddivisi in quattro gruppi da 20. Le variabili presenti sono:</p>
 <ul>
-<li><code>conc</code>: concentrazione di ossido di etilene in mg/l;</li>
-<li><code>affected</code>: numero di coleotteri deceduti;</li>
-<li><code>exposed</code>: numero totale di coleotteri.</li>
+<li><code>breath</code>: tempo (in minuti) necessario per iniziare a respirare autonomamente, arrotondato al minuto più vicino;</li>
+<li><code>trgp</code>: quattro gruppi di trattamento: <code>A</code>, <code>B</code>, <code>C</code> e <code>D</code>.</li>
 </ul>
 <p>Facendo uso del software <strong>R</strong>, si risponda alle seguenti domande:</p>
 <ol type="a">
-<li><p>Si costruisca un grafico che riporti l’andamento della proporzione di decessi al variare di <code>conc</code> (senza riportarlo). Si commentino i risultati.</p></li>
-<li><p>Si stimi un GLM opportuno, usando il legame canonico, avente come variabile risposta la proporzione di decessi (<code>affected / exposed</code>) e come variabile esplicativa <code>conc</code>. Si riportino:</p>
+<li><p>Alcuni valori di <code>breath</code> sono esattamente pari a <code>0</code> minuti, che è un errore di arrotondamento. Si sostituisca a tali valori il numero <code>0.25</code>.</p></li>
+<li><p>Si ottengano dei boxplot per la variabile <code>breath</code> per ciascuno dei quattro gruppi di pazienti (senza riportarli); si commentino i risultati. Si riportino inoltre le medie e le deviazioni standard di ciascun gruppo.</p></li>
+<li><p>Si stimi un modello lineare chiamato <code>m_lin</code> in cui <code>breath</code> rappresenta la variabile risposta, mentre <code>tgrp</code> è usata come variabile esplicativa. Si riporti:</p>
 <ol type="i">
-<li>L’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza.<br>
-</li>
-<li>Il valore delle statistiche test e i <em>p-value</em> dei test di Wald e di log-rapporto di verosimiglianza per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà delle statistiche test. Infine, si commentino i risultati.</li>
+<li>L’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza;</li>
+<li>Un’interpretazione dei coefficienti stimati;</li>
+<li>La previsione fornita dal modello <code>m_lin</code> per ciascuno dei quattro gruppi <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>. Si commentino i risultati;</li>
+<li>Il valore della statistica test e il <em>p-value</em> associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati.</li>
 </ol></li>
-<li><p>Si ottenga il grafico della curva stimata sovrapposta ai punti osservati (senza riportarlo). Il <em>range</em> della variabile esplicativa deve essere <span class="math inline">(10, 25)</span>. Si commentino i risultati.</p></li>
-<li><p>Si individuino le unità statistiche che sono al contempo punti leva e potenzialmente “anomale” (<em>outlier</em>) chiarendo quali indici / grafici sono stati usati allo scopo.</p></li>
-<li><p>Si fornisca un’interpretazione della stima del coefficiente della variabile esplicativa <code>conc</code> e si valuti se tale interpretazione è coerente con i commenti ai grafici dei punti (a) e (c).</p></li>
-<li><p>Si riporti la previsione per la probabilità di decesso in corrispondenza della concentrazione <code>conc = 15</code>. Si riporti inoltre un intervallo di confidenza.</p></li>
-<li><p>Si verifichi se è presente sovradispersione. In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti.</p></li>
-<li><p>Si riporti un intervallo di confidenza per la stessa quantità calcolata al punto (f), basato su una quasi-verosimiglianza. Si commentino i risultati.</p></li>
+<li><p>Utilizzando i grafici diagnostici, si discuta se il modello <code>m_lin</code> presenta gravi violazioni delle assunzioni classiche; se si, quali sono? Si noti inoltre che la variabile <code>breath</code> assume solamente valori positivi: è un problema? Se si, quali soluzioni è possibile adottare? Si discuta.</p></li>
+<li><p>Si stimi un GLM chiamato <code>m_gamma</code> con variabile risposta Gamma, usando il legame canonico, in cui <code>breath</code> rappresenta la variabile risposta, mentre <code>tgrp</code> è usata come variabile esplicativa. Si riportino:</p>
+<ol type="i">
+<li>L’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza;</li>
+<li>Un’interpretazione dei coefficienti stimati;</li>
+<li>La previsione fornita dal modello <code>m_gamma</code> per ciascuno dei quattro gruppi <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>. Si commentino i risultati e li si confronti con quelli ottenuti con il modello <code>m_lin</code>;</li>
+<li>Il valore della statistica test di log-rapporto di verosimiglianza e il <em>p-value</em> associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati e li si confronti con quelli ottenuti con il modello <code>m_lin</code>.</li>
+</ol></li>
+<li><p>Utilizzando i grafici diagnostici, si discuta se il modello <code>m_gamma</code> presenta gravi violazioni delle assunzioni fatte; se si, quali?</p></li>
+<li><p>Si vuole testare se la media del gruppo <code>A</code>, indicata con <span class="math inline">\mu_A</span>, è o meno pari a <span class="math inline">10</span>. Utilizzando il modello <code>m_gamma</code>, si ottenga una statistica test opportuna e si calcoli il relativo <em>p-value</em>. Si commentino i risultati.</p></li>
+<li><p>Ha senso verificare se nel modello <code>m_gamma</code> è presente sovradispersione? In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti.</p></li>
 </ol>
 </section>
 <section id="parte-ii-teoria-ed-esercizi" class="level2">
 <h2 class="anchored" data-anchor-id="parte-ii-teoria-ed-esercizi">Parte II: teoria ed esercizi</h2>
 <section id="problema-1" class="level4">
 <h4 class="anchored" data-anchor-id="problema-1">Problema 1</h4>
-<p>Sia <span class="math inline">Y</span> una variabile aleatoria di Poisson di media <span class="math inline">\lambda</span>, la cui funzione di probabilità è</p>
-<p><span class="math display">
-p(y ; \lambda) = \frac{e^{-\lambda} \lambda^y}{y!},
-\qquad y = 0,1,2,\dots, \qquad  \lambda &gt; 0.
-</span> Si mostri che questa distribuzione appartiene alla famiglia a dispersione esponenziale e si descrivano (svolgendo tutti i passaggi) le sue caratteristiche, cioè il parametro naturale, l’eventuale parametro di dispersione, le funzioni <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span>, la funzione media e la funzione varianza.</p>
+<p>Si consideri un modello lineare <span class="math inline">\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon}</span>. L’assunzione di linearità è quindi soddisfatta; tuttavia, si suppone che l’ipotesi di omoschedasticità degli errori non sia valida e, in particolare, si considerino i seguenti errori eteroschedastici: <span class="math display">
+\text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{o equivalentemente che} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n,
+</span> dove <span class="math inline">\boldsymbol{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> è una matrice diagonale a valori positivi.</p>
+<p>Si mostri che lo stimatore ai minimi quadrati <span class="math inline">\hat{\beta}</span> è ancora non distorto, mentre la varianza <span class="math inline">\text{var}(\hat{\beta})</span> presenta una struttura diversa rispetto a quella classica.</p>
 </section>
 <section id="problema-2" class="level4">
 <h4 class="anchored" data-anchor-id="problema-2">Problema 2</h4>
-<p>Si riporti, senza ricalcolarla da zero, l’equazione di aggiornamento per i pesi <span class="math inline">\beta^{(t+1)}</span> all’iterazione <span class="math inline">t</span> dell’algoritmo IRLS, definendo tutte le quantità coinvolte. Si spieghi perché questo algoritmo viene chiamato dei “minimi quadrati iterati pesati”.</p>
+<p>Sia <span class="math inline">Y</span> una variabile aleatoria Gamma di parametri <span class="math inline">\alpha</span> e <span class="math inline">\lambda</span>, la cui funzione di densità è</p>
+<p><span class="math display">
+p(y ; \alpha, \lambda) = \frac{\lambda^\alpha y^{\alpha-1}e^{-\lambda y}}{\Gamma(\alpha)},
+\qquad y&gt; 0, \qquad  \alpha, \lambda &gt; 0.
+</span> Si mostri che questa distribuzione appartiene alla famiglia a dispersione esponenziale e si descrivano (svolgendo tutti i passaggi) le sue caratteristiche, cioè il parametro naturale, l’eventuale parametro di dispersione, le funzioni <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span>, la funzione media e la funzione varianza.</p>
 </section>
 <section id="problema-3" class="level4">
 <h4 class="anchored" data-anchor-id="problema-3">Problema 3</h4>
-<p>Si illustri il concetto di devianza nell’ambito dei GLM e se ne illustri l’utilizzo al fine di confrontare due GLM annidati.</p>
+<p>Si derivi esplicitamente il contributo di una singola osservazione alla devianza (cioè <span class="math inline">d_i</span>) per un modello lineare generalizzato Gamma. Quindi, si scriva l’espressione della devianza <span class="math inline">D(\hat{\boldsymbol{\mu}}; \boldsymbol{y})</span> per un campione di dimensione <span class="math inline">n</span>.</p>
 </section>
 </section>
 </section>
@@ -578,5 +587,5 @@ p(y ; \lambda) = \frac{e^{-\lambda} \lambda^y}{y!},
 
 
 
-<script src="2025_11_18_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="2026_01_27_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
