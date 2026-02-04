@@ -70,21 +70,21 @@ Mining](https://tommasorigon.github.io/datamining/).
 #### Slides and lecture notes
 
 | Topic | Notes | Slides | Further material |
-|----|----|----|----|
-| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) - [PDF version](slides/un_intro_slides.pdf) |  |
+|------------------|------------------|------------------|------------------|
+| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html)  ([pdf version](slides/un_intro_slides.pdf)) |  |
 |  | **GENERAL THEORY** |  |  |
-| **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) - [PDF version](slides/un_A_slides.pdf) |  |
+| **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) ([pdf version](slides/un_A_slides.pdf)) |  |
 | Lab 1 | [`lab1.R`](code/lab1.R) |  |  |
 | *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
-| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html) - [PDF version](slides/un_B_slides.pdf) | [`labB.R`](code/labB.R) |
+| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html) ([pdf version](slides/un_B_slides.pdf)) | [`labB.R`](code/labB.R) |
 | Lab 2 | [`lab2.R`](code/lab2.R) |  |  |
 | Lab 3 | [`lab3.R`](code/lab3.R) |  |  |
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
 |  | **NOTABLE MODELS** |  |  |
-| **Binary and binomial regression** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_C_slides.html) - [PDF version](slides/un_C_slides.pdf) |  |
+| **Binary and binomial regression** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_C_slides.html) ([pdf version](slides/un_C_slides.pdf)) |  |
 | Lab 4 | [`lab4.R`](code/lab4.R) |  |  |
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
-| **Poisson regression** | [Unit D](slides/un_D.html) | [Slides Unit D](slides/un_D_slides.html) - [PDF version](slides/un__slides.pdf) |  |
+| **Poisson regression** | [Unit D](slides/un_D.html) | [Slides Unit D](slides/un_D_slides.html)  ([pdf version](slides/un_D_slides.pdf)) |  |
 | Lab 5 | [`lab5.R`](code/lab5.R) |  |  |
 | *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
 |  | **ADVANCED TOPICS** |  |  |
@@ -98,7 +98,7 @@ Example of previous exams are provided below. During the exam, you will
 have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | 27 Gennaio 2026 | [`anaesthetic`](https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html) | [Exam](exams/2026_01_27.html) |  |
 | 11 November 2025 | [`beetle`](https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html) | [Exam](exams/2025_11_18.html) | [Solution](exams/sol_2025_11_18.html) |
 | **Old exams (prof. Migliorati)** |  |  |  |
