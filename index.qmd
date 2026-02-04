@@ -26,80 +26,94 @@ editor_options:
   chunk_output_type: console
 ---
 
-This is the website of the **Statistica III** course (6 CFU) of the "*Corso di Laurea Triennale in Scienze Statistiche ed Economiche* (SSE)", Università degli Studi di Milano-Bicocca. **Statistica III** is a monographic course on [Generalized Linear Models]{.blue} (GLMs).
+This is the website of the **Statistica III** course (6 CFU) of the
+"*Corso di Laurea Triennale in Scienze Statistiche ed Economiche*
+(SSE)", Università degli Studi di Milano-Bicocca. **Statistica III** is
+a monographic course on [Generalized Linear Models]{.blue} (GLMs).
 
-This is a [B.Sc.-level]{.orange} course, but there are some prerequisites: it is assumed that you have already been exposed to:
+This is a [B.Sc.-level]{.orange} course, but there are some
+prerequisites: it is assumed that you have already been exposed to:
 
-  - [Simple linear regression and descriptive statistics]{.blue}, e.g. from [_Statistica I_](https://tommasorigon.github.io/StatI/);
-  - [Inferential statistics]{.orange}, e.g. from _Statistica II_;
-  - [Linear models]{.grey}, e.g. from _Analisi Statistica Multivariata_ and _Econometria_;
-  - [R software]{.grey}, e.g. from [_Analisi Statistica Multivariata_](https://tommasorigon.github.io/introR/).
+-   [Simple linear regression and descriptive statistics]{.blue}, e.g.
+    from [*Statistica I*](https://tommasorigon.github.io/StatI/);
+-   [Inferential statistics]{.orange}, e.g. from *Statistica II*;
+-   [Linear models]{.grey}, e.g. from *Analisi Statistica Multivariata*
+    and *Econometria*;
+-   [R software]{.grey}, e.g. from [*Analisi Statistica
+    Multivariata*](https://tommasorigon.github.io/introR/).
 
-Regression is such an important topic that the [tour]{.orange} will [continue]{.orange} at  [Data Mining](https://tommasorigon.github.io/datamining/).
-
+Regression is such an important topic that the [tour]{.orange} will
+[continue]{.orange} at [Data
+Mining](https://tommasorigon.github.io/datamining/).
 
 ## Teaching material
 
 #### Recommended textbooks (ITA)
 
-- Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari Generalizzati*](https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2). Springer.
-- Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza*](https://link.springer.com/book/9788847001305). Springer
+-   Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari
+    Generalizzati*](https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2).
+    Springer.
+-   Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata
+    sul Concetto di
+    Verosimiglianza*](https://link.springer.com/book/9788847001305).
+    Springer
 
-    
 #### Recommended textbooks (ENG)
 
-- Agresti, A. 2015. [*Foundations of Linear and Generalized Linear Models*](https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034). Wiley.
-- McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh). Second Edition. Springer.
+-   Agresti, A. 2015. [*Foundations of Linear and Generalized Linear
+    Models*](https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034).
+    Wiley.
+-   McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear
+    Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh).
+    Second Edition. Springer.
 
 #### Slides and lecture notes
 
-The slides are meant to be used in HTML. However, if you *really* want
-to convert the HTML slides into pdf files, you can [follow the
-instruction of the quarto
-documentation](https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf).
-
 | Topic | Notes | Slides | Further material |
-|-------------------|------------------|------------------|------------------|
-| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) |  |
-| | **GENERAL THEORY** | | |
-| **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) |  |
-| Lab 1 |  [`lab1.R`](code/lab1.R) | | |
+|----|----|----|----|
+| **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html) - [PDF version](slides/un_intro_slides.pdf) |  |
+|  | **GENERAL THEORY** |  |  |
+| **Linear models and misspecification** | [Unit A](slides/un_A.html) | [Slides Unit A](slides/un_A_slides.html) - [PDF version](slides/un_A_slides.pdf) |  |
+| Lab 1 | [`lab1.R`](code/lab1.R) |  |  |
 | *Exercises* | [Exercises A](exe/exe_A.html) |  |  |
-| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html)| [`labB.R`](code/labB.R) |
-| Lab 2 | [`lab2.R`](code/lab2.R) | | |
-| Lab 3 | [`lab3.R`](code/lab3.R)| | |
+| **Generalized Linear Models** | [Unit B](slides/un_B.html) | [Slides Unit B](slides/un_B_slides.html) - [PDF version](slides/un_B_slides.pdf) | [`labB.R`](code/labB.R) |
+| Lab 2 | [`lab2.R`](code/lab2.R) |  |  |
+| Lab 3 | [`lab3.R`](code/lab3.R) |  |  |
 | *Exercises* | [Exercises B](exe/exe_B.html) |  |  |
-| | **NOTABLE MODELS** | | |
-| **Binary and binomial regression** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_C_slides.html) |  |
-| Lab 4 | [`lab4.R`](code/lab4.R) | | |
+|  | **NOTABLE MODELS** |  |  |
+| **Binary and binomial regression** | [Unit C](slides/un_C.html) | [Slides Unit C](slides/un_C_slides.html) - [PDF version](slides/un_C_slides.pdf) |  |
+| Lab 4 | [`lab4.R`](code/lab4.R) |  |  |
 | *Exercises* | [Exercises C](exe/exe_C.html) |  |  |
-| **Poisson regression** | [Unit D](slides/un_D.html) | [Slides Unit D](slides/un_D_slides.html) |  |
-| Lab 5 | [`lab5.R`](code/lab5.R) | | |
+| **Poisson regression** | [Unit D](slides/un_D.html) | [Slides Unit D](slides/un_D_slides.html) - [PDF version](slides/un__slides.pdf) |  |
+| Lab 5 | [`lab5.R`](code/lab5.R) |  |  |
 | *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
-| | **ADVANCED TOPICS** | | |
-| **Quasi-likelihoods** | [Unit E] | [Slides Unit E] |  |
-| Lab 6 | [`lab6.R`](code/lab6.R) | | |
+|  | **ADVANCED TOPICS** |  |  |
+| **Quasi-likelihoods** | \[Unit E\] | \[Slides Unit E\] |  |
+| Lab 6 | [`lab6.R`](code/lab6.R) |  |  |
 | *Exercises* | [Exercises E](exe/exe_E.html) |  |  |
 
 ## Previous exams (ITA)
 
-Example of previous exams are provided below. During the exam, you will have access to the code from Labs 1-6.
+Example of previous exams are provided below. During the exam, you will
+have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
-|------|---------|-----------|----------|
+|----|----|----|----|
 | 27 Gennaio 2026 | [`anaesthetic`](https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html) | [Exam](exams/2026_01_27.html) |  |
 | 11 November 2025 | [`beetle`](https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html) | [Exam](exams/2025_11_18.html) | [Solution](exams/sol_2025_11_18.html) |
-| **Old exams (prof. Migliorati)** |
+| **Old exams (prof. Migliorati)** |  |  |  |
 | 13 July 2016 | `awards` | [Exam](exams/2016_07_13.html) |  |
 | 29 Giugno 2016 | `berk` | [Exam](exams/2016_06_29.html) |  |
-| 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) | |
+| 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) |  |
 | 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
 
 ## Acknowledgments
 
-I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course. 
+I would like to kindly acknowledge Sonia Migliorati for sharing her
+material of a previous edition of this course.
 
-Students are encouraged to consult the books: these slides are just a concise summary.
+Students are encouraged to consult the books: these slides are just a
+concise summary.
 
 All the mistakes still present are mine.
 

@@ -62,7 +62,9 @@ styler:::style_file("../code/un_A.R")
 
 ::: columns
 ::: {.column width="40%"}
-![](img/ABC.png) *"Everything should be made as simple as possible, but
+![](img/ABC.png) 
+
+*"Everything should be made as simple as possible, but
 not simpler"*
 
 Attributed to [Albert Einstein]{.grey}
@@ -671,7 +673,7 @@ It is also commonly asked that $\text{rk}(\boldsymbol{X}) = p$, otherwise the mo
 
 ## Robust estimation and assumptions
 
-![](img/plane.jpg){.nostretch fig-align="center" width="500px"}
+![](img/plane.jpg){.nostretch fig-align="center" width="50%"}
 
 - A plane can still fly with one of its [engines on fire]{.orange}, but this is hardly an appealing situation.
 
