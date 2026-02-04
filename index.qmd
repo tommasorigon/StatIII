@@ -69,6 +69,8 @@ Mining](https://tommasorigon.github.io/datamining/).
 
 #### Slides and lecture notes
 
+The slides are meant to be used in HTML. 
+
 | Topic | Notes | Slides | Further material |
 |------------------|------------------|------------------|------------------|
 | **Introduction** | [Introduction](slides/un_intro.html) | [Slides Introduction](slides/un_intro_slides.html)  ([pdf version](slides/un_intro_slides.pdf)) |  |
