@@ -38,6 +38,7 @@ editor_options:
 ```{r}
 library(faraway)
 data(anaesthetic)
+head(anaesthetic, 4)
 ```
 
 ```{r}
@@ -76,7 +77,7 @@ summary(m_lin)
 
 Anzitutto, desumiamo che l'equazione che esprime la risposta media in funzione della variabile `tgrp` è la seguente
 $$
-\hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},
+\hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},\qquad i=1,\dots,80.
 $$
 dove $d_{i, B}, d_{i, C}$ e $d_{i, D}$ sono delle variabili *dummy* che identificano l'appartenenza dell'i-esima unità ai gruppo `B`, `C`, `D` della variabile `tgrp`; il primo gruppo (`A`) è preso come categoria di riferimento. Di conseguenza, il valore $\hat{\beta}_1$ rappresenta la media del gruppo `A`, mentre i rimanenti coefficienti rappresentano la **differenza** tra la media del gruppo considerato e la media del gruppo `A`. 
 
@@ -128,7 +129,19 @@ $$
 $$
 
 :::callout-warning
-L'interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato molte difficoltà. 
+L'interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato molte difficoltà. La media della variabile aleatoria $Y_A$, cioè una generica variabile risposta appartenente al gruppo `A`, è pari a
+$$
+\hat{\mathbb{E}}(Y_A) = \frac{1}{\hat{\beta}_1} = \frac{1}{0.185} = 5.40.
+$$
+In altre parole, $\hat{\beta}_1$ rappresenta il reciproco della media del gruppo `A`. Inoltre, prendendo come esempio il gruppo `B`, si noti che la media di $Y_B$ è pari a
+$$
+\hat{\mathbb{E}}(Y_B) = \frac{1}{\hat{\beta}_1 + \hat{\beta}_2} = \frac{1}{0.185 + 0.123} = 3.25.
+$$
+Pertanto, i valori $\hat{\beta_2}, \hat{\beta}_3$ e $\hat{\beta}_4$ corrispondono alla differenza tra il reciproco delle media del gruppo di riferimento ed il reciproco della media del gruppo `A`. Per esempio, si ha che
+$$
+\hat{\beta}_2 = \frac{1}{\mathbb{E}(Y_B)} - \frac{1}{\mathbb{E}(Y_A)}.
+$$
+Di consequenza, valori positivi di $\hat{\beta}_2$ implicano che $\hat{\mathbb{E}}(Y_A) > \hat{\mathbb{E}}(Y_B)$; la disuguaglianza è invertita in caso di valori negativi di $\hat{\beta}_2$. 
 :::
 
 <!-- (e) Si stimi un GLM chiamato `m_gamma` con variabile risposta Gamma, usando il legame canonico, in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riportino: -->
