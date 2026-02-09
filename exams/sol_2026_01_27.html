@@ -72,6 +72,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="sol_2026_01_27_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -126,28 +169,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Punto (a)</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>anaesthetic<span class="sc">$</span>breath[anaesthetic<span class="sc">$</span>breath <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="fl">0.25</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><!-- (a) Alcuni valori di `breath` sono esattamente pari a `0` minuti, che è un errore di arrotondamento. Si sostituisca a tali valori il numero `0.25`. --></p>
+<p>Questo passaggio era necessario per lo svolgimento delle domande successive, ma non conferiva di per sè alcun punteggio.</p>
+<!-- (a) Alcuni valori di `breath` sono esattamente pari a `0` minuti, che è un errore di arrotondamento. Si sostituisca a tali valori il numero `0.25`. -->
 <!-- (b) Si ottengano dei boxplot per la variabile `breath` per ciascuno dei quattro gruppi di pazienti (senza riportarli); si commentino i risultati. Si riportino inoltre le medie e le deviazioni standard di ciascun gruppo. -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Punto (b)</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">boxplot</span>(anaesthetic<span class="sc">$</span>breath <span class="sc">~</span> anaesthetic<span class="sc">$</span>tgrp)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">tapply</span>(anaesthetic<span class="sc">$</span>breath, anaesthetic<span class="sc">$</span>tgrp, mean)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">boxplot</span>(anaesthetic<span class="sc">$</span>breath <span class="sc">~</span> anaesthetic<span class="sc">$</span>tgrp) <span class="co"># Boxplot (non mostrato nel seguente output)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">tapply</span>(anaesthetic<span class="sc">$</span>breath, anaesthetic<span class="sc">$</span>tgrp, mean) <span class="co"># Media di ciascun gruppo</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     A      B      C      D 
 5.4000 3.2500 3.0625 4.3625 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">tapply</span>(anaesthetic<span class="sc">$</span>breath, anaesthetic<span class="sc">$</span>tgrp, sd)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">tapply</span>(anaesthetic<span class="sc">$</span>breath, anaesthetic<span class="sc">$</span>tgrp, sd) <span class="co"># Deviazione standard di ciascun gruppo</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       A        B        C        D 
 5.030434 2.953588 3.107583 3.064520 </code></pre>
 </div>
 </div>
-<!-- (c) Si stimi un modello lineare chiamato `m_lin` in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riporti: -->
-<!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
-<!--     ii. Un'interpretazione dei coefficienti stimati; -->
-<!--     iii. La previsione fornita dal modello `m_lin` per ciascuno dei quattro gruppi `A`, `B`, `C`, `D`. Si commentino i risultati; -->
-<!--     iv. Il valore della statistica test e il *p-value* associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati. -->
-<!-- (d) Utilizzando i grafici diagnostici, si discuta se il modello `m_lin` presenta gravi violazioni delle assunzioni classiche; se si, quali sono? Si noti inoltre che la variabile `breath` assume solamente valori positivi: è un problema? Se si, quali soluzioni è possibile adottare? Si discuta.  -->
+<p>Sulla base dei boxplot e delle statistiche descrittive calcolate, le differenze di efficacia (<code>breath</code>) tra i diversi metodi di anestesia non appaiono particolarmente marcate. Per confermare questa valutazione preliminare, è tuttavia necessario ricorrere a un test statistico formale.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Punto (c)</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>m_lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(breath <span class="sc">~</span> tgrp, <span class="at">data =</span> anaesthetic)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si tratta di un modello <em>ANOVA</em>, un concetto che è stato trattato nel corso Analisi Statistica Multivariata. La risposta alla gran parte delle domande del punto (c) si poteva ottenere leggendo con attenzione il comando <code>summary</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(m_lin)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Anzitutto, desumiamo che l’equazione che esprime la risposta media in funzione della variabile <code>tgrp</code> è la seguente <span class="math display">
+\hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},
+</span> dove <span class="math inline">d_{i, B}, d_{i, C}</span> e <span class="math inline">d_{i, D}</span> sono delle variabili <em>dummy</em> che identificano l’appartenenza dell’i-esima unità ai gruppo <code>B</code>, <code>C</code>, <code>D</code> della variabile <code>tgrp</code>; il primo gruppo (<code>A</code>) è preso come categoria di riferimento. Di conseguenza, il valore <span class="math inline">\hat{\beta}_1</span> rappresenta la media del gruppo <code>A</code>, mentre i rimanenti coefficienti rappresentano la <strong>differenza</strong> tra la media del gruppo considerato e la media del gruppo <code>A</code>.</p>
+<p>Alla luce di quanto discusso in precedenza, risultava quindi evidente che le previsioni per ciascuno dei quattro gruppi coincidessero con le rispettive medie di gruppo. Non era pertanto necessario eseguire ulteriori comandi, poiché tali medie erano già state calcolate. In effetti, il comando <code>predict</code> restituiva proprio i valori delle medie.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">predict</span>(m_lin, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tgrp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     1      2      3      4 
+5.4000 3.2500 3.0625 4.3625 </code></pre>
+</div>
+</div>
+<p>Veniva infine richiesto di confrontare il modello stimato con il modello nullo, ossia di verificare l’ipotesi nulla<br>
+<span class="math display">H_0: \beta_2 = \beta_3 = \beta_4 = 0,</span> contro l’alternativa <span class="math inline">H_1</span>, secondo cui almeno uno dei coefficienti è diverso da zero. In questo contesto, tale sistema di ipotesi <strong>equivale a verificare se le medie dei gruppi siano uguali tra loro</strong> oppure no. Tradotto nel linguaggio del problema, si tratta di accertare, mediante un test statistico formale, se in media esistano differenze di efficacia tra le quattro differenti anestesie. Anche in questo caso, la risposta si otteneva tramite il <code>summary</code>, da cui si deduce in particolare che:</p>
+<pre><code>F-statistic: 1.774 on 3 and 76 DF,  p-value: 0.1592</code></pre>
+<p>In altri termini, la statistica test F è pari a <span class="math inline">1.774</span> avente gradi di libertà pari a <span class="math inline">q = 3</span> (numero di parametri vincolati) e <span class="math inline">n - p = 76</span>. Il <em>p-value</em> è pari a <span class="math inline">0.1592</span>, pertanto non c’è sufficiente evidenza contro l’ipotesi nulla. In altre parole, concludiamo che in media i trattamente anestetici sono indistinguibili tra loro e che eventuali differenze empiriche sono da attribuire all’effetto del caso. In alternativa, si potevano usare i seguenti comandi:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>m_lin0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(breath <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> anaesthetic)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">anova</span>(m_lin0, m_lin)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: breath ~ 1
+Model 2: breath ~ tgrp
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1     79 1079.1                           
+2     76 1008.5  3    70.628 1.7742 0.1592</code></pre>
+</div>
+</div>
+<p>che producono gli stessi identici risultati, con qualche dettaglio aggiuntivo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Punto (d)</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="fu">plot</span>(m_lin, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I grafici diagnostici non destano particolari preoccupazioni. Si osservano lievi differenze di variabilità tra i gruppi, ma, considerato il numero limitato di osservazioni, questa moderata eteroschedasticità è verosimilmente attribuibile all’effetto del caso.</p>
+<p>Il grafico diagnostico <em>Q–Q plot</em> è quello che presenta le maggiori criticità: si evidenzia infatti uno scostamento piuttosto marcato dalla distribuzione normale. Ciò non risulta particolarmente sorprendente, innanzitutto perché la variabile risposta assume esclusivamente valori positivi e, di conseguenza, la distribuzione dei residui non può essere di tipo gaussiano. Tuttavia, come discusso a lezione, deviazioni dalla normalità non sempre hanno un impatto rilevante sulle conclusioni inferenziali; questo è proprio il caso in esame (si vedano i punti successivi).</p>
+<p>In generale, le previsioni di un modello lineare possono assumere valori negativi, circostanza problematica quando la variabile risposta è limitata a valori positivi. Si osservi tuttavia che, in questo esempio specifico, le previsioni coincidono con le medie aritmetiche dei singoli gruppi; di conseguenza, esse non possono assumere valori negativi, come conseguenza della proprietà di internalità della media aritmetica.</p>
+<p>Come già osservato, il modello lineare <code>m_lin</code> risulta complessivamente soddisfacente, pur essendo formalmente mal specificato. Un’alternativa naturale, che tiene conto del fatto che la variabile risposta assume valori positivi, è rappresentata da un modello Gamma. Come si vedrà, tale scelta risulta appropriata ma non modifica le conclusioni inferenziali raggiunte.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Punto (e)</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>m_gamma <span class="ot">&lt;-</span> <span class="fu">glm</span>(breath <span class="sc">~</span> tgrp, <span class="at">data =</span> anaesthetic, <span class="at">family =</span> <span class="st">"Gamma"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La risposta alla gran parte delle domande del punto (e) si poteva ottenere leggendo con attenzione il comando <code>summary</code>. In alternativa, si potevano calcolare i coefficienti</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">coef</span>(m_gamma)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)       tgrpB       tgrpC       tgrpD 
+ 0.18518519  0.12250712  0.14134543  0.04404118 </code></pre>
+</div>
+</div>
+<p>da cui si ottiene che l’equazione che esprima la risposta media in funzione della variabile <code>tgrp</code> è <span class="math display">
+\hat{\mathbb{E}}(Y_i) = \frac{1}{\hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D}} = \frac{1}{0.185  + 0.123 \, d_{i,B} + 0.141 \, d_{i, C} + 0.044\, d_{i, D}}, \qquad i=1,\dots,80.
+</span></p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>L’interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato molte difficoltà.</p>
+</div>
+</div>
+</div>
 <!-- (e) Si stimi un GLM chiamato `m_gamma` con variabile risposta Gamma, usando il legame canonico, in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riportino: -->
 <!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
 <!--     ii. Un'interpretazione dei coefficienti stimati; -->

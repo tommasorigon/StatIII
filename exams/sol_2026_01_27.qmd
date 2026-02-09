@@ -45,7 +45,9 @@ data(anaesthetic)
 anaesthetic$breath[anaesthetic$breath == 0] <- 0.25
 ```
 
- <!-- (a) Alcuni valori di `breath` sono esattamente pari a `0` minuti, che è un errore di arrotondamento. Si sostituisca a tali valori il numero `0.25`. -->
+Questo passaggio era necessario per lo svolgimento delle domande successive, ma non conferiva di per sè alcun punteggio.
+
+<!-- (a) Alcuni valori di `breath` sono esattamente pari a `0` minuti, che è un errore di arrotondamento. Si sostituisca a tali valori il numero `0.25`. -->
 
 <!-- (b) Si ottengano dei boxplot per la variabile `breath` per ciascuno dei quattro gruppi di pazienti (senza riportarli); si commentino i risultati. Si riportino inoltre le medie e le deviazioni standard di ciascun gruppo. -->
 
@@ -53,22 +55,81 @@ anaesthetic$breath[anaesthetic$breath == 0] <- 0.25
 #| fig-show: hide
 
 # Punto (b)
-boxplot(anaesthetic$breath ~ anaesthetic$tgrp) # Boxplot
+boxplot(anaesthetic$breath ~ anaesthetic$tgrp) # Boxplot (non mostrato nel seguente output)
 tapply(anaesthetic$breath, anaesthetic$tgrp, mean) # Media di ciascun gruppo
 tapply(anaesthetic$breath, anaesthetic$tgrp, sd) # Deviazione standard di ciascun gruppo
 ```
 
+Sulla base dei boxplot e delle statistiche descrittive calcolate, le differenze di efficacia (`breath`) tra i diversi metodi di anestesia non appaiono particolarmente marcate. Per confermare questa valutazione preliminare, è tuttavia necessario ricorrere a un test statistico formale.
+
 ```{r}
+# Punto (c)
 m_lin <- lm(breath ~ tgrp, data = anaesthetic)
 ```
 
-<!-- (c) Si stimi un modello lineare chiamato `m_lin` in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riporti: -->
-<!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
-<!--     ii. Un'interpretazione dei coefficienti stimati; -->
-<!--     iii. La previsione fornita dal modello `m_lin` per ciascuno dei quattro gruppi `A`, `B`, `C`, `D`. Si commentino i risultati; -->
-<!--     iv. Il valore della statistica test e il *p-value* associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati. -->
+Si tratta di un modello *ANOVA*, un concetto che è stato trattato nel corso Analisi Statistica Multivariata. La risposta alla gran parte delle domande del punto (c) si poteva ottenere leggendo con attenzione il comando `summary`.
 
-<!-- (d) Utilizzando i grafici diagnostici, si discuta se il modello `m_lin` presenta gravi violazioni delle assunzioni classiche; se si, quali sono? Si noti inoltre che la variabile `breath` assume solamente valori positivi: è un problema? Se si, quali soluzioni è possibile adottare? Si discuta.  -->
+```{r}
+#| eval: false
+summary(m_lin)
+```
+
+Anzitutto, desumiamo che l'equazione che esprime la risposta media in funzione della variabile `tgrp` è la seguente
+$$
+\hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},
+$$
+dove $d_{i, B}, d_{i, C}$ e $d_{i, D}$ sono delle variabili *dummy* che identificano l'appartenenza dell'i-esima unità ai gruppo `B`, `C`, `D` della variabile `tgrp`; il primo gruppo (`A`) è preso come categoria di riferimento. Di conseguenza, il valore $\hat{\beta}_1$ rappresenta la media del gruppo `A`, mentre i rimanenti coefficienti rappresentano la **differenza** tra la media del gruppo considerato e la media del gruppo `A`. 
+
+Alla luce di quanto discusso in precedenza, risultava quindi evidente che le previsioni per ciascuno dei quattro gruppi coincidessero con le rispettive medie di gruppo. Non era pertanto necessario eseguire ulteriori comandi, poiché tali medie erano già state calcolate. In effetti, il comando `predict` restituiva proprio i valori delle medie.
+```{r}
+predict(m_lin, newdata = data.frame(tgrp = c("A", "B", "C", "D")))
+```
+
+Veniva infine richiesto di confrontare il modello stimato con il modello nullo, ossia di verificare l’ipotesi nulla  
+$$H_0: \beta_2 = \beta_3 = \beta_4 = 0,$$ 
+contro l’alternativa $H_1$, secondo cui almeno uno dei coefficienti è diverso da zero. In questo contesto, tale sistema di ipotesi **equivale a verificare se le medie dei gruppi siano uguali tra loro** oppure no. Tradotto nel linguaggio del problema, si tratta di accertare, mediante un test statistico formale, se in media esistano differenze di efficacia tra le quattro differenti anestesie. Anche in questo caso, la risposta si otteneva tramite il `summary`, da cui si deduce in particolare che:
+
+    F-statistic: 1.774 on 3 and 76 DF,  p-value: 0.1592
+
+In altri termini, la statistica test F è pari a $1.774$ avente gradi di libertà pari a $q = 3$ (numero di parametri vincolati) e $n - p = 76$. Il *p-value* è pari a $0.1592$, pertanto non c'è sufficiente evidenza contro l'ipotesi nulla. In altre parole, concludiamo che in media i trattamente anestetici sono indistinguibili tra loro e che eventuali differenze empiriche sono da attribuire all'effetto del caso.  In alternativa, si potevano usare i seguenti comandi:
+```{r}
+m_lin0 <- lm(breath ~ 1, data = anaesthetic)
+anova(m_lin0, m_lin)
+```
+che producono gli stessi identici risultati, con qualche dettaglio aggiuntivo. 
+
+```{r}
+#| fig-show: hide
+# Punto (d)
+par(mfrow = c(2, 2))
+plot(m_lin, which = 1:4)
+```
+
+I grafici diagnostici non destano particolari preoccupazioni. Si osservano lievi differenze di variabilità tra i gruppi, ma, considerato il numero limitato di osservazioni, questa moderata eteroschedasticità è verosimilmente attribuibile all’effetto del caso.
+
+Il grafico diagnostico *Q–Q plot* è quello che presenta le maggiori criticità: si evidenzia infatti uno scostamento piuttosto marcato dalla distribuzione normale. Ciò non risulta particolarmente sorprendente, innanzitutto perché la variabile risposta assume esclusivamente valori positivi e, di conseguenza, la distribuzione dei residui non può essere di tipo gaussiano. Tuttavia, come discusso a lezione, deviazioni dalla normalità non sempre hanno un impatto rilevante sulle conclusioni inferenziali; questo è proprio il caso in esame (si vedano i punti successivi).
+
+In generale, le previsioni di un modello lineare possono assumere valori negativi, circostanza problematica quando la variabile risposta è limitata a valori positivi. Si osservi tuttavia che, in questo esempio specifico, le previsioni coincidono con le medie aritmetiche dei singoli gruppi; di conseguenza, esse non possono assumere valori negativi, come conseguenza della proprietà di internalità della media aritmetica.
+
+Come già osservato, il modello lineare `m_lin` risulta complessivamente soddisfacente, pur essendo formalmente mal specificato. Un’alternativa naturale, che tiene conto del fatto che la variabile risposta assume valori positivi, è rappresentata da un modello Gamma. Come si vedrà, tale scelta risulta appropriata ma non modifica le conclusioni inferenziali raggiunte.
+
+```{r}
+# Punto (e)
+m_gamma <- glm(breath ~ tgrp, data = anaesthetic, family = "Gamma")
+```
+
+La risposta alla gran parte delle domande del punto (e) si poteva ottenere leggendo con attenzione il comando `summary`. In alternativa, si potevano calcolare i coefficienti 
+```{r}
+coef(m_gamma)
+```
+da cui si ottiene che l'equazione che esprima la risposta media in funzione della variabile `tgrp` è
+$$
+\hat{\mathbb{E}}(Y_i) = \frac{1}{\hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D}} = \frac{1}{0.185  + 0.123 \, d_{i,B} + 0.141 \, d_{i, C} + 0.044\, d_{i, D}}, \qquad i=1,\dots,80.
+$$
+
+:::callout-warning
+L'interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato molte difficoltà. 
+:::
 
 <!-- (e) Si stimi un GLM chiamato `m_gamma` con variabile risposta Gamma, usando il legame canonico, in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riportino: -->
 <!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
