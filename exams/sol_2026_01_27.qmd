@@ -1,0 +1,83 @@
+---
+title: "Soluzione esame del 27 Gennaio 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Parte I: analisi dei dati
+
+```{r}
+library(faraway)
+data(anaesthetic)
+```
+
+```{r}
+# Punto (a)
+anaesthetic$breath[anaesthetic$breath == 0] <- 0.25
+```
+
+ <!-- (a) Alcuni valori di `breath` sono esattamente pari a `0` minuti, che è un errore di arrotondamento. Si sostituisca a tali valori il numero `0.25`. -->
+
+<!-- (b) Si ottengano dei boxplot per la variabile `breath` per ciascuno dei quattro gruppi di pazienti (senza riportarli); si commentino i risultati. Si riportino inoltre le medie e le deviazioni standard di ciascun gruppo. -->
+
+```{r}
+#| fig-show: hide
+
+# Punto (b)
+boxplot(anaesthetic$breath ~ anaesthetic$tgrp) # Boxplot
+tapply(anaesthetic$breath, anaesthetic$tgrp, mean) # Media di ciascun gruppo
+tapply(anaesthetic$breath, anaesthetic$tgrp, sd) # Deviazione standard di ciascun gruppo
+```
+
+```{r}
+m_lin <- lm(breath ~ tgrp, data = anaesthetic)
+```
+
+<!-- (c) Si stimi un modello lineare chiamato `m_lin` in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riporti: -->
+<!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
+<!--     ii. Un'interpretazione dei coefficienti stimati; -->
+<!--     iii. La previsione fornita dal modello `m_lin` per ciascuno dei quattro gruppi `A`, `B`, `C`, `D`. Si commentino i risultati; -->
+<!--     iv. Il valore della statistica test e il *p-value* associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati. -->
+
+<!-- (d) Utilizzando i grafici diagnostici, si discuta se il modello `m_lin` presenta gravi violazioni delle assunzioni classiche; se si, quali sono? Si noti inoltre che la variabile `breath` assume solamente valori positivi: è un problema? Se si, quali soluzioni è possibile adottare? Si discuta.  -->
+
+<!-- (e) Si stimi un GLM chiamato `m_gamma` con variabile risposta Gamma, usando il legame canonico, in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riportino: -->
+<!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
+<!--     ii. Un'interpretazione dei coefficienti stimati; -->
+<!--     iii. La previsione fornita dal modello `m_gamma` per ciascuno dei quattro gruppi `A`, `B`, `C`, `D`. Si commentino i risultati e li si confronti con quelli ottenuti con il modello `m_lin`; -->
+<!--     iv. Il valore della statistica test di log-rapporto di verosimiglianza e il *p-value* associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati e li si confronti con quelli ottenuti con il modello `m_lin`. -->
+
+<!-- (f) Utilizzando i grafici diagnostici, si discuta se il modello `m_gamma` presenta gravi violazioni delle assunzioni fatte; se si, quali? -->
+
+<!-- (g) Si vuole testare se la media del gruppo `A`, indicata con $\mu_A$, è o meno pari a $10$. Utilizzando il modello `m_gamma`, si ottenga una statistica test opportuna e si calcoli il relativo *p-value*. Si commentino i risultati. -->
+
+<!-- (h) Ha senso verificare se nel modello `m_gamma` è presente sovradispersione? In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti. -->
