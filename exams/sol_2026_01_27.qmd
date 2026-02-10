@@ -56,7 +56,7 @@ Questo passaggio era necessario per lo svolgimento delle domande successive, ma 
 #| fig-show: hide
 
 # Punto (b)
-boxplot(anaesthetic$breath ~ anaesthetic$tgrp) # Boxplot (non mostrato nel seguente output)
+boxplot(anaesthetic$breath ~ anaesthetic$tgrp) # Boxplot (non mostrato nel seguito)
 tapply(anaesthetic$breath, anaesthetic$tgrp, mean) # Media di ciascun gruppo
 tapply(anaesthetic$breath, anaesthetic$tgrp, sd) # Deviazione standard di ciascun gruppo
 ```
@@ -68,7 +68,7 @@ Sulla base dei boxplot e delle statistiche descrittive calcolate, le differenze 
 m_lin <- lm(breath ~ tgrp, data = anaesthetic)
 ```
 
-Si tratta di un modello *ANOVA*, un concetto che è stato trattato nel corso Analisi Statistica Multivariata. La risposta alla gran parte delle domande del punto (c) si poteva ottenere leggendo con attenzione il comando `summary`.
+Si tratta di un modello di tipo *ANOVA*, un concetto che è stato trattato anche nel corso Analisi Statistica Multivariata. La risposta alla gran parte delle domande del punto (c) si poteva ottenere leggendo con attenzione i risultati del comando `summary`.
 
 ```{r}
 #| eval: false
@@ -79,14 +79,14 @@ Anzitutto, desumiamo che l'equazione che esprime la risposta media in funzione d
 $$
 \hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},\qquad i=1,\dots,80.
 $$
-dove $d_{i, B}, d_{i, C}$ e $d_{i, D}$ sono delle variabili *dummy* che identificano l'appartenenza dell'i-esima unità ai gruppo `B`, `C`, `D` della variabile `tgrp`; il primo gruppo (`A`) è preso come categoria di riferimento. Di conseguenza, il valore $\hat{\beta}_1$ rappresenta la media del gruppo `A`, mentre i rimanenti coefficienti rappresentano la **differenza** tra la media del gruppo considerato e la media del gruppo `A`. 
+dove $d_{i, B}, d_{i, C}$ e $d_{i, D}$ sono delle variabili *dummy* che identificano l'appartenenza dell'i-esima unità al gruppo `B`, `C`, `D` della variabile `tgrp`; il primo gruppo (`A`) è preso come categoria di riferimento. Di conseguenza, il valore $\hat{\beta}_1$ rappresenta la media del gruppo `A`, mentre i rimanenti coefficienti rappresentano la **differenza** tra la media del gruppo considerato e la media del gruppo `A`. 
 
-Alla luce di quanto discusso in precedenza, risultava quindi evidente che le previsioni per ciascuno dei quattro gruppi coincidessero con le rispettive medie di gruppo. Non era pertanto necessario eseguire ulteriori comandi, poiché tali medie erano già state calcolate. In effetti, il comando `predict` restituiva proprio i valori delle medie.
+Di conseguenza, le previsioni per ciascuno dei quattro gruppi coincidono con le rispettive medie di gruppo. Non era necessario eseguire ulteriori comandi, poiché tali medie erano già state calcolate. In effetti, il comando `predict` produce proprio i valori delle medie.
 ```{r}
 predict(m_lin, newdata = data.frame(tgrp = c("A", "B", "C", "D")))
 ```
 
-Veniva infine richiesto di confrontare il modello stimato con il modello nullo, ossia di verificare l’ipotesi nulla  
+Veniva infine richiesto di confrontare il modello stimato con il modello nullo, ossia di verificare l’ipotesi  
 $$H_0: \beta_2 = \beta_3 = \beta_4 = 0,$$ 
 contro l’alternativa $H_1$, secondo cui almeno uno dei coefficienti è diverso da zero. In questo contesto, tale sistema di ipotesi **equivale a verificare se le medie dei gruppi siano uguali tra loro** oppure no. Tradotto nel linguaggio del problema, si tratta di accertare, mediante un test statistico formale, se in media esistano differenze di efficacia tra le quattro differenti anestesie. Anche in questo caso, la risposta si otteneva tramite il `summary`, da cui si deduce in particolare che:
 
@@ -119,7 +119,7 @@ Come già osservato, il modello lineare `m_lin` risulta complessivamente soddisf
 m_gamma <- glm(breath ~ tgrp, data = anaesthetic, family = "Gamma")
 ```
 
-La risposta alla gran parte delle domande del punto (e) si poteva ottenere leggendo con attenzione il comando `summary`. In alternativa, si potevano calcolare i coefficienti 
+La risposta alla gran parte delle domande del punto (e) si poteva desumere dai risultati del comando `summary`. In alternativa, si potevano calcolare i coefficienti 
 ```{r}
 coef(m_gamma)
 ```
@@ -129,11 +129,11 @@ $$
 $$
 
 :::callout-warning
-L'interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato molte difficoltà. La media della variabile aleatoria $Y_A$, cioè una generica variabile risposta appartenente al gruppo `A`, è pari a
+L'interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato qualche difficoltà. La media della variabile aleatoria $Y_A$, cioè una generica variabile risposta appartenente al gruppo `A`, è pari a
 $$
 \hat{\mathbb{E}}(Y_A) = \frac{1}{\hat{\beta}_1} = \frac{1}{0.185} = 5.40.
 $$
-In altre parole, $\hat{\beta}_1$ rappresenta il reciproco della media del gruppo `A`. Inoltre, prendendo come esempio il gruppo `B`, si noti che la media di $Y_B$ è pari a
+In altre parole, $\hat{\beta}_1$ rappresenta il reciproco della media del gruppo `A`. Inoltre, prendendo come esempio il gruppo `B`, la media di $Y_B$ è pari a
 $$
 \hat{\mathbb{E}}(Y_B) = \frac{1}{\hat{\beta}_1 + \hat{\beta}_2} = \frac{1}{0.185 + 0.123} = 3.25.
 $$
@@ -165,9 +165,9 @@ contro l’alternativa $H_1$, secondo cui almeno uno dei coefficienti è diverso
 Il default del comando `anova` non è il test `LRT` (log-rapporto di verosimiglianza), bensì il test `F`, che non abbiamo mai visto a lezione. I risultati sono corretti da un punto di vista statistico ma non sono quanto richiesto.
 :::
 
-Il *p-value* associato al test $W$ con $q = 3$ gradi di libertà (numero di vincoli, `Df`) è pari a $0.1511$, che è praticamente identico a quello ottenuto nel caso del modello `m_lin`. Le conclusioni qualitative sono le medesime. 
+Il *p-value* associato al test $W$ con $q = 3$ gradi di libertà (numero di vincoli, `Df`) è pari a $0.1511$, che è molto simile a quello ottenuto nel caso del modello `m_lin`. Le conclusioni qualitative sono quindi le medesime, cioè che non v'è una differenza statisticamente significativa tra le medie dei gruppi. 
 
-Il valore del test $W$ non è riportato tra le informazioni fornite da `anova`, poichè `Deviance` rappresenta al differenza tra le devianze considerate, che tuttavia va riscalata per $\hat{\phi}$ quando questo è diverso da $1$. Di conseguenza:
+Il valore del test $W$ non è riportato tra le informazioni fornite dal comando `anova`. Il valore `Deviance` rappresenta la differenza tra le devianze dei due modelli, che tuttavia va riscalato per $\hat{\phi}$ quando questo è diverso da $1$. Di conseguenza:
 
 ```{r}
 deviance_diff <- deviance(m_gamma0) - deviance(m_gamma)
@@ -176,7 +176,7 @@ W <- deviance_diff / phi_hat
 round(c(deviance_diff, phi_hat, W), 4)
 ```
 
-Pertanto si ottiene che la statistica test è $W = 4.2621 / 0.8042 = 5.2997$.
+Pertanto si ottiene che la statistica test log-rapporto di verosimiglianza è $W = 4.2621 / 0.8042 = 5.2997$.
 
 ```{r}
 #| fig-show: hide
@@ -198,12 +198,12 @@ z_test <- (fit_A$fit - 10) / fit_A$se.fit # statistica test
 Una statistica test basata sulla deviazione standard è la seguente
 $$z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480.
 $$
-Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale standard. Pertanto, il *p-value* associato è praticamente pari a $0$. Di conseguenza, si rifiuta l'ipotesi nulla $H_0: \mu_A = 10$. 
+Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale standard. Pertanto, il *p-value* associato è praticamente pari a $0$. Di conseguenza, si rifiuta l'ipotesi nulla $H_0: \mu_A = 10$ in favore dell'ipotesti alternativa $H_1 : \mu_A \neq 10$. 
 
 ```{r}
 # Punto (h)
 
-# NON BISOGNAVA FARE NULLA.
+# NON BISOGNAVA FARE NULLA
 ```
 
 No, non ha senso verificare se nel modello `m_gamma` è presente sovradispersione. Il modello Gamma già prevede un parametro di dispersione, in questo caso pari a $\hat{\phi} = 0.8042$. 

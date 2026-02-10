@@ -182,7 +182,7 @@ window.Quarto = {
 <!-- (b) Si ottengano dei boxplot per la variabile `breath` per ciascuno dei quattro gruppi di pazienti (senza riportarli); si commentino i risultati. Si riportino inoltre le medie e le deviazioni standard di ciascun gruppo. -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Punto (b)</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">boxplot</span>(anaesthetic<span class="sc">$</span>breath <span class="sc">~</span> anaesthetic<span class="sc">$</span>tgrp) <span class="co"># Boxplot (non mostrato nel seguente output)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">boxplot</span>(anaesthetic<span class="sc">$</span>breath <span class="sc">~</span> anaesthetic<span class="sc">$</span>tgrp) <span class="co"># Boxplot (non mostrato nel seguito)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">tapply</span>(anaesthetic<span class="sc">$</span>breath, anaesthetic<span class="sc">$</span>tgrp, mean) <span class="co"># Media di ciascun gruppo</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     A      B      C      D 
@@ -199,14 +199,14 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Punto (c)</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>m_lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(breath <span class="sc">~</span> tgrp, <span class="at">data =</span> anaesthetic)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Si tratta di un modello <em>ANOVA</em>, un concetto che è stato trattato nel corso Analisi Statistica Multivariata. La risposta alla gran parte delle domande del punto (c) si poteva ottenere leggendo con attenzione il comando <code>summary</code>.</p>
+<p>Si tratta di un modello di tipo <em>ANOVA</em>, un concetto che è stato trattato anche nel corso Analisi Statistica Multivariata. La risposta alla gran parte delle domande del punto (c) si poteva ottenere leggendo con attenzione i risultati del comando <code>summary</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">summary</span>(m_lin)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Anzitutto, desumiamo che l’equazione che esprime la risposta media in funzione della variabile <code>tgrp</code> è la seguente <span class="math display">
 \hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},\qquad i=1,\dots,80.
-</span> dove <span class="math inline">d_{i, B}, d_{i, C}</span> e <span class="math inline">d_{i, D}</span> sono delle variabili <em>dummy</em> che identificano l’appartenenza dell’i-esima unità ai gruppo <code>B</code>, <code>C</code>, <code>D</code> della variabile <code>tgrp</code>; il primo gruppo (<code>A</code>) è preso come categoria di riferimento. Di conseguenza, il valore <span class="math inline">\hat{\beta}_1</span> rappresenta la media del gruppo <code>A</code>, mentre i rimanenti coefficienti rappresentano la <strong>differenza</strong> tra la media del gruppo considerato e la media del gruppo <code>A</code>.</p>
-<p>Alla luce di quanto discusso in precedenza, risultava quindi evidente che le previsioni per ciascuno dei quattro gruppi coincidessero con le rispettive medie di gruppo. Non era pertanto necessario eseguire ulteriori comandi, poiché tali medie erano già state calcolate. In effetti, il comando <code>predict</code> restituiva proprio i valori delle medie.</p>
+</span> dove <span class="math inline">d_{i, B}, d_{i, C}</span> e <span class="math inline">d_{i, D}</span> sono delle variabili <em>dummy</em> che identificano l’appartenenza dell’i-esima unità al gruppo <code>B</code>, <code>C</code>, <code>D</code> della variabile <code>tgrp</code>; il primo gruppo (<code>A</code>) è preso come categoria di riferimento. Di conseguenza, il valore <span class="math inline">\hat{\beta}_1</span> rappresenta la media del gruppo <code>A</code>, mentre i rimanenti coefficienti rappresentano la <strong>differenza</strong> tra la media del gruppo considerato e la media del gruppo <code>A</code>.</p>
+<p>Di conseguenza, le previsioni per ciascuno dei quattro gruppi coincidono con le rispettive medie di gruppo. Non era necessario eseguire ulteriori comandi, poiché tali medie erano già state calcolate. In effetti, il comando <code>predict</code> produce proprio i valori delle medie.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">predict</span>(m_lin, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tgrp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -214,7 +214,7 @@ window.Quarto = {
 5.4000 3.2500 3.0625 4.3625 </code></pre>
 </div>
 </div>
-<p>Veniva infine richiesto di confrontare il modello stimato con il modello nullo, ossia di verificare l’ipotesi nulla<br>
+<p>Veniva infine richiesto di confrontare il modello stimato con il modello nullo, ossia di verificare l’ipotesi<br>
 <span class="math display">H_0: \beta_2 = \beta_3 = \beta_4 = 0,</span> contro l’alternativa <span class="math inline">H_1</span>, secondo cui almeno uno dei coefficienti è diverso da zero. In questo contesto, tale sistema di ipotesi <strong>equivale a verificare se le medie dei gruppi siano uguali tra loro</strong> oppure no. Tradotto nel linguaggio del problema, si tratta di accertare, mediante un test statistico formale, se in media esistano differenze di efficacia tra le quattro differenti anestesie. Anche in questo caso, la risposta si otteneva tramite il <code>summary</code>, da cui si deduce in particolare che:</p>
 <pre><code>F-statistic: 1.774 on 3 and 76 DF,  p-value: 0.1592</code></pre>
 <p>In altri termini, la statistica test F è pari a <span class="math inline">1.774</span> avente gradi di libertà pari a <span class="math inline">q = 3</span> (numero di parametri vincolati) e <span class="math inline">n - p = 76</span>. Il <em>p-value</em> è pari a <span class="math inline">0.1592</span>, pertanto non c’è sufficiente evidenza contro l’ipotesi nulla. In altre parole, concludiamo che in media i trattamente anestetici sono indistinguibili tra loro e che eventuali differenze empiriche sono da attribuire all’effetto del caso. In alternativa, si potevano usare i seguenti comandi:</p>
@@ -245,7 +245,7 @@ Model 2: breath ~ tgrp
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Punto (e)</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>m_gamma <span class="ot">&lt;-</span> <span class="fu">glm</span>(breath <span class="sc">~</span> tgrp, <span class="at">data =</span> anaesthetic, <span class="at">family =</span> <span class="st">"Gamma"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>La risposta alla gran parte delle domande del punto (e) si poteva ottenere leggendo con attenzione il comando <code>summary</code>. In alternativa, si potevano calcolare i coefficienti</p>
+<p>La risposta alla gran parte delle domande del punto (e) si poteva desumere dai risultati del comando <code>summary</code>. In alternativa, si potevano calcolare i coefficienti</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">coef</span>(m_gamma)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -262,9 +262,9 @@ Model 2: breath ~ tgrp
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>L’interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato molte difficoltà. La media della variabile aleatoria <span class="math inline">Y_A</span>, cioè una generica variabile risposta appartenente al gruppo <code>A</code>, è pari a <span class="math display">
+<p>L’interpretazione dei coefficienti stimati in un modello gamma con legame canonico ha causato qualche difficoltà. La media della variabile aleatoria <span class="math inline">Y_A</span>, cioè una generica variabile risposta appartenente al gruppo <code>A</code>, è pari a <span class="math display">
 \hat{\mathbb{E}}(Y_A) = \frac{1}{\hat{\beta}_1} = \frac{1}{0.185} = 5.40.
-</span> In altre parole, <span class="math inline">\hat{\beta}_1</span> rappresenta il reciproco della media del gruppo <code>A</code>. Inoltre, prendendo come esempio il gruppo <code>B</code>, si noti che la media di <span class="math inline">Y_B</span> è pari a <span class="math display">
+</span> In altre parole, <span class="math inline">\hat{\beta}_1</span> rappresenta il reciproco della media del gruppo <code>A</code>. Inoltre, prendendo come esempio il gruppo <code>B</code>, la media di <span class="math inline">Y_B</span> è pari a <span class="math display">
 \hat{\mathbb{E}}(Y_B) = \frac{1}{\hat{\beta}_1 + \hat{\beta}_2} = \frac{1}{0.185 + 0.123} = 3.25.
 </span> Pertanto, i valori <span class="math inline">\hat{\beta_2}, \hat{\beta}_3</span> e <span class="math inline">\hat{\beta}_4</span> corrispondono alla differenza tra il reciproco delle media del gruppo di riferimento ed il reciproco della media del gruppo <code>A</code>. Per esempio, si ha che <span class="math display">
 \hat{\beta}_2 = \frac{1}{\mathbb{E}(Y_B)} - \frac{1}{\mathbb{E}(Y_A)}.
@@ -307,8 +307,8 @@ Model 2: breath ~ tgrp
 </div>
 </div>
 </div>
-<p>Il <em>p-value</em> associato al test <span class="math inline">W</span> con <span class="math inline">q = 3</span> gradi di libertà (numero di vincoli, <code>Df</code>) è pari a <span class="math inline">0.1511</span>, che è praticamente identico a quello ottenuto nel caso del modello <code>m_lin</code>. Le conclusioni qualitative sono le medesime.</p>
-<p>Il valore del test <span class="math inline">W</span> non è riportato tra le informazioni fornite da <code>anova</code>, poichè <code>Deviance</code> rappresenta al differenza tra le devianze considerate, che tuttavia va riscalata per <span class="math inline">\hat{\phi}</span> quando questo è diverso da <span class="math inline">1</span>. Di conseguenza:</p>
+<p>Il <em>p-value</em> associato al test <span class="math inline">W</span> con <span class="math inline">q = 3</span> gradi di libertà (numero di vincoli, <code>Df</code>) è pari a <span class="math inline">0.1511</span>, che è molto simile a quello ottenuto nel caso del modello <code>m_lin</code>. Le conclusioni qualitative sono quindi le medesime, cioè che non v’è una differenza statisticamente significativa tra le medie dei gruppi.</p>
+<p>Il valore del test <span class="math inline">W</span> non è riportato tra le informazioni fornite dal comando <code>anova</code>. Il valore <code>Deviance</code> rappresenta la differenza tra le devianze dei due modelli, che tuttavia va riscalato per <span class="math inline">\hat{\phi}</span> quando questo è diverso da <span class="math inline">1</span>. Di conseguenza:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>deviance_diff <span class="ot">&lt;-</span> <span class="fu">deviance</span>(m_gamma0) <span class="sc">-</span> <span class="fu">deviance</span>(m_gamma)</span>
 <span id="cb24-2"><a href="#cb24-2"></a>phi_hat <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_gamma)<span class="sc">$</span>dispersion</span>
@@ -318,7 +318,7 @@ Model 2: breath ~ tgrp
 <pre><code>[1] 4.2621 0.8042 5.2997</code></pre>
 </div>
 </div>
-<p>Pertanto si ottiene che la statistica test è <span class="math inline">W = 4.2621 / 0.8042 = 5.2997</span>.</p>
+<p>Pertanto si ottiene che la statistica test log-rapporto di verosimiglianza è <span class="math inline">W = 4.2621 / 0.8042 = 5.2997</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Punto (f)</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
@@ -332,7 +332,7 @@ Model 2: breath ~ tgrp
 <span id="cb27-4"><a href="#cb27-4"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z_test))) <span class="co"># p-value</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Una statistica test basata sulla deviazione standard è la seguente <span class="math display">z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480.
-</span> Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale standard. Pertanto, il <em>p-value</em> associato è praticamente pari a <span class="math inline">0</span>. Di conseguenza, si rifiuta l’ipotesi nulla <span class="math inline">H_0: \mu_A = 10</span>.</p>
+</span> Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale standard. Pertanto, il <em>p-value</em> associato è praticamente pari a <span class="math inline">0</span>. Di conseguenza, si rifiuta l’ipotesi nulla <span class="math inline">H_0: \mu_A = 10</span> in favore dell’ipotesti alternativa <span class="math inline">H_1 : \mu_A \neq 10</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Punto (h)</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a></span>
