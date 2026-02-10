@@ -197,7 +197,7 @@ p_value <- 2 * (1 - pnorm(abs(z_test))) # p-value
 round(c(z_test, p_value), 4)
 ```
 Una statistica test basata sulla deviazione standard è la seguente
-$$z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480.
+$$z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2481.
 $$
 Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale standard. Pertanto, il *p-value* associato è praticamente pari a $0$. Di conseguenza, si rifiuta l'ipotesi nulla $H_0: \mu_A = 10$ in favore dell'ipotesti alternativa $H_1 : \mu_A \neq 10$. 
 
