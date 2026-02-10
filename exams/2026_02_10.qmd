@@ -38,3 +38,53 @@ Il tempo a disposizione per lo svolgimento della prova è di **2 ore e 30 minuti
 Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.
 
 ## Parte I: analisi dei dati
+
+Si considerino i dati `Default` della libreria `ISLR2`, che contengono informazioni su 10 000 clienti di una banca, alcuni dei quali sono risultati insolventi (`default = "Yes"`). Le variabili presenti sono:
+
+- `default`: variabile qualitativa che indica se il cliente è risultato insolvente (`Yes`) oppure no (`No`);
+- `student`: variabile qualitativa che indica se il cliente è uno studente (`Yes`) oppure no (`No`);
+- `balance`: saldo medio residuo **dovuto** dal cliente sulla carta di credito, espresso in dollari statunitensi (USD);
+- `income`: retribuzione annua lorda (RAL) del cliente, espressa in dollari statunitensi (USD).
+
+Facendo uso del software **R**, si risponda alle seguenti domande.
+
+(a) Si costruiscano due boxplot: nel primo grafico, la variabile `balance` è raggruppata rispetto a `default`; nel secondo grafico, la variabile `balance` è raggruppata rispetto alla variabile `student`.  Si commentino i risultati ottenuti.
+
+(b) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `default` e come variabile esplicativa `student`. Si indichi tale modello con `m1`. Si riportino:
+	i.	l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza;
+	ii.	il valore delle statistiche test e i *p-value* dei **test di Wald** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test.
+	iii. Si discuta se l’essere studenti aumenti o diminuisca la probabilità di insolvenza e di quanto, sulla base del modello `m1`.
+
+
+(c) Si modifichi il modello `m1` aggiungendo anche le variabili `income` e `balance`. Si indichi tale modello con `m2`. Si riportino:
+    i. l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza;
+    ii. un’interpretazione di tutti i coefficienti stimati. In particolare, l’essere studenti aumenta o diminuisce la probabilità di insolvenza? Di quanto?
+    iii. Si discuta se l’interpretazione fornita al punto precedente sia coerente con quella ottenuta nel modello `m1`. Si commenti il risultato e se ne fornisca una giustificazione.
+
+(d) Il modello `m2` è preferibile rispetto al modello `m1`? Si motivi la risposta.
+
+(e) La variabile `income` può essere rimossa dal modello `m2`? Si motivi la risposta.
+
+(f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione.
+
+(g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti.
+
+## Part2 II: teoria ed esercizi
+
+#### Problema 1
+
+Cosa si intende per trasformazioni che stabilizzano la varianza? Si discuta il concetto, illustrandolo mediante esempi e richiamando risultati teorici rilevanti.
+
+
+#### Problema 2
+
+Sia $S$ una variabile aleatoria binomiale di parametri $m \in \mathbb{N}$ e con probabilità di successo $\pi \in (0,1)$, la cui funzione di probabilità è
+$$
+p(s ; \pi) = \binom{m}{s}\pi^s(1 - \pi)^{m-s}, 
+\qquad s = 0,1,2,\dots,m.
+$$
+Inoltre, sia $Y = S / m$. Si mostri che $Y$ appartiene alla famiglia a dispersione esponenziale e si descrivano (svolgendo tutti i passaggi) le sue caratteristiche, cioè il parametro naturale, l'eventuale parametro di dispersione, le funzioni $a_i(\cdot), b(\cdot), c(\cdot)$, la funzione media e la funzione varianza.
+
+#### Problema 3
+
+Nella selezione delle variabili esplicative per un modello lineare generalizzato, che cosa rende inadeguata la strategia di scegliere il modello con la devianza minima?

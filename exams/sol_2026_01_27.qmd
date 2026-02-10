@@ -144,13 +144,69 @@ $$
 Di consequenza, valori positivi di $\hat{\beta}_2$ implicano che $\hat{\mathbb{E}}(Y_A) > \hat{\mathbb{E}}(Y_B)$; la disuguaglianza è invertita in caso di valori negativi di $\hat{\beta}_2$. 
 :::
 
-<!-- (e) Si stimi un GLM chiamato `m_gamma` con variabile risposta Gamma, usando il legame canonico, in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riportino: -->
-<!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
-<!--     ii. Un'interpretazione dei coefficienti stimati; -->
-<!--     iii. La previsione fornita dal modello `m_gamma` per ciascuno dei quattro gruppi `A`, `B`, `C`, `D`. Si commentino i risultati e li si confronti con quelli ottenuti con il modello `m_lin`; -->
-<!--     iv. Il valore della statistica test di log-rapporto di verosimiglianza e il *p-value* associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati e li si confronti con quelli ottenuti con il modello `m_lin`. -->
+```{r}
+# Punto (e.iii)
+predict(m_gamma, newdata = data.frame(tgrp = c("A", "B", "C", "D")), type = "response")
+```
 
-<!-- (f) Utilizzando i grafici diagnostici, si discuta se il modello `m_gamma` presenta gravi violazioni delle assunzioni fatte; se si, quali? -->
+Le previsioni del modello gamma sono pari, ancora una volta, alle medie campionarie di ciascun gruppo. [Non è un caso](https://tommasorigon.github.io/StatIII/exe/exe_B_F.pdf), come visto negli esercizi teorici. Di conseguenza, le previsioni di questo modello sono identiche a quelle del modello lineare.
+
+```{r}
+# Punto (e.iv)
+m_gamma0 <- glm(breath ~ 1, data = anaesthetic, family = "Gamma")
+anova(m_gamma0, m_gamma, test = "LRT")
+```
+
+Il sistema d'ipotesi del test log-rapporto di verosimiglianza è identico a quello del modello lineare, ossia di verificare l’ipotesi nulla  
+$$H_0: \beta_2 = \beta_3 = \beta_4 = 0,$$ 
+contro l’alternativa $H_1$, secondo cui almeno uno dei coefficienti è diverso da zero. Tale sistema di ipotesi **equivale a verificare se le medie dei gruppi siano uguali tra loro** oppure no.
+
+:::callout-warning
+Il default del comando `anova` non è il test `LRT` (log-rapporto di verosimiglianza), bensì il test `F`, che non abbiamo mai visto a lezione. I risultati sono corretti da un punto di vista statistico ma non sono quanto richiesto.
+:::
+
+Il *p-value*, cioè `Pr(>Chi)`, associato al test $W$ con $q = 3$ gradi di libertà (numero di vincoli, `Df`) è pari a $0.1511$, che è praticamente identico a quello ottenuto nel caso del modello `m_lin`. Le conclusioni qualitative sono le medesime. 
+
+Il valore del test $W$ non è riportato tra le informazioni fornite da `anova` e va quindi calcolato "a mano". In effetti `Deviance` rappresenta al differenza tra le devianze considerate, che tuttavia va riscalata per $\hat{\phi}$ quando questo è diverso da $1$. Di conseguenza
+
+```{r}
+deviance_diff <- deviance(m_gamma0) - deviance(m_gamma)
+phi_hat <- summary(m_gamma)$dispersion
+W <- deviance_diff / phi_hat
+round(c(deviance_diff, phi_hat, W), 4)
+```
+
+Pertanto si ottiene che la statistica test è $W = 4.2621 / 0.8042 = 5.2997$.
+
+```{r}
+#| fig-show: hide
+# Punto (f)
+par(mfrow = c(2, 2))
+plot(m_gamma, which = 1:4)
+```
+
+I grafici diagnostici non presentano alcun tipo di problematicità e sono migliorati rispetto a quelli del modello lineare.
+
+```{r}
+#| eval: false
+
+# Punto (g)
+fit_A <- predict(m_gamma, newdata = data.frame(tgrp = c("A")), type = "response", se = TRUE)
+z_test <- (fit_A$fit - 10) / fit_A$se.fit
+2 * (1 - pnorm(abs(z_test)))
+```
+Una statistica test basata sulla deviazione standard è la seguente
+$$z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480,
+$$
+Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale. Pertanto, il *p-value* associato è praticamente pari a $0$. Ci conseguenza, si rifiuta l'ipotesi nulla $H_0: \mu_A = 10$. 
+
+```{r}
+# Punto (h)
+
+# NON BISOGNAVA FARE NULLA.
+```
+
+No, non ha senso verificare se nel modello `m_gamma` è presente sovradispersione. Il modello Gamma già prevede un parametro di dispersione, in questo caso pari a $\hat{\phi} = 0.8042$. 
 
 <!-- (g) Si vuole testare se la media del gruppo `A`, indicata con $\mu_A$, è o meno pari a $10$. Utilizzando il modello `m_gamma`, si ottenga una statistica test opportuna e si calcoli il relativo *p-value*. Si commentino i risultati. -->
 

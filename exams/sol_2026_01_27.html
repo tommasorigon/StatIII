@@ -272,12 +272,73 @@ Model 2: breath ~ tgrp
 </div>
 </div>
 </div>
-<!-- (e) Si stimi un GLM chiamato `m_gamma` con variabile risposta Gamma, usando il legame canonico, in cui `breath` rappresenta la variabile risposta, mentre `tgrp` è usata come variabile esplicativa. Si riportino: -->
-<!--     i. L'equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori della stima di massima verosimiglianza; -->
-<!--     ii. Un'interpretazione dei coefficienti stimati; -->
-<!--     iii. La previsione fornita dal modello `m_gamma` per ciascuno dei quattro gruppi `A`, `B`, `C`, `D`. Si commentino i risultati e li si confronti con quelli ottenuti con il modello `m_lin`; -->
-<!--     iv. Il valore della statistica test di log-rapporto di verosimiglianza e il *p-value* associato per confrontare il modello stimato con il modello nullo. Si riportino il sistema d’ipotesi e si giustifichino i gradi di libertà della statistica test. Infine, si commentino i risultati e li si confronti con quelli ottenuti con il modello `m_lin`. -->
-<!-- (f) Utilizzando i grafici diagnostici, si discuta se il modello `m_gamma` presenta gravi violazioni delle assunzioni fatte; se si, quali? -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Punto (e.iii)</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">predict</span>(m_gamma, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tgrp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)), <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     1      2      3      4 
+5.4000 3.2500 3.0625 4.3625 </code></pre>
+</div>
+</div>
+<p>Le previsioni del modello gamma sono pari, ancora una volta, alle medie campionarie di ciascun gruppo. <a href="https://tommasorigon.github.io/StatIII/exe/exe_B_F.pdf">Non è un caso</a>, come visto negli esercizi teorici. Di conseguenza, le previsioni di questo modello sono identiche a quelle del modello lineare.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Punto (e.iv)</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>m_gamma0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(breath <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> anaesthetic, <span class="at">family =</span> <span class="st">"Gamma"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">anova</span>(m_gamma0, m_gamma, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: breath ~ 1
+Model 2: breath ~ tgrp
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1        79     63.146                     
+2        76     58.884  3   4.2621   0.1511</code></pre>
+</div>
+</div>
+<p>Il sistema d’ipotesi del test log-rapporto di verosimiglianza è identico a quello del modello lineare, ossia di verificare l’ipotesi nulla<br>
+<span class="math display">H_0: \beta_2 = \beta_3 = \beta_4 = 0,</span> contro l’alternativa <span class="math inline">H_1</span>, secondo cui almeno uno dei coefficienti è diverso da zero. Tale sistema di ipotesi <strong>equivale a verificare se le medie dei gruppi siano uguali tra loro</strong> oppure no.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Il default del comando <code>anova</code> non è il test <code>LRT</code> (log-rapporto di verosimiglianza), bensì il test <code>F</code>, che non abbiamo mai visto a lezione. I risultati sono corretti da un punto di vista statistico ma non sono quanto richiesto.</p>
+</div>
+</div>
+</div>
+<p>Il <em>p-value</em>, cioè <code>Pr(&gt;Chi)</code>, associato al test <span class="math inline">W</span> con <span class="math inline">q = 3</span> gradi di libertà (numero di vincoli, <code>Df</code>) è pari a <span class="math inline">0.1511</span>, che è praticamente identico a quello ottenuto nel caso del modello <code>m_lin</code>. Le conclusioni qualitative sono le medesime.</p>
+<p>Il valore del test <span class="math inline">W</span> non è riportato tra le informazioni fornite da <code>anova</code> e va quindi calcolato “a mano”. In effetti <code>Deviance</code> rappresenta al differenza tra le devianze considerate, che tuttavia va riscalata per <span class="math inline">\hat{\phi}</span> quando questo è diverso da <span class="math inline">1</span>. Di conseguenza</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>deviance_diff <span class="ot">&lt;-</span> <span class="fu">deviance</span>(m_gamma0) <span class="sc">-</span> <span class="fu">deviance</span>(m_gamma)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>phi_hat <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_gamma)<span class="sc">$</span>dispersion</span>
+<span id="cb24-3"><a href="#cb24-3"></a>W <span class="ot">&lt;-</span> deviance_diff <span class="sc">/</span> phi_hat</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="fu">round</span>(<span class="fu">c</span>(deviance_diff, phi_hat, W), <span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.2621 0.8042 5.2997</code></pre>
+</div>
+</div>
+<p>Pertanto si ottiene che la statistica test è <span class="math inline">W = 4.2621 / 0.8042 = 5.2997</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Punto (f)</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="fu">plot</span>(m_gamma, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I grafici diagnostici non presentano alcun tipo di problematicità e sono migliorati rispetto a quelli del modello lineare.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Punto (g)</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>fit_A <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_gamma, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tgrp =</span> <span class="fu">c</span>(<span class="st">"A"</span>)), <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-3"><a href="#cb27-3"></a>z_test <span class="ot">&lt;-</span> (fit_A<span class="sc">$</span>fit <span class="sc">-</span> <span class="dv">10</span>) <span class="sc">/</span> fit_A<span class="sc">$</span>se.fit</span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z_test)))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Una statistica test basata sulla deviazione standard è la seguente <span class="math display">z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480,
+</span> Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale. Pertanto, il <em>p-value</em> associato è praticamente pari a <span class="math inline">0</span>. Ci conseguenza, si rifiuta l’ipotesi nulla <span class="math inline">H_0: \mu_A = 10</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Punto (h)</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co"># NON BISOGNAVA FARE NULLA.</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No, non ha senso verificare se nel modello <code>m_gamma</code> è presente sovradispersione. Il modello Gamma già prevede un parametro di dispersione, in questo caso pari a <span class="math inline">\hat{\phi} = 0.8042</span>.</p>
 <!-- (g) Si vuole testare se la media del gruppo `A`, indicata con $\mu_A$, è o meno pari a $10$. Utilizzando il modello `m_gamma`, si ottenga una statistica test opportuna e si calcoli il relativo *p-value*. Si commentino i risultati. -->
 <!-- (h) Ha senso verificare se nel modello `m_gamma` è presente sovradispersione? In caso affermativo, si provi a trattarla tramite una quasi-verosimiglianza e si commentino i risultati ottenuti. -->
 </section>

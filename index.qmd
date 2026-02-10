@@ -101,8 +101,9 @@ have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------------------|------------------|------------------|------------------|
-| 27 Gennaio 2026 | [`anaesthetic`](https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html) | [Exam](exams/2026_01_27.html) |  |
-| 11 November 2025 | [`beetle`](https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html) | [Exam](exams/2025_11_18.html) | [Solution](exams/sol_2025_11_18.html) |
+| 10 Febbraio 2026 | [`Default`](https://search.r-project.org/CRAN/refmans/ISLR2/html/Default.html) | [Exam](exams/2026_02_10.html) |  |
+| 27 Gennaio 2026 | [`anaesthetic`](https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html) | [Exam](exams/2026_01_27.html) |  [Soluzione](exams/sol_2026_01_27.html) |
+| 11 November 2025 | [`beetle`](https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html) | [Exam](exams/2025_11_18.html) | [Soluzione](exams/sol_2025_11_18.html) |
 | **Old exams (prof. Migliorati)** |  |  |  |
 | 13 July 2016 | `awards` | [Exam](exams/2016_07_13.html) |  |
 | 29 Giugno 2016 | `berk` | [Exam](exams/2016_06_29.html) |  |

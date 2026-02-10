@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Statistics III: Generalized Linear Models</title>
+<title>Esame del 10 Febbraio 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,48 +24,81 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="2026_02_10_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2026_02_10_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="2026_02_10_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="2026_02_10_files/libs/quarto-html/popper.min.js"></script>
+<script src="2026_02_10_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2026_02_10_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2026_02_10_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2026_02_10_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2026_02_10_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2026_02_10_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2026_02_10_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
 <body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#teaching-material" id="toc-teaching-material" class="nav-link active" data-scroll-target="#teaching-material">Teaching material</a></li>
-  <li><a href="#previous-exams-ita" id="toc-previous-exams-ita" class="nav-link" data-scroll-target="#previous-exams-ita">Previous exams (ITA)</a></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
-  </ul>
-</nav>
-</div>
-<main class="content column-page-left" id="quarto-document-content">
+
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics III: Generalized Linear Models</h1>
-<p class="subtitle lead">CdL SSE</p>
+<h1 class="title">Esame del 10 Febbraio 2026</h1>
+<p class="subtitle lead">Statistics III - CdL SSE</p>
 </div>
 
 
-<div class="quarto-title-meta-author column-page-left">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
+<div class="quarto-title-meta-author column-page">
+  <div class="quarto-title-meta-heading">Autore/Autrice</div>
+  <div class="quarto-title-meta-heading">Affiliazione</div>
   
     <div class="quarto-title-meta-contents">
     <p class="author"><span class="orange">Tommaso Rigon</span> </p>
@@ -77,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
   </div>
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
       
   
@@ -89,238 +122,58 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the website of the <strong>Statistica III</strong> course (6 CFU) of the “<em>Corso di Laurea Triennale in Scienze Statistiche ed Economiche</em> (SSE)”, Università degli Studi di Milano-Bicocca. <strong>Statistica III</strong> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs).</p>
-<p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
+<section id="homepage" class="level1">
+<h1><a href="../index.html">Homepage</a></h1>
+<p>Il tempo a disposizione per lo svolgimento della prova è di <strong>2 ore e 30 minuti</strong>. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.</p>
+<p>Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.</p>
+<section id="parte-i-analisi-dei-dati" class="level2">
+<h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
+<p>Si considerino i dati <code>Default</code> della libreria <code>ISLR2</code>, che contengono informazioni su 10 000 clienti di una banca, alcuni dei quali sono risultati insolventi (<code>default = "Yes"</code>). Le variabili presenti sono:</p>
 <ul>
-<li><span class="blue">Simple linear regression and descriptive statistics</span>, e.g. from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, e.g.&nbsp;from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, e.g.&nbsp;from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
-<li><span class="grey">R software</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
+<li><code>default</code>: variabile qualitativa che indica se il cliente è risultato insolvente (<code>Yes</code>) oppure no (<code>No</code>);</li>
+<li><code>student</code>: variabile qualitativa che indica se il cliente è uno studente (<code>Yes</code>) oppure no (<code>No</code>);</li>
+<li><code>balance</code>: saldo medio residuo <strong>dovuto</strong> dal cliente sulla carta di credito, espresso in dollari statunitensi (USD);</li>
+<li><code>income</code>: retribuzione annua lorda (RAL) del cliente, espressa in dollari statunitensi (USD).</li>
 </ul>
-<p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</p>
-<section id="teaching-material" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-material">Teaching material</h2>
-<section id="recommended-textbooks-ita" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-ita">Recommended textbooks (ITA)</h4>
-<ul>
-<li>Salvan, A., Sartori, N. and L. Pace. 2020. <a href="https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2"><em>Modelli Lineari Generalizzati</em></a>. Springer.</li>
-<li>Azzalini, A. 2008. <a href="https://link.springer.com/book/9788847001305"><em>Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza</em></a>. Springer</li>
-</ul>
+<p>Facendo uso del software <strong>R</strong>, si risponda alle seguenti domande.</p>
+<ol type="a">
+<li><p>Si costruiscano due boxplot: nel primo grafico, la variabile <code>balance</code> è raggruppata rispetto a <code>default</code>; nel secondo grafico, la variabile <code>balance</code> è raggruppata rispetto alla variabile <code>student</code>. Si commentino i risultati ottenuti.</p></li>
+<li><p>Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta <code>default</code> e come variabile esplicativa <code>student</code>. Si indichi tale modello con <code>m1</code>. Si riportino:</p>
+<ol type="i">
+<li>l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza;</li>
+<li>il valore delle statistiche test e i <em>p-value</em> dei <strong>test di Wald</strong> e di <strong>log-rapporto di verosimiglianza</strong> per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test.</li>
+<li>Si discuta se l’essere studenti aumenti o diminuisca la probabilità di insolvenza e di quanto, sulla base del modello <code>m1</code>.</li>
+</ol></li>
+<li><p>Si modifichi il modello <code>m1</code> aggiungendo anche le variabili <code>income</code> e <code>balance</code>. Si indichi tale modello con <code>m2</code>. Si riportino:</p>
+<ol type="i">
+<li>l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza;</li>
+<li>un’interpretazione di tutti i coefficienti stimati. In particolare, l’essere studenti aumenta o diminuisce la probabilità di insolvenza? Di quanto?</li>
+<li>Si discuta se l’interpretazione fornita al punto precedente sia coerente con quella ottenuta nel modello <code>m1</code>. Si commenti il risultato e se ne fornisca una giustificazione.</li>
+</ol></li>
+<li><p>Il modello <code>m2</code> è preferibile rispetto al modello <code>m1</code>? Si motivi la risposta.</p></li>
+<li><p>La variabile <code>income</code> può essere rimossa dal modello <code>m2</code>? Si motivi la risposta.</p></li>
+<li><p>Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (<code>income</code>), per uno studente con <code>balance = 100</code>. Si fornisca inoltre un intervallo di confidenza per tale previsione.</p></li>
+<li><p>È possibile verificare la presenza di sovradispersione nel modello <code>m2</code>? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti.</p></li>
+</ol>
 </section>
-<section id="recommended-textbooks-eng" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-eng">Recommended textbooks (ENG)</h4>
-<ul>
-<li>Agresti, A. 2015. <a href="https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034"><em>Foundations of Linear and Generalized Linear Models</em></a>. Wiley.</li>
-<li>McCullagh, P., and J. A. Nelder. 1989. <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh"><em>Generalized Linear Models</em></a>. Second Edition. Springer.</li>
-</ul>
+<section id="part2-ii-teoria-ed-esercizi" class="level2">
+<h2 class="anchored" data-anchor-id="part2-ii-teoria-ed-esercizi">Part2 II: teoria ed esercizi</h2>
+<section id="problema-1" class="level4">
+<h4 class="anchored" data-anchor-id="problema-1">Problema 1</h4>
+<p>Cosa si intende per trasformazioni che stabilizzano la varianza? Si discuta il concetto, illustrandolo mediante esempi e richiamando risultati teorici rilevanti.</p>
 </section>
-<section id="slides-and-lecture-notes" class="level4">
-<h4 class="anchored" data-anchor-id="slides-and-lecture-notes">Slides and lecture notes</h4>
-<p>The slides are meant to be used in HTML.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Notes</th>
-<th>Slides</th>
-<th>Further material</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Introduction</strong></td>
-<td><a href="slides/un_intro.html">Introduction</a></td>
-<td><a href="slides/un_intro_slides.html">Slides Introduction</a> (<a href="slides/un_intro_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>GENERAL THEORY</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Linear models and misspecification</strong></td>
-<td><a href="slides/un_A.html">Unit A</a></td>
-<td><a href="slides/un_A_slides.html">Slides Unit A</a> (<a href="slides/un_A_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 1</td>
-<td><a href="code/lab1.R"><code>lab1.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_A.html">Exercises A</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Generalized Linear Models</strong></td>
-<td><a href="slides/un_B.html">Unit B</a></td>
-<td><a href="slides/un_B_slides.html">Slides Unit B</a> (<a href="slides/un_B_slides.pdf">pdf version</a>)</td>
-<td><a href="code/labB.R"><code>labB.R</code></a></td>
-</tr>
-<tr class="odd">
-<td>Lab 2</td>
-<td><a href="code/lab2.R"><code>lab2.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 3</td>
-<td><a href="code/lab3.R"><code>lab3.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_B.html">Exercises B</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>NOTABLE MODELS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Binary and binomial regression</strong></td>
-<td><a href="slides/un_C.html">Unit C</a></td>
-<td><a href="slides/un_C_slides.html">Slides Unit C</a> (<a href="slides/un_C_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 4</td>
-<td><a href="code/lab4.R"><code>lab4.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_C.html">Exercises C</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Poisson regression</strong></td>
-<td><a href="slides/un_D.html">Unit D</a></td>
-<td><a href="slides/un_D_slides.html">Slides Unit D</a> (<a href="slides/un_D_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 5</td>
-<td><a href="code/lab5.R"><code>lab5.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_D.html">Exercises D</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><strong>ADVANCED TOPICS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Quasi-likelihoods</strong></td>
-<td>[Unit E]</td>
-<td>[Slides Unit E]</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 6</td>
-<td><a href="code/lab6.R"><code>lab6.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_E.html">Exercises E</a></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<section id="problema-2" class="level4">
+<h4 class="anchored" data-anchor-id="problema-2">Problema 2</h4>
+<p>Sia <span class="math inline">S</span> una variabile aleatoria binomiale di parametri <span class="math inline">m \in \mathbb{N}</span> e con probabilità di successo <span class="math inline">\pi \in (0,1)</span>, la cui funzione di probabilità è <span class="math display">
+p(s ; \pi) = \binom{m}{s}\pi^s(1 - \pi)^{m-s},
+\qquad s = 0,1,2,\dots,m.
+</span> Inoltre, sia <span class="math inline">Y = S / m</span>. Si mostri che <span class="math inline">Y</span> appartiene alla famiglia a dispersione esponenziale e si descrivano (svolgendo tutti i passaggi) le sue caratteristiche, cioè il parametro naturale, l’eventuale parametro di dispersione, le funzioni <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span>, la funzione media e la funzione varianza.</p>
+</section>
+<section id="problema-3" class="level4">
+<h4 class="anchored" data-anchor-id="problema-3">Problema 3</h4>
+<p>Nella selezione delle variabili esplicative per un modello lineare generalizzato, che cosa rende inadeguata la strategia di scegliere il modello con la devianza minima?</p>
 </section>
 </section>
-<section id="previous-exams-ita" class="level2">
-<h2 class="anchored" data-anchor-id="previous-exams-ita">Previous exams (ITA)</h2>
-<p>Example of previous exams are provided below. During the exam, you will have access to the code from Labs 1-6.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Dataset</th>
-<th>Questions (ITA)</th>
-<th>Solution (ITA)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>10 Febbraio 2026</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/ISLR2/html/Default.html"><code>Default</code></a></td>
-<td><a href="exams/2026_02_10.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>27 Gennaio 2026</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html"><code>anaesthetic</code></a></td>
-<td><a href="exams/2026_01_27.html">Exam</a></td>
-<td><a href="exams/sol_2026_01_27.html">Soluzione</a></td>
-</tr>
-<tr class="odd">
-<td>11 November 2025</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html"><code>beetle</code></a></td>
-<td><a href="exams/2025_11_18.html">Exam</a></td>
-<td><a href="exams/sol_2025_11_18.html">Soluzione</a></td>
-</tr>
-<tr class="even">
-<td><strong>Old exams (prof. Migliorati)</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>13 July 2016</td>
-<td><code>awards</code></td>
-<td><a href="exams/2016_07_13.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>29 Giugno 2016</td>
-<td><code>berk</code></td>
-<td><a href="exams/2016_06_29.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>29 April 2015</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/MASS/html/ships.html"><code>ships</code></a></td>
-<td><a href="exams/2015_04_29.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>9 July 2014</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/orings.html"><code>orings</code></a></td>
-<td><a href="exams/2014_07_09.html">Exam</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course.</p>
-<p>Students are encouraged to consult the books: these slides are just a concise summary.</p>
-<p>All the mistakes still present are mine.</p>
-<hr>
 </section>
 
 </main>
@@ -350,12 +203,12 @@ ul.task-list li input[type="checkbox"] {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiato!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiato!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -729,5 +582,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="2026_02_10_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
