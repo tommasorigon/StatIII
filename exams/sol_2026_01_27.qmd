@@ -165,9 +165,9 @@ contro l’alternativa $H_1$, secondo cui almeno uno dei coefficienti è diverso
 Il default del comando `anova` non è il test `LRT` (log-rapporto di verosimiglianza), bensì il test `F`, che non abbiamo mai visto a lezione. I risultati sono corretti da un punto di vista statistico ma non sono quanto richiesto.
 :::
 
-Il *p-value*, cioè `Pr(>Chi)`, associato al test $W$ con $q = 3$ gradi di libertà (numero di vincoli, `Df`) è pari a $0.1511$, che è praticamente identico a quello ottenuto nel caso del modello `m_lin`. Le conclusioni qualitative sono le medesime. 
+Il *p-value* associato al test $W$ con $q = 3$ gradi di libertà (numero di vincoli, `Df`) è pari a $0.1511$, che è praticamente identico a quello ottenuto nel caso del modello `m_lin`. Le conclusioni qualitative sono le medesime. 
 
-Il valore del test $W$ non è riportato tra le informazioni fornite da `anova` e va quindi calcolato "a mano". In effetti `Deviance` rappresenta al differenza tra le devianze considerate, che tuttavia va riscalata per $\hat{\phi}$ quando questo è diverso da $1$. Di conseguenza
+Il valore del test $W$ non è riportato tra le informazioni fornite da `anova`, poichè `Deviance` rappresenta al differenza tra le devianze considerate, che tuttavia va riscalata per $\hat{\phi}$ quando questo è diverso da $1$. Di conseguenza:
 
 ```{r}
 deviance_diff <- deviance(m_gamma0) - deviance(m_gamma)
@@ -191,14 +191,14 @@ I grafici diagnostici non presentano alcun tipo di problematicità e sono miglio
 #| eval: false
 
 # Punto (g)
-fit_A <- predict(m_gamma, newdata = data.frame(tgrp = c("A")), type = "response", se = TRUE)
-z_test <- (fit_A$fit - 10) / fit_A$se.fit
-2 * (1 - pnorm(abs(z_test)))
+fit_A <- predict(m_gamma, newdata = data.frame(tgrp = "A"), type = "response", se = TRUE)
+z_test <- (fit_A$fit - 10) / fit_A$se.fit # statistica test
+2 * (1 - pnorm(abs(z_test))) # p-value
 ```
 Una statistica test basata sulla deviazione standard è la seguente
-$$z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480,
+$$z_\text{test} = \frac{\hat{\mu}_A - 10}{\hat{se}(\hat{\mu}_A)} = - 4.2480.
 $$
-Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale. Pertanto, il *p-value* associato è praticamente pari a $0$. Ci conseguenza, si rifiuta l'ipotesi nulla $H_0: \mu_A = 10$. 
+Si può assumere, come per gli intervalli di confidenza, che la distribuzione di tale statistica test sia normale standard. Pertanto, il *p-value* associato è praticamente pari a $0$. Di conseguenza, si rifiuta l'ipotesi nulla $H_0: \mu_A = 10$. 
 
 ```{r}
 # Punto (h)
