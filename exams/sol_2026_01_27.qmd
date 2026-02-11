@@ -77,7 +77,7 @@ summary(m_lin)
 
 Anzitutto, desumiamo che l'equazione che esprime la risposta media in funzione della variabile `tgrp` è la seguente
 $$
-\hat{E}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},\qquad i=1,\dots,80.
+\hat{\mathbb{E}}(Y_i) = \hat{\beta}_1 + \hat{\beta}_2 d_{i,B} + \hat{\beta}_3 d_{i, C} + \hat{\beta}_4 d_{i, D} = 5.4  - 2.15 \, d_{i,B} -2.34 \, d_{i, C} -1.04\, d_{i, D},\qquad i=1,\dots,80.
 $$
 dove $d_{i, B}, d_{i, C}$ e $d_{i, D}$ sono delle variabili *dummy* che identificano l'appartenenza dell'i-esima unità al gruppo `B`, `C`, `D` della variabile `tgrp`; il primo gruppo (`A`) è preso come categoria di riferimento. Di conseguenza, il valore $\hat{\beta}_1$ rappresenta la media del gruppo `A`, mentre i rimanenti coefficienti rappresentano la **differenza** tra la media del gruppo considerato e la media del gruppo `A`. 
 
