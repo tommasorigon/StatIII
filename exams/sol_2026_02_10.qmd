@@ -148,9 +148,9 @@ round(exp(coef(m2)[-1]), 3)
   
   - Il valore $e^{\hat{\beta}_3} = 1$, relativo alla variabile `income`, è interpretabile come rapporto tra quote ed è indistinguibile dal valore $1$, come oltretutto confermato dal un test statistico formale fornito nel `summary`. In altri termini, il reddito non è associato a maggiore o minore rischio di insolvenza. Come vedremo in un punto successivo, questa variabile poteva essere omessa. 
   
-  - Il valore $e^{\hat{\beta}_2} = 0.524$, relativo alla variabile `student`, è interpretabile come rapporto tra quote ed è minore di $1$. Si noti inoltre che $e^{\hat{\beta}_2}$ è significativamente minore di $1$, come si desume dal *p-value* associato. Questo significa che, a parità di debito e reddito (`balance` ed `income`), essere studente è associato a una probabilità di insolvenza [minore]{.orange} rispetto ad un non-studente.  Questa conclusione è solo all'apparenza in contraddizione con quanto illustrato dal modello `m1` ed è un esempio del cosiddetto [paradosso di Simpson]{.blue}, nel quale l'aggiunta di una covariata modifica la direzione o l'entità di un'associazione marginale. In altri termini, non è tanto la condizione di studente in quanto tale a comportare un rischio di insolvenza, quanto piuttosto il debito accumulato nella carta di credito, che a sua volta è, in media, maggiore tra gli studenti.
+  - Il valore $e^{\hat{\beta}_2} = 0.524$, relativo alla variabile `student`, è interpretabile come rapporto tra quote ed è minore di $1$. Si noti inoltre che $e^{\hat{\beta}_2}$ è significativamente minore di $1$, come si desume dal *p-value* associato. Questo significa che, a parità di debito e reddito (`balance` e `income`), essere studente è associato a una probabilità di insolvenza [minore]{.orange} rispetto ad un non studente. Questa conclusione è solo apparentemente in contraddizione con quanto illustrato dal modello `m1` ed è un esempio del cosiddetto [paradosso di Simpson]{.blue}, nel quale l’aggiunta di una covariata modifica la direzione o l’entità di un’associazione marginale. In altri termini, non è tanto la condizione di studente in quanto tale a comportare un rischio di insolvenza, quanto piuttosto il debito accumulato sulla carta di credito, che però a sua volta è, in media, maggiore tra gli studenti.
 
-- Il valore $e^{\hat{\beta}_4} = 1.006$, relativo alla variabile `student`, è interpretabile come rapporto tra quote ed è maggiore di $1$. In altre parole, all'aumento unitario ($1\$$) della variabile `balance` la quota dell'insolvenza cresce dello $0.6\%$. Considerata la scala della variabile di riferimento, questo è un aumento piuttosto importante. Per esempio, un aumento del debito medio di $500\$$ comporta un rapporto tra quote pari a $e^{500 \hat{\beta}_4} = 17.606$, cioè un aumento della quota di insolvenza del $1660.6\%$.
+ - Il valore $e^{\hat{\beta}_4} = 1.006$, relativo alla variabile `balance`, è interpretabile come rapporto tra quote ed è maggiore di $1$. In altre parole, a un aumento unitario ($1\$$) della variabile `balance` la quota di insolvenza è $1.006$ volte la quota originaria. Considerata la scala della variabile di riferimento, questo è un aumento piuttosto rilevante. Per esempio, un aumento del debito medio di $500\$$ comporta un rapporto tra quote pari a $e^{500 \hat{\beta}_4} = 17.606$, cioè una quota di insolvenza $17.606$ volte maggiore di quella originaria.
 
 <!-- (c) Si modifichi il modello `m1` aggiungendo anche le variabili `income` e `balance`. Si indichi tale modello con `m2`. Si riportino: -->
 <!--     i. l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza; -->
@@ -164,6 +164,7 @@ round(exp(coef(m2)[-1]), 3)
 anova(m1, m2)
 ```
 
+Poichè si tratta di modelli annidati è possibile condurre un test statistico formale, il quale rigetta l'ipotesi nulla. Criteri di informazione quali AIC e BIC erano forse strumenti meno ortodossi ma comunque conducevano alla medesima conclusione. 
 
 <!-- (e) La variabile `income` può essere rimossa dal modello `m2`? Si motivi la risposta. -->
 
@@ -173,7 +174,26 @@ anova(m1, m2)
 summary(m2)
 ```
 
+Come evidente dal `summary`, la variabile `income` è rimovibile dal modello senza perdita informativa. Il *p-value* risultava infatti non significativo. 
+
 <!-- (f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione. -->
+
+Poichè il testo non lo specificava, per gli intervalli di confidenza c'erano due possibili soluzioni, entrambe corrette:
+
+```{r}
+# Punto (f)
+newdata <- data.frame(student = "Yes", income = mean(Default$income), balance = 100)
+
+fit <- predict(m2, newdata = newdata, type = "response", se.fit = TRUE) 
+fit$fit # Previsione
+
+# Intervallo di confidenza alla Wald
+fit$fit + c(-1, 1) * qnorm(0.975) * fit$se.fit
+
+# Intervallo di confidenza "Wald trasformato"
+fit_lin <- predict(m2, newdata = newdata, se.fit = TRUE) 
+plogis(fit_lin$fit + c(-1, 1) * qnorm(0.975) * fit_lin$se.fit)
+```
 
 <!-- (g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti. -->
 
