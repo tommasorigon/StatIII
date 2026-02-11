@@ -179,7 +179,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">boxplot</span>(Default<span class="sc">$</span>balance <span class="sc">~</span> Default<span class="sc">$</span>default)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">boxplot</span>(Default<span class="sc">$</span>balance <span class="sc">~</span> Default<span class="sc">$</span>student)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Sia <code>default</code> che <code>student</code> risultano essere “correlate” con la variabile <code>balance</code>. Sia gli studenti che i clienti insolventi hanno un maggior debito sulla carta di credito.</p>
+<p>Sia <code>default</code> che <code>student</code> risultano essere “correlate” con la variabile <code>balance</code>. Sia gli studenti che i clienti insolventi hanno un maggior debito sulla carta di credito. In particolare, nel prevedere la variabile <code>default</code> tramite le restanti variabili, bisognerà tenere a mente della dipendenza esistente tra i predittori <code>balance</code> e <code>student</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Punto (b)</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -195,29 +195,124 @@ window.Quarto = {
 </div>
 </div>
 <p>Otteniamo quindi che l’equazione stimata è <span class="math display">
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000.
-</span></p>
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}}{1 + e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}} =\frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000,
+</span> dove <span class="math inline">d_i</span> è una variabile <em>dummy</em> che vale <span class="math inline">1</span> quando l’<span class="math inline">i</span>-esimo cliente è uno studente e <span class="math inline">0</span> altrimenti.</p>
 <!--    ii. il valore delle statistiche test e i *p-value* dei **test di Wald** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente studentYes. </span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="fu">summary</span>(m1) </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Punto (b.ii)</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente studentYes. </span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="fu">summary</span>(m1) </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono rispettivamente pari a: <span class="math inline">W_e = 12.392</span> (Wald) e <span class="math inline">W = 11.967 / \phi = 11.967</span> (log-rapporto di verosimiglianza), poichè <span class="math inline">\phi = 1</span> nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica test <code>z-value</code> presente nel <code>summary</code>, pari a <span class="math inline">3.52</span>, il cui quadrato coincide con <span class="math inline">W_e</span> a meno di piccole discrepanze numeriche.</p>
+<p>Come riportato nelle tabelle, i gradi di liberà di entrambi i test è <span class="math inline">q = 1</span>, perché è uno solo il parametro vincolato nel sistema d’ipotesi. Quest’ultimo è infatti pari a <span class="math inline">H_0: \beta_2 = 0</span> e <span class="math inline">H_1: \beta_2 \neq 0</span>.</p>
+<p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span> e <span class="math inline">W</span> e la loro distribuzione asintotica sotto <span class="math inline">H_0</span>, si ottiene in entrambi i casi un <em>p-value</em> quasi pari a <span class="math inline">0</span>. In altri termini, si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = 0</span>.</p>
 <!--    iii. Si discuta se l’essere studenti aumenti o diminuisca la probabilità di insolvenza e di quanto, sulla base del modello `m1`. -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Punto (b.iii)</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>]) <span class="co"># Rapporto tra quote (odds ratio)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>studentYes 
+  1.499133 </code></pre>
+</div>
+</div>
+<p>Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a <span class="math inline">1.499</span>. Questo significa che, <span class="blue">marginalmente</span> rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, questo incremento è di circa una volta e mezzo.</p>
+<p>Era anche possibile presentare questo aumento in altri modi, ad esempio calcolando esplicitamente le probabilità nei due casi:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">plogis</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(m1))), <span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>])) <span class="co"># Alternativamente: predict(m1, data.frame(student = c("Yes", "No")), type = "response")</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>probs</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept) 
+ 0.04313859  0.02919501 </code></pre>
+</div>
+</div>
+<p>È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In alternativa, si sarebbero potute considerare le quote.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>odds <span class="ot">&lt;-</span> probs <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> probs)</span>
+<span id="cb13-2"><a href="#cb13-2"></a>odds</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept) 
+ 0.04508342  0.03007299 </code></pre>
+</div>
+</div>
+<p>Il cui rapporto (<em>odds ratio</em>) è appunto pari al valore <code>1.499</code> calcolato prima.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La domanda chiedeva se essere studente “aumenti” il rischio di insolvenza e questa era la parte più difficile e delicata, perché ci si chiede se esista o meno una relazione di <span class="blue">causa-effetto</span>. Fino a qui abbiamo registrato una significativa <span class="orange">associazione</span> tra rischio di insolvenza ed essere studenti. Come noto da <a href="https://tommasorigon.github.io/StatI/slides/sl_M.pdf">Statistica I</a>, associazione non implica causalità e in questo caso c’erano buone ragioni per ritenere che l’associazione fosse dovuta ad una terza variabile (<code>balance</code>), come vedremo nei punti successivi.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Punto (c)</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student <span class="sc">+</span> income <span class="sc">+</span> balance, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Punto (c.i)</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">round</span>(<span class="fu">coef</span>(m2), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  studentYes      income     balance 
+    -10.869      -0.647       0.000       0.006 </code></pre>
+</div>
+</div>
+<p>Otteniamo quindi che l’equazione stimata è <span class="math display">
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{-10.869  -0.647 d_i + 0.000 x_{i1} + 0.006 x_{i2}}}{1 + e^{-10.869  -0.647 d_i + 0.000 x_{i1} + 0.006 x_{i2}}}, \qquad i=1,\dots,10000,
+</span> dove <span class="math inline">x_{i1}</span> e <span class="math inline">x_{i2}</span> rappresentano i valori delle variabili <code>income</code> e <code>balance</code>, rispettivamente. L’esponenziale di ciascuno di questi coefficienti è interpretabile in termini di rapporti tra quote, tuttavia si rende necessaria una discussione dettagliata.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">round</span>(<span class="fu">exp</span>(<span class="fu">coef</span>(m2)[<span class="sc">-</span><span class="dv">1</span>]), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>studentYes     income    balance 
+     0.524      1.000      1.006 </code></pre>
+</div>
+</div>
+<ul>
+<li><p>L’interpretazione dell’intercetta <span class="math inline">\hat{\beta}_1 = -10.869</span> non è di particolare interesse, perchè è associata la probabilità di insolvenza per un non-studente che non abbia nè reddito nè debiti. Quest’ultima risulta essere sostanzialmente zero (<code>plogis(-10.869)</code> è praticamente <code>0</code>).</p></li>
+<li><p>Il valore <span class="math inline">e^{\hat{\beta}_3} = 1</span>, relativo alla variabile <code>income</code>, è interpretabile come rapporto tra quote ed è indistinguibile dal valore <span class="math inline">1</span>, come oltretutto confermato dal un test statistico formale fornito nel <code>summary</code>. In altri termini, il reddito non è associato a maggiore o minore rischio di insolvenza. Come vedremo in un punto successivo, questa variabile poteva essere omessa.</p></li>
+<li><p>Il valore <span class="math inline">e^{\hat{\beta}_2} = 0.524</span>, relativo alla variabile <code>student</code>, è interpretabile come rapporto tra quote ed è minore di <span class="math inline">1</span>. Si noti inoltre che <span class="math inline">e^{\hat{\beta}_2}</span> è significativamente minore di <span class="math inline">1</span>, come si desume dal <em>p-value</em> associato. Questo significa che, a parità di debito e reddito (<code>balance</code> ed <code>income</code>), essere studente è associato a una probabilità di insolvenza <span class="orange">minore</span> rispetto ad un non-studente. Questa conclusione è solo all’apparenza in contraddizione con quanto illustrato dal modello <code>m1</code> ed è un esempio del cosiddetto <span class="blue">paradosso di Simpson</span>, nel quale l’aggiunta di una covariata modifica la direzione o l’entità di un’associazione marginale. In altri termini, non è tanto la condizione di studente in quanto tale a comportare un rischio di insolvenza, quanto piuttosto il debito accumulato nella carta di credito, che a sua volta è, in media, maggiore tra gli studenti.</p></li>
+<li><p>Il valore <span class="math inline">e^{\hat{\beta}_4} = 1.006</span>, relativo alla variabile <code>student</code>, è interpretabile come rapporto tra quote ed è maggiore di <span class="math inline">1</span>. In altre parole, all’aumento unitario (<span class="math inline">1\$</span>) della variabile <code>balance</code> la quota dell’insolvenza cresce dello <span class="math inline">0.6\%</span>. Considerata la scala della variabile di riferimento, questo è un aumento piuttosto importante. Per esempio, un aumento del debito medio di <span class="math inline">500\$</span> comporta un rapporto tra quote pari a <span class="math inline">e^{500 \hat{\beta}_4} = 17.606</span>, cioè un aumento della quota di insolvenza dello <span class="math inline">1660.6\%</span>.</p></li>
+</ul>
 <!-- (c) Si modifichi il modello `m1` aggiungendo anche le variabili `income` e `balance`. Si indichi tale modello con `m2`. Si riportino: -->
 <!--     i. l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza; -->
 <!--     ii. un’interpretazione di tutti i coefficienti stimati. In particolare, l’essere studenti aumenta o diminuisce la probabilità di insolvenza? Di quanto? -->
 <!--     iii. Si discuta se l’interpretazione fornita al punto precedente sia coerente con quella ottenuta nel modello `m1`. Si commenti il risultato e se ne fornisca una giustificazione. -->
 <!-- (d) Il modello `m2` è preferibile rispetto al modello `m1`? Si motivi la risposta. -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Punto (d)</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">anova</span>(m1, m2)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: default ~ student
+Model 2: default ~ student + income + balance
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1      9998     2908.7                          
+2      9996     1571.5  2   1337.1 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
 <!-- (e) La variabile `income` può essere rimossa dal modello `m2`? Si motivi la risposta. -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Punto (e)</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">summary</span>(m2)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <!-- (f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione. -->
 <!-- (g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti. -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Punto (g)</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co"># NON BISOGNAVA FARE NULLA</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No, non ha senso verificare se nel modello <code>m2</code> è presente sovradispersione, perchè la variabile risposta è binaria e non può essere raggruppata in nessuna maniera a causa della presenza delle variabili continue <code>balance</code> e <code>income</code>.</p>
 </section>
 </section>
 

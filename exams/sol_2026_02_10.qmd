@@ -51,7 +51,7 @@ boxplot(Default$balance ~ Default$default)
 boxplot(Default$balance ~ Default$student)
 ```
 
-Sia `default` che `student` risultano essere "correlate" con la variabile `balance`. Sia gli studenti che i clienti insolventi hanno un maggior debito sulla carta di credito.
+Sia `default` che `student` risultano essere "correlate" con la variabile `balance`. Sia gli studenti che i clienti insolventi hanno un maggior debito sulla carta di credito. In particolare, nel prevedere la variabile `default` tramite le restanti variabili, bisognerà tenere a mente della dipendenza esistente tra i predittori `balance` e `student`. 
 
 ```{r}
 # Punto (b)
@@ -68,13 +68,16 @@ coef(m1) # In alternativa, anche summary(m1) mostrava le stime dei coefficienti
 
 Otteniamo quindi che l'equazione stimata è
 $$
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000.
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}}{1 + e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}} =\frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000,
 $$
+dove $d_i$ è una variabile *dummy* che vale $1$ quando l'$i$-esimo cliente è uno studente e $0$ altrimenti. 
 
 <!-- 	ii.	il valore delle statistiche test e i *p-value* dei **test di Wald** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test. -->
 
 ```{r}
 #| results: hide
+
+# Punto (b.ii)
 m0 <- glm(default ~ 1, data = Default, family = "binomial")
 
 # Statistiche test, p-value e gradi di libertà
@@ -86,8 +89,68 @@ anova(m0, m1, test = "LRT") # Test log-rapporto di verosimiglianza
 summary(m1) 
 ```
 
+Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono rispettivamente pari a: $W_e = 12.392$ (Wald) e $W = 11.967 / \phi = 11.967$ (log-rapporto di verosimiglianza), poichè $\phi = 1$ nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica test `z-value` presente nel `summary`, pari a $3.52$, il cui quadrato coincide con $W_e$ a meno di piccole discrepanze numeriche.
+
+Come riportato nelle tabelle, i gradi di liberà di entrambi i test è $q = 1$, perché è uno solo il parametro vincolato nel sistema d'ipotesi. Quest'ultimo è infatti pari a $H_0: \beta_2 = 0$ e $H_1: \beta_2 \neq 0$. 
+
+Considerati i gradi di libertà dei test $W_e$ e $W$ e la loro distribuzione asintotica sotto $H_0$, si ottiene in entrambi i casi un *p-value* quasi pari a $0$. In altri termini, si rigetta l'ipotesi nulla che $\beta_2 = 0$. 
+
 <!-- 	iii. Si discuta se l’essere studenti aumenti o diminuisca la probabilità di insolvenza e di quanto, sulla base del modello `m1`. -->
 
+```{r}
+# Punto (b.iii)
+exp(coef(m1)[2]) # Rapporto tra quote (odds ratio)
+```
+
+Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a $1.499$. Questo significa che, [marginalmente]{.blue} rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, questo incremento è di circa una volta e mezzo.
+
+Era anche possibile presentare questo aumento in altri modi, ad esempio calcolando esplicitamente le probabilità nei due casi:
+
+```{r}
+probs <- c(plogis(sum(coef(m1))), plogis(coef(m1)[1])) # Alternativamente: predict(m1, data.frame(student = c("Yes", "No")), type = "response")
+probs
+```
+
+È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In alternativa, si sarebbero potute considerare le quote.
+
+```{r}
+odds <- probs / (1 - probs)
+odds
+```
+
+Il cui rapporto (*odds ratio*) è appunto pari al valore `1.499` calcolato prima. 
+
+:::callout-warning
+La domanda chiedeva se essere studente “aumenti” il rischio di insolvenza e questa era la parte più difficile e delicata, perché ci si chiede se esista o meno una relazione di [causa-effetto]{.blue}. Fino a qui abbiamo registrato una significativa [associazione]{.orange} tra rischio di insolvenza ed essere studenti. Come noto da [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_M.pdf), associazione non implica causalità e in questo caso c’erano buone ragioni per ritenere che l’associazione fosse dovuta ad una terza variabile (`balance`), come vedremo nei punti successivi.
+::::
+
+```{r}
+# Punto (c)
+m2 <- glm(default ~ student + income + balance, data = Default, family = "binomial")
+```
+
+```{r}
+# Punto (c.i)
+round(coef(m2), 3)
+```
+
+Otteniamo quindi che l'equazione stimata è
+$$
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{-10.869  -0.647 d_i + 0.000 x_{i1} + 0.006 x_{i2}}}{1 + e^{-10.869  -0.647 d_i + 0.000 x_{i1} + 0.006 x_{i2}}}, \qquad i=1,\dots,10000,
+$$
+dove $x_{i1}$ e $x_{i2}$ rappresentano i valori delle variabili `income` e `balance`, rispettivamente. L'esponenziale di ciascuno di questi coefficienti è interpretabile in termini di rapporti tra quote, tuttavia si rende necessaria una discussione dettagliata.
+```{r}
+round(exp(coef(m2)[-1]), 3)
+```
+
+
+  - L'interpretazione dell'intercetta $\hat{\beta}_1 = -10.869$ non è di particolare interesse, perchè è associata la probabilità di insolvenza per un non-studente che non abbia nè reddito nè debiti. Quest'ultima risulta essere sostanzialmente zero (`plogis(-10.869)` è praticamente `0`).
+  
+  - Il valore $e^{\hat{\beta}_3} = 1$, relativo alla variabile `income`, è interpretabile come rapporto tra quote ed è indistinguibile dal valore $1$, come oltretutto confermato dal un test statistico formale fornito nel `summary`. In altri termini, il reddito non è associato a maggiore o minore rischio di insolvenza. Come vedremo in un punto successivo, questa variabile poteva essere omessa. 
+  
+  - Il valore $e^{\hat{\beta}_2} = 0.524$, relativo alla variabile `student`, è interpretabile come rapporto tra quote ed è minore di $1$. Si noti inoltre che $e^{\hat{\beta}_2}$ è significativamente minore di $1$, come si desume dal *p-value* associato. Questo significa che, a parità di debito e reddito (`balance` ed `income`), essere studente è associato a una probabilità di insolvenza [minore]{.orange} rispetto ad un non-studente.  Questa conclusione è solo all'apparenza in contraddizione con quanto illustrato dal modello `m1` ed è un esempio del cosiddetto [paradosso di Simpson]{.blue}, nel quale l'aggiunta di una covariata modifica la direzione o l'entità di un'associazione marginale. In altri termini, non è tanto la condizione di studente in quanto tale a comportare un rischio di insolvenza, quanto piuttosto il debito accumulato nella carta di credito, che a sua volta è, in media, maggiore tra gli studenti.
+
+- Il valore $e^{\hat{\beta}_4} = 1.006$, relativo alla variabile `student`, è interpretabile come rapporto tra quote ed è maggiore di $1$. In altre parole, all'aumento unitario ($1\$$) della variabile `balance` la quota dell'insolvenza cresce dello $0.6\%$. Considerata la scala della variabile di riferimento, questo è un aumento piuttosto importante. Per esempio, un aumento del debito medio di $500\$$ comporta un rapporto tra quote pari a $e^{500 \hat{\beta}_4} = 17.606$, cioè un aumento della quota di insolvenza del $1660.6\%$.
 
 <!-- (c) Si modifichi il modello `m1` aggiungendo anche le variabili `income` e `balance`. Si indichi tale modello con `m2`. Si riportino: -->
 <!--     i. l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza; -->
@@ -96,8 +159,28 @@ summary(m1)
 
 <!-- (d) Il modello `m2` è preferibile rispetto al modello `m1`? Si motivi la risposta. -->
 
+```{r}
+# Punto (d)
+anova(m1, m2)
+```
+
+
 <!-- (e) La variabile `income` può essere rimossa dal modello `m2`? Si motivi la risposta. -->
+
+```{r}
+#| results: hide
+# Punto (e)
+summary(m2)
+```
 
 <!-- (f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione. -->
 
 <!-- (g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti. -->
+
+```{r}
+# Punto (g)
+
+# NON BISOGNAVA FARE NULLA
+```
+
+No, non ha senso verificare se nel modello `m2` è presente sovradispersione, perchè la variabile risposta è binaria e non può essere raggruppata in nessuna maniera a causa della presenza delle variabili continue `balance` e `income`. 
