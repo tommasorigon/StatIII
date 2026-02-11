@@ -1,0 +1,103 @@
+---
+title: "Soluzione esame del 10 Febbraio 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Parte I: analisi dei dati
+
+<!-- Si considerino i dati `Default` della libreria `ISLR2`, che contengono informazioni su 10 000 clienti di una banca, alcuni dei quali sono risultati insolventi (`default = "Yes"`). Le variabili presenti sono: -->
+
+```{r}
+library(ISLR2)
+data(Default)
+head(Default, 4)
+```
+
+<!-- (a) Si costruiscano due boxplot: nel primo grafico, la variabile `balance` è raggruppata rispetto a `default`; nel secondo grafico, la variabile `balance` è raggruppata rispetto alla variabile `student`.  Si commentino i risultati ottenuti. -->
+
+```{r}
+#| fig-show: hide
+boxplot(Default$balance ~ Default$default)
+boxplot(Default$balance ~ Default$student)
+```
+
+Sia `default` che `student` risultano essere "correlate" con la variabile `balance`. Sia gli studenti che i clienti insolventi hanno un maggior debito sulla carta di credito.
+
+```{r}
+# Punto (b)
+m1 <- glm(default ~ student, data = Default, family = "binomial")
+```
+
+<!-- (b) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `default` e come variabile esplicativa `student`. Si indichi tale modello con `m1`. Si riportino: -->
+<!-- 	i.	l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza; -->
+
+```{r}
+# Punto (b.i)
+coef(m1) # In alternativa, anche summary(m1) mostrava le stime dei coefficienti
+```
+
+Otteniamo quindi che l'equazione stimata è
+$$
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000.
+$$
+
+<!-- 	ii.	il valore delle statistiche test e i *p-value* dei **test di Wald** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test. -->
+
+```{r}
+#| results: hide
+m0 <- glm(default ~ 1, data = Default, family = "binomial")
+
+# Statistiche test, p-value e gradi di libertà
+lmtest::waldtest(m0, m1, test = "Chisq") # Test di Wald
+anova(m0, m1, test = "LRT") # Test log-rapporto di verosimiglianza
+
+# Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente studentYes. 
+# Si ricordi che z-value^2 = Chisq. 
+summary(m1) 
+```
+
+<!-- 	iii. Si discuta se l’essere studenti aumenti o diminuisca la probabilità di insolvenza e di quanto, sulla base del modello `m1`. -->
+
+
+<!-- (c) Si modifichi il modello `m1` aggiungendo anche le variabili `income` e `balance`. Si indichi tale modello con `m2`. Si riportino: -->
+<!--     i. l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza; -->
+<!--     ii. un’interpretazione di tutti i coefficienti stimati. In particolare, l’essere studenti aumenta o diminuisce la probabilità di insolvenza? Di quanto? -->
+<!--     iii. Si discuta se l’interpretazione fornita al punto precedente sia coerente con quella ottenuta nel modello `m1`. Si commenti il risultato e se ne fornisca una giustificazione. -->
+
+<!-- (d) Il modello `m2` è preferibile rispetto al modello `m1`? Si motivi la risposta. -->
+
+<!-- (e) La variabile `income` può essere rimossa dal modello `m2`? Si motivi la risposta. -->
+
+<!-- (f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione. -->
+
+<!-- (g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti. -->
