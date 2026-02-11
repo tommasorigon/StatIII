@@ -195,7 +195,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Otteniamo quindi che l’equazione stimata è <span class="math display">
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}}{1 + e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}} =\frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000,
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}}{1 + e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}} =\frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.405 d_i}}, \qquad i=1,\dots,10000,
 </span> dove <span class="math inline">d_i</span> è una variabile <em>dummy</em> che vale <span class="math inline">1</span> quando l’<span class="math inline">i</span>-esimo cliente è uno studente e <span class="math inline">0</span> altrimenti.</p>
 <!--    ii. il valore delle statistiche test e i *p-value* dei **test di Wald** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test. -->
 <div class="cell">
@@ -222,7 +222,7 @@ window.Quarto = {
   1.499133 </code></pre>
 </div>
 </div>
-<p>Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a <span class="math inline">1.499</span>. Questo significa che, <span class="blue">marginalmente</span> rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, questo incremento è di circa una volta e mezzo.</p>
+<p>Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a <span class="math inline">1.499</span>. Questo significa che, <span class="blue">marginalmente</span> rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, la quota di solvenza per uno studente è circa una volta e mezzo la quota per un non-studente.</p>
 <p>Era anche possibile presentare questo aumento in altri modi, ad esempio calcolando esplicitamente le probabilità nei due casi:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">plogis</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(m1))), <span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>])) <span class="co"># Alternativamente: predict(m1, data.frame(student = c("Yes", "No")), type = "response")</span></span>
@@ -232,7 +232,7 @@ window.Quarto = {
  0.04313859  0.02919501 </code></pre>
 </div>
 </div>
-<p>È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In alternativa, si sarebbero potute considerare le quote.</p>
+<p>È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In ogni caso, in valori assoluti si tratta di probabilità abbastanza basse in entrambi i casi. In alternativa, si sarebbero potute considerare le quote.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>odds <span class="ot">&lt;-</span> probs <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> probs)</span>
 <span id="cb13-2"><a href="#cb13-2"></a>odds</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>

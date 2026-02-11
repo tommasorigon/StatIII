@@ -68,7 +68,7 @@ coef(m1) # In alternativa, anche summary(m1) mostrava le stime dei coefficienti
 
 Otteniamo quindi che l'equazione stimata è
 $$
-\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}}{1 + e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}} =\frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.341 d_i}}, \qquad i=1,\dots,10000,
+\hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}}{1 + e^{\hat{\beta}_1 +  \hat{\beta}_2 d_i}} =\frac{e^{-3.504 +  0.405 d_i}}{1 + e^{-3.504 + 0.405 d_i}}, \qquad i=1,\dots,10000,
 $$
 dove $d_i$ è una variabile *dummy* che vale $1$ quando l'$i$-esimo cliente è uno studente e $0$ altrimenti. 
 
@@ -102,7 +102,7 @@ Considerati i gradi di libertà dei test $W_e$ e $W$ e la loro distribuzione asi
 exp(coef(m1)[2]) # Rapporto tra quote (odds ratio)
 ```
 
-Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a $1.499$. Questo significa che, [marginalmente]{.blue} rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, questo incremento è di circa una volta e mezzo.
+Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a $1.499$. Questo significa che, [marginalmente]{.blue} rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, la quota di solvenza per uno studente è circa una volta e mezzo la quota per un non-studente.
 
 Era anche possibile presentare questo aumento in altri modi, ad esempio calcolando esplicitamente le probabilità nei due casi:
 
@@ -111,7 +111,7 @@ probs <- c(plogis(sum(coef(m1))), plogis(coef(m1)[1])) # Alternativamente: predi
 probs
 ```
 
-È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In alternativa, si sarebbero potute considerare le quote.
+È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In ogni caso, in valori assoluti si tratta di probabilità abbastanza basse in entrambi i casi. In alternativa, si sarebbero potute considerare le quote.
 
 ```{r}
 odds <- probs / (1 - probs)
