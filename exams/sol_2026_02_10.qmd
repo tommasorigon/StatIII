@@ -174,7 +174,7 @@ Poichè si tratta di modelli annidati è possibile condurre un test statistico f
 summary(m2)
 ```
 
-Come evidente dal `summary`, la variabile `income` è rimovibile dal modello senza perdita informativa. Il *p-value* risultava infatti non significativo. 
+Come evidente dal `summary`, la variabile `income` è rimovibile dal modello senza perdita informativa. Il *p-value* risultava infatti pari a $0.711$. 
 
 <!-- (f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione. -->
 
