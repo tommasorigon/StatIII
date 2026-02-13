@@ -104,21 +104,27 @@ exp(coef(m1)[2]) # Rapporto tra quote (odds ratio)
 
 Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a $1.499$. Questo significa che, [marginalmente]{.blue} rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, la quota di solvenza per uno studente è circa una volta e mezzo la quota per un non-studente.
 
-Era anche possibile presentare questo aumento in altri modi, ad esempio calcolando esplicitamente le probabilità nei due casi:
+:::callout-warning
+#### Un errore ricorrente
+
+Ho notato un errore ricorrente tra gli studenti relativo all'interpretazione degli *odds ratio*, in questo caso pari a $1.499$. Questo numero implica una variazione percentuale del $49.9\%$ delle [quote]{.blue}, e [non]{.orange} delle [probabilità]{.orange}. Come raccontato anche a [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_Q.pdf), si tratta di quantità ben distinte.
+:::
 
 ```{r}
 probs <- c(plogis(sum(coef(m1))), plogis(coef(m1)[1])) # Alternativamente: predict(m1, data.frame(student = c("Yes", "No")), type = "response")
-probs
+probs 
 ```
 
-È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. In ogni caso, in valori assoluti si tratta di probabilità abbastanza basse in entrambi i casi. In alternativa, si sarebbero potute considerare le quote.
+È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. Il rapporto tra probabilità (rischio relativo) è quindi pari a `probs[1] / probs[2] = 1.477601`, ovvero una variazione percentuale delle probabilità del $47\%$. 
+
+Se invece si considerano le quote:
 
 ```{r}
 odds <- probs / (1 - probs)
-odds
+odds 
 ```
 
-Il cui rapporto (*odds ratio*) è appunto pari al valore `1.499` calcolato prima. 
+Il rapporto tra quote (*odds ratio*)  è quindi pari a `odds[1] / odds[2] = 1.499133`, cioè una variazione percentuale del $49.9\%$, che è appunto pari al valore $e^{\hat{\beta}_2}$ calcolato prima. 
 
 :::callout-warning
 La domanda chiedeva se essere studente “aumenti” il rischio di insolvenza e questa era la parte più difficile e delicata, perché ci si chiede se esista o meno una relazione di [causa-effetto]{.blue}. Fino a qui abbiamo registrato una significativa [associazione]{.orange} tra rischio di insolvenza ed essere studenti. Come noto da [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_M.pdf), associazione non implica causalità e in questo caso c’erano buone ragioni per ritenere che l’associazione fosse dovuta ad una terza variabile (`balance`), come vedremo nei punti successivi.
