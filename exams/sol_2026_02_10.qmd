@@ -105,9 +105,9 @@ exp(coef(m1)[2]) # Rapporto tra quote (odds ratio)
 Il rapporto tra le quote nel caso in cui il cliente sia studente e nel caso in cui non lo sia è pari a $1.499$. Questo significa che, [marginalmente]{.blue} rispetto alle altre covariate (ci torniamo), essere studente è associato a una probabilità di insolvenza maggiore. In termini di rapporto tra quote, la quota di solvenza per uno studente è circa una volta e mezzo la quota per un non-studente.
 
 :::callout-warning
-#### Un errore ricorrente
+#### Un errore ricorrente (che commettono anche i giornalisti del *Daily Mail*)
 
-Ho notato un errore ricorrente tra gli studenti relativo all'interpretazione degli *odds ratio*, in questo caso pari a $1.499$. Questo numero implica una variazione percentuale del $49.9\%$ delle [quote]{.blue}, e [non]{.orange} delle [probabilità]{.orange}. Come raccontato anche a [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_Q.pdf), si tratta di quantità ben distinte.
+Ho notato un errore ricorrente tra gli studenti relativo all'interpretazione degli *odds ratio*, in questo caso pari a $1.499$. Questo indica una variazione percentuale del $49.9\%$ delle [quote]{.blue}, e [non]{.orange} delle [probabilità]{.orange}. Come raccontato anche a [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_Q.pdf), si tratta di quantità ben distinte.
 :::
 
 ```{r}
