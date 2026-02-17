@@ -1,6 +1,6 @@
 ---
-title: "Esiti esame del 27 Gennaio 2026"
-subtitle: "Statistics III - CdL SSE"
+title: "Esiti esame del 10 Febbraio 2026"
+subtitle: "Statistica III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
 page-layout: full
@@ -40,6 +40,6 @@ outcome$Teoria[outcome$Teoria < 18] <- "INS"
 
 ```{r}
 #| echo: false
-colnames(outcome) <- c("Matricola", "Esito", "PARTE I (Analisi dei dati)", "PARTE 2 (Teoria)")
+colnames(outcome) <- c("Matricola", "Esito", "PARTE I (Analisi dei dati)", "PARTE 2 (Teoria ed esercizi)")
 knitr::kable(outcome[order(outcome$Matricola), c(1, 3, 4, 2)], row.names = FALSE, align = c('l', 'l', "l", "r"))
 ```
