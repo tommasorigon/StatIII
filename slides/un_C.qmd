@@ -85,7 +85,7 @@ library(ggthemes)
   - interpretation of responses via latent "utilities";
   - and more...
 
-- Clearly, the most important aspects have been already covered in [Unit B](un_.B.html).
+- Clearly, the most important aspects have been already covered in [Unit B](un_B.html).
 :::
 
 :::
@@ -272,7 +272,7 @@ $$
 ## Latent variable threshold models II
 
 
-- For most models $F$ corresponds to a pdf that is symmetric around 0, so $F(z) = 1− F(−z)$. Thus, we obtain
+- For most models $F$ corresponds to a cdf that is symmetric around 0, so $F(z) = 1− F(−z)$. Thus, we obtain
 $$
 \begin{aligned}
 \pi_i = 1 - F(- \bm{x}_i^T\beta) = F(\bm{x}_i^T\beta), \qquad \text{and} \qquad F^{-1}(\pi_i) = g(\pi_i) = \bm{x}_i^T\beta.
@@ -298,7 +298,7 @@ where $f(z)$ is the density associated with $F(z)$, i.e. its derivative, and the
 $$
 \sum_{i=1}^n m_i (y_i - \pi_i) x_{ir} = 0, \qquad r=1,\dots, p.
 $$
-The solutions therefore has a nice interpretation as a [method of moments]{.blue} estimator, in that
+The solution therefore has a nice interpretation as a [method of moments]{.blue} estimator, in that
 $$
 \sum_{i=1}^n s_i x_{ir} = \sum_{i=1}^n \mathbb{E}(S_i) x_{ir}, \qquad r=1,\dots, p,
 $$
@@ -365,12 +365,12 @@ $$
 $$
 (\text{odds ratio}) = \exp\{(\bm{x}'- \bm{x})^T\beta \} = \exp(c \beta_j).
 $$
-In particular, $\exp(\beta_j)$ represents the odds ratio after a [unitary increase]{.orange} of the $j$th covariate. 
+In particular, $\exp(\beta_j)$ represents the odds ratio after a [unit increase]{.orange} of the $j$th covariate. 
 
 
 ## Residuals and diagnostics for binary data
 
-- In presence of [binary data]{.orange}, namely when $m_i = 1$ and $Y_i \sim \text{Bernoulli}(\pi_i)$, many the diagnostic tools are [degenerate]{.orange} and uninformative.
+- In presence of [binary data]{.orange}, namely when $m_i = 1$ and $Y_i \sim \text{Bernoulli}(\pi_i)$, many of the diagnostic tools are [degenerate]{.orange} and uninformative.
 
 - For example, the `fitted` vs `residuals` plot, namely the dispersion plot of the points $(\hat{\pi}_i, y_i - \hat{\pi}_i)$, simply shows two parallel lines with slope $-1$, which is uninformative. 
 

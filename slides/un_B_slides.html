@@ -310,7 +310,7 @@
 <li><p>Let <span class="math inline">S_i</span> be the number of dead beetles out of <span class="math inline">m_i</span>, and let <span class="math inline">x_i</span> denote the log-dose. By definition, <span class="math inline">S_i \in \{0, 1, \dots, m_i\}</span> for <span class="math inline">i = 1,\dots,8</span>.</p></li>
 <li><p>It is natural to model each <span class="math inline">S_i</span> as <span class="blue">independent binomial</span> random variables, counting the number of deaths out of <span class="math inline">m_i</span> individuals. In other words: <span class="math display">
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
-</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, et <span class="math inline">Y_i = S_i / m_i</span> be the proportion of deaths, then: <span class="math display">
+</span> where <span class="math inline">\pi_i</span> is the <span class="orange">probability</span> of death at a given dose <span class="math inline">x_i</span>. Moreover, let <span class="math inline">Y_i = S_i / m_i</span> be the proportion of deaths, then: <span class="math display">
 \mathbb{E}(Y_i) = \mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
 </span></p></li>
 <li><p>A modeling approach, called <span class="blue">logistic regression</span>, specifies:<br>
@@ -339,7 +339,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 </div>
 <ul>
 <li><p>The prediction <span class="math inline">\hat{\beta}_1 + \hat{\beta}_2 x_i</span> is <span class="orange">unrestricted</span>, meaning it could produce values like “1.3” or “-2” as estimated <span class="blue">proportions</span>, which is clearly undesirable.</p></li>
-<li><p>The <span class="blue">additive structure</span> <span class="math inline">Y_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold with <span class="blue">iid</span> errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">S_i</span>, and thus <span class="math inline">Y_i</span>, are <span class="orange">discrete</span>. As a result, the errors are always <span class="orange">heteroschedastic</span>.</p></li>
+<li><p>The <span class="blue">additive structure</span> <span class="math inline">Y_i = \beta_1 + \beta_2 x_i + \epsilon_i</span> cannot hold with <span class="blue">iid</span> errors <span class="math inline">\epsilon_i</span>, because <span class="math inline">S_i</span>, and thus <span class="math inline">Y_i</span>, are <span class="orange">discrete</span>. As a result, the errors are always <span class="orange">heteroscedastic</span>.</p></li>
 <li><p>If <span class="math inline">m_i = 1</span>, i.e.&nbsp;when the data are <span class="orange">binary</span>, all the above issues are <span class="orange">exacerbated</span>.</p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -366,7 +366,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <ul>
 <li><p>The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">\text{logit}(\tilde{Y}_i)</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>.</p></li>
 <li><p>An arbitrary <span class="orange">boundary correction</span> is needed.</p></li>
-<li><p>Inference is problematic and requires further corrections, because of <span class="orange">heteroschedastic</span> errors.</p></li>
+<li><p>Inference is problematic and requires further corrections, because of <span class="orange">heteroscedastic</span> errors.</p></li>
 <li><p>This approach is <span class="orange">not compatible</span> with the reasonable assumption <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>.</p></li>
 </ul>
 </section>
@@ -374,7 +374,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <h2>A comparison with old tools III</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
-<li>The black line is the predicted curve of a <span class="grey">logistic regression GLM</span>. The orange line is the predictived curve of a <span class="orange">linear model</span>. The blue line is the predictive curve of a <span class="blue">linear model</span> after an <span class="blue">empirical logit variable transformation</span>.</li>
+<li>The black line is the predicted curve of a <span class="grey">logistic regression GLM</span>. The orange line is the predicted curve of a <span class="orange">linear model</span>. The blue line is the predictive curve of a <span class="blue">linear model</span> after an <span class="blue">empirical logit variable transformation</span>.</li>
 </ul>
 </section>
 <section id="aids-data" class="slide level2 center">
@@ -491,7 +491,7 @@ g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i
 <li><p>Under this specification, the <span class="blue">variances</span> of the observations are<br>
 <span class="math display">
 \text{var}(Y_i) = \mu_i = \exp(\beta_1 + \beta_2 x_i),
-</span> which increases with <span class="math inline">x</span>, as desired. This implies that <span class="math inline">Y_1,\dots,Y_n</span> are <span class="orange">heteroschedastic</span>, but this is not an issue in GLMs, as this aspect is <span class="blue">automatically accounted</span> for.</p></li>
+</span> which increases with <span class="math inline">x</span>, as desired. This implies that <span class="math inline">Y_1,\dots,Y_n</span> are <span class="orange">heteroscedastic</span>, but this is not an issue in GLMs, as this aspect is <span class="blue">automatically accounted</span> for.</p></li>
 </ul>
 </div>
 </section>
@@ -539,7 +539,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 <section id="the-components-of-a-glm" class="slide level2 center">
 <h2>The components of a GLM</h2>
 <ul>
-<li><span class="orange">Random component</span>. This specifies the probability distribution response variable <span class="math inline">Y_i</span>. The observations <span class="math inline">\bm{y} =(y_1,\dots,y_n)</span> on that distribution are treated as <span class="orange">independent</span>.</li>
+<li><span class="orange">Random component</span>. This specifies the probability distribution of the response variable <span class="math inline">Y_i</span>. The observations <span class="math inline">\bm{y} =(y_1,\dots,y_n)</span> on that distribution are treated as <span class="orange">independent</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -591,7 +591,7 @@ Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \math
 <div class="callout-content">
 <p>In a <span class="blue">Gaussian linear model</span> we consider the <span class="blue">identity link</span> <span class="math inline">g(\mu) = \mu</span> and let <span class="math display">
 Y_i \overset{\text{ind}}{\sim}\text{N}(\mu_i, \sigma^2), \qquad \mu_i = \bm{x}_i^T\beta.
-</span> The unknown variance <span class="math inline">\sigma^2 = \phi</span> is called <span class="orange">dispersion</span> in GLMs. The <span class="orange">parameter space</span> is <span class="math inline">\mathcal{M} = \mathbb{R}</span>, whereas <span class="math inline">a_i(\phi) = \phi</span> and the variance function is <span class="blue">constant</span> <span class="math inline">v(\mu) = 1</span> (homoschedasticity).</p>
+</span> The unknown variance <span class="math inline">\sigma^2 = \phi</span> is called <span class="orange">dispersion</span> in GLMs. The <span class="orange">parameter space</span> is <span class="math inline">\mathcal{M} = \mathbb{R}</span>, whereas <span class="math inline">a_i(\phi) = \phi</span> and the variance function is <span class="blue">constant</span> <span class="math inline">v(\mu) = 1</span> (homoscedasticity).</p>
 </div>
 </div>
 </div>
@@ -622,7 +622,7 @@ Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_
 <section id="overview" class="slide level2 center">
 <h2>Overview</h2>
 <ul>
-<li>Figure 1 of <span class="citation" data-cites="Efron2023">Efron (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span>. <span class="grey">Three level</span> of statistical modeling.</li>
+<li>Figure 1 of <span class="citation" data-cites="Efron2023">Efron (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span>. <span class="grey">Three levels</span> of statistical modeling.</li>
 </ul>
 
 <img data-src="img/EF.png" class="quarto-figure quarto-figure-center r-stretch" style="width:6in"><ul>
@@ -643,7 +643,7 @@ p(y_i; \theta_i, \phi) = \exp\left\{\frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)}
 </div>
 <div class="fragment">
 <ul>
-<li><p>By specifying the functions <span class="math inline">a_i(\cdot), b(\cdot)</span> and <span class="math inline">c(\cdot)</span> one obtain a particular <span class="orange">parametric model</span>.</p></li>
+<li><p>By specifying the functions <span class="math inline">a_i(\cdot), b(\cdot)</span> and <span class="math inline">c(\cdot)</span> one obtains a particular <span class="orange">parametric model</span>.</p></li>
 <li><p>The support <span class="math inline">\mathcal{Y}</span> of <span class="math inline">Y_i</span> does not depend on the parameters <span class="math inline">\phi</span> or <span class="math inline">\theta_i</span> and <span class="math inline">b(\cdot)</span> can be <span class="blue">differentiated</span> infinitely many times. In particular, this is a <span class="orange">regular statistical model</span>.</p></li>
 <li><p>As mentioned, special cases are <span class="math inline">a_i(\phi) = \phi</span> and <span class="math inline">a_i(\phi) = 1</span>. When <span class="math inline">a_i(\phi) = 1</span> and <span class="math inline">c(y_i, \phi) = c(y_i)</span> we obtain <span class="math display">
 p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
@@ -686,7 +686,7 @@ p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
 </div>
 <ul>
 <li><p>The mean <span class="math inline">\mu_i = b'(\theta_i)</span> does <span class="orange">not</span> depend on the <span class="orange">dispersion</span> parameter.</p></li>
-<li><p>We have <span class="math inline">b''(\cdot) &gt; 0</span> because <span class="math inline">\text{var}(Y_i)</span>, which means that <span class="math inline">b(\cdot)</span> is a <span class="blue">convex function</span>.</p></li>
+<li><p>We have <span class="math inline">b''(\cdot) &gt; 0</span> because <span class="math inline">\text{var}(Y_i) &gt; 0</span>, which means that <span class="math inline">b(\cdot)</span> is a <span class="blue">convex function</span>.</p></li>
 <li><p>Moreover, the function <span class="math inline">b'(\theta)</span> is <span class="orange">continuous</span> and <span class="orange">monotone increasing</span> and hence <span class="orange">invertible</span>.</p></li>
 </ul>
 
@@ -736,7 +736,7 @@ p(y_i; \mu_i, \sigma^2) &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left\{-\frac{
 </section>
 <section id="poisson-distribution" class="slide level2 center">
 <h2>Poisson distribution 📖</h2>
-<p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span>. The <span class="blue">pdf</span> function of <span class="math inline">Y_i</span> can be written as <span class="math display">
+<p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span>. The <span class="blue">pmf</span> of <span class="math inline">Y_i</span> can be written as <span class="math display">
 \begin{aligned}
 p(y_i; \mu_i) &amp;= \frac{\mu_i^{y_i} e^{-\mu_i}}{y_i!}=\exp\{y_i \log(\mu_i) - \mu_i - \log(y_i!)\} \\
 &amp;=\exp\{y_i \theta_i - e^{\theta_i} - \log(y_i!)\}, \qquad y_i = 0, 1, 2,\dots.
@@ -800,7 +800,7 @@ p(y_i; m_i, \pi_i) &amp;= \binom{m_i}{m_i y_i}\pi_i^{m_i y_i}(1 - \pi_i)^{m_i - 
 &amp;=\binom{m_i}{m_i y_i}\left(\frac{\pi_i}{1 - \pi_i}\right)^{m_i y_i}(1 - \pi_i)^{m_i}\\
 &amp;=\exp\left\{m_iy_i\log\left(\frac{\pi_i}{1 - \pi_i}\right) + m_i\log(1 - \pi_i) + \log\binom{m_i}{m_i y_i}\right\},
 \end{aligned}
-</span> for <span class="math inline">y_i \in \{0, 1/m_i, 2/m_2, \dots, m_i/m_i\}</span>. This can be written as <span class="math display">
+</span> for <span class="math inline">y_i \in \{0, 1/m_i, 2/m_i, \dots, m_i/m_i\}</span>. This can be written as <span class="math display">
 p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1/m_i}+ \log\binom{m_i}{m_i y_i}\right\},
 </span> where the <span class="orange">natural parameter</span> is <span class="math inline">\theta_i = \text{logit}(\pi_i) = \log\{\pi/(1-\pi_i)\}</span>.</li>
 </ul>
@@ -1019,7 +1019,7 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 <ul>
 <li>Recall that <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta = \eta_i</span> and that <span class="math inline">\theta_i = \theta(\mu_i)</span> is the inverse of <span class="math inline">\mu(\theta_i)</span>. As an <span class="blue">application</span> of the above <span class="blue">lemma</span>: <span class="math display">
 \frac{\partial \theta_i}{\partial \mu_i} = \theta'(\mu_i) = \frac{1}{\mu'(\theta(\mu_i))}= \frac{1}{b''(\theta(\mu_i))} = \frac{1}{v(\mu_i)},
-</span> Moreover, since we <span class="math inline">\mu_i = g^{-1}(\eta_i)</span> we obtain <span class="math display">
+</span> Moreover, since <span class="math inline">\mu_i = g^{-1}(\eta_i)</span> we obtain <span class="math display">
 \frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
 </span></li>
 <li>Summing up, the <span class="orange">chain rule of derivation</span> for <span class="blue">composite functions</span> gives: <span class="math display">
@@ -1030,7 +1030,7 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 <section id="likelihood-equations-iv" class="slide level2 center">
 <h2>Likelihood equations IV 📖</h2>
 <ul>
-<li>Combining all the above equations, we obtain an explicit formula for the <span class="blue">score function</span> <span class="math display">
+<li>Combining all the former equations, we obtain an explicit formula for the <span class="blue">score function</span> <span class="math display">
 \frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
 </span></li>
 </ul>
@@ -1081,7 +1081,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link and <span class="blue">heteroschedastic errors</span>. The likelihood equations are <span class="math display">
+<p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link and <span class="blue">heteroscedastic errors</span>. The likelihood equations are <span class="math display">
 \bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
 </span> Their solution over <span class="math inline">\beta</span> is the weighted least square estimator <span class="math inline">\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}</span>.</p>
 </div>
@@ -1536,7 +1536,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 </div>
 </div>
 <ul>
-<li>The above formula can <span class="blue">simplified</span> a bit. First, we rewrite the <span class="orange">score</span> as <span class="math display">
+<li>The above formula can be <span class="blue">simplified</span> a bit. First, we rewrite the <span class="orange">score</span> as <span class="math display">
 \frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
 </span> where the <span class="orange">weights</span> were defined as <span class="math inline">w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)</span>. In <span class="blue">matrix notation</span> we will write: <span class="math display">
 \ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
@@ -1546,7 +1546,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <section id="iteratively-re-weighted-least-squares-ii" class="slide level2 center">
 <h2>Iteratively re-weighted least squares II 📖</h2>
 <ul>
-<li>Exploiting the former formulas, we can write the IRLS update as follows <span class="math display">
+<li>Exploiting the above formulas, we can write the IRLS update as follows <span class="math display">
 \beta^{(t+1)} = \beta^{(t)} + (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}.
 </span> Now <span class="orange">multiply</span> both sides by <span class="math inline">(\bm{X}^T\bm{W}^{(t)}\bm{X})</span>, <span class="blue">simplify</span> and <span class="grey">re-arrange</span> the resulting terms. This gives the following formula.</li>
 </ul>
@@ -1646,7 +1646,7 @@ z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_
 \texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
 </span></p></li>
 </ul>
-<!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
+<!-- - Note that the asymptotic variance implicitly takes into account [heteroscedasticity]{.orange}.  -->
 </section>
 <section id="example-beetles-data-2" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
@@ -1892,7 +1892,7 @@ W_u \: \dot{\sim} \; \chi^2_q,
 </div>
 
 <aside><div>
-<p>The Rao-score test arguably the <span class="orange">less common</span>. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
+<p>The Rao-score test is arguably the <span class="orange">least common</span>. When <span class="math inline">\phi</span> is unknown, there are several variants depending on how it is estimated.</p>
 </div></aside></section>
 <section id="a-graphical-representation-when-p-1" class="slide level2 center">
 <h2>A graphical representation when <span class="math inline">p = 1</span></h2>
@@ -2054,7 +2054,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 <section id="example-aids-data-4" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
-<li>Let us know perform the same analysis for the <code>Aids</code> data. Again, we test the null hypothesis <span class="math inline">H_0 : \beta_2 = 0</span>, which is the relevance of <code>period</code> in predicting the response.</li>
+<li>Let us now perform the same analysis for the <code>Aids</code> data. Again, we test the null hypothesis <span class="math inline">H_0 : \beta_2 = 0</span>, which is the relevance of <code>period</code> in predicting the response.</li>
 </ul>
 <table class="caption-top" style="width:100%;">
 <colgroup>
@@ -2467,7 +2467,7 @@ X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i} = \sum_{i=1}^n\frac
 <section id="deviance-of-a-binomial-model-i" class="slide level2 center">
 <h2>Deviance of a binomial model I</h2>
 <ul>
-<li><p>Let us consider a <span class="blue">Binomial regression</span> model <span class="math inline">m_i Y_i = S_i \sim \text{Bimonial}(m_i, \pi_i)</span> with <span class="math inline">\mu_i = \pi_i</span>. Then <span class="math display">
+<li><p>Let us consider a <span class="blue">Binomial regression</span> model <span class="math inline">m_i Y_i = S_i \sim \text{Binomial}(m_i, \pi_i)</span> with <span class="math inline">\mu_i = \pi_i</span>. Then <span class="math display">
 \ell_\mathcal{M}(\bm{\hat{\mu}}) = \sum_{i=1}^n\{m_i y_i \log{(\hat{\mu}_i)} + m_i(1 - y_i)\log{(1-\hat{\mu}_i)}\}.
 </span> Therefore, under the convention <span class="math inline">x\log(x) = 0</span> as before, the deviance is <span class="math display">
 \begin{aligned}
@@ -2675,7 +2675,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The use of the term <code>deviance</code> to indicate the <span class="blue">difference</span> between two deviances is a bit <span class="orange">misleading</span>. I do not know the the reason, but the <code>lrtest</code> function of the <code>lmtest</code> package changed it.</p>
+<p>The use of the term <code>deviance</code> to indicate the <span class="blue">difference</span> between two deviances is a bit <span class="orange">misleading</span>. I do not know the reason, but the <code>lrtest</code> function of the <code>lmtest</code> package changed it.</p>
 </div>
 </div>
 </div>
@@ -2754,7 +2754,7 @@ r_{i, P} = \frac{y_i - \hat{\mu}_i}{\sqrt{v(\hat{\mu}_i)/\omega_i}}, \qquad i=1,
 </div>
 </div>
 <ul>
-<li><p>Pearson residuals rescale the response residuals, accounting for <span class="orange">heteroschedasticity</span>.</p></li>
+<li><p>Pearson residuals rescale the response residuals, accounting for <span class="orange">heteroscedasticity</span>.</p></li>
 <li><p>Pearson residuals own their name to the fact that the <span class="math inline">X^2</span> statistic is obtained as <span class="math display">
 X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\mu_i)}.
 </span> Moreover, the dispersion parameter, when present, can be estimated as <span class="math display">
@@ -2808,7 +2808,7 @@ D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n r_{i, D}^2.
 <section id="standardized-residuals" class="slide level2 center">
 <h2>Standardized residuals</h2>
 <ul>
-<li><p>In analogy of what has been done for GLMs, we can consider the <span class="blue">standardized</span> version of Pearson and deviance residuals.</p></li>
+<li><p>In analogy with what has been done for linear models, we can consider the <span class="blue">standardized</span> version of Pearson and deviance residuals.</p></li>
 <li><p><span class="blue">Standardized Pearson residuals</span> are defined as <span class="math display">
 \tilde{r}_{i, P} = \frac{r_{i,P}}{\sqrt{\hat{\phi}(1 - \hat{h}_{i, W})}} = \frac{y_i - \hat{\mu_i}}{\sqrt{\hat{\phi}/\omega_iv(\hat{\mu}_i)(1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n,
 </span> where <span class="math inline">\hat{\phi}</span> is an estimate of <span class="math inline">\phi</span> (if unknown) and <span class="math inline">\hat{h}_{i, W}</span> is an estimate of the leverages.</p></li>
@@ -2855,7 +2855,7 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <div class="callout-body">
 <div class="callout-content">
 <p>In statistical modelling, we wish to find a model that fits our data, not a dataset that is aligned with our prescribed model.</p>
-<p>Discarding observations until the hypoteshes are reasonable it skews the overall analysis and does not answer any meaningful scientific or business question.</p>
+<p>Discarding observations until the hypotheses are reasonable skews the overall analysis and does not answer any meaningful scientific or business question.</p>
 </div>
 </div>
 </div>

@@ -147,7 +147,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
 $$
 S_i \overset{\text{ind}}{\sim} \text{Binomial}(m_i, \pi_i), \qquad i = 1,\dots,8,
 $$
-where $\pi_i$ is the [probability]{.orange} of death at a given dose $x_i$. Moreover, et $Y_i = S_i / m_i$ be the proportion of deaths, then:
+where $\pi_i$ is the [probability]{.orange} of death at a given dose $x_i$. Moreover, let $Y_i = S_i / m_i$ be the proportion of deaths, then:
 $$
 \mathbb{E}(Y_i) = \mathbb{E}\left(\frac{S_i}{m_i}\right)  = \pi_i = \mu_i.
 $$
@@ -190,7 +190,7 @@ The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Y_i
 
 - The prediction $\hat{\beta}_1 + \hat{\beta}_2 x_i$ is [unrestricted]{.orange}, meaning it could produce values like "1.3" or "-2" as estimated [proportions]{.blue}, which is clearly undesirable.
 
-- The [additive structure]{.blue} $Y_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with [iid]{.blue} errors $\epsilon_i$, because $S_i$, and thus $Y_i$, are [discrete]{.orange}. As a result, the errors are always [heteroschedastic]{.orange}. 
+- The [additive structure]{.blue} $Y_i = \beta_1 + \beta_2 x_i + \epsilon_i$ cannot hold with [iid]{.blue} errors $\epsilon_i$, because $S_i$, and thus $Y_i$, are [discrete]{.orange}. As a result, the errors are always [heteroscedastic]{.orange}. 
 
 - If $m_i = 1$, i.e. when the data are [binary]{.orange}, all the above issues are [exacerbated]{.orange}.
 
@@ -215,7 +215,7 @@ in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text
 
 - An arbitrary [boundary correction]{.orange} is needed. 
 
-- Inference is problematic and requires further corrections, because of [heteroschedastic]{.orange} errors. 
+- Inference is problematic and requires further corrections, because of [heteroscedastic]{.orange} errors. 
 
 - This approach is [not compatible]{.orange} with the reasonable assumption $S_i \sim \text{Binomial}(m_i, \pi_i)$.
 
@@ -240,7 +240,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   ylab("Proportion of deaths")
 ```
 
-- The black line is the predicted curve of a [logistic regression GLM]{.grey}. The orange line is the predictived curve of a [linear model]{.orange}. The blue line is the predictive curve of a [linear model]{.blue} after an [empirical logit variable transformation]{.blue}.
+- The black line is the predicted curve of a [logistic regression GLM]{.grey}. The orange line is the predicted curve of a [linear model]{.orange}. The blue line is the predictive curve of a [linear model]{.blue} after an [empirical logit variable transformation]{.blue}.
 
 ## `Aids` data
 
@@ -297,7 +297,7 @@ for some parameters $\beta_1, \beta_2 \in \mathbb{R}$. [Note]{.orange} that $\mu
 $$
 \text{var}(Y_i) = \mu_i = \exp(\beta_1 + \beta_2 x_i),
 $$
-which increases with $x$, as desired. This implies that $Y_1,\dots,Y_n$ are [heteroschedastic]{.orange}, but this is not an issue in GLMs, as this aspect is [automatically accounted]{.blue} for.
+which increases with $x$, as desired. This implies that $Y_1,\dots,Y_n$ are [heteroscedastic]{.orange}, but this is not an issue in GLMs, as this aspect is [automatically accounted]{.blue} for.
 
 
 ## `Aids` data, fitted model
@@ -369,7 +369,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 ## The components of a GLM
 
 
-- [Random component]{.orange}. This specifies the probability distribution response variable $Y_i$. The observations $\bm{y} =(y_1,\dots,y_n)$ on that distribution are treated as [independent]{.orange}. 
+- [Random component]{.orange}. This specifies the probability distribution of the response variable $Y_i$. The observations $\bm{y} =(y_1,\dots,y_n)$ on that distribution are treated as [independent]{.orange}. 
 
 . . .
 
@@ -423,7 +423,7 @@ In a [Gaussian linear model]{.blue} we consider the [identity link]{.blue} $g(\m
 $$
 Y_i \overset{\text{ind}}{\sim}\text{N}(\mu_i, \sigma^2), \qquad \mu_i = \bm{x}_i^T\beta.
 $$
-The unknown variance $\sigma^2 = \phi$ is called [dispersion]{.orange} in GLMs. The [parameter space]{.orange} is $\mathcal{M} = \mathbb{R}$, whereas $a_i(\phi) = \phi$ and the variance function is [constant]{.blue} $v(\mu) = 1$ (homoschedasticity).
+The unknown variance $\sigma^2 = \phi$ is called [dispersion]{.orange} in GLMs. The [parameter space]{.orange} is $\mathcal{M} = \mathbb{R}$, whereas $a_i(\phi) = \phi$ and the variance function is [constant]{.blue} $v(\mu) = 1$ (homoscedasticity).
 :::
 
 :::{.callout-tip}
@@ -446,7 +446,7 @@ We have $a_i(\phi) = 1$ and $v(\mu) = \mu$. There is [no dispersion]{.orange} pa
 
 ## Overview
 
-- Figure 1 of @Efron2023. [Three level]{.grey} of statistical modeling. 
+- Figure 1 of @Efron2023. [Three levels]{.grey} of statistical modeling. 
 
 
 ![](img/EF.png){width=6in fig-align="center"}
@@ -467,7 +467,7 @@ where $y_i \in \mathcal{Y} \subseteq \mathbb{R}$, $\theta_i \in \Theta \subseteq
 
 . . .
 
-- By specifying the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$ one obtain a particular [parametric model]{.orange}. 
+- By specifying the functions $a_i(\cdot), b(\cdot)$ and $c(\cdot)$ one obtains a particular [parametric model]{.orange}. 
 
 - The support $\mathcal{Y}$ of $Y_i$ does not depend on the parameters $\phi$ or $\theta_i$ and $b(\cdot)$ can be [differentiated]{.blue} infinitely many times. In particular, this is a [regular statistical model]{.orange}. 
 
@@ -517,7 +517,7 @@ $$
 
 - The mean $\mu_i = b'(\theta_i)$ does [not]{.orange} depend on the [dispersion]{.orange} parameter.
 
-- We have $b''(\cdot) > 0$ because $\text{var}(Y_i)$, which means that $b(\cdot)$ is a [convex function]{.blue}. 
+- We have $b''(\cdot) > 0$ because $\text{var}(Y_i) > 0$, which means that $b(\cdot)$ is a [convex function]{.blue}. 
 
 - Moreover, the function $b'(\theta)$ is [continuous]{.orange} and [monotone increasing]{.orange} and hence [invertible]{.orange}. 
 
@@ -575,7 +575,7 @@ The [variance function]{.blue} $v(\mu_i) = 1$ is [constant]{.orange}. We will wr
 
 ## Poisson distribution 📖
 
-Let $Y_i \sim \text{Poisson}(\mu_i)$. The [pdf]{.blue} function of $Y_i$ can be written as
+Let $Y_i \sim \text{Poisson}(\mu_i)$. The [pmf]{.blue} of $Y_i$ can be written as
 $$
 \begin{aligned}
 p(y_i; \mu_i) &= \frac{\mu_i^{y_i} e^{-\mu_i}}{y_i!}=\exp\{y_i \log(\mu_i) - \mu_i - \log(y_i!)\} \\
@@ -650,7 +650,7 @@ p(y_i; m_i, \pi_i) &= \binom{m_i}{m_i y_i}\pi_i^{m_i y_i}(1 - \pi_i)^{m_i - m_i 
 &=\exp\left\{m_iy_i\log\left(\frac{\pi_i}{1 - \pi_i}\right) + m_i\log(1 - \pi_i) + \log\binom{m_i}{m_i y_i}\right\},
 \end{aligned}
 $$
-for $y_i \in \{0, 1/m_i, 2/m_2, \dots, m_i/m_i\}$. This can be written as
+for $y_i \in \{0, 1/m_i, 2/m_i, \dots, m_i/m_i\}$. This can be written as
 $$
 p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1/m_i}+ \log\binom{m_i}{m_i y_i}\right\},
 $$
@@ -814,7 +814,7 @@ $$
 $$
 \frac{\partial \theta_i}{\partial \mu_i} = \theta'(\mu_i) = \frac{1}{\mu'(\theta(\mu_i))}= \frac{1}{b''(\theta(\mu_i))} = \frac{1}{v(\mu_i)},
 $$
-Moreover, since we $\mu_i = g^{-1}(\eta_i)$ we obtain 
+Moreover, since $\mu_i = g^{-1}(\eta_i)$ we obtain 
 $$
 \frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
 $$
@@ -825,7 +825,7 @@ $$
 
 ## Likelihood equations IV 📖
 
-- Combining all the above equations, we obtain an explicit formula for the [score function]{.blue}
+- Combining all the former equations, we obtain an explicit formula for the [score function]{.blue}
 $$
 \frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r=1,\dots,p.
 $$
@@ -877,7 +877,7 @@ which are also called [normal equations]{.orange}. Their solution over $\beta$ i
 :::
 
 :::callout-tip
-Let $Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)$ with $g(\mu_i) = \mu_i$, namely the [Gaussian]{.orange} linear model with the [identity]{.grey} (canonical) link and [heteroschedastic errors]{.blue}. The likelihood equations are
+Let $Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)$ with $g(\mu_i) = \mu_i$, namely the [Gaussian]{.orange} linear model with the [identity]{.grey} (canonical) link and [heteroscedastic errors]{.blue}. The likelihood equations are
 $$
 \bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
 $$
@@ -1218,7 +1218,7 @@ $$
 This method is also called [Fisher scoring]{.orange}. 
 :::
 
-- The above formula can [simplified]{.blue} a bit. First, we rewrite the [score]{.orange} as
+- The above formula can be [simplified]{.blue} a bit. First, we rewrite the [score]{.orange} as
 $$
 \frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
 $$
@@ -1230,7 +1230,7 @@ where $\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T$ and  $u_i^{(t)} = (y_i - \mu_i
 
 ## Iteratively re-weighted least squares II 📖
 
-- Exploiting the former formulas, we can write the IRLS update as follows
+- Exploiting the above formulas, we can write the IRLS update as follows
 $$
 \beta^{(t+1)} = \beta^{(t)} + (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}.
 $$
@@ -1334,7 +1334,7 @@ $$
 \texttt{Std. Error} = [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}
 $$
 
-<!-- - Note that the asymptotic variance implicitly takes into account [heteroschedasticity]{.orange}.  -->
+<!-- - Note that the asymptotic variance implicitly takes into account [heteroscedasticity]{.orange}.  -->
 
 ## Example: `Beetles` data
 
@@ -1577,7 +1577,7 @@ a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blu
 
 
 :::aside
-The Rao-score test arguably the [less common]{.orange}. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
+The Rao-score test is arguably the [least common]{.orange}. When $\phi$ is unknown, there are several variants depending on how it is estimated. 
 :::
 
 
@@ -1729,7 +1729,7 @@ rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 # knitr::kable(tests, digits = 3)
 ```
 
- - Let us know perform the same analysis for the `Aids` data. Again, we test the null hypothesis $H_0 : \beta_2 = 0$, which is the relevance of `period` in predicting the response.
+ - Let us now perform the same analysis for the `Aids` data. Again, we test the null hypothesis $H_0 : \beta_2 = 0$, which is the relevance of `period` in predicting the response.
 
 | Test for the hypothesis $H_0 : \beta_2 = 0$ | $\texttt{Chi}$ |$\texttt{Df}$ | $\texttt{Pr(>Chi)}$|
 |:---------------------------------|------:|------:|------:|
@@ -2012,7 +2012,7 @@ As discussed in @Salvan2020, Example 2.12, this can be seen as a [quadratic appr
 
 ## Deviance of a binomial model I
 
-- Let us consider a [Binomial regression]{.blue} model $m_i Y_i = S_i \sim \text{Bimonial}(m_i, \pi_i)$ with $\mu_i = \pi_i$. Then
+- Let us consider a [Binomial regression]{.blue} model $m_i Y_i = S_i \sim \text{Binomial}(m_i, \pi_i)$ with $\mu_i = \pi_i$. Then
 $$
 \ell_\mathcal{M}(\bm{\hat{\mu}}) = \sum_{i=1}^n\{m_i y_i \log{(\hat{\mu}_i)} + m_i(1 - y_i)\log{(1-\hat{\mu}_i)}\}.
 $$
@@ -2188,7 +2188,7 @@ anova(fit_Aids0, fit_Aids)
 ```
 
 :::callout-tip
-The use of the term `deviance` to indicate the [difference]{.blue} between two deviances is a bit [misleading]{.orange}. I do not know the the reason, but the `lrtest` function of the `lmtest` package changed it.
+The use of the term `deviance` to indicate the [difference]{.blue} between two deviances is a bit [misleading]{.orange}. I do not know the reason, but the `lrtest` function of the `lmtest` package changed it.
 :::
 
 ```{r}
@@ -2254,7 +2254,7 @@ r_{i, P} = \frac{y_i - \hat{\mu}_i}{\sqrt{v(\hat{\mu}_i)/\omega_i}}, \qquad i=1,
 $$
 :::
 
-- Pearson residuals rescale the response residuals, accounting for [heteroschedasticity]{.orange}. 
+- Pearson residuals rescale the response residuals, accounting for [heteroscedasticity]{.orange}. 
 
 - Pearson residuals own their name to the fact that the $X^2$ statistic is obtained as
 $$
@@ -2313,7 +2313,7 @@ $$
 
 ## Standardized residuals
 
-- In analogy of what has been done for GLMs, we can consider the [standardized]{.blue} version of Pearson and deviance residuals.
+- In analogy with what has been done for linear models, we can consider the [standardized]{.blue} version of Pearson and deviance residuals.
 
 - [Standardized Pearson residuals]{.blue} are defined as
 $$
@@ -2364,7 +2364,7 @@ Overreliance on residual analysis can encourage automatic decisions rather than 
 :::callout-tip
 In statistical modelling, we wish to find a model that fits our data, not a dataset that is aligned with our prescribed model. 
 
-Discarding observations until the hypoteshes are reasonable it skews the overall analysis and does not answer any meaningful scientific or business question. 
+Discarding observations until the hypotheses are reasonable skews the overall analysis and does not answer any meaningful scientific or business question. 
 :::
 
 ## Example: `Beetles` data
