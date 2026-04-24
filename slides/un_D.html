@@ -170,7 +170,7 @@ window.Quarto = {
 <li><p>This unit focuses on <span class="blue">Poisson regression models</span>.</p></li>
 <li><p>I will not cover the analysis of <span class="orange">contingency tables</span>.</p></li>
 <li><p>Such a topic is nonetheless discussed in the textbook but is not part of the exam.</p></li>
-<li><p>The most important aspects have been already covered in <a href="un_.B.html">Unit B</a>.</p></li>
+<li><p>The most important aspects have been already covered in <a href="un_B.html">Unit B</a>.</p></li>
 </ul>
 </div>
 </div>
@@ -207,7 +207,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <li><p>Under the <span class="orange">logarithmic link</span>, the mean has a multiplicative structure, namely <span class="math display">
 \mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
 </span></p></li>
-<li><p>As a result, a <span class="blue">unitary increase</span> of the <span class="math inline">j</span>th covariate from <span class="math inline">x_{ij}</span> to <span class="math inline">x_{ij} + 1</span> has the following impact on the new mean, say <span class="math inline">\mu_\text{new}</span> <span class="math display">
+<li><p>As a result, a <span class="blue">unit increase</span> of the <span class="math inline">j</span>th covariate from <span class="math inline">x_{ij}</span> to <span class="math inline">x_{ij} + 1</span> has the following impact on the new mean, say <span class="math inline">\mu_\text{new}</span> <span class="math display">
 \mu_\text{new} = \alpha_1^{x_{i1}} \times \cdots \times \alpha_j^{x_{ij} + 1} \times \cdots \times \alpha_p^{x_{ip}}
 = \alpha_j \left( \alpha_1^{x_{i1}} \times \cdots \times \alpha_p^{x_{ip}} \right)
 = \alpha_j \mu_i.
@@ -231,7 +231,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <ul>
 <li><p>Often the expected value of a response count <span class="math inline">Y_i</span> is proportional to an index <span class="math inline">t_i</span>, the <span class="orange">exposure</span>.</p></li>
 <li><p>For instance, <span class="math inline">t_i</span> might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species.</p></li>
-<li><p>In these case, the <span class="blue">sample rate</span> is <span class="math inline">Y_i / t_i</span>, with expected value <span class="math inline">\mu_i / t_i</span>. With explanatory variables, a model for the expected rate under a <span class="orange">logarithmic link</span> has the form <span class="math display">
+<li><p>In these cases, the <span class="blue">sample rate</span> is <span class="math inline">Y_i / t_i</span>, with expected value <span class="math inline">\mu_i / t_i</span>. With explanatory variables, a model for the expected rate under a <span class="orange">logarithmic link</span> has the form <span class="math display">
 \log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta, \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i},
 </span> Because <span class="math inline">\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}</span>, the model makes the adjustment <span class="math inline">\log{t_i}</span> to the linear predictor. This adjustment term is called an <span class="orange">offset</span>, implemented in <strong>R</strong> using the <code>offset</code> option.</p></li>
 <li><p>The fit corresponds to using <span class="math inline">\log{t_i}</span> as an <span class="blue">explanatory variable</span> in the linear predictor for <span class="math inline">\log(\mu_i)</span> and <span class="orange">forcing its coefficient</span> to equal <span class="math inline">1</span>.</p></li>

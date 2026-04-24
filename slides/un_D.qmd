@@ -87,7 +87,7 @@ Distinguished Professor Emeritus, University of Florida
 
 - Such a topic is nonetheless discussed in the textbook but is not part of the exam.
 
-- The most important aspects have been already covered in [Unit B](un_.B.html).
+- The most important aspects have been already covered in [Unit B](un_B.html).
 :::
 
 :::
@@ -125,7 +125,7 @@ $$
 \mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
 $$
 
-- As a result, a [unitary increase]{.blue} of the $j$th covariate from $x_{ij}$ to $x_{ij} + 1$ has the following impact on the new mean, say $\mu_\text{new}$
+- As a result, a [unit increase]{.blue} of the $j$th covariate from $x_{ij}$ to $x_{ij} + 1$ has the following impact on the new mean, say $\mu_\text{new}$
 $$
 \mu_\text{new} = \alpha_1^{x_{i1}} \times \cdots \times \alpha_j^{x_{ij} + 1} \times \cdots \times \alpha_p^{x_{ip}} 
 = \alpha_j \left( \alpha_1^{x_{i1}} \times \cdots \times \alpha_p^{x_{ip}} \right) 
@@ -146,7 +146,7 @@ The interpretation in terms of relative changes is a consequence of the [logarit
 
 - For instance, $t_i$ might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species. 
 
-- In these case, the [sample rate]{.blue} is $Y_i / t_i$, with expected value $\mu_i / t_i$. With explanatory variables, a model for the expected rate under a [logarithmic link]{.orange} has the form
+- In these cases, the [sample rate]{.blue} is $Y_i / t_i$, with expected value $\mu_i / t_i$. With explanatory variables, a model for the expected rate under a [logarithmic link]{.orange} has the form
 $$
 \log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta, \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i},
 $$
