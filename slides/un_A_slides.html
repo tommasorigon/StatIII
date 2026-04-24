@@ -195,7 +195,7 @@
 <li>Box-Cox transform, variance stabilizing transformations</li>
 </ul></li>
 <li><p>The main theme is: what should we do when the <span class="blue">assumptions</span> of linear models are <span class="orange">violated</span>?</p></li>
-<li><p>We will push the linear model to its limit, using it even when is not supposed to work.</p></li>
+<li><p>We will push the linear model to its limit, using it even when it is not supposed to work.</p></li>
 <li><p>The symbol 📖 means that a few extra steps are discussed in the <span class="blue">handwritten notes</span>.</p></li>
 </ul>
 </div></div>
@@ -367,7 +367,7 @@ D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol
 <ul>
 <li>In matrix notation, the predicted values can be obtained as <span class="math display">
 \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
-</span> where <span class="math inline">\boldsymbol{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> matrix sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
+</span> where <span class="math inline">\boldsymbol{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -407,14 +407,14 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 <ul>
 <li><p>The diagonal elements <span class="math inline">h_i \in [0, 1]</span> of the matrix <span class="math inline">\boldsymbol{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
 \text{var}(\hat{Y}_i) = \sigma^2 h_i, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_i), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_i}.
-</span> The leverage <span class="math inline">h_i</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_i</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore changes of a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
+</span> The leverage <span class="math inline">h_i</span> determines the <span class="orange">precision</span> with which <span class="math inline">\hat{Y}_i</span> predicts <span class="math inline">Y_i</span>. For large <span class="math inline">h_i</span> close to <span class="math inline">1</span>, <span class="math inline">\text{cor}(Y_i, \hat{Y}_i) \approx 1</span>, therefore a change in a single point <span class="math inline">Y_i</span> leads to significant changes in <span class="math inline">\hat{Y}_i</span>.</p></li>
 <li><p>Leverages also appear in the definition of <span class="blue">standardized residuals</span>: <span class="math display">
 \tilde{r}_i = \frac{r_i}{\sqrt{s^2(1 - h_i)}} = \frac{y_i - \boldsymbol{x}_i^T\hat{\beta}}{\sqrt{s^2(1 - h_i)}},
 </span> where <span class="math inline">r_i = y_i - \boldsymbol{x}_i^T\hat{\beta}</span> are the (raw) <span class="orange">residuals</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>An observation is <span class="blue">influent</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">c_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
+<li>An observation is <span class="blue">influential</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">c_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
 p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
 </span> Cook’s distance is considered relatively large when <span class="math inline">c_i \ge 1</span>.</li>
 </ul>
@@ -519,11 +519,11 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <h2>Comments and criticisms</h2>
 <ul>
 <li><p>Is this a good model?</p></li>
-<li><p>The overall fit <span class="blue">seems satisfactory</span> at first glance, especially if we aim at predicting the urban distance of cars when average engine size (i.e., between <span class="math inline">1.5L</span> and <span class="math inline">3L</span>).</p></li>
+<li><p>The overall fit <span class="blue">seems satisfactory</span> at first glance, especially if we aim at predicting the urban distance of cars with average engine size (i.e., between <span class="math inline">1.5L</span> and <span class="math inline">3L</span>).</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>However, the plot of the <span class="orange">residuals</span> <span class="math inline">r_i = y_i - \hat{y}_i</span> suggests that the homoschedasticity assumption, i.e.&nbsp;<span class="math inline">\text{var}(\epsilon_i) = \sigma^2</span>, might be violated.</li>
+<li>However, the plot of the <span class="orange">residuals</span> <span class="math inline">r_i = y_i - \hat{y}_i</span> suggests that the homoscedasticity assumption, i.e.&nbsp;<span class="math inline">\text{var}(\epsilon_i) = \sigma^2</span>, might be violated.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -627,7 +627,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 </div>
 <ul>
-<li>Do not mix <span class="blue">apple</span> and <span class="orange">oranges</span>! Compare <span class="math inline">R^2</span>s only if they refer to the same scale!</li>
+<li>Do not mix <span class="blue">apples</span> and <span class="orange">oranges</span>! Compare <span class="math inline">R^2</span>s only if they refer to the same scale!</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -753,7 +753,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <div class="callout-content">
 <ul>
 <li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon}</span> with <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\boldsymbol{Y}) = \boldsymbol{X}\beta</span>. <sup>1</sup></p></li>
-<li><p><strong>(A.2)</strong> <span class="orange">Homoschedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n</span>.</p></li>
+<li><p><strong>(A.2)</strong> <span class="orange">Homoscedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n</span>.</p></li>
 <li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\boldsymbol{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
 </ul>
 <p>It is also commonly asked that <span class="math inline">\text{rk}(\boldsymbol{X}) = p</span>, otherwise the model is not identifiable.</p>
@@ -829,8 +829,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <section id="heteroschedasticity-of-the-errors-i" class="slide level2 center">
 <h2>Heteroschedasticity of the errors I 📖</h2>
 <ul>
-<li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoschedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroschedastic errors</span>: <span class="math display">
-\text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
+<li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoscedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroscedastic errors</span>: <span class="math display">
+\text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{or equivalently} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
 </span> where <span class="math inline">\boldsymbol{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)</span> is a diagonal matrix with positive entries.</p></li>
 <li><p>The OLS estimator is still <span class="orange">unbiased</span>, with a <span class="blue">modified covariance</span> structure<sup>1</sup> <span class="math display">
 \mathbb{E}(\hat{\beta}) = \beta, \qquad \text{var}(\hat{\beta}) = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\Sigma}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1}.
@@ -844,7 +844,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The OLS estimator in presence of heteroschedasticity still gives a <span class="blue">good point estimate</span>. However, the OLS estimator is <span class="orange">not efficient</span> and the classical <span class="orange">standard errors</span> are <span class="orange">wrong</span>.</p>
+<p>The OLS estimator in presence of heteroscedasticity still gives a <span class="blue">good point estimate</span>. However, the OLS estimator is <span class="orange">not efficient</span> and the classical <span class="orange">standard errors</span> are <span class="orange">wrong</span>.</p>
 </div>
 </div>
 </div>
@@ -862,8 +862,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <section id="weighted-least-squares-i" class="slide level2 center">
 <h2>Weighted least squares I 📖</h2>
 <ul>
-<li><p>Let us consider again the case of <span class="blue">heteroschedastic errors</span>: <span class="math display">
-\text{var}(\boldsymbol{\epsilon}) = \sigma^2\boldsymbol{\Omega}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
+<li><p>Let us consider again the case of <span class="blue">heteroscedastic errors</span>: <span class="math display">
+\text{var}(\boldsymbol{\epsilon}) = \sigma^2\boldsymbol{\Omega}^{-1},\quad \text{or equivalently} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
 </span> where <span class="math inline">\boldsymbol{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">\omega_1,\dots,\omega_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
 <li><p>Let us define the <span class="orange">standardized</span> quantities: <span class="math display">
 \boldsymbol{Y}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{Y}, \qquad \boldsymbol{X}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{X}.
@@ -925,7 +925,7 @@ g(Y_i) = h_1(\boldsymbol{x}_i)\beta_1 + \cdots + h_p(\boldsymbol{x}_i)\beta_p + 
 <p><strong>Box-Cox transform</strong></p>
 </div>
 <div class="callout-content">
-<p>If the data are <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
+<p>If the data <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 </span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
 <p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
@@ -993,7 +993,7 @@ f_Y(\boldsymbol{y})= f_Z(g_\lambda(y_1),\dots,g_\lambda(y_n))\prod_{i=1}^n\left|
 <ul>
 <li><p>Let <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \mu_i = f(\boldsymbol{x}_i;\beta) = \text{var}(Y_i)</span>. Note that <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
-</span> is <span class="blue">asymptotically Gaussian</span> for large values of <span class="math inline">\mu_i</span>. However, data are <span class="orange">heteroschedastic</span>.</p></li>
+</span> is <span class="blue">asymptotically Gaussian</span> for large values of <span class="math inline">\mu_i</span>. However, data are <span class="orange">heteroscedastic</span>.</p></li>
 <li><p>In modeling count data, we could transform the counts so that, at least <span class="orange">approximately</span>, the <span class="blue">variance</span> of <span class="math inline">g(Y_i)</span> is <span class="blue">constant</span> and ordinary least squares methods can be used.</p></li>
 </ul>
 <div class="fragment">
@@ -1017,7 +1017,7 @@ g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\q
 <ul>
 <li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\boldsymbol{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
-</span> However, the data are <span class="orange">heteroschedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
+</span> However, the data are <span class="orange">heteroscedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
 <li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
 g_{m_i}(y) = \sqrt{m_i}\arcsin\left(\frac{2 y}{m_i} - 1\right),
 </span> because in fact we have that <span class="math display">

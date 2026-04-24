@@ -80,7 +80,7 @@ Attributed to [Albert Einstein]{.grey}
     
 - The main theme is: what should we do when the [assumptions]{.blue} of linear models are [violated]{.orange}?
 
-- We will push the linear model to its limit, using it even when is not supposed to work. 
+- We will push the linear model to its limit, using it even when it is not supposed to work. 
 
 - The symbol 📖 means that a few extra steps are discussed in the [handwritten notes]{.blue}. 
 :::
@@ -287,7 +287,7 @@ estimate]{.orange} has an explicit solution: $$
 -   In matrix notation, the predicted values can be obtained as $$
     \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
     $$
-where $\boldsymbol{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
+where $\boldsymbol{H}$ is a $n \times n$ [projection matrix]{.orange}
     sometimes called [hat matrix]{.blue}. The matrix is idempotent, meaning that $\boldsymbol{H} = \boldsymbol{H}^T$ and $\boldsymbol{H}^2 = \boldsymbol{H}$.
 
 
@@ -343,7 +343,7 @@ where $\boldsymbol{H}$ is a $n \times n$ [projection matrix]{.orange} matrix
 $$
 \text{var}(\hat{Y}_i) = \sigma^2 h_i, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_i), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_i}.
 $$
-The leverage $h_i$ determines the [precision]{.orange} with which $\hat{Y}_i$ predicts $Y_i$. For large $h_i$ close to $1$, $\text{cor}(Y_i, \hat{Y}_i) \approx 1$, therefore changes of a single point $Y_i$ leads to significant changes in $\hat{Y}_i$.
+The leverage $h_i$ determines the [precision]{.orange} with which $\hat{Y}_i$ predicts $Y_i$. For large $h_i$ close to $1$, $\text{cor}(Y_i, \hat{Y}_i) \approx 1$, therefore a change in a single point $Y_i$ leads to significant changes in $\hat{Y}_i$.
 
 - Leverages also appear in the definition of [standardized residuals]{.blue}:
 $$
@@ -353,7 +353,7 @@ where $r_i = y_i - \boldsymbol{x}_i^T\hat{\beta}$ are the (raw) [residuals]{.ora
 
 . . .
  
-- An observation is [influent]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $c_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
+- An observation is [influential]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $c_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
 $$
 p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
 $$
@@ -464,13 +464,13 @@ ggplot(data = augmented_m1, aes(x = .fitted, y = .resid, col = fuel)) +
 -   Is this a good model?
 
 -   The overall fit [seems satisfactory]{.blue} at first glance,
-    especially if we aim at predicting the urban distance of cars when
+    especially if we aim at predicting the urban distance of cars with
     average engine size (i.e., between $1.5L$ and $3L$).
 
 . . .
 
 -   However, the plot of the [residuals]{.orange}
-    $r_i = y_i - \hat{y}_i$ suggests that the homoschedasticity
+    $r_i = y_i - \hat{y}_i$ suggests that the homoscedasticity
     assumption, i.e. $\text{var}(\epsilon_i) = \sigma^2$, might be
     violated.
 
@@ -561,7 +561,7 @@ r.squared.original <- 1 - sum(mean((auto$city.distance - exp(predict(m2)))^2)) /
 kable(data.frame(r.squared.original = r.squared.original, glance(m2)[c(1, 3, 10)]))
 ```
 
--   Do not mix [apple]{.blue} and [oranges]{.orange}! Compare $R^2$s
+-   Do not mix [apples]{.blue} and [oranges]{.orange}! Compare $R^2$s
     only if they refer to the same scale!
 
 . . .
@@ -652,7 +652,7 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)
 
 - **(A.1)** [Linear structure]{.blue}, namely $\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon}$ with $\mathbb{E}(\boldsymbol{\epsilon}) = 0$, implying $\mathbb{E}(\boldsymbol{Y}) = \boldsymbol{X}\beta$. [^err1] 
 
-- **(A.2)** [Homoschedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n$.
+- **(A.2)** [Homoscedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n$.
 
 - **(A.3)** [Gaussianity]{.grey}, namely $\boldsymbol{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)$. In other words, the errors $\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)$ are iid Gaussian random variables with zero mean and variance $\sigma^2$.
 
@@ -724,9 +724,9 @@ There is often an [over-emphasis]{.orange} on testing whether the residuals are 
 
 ## Heteroschedasticity of the errors I 📖
 
-- Suppose now that the linearity assumption **(A.1)** is valid but [homoschedasticity]{.orange} of the errors **(A.2)** is [not]{.orange}. Instead, we consider [heteroschedastic errors]{.blue}:
+- Suppose now that the linearity assumption **(A.1)** is valid but [homoscedasticity]{.orange} of the errors **(A.2)** is [not]{.orange}. Instead, we consider [heteroscedastic errors]{.blue}:
 $$
-\text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
+\text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{or equivalently} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
 $$
 where $\boldsymbol{\Sigma} = \text{diag}(\sigma^2_1,\dots,\sigma_n^2)$ is a diagonal matrix with positive entries. 
 
@@ -746,7 +746,7 @@ Under suitable but mild conditions on $\boldsymbol{X}$ and $\boldsymbol{\Sigma}$
 ## Heteroschedasticity of the errors II
 
 :::callout-tip
-The OLS estimator in presence of heteroschedasticity still gives a [good point estimate]{.blue}. However, the OLS estimator is [not efficient]{.orange} and the classical [standard errors]{.orange} are [wrong]{.orange}. 
+The OLS estimator in presence of heteroscedasticity still gives a [good point estimate]{.blue}. However, the OLS estimator is [not efficient]{.orange} and the classical [standard errors]{.orange} are [wrong]{.orange}. 
 :::
 
 - A potential approach is to [accept the inefficiency]{.orange} of the OLS estimator in this scenario and [correct]{.blue} the standard errors.
@@ -769,9 +769,9 @@ where $\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $
 
 ## Weighted least squares I 📖
 
-- Let us consider again the case of [heteroschedastic errors]{.blue}:
+- Let us consider again the case of [heteroscedastic errors]{.blue}:
 $$
-\text{var}(\boldsymbol{\epsilon}) = \sigma^2\boldsymbol{\Omega}^{-1},\quad \text{or equivalenty} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
+\text{var}(\boldsymbol{\epsilon}) = \sigma^2\boldsymbol{\Omega}^{-1},\quad \text{or equivalently} \quad \text{var}(Y_i) = \sigma^2_i = \frac{\sigma^2}{\omega_i}, \quad i=1,\dots,n
 $$
 where $\boldsymbol{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$ are positive [weights]{.orange}. However, here we assume that the weights $\omega_1,\dots,\omega_n$ are [known]{.blue}, a common situation in survey design. 
 
@@ -840,7 +840,7 @@ where $g(\cdot)$ and $h_j(\cdot)$ for $j=1,\dots,p$ are [non-linear]{.orange} an
 :::callout-note
 #### Box-Cox transform
 
-If the data are $y_i$ are [positive]{.orange}, we may consider a [parametric class]{.blue} of transformations:
+If the data $y_i$ are [positive]{.orange}, we may consider a [parametric class]{.blue} of transformations:
 $$
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 $$
@@ -941,7 +941,7 @@ ggplot(data = augmented_m_box, aes(x = .fitted, y = .resid, col = fuel)) +
 - Let $Y_i \sim \text{Poisson}(\mu_i)$ with mean $\mathbb{E}(Y_i) = \mu_i = f(\boldsymbol{x}_i;\beta) = \text{var}(Y_i)$. Note that $$
 Y_i \,\dot{\sim}\, \text{N}(\mu_i, \mu_i),
 $$
-is [asymptotically Gaussian]{.blue} for large values of $\mu_i$. However, data are [heteroschedastic]{.orange}. 
+is [asymptotically Gaussian]{.blue} for large values of $\mu_i$. However, data are [heteroscedastic]{.orange}. 
 
 - In modeling count data, we could transform the counts so that, at
 least [approximately]{.orange}, the [variance]{.blue} of $g(Y_i)$ is [constant]{.blue} and ordinary least squares methods can be used.
@@ -969,7 +969,7 @@ $$
 $$
 Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
 $$
-However, the data are  [heteroschedastic]{.orange}, because $\text{var}(Y_i) = m_i \pi_i(1- \pi_i)$.
+However, the data are  [heteroscedastic]{.orange}, because $\text{var}(Y_i) = m_i \pi_i(1- \pi_i)$.
 
 - Thus, a [variance stabilizing]{.blue} transformation in this case is 
 $$
