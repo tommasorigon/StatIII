@@ -68,7 +68,7 @@ Facendo uso del software **R**, si risponda alle seguenti domande.
 
 (g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti.
 
-## Part2 II: teoria ed esercizi
+## Parte II: teoria ed esercizi
 
 #### Problema 1
 

@@ -1,0 +1,131 @@
+---
+title: "Esame del 26 Giugno 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  eval: false
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+Il tempo a disposizione per lo svolgimento della prova è di **2 ore e 30 minuti**. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.
+
+Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.
+
+## Parte I: analisi dei dati
+
+Si considerino i dati `warpbreaks`  di **R**. Questo insieme di dati riporta il numero di rotture dell'ordito di un telaio per ciascuna esperimento ($n = 54$ prove), dove ogni esperimento corrisponde a una lunghezza fissa di filato lavorata al telaio. Le variabili presenti sono:
+
+- `breaks`: numero di rotture
+- `wool`:	tipologia di lana (`A` o `B`)
+- `tension`:	livello di tensione (`L` = bassa, `M` = media, `H` = alta)
+
+Facendo uso del software **R**, si risponda alle seguenti domande.
+
+(a) Si costruiscano due boxplot: nel primo grafico, la variabile `breaks` è raggruppata rispetto a `wool`; nel secondo grafico, la variabile `breaks` è raggruppata rispetto alla variabile `tension`.  Si commentino i risultati ottenuti.
+
+```{r}
+data("warpbreaks")
+boxplot(breaks ~ wool, data = warpbreaks)
+boxplot(breaks ~ tension, data = warpbreaks)
+```
+
+(b) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `breaks` e come variabile esplicative `wool` and `tension`. Si indichi tale modello con `m1`. Si riportino:
+	i.	l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza;
+	ii.	il valore delle statistiche test e i *p-value* dei **test di Wald**, **test di Rao (score)** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test.
+	iii. Si discuta in che modo la tensione (`tension`) ed il tipo di lana (`wool`) influenzano il numero medio di rotture sulla base del modello `m1`.
+
+```{r}
+m0 <- glm(breaks ~ 1, data = warpbreaks, family = poisson)
+m1 <- glm(breaks ~ wool + tension, data = warpbreaks, family = poisson)
+summary(m1)
+
+exp(coef(m1))
+
+anova(m0, m1, test = "LRT")
+anova(m0, m1, test = "Rao")
+lmtest::waldtest(m0, m1, test = "Chisq")
+```
+
+(c) Si modifichi il modello `m1` aggiungendo un effetto di interazione tra `wool` e `tension`. Si indichi tale modello con `m2`. Si riportino:
+    i. l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative (equazione del modello stimato), riportando i valori delle stime di massima verosimiglianza;
+    ii. un’interpretazione di tutti i coefficienti stimati. Nello specifico, come cambia l'interpretazione dell'effetto delle variabili `tension` e `wool` sul numero medio di rotture, rispetto al modello `m1`?
+    
+```{r}
+m2 <- glm(breaks ~ wool * tension, data = warpbreaks, family = poisson)
+summary(m2)
+```
+
+(d) Il modello `m2` è preferibile rispetto al modello `m1`? Si motivi la risposta.
+
+```{r}
+anova(m1, m2)
+AIC(m1)
+AIC(m2)
+```
+
+(e) Si riporti la previsione del numero medio di rotture (`breaks`) nel caso in cui `wool = A`, `tension = L` per il modello `m2`. Si fornisca inoltre un intervallo di confidenza per tale previsione.
+
+```{r}
+fit <- predict(m2, newdata = data.frame(wool = "A", tension = "L"), type = "response", se.fit = TRUE)
+fit$fit
+fit$fit + c(-1, 1) * qnorm(0.975) * fit$se.fit
+```
+
+
+(f) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti.
+
+```{r}
+m3 <- glm(breaks ~ wool * tension, data = warpbreaks, family = quasipoisson)
+summary(m3)
+```
+
+
+(g) Si riporti un intervallo di confidenza per la stessa quantità calcolata al punto (e), basato su una quasi-verosimiglianza. Si commentino i risultati.
+
+```{r}
+fit2 <- predict(m3, newdata = data.frame(wool = "A", tension = "L"), type = "response", se.fit = TRUE)
+fit2$fit
+fit2$fit + c(-1, 1) * qnorm(0.975) * fit2$se.fit
+```
+
+
+## Parte II: teoria ed esercizi
+
+#### Problema 1
+
+Omessa, domanda proposta in un esame precedente.
+
+#### Problema 2
+
+Nel contesto dei GLM, cosa si intende per "legame canonico"? Quali semplificazioni comporta l'uso di tale funzione legame? Si illustri l'argomento anche tramite esempi nei casi della regressione binaria e della regressione di Poisson.
+
+#### Problema 3
+
+Si supponga che $Y_i \sim \text{Bernoulli}(\pi_i)$ indipendenti e che $\text{logit}(\pi_i) = \bm{x}_i^T\beta$, dove le covariate sono tutte distinte tra loro e non è quindi possibile raggruppare le osservazioni. Ha senso analizzare il grafico diagnostico `fitted` vs `residuals` in questo caso? Come mai?
