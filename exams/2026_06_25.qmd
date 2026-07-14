@@ -96,6 +96,9 @@ AIC(m2)
 fit <- predict(m2, newdata = data.frame(wool = "A", tension = "L"), type = "response", se.fit = TRUE)
 fit$fit
 fit$fit + c(-1, 1) * qnorm(0.975) * fit$se.fit
+
+fit2 <- predict(m2, newdata = data.frame(wool = "A", tension = "L"), se.fit = TRUE)
+exp(fit2$fit + c(-1, 1) * qnorm(0.975) * fit2$se.fit)
 ```
 
 
