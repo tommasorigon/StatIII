@@ -31,8 +31,8 @@ outcome <- read.csv("esiti.csv", sep = ";", dec = ",")
 outcome <- subset(outcome, select=c(Matricola, Esito, Analisi.dati, Teoria))
 outcome <- outcome[outcome$Esito != "ASS" & outcome$Esito != "RIT", ]
 outcome$Esito[outcome$Esito == "31"] <- "30 cum laude"
-outcome$Analisi.dati[outcome$Analisi.dati < 18] <- "INS"
-outcome$Teoria[outcome$Teoria < 18] <- "INS"
+outcome$Analisi.dati[outcome$Analisi.dati < 17.5] <- "INS"
+outcome$Teoria[outcome$Teoria < 17.5] <- "INS"
 ```
 
 
