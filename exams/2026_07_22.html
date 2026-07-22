@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tommaso Rigon">
 
-<title>Statistics III: Generalized Linear Models</title>
+<title>Esame del 22 Luglio 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,51 +21,119 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="2026_07_22_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2026_07_22_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="2026_07_22_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="2026_07_22_files/libs/quarto-html/popper.min.js"></script>
+<script src="2026_07_22_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2026_07_22_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2026_07_22_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2026_07_22_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2026_07_22_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2026_07_22_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2026_07_22_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
 <body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#teaching-material" id="toc-teaching-material" class="nav-link active" data-scroll-target="#teaching-material">Teaching material</a></li>
-  <li><a href="#previous-exams-ita" id="toc-previous-exams-ita" class="nav-link" data-scroll-target="#previous-exams-ita">Previous exams (ITA)</a></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
-  </ul>
-</nav>
-</div>
-<main class="content column-page-left" id="quarto-document-content">
+
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Statistics III: Generalized Linear Models</h1>
-<p class="subtitle lead">CdL SSE</p>
+<h1 class="title">Esame del 22 Luglio 2026</h1>
+<p class="subtitle lead">Statistics III - CdL SSE</p>
 </div>
 
 
-<div class="quarto-title-meta-author column-page-left">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
+<div class="quarto-title-meta-author column-page">
+  <div class="quarto-title-meta-heading">Autore/Autrice</div>
+  <div class="quarto-title-meta-heading">Affiliazione</div>
   
     <div class="quarto-title-meta-contents">
     <p class="author"><span class="orange">Tommaso Rigon</span> </p>
@@ -77,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
   </div>
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
       
   
@@ -89,250 +157,51 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the website of the <strong>Statistica III</strong> course (6 CFU) of the “<em>Corso di Laurea Triennale in Scienze Statistiche ed Economiche</em> (SSE)”, Università degli Studi di Milano-Bicocca. <strong>Statistica III</strong> is a monographic course on <span class="blue">Generalized Linear Models</span> (GLMs).</p>
-<p>This is a <span class="orange">B.Sc.-level</span> course, but there are some prerequisites: it is assumed that you have already been exposed to:</p>
+<section id="homepage" class="level1">
+<h1><a href="../index.html">Homepage</a></h1>
+<p>Il tempo a disposizione per lo svolgimento della prova è di <strong>2 ore e 30 minuti</strong>. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.</p>
+<p>Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.</p>
+<section id="parte-i-analisi-dei-dati" class="level2">
+<h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
+<p>Si considerino i dati <a href="../data/worldcup.csv"><code>worldcup.csv</code></a> messi a disposizione dal docente, relativi al campionato mondiale di calcio 2026. Ogni partita compare due volte, una per ciascuna delle due squadre coinvolte. La variabile <code>goals</code> di riga corrisponde al numero di gol realizzati da una squadra (attacco, <code>attack_team</code>) contro l’avversaria (difesa, <code>defense_team</code>), per un totale di <span class="math inline">n = 208</span> osservazioni, corrispondenti a <span class="math inline">104</span> partite. Le variabili presenti sono:</p>
 <ul>
-<li><span class="blue">Simple linear regression and descriptive statistics</span>, e.g. from <a href="https://tommasorigon.github.io/StatI/"><em>Statistica I</em></a>;</li>
-<li><span class="orange">Inferential statistics</span>, e.g.&nbsp;from <em>Statistica II</em>;</li>
-<li><span class="grey">Linear models</span>, e.g.&nbsp;from <em>Analisi Statistica Multivariata</em> and <em>Econometria</em>;</li>
-<li><span class="grey">R software</span>, e.g.&nbsp;from <a href="https://tommasorigon.github.io/introR/"><em>Analisi Statistica Multivariata</em></a>.</li>
+<li><code>match_id</code>: identificativo della partita</li>
+<li><code>attack_team</code>: codice FIFA della squadra in attacco</li>
+<li><code>defense_team</code>: codice FIFA della squadra in difesa</li>
+<li><code>goals</code>: numero di gol realizzati dalla squadra in attacco</li>
+<li><code>attack_ranking</code>: ranking FIFA pre-torneo della squadra in attacco</li>
+<li><code>defense_ranking</code>: ranking FIFA pre-torneo della squadra in difesa</li>
 </ul>
-<p>Regression is such an important topic that the <span class="orange">tour</span> will <span class="orange">continue</span> at <a href="https://tommasorigon.github.io/datamining/">Data Mining</a>.</p>
-<section id="teaching-material" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-material">Teaching material</h2>
-<section id="recommended-textbooks-ita" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-ita">Recommended textbooks (ITA)</h4>
-<ul>
-<li>Salvan, A., Sartori, N. and L. Pace. 2020. <a href="https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2"><em>Modelli Lineari Generalizzati</em></a>. Springer.</li>
-<li>Azzalini, A. 2008. <a href="https://link.springer.com/book/9788847001305"><em>Inferenza Statistica: Una Presentazione Basata sul Concetto di Verosimiglianza</em></a>. Springer</li>
-</ul>
+<p>Prima di procedere con le analisi, si eseguano i comandi seguenti, che rimuovono dal dataset la squadra di Panama (codice FIFA <code>PAN</code>), sia quando compare in attacco sia quando compare in difesa:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>worldcup <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/worldcup.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>worldcup <span class="ot">&lt;-</span> worldcup[worldcup<span class="sc">$</span>attack_team <span class="sc">!=</span> <span class="st">"PAN"</span>, ]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>worldcup <span class="ot">&lt;-</span> worldcup[worldcup<span class="sc">$</span>defense_team <span class="sc">!=</span> <span class="st">"PAN"</span>, ]</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Facendo uso del software <strong>R</strong>, si risponda quindi alle seguenti domande.</p>
+<ol type="a">
+<li><p>Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta <code>goals</code> e come variabili esplicative <code>attack_ranking</code> e <code>defense_ranking</code>. Si indichi tale modello con <code>m1</code>. Si riportino:</p>
+<ol type="i">
+<li>la componente casuale, la componente sistematica e la funzione legame del modello;</li>
+<li>l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza;</li>
+<li>il valore delle statistiche test e i <em>p-value</em> dei test di Wald, test di Rao (score) e di log-rapporto di verosimiglianza per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test;</li>
+<li>si discuta in che modo il ranking della squadra in attacco (<code>attack_ranking</code>) e il ranking della squadra in difesa (<code>defense_ranking</code>) influenzano il numero medio di gol. Si quantifichi in particolare la variazione percentuale del numero medio di gol associata a un peggioramento di <span class="math inline">10</span> posizioni nel ranking della squadra attaccante.</li>
+</ol></li>
+<li><p>Si stimi un secondo modello, indicato con <code>m2</code>, che sostituisce ai ranking gli effetti specifici di squadra, ossia <code>goals ~ attack_team + defense_team</code>. Si riportino:</p>
+<ol type="i">
+<li>l’interpretazione del coefficiente <span class="math inline">\beta_j</span> associato a <code>attack_team</code> per la <span class="math inline">j</span>-esima squadra ed il coefficiente <span class="math inline">\gamma_j</span> associato a <code>defense_team</code> per la <span class="math inline">j</span>-esima squadra, in cui <span class="math inline">\beta_1 = \gamma_1 = 0</span>, per <span class="math inline">j = 1,\dots, J</span>;</li>
+<li>le tre squadre con il <strong>migliore attacco</strong> e le tre con la <strong>migliore difesa</strong> secondo il modello <code>m2</code>;</li>
+<li>si consideri la differenza <span class="math inline">\beta_j - \gamma_j</span> per la squadra <span class="math inline">j = 1, \dots, J</span> e se ne fornisca un’interpretazione. Si identifichino le tre squadre con il maggior valore di <span class="math inline">\beta_j - \gamma_j</span> e si commenti la coerenza di tale graduatoria con il ranking FIFA pre-torneo.</li>
+</ol></li>
+<li><p>Si giustifichi il fatto che il modello <code>m1</code> sia annidato nel modello <code>m2</code>, nonostante le variabili esplicative siano formalmente diverse. Si confrontino quindi i due modelli mediante un test di log-rapporto di verosimiglianza, riportando il sistema di ipotesi, il valore della statistica test, i gradi di libertà e la conclusione. Si confrontino inoltre i due modelli mediante AIC e BIC e si commentino eventuali discordanze.</p></li>
+<li><p>Si consideri un’ipotetica partita tra Francia (<code>FRA</code>, FIFA ranking <code>3</code>) e Argentina (<code>ARG</code>, FIFA ranking <code>1</code>).</p>
+<ol type="i">
+<li>Si riporti la previsione del numero medio di gol segnati da ciascuna delle due squadre, ossia il “risultato previsto” dell’incontro, sulla base del modello <code>m1</code>. Si ripeta la previsione sulla base del modello <code>m2</code> e si commentino le eventuali differenze tra i due risultati.</li>
+<li>Si costruisca, sulla base del modello <code>m1</code>, un intervallo di <strong>previsione</strong> di livello <span class="math inline">0.95</span> per il numero medio di gol segnati dalla Francia contro la Spagna.</li>
+</ol></li>
+<li><p>Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l’assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull’inferenza condotta ai punti precedenti.</p></li>
+</ol>
 </section>
-<section id="recommended-textbooks-eng" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-textbooks-eng">Recommended textbooks (ENG)</h4>
-<ul>
-<li>Agresti, A. 2015. <a href="https://www.wiley.com/en-us/Foundations+of+Linear+and+Generalized+Linear+Models-p-9781118730034"><em>Foundations of Linear and Generalized Linear Models</em></a>. Wiley.</li>
-<li>McCullagh, P., and J. A. Nelder. 1989. <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh"><em>Generalized Linear Models</em></a>. Second Edition. Springer.</li>
-</ul>
-</section>
-<section id="slides-and-lecture-notes" class="level4">
-<h4 class="anchored" data-anchor-id="slides-and-lecture-notes">Slides and lecture notes</h4>
-<p>The slides are meant to be used in HTML.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Notes</th>
-<th>Slides</th>
-<th>Further material</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Introduction</strong></td>
-<td><a href="slides/un_intro.html">Introduction</a></td>
-<td><a href="slides/un_intro_slides.html">Slides Introduction</a> (<a href="slides/un_intro_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>GENERAL THEORY</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Linear models and misspecification</strong></td>
-<td><a href="slides/un_A.html">Unit A</a></td>
-<td><a href="slides/un_A_slides.html">Slides Unit A</a> (<a href="slides/un_A_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 1</td>
-<td><a href="code/lab1.R"><code>lab1.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_A.html">Exercises A</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Generalized Linear Models</strong></td>
-<td><a href="slides/un_B.html">Unit B</a></td>
-<td><a href="slides/un_B_slides.html">Slides Unit B</a> (<a href="slides/un_B_slides.pdf">pdf version</a>)</td>
-<td><a href="code/labB.R"><code>labB.R</code></a></td>
-</tr>
-<tr class="odd">
-<td>Lab 2</td>
-<td><a href="code/lab2.R"><code>lab2.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 3</td>
-<td><a href="code/lab3.R"><code>lab3.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_B.html">Exercises B</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><strong>NOTABLE MODELS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Binary and binomial regression</strong></td>
-<td><a href="slides/un_C.html">Unit C</a></td>
-<td><a href="slides/un_C_slides.html">Slides Unit C</a> (<a href="slides/un_C_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Lab 4</td>
-<td><a href="code/lab4.R"><code>lab4.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_C.html">Exercises C</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Poisson regression</strong></td>
-<td><a href="slides/un_D.html">Unit D</a></td>
-<td><a href="slides/un_D_slides.html">Slides Unit D</a> (<a href="slides/un_D_slides.pdf">pdf version</a>)</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 5</td>
-<td><a href="code/lab5.R"><code>lab5.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_D.html">Exercises D</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><strong>ADVANCED TOPICS</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Quasi-likelihoods</strong></td>
-<td>[Unit E]</td>
-<td>[Slides Unit E]</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Lab 6</td>
-<td><a href="code/lab6.R"><code>lab6.R</code></a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Exercises</em></td>
-<td><a href="exe/exe_E.html">Exercises E</a></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="previous-exams-ita" class="level2">
-<h2 class="anchored" data-anchor-id="previous-exams-ita">Previous exams (ITA)</h2>
-<p>Example of previous exams are provided below. During the exam, you will have access to the code from Labs 1-6.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Dataset</th>
-<th>Questions (ITA)</th>
-<th>Solution (ITA)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>22 Luglio 2026</td>
-<td><a href="data/worldcup.csv"><code>worldcup</code></a></td>
-<td><a href="exams/2026_07_22.html">Exam</a></td>
-<td>[Soluzione]</td>
-</tr>
-<tr class="even">
-<td>25 Giugno 2026</td>
-<td><a href="https://search.r-project.org/R/refmans/datasets/html/warpbreaks.html"><code>warpbreaks</code></a></td>
-<td><a href="exams/2026_06_25.html">Exam</a></td>
-<td>[Soluzione]</td>
-</tr>
-<tr class="odd">
-<td>10 Febbraio 2026</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/ISLR2/html/Default.html"><code>Default</code></a></td>
-<td><a href="exams/2026_02_10.html">Exam</a></td>
-<td><a href="exams/sol_2026_02_10.html">Soluzione</a></td>
-</tr>
-<tr class="even">
-<td>27 Gennaio 2026</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html"><code>anaesthetic</code></a></td>
-<td><a href="exams/2026_01_27.html">Exam</a></td>
-<td><a href="exams/sol_2026_01_27.html">Soluzione</a></td>
-</tr>
-<tr class="odd">
-<td>11 November 2025</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html"><code>beetle</code></a></td>
-<td><a href="exams/2025_11_18.html">Exam</a></td>
-<td><a href="exams/sol_2025_11_18.html">Soluzione</a></td>
-</tr>
-<tr class="even">
-<td><strong>Old exams (prof. Migliorati)</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>13 July 2016</td>
-<td><code>awards</code></td>
-<td><a href="exams/2016_07_13.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>29 Giugno 2016</td>
-<td><code>berk</code></td>
-<td><a href="exams/2016_06_29.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>29 April 2015</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/MASS/html/ships.html"><code>ships</code></a></td>
-<td><a href="exams/2015_04_29.html">Exam</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>9 July 2014</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/faraway/html/orings.html"><code>orings</code></a></td>
-<td><a href="exams/2014_07_09.html">Exam</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>I would like to kindly acknowledge Sonia Migliorati for sharing her material of a previous edition of this course.</p>
-<p>Students are encouraged to consult the books: these slides are just a concise summary.</p>
-<p>All the mistakes still present are mine.</p>
-<hr>
 </section>
 
 </main>
@@ -362,12 +231,12 @@ ul.task-list li input[type="checkbox"] {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiato!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiato!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -741,5 +610,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="index_files/libs/quarto-html/zenscroll-min.js"></script>
+<script src="2026_07_22_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

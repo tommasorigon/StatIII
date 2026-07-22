@@ -97,8 +97,8 @@ fit <- predict(m2, newdata = data.frame(wool = "A", tension = "L"), type = "resp
 fit$fit
 fit$fit + c(-1, 1) * qnorm(0.975) * fit$se.fit
 
-fit2 <- predict(m2, newdata = data.frame(wool = "A", tension = "L"), se.fit = TRUE)
-exp(fit2$fit + c(-1, 1) * qnorm(0.975) * fit2$se.fit)
+fit <- predict(m2, newdata = data.frame(wool = "A", tension = "L"), se.fit = TRUE)
+exp(fit$fit + c(-1, 1) * qnorm(0.975) * fit$se.fit)
 ```
 
 
@@ -116,6 +116,10 @@ summary(m3)
 fit2 <- predict(m3, newdata = data.frame(wool = "A", tension = "L"), type = "response", se.fit = TRUE)
 fit2$fit
 fit2$fit + c(-1, 1) * qnorm(0.975) * fit2$se.fit
+
+fit2 <- predict(m3, newdata = data.frame(wool = "A", tension = "L"), se.fit = TRUE)
+exp(fit2$fit + c(-1, 1) * qnorm(0.975) * fit2$se.fit)
+
 ```
 
 

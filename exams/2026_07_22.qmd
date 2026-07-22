@@ -1,0 +1,130 @@
+---
+title: "Esame del 22 Luglio 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  eval: false
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+Il tempo a disposizione per lo svolgimento della prova è di **2 ore e 30 minuti**. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.
+
+Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.
+
+## Parte I: analisi dei dati
+
+```{r}
+#| message: false
+rm(list = ls())
+```
+
+
+Si considerino i dati [`worldcup.csv`](../data/worldcup.csv) messi a disposizione dal docente, relativi al campionato mondiale di calcio 2026. Ogni partita compare due volte, una per ciascuna delle due squadre coinvolte. La variabile `goals` di riga corrisponde al numero di gol realizzati da una squadra (attacco, `attack_team`) contro l'avversaria (difesa, `defense_team`), per un totale di $n = 208$ osservazioni, corrispondenti a $104$ partite. Le variabili presenti sono:
+
+- `match_id`: identificativo della partita
+- `attack_team`: codice FIFA della squadra in attacco
+- `defense_team`: codice FIFA della squadra in difesa
+- `goals`: numero di gol realizzati dalla squadra in attacco
+- `attack_ranking`: ranking FIFA pre-torneo della squadra in attacco
+- `defense_ranking`: ranking FIFA pre-torneo della squadra in difesa
+
+Prima di procedere con le analisi, si eseguano i comandi seguenti, che rimuovono dal dataset la squadra di Panama (codice FIFA `PAN`), sia quando compare in attacco sia quando compare in difesa:
+
+```{r}
+#| echo: true
+worldcup <- read.csv("../data/worldcup.csv", header = TRUE, sep = ",", stringsAsFactors = TRUE)
+worldcup <- worldcup[worldcup$attack_team != "PAN", ]
+worldcup <- worldcup[worldcup$defense_team != "PAN", ]
+```
+
+Facendo uso del software **R**, si risponda quindi alle seguenti domande.
+
+(a) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `goals` e come variabili esplicative `attack_ranking` e `defense_ranking`. Si indichi tale modello con `m1`. Si riportino:
+    i. la componente casuale, la componente sistematica e la funzione legame del modello;
+    ii. l'equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza;
+    iii. il valore delle statistiche test e i *p-value* dei test di Wald, test di Rao (score) e di log-rapporto di verosimiglianza per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test;
+    iv. si discuta in che modo il ranking della squadra in attacco (`attack_ranking`) e il ranking della squadra in difesa (`defense_ranking`) influenzano il numero medio di gol. Si quantifichi in particolare la variazione percentuale del numero medio di gol associata a un peggioramento di $10$ posizioni nel ranking della squadra attaccante.
+
+(b) Si stimi un secondo modello, indicato con `m2`, che sostituisce ai ranking
+gli effetti specifici di squadra, ossia `goals ~ attack_team + defense_team`.
+Si riportino:
+    i. l'interpretazione del coefficiente $\beta_j$ associato a `attack_team` per la $j$-esima squadra ed il coefficiente $\gamma_j$ associato a `defense_team` per la $j$-esima squadra, in cui $\beta_1 = \gamma_1 = 0$, per $j = 1,\dots, J$;
+    iii. le tre squadre con il **migliore attacco** e le tre con la **migliore difesa** secondo il modello `m2`;
+    iv. si consideri la differenza $\beta_j - \gamma_j$ per la squadra $j = 1, \dots, J$ e se ne fornisca un'interpretazione. Si identifichino le tre squadre con il maggior valore di $\beta_j - \gamma_j$ e si commenti la coerenza di tale graduatoria con il ranking FIFA pre-torneo.
+    
+(c) Si giustifichi il fatto che il modello `m1` sia annidato nel modello `m2`, nonostante le variabili esplicative siano formalmente diverse. Si confrontino quindi i due modelli mediante un test di log-rapporto di verosimiglianza, riportando il sistema di ipotesi, il valore della statistica test, i gradi di libertà e la conclusione. Si confrontino inoltre i due modelli mediante AIC e BIC e si commentino eventuali discordanze.
+
+(d) Si consideri un'ipotetica partita tra Francia (`FRA`, FIFA ranking `3`) e Argentina (`ARG`, FIFA ranking `1`).
+    i. Si riporti la previsione del numero medio di gol segnati da ciascuna delle due squadre, ossia il "risultato previsto" dell'incontro, sulla base del modello `m1`. Si ripeta la previsione sulla base del modello `m2` e si commentino le eventuali differenze tra i due risultati.
+    ii. Si costruisca, sulla base del modello `m1`, un intervallo di **previsione** di livello $0.95$ per il numero medio di gol segnati dalla Francia contro la Spagna. 
+
+(e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti.
+
+
+```{r}
+m0 <- glm(goals ~ 1, data = worldcup, family = poisson)
+m1 <- glm(goals ~ attack_ranking + defense_ranking, data = worldcup, family = poisson)
+summary(m1)
+exp(coef(m1))
+```
+
+```{r}
+m2 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = poisson)
+summary(m2)
+```
+
+```{r}
+anova(m1, m2)
+```
+
+```{r}
+m3 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = quasipoisson)
+summary(m3)
+```
+
+```{r}
+sort(coef(m2)[2:47])
+sort(coef(m2)[48:93])
+```
+
+```{r}
+sort(coef(m2)[2:47] - coef(m2)[48:93])
+```
+
+```{r}
+library(brglm2)
+m4 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = poisson, method = "brglmFit")
+summary(m4)
+
+sort(coef(m4)[2:47])
+sort(coef(m4)[48:93])
+sort(coef(m4)[2:47] - coef(m4)[48:93])
+```
+
