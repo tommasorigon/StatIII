@@ -76,14 +76,14 @@ Facendo uso del software **R**, si risponda quindi alle seguenti domande.
 gli effetti specifici di squadra, ossia `goals ~ attack_team + defense_team`.
 Si riportino:
     i. l'interpretazione del coefficiente $\beta_j$ associato a `attack_team` per la $j$-esima squadra ed il coefficiente $\gamma_j$ associato a `defense_team` per la $j$-esima squadra, in cui $\beta_1 = \gamma_1 = 0$, per $j = 1,\dots, J$;
-    iii. le tre squadre con il **migliore attacco** e le tre con la **migliore difesa** secondo il modello `m2`;
+    iii. le tre squadre con il [migliore attacco]{.blue} e le tre con la [migliore difesa]{.orange} secondo il modello `m2`;
     iv. si consideri la differenza $\beta_j - \gamma_j$ per la squadra $j = 1, \dots, J$ e se ne fornisca un'interpretazione. Si identifichino le tre squadre con il maggior valore di $\beta_j - \gamma_j$ e si commenti la coerenza di tale graduatoria con il ranking FIFA pre-torneo.
     
 (c) Si giustifichi il fatto che il modello `m1` sia annidato nel modello `m2`, nonostante le variabili esplicative siano formalmente diverse. Si confrontino quindi i due modelli mediante un test di log-rapporto di verosimiglianza, riportando il sistema di ipotesi, il valore della statistica test, i gradi di libertà e la conclusione. Si confrontino inoltre i due modelli mediante AIC e BIC e si commentino eventuali discordanze.
 
 (d) Si consideri un'ipotetica partita tra Francia (`FRA`, FIFA ranking `3`) e Argentina (`ARG`, FIFA ranking `1`).
     i. Si riporti la previsione del numero medio di gol segnati da ciascuna delle due squadre, ossia il "risultato previsto" dell'incontro, sulla base del modello `m1`. Si ripeta la previsione sulla base del modello `m2` e si commentino le eventuali differenze tra i due risultati.
-    ii. Si costruisca, sulla base del modello `m1`, un intervallo di **previsione** di livello $0.95$ per il numero medio di gol segnati dalla Francia contro la Spagna. 
+    ii. Si costruisca, sulla base del modello `m1`, un intervallo di [previsione]{.blue} di livello $0.95$ per il numero medio di gol segnati dalla Francia contro la Spagna. 
 
 (e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti.
 
