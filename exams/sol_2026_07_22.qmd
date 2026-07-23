@@ -1,0 +1,222 @@
+---
+title: "Soluzione esame del 22 Luglio 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Parte I: analisi dei dati
+
+Anzitutto, era necessario caricare in memoria il dataset ed escludere Panama (`PAN`) dal dataset, come indicato nel testo del problema.
+```{r}
+# Operazioni preliminari
+rm(list = ls())
+worldcup <- read.csv("../data/worldcup.csv", header = TRUE, sep = ",", stringsAsFactors = TRUE)
+worldcup <- worldcup[worldcup$attack_team != "PAN", ]
+worldcup <- worldcup[worldcup$defense_team != "PAN", ]
+```
+
+<!-- (a) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `goals` e come variabili esplicative `attack_ranking` e `defense_ranking`. Si indichi tale modello con `m1`. Si riportino: -->
+<!--     i. la componente casuale, la componente sistematica e la funzione legame del modello; -->
+
+Le variabili risposta $Y_i$ sono i `goals`, cioè dei conteggi, pertanto era ragionevole modellarle tramite una distribuzione di Poisson, in cui:
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente casuale}), \qquad \log{\mu_i} = \bm{x}_i^T\beta \quad (\text{componente sistematica}),
+$$
+in cui la funzione legame è $g(\cdot) = \log(\cdot)$, il legame canonico.
+
+<!--     ii. l'equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza; -->
+
+```{r}
+# Punto (a.ii)
+m1 <- glm(goals ~ attack_ranking + defense_ranking, data = worldcup, family = poisson)
+coef(m1) # In alternativa, anche summary(m1) mostrava le stime dei coefficienti
+```
+
+Otteniamo quindi che l'equazione stimata è
+$$
+\hat{\mathbb{E}}(Y_i) = e^{0.415 - 0.015 x_{i1} + 0.011 x_{i2}}, \qquad i=1,\dots,202,
+$$
+dove $x_{i1}$ rappresenta la $i$-esima osservazione di `attack_ranking` e $x_{i2}$ la $i$-esima osservazione di `defense_ranking`. 
+
+<!--     iii. il valore delle statistiche test e i *p-value* dei test di Wald, test di Rao (score) e di log-rapporto di verosimiglianza per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test; -->
+
+```{r}
+#| results: hide
+# Punto (a.iii)
+m0 <- glm(goals ~ 1, data = worldcup, family = poisson)
+# Statistiche test, p-value e gradi di libertà
+lmtest::waldtest(m0, m1, test = "Chisq") # Test di Wald
+anova(m0, m1, test = "Rao") # Test di Rao
+anova(m0, m1, test = "LRT") # Test log-rapporto di verosimiglianza
+```
+
+I valori delle statistiche test per i test di Wald, Rao e log-rapporto di verosimiglianza sono rispettivamente pari a $W_e = 55.205$ (Wald), $W_u = 57.207$ (Rao/score) e $W = 58.728 / \phi = 58.728$ (log-rapporto di verosimiglianza), poiché $\phi = 1$ nel modello di Poisson.
+
+Come riportato nelle tabelle, i gradi di libertà (`Df`) di tutti i test sono $q = 2$, perché sono appunto due i parametri coinvolti nel sistema d'ipotesi. Quest'ultimo è infatti pari a $H_0: \beta_2 = \beta_3 = 0$ contro $H_1: \beta_2 \neq 0 \;\text{oppure}\; \beta_3 \neq 0$.
+
+Considerati i gradi di libertà dei test $W_e$, $W_u$ e $W$ e la loro distribuzione asintotica $\chi^2_2$ sotto $H_0$, si ottiene in tutti e tre i casi un *p-value* prossimo a $0$. In altri termini, si rigetta l'ipotesi nulla che $\beta_2 = \beta_3 = 0$.
+
+<!--     iv. si discuta in che modo il ranking della squadra in attacco (`attack_ranking`) e il ranking della squadra in difesa (`defense_ranking`) influenzano il numero medio di gol. Si quantifichi in particolare la variazione percentuale del numero medio di gol associata a un peggioramento di $10$ posizioni nel ranking della squadra attaccante. -->
+
+```{r}
+# Punto (a.iv)
+100 * (exp(coef(m1)[-1]) - 1) # Variazione percentuale del numero medio di gol al variare unitario delle covariate
+100 * (exp(10 * coef(m1)[2]) - 1) # Peggioramento di 10 posizioni nel ranking d'attacco
+```
+
+
+  - Il valore $100 \times (e^{\hat{\beta}_2} - 1) = -1.51\%$, relativo alla variabile `attack_ranking`, rappresenta la variazione percentuale del numero medio di gol (cioè una diminuzione dell'$1.51\%$) associata all'aumento di una posizione nel ranking, a parità di `defense_ranking`, cioè immaginando di giocare contro la stessa squadra.  Il segno positivo è coerente con l’intuizione: avere un "alto ranking" significa infatti trovarsi nelle ultime posizioni, perciò squadre attaccanti più deboli segnano in media meno gol.
+
+::: {.column-margin}
+L'interpretazione dell'intercetta $\hat{\beta}_1$ non è di particolare interesse, perché è associata al numero medio di gol di una squadra con ranking $0$ (impossibile), che giocasse contro una squadra di ranking $0$ (altrettanto impossibile).
+:::
+
+  - Analogamente, il valore $100 \times (e^{\hat{\beta}_3} - 1) = 1.13\%$, relativo a `defense_ranking`, indica la variazione percentuale del numero medio di gol associata all'aumento di una posizione nel ranking della squadra in difesa, a parità di `attack_ranking`. Il segno positivo è coerente con l'intuizione: contro difese più deboli si segnano in media più gol.
+
+  - L'effetto di un peggioramento di $10$ posizioni nel ranking della squadra attaccante è pari a
+  $$
+  100 \times \left(e^{10\hat{\beta}_2} - 1\right) = -14.15\%,
+  $$
+  ossia una riduzione del numero medio di gol di circa il $14.15\%$, a parità di `defense_ranking`.
+
+
+
+<!-- (b) Si stimi un secondo modello, indicato con `m2`, che sostituisce ai ranking -->
+<!-- gli effetti specifici di squadra, ossia `goals ~ attack_team + defense_team`. -->
+<!-- Si riportino: -->
+
+```{r}
+#| results: hide
+
+# Punto (b.i)
+m2 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = poisson)
+summary(m2)
+```
+
+<!--     i. l'interpretazione del coefficiente $\beta_j$ associato a `attack_team` per la $j$-esima squadra ed il coefficiente $\gamma_j$ associato a `defense_team` per la $j$-esima squadra, in cui $\beta_1 = \gamma_1 = 0$, per $j = 1,\dots, J$; -->
+
+Il numero medio di gol segnati dalla squadra $j$ contro la squadra $k$ è
+$$
+\mu_{jk} = \exp(\alpha + \beta_j + \gamma_k), \qquad j,k = 1, \dots, J,
+$$
+in cui il vincolo $\beta_1 = \gamma_1 = 0$ (parametrizzazione a *dummy*, con l'Algeria `ALG`, prima squadra in ordine alfabetico, come categoria di riferimento) rende identificabili i parametri. Ne segue che:
+
+  - $\beta_j$ è l'effetto *offensivo* della squadra $j$: il valore $e^{\beta_j}$ è il rapporto tra il numero medio di [gol segnati]{.blue} dalla squadra $j$ e quello segnato dall'Algeria, a parità di avversaria. Valori positivi di $\beta_j$ indicano dunque un attacco migliore di quello algerino.
+  - $\gamma_j$ è l'effetto *difensivo* della squadra $j$: il valore $e^{\gamma_j}$ è il rapporto tra il numero medio di [gol subiti]{.orange} dalla squadra $j$ e quello subito dall'Algeria, a parità di avversaria. Valori positivi di $\gamma_j$ indicano dunque una difesa *peggiore* di quella algerina; una [buona difesa]{.blue} corrisponde a $\gamma_j$ [negativo]{.orange}.
+
+
+::: {.column-margin}
+Di conseguenza, i valori $100 \times (e^{\beta_j} - 1)$ e $100 \times (e^{\gamma_j} - 1)$ corrispondono alla variazione percentuale del numero medio di gol rispettivamente fatti e subiti rispetto all'Algeria. Ad esempio, nel caso dell'Argentina si ha $100 \times (e^{\hat{\beta}_2} - 1) = 106.2\%$, cioè il numero medio di gol segnati è circa il doppio di quello dell'Algeria, a parità di squadra avversaria.
+:::
+
+<!--     ii. le tre squadre con il **migliore attacco** e le tre con la **migliore difesa** secondo il modello `m2`; -->
+```{r}
+# Punto (b.ii)
+betas <- c(0, coef(m2)[2:47]) # Coefficienti relativi all'attacco
+gammas <- c(0, coef(m2)[48:93]) # Coefficienti relativi alla difesa
+head(sort(betas, decreasing = TRUE), 3)
+head(sort(gammas), 3)
+```
+Le tre squadre con il [migliore attacco]{.blue} sono quelle con i valori più elevati di $\hat{\beta}_j$, ossia Inghilterra, Croazia e Argentina (`ENG`, `CRO` ed `ARG`); le tre con la [migliore difesa]{.orange} sono quelle con i valori più bassi di $\hat{\gamma}_j$, ossia Spagna, Colombia e Portogallo (`ESP`, `COL`, `POR`).
+
+```{r}
+# Punto (b.iii)
+deltas <- betas - gammas
+head(sort(deltas, decreasing = TRUE), 3)
+```
+
+
+<!--     iv. si consideri la differenza $\beta_j - \gamma_j$ per la squadra $j = 1, \dots, J$ e se ne fornisca un'interpretazione. Si identifichino le tre squadre con il maggior valore di $\beta_j - \gamma_j$ e si commenti la coerenza di tale graduatoria con il ranking FIFA pre-torneo. -->
+
+La differenza $\delta_j = \beta_j - \gamma_j$ combina in un unico indice la forza offensiva e quella difensiva, e può quindi essere letta come una misura della [forza complessiva]{.blue} della squadra $j$: è elevata per le squadre che segnano molto e subiscono poco. 
+
+::: callout-note
+L'interpretazione più precisa dei valori $\delta_j$, [non richiesta all'esame]{.orange}, emerge dal confronto tra due squadre: dal modello segue infatti che il [rapporto atteso tra gol fatti e subiti]{.blue} della squadra $j$ in una partita contro la squadra $k$ è
+$$
+\frac{\mu_{jk}}{\mu_{kj}} = \exp\left\{\beta_0 + \beta_j + \gamma_k - (\beta_0 + \beta_k + \gamma_j)\right\} = \exp\left\{(\beta_j - \gamma_j) - (\beta_k - \gamma_k)\right\} = \exp(\delta_j - \delta_k).
+$$
+I valori $\delta_j$ inducono dunque una graduatoria delle squadre e dipendono dalla squadra di riferimento (l'Algeria, `ALG`), per cui $\delta_1 = 0$. In altri termini, i singoli $e^{\delta_j}$ rappresentano il rapporto atteso tra gol fatti e subiti della squadra $j$ in una partita [contro l'Algeria]{.orange}.
+
+```{r}
+head(sort(exp(deltas), decreasing = TRUE), 3)
+```
+:::
+
+Le tre squadre con il maggior valore di $\hat{\delta}_j$ sono Spagna, Colombia e Argentina (`ESP`, `COL` e `ARG`), i cui ranking FIFA pre-torneo sono rispettivamente `2`, `13` e `1`. La graduatoria è dunque solo parzialmente coerente con il ranking FIFA, soprattutto per la presenza della Colombia. Tale discrepanza non è sorprendente: ciascuna squadra disputa pochissime partite, per cui le stime $\hat{\beta}_j$ e $\hat{\gamma}_j$ sono affette da un'elevata variabilità e la graduatoria basata su $\hat{\delta}_j$ è poco stabile. 
+
+<!-- (c) Si giustifichi il fatto che il modello `m1` sia annidato nel modello `m2`, nonostante le variabili esplicative siano formalmente diverse. Si confrontino quindi i due modelli mediante un test di log-rapporto di verosimiglianza, riportando il sistema di ipotesi, il valore della statistica test, i gradi di libertà e la conclusione. Si confrontino inoltre i due modelli mediante AIC e BIC e si commentino eventuali discordanze. -->
+
+```{r}
+#| results: hide
+
+# Punto (c)
+anova(m1, m2, test = "LRT")
+c(AIC(m1), AIC(m2))
+c(BIC(m1), BIC(m2))
+```
+
+Le variabili `attack_ranking` e `defense_ranking` sono costanti all'interno di ciascuna squadra: il ranking è infatti un attributo della squadra e non della singola partita. Di conseguenza, il ranking è ottenibile come combinazione lineare delle variabili indicatrici di squadra. Il modello `m1` è pertanto un sottomodello di `m2`.
+
+Il sistema d'ipotesi del test di log-rapporto di verosimiglianza è dunque $H_0$: valgono i vincoli di linearità nel ranking (modello `m1`) contro $H_1$: almeno uno di essi non è soddisfatto (modello `m2`). La statistica test coincide con la differenza tra le devianze residue dei due modelli, cioè $W = 227.33 - 113.43 = 113.90$, con $q = 199 - 109 = 90$ gradi di libertà. Sotto $H_0$ si ha $W \;\dot\sim\; \chi^2_{90}$, da cui un *p-value* pari a $0.0452$: al livello di significatività del $5\%$ si rigetta l'ipotesi nulla, mentre al livello dell'$1\%$ non la si rigetta. L'evidenza contro `m1` è debole.
+
+Il confronto mediante i criteri d'informazione conduce invece a una conclusione più netta: $\text{AIC}_1 = 604.63 < \text{AIC}_2 = 670.73$, e anche $\text{BIC}_1 = 614.56 < \text{BIC}_2 = 978.40$, per cui entrambi i criteri selezionano il modello più parsimonioso `m1`. Se ne conclude che gli effetti specifici di squadra, pur cogliendo qualche deviazione dalla linearità nel ranking, sono stimati in modo troppo impreciso per giustificarne l'inclusione, probabilmente a causa del basso numero di partite considerate. Complessivamente il modello `m1`, basato sui soli ranking, è preferibile.
+
+::: {.column-margin}
+Il modello `m2` risulterebbe probabilmente preferibile disponendo di un numero maggiore di dati, ad esempio quelli relativi alle qualificazioni del torneo.
+:::
+
+<!-- # (d) Si consideri un'ipotetica partita tra Francia (`FRA`, FIFA ranking `3`) e Argentina (`ARG`, FIFA ranking `1`). -->
+<!-- #     i. Si riporti la previsione del numero medio di gol segnati da ciascuna delle due squadre, ossia il "risultato previsto" dell'incontro, sulla base del modello `m1`. Si ripeta la previsione sulla base del modello `m2` e si commentino le eventuali differenze tra i due risultati. -->
+
+```{r}
+#| results: hide
+# Punto (d.i)
+sfida <- data.frame(
+  attack_team = c("FRA", "ARG"), defense_team = c("ARG", "FRA"),
+  attack_ranking = c(3, 1), defense_ranking = c(1, 3)
+)
+fit1 <- predict(m1, newdata = sfida, type = "response") # Modello m1
+fit2 <- predict(m2, newdata = sfida, type = "response") # Modello m2
+```
+
+Il modello `m1` prevede $\hat{\mu}_{\text{FRA}, \text{ARG}} = 1.46$ gol per la Francia e $\hat{\mu}_{\text{ARG}, \text{FRA}} = 1.54$ per l'Argentina, mentre il modello `m2` prevede rispettivamente $1.16$ e $1.90$. Le previsioni di `m1` sono quasi identiche tra loro, perché le due squadre occupano posizioni contigue nel ranking (`3` e `1`) e nel modello `m1`. Il modello `m2` invece attribuisce a ciascuna squadra effetti offensivi e difensivi liberi, stimati sui gol effettivamente segnati e subiti nel torneo. Alla luce del punto (c), tuttavia, tali previsioni sono assai più variabili, essendo basate su pochissime partite per squadra.
+
+```{r}
+# Punto (d.ii)
+c(qpois(0.025, fit1[1]), qpois(0.975, fit1[1]))
+```
+
+Intervallo di previsione per i gol di Francia è quindi $[0, 4]$, un intervallo molto ampio. 
+
+<!-- (e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti. -->
+
+Infine, l'assunzione di indipendenza è discutibile, poiché le due osservazioni generate da una stessa partita condividono numerosi fattori non osservati: le condizioni di gioco (campo, clima, arbitro), l'importanza dell'incontro, eventuali espulsioni, nonché la dinamica tattica del match. Quest'ultima induce plausibilmente una correlazione *negativa*: una squadra in vantaggio tende a difendersi e l'avversaria a sbilanciarsi in avanti. Le stime restano valide, ma gli errori standard calcolati sotto indipendenza non sono corretti: per i contrasti tra le due squadre di uno stesso incontro la variabilità effettiva è maggiore di quella nominale e l'evidenza contro `m1` emersa al punto (c) è verosimilmente sopravvalutata. La scelta di `m1` rispetto a `m2` ne esce dunque ulteriormente rafforzata.
