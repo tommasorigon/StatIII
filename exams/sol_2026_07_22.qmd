@@ -162,7 +162,7 @@ La differenza $\delta_j = \beta_j - \gamma_j$ combina in un unico indice la forz
 ::: callout-note
 L'interpretazione più precisa dei valori $\delta_j$, [non richiesta all'esame]{.orange}, emerge dal confronto tra due squadre: dal modello segue infatti che il [rapporto atteso tra gol fatti e subiti]{.blue} della squadra $j$ in una partita contro la squadra $k$ è
 $$
-\frac{\mu_{jk}}{\mu_{kj}} = \exp\left\{\beta_0 + \beta_j + \gamma_k - (\beta_0 + \beta_k + \gamma_j)\right\} = \exp\left\{(\beta_j - \gamma_j) - (\beta_k - \gamma_k)\right\} = \exp(\delta_j - \delta_k).
+\frac{\mu_{jk}}{\mu_{kj}} = \exp\left\{\alpha + \beta_j + \gamma_k - (\alpha + \beta_k + \gamma_j)\right\} = \exp\left\{(\beta_j - \gamma_j) - (\beta_k - \gamma_k)\right\} = \exp(\delta_j - \delta_k).
 $$
 I valori $\delta_j$ inducono dunque una graduatoria delle squadre e dipendono dalla squadra di riferimento (l'Algeria, `ALG`), per cui $\delta_1 = 0$. In altri termini, i singoli $e^{\delta_j}$ rappresentano il rapporto atteso tra gol fatti e subiti della squadra $j$ in una partita [contro l'Algeria]{.orange}.
 
