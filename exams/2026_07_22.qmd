@@ -88,43 +88,16 @@ Si riportino:
 (e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti.
 
 
-```{r}
-m0 <- glm(goals ~ 1, data = worldcup, family = poisson)
-m1 <- glm(goals ~ attack_ranking + defense_ranking, data = worldcup, family = poisson)
-summary(m1)
-exp(coef(m1))
-```
+## Parte II: teoria ed esercizi
 
-```{r}
-m2 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = poisson)
-summary(m2)
-```
+#### Problema 1
 
-```{r}
-anova(m1, m2)
-```
+Omessa, domanda proposta in un esame precedente.
 
-```{r}
-m3 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = quasipoisson)
-summary(m3)
-```
+#### Problema 2
 
-```{r}
-sort(coef(m2)[2:47])
-sort(coef(m2)[48:93])
-```
+Omessa, domanda proposta in un esame precedente.
 
-```{r}
-sort(coef(m2)[2:47] - coef(m2)[48:93])
-```
+#### Problema 3
 
-```{r}
-library(brglm2)
-m4 <- glm(goals ~ attack_team + defense_team, data = worldcup, family = poisson, method = "brglmFit")
-summary(m4)
-
-sort(coef(m4)[2:47])
-sort(coef(m4)[48:93])
-sort(coef(m4)[2:47] - coef(m4)[48:93])
-```
-
+Omessa, domanda proposta in un esame precedente.
