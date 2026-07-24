@@ -1,5 +1,5 @@
 ---
-title: "Esiti esame del 25 Giugno 2026"
+title: "Esiti esame del 22 Luglio 2026"
 subtitle: "Statistica III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
