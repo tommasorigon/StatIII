@@ -215,7 +215,7 @@ Il modello `m1` prevede $\hat{\mu}_{\text{FRA}, \text{ARG}} = 1.46$ gol per la F
 c(qpois(0.025, fit1[1]), qpois(0.975, fit1[1]))
 ```
 
-Intervallo di previsione per i gol di Francia è quindi $[0, 4]$, un intervallo molto ampio. 
+Intervallo di [previsione]{.blue} (non di [confidenza]{.orange}!) per i gol di Francia è quindi $[0, 4]$, un intervallo molto ampio. 
 
 <!-- (e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti. -->
 
