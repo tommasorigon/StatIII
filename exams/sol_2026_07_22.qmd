@@ -215,10 +215,10 @@ Il modello `m1` prevede $\hat{\mu}_{\text{FRA}, \text{ARG}} = 1.46$ gol per la F
 c(qpois(0.025, fit1[1]), qpois(0.975, fit1[1]))
 ```
 
-Intervallo di [previsione]{.blue} (non di [confidenza]{.orange}!) per i gol di Francia è quindi $[0, 4]$, un intervallo molto ampio. 
+Intervallo di [previsione]{.blue} (non di [confidenza]{.orange}!) per i gol di Francia contro Argentina è quindi $[0, 4]$, un intervallo molto ampio. 
 
 ::: {.column-margin}
-Per un refuso, il punto (d.ii) chiedeva l'intervallo di previsione per il numero di gol segnati dalla Francia contro la **Spagna**, anziché contro l'**Argentina** come nel resto del punto (d). La soluzione qui riportata si riferisce a Francia–Argentina; le due previsioni risultano comunque coincidenti, per cui nessuna delle due letture comporta differenze nel risultato.
+Per un refuso, il punto (d.ii) chiedeva l'intervallo di previsione per il numero di gol segnati dalla Francia contro la **Spagna**, anziché contro l'**Argentina** come nel resto del punto (d). La soluzione qui riportata si riferisce a Francia–Argentina; le due previsioni risultano comunque coincidenti, cioè $[0, 4]$.
 :::
 
 
