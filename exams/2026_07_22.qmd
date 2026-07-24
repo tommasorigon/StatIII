@@ -83,7 +83,7 @@ Si riportino:
 
 (d) Si consideri un'ipotetica partita tra Francia (`FRA`, FIFA ranking `3`) e Argentina (`ARG`, FIFA ranking `1`).
     i. Si riporti la previsione del numero medio di gol segnati da ciascuna delle due squadre, ossia il "risultato previsto" dell'incontro, sulla base del modello `m1`. Si ripeta la previsione sulla base del modello `m2` e si commentino le eventuali differenze tra i due risultati.
-    ii. Si costruisca, sulla base del modello `m1`, un intervallo di [previsione]{.blue} di livello $0.95$ per il numero medio di gol segnati dalla Francia contro la Spagna. 
+    ii. Si costruisca, sulla base del modello `m1`, un intervallo di [previsione]{.blue} di livello $0.95$ per il numero medio di gol segnati dalla Francia contro l'Argentina. 
 
 (e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti.
 

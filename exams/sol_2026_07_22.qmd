@@ -217,6 +217,11 @@ c(qpois(0.025, fit1[1]), qpois(0.975, fit1[1]))
 
 Intervallo di [previsione]{.blue} (non di [confidenza]{.orange}!) per i gol di Francia è quindi $[0, 4]$, un intervallo molto ampio. 
 
+::: {.column-margin}
+Per un refuso, il punto (d.ii) chiedeva l'intervallo di previsione per il numero di gol segnati dalla Francia contro la **Spagna**, anziché contro l'**Argentina** come nel resto del punto (d). La soluzione qui riportata si riferisce a Francia–Argentina; le due previsioni risultano comunque coincidenti, per cui nessuna delle due letture comporta differenze nel risultato.
+:::
+
+
 <!-- (e) Si discuta criticamente la struttura dei dati: ogni partita genera due osservazioni, relative alle due squadre coinvolte. Si argomenti se l'assunzione di indipendenza tra le osservazioni sia plausibile e quali conseguenze possa avere una sua violazione sull'inferenza condotta ai punti precedenti. -->
 
 Infine, l'assunzione di indipendenza è discutibile, poiché le due osservazioni generate da una stessa partita condividono numerosi fattori non osservati: le condizioni di gioco (campo, clima, arbitro), l'importanza dell'incontro, eventuali espulsioni, nonché la dinamica tattica del match. Quest'ultima induce plausibilmente una correlazione *negativa*: una squadra in vantaggio tende a difendersi e l'avversaria a sbilanciarsi in avanti. Le stime restano valide, ma gli errori standard calcolati sotto indipendenza non sono corretti: per i contrasti tra le due squadre di uno stesso incontro la variabilità effettiva è maggiore di quella nominale e l'evidenza contro `m1` emersa al punto (c) è verosimilmente sopravvalutata. La scelta di `m1` rispetto a `m2` ne esce dunque ulteriormente rafforzata.
