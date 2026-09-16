@@ -37,7 +37,7 @@ cor(Abrasion)
 # perdita_i = \beta_1 + \beta_2 D_i + \epsilon_i,     i = 1, ... , 30
 # eps_i ~ N(0, sigma2)
 
-# COMMENT: D_i is chosen because is the most correlated variable.
+# COMMENT: D_i is chosen because it is the most correlated variable.
 
 # (d) ---------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ summary(m_D)
 coef(m_D)
 confint(m_D, level = 0.95)
 
-# COMMENT: A unitary increase in hardness implies a decrease in weight loss of about 7 grams per hour. The coefficient is significanlty different from zero. 
+# COMMENT: A unitary increase in hardness implies a decrease in weight loss of about 7 grams per hour. The coefficient is significantly different from zero. 
 
 # (f) ---------------------------------------------------------------------
 
@@ -61,13 +61,13 @@ par(mfrow = c(2, 2))
 plot(m_D, which = 1:4)
 par(mfrow = c(1, 1))
 
-# COMMENT: The diagnostic plots do not reveal anything particularly concerning; the errors are not necessarily Gaussian, but they appear homoskedastic, and there are no outliers or high-leverage points.
+# COMMENT: The diagnostic plots do not reveal anything particularly concerning; the errors are not necessarily Gaussian, but they appear homoscedastic, and there are no outliers or high-leverage points.
 
 # HOWEVER, let us consider the variable "Re".
 plot(Abrasion$Re, residuals(m_D), xlab = "Re")  
 
 # The correct plot is the so-called added-variable plot (see also the exercises), in which we compare two sets of residuals. They appear to be correlated.
-plot(residuals(lm(Re ~ D, data = Abrasion)), residuals(m_D), xlab = "Re")  
+plot(residuals(lm(Re ~ D, data = Abrasion)), residuals(m_D), xlab = "Residuals of Re on D", ylab = "Residuals of m_D")  
 
 # COMMENT: The variable "Re" is related to the residuals, but it should not be! This suggests that we should include it in the model.
 
@@ -76,7 +76,7 @@ plot(residuals(lm(Re ~ D, data = Abrasion)), residuals(m_D), xlab = "Re")
 m_full <- lm(perdita ~ D + Re, data = Abrasion)
 summary(m_full)
 
-# COMMENT: A unitary increase in hardness/resistenace implies a decrease in weight loss of about 6 grams per hour and 1.37 grams per hour, respectively. Both coefficients are significanlty different from zero. 
+# COMMENT: A unitary increase in hardness/resistance implies a decrease in weight loss of about 6 grams per hour and 1.37 grams per hour, respectively. Both coefficients are significantly different from zero. 
 
 # (i) ---------------------------------------------------------------------
 
@@ -84,10 +84,10 @@ par(mfrow = c(2, 2))
 plot(m_full, which = 1:4)
 par(mfrow = c(1, 1))
 
-# COMMENT: The F-test statistic suggests rejecting the null hypothesis that all coefficients are zero; as before, the diagnostic plots do not reveal anything particularly concerning, the errors are not necessarily Gaussian, but they appear homoskedastic, and there are no outliers or high-leverage points.
+# COMMENT: The F-test statistic suggests rejecting the null hypothesis that all coefficients are zero; as before, the diagnostic plots do not reveal anything particularly concerning, the errors are not necessarily Gaussian, but they appear homoscedastic, and there are no outliers or high-leverage points.
 
 # (j) ---------------------------------------------------------------------
 
 new <- data.frame(D = 70, Re = 180)
-predict(mod, newdata = new, interval = "confidence", level = 0.95)
-predict(mod, newdata = new, interval = "prediction", level = 0.95)
+predict(m_full, newdata = new, interval = "confidence", level = 0.95)
+predict(m_full, newdata = new, interval = "prediction", level = 0.95)

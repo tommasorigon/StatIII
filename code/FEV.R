@@ -64,7 +64,7 @@ par(mfrow = c(1, 1))
 library(MASS)
 boxcox(m3)
 
-# COMMENT: The Box-Cox analysis suggests that λ = 1 is within the confidence interval, indicating that no transformation of the response is needed.
+# COMMENT: The Box-Cox analysis suggests that lambda = 1 is within the confidence interval, indicating that no transformation of the response is needed.
 
 par(mfrow = c(2, 2))
 plot(m3, which = 1:4)
@@ -80,7 +80,7 @@ confint(m3)
 
 # The coefficient associated with base indicates that, for each unit increase in the baseline FEV1 measurement (base), we expect approximately a one-unit increase (about 0.89, to be precise) in FEV1 after treatment. Since 1 lies within the confidence interval, the effect is essentially proportional. In other words, the patient's initial respiratory condition is directly reflected in the post-treatment measurement.
 
-# The coefficients associated with drug should be interpreted relative to the reference category. Note that the coefficient for drugb includes 0 in its confidence interval, suggesting that drugs A and B have similar effects. Moreover, the output indicates that the placebo group differs significantly from drug A (and likely from B as well, although the latter comparison is not directly provided). More precisely, the placebo reduces FEV1 by approximately -0.6448 relative to drug A, ceteris paribus.
+# The coefficients associated with drug should be interpreted relative to the reference category. Note that the coefficient for drugb includes 0 in its confidence interval, suggesting that drugs A and B have similar effects. Moreover, the output indicates that the placebo group differs significantly from drug A (and likely from B as well, although the latter comparison is not directly provided). More precisely, the placebo reduces FEV1 by approximately 0.6448 relative to drug A, ceteris paribus.
 
 # ADVANCED ANALYSIS (not required for the exam, but useful in practice) ---------------------------------------
 
@@ -88,7 +88,7 @@ confint(m3)
 
 boxplot(base ~ drug, data = FEV)
 
-# As a result, the predictors base and drug can be regarded as “orthogonal.”  Omitting one predictor has little effect on the estimated coefficient of the other. This explains why the diagnostic plots for m1 and m2 were not problematic: due to randomization, the effect of the omitted variable can be absorbed into the error term.
+# As a result, the predictors base and drug can be regarded as "orthogonal".  Omitting one predictor has little effect on the estimated coefficient of the other. This explains why the diagnostic plots for m1 and m2 were not problematic: due to randomization, the effect of the omitted variable can be absorbed into the error term.
 
 # Indeed, these estimates are nearly identical:
 coef(m1)[2]

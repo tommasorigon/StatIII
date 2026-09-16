@@ -184,7 +184,7 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p>The dataset <code>Abrasion</code>, available in the <code>MLGdata</code> R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. The original data are described in</p>
 <blockquote class="blockquote">
-<p>Davies, O.L. and Goldsmith, P.L. (eds.) (1972) <em>Statistical Methods in Research and Production</em>, 4th Edition, Edinburgh: Oliverand Boyd, 239.</p>
+<p>Davies, O.L. and Goldsmith, P.L. (eds.) (1972) <em>Statistical Methods in Research and Production</em>, 4th Edition, Edinburgh: Oliver and Boyd, 239.</p>
 </blockquote>
 <p>Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (<code>perdita</code>, in grams per hour) was recorded. For each sample, the following variables were also measured:</p>
 <ul>
@@ -199,7 +199,7 @@ window.Quarto = {
 <li><p>Fit the simple linear regression model specified in point (c) in <strong>R</strong>.</p></li>
 <li><p>Report the estimates and 95% confidence intervals for the coefficients. Interpret the estimated values.</p></li>
 <li><p>For each element of the R <code>summary</code> output of the <code>lm</code> object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.</p></li>
-<li><p>Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment the results. See also <span class="orange">Exercise D</span> (below) for a refined and alternative diagnostic plot.</p></li>
+<li><p>Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment on the results. See also <span class="orange">Exercise D</span> (below) for a refined and alternative diagnostic plot.</p></li>
 <li><p>Fit a multiple regression model in <strong>R</strong> including <span class="blue">both explanatory variables</span>. Interpret the estimated coefficients.</p></li>
 <li><p>Evaluate the goodness of fit of the multiple regression model, using all the diagnostic tools at your disposal.</p></li>
 <li><p>Obtain a 95% <span class="orange">confidence interval</span> for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% <span class="blue">prediction interval</span> for the response.</p></li>
@@ -231,7 +231,7 @@ window.Quarto = {
 </ul>
 <p>Import the data and then:</p>
 <ol type="a">
-<li><p>Fit linear models for <span class="math inline">y</span> using the following sets of predictors: (i) <span class="math inline">x_1</span> only, (ii) <span class="math inline">x_2</span> only, (iii) both <span class="math inline">x_1</span> and <span class="math inline">x_2</span></p></li>
+<li><p>Fit linear models for <span class="math inline">y</span> using the following sets of predictors: (i) <span class="math inline">x_1</span> only, (ii) <span class="math inline">x_2</span> only, (iii) both <span class="math inline">x_1</span> and <span class="math inline">x_2</span>.</p></li>
 <li><p>Test to see whether the interaction terms are needed.</p></li>
 <li><p>Check the underlying assumptions of the fitted models. If they are violated, propose a solution.</p></li>
 <li><p>For each model, <span class="blue">interpret</span> the estimated parameters.</p></li>
@@ -269,7 +269,7 @@ window.Quarto = {
 <li><p>Check whether the assumptions underlying the fitted model are satisfied. If any assumption is violated, propose an appropriate remedy.</p></li>
 <li><p>Interpret the estimated parameters of the model.</p></li>
 <li><p>Test whether family therapy is effective in increasing weight.</p></li>
-<li><p>Convert all weight measurements to kilograms (using the conversion factor <span class="math inline">1\,\text{lb} = 0.453592 \text{kg}</span>), repeat the analysis, and discuss whether and why the results change.</p></li>
+<li><p>Convert all weight measurements to kilograms (using the conversion factor <span class="math inline">1\,\text{lb} = 0.453592\,\text{kg}</span>), repeat the analysis, and discuss whether and why the results change.</p></li>
 </ol>
 </div>
 </div>
@@ -283,14 +283,14 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise A - Solution: <a href="exe_A_A.pdf"><code>notes.pdf</code></a>
+Exercise A - Solution: <a href="exe_A_A.pdf"><code>exe_A_A.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Prove that the <span class="blue">variance-stabilizing</span> transform for <span class="orange">gamma random variables</span> <span class="math inline">Y_i\sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, is the logarithm <span class="math inline">g(Y_i) = \log(Y_i)</span>.</p>
-<p><span class="blue">Hint</span>: use the fact that if <span class="math inline">Y_i \sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span>, then for large values of <span class="math inline">\alpha</span> we have the approximation <span class="math inline">Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)</span>.</p>
+<p>Prove that the <span class="blue">variance-stabilizing</span> transform for <span class="orange">gamma random variables</span> <span class="math inline">Y_i\sim \text{Gamma}(\alpha, \beta_i)</span> with mean <span class="math inline">\mu_i = \alpha/\beta_i</span> and variance <span class="math inline">\alpha/\beta_i^2</span> is the logarithm <span class="math inline">g(Y_i) = \log(Y_i)</span>.</p>
+<p><span class="blue">Hint</span>: use the fact that for large values of <span class="math inline">\alpha</span> we have the approximation <span class="math inline">Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)</span>.</p>
 </div>
 </div>
 </div>
@@ -300,14 +300,14 @@ Exercise A - Solution: <a href="exe_A_A.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise B - Solution: <a href="exe_A_B.pdf"><code>notes.pdf</code></a>
+Exercise B - Solution: <a href="exe_A_B.pdf"><code>exe_A_B.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In the linear model <span class="math inline">\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i</span>, suppose that instead of observing <span class="math inline">x_i</span> we observe <span class="math inline">x_i^* = x_i + u_i</span>, where <span class="math inline">u_i</span> is independent of <span class="math inline">x_i</span> for all <span class="math inline">i</span>, with <span class="math inline">\mathbb{E}(u_i) = \mu_u</span> and <span class="math inline">\text{var}(u_i) = \sigma^2_u</span>.</p>
-<p>Analyze the expected impact of this <span class="blue">measurement error</span> on <span class="math inline">\hat{\beta}_1</span> and the residuals <span class="math inline">\bm{r}</span>. What does it happen in the special case <span class="math inline">\mu_u = 0</span>?</p>
+<p>In the linear model <span class="math inline">\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i</span>, suppose that instead of observing <span class="math inline">x_i</span> we observe <span class="math inline">x_i^*</span>, with <span class="math inline">x_i = x_i^* + u_i</span>, where <span class="math inline">x_i^*</span> is <span class="blue">deterministic</span>, and therefore independent of <span class="math inline">u_i</span>, with <span class="math inline">\mathbb{E}(u_i) = \mu_u</span> and <span class="math inline">\text{var}(u_i) = \sigma^2_u</span>.</p>
+<p>Analyze the expected impact of this <span class="blue">measurement error</span> on <span class="math inline">\hat{\beta}_1</span> and the residuals <span class="math inline">\bm{r}</span>. What happens in the special case <span class="math inline">\mu_u = 0</span>?</p>
 </div>
 </div>
 </div>
@@ -317,17 +317,17 @@ Exercise B - Solution: <a href="exe_A_B.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise C - Solution: <a href="exe_A_C.pdf"><code>notes.pdf</code></a>
+Exercise C - Solution: <a href="exe_A_C.pdf"><code>exe_A_C.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In some applications, such as regressing annual income on the number of years of education, the variance of <span class="math inline">Y_i</span> tends to be larger at higher values of <span class="math inline">x_i &gt; 0</span>. Consider the model <span class="math inline">\mathbb{E}(Y_i) = \beta_1 x_i</span>, assuming <span class="math inline">\text{var}(Y_i) = \sigma^2 x_i</span> for unknown <span class="math inline">\sigma^2</span>.</p>
+<p>In some applications, such as regressing annual income on the number of years of education, the variance of <span class="math inline">Y_i</span> tends to be larger at higher values of <span class="math inline">x_i &gt; 0</span>. Consider the model <span class="math inline">\mathbb{E}(Y_i) = \beta x_i</span>, assuming <span class="math inline">\text{var}(Y_i) = \sigma^2 x_i</span> for unknown <span class="math inline">\sigma^2</span>.</p>
 <ol type="a">
-<li><p>Show that the weighted least squares estimator minimizes <span class="math inline">\sum_{i=1}^n(y_i - \beta x_i)^2/x_i</span> (i.e., giving more weight to observation with smaller <span class="math inline">x_i</span>) and has <span class="math inline">\hat{\beta}_\text{wls} = \bar{y}/\bar{x}</span>, with <span class="math inline">\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i</span>.</p></li>
-<li><p>Show that the ordinary least squares estimator is <span class="math inline">\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2</span> and has <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2</span>.</p></li>
-<li><p>Show that <span class="math inline">\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})</span>.</p></li>
+<li><p>Show that the weighted least squares estimator minimizes <span class="math inline">\sum_{i=1}^n(y_i - \beta x_i)^2/x_i</span> (i.e., giving more weight to observations with smaller <span class="math inline">x_i</span>) and has <span class="math inline">\hat{\beta}_\text{wls} = \bar{y}/\bar{x}</span>, with <span class="math inline">\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i</span>.</p></li>
+<li><p>Show that the ordinary least squares estimator is <span class="math inline">\hat{\beta}_\text{ols} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2</span> and has <span class="math inline">\text{var}(\hat{\beta}_\text{ols}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2</span>.</p></li>
+<li><p>Show that <span class="math inline">\text{var}(\hat{\beta}_\text{ols}) \ge \text{var}(\hat{\beta}_\text{wls})</span>.</p></li>
 </ol>
 <p><span class="blue">Hint</span>: part (c) is not easy, but it can be solved in two ways: (i) by applying the Cauchy–Schwarz inequality to a suitable transformation of the <span class="math inline">x_i</span>, or (ii) by relying on the Gauss–Markov theorem.</p>
 </div>
@@ -339,13 +339,13 @@ Exercise C - Solution: <a href="exe_A_C.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise D - Solution: <a href="exe_A_D.pdf"><code>notes.pdf</code></a>
+Exercise D - Solution: <a href="exe_A_D.pdf"><code>exe_A_D.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Suppose the normal linear model <span class="math inline">\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}</span>, with <span class="math inline">\bm{X}</span> an <span class="math inline">n \times p</span> matrix (rank <span class="math inline">p&lt;n</span>), <span class="math inline">\bm{z}</span> an <span class="math inline">n \times 1</span> vector, and <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)</span>. We instead fit <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\varepsilon}</span>, with <span class="math display">
+<p>Suppose the normal linear model <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{z}\gamma + \bm{\epsilon}</span>, with <span class="math inline">\bm{X}</span> an <span class="math inline">n \times p</span> matrix (rank <span class="math inline">p&lt;n</span>), <span class="math inline">\bm{z}</span> an <span class="math inline">n \times 1</span> vector, and <span class="math inline">\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)</span>. We instead fit <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\varepsilon}</span>, with <span class="math display">
 \hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
 </span></p>
 <ol type="a">
@@ -358,7 +358,7 @@ Exercise D - Solution: <a href="exe_A_D.pdf"><code>notes.pdf</code></a>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="exe_A_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></p>
+<p><img src="exe_A_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></p>
 </figure>
 </div>
 </div>

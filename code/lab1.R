@@ -22,7 +22,7 @@ str(Neonati)
 # QUESTION 1: does the weight of newborns depend on gestational age?
 # QUESTION 2: does the smoking habit of the mother affect the birth weight?
 # QUESTION 3: is there an interaction between gestational age and maternal smoking?
-# QUESTION 4: provide a predictive interval for a baby born 40 weeks of gestation, whose mother is a smoker and another one whose mother is a non-smoker.
+# QUESTION 4: provide a predictive interval for a baby born at 40 weeks of gestation, whose mother is a smoker and another one whose mother is a non-smoker.
 
 # Descriptive statistics
 summary(Neonati)
@@ -123,7 +123,7 @@ str(Clotting)
 
 # QUESTION 0: Create a new variable called logu which corresponds to the logarithm of the plasma concentration
 # QUESTION 1: Explore the relationship between clotting time and plasma concentration. Is a linear model appropriate?
-# QUESTION 2: Propose alternative modeling strategies to improve model fit. Make use to the Box-Cox transformation, of variance-stabilizing transformations, and other tools at your disposal to fix potential heteroskedasticity issues.
+# QUESTION 2: Propose alternative modeling strategies to improve model fit. Make use of the Box-Cox transformation, of variance-stabilizing transformations, and other tools at your disposal to fix potential heteroscedasticity issues.
 
 # Log-transform plasma concentration
 Clotting$logu <- log(Clotting$u)
@@ -182,9 +182,9 @@ par(mfrow = c(2, 2))
 plot(m1, which = 1:4)
 par(mfrow = c(1, 1))
 
-# COMMENT: the predictions are significantly improved compared to the linear model m0. There is MAYBE some heteroskedasticity (look at observations 16, 17, and 18 from the residual plots), which we may correct using robust standard-errors. Otherwise, this is a decent model.
+# COMMENT: the predictions are significantly improved compared to the linear model m0. There is MAYBE some heteroscedasticity (look at observations 16, 17, and 18 from the residual plots), which we may correct using robust standard-errors. Otherwise, this is a decent model.
 
-# Robust standard errors for heteroskedasticity
+# Robust standard errors for heteroscedasticity
 library(lmtest)
 library(sandwich)
 coeftest(m1)
@@ -192,11 +192,11 @@ coeftest(m1, vcov. = vcovHC(m1))
 coefci(m1, vcov. = vcovHC(m1))
 
 # The adjusted standard errors do not alter the main conclusions: logu and lotto are significant predictors.
-# The main effect of "lotto" becomes not significant after the heteroskedasticity correction, but for interpretability reasons I would not remove it from the model (at least as long as the interaction term is present).
+# The main effect of "lotto" becomes not significant after the heteroscedasticity correction, but for interpretability reasons I would not remove it from the model (at least as long as the interaction term is present).
 
 # Alternative approach 2: log-transform (variance-stabilizing transform, assuming a gamma model)
 
-# Let us first have a look at the log-transformation. This is motivated by the fact that if the response is Gamma distributed, then a log-transformation stabilizes the variance (making it homoskedastic).
+# Let us first have a look at the log-transformation. This is motivated by the fact that if the response is Gamma distributed, then a log-transformation stabilizes the variance (making it homoscedastic).
 plot(Clotting$logu, log(Clotting$tempo),
   col = Clotting$lotto,
   xlab = "Log-plasma concentration", ylab = "Logarithm of Clotting time", pch = 16
@@ -220,7 +220,7 @@ par(mfrow = c(2, 2))
 plot(m2, which = 1:4)
 par(mfrow = c(1, 1))
 
-# COMMENT: the predictions are extremely accurate, and the diagnostics do not show major issues. However, there is a single observation (the first one) which has a very high Cook's distance, indicating that it is highly influential and with high residual. We should not remove it, because it is not a "contaminated" data: it is simply a data point that we fail to accurately predict. This is probably an indication of some form of misspecification at the extreme low values of logu (maybe the response variable was not a gamma? maybe the relationship is not quadratic? with this limited amount of data it is hard to say).
+# COMMENT: the predictions are extremely accurate, and the diagnostics do not show major issues. However, there is a single observation (the first one) which has a very high Cook's distance, indicating that it is highly influential and with high residual. We should not remove it, because it is not contaminated data: it is simply a data point that we fail to accurately predict. This is probably an indication of some form of misspecification at the extreme low values of logu (maybe the response variable was not a gamma? maybe the relationship is not quadratic? with this limited amount of data it is hard to say).
 
 # With that said, this is an excellent model in terms of prediction accuracy. We can "forgive" the presence of a single influential point, given the overall quality of the fit and account for its uncertainty by using a sandwich estimator for the variance.
 
@@ -231,7 +231,7 @@ coefci(m2, vcov. = vcovHC(m2))
 # The robust standard errors do not alter the main conclusions: logu, logu^2, and lotto are significant predictors.
 
 
-# OVERALL PREDICTIVE EVALUTATION. Let us compare predictive performance on the same scale
+# OVERALL PREDICTIVE EVALUATION. Let us compare predictive performance on the same scale
 fit0 <- predict(m0)
 fit1 <- 1 / predict(m1)
 fit2 <- exp(predict(m2))

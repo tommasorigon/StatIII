@@ -4,7 +4,7 @@
 # Author: Tommaso Rigon
 # ---------------------------------------------------------------------
 
-# For n = 72 young girls diagnosed with anorexia records their body weights (in lbs) before and after an experimental treatment period. 
+# The dataset records the body weights (in lbs), before and after an experimental treatment period, of n = 72 young girls diagnosed with anorexia. 
 
 # During the study, the participants were randomly assigned to one of three therapy groups:  
 # Control group: received the standard therapy (label c),  
@@ -43,7 +43,7 @@ coef(m1)
 
 # COMMENTS: The reference category is the cognitive behavioral therapy group. 
 
-# The intercept (3.006 lbs) corresponds to the mean change in that group. In this case, the significance of the intercept is meaningful (p-value = 0.03), suggesting that the average weight increase in the reference group is likely positive, although the evidence is somewhat borderline.
+# The intercept (3.006 lbs) corresponds to the mean change in that group. In this case, the significance of the intercept is meaningful (p-value = 0.035), suggesting that the average weight increase in the reference group is likely positive, although the evidence is somewhat borderline.
 
 # The remaining two coefficients represent the differences in mean weight change for the control group and the family therapy group, respectively, relative to the cognitive behavioral therapy group: approximately -3.45 lbs and 4.25 lbs.
 
