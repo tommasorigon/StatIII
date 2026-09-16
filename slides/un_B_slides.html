@@ -232,10 +232,10 @@
 </ul>
 </div>
 </section>
-<section id="beetles-data-from-bliss-1935" class="slide level2 center">
-<h2><code>Beetles</code> data, from Bliss (1935)</h2>
+<section id="beetles-data-from-bliss1935" class="slide level2 center">
+<h2><code>Beetles</code> data, from <span class="citation" data-cites="Bliss1935">Bliss (<a href="#/references" role="doc-biblioref" onclick="">1935</a>)</span></h2>
 <ul>
-<li>The <code>Beetles</code> dataset originates from Bliss (1935). It records the number of adult flour beetles that died after a 5-hour exposure to gaseous carbon disulphide.</li>
+<li>The <code>Beetles</code> dataset originates from <span class="citation" data-cites="Bliss1935">Bliss (<a href="#/references" role="doc-biblioref" onclick="">1935</a>)</span>. It records the number of adult flour beetles that died after a 5-hour exposure to gaseous carbon disulphide.</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -301,7 +301,7 @@
 <h2><code>Beetles</code> data, a dose-response plot</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
-<li>There is a clear <span class="orange">positive</span> and <span class="blue">non-linear</span> pattern between the <span class="orange">proportion of deaths</span> as a function of the logdose. The response variable take values in <span class="math inline">[0, 1]</span>.</li>
+<li>There is a clear <span class="orange">positive</span> and <span class="blue">non-linear</span> relationship between the <span class="orange">proportion of deaths</span> and the logdose. The response variable takes values in <span class="math inline">[0, 1]</span>.</li>
 </ul>
 </section>
 <section id="modelling-the-beetles-data" class="slide level2 center">
@@ -326,7 +326,7 @@ g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \qua
 <li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = -60.72</span> and <span class="math inline">\hat{\beta}_2 = 34.3</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean proportion <span class="math inline">\mathbb{E}(S_i / m_i)</span>.</li>
 </ul>
 </section>
-<section id="a-comparison-with-old-tools-i" class="slide level2 center">
+<section id="beetles-old-tools-i" class="slide level2 center">
 <h2>A comparison with old tools I</h2>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -350,7 +350,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 </div>
 </div>
 </section>
-<section id="a-comparison-with-old-tools-ii" class="slide level2 center">
+<section id="beetles-old-tools-ii" class="slide level2 center">
 <h2>A comparison with old tools II</h2>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -359,7 +359,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <span class="math display">
 \text{logit}(\tilde{Y}_i) = \log\left(\frac{S_i + 0.5}{m_i - S_i + 0.5}\right) = \beta_1 + \beta_2 x_i + \epsilon_i, \qquad \tilde{Y}_i = \frac{S_i + 0.5}{m_i +1}.
 </span> A correction term is necessary because otherwise <span class="math inline">g(\cdot) = \text{logit}(\cdot)</span> is undefined. The predictions belong to <span class="math inline">(0, 1)</span>, since <span class="math display">
-\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Y}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},</span> in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated with OLS using <span class="math inline">\text{logit}(\tilde{Z}_i)</span> as response.</p>
+\hat{\pi}_i = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},</span> in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated with OLS using <span class="math inline">\text{logit}(\tilde{Y}_i)</span> as response.</p>
 </div>
 </div>
 </div>
@@ -370,7 +370,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <li><p>This approach is <span class="orange">not compatible</span> with the reasonable assumption <span class="math inline">S_i \sim \text{Binomial}(m_i, \pi_i)</span>.</p></li>
 </ul>
 </section>
-<section id="a-comparison-with-old-tools-iii" class="slide level2 center">
+<section id="beetles-old-tools-iii" class="slide level2 center">
 <h2>A comparison with old tools III</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
@@ -380,7 +380,7 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <section id="aids-data" class="slide level2 center">
 <h2><code>Aids</code> data</h2>
 <ul>
-<li>Number of AIDS <code>deaths</code> in Australia in a sequence of three-months periods between 1983 and 1986.</li>
+<li>Number of AIDS <code>deaths</code> in Australia in a sequence of three-month periods between 1983 and 1986.</li>
 </ul>
 <div class="smaller">
 <div class="cell">
@@ -390,12 +390,12 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <tr class="header">
 <th style="text-align: left;"></th>
 <th style="text-align: right;">1983-1</th>
-<th style="text-align: right;">1984-1</th>
-<th style="text-align: right;">1985-1</th>
-<th style="text-align: right;">1986-1</th>
 <th style="text-align: right;">1983-2</th>
+<th style="text-align: right;">1983-3</th>
+<th style="text-align: right;">1983-4</th>
+<th style="text-align: right;">1984-1</th>
 <th style="text-align: right;">1984-2</th>
-<th style="text-align: right;">1985-2</th>
+<th style="text-align: right;">1984-3</th>
 </tr>
 </thead>
 <tbody>
@@ -427,13 +427,13 @@ Y_i = \beta_1 + \beta_2 x_i + \epsilon_i.
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
-<th style="text-align: right;">1986-2</th>
-<th style="text-align: right;">1983-3</th>
-<th style="text-align: right;">1984-3</th>
-<th style="text-align: right;">1985-3</th>
-<th style="text-align: right;">1986-3</th>
-<th style="text-align: right;">1983-4</th>
 <th style="text-align: right;">1984-4</th>
+<th style="text-align: right;">1985-1</th>
+<th style="text-align: right;">1985-2</th>
+<th style="text-align: right;">1985-3</th>
+<th style="text-align: right;">1985-4</th>
+<th style="text-align: right;">1986-1</th>
+<th style="text-align: right;">1986-2</th>
 </tr>
 </thead>
 <tbody>
@@ -502,7 +502,7 @@ g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i
 <li>The <span class="orange">maximum likelihood</span> estimates are <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>. This yields the <span class="blue">predictive curve</span> <span class="math inline">\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),</span> which estimates the mean <span class="math inline">\mathbb{E}(Y_i)</span>.</li>
 </ul>
 </section>
-<section id="a-comparison-with-old-tools-i-1" class="slide level2 center">
+<section id="aids-old-tools-i" class="slide level2 center">
 <h2>A comparison with old tools I</h2>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -510,14 +510,14 @@ g(\mu_i) = \log(\mu_i) = \beta_1 + \beta_2 x_i \quad \Longrightarrow \quad \mu_i
 <p>We consider the <span class="blue">variance-stabilizing</span> transformation <span class="math inline">S_i = \sqrt{Y_i}</span>, obtaining<br>
 <span class="math display">
 \sqrt{Y_i} = \beta_1 + \beta_2 x_i + \epsilon_i.
-</span> The predictions belong to <span class="math inline">(0, \infty)</span>, since <span class="math display">
-\hat{\mu}_i = \mathbb{E}(\sqrt{Y_i})^2 = (\hat{\beta}_1 + \hat{\beta}_2 x_i)^2,</span> in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated with OLS using <span class="math inline">\sqrt{Y_i}</span> as response.</p>
+</span> The predictions belong to <span class="math inline">[0, \infty)</span>, since <span class="math display">
+\hat{\mu}_i = (\hat{\beta}_1 + \hat{\beta}_2 x_i)^2,</span> in which <span class="math inline">\hat{\beta}_1</span> and <span class="math inline">\hat{\beta}_2</span> are estimated with OLS using <span class="math inline">\sqrt{Y_i}</span> as response.</p>
 </div>
 </div>
 </div>
 <ul>
 <li><p>The <span class="blue">interpretation</span> of <span class="math inline">\hat{\beta}</span> is less clear, as they refer to the mean of <span class="math inline">\sqrt{Y}_i</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>.</p></li>
-<li><p>This approach is <span class="orange">not compatible</span> with the reasonable assumption <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> and it only valid as an <span class="blue">asymptotic approximation</span>.</p></li>
+<li><p>This approach is <span class="orange">not compatible</span> with the reasonable assumption <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> and it is only valid as an <span class="blue">asymptotic approximation</span>.</p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -529,7 +529,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 </div>
 </div>
 </section>
-<section id="a-comparison-with-old-tools-ii-1" class="slide level2 center">
+<section id="aids-old-tools-ii" class="slide level2 center">
 <h2>A comparison with old tools II</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
@@ -543,7 +543,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 </ul>
 <div class="fragment">
 <ul>
-<li><span class="blue">Linear predictor</span>. For a parameter vector <span class="math inline">\bm{\beta} = (\beta_1,\dots,\beta_p)^T</span> and an <span class="math inline">n \times p</span> design matrix <span class="math inline">\bm{X}</span>, the linear predictor is <span class="math inline">\bm{\eta} = \bm{X}\beta</span>. We will also write <span class="math display">
+<li><span class="blue">Linear predictor</span>. For a parameter vector <span class="math inline">\beta = (\beta_1,\dots,\beta_p)^T</span> and an <span class="math inline">n \times p</span> design matrix <span class="math inline">\bm{X}</span>, the linear predictor is <span class="math inline">\bm{\eta} = \bm{X}\beta</span>. We will also write <span class="math display">
 \eta_i = \bm{x}_i^T\beta = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
 </span></li>
 </ul>
@@ -574,7 +574,7 @@ g(\mu_i) = \eta_i = \bm{x}_i^T\beta, \qquad \Longrightarrow \qquad \mu_i = g^{-1
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>In a GLMs the observations are independent draws from a distribution <span class="math inline">\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span>: <span class="math display">
+<p>In a GLM the observations are independent draws from a distribution <span class="math inline">\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span>: <span class="math display">
 Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
 </span> with <span class="math inline">\mu_i \in \mathcal{M}</span>. Moreover, the <span class="orange">variance</span> is connected to the <span class="blue">mean</span> via <span class="math inline">v(\mu)</span>: <span class="math display">
 \text{var}(Y_i) = a_i(\phi) v(\mu_i),
@@ -608,7 +608,7 @@ S_i \overset{\text{ind}}{\sim}\text{Binomial}(m_i, \pi_i),\qquad \mathbb{E}\left
 <div class="callout-body">
 <div class="callout-content">
 <p>In <span class="blue">Poisson regression</span> with <span class="blue">logarithmic link</span> <span class="math inline">g(\mu) = \log(\mu)</span> we let <span class="math display">
-Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_i^T\beta.
+Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu_i), \qquad \log(\mu_i) =  \bm{x}_i^T\beta.
 </span> We have <span class="math inline">a_i(\phi) = 1</span> and <span class="math inline">v(\mu) = \mu</span>. There is <span class="orange">no dispersion</span> parameter.</p>
 </div>
 </div>
@@ -657,7 +657,7 @@ p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
 <li><p>Let us consider the <span class="orange">log-likelihood</span> contribution of the <span class="math inline">i</span>th observations, which is defined as <span class="math display">
 \ell(\theta_i, \phi; y_i) = \log{p(y_i; \theta_i, \phi)} = \frac{\theta_i y_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
 </span> If you prefer, this is the log-likelihood when the sample size <span class="math inline">n = 1</span> and we only observe <span class="math inline">Y_i</span>.</p></li>
-<li><p>The <span class="blue">score</span> and <span class="orange">hessian</span> functions, namely the first and second derivative over <span class="math inline">\theta_i</span> are <span class="math display">
+<li><p>The <span class="blue">score</span> and <span class="orange">Hessian</span> functions, namely the first and second derivatives with respect to <span class="math inline">\theta_i</span>, are <span class="math display">
 \frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; y_i) = \frac{y_i - b'(\theta_i)}{a_i(\phi)}, \qquad \frac{\partial^2}{\partial \theta_i^2}\ell(\theta_i, \phi; y_i) = \frac{-b''(\theta_i)}{a_i(\phi)}.
 </span> where <span class="math inline">b'(\cdot)</span> and <span class="math inline">b''(\cdot)</span> denote the <span class="blue">first</span> and <span class="orange">second</span> derivative of <span class="math inline">b(\cdot)</span>.</p></li>
 <li><p>Recall the following <span class="grey">Bartlett identities</span>, valid in any <span class="orange">regular</span> statistical model: <span class="math display">
@@ -691,7 +691,7 @@ p(y_i; \theta_i) = \exp\left\{\theta_i y_i - b(\theta_i) + c(y_i)\right\},
 </ul>
 
 <aside><div>
-<p>The function <span class="math inline">b(\cdot)</span> is related to the moment generating function of <span class="math inline">Y_i</span>. Thus, higher order derivatives of <span class="math inline">b(\cdot)</span> allows the calculations of skewness, kurtosis, etc.</p>
+<p>The function <span class="math inline">b(\cdot)</span> is related to the moment generating function of <span class="math inline">Y_i</span>. Thus, higher order derivatives of <span class="math inline">b(\cdot)</span> allow the calculation of skewness, kurtosis, etc.</p>
 </div></aside></section>
 <section id="mean-parametrization-variance-function" class="slide level2 center">
 <h2>Mean parametrization, variance function</h2>
@@ -766,7 +766,7 @@ p(y_i; \alpha, \lambda_i) &amp;= \frac{\lambda_i^\alpha y_i^{\alpha-1} e^{-\lamb
 \\
 &amp;=\exp\left\{\alpha\log{\lambda_i} - \lambda_i y_i + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
 &amp;=\exp\left\{\alpha\left(\log{\lambda_i} - \frac{\lambda_i}{\alpha} y_i\right) + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
-&amp;=\exp\left\{\frac{\theta_i y_i + \log(-\theta_i)}{\phi} - (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi)\right\}, \qquad y &gt; 0,\\
+&amp;=\exp\left\{\frac{\theta_i y_i + \log(-\theta_i)}{\phi} - (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi)\right\}, \qquad y_i &gt; 0,\\
 \end{aligned}
 </span> having defined the <span class="blue">dispersion</span> <span class="math inline">\phi = 1/\alpha</span> and the <span class="orange">natural parameter</span> <span class="math inline">\theta_i = -\lambda_i/\alpha</span>.</p></li>
 <li><p>Then, we can recognize the following relationships: <span class="math display">
@@ -800,15 +800,15 @@ p(y_i; m_i, \pi_i) &amp;= \binom{m_i}{m_i y_i}\pi_i^{m_i y_i}(1 - \pi_i)^{m_i - 
 &amp;=\binom{m_i}{m_i y_i}\left(\frac{\pi_i}{1 - \pi_i}\right)^{m_i y_i}(1 - \pi_i)^{m_i}\\
 &amp;=\exp\left\{m_iy_i\log\left(\frac{\pi_i}{1 - \pi_i}\right) + m_i\log(1 - \pi_i) + \log\binom{m_i}{m_i y_i}\right\},
 \end{aligned}
-</span> for <span class="math inline">y_i \in \{0, 1/m_i, 2/m_i, \dots, m_i/m_i\}</span>. This can be written as <span class="math display">
+</span> for <span class="math inline">y_i \in \{0, 1/m_i, 2/m_i, \dots, 1\}</span>. This can be written as <span class="math display">
 p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1/m_i}+ \log\binom{m_i}{m_i y_i}\right\},
-</span> where the <span class="orange">natural parameter</span> is <span class="math inline">\theta_i = \text{logit}(\pi_i) = \log\{\pi/(1-\pi_i)\}</span>.</li>
+</span> where the <span class="orange">natural parameter</span> is <span class="math inline">\theta_i = \text{logit}(\pi_i) = \log\{\pi_i/(1-\pi_i)\}</span>.</li>
 </ul>
 </section>
 <section id="binomial-distribution-ii" class="slide level2 center">
 <h2>Binomial distribution II 📖</h2>
 <ul>
-<li><p>Note that <span class="math inline">\mathbb{E}(Y_i) = \mathbb{E}(Z_i / m_i) = \pi_i = \mu_i</span>. This means there <span class="orange">no dispersion</span> parameter <span class="math inline">\phi</span> and <span class="math display">
+<li><p>Note that <span class="math inline">\mathbb{E}(Y_i) = \mathbb{E}(S_i / m_i) = \pi_i = \mu_i</span>. This means there is <span class="orange">no dispersion</span> parameter <span class="math inline">\phi</span> and <span class="math display">
 \theta_i = \text{logit}(\mu_i), \quad a_i(\phi) = \frac{1}{m_i}, \quad b(\theta_i) = \log\{1 + \exp(\theta_i)\}, \quad c(y_i) = \log\binom{m_i}{m_i y_i}.
 </span></p></li>
 <li><p>Using the general formulas therefore we obtain <span class="math display">
@@ -816,7 +816,7 @@ p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1
 \mathbb{E}(Y_i) &amp;= b'(\theta_i) = \frac{\exp(\theta_i)}{1 + \exp(\theta_i)} = \mu_i, \\
 \text{var}(Y_i) &amp;= a_i(\phi)b''(\theta_i) = \frac{1}{m_i}\frac{\exp(\theta_i)}{[1 + \exp(\theta_i)]^2} = \frac{\mu_i (1 - \mu_i)}{m_i},
 \end{aligned}
-</span> from which we obtain that the <span class="blue">variance function</span> is <span class="math inline">v(\mu_i) = \mu_i(1-\mu_i)</span> is quadratic.</p></li>
+</span> from which we obtain that the <span class="blue">variance function</span> <span class="math inline">v(\mu_i) = \mu_i(1-\mu_i)</span> is quadratic.</p></li>
 <li><p>We will write <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)</span> with <span class="math inline">\mu_i \in \mathcal{M} = (0, 1)</span>.</p></li>
 </ul>
 </section>
@@ -843,9 +843,9 @@ p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1
 <tr class="odd">
 <td><span class="blue">Support</span> <span class="math inline">\mathcal{Y}</span></td>
 <td><span class="math inline">\mathbb{R}</span></td>
-<td><span class="math inline">[0, \infty)</span></td>
+<td><span class="math inline">(0, \infty)</span></td>
 <td><span class="math inline">\{0, 1/m_i,\dots, 1\}</span></td>
-<td><span class="math inline">\mathbb{N}</span></td>
+<td><span class="math inline">\{0, 1, 2, \dots\}</span></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\theta_i = \theta(\mu_i)</span></td>
@@ -855,7 +855,7 @@ p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1
 <td><span class="math inline">\log{\mu_i}</span></td>
 </tr>
 <tr class="odd">
-<td><span class="orange">Parametric space</span> <span class="math inline">\Theta</span></td>
+<td><span class="orange">Parameter space</span> <span class="math inline">\Theta</span></td>
 <td><span class="math inline">\mathbb{R}</span></td>
 <td><span class="math inline">(-\infty, 0)</span></td>
 <td><span class="math inline">\mathbb{R}</span></td>
@@ -915,7 +915,7 @@ g(\mu_i) = \bm{x}_i^T\beta, \qquad \theta_i = \theta(\mu_i) \quad \Longrightarro
 <li><p>It is fairly natural to consider a <span class="blue">monotone</span> and <span class="orange">differentiable</span> link function <span class="math inline">g(\cdot) : \mathcal{M} \to \mathbb{R}</span> so that the inverse <span class="math inline">g^{-1}(\cdot) : \mathbb{R} \to \mathcal{M}</span>. This ensures that the predictions are well-defined. <span class="math display">
 \mathbb{E}(Y_i) = g^{-1}(\bm{x}_i^T\beta) \in \mathcal{M}.
 </span></p></li>
-<li><p>For example, in <span class="blue">binary regression</span> any continuous <span class="orange">cumulative distribution function</span> for <span class="math inline">g^{-1}(\cdot)</span> leads to a good link function, such as <span class="math inline">g(\cdot) = \Phi(\cdot)</span> (probit) or <span class="math inline">g^{-1}(\eta_i) = e^{\eta_i}/(1 + e^{\eta_i})</span> (logistic).</p></li>
+<li><p>For example, in <span class="blue">binary regression</span> any continuous <span class="orange">cumulative distribution function</span> for <span class="math inline">g^{-1}(\cdot)</span> leads to a good link function, such as <span class="math inline">g^{-1}(\cdot) = \Phi(\cdot)</span> (probit) or <span class="math inline">g^{-1}(\eta_i) = e^{\eta_i}/(1 + e^{\eta_i})</span> (logistic).</p></li>
 </ul>
 <div class="fragment">
 <div class="callout callout-note no-icon callout-style-simple">
@@ -941,11 +941,11 @@ g(\mu_i) = \theta(\mu_i) \quad \Longrightarrow \quad \theta_i = \bm{x}_i^T\beta.
 <section id="likelihood-function" class="slide level2 center">
 <h2>Likelihood function</h2>
 <ul>
-<li><p>Let <span class="math inline">Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span> be the response variable of a GLM, with <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span>. The <span class="blue">joint distribution</span> of the responses <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)</span> is <span class="math display">
+<li><p>Let <span class="math inline">Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span> be the response variable of a GLM, with <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span>. The <span class="blue">joint distribution</span> of the responses <span class="math inline">\bm{Y} = (Y_1,\dots,Y_n)^T</span> is <span class="math display">
 p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
 </span> with <span class="math inline">\theta_i = \theta(\mu_i) = \theta(g^{-1}(\bm{x}_i^T\beta))</span>.</p></li>
 <li><p>The <span class="orange">log-likelihood</span> function therefore is <span class="math display">
-\ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
+\ell(\beta, \phi) = \sum_{i=1}^n\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
 </span></p></li>
 </ul>
 <div class="fragment">
@@ -973,7 +973,7 @@ p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\l
 <h2>Likelihood equations I 📖</h2>
 <ul>
 <li><p>To conduct inference using the <span class="orange">classical theory</span> (as in <em>Statistica II</em>), we need to consider the first and second derivative of the log-likelihood, that is, the <span class="blue">score function</span> <span class="math display">
-\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta}\ell(\beta, \phi),
+\ell_*(\beta, \phi) := \frac{\partial}{\partial \beta}\ell(\beta, \phi),
 </span> and the <span class="orange">observed information matrix</span> <span class="math inline">\bm{J}</span>, whose elements are <span class="math display">
 j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\ell(\beta, \phi), \qquad r, s=1,\dots,p.
 </span></p></li>
@@ -994,7 +994,7 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 <h2>Likelihood equations II 📖</h2>
 <ul>
 <li><p>Let us begin by noting that <span class="math display">
-\ell_r(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta, \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+\ell_r(\beta, \phi) = \frac{\partial}{\partial \beta_r}\ell(\beta, \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
 </span> Such an expression can be <span class="blue">simplified</span> because <span class="math display">
 \frac{\partial b(\theta_i)}{\partial \beta_r} = b'(\theta_i)\frac{\partial \theta_i}{\partial \beta_r} = \mu_i\frac{\partial \theta_i}{\partial \beta_r},
 </span> which implies that the score function will have the following <span class="orange">structure</span>: <span class="math display">
@@ -1022,7 +1022,7 @@ j_{rs} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \beta_s}\el
 </span> Moreover, since <span class="math inline">\mu_i = g^{-1}(\eta_i)</span> we obtain <span class="math display">
 \frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
 </span></li>
-<li>Summing up, the <span class="orange">chain rule of derivation</span> for <span class="blue">composite functions</span> gives: <span class="math display">
+<li>Summing up, the <span class="orange">chain rule of differentiation</span> for <span class="blue">composite functions</span> gives: <span class="math display">
 \frac{\partial \theta_i}{\partial \beta_r} = \frac{\partial \theta_i}{\partial \mu_i} \frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} = \frac{1}{v(\mu_i)}\frac{1}{g'(\mu_i)}x_{ir}, \qquad r=1,\dots,p.
 </span></li>
 </ul>
@@ -1048,12 +1048,12 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </div>
 </div>
 </section>
-<section id="canonical-link-simplifications" class="slide level2 center">
+<section id="canonical-link-score" class="slide level2 center">
 <h2>Canonical link: simplifications 📖</h2>
 <ul>
 <li>When using the <span class="orange">canonical link</span> <span class="math inline">\theta(\mu_i) = g(\mu_i)</span> significant simplifications arise, because <span class="math display">
 \frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
-</span> Thus, plugging-in this equality in the former equations, gives: <span class="math display">
+</span> Thus, plugging this equality into the previous equations gives: <span class="math display">
 \frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
 </span> which is not surprising, because the canonical link implies <span class="math inline">\theta_i = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p</span>.</li>
 </ul>
@@ -1083,7 +1083,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <div class="callout-content">
 <p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)</span> with <span class="math inline">g(\mu_i) = \mu_i</span>, namely the <span class="orange">Gaussian</span> linear model with the <span class="grey">identity</span> (canonical) link and <span class="blue">heteroscedastic errors</span>. The likelihood equations are <span class="math display">
 \bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
-</span> Their solution over <span class="math inline">\beta</span> is the weighted least square estimator <span class="math inline">\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}</span>.</p>
+</span> Their solution over <span class="math inline">\beta</span> is the weighted least squares estimator <span class="math inline">\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}</span>.</p>
 </div>
 </div>
 </div>
@@ -1091,13 +1091,13 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <div class="callout-body">
 <div class="callout-content">
 <p>Let <span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> with <span class="math inline">g(\mu_i) = \log{\mu_i}</span>, namely a <span class="orange">Poisson</span> regression model with the <span class="grey">logarithmic</span> (canonical) link. The likelihood equations can be solved <span class="orange">numerically</span> <span class="math display">
-\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}, \qquad \bm{\mu} = (e^{\bm{x}_1^T\beta}, \dots,  e^{\bm{x}_n^T\beta}).
+\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}, \qquad \bm{\mu} = (e^{\bm{x}_1^T\beta}, \dots,  e^{\bm{x}_n^T\beta})^T.
 </span></p>
 </div>
 </div>
 </div>
 </section>
-<section id="example-beetles-data" class="slide level2 center">
+<section id="beetles-likelihood-equations" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 <ul>
 <li><p>Using the <code>Beetles</code> data, we specified a <span class="blue">binomial logistic</span> regression model for the counts <span class="math inline">m_i Y_i \sim \text{Binomial}(m_i, \pi_i)</span> with mean <span class="math inline">\mathbb{E}(Y_i) = \pi_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))</span>.</p></li>
@@ -1109,11 +1109,11 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 \sum_{i=1}^n m_i y_i = 291, \qquad \sum_{i=1}^n m_i x_i y_i = 532.2083.
 </span></p></li>
 <li><p>With these values, we can use the <span class="orange">numerical</span> algorithm IRLS to solve the above system, obtaining <span class="math display">
-\hat{\beta} = (\hat{\beta}_1, \hat{\beta_2}) = (-60.717, 34.270).
+\hat{\beta} = (\hat{\beta}_1, \hat{\beta}_2) = (-60.717, 34.270).
 </span></p></li>
 </ul>
 </section>
-<section id="example-beetles-data-1" class="slide level2 center">
+<section id="beetles-predictions" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 <ul>
 <li>The <span class="blue">predicted response</span> can be computed by using the formula <span class="math display">
@@ -1197,29 +1197,29 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </tbody>
 </table>
 <ul>
-<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="./un_B_slides.html#/beetles-data-fitted-model">beginning of this unit</a>.</li>
+<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="#/beetles-data-fitted-model">beginning of this unit</a>.</li>
 </ul>
 </section>
-<section id="example-aids-data" class="slide level2 center">
+<section id="aids-likelihood-equations" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
 <li><p>In the <code>Aids</code> data, we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span>.</p></li>
-<li><p>The maximum likelihood estimate <span class="math inline">(\hat{\beta}_1, \hat{\beta}_2)</span> <span class="orange">solve</span> simultaneously: <span class="math display">
+<li><p>The maximum likelihood estimate <span class="math inline">(\hat{\beta}_1, \hat{\beta}_2)</span> <span class="orange">solves</span> simultaneously: <span class="math display">
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
 \text{and}\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 </span></p></li>
-<li><p>This system does <span class="orange">not</span> always admits a <span class="orange">solution</span>. This happens, for example, in the <span class="blue">extreme case</span> <span class="math inline">\sum_{i=1}^ny_i = 0</span>, occurring when all counts equal zero.</p></li>
+<li><p>This system does <span class="orange">not</span> always admit a <span class="orange">solution</span>. This happens, for example, in the <span class="blue">extreme case</span> <span class="math inline">\sum_{i=1}^ny_i = 0</span>, occurring when all counts equal zero.</p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>Using the <code>Aids</code> data we have <span class="math inline">\sum_{i=1}^ny_i = 217</span> and <span class="math inline">\sum_{i=1}^nx_i y_i = 2387</span>. Via <span class="orange">numerical methods</span> we solve the above system of equations and we obtain <span class="math inline">\hat{\beta}_1 = 0.304</span> and <span class="math inline">\hat{\beta}_2 = 0.259</span>.</p></li>
 <li><p>The estimated mean values are <span class="math inline">\hat{\mu}_i = \exp(0.304 + 0.259 x_i)</span> and in particular the mean for the <span class="blue">next period</span> is <span class="math display">
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
-</span> In other words, the estimated number of deaths increases by about <span class="math inline">30\%</span> every trimester.</p></li>
+</span> In other words, the estimated number of deaths increases by about <span class="math inline">30\%</span> every quarter.</p></li>
 </ul>
 </div>
 </section>
-<section id="example-aids-data-1" class="slide level2 center">
+<section id="aids-predictions" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <div class="small-table">
 <table class="caption-top">
@@ -1239,25 +1239,25 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <td style="text-align: right;">1.755</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1984-1</td>
+<td style="text-align: left;">1983-2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">2.274</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1985-1</td>
+<td style="text-align: left;">1983-3</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">2.946</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1986-1</td>
+<td style="text-align: left;">1983-4</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">3.817</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1983-2</td>
+<td style="text-align: left;">1984-1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">4.945</td>
@@ -1269,25 +1269,25 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <td style="text-align: right;">6.407</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1985-2</td>
+<td style="text-align: left;">1984-3</td>
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">8.301</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1986-2</td>
+<td style="text-align: left;">1984-4</td>
 <td style="text-align: right;">17</td>
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">10.755</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1983-3</td>
+<td style="text-align: left;">1985-1</td>
 <td style="text-align: right;">23</td>
 <td style="text-align: right;">9</td>
 <td style="text-align: right;">13.934</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1984-3</td>
+<td style="text-align: left;">1985-2</td>
 <td style="text-align: right;">32</td>
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">18.052</td>
@@ -1299,19 +1299,19 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 <td style="text-align: right;">23.389</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1986-3</td>
+<td style="text-align: left;">1985-4</td>
 <td style="text-align: right;">24</td>
 <td style="text-align: right;">12</td>
 <td style="text-align: right;">30.302</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1983-4</td>
+<td style="text-align: left;">1986-1</td>
 <td style="text-align: right;">37</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">39.259</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1984-4</td>
+<td style="text-align: left;">1986-2</td>
 <td style="text-align: right;">45</td>
 <td style="text-align: right;">14</td>
 <td style="text-align: right;">50.863</td>
@@ -1320,7 +1320,7 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 </table>
 </div>
 <ul>
-<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="./un_B_slides.html#/aids-data-fitted-model">beginning of this unit</a>.</li>
+<li>The predicted values and the data <span class="math inline">Y_i</span> were also shown in a <span class="blue">plot</span> at the <a href="#/aids-data-fitted-model">beginning of this unit</a>.</li>
 </ul>
 </section>
 <section id="observed-and-expected-information-i" class="slide level2 center">
@@ -1344,7 +1344,7 @@ i_{rs} = \sum_{i=1}^n\frac{1}{a_i(\phi)}\frac{\partial\mu_i}{\partial \beta_s}\f
 <h2>Observed and expected information II 📖</h2>
 <ul>
 <li>In the previous slides we already computed the explicit values of these derivatives: <span class="math display">
-\frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
+\frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{ir}}{v(\mu_i) g'(\mu_i)}.
 </span></li>
 </ul>
 <div class="callout callout-note no-icon callout-style-simple">
@@ -1361,7 +1361,7 @@ w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(
 </div>
 </div>
 </section>
-<section id="canonical-link-simplifications-1" class="slide level2 center">
+<section id="canonical-link-information" class="slide level2 center">
 <h2>Canonical link: simplifications 📖</h2>
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
@@ -1405,12 +1405,12 @@ w_i = \frac{1}{\phi} \omega_iv(\mu_i) = \frac{v(\mu_i)}{a_i(\phi)}, \qquad i=1,\
 <div class="fragment">
 <ul>
 <li>The Fisher information matrix could be computed exploiting <span class="grey">Bartlett identity</span>, namely <span class="math display">
-i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right)\right], \qquad r,s = 1,\dots,p.</span> as in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>. Of course, the final result <span class="orange">coincide</span> with ours.</li>
+i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right)\right], \qquad r,s = 1,\dots,p.</span> as in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>. Of course, the final result <span class="orange">coincides</span> with ours.</li>
 </ul>
 </div>
 </section>
-<section id="orthogonality-of-beta-and-psi" class="slide level2 center">
-<h2>☠️ - Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\psi</span></h2>
+<section id="orthogonality-of-beta-and-phi" class="slide level2 center">
+<h2>☠️ - Orthogonality of <span class="math inline">\beta</span> and <span class="math inline">\phi</span></h2>
 <ul>
 <li>Let us now consider the case in which <span class="math inline">\phi</span> is <span class="blue">unknown</span> so that <span class="math inline">a_i(\phi) = \phi/\omega_i</span>. We obtain: <span class="math display">
 j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\ell(\beta, \phi) = \frac{1}{\phi^2}\sum_{i=1}^n \omega_i(y_i - \mu_i)\frac{\partial \theta_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
@@ -1435,7 +1435,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <div class="callout-body">
 <div class="callout-content">
 <p>The parameters <span class="math inline">\beta</span> and <span class="math inline">\phi</span> are <span class="orange">orthogonal</span> and their estimates are <span class="blue">asymptotically independent</span>.</p>
-<p>Moreover, the matrices <span class="math inline">\bm{I}</span> and <span class="math inline">\bm{I}^{-1}</span> are sufficient for inference on <span class="math inline">\beta</span> and there is no need to compute <span class="math inline">i_{\phi \phi}</span>. Moreover, the maximum likelihood <span class="math inline">\hat{\beta}</span> can also be computed without knowing <span class="math inline">\phi</span>.</p>
+<p>Moreover, the matrices <span class="math inline">\bm{I}</span> and <span class="math inline">\bm{I}^{-1}</span> are all that is needed for inference on <span class="math inline">\beta</span>, so there is no need to compute <span class="math inline">i_{\phi \phi}</span>. Moreover, the maximum likelihood <span class="math inline">\hat{\beta}</span> can also be computed without knowing <span class="math inline">\phi</span>.</p>
 </div>
 </div>
 </div>
@@ -1483,7 +1483,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <li><p>An <span class="orange">iterative</span> method means that we start the <span class="blue">algorithm</span> with a candidate value <span class="math inline">\beta^{(1)}</span> (<span class="grey">initialization</span>). Then, at the step <span class="math inline">t</span> we update <span class="math display">
 \beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
 </span></p></li>
-<li><p>The algorithm <span class="orange">stops</span> whenever a certain criteria is met, e.g.&nbsp;when <span class="math inline">||\beta^{(t+1)} - \beta^{(t)}|| &lt; \epsilon</span>, where <span class="math inline">\epsilon</span> is sometimes called <span class="grey">tolerance</span>. We say it reached <span class="blue">convergence</span>.</p></li>
+<li><p>The algorithm <span class="orange">stops</span> whenever a certain criterion is met, e.g.&nbsp;when <span class="math inline">||\beta^{(t+1)} - \beta^{(t)}|| &lt; \epsilon</span>, where <span class="math inline">\epsilon</span> is sometimes called <span class="grey">tolerance</span>. We say it reached <span class="blue">convergence</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -1503,13 +1503,13 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 \ell_*(\beta^{(t)}) - \bm{J}^{(t)}(\beta - \beta^{(t)}) = \bm{0}.
 </span></p></li>
 <li><p>Solving the equation above gives the following <span class="orange">updates</span>: <span class="math display">
-\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+\beta^{(t+1)} = \beta^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
 </span></p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The Netwon-Raphson method essentially considers a series of <span class="orange">parabolic approximations</span> to the log-likelihood, each time evaluating the <span class="blue">point of maximum</span>.</p>
+<p>The Newton-Raphson method essentially considers a series of <span class="orange">parabolic approximations</span> to the log-likelihood, each time evaluating the <span class="blue">point of maximum</span>.</p>
 </div>
 </div>
 </div>
@@ -1540,7 +1540,7 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 \frac{\partial}{\partial \beta_r}\ell(\beta, \phi)  = \frac{1}{\phi}\sum_{i=1}^n \omega_i \frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^nx_{ir} w_i (y_i - \mu_i)g'(\mu_i),
 </span> where the <span class="orange">weights</span> were defined as <span class="math inline">w_i = \omega_i / (\phi v(\mu_i) g'(\mu_i)^2)</span>. In <span class="blue">matrix notation</span> we will write: <span class="math display">
 \ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
-</span> where <span class="math inline">\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T</span> and <span class="math inline">u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})</span> for <span class="math inline">i=1,\dots,n</span>.</li>
+</span> where <span class="math inline">\bm{u}^{(t)} =(u_1^{(t)},\dots,u_n^{(t)})^T</span> and <span class="math inline">u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})</span> for <span class="math inline">i=1,\dots,n</span>.</li>
 </ul>
 </section>
 <section id="iteratively-re-weighted-least-squares-ii" class="slide level2 center">
@@ -1555,9 +1555,9 @@ j_{r \phi} = - \frac{\partial}{\partial \beta_r}\frac{\partial}{\partial \phi}\e
 <div class="callout-content">
 <p>In the <span class="blue">iteratively re-weighted least squares</span> (IRLS) algorithm, we consider the updates: <span class="math display">
 \beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)}, \qquad t=1,2,\dots,
-</span> where <span class="math inline">\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})</span> is called <span class="orange">pseudo-response</span> whose elements are defined as <span class="math display">
-z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
-</span> Hence, each update can be interpreted as the solution of a <span class="grey">weighted least square</span> problem: <span class="math display">
+</span> where <span class="math inline">\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})^T</span> is called <span class="orange">pseudo-response</span> whose elements are defined as <span class="math display">
+z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\beta^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
+</span> Hence, each update can be interpreted as the solution of a <span class="grey">weighted least squares</span> problem: <span class="math display">
 \beta^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
 </span></p>
 </div>
@@ -1567,16 +1567,16 @@ z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(
 <section id="iteratively-re-weighted-least-squares-iii" class="slide level2 center">
 <h2>Iteratively re-weighted least squares III 📖</h2>
 <ul>
-<li>The IRLS updates does not depend on the choice of <span class="math inline">\phi</span>, because it <span class="orange">cancels</span> in the multiplications, as we would expect.</li>
+<li>The IRLS update does not depend on the choice of <span class="math inline">\phi</span>, because it <span class="orange">cancels</span> in the multiplications, as we would expect.</li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>The pseudo-responses have a <span class="blue">nice interpretation</span>, because they can be interpreted as a linear approximation of the transformed responses: <span class="math display">
 g(y_i) \approx g(\mu_i) + (y_i - \mu_i)g'(\mu_i) = \eta_i + (y_i - \mu_i)g'(\mu_i) = z_i.
 </span></p></li>
-<li><p>Based on this approximation, a good <span class="blue">initialization</span> is <span class="math display">
-\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \beta^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
-</span> the <span class="orange">least square</span> solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in Binomial regression.</p></li>
+<li><p>Based on this approximation, a good <span class="blue">initialization</span> is obtained by setting <span class="math inline">\bm{W} = I_n</span> and <span class="math inline">z_i = g(y_i)</span>, which gives <span class="math display">
+\beta^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
+</span> namely the <span class="orange">least squares</span> solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in binomial regression.</p></li>
 </ul>
 </div>
 </section>
@@ -1592,7 +1592,7 @@ g(y_i) \approx g(\mu_i) + (y_i - \mu_i)g'(\mu_i) = \eta_i + (y_i - \mu_i)g'(\mu_
 </div>
 <div class="callout-content">
 <ul>
-<li><p><span class="grey">Initialize</span> <span class="math inline">\bm{\beta}^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{logit}(\tilde{\bm{y}})</span> where <span class="math inline">\text{logit}(\tilde{\bm{y}})</span> is the <span class="orange">empirical logit</span> transform.</p></li>
+<li><p><span class="grey">Initialize</span> <span class="math inline">\beta^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{logit}(\tilde{\bm{y}})</span> where <span class="math inline">\text{logit}(\tilde{\bm{y}})</span> is the <span class="orange">empirical logit</span> transform.</p></li>
 <li><p>For <span class="math inline">t=1,2, \dots</span> until <span class="orange">convergence</span> compute: <span class="math display">
 \beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)},
 </span> where the weights in <span class="math inline">\bm{W}^{(t)}</span> equals <span class="math inline">w_i^{(t)} = m_i \pi_i^{(t)} (1 - \pi_i^{(t)})</span> and the <span class="blue">pseudo-responses</span> <span class="math inline">\bm{z}^{(t)}</span> are <span class="math display">
@@ -1607,7 +1607,7 @@ z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_
 <h2>Estimation of the dispersion <span class="math inline">\phi</span></h2>
 <ul>
 <li><p>In some GLMs, such as the Gaussian and the Gamma, there is a <span class="orange">dispersion parameter</span> <span class="math inline">\phi</span> that we need to estimate.</p></li>
-<li><p>Instead of the maximum likelihood, because of <span class="orange">numerical instabilities</span> and <span class="blue">lack of robustness</span> it is typically preferred a <span class="orange">method of moments</span> estimator. If <span class="math inline">\mu_i</span> were known, the estimator <span class="math display">
+<li><p>Because of <span class="orange">numerical instabilities</span> and <span class="blue">lack of robustness</span>, a <span class="orange">method of moments</span> estimator is typically preferred to the maximum likelihood one. If <span class="math inline">\mu_i</span> were known, the estimator <span class="math display">
 \frac{1}{n}\sum_{i=1}^n\omega_i\frac{(y_i - \mu_i)^2}{v(\mu_i)}
 </span> would be <span class="orange">unbiased</span> for <span class="math inline">\phi</span>, because <span class="math inline">\mathbb{E}\{(Y_i - \mu_i)^2\} = (\phi/\omega_i) v(\mu_i)</span>. This motivates the estimator <span class="math display">
 \hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n \omega_i\frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}, \qquad \hat{\mu}_i = g^{-1}(\bm{x}_i^T\hat{\beta}).
@@ -1648,7 +1648,7 @@ z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_
 </ul>
 <!-- - Note that the asymptotic variance implicitly takes into account [heteroscedasticity]{.orange}.  -->
 </section>
-<section id="example-beetles-data-2" class="slide level2 center">
+<section id="beetles-standard-errors" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 <ul>
 <li><p>Using the <code>Beetles</code> data, we specified a <span class="blue">binomial logistic</span> regression model for the counts <span class="math inline">m_i Y_i \sim \text{Binomial}(m_i, \pi_i)</span> with mean <span class="math inline">\mu_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))</span>.</p></li>
@@ -1674,7 +1674,7 @@ z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_
 </span></p></li>
 </ul>
 </section>
-<section id="example-aids-data-2" class="slide level2 center">
+<section id="aids-standard-errors" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
 <li><p>In the <code>Aids</code> data, we specified a <span class="blue">Poisson</span> regression model with <span class="math inline">\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)</span> and estimated <span class="math inline">\hat{\beta} = (0.304, 0.259)</span>.</p></li>
@@ -1707,27 +1707,27 @@ z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + \frac{y_i - \pi_i^{(t)}}{ \pi_i^{(t)}(1-\pi_
 \texttt{z value} = z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{\sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}} \, \dot{\sim}\,\text{N}(0, 1).
 </span> which is <span class="orange">approximately</span> distributed as a <span class="blue">standard normal</span> under <span class="math inline">H_0</span>.</p></li>
 <li><p>The <span class="blue">p-value</span> is defined in the usual way, namely <span class="math display">
-\alpha_\text{obs} = \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+\alpha_\text{obs} = \mathbb{P}(|Z| \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
 </span></p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>By inverting the the Wald test, we obtain the associated <span class="blue">confidence interval</span> <span class="math display">
+<li>By inverting the Wald test, we obtain the associated <span class="blue">confidence interval</span> <span class="math display">
 \hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
 </span> of <span class="orange">approximate</span> level <span class="math inline">1-\alpha</span>, where <span class="math inline">z_{1-\alpha/2}</span> is the quantile of a standard Gaussian.</li>
 </ul>
 </div>
 </section>
-<section id="comparison-with-the-gaussian-linear-model" class="slide level2 center">
+<section id="gaussian-comparison-wald" class="slide level2 center">
 <h2>Comparison with the Gaussian linear model</h2>
 <ul>
-<li><p>In a classical <span class="blue">Gaussian linear model</span> the weight matrix is <span class="math inline">\bm{W} = \sigma^2 I_n</span>, therefore <span class="math display">
+<li><p>In a classical <span class="blue">Gaussian linear model</span> the weight matrix is <span class="math inline">\bm{W} = I_n/\sigma^2</span>, therefore <span class="math display">
 \hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right).
 </span></p></li>
 <li><p>The <span class="blue">Wald statistic</span> <span class="math inline">z_j</span> <span class="orange">specializes</span> to <span class="math display">
 z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
 </span> which is the usual test statistic considered, e.g., in the output of <code>lm</code> in <strong>R</strong>.</p></li>
-<li><p>However, in the Gaussian case there is <span class="orange">no need</span> of <span class="orange">approximations</span>. The distribution of <span class="math inline">z_j</span> is a <span class="grey">Student</span>’ <span class="math inline">t_{n-p}</span> under <span class="math inline">H_0</span>, which indeed converges to a <span class="math inline">\text{N}(0, 1)</span> for large values of <span class="math inline">n</span>.</p></li>
+<li><p>However, in the Gaussian case there is <span class="orange">no need</span> of <span class="orange">approximations</span>. The distribution of <span class="math inline">z_j</span> is a <span class="grey">Student</span>’s <span class="math inline">t_{n-p}</span> under <span class="math inline">H_0</span>, which indeed converges to a <span class="math inline">\text{N}(0, 1)</span> for large values of <span class="math inline">n</span>.</p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -1737,7 +1737,7 @@ z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \fr
 </div>
 </div>
 </section>
-<section id="example-beetles-data-3" class="slide level2 center">
+<section id="beetles-wald-test" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 <ul>
 <li>The Wald test is the <span class="orange">default</span> choice in <strong>R</strong> for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span>. In the <code>Beetles</code> data we get the following familiar summary:</li>
@@ -1771,7 +1771,7 @@ logdose      28.56265  39.97800</code></pre>
 </div>
 </div>
 </section>
-<section id="example-aids-data-3" class="slide level2 center">
+<section id="aids-wald-test" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
 <li>The Wald tests for checking the hypotheses <span class="math inline">H_0 : \beta_j = 0</span> in the <code>Aids</code> data are provided below.</li>
@@ -1835,7 +1835,7 @@ H_0: \beta_B = \beta_0 \qquad \text{against}\qquad H_1: \beta_B \neq \beta_0.</s
 <p><strong>Wald test (general case)</strong></p>
 </div>
 <div class="callout-content">
-<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood, the quantity <span class="math display">
+<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood estimate; the quantity <span class="math display">
 W_e = (\hat{\beta}_B - \beta_0)^T \:\widehat{\text{var}}(\hat{\beta}_B)^{-1} \:(\hat{\beta}_B - \beta_0),
 </span> is called <span class="blue">Wald test</span>. Here <span class="math inline">\widehat{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}</span> and <span class="math inline">\hat{\bm{W}}</span> is estimated using <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
 W_e \: \dot{\sim} \; \chi^2_q,
@@ -1856,8 +1856,8 @@ W_e \: \dot{\sim} \; \chi^2_q,
 <p><strong>Log-likelihood ratio test (LRT)</strong></p>
 </div>
 <div class="callout-content">
-<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood and let <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})</span> the <span class="orange">restricted</span> maximum likelihood estimate. The quantity <span class="math display">
-W = 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})],
+<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood estimate and let <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})</span> be the <span class="orange">restricted</span> maximum likelihood estimate. The quantity <span class="math display">
+W = 2 [\ell(\hat{\beta}, \hat{\phi}) - \ell(\hat{\beta}_0, \hat{\phi})],
 </span> is called <span class="blue">log-likelihood ratio</span> test (LRT). Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
 W \: \dot{\sim} \; \chi^2_q,
 </span> a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>. The <span class="blue">p-value</span> is <span class="math inline">\texttt{Pr(&gt;Chi)} =\mathbb{P}(W &gt; w_\text{obs})</span>.</p>
@@ -1865,7 +1865,7 @@ W \: \dot{\sim} \; \chi^2_q,
 </div>
 </div>
 <ul>
-<li><p>When testing <span class="math inline">H_0 : \beta_B = 0</span>, we separately fit the <span class="blue">full model</span>, obtaining <span class="math inline">\hat{\beta}</span>, and the <span class="orange">reduced model</span>, obtaining <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)</span>. Then, we compare their log-likelihoods: <span class="math inline">\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})</span>.</p></li>
+<li><p>When testing <span class="math inline">H_0 : \beta_B = 0</span>, we separately fit the <span class="blue">full model</span>, obtaining <span class="math inline">\hat{\beta}</span>, and the <span class="orange">reduced model</span>, obtaining <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)</span>. Then, we compare their log-likelihoods: <span class="math inline">\ell(\hat{\beta}, \hat{\phi}) - \ell(\hat{\beta}_0, \hat{\phi})</span>.</p></li>
 <li><p>The LRT is the <span class="orange">default</span> in <strong>R</strong> for comparing <span class="blue">nested models</span>.</p></li>
 </ul>
 
@@ -1880,10 +1880,10 @@ W \: \dot{\sim} \; \chi^2_q,
 <p><strong>Rao-score test</strong></p>
 </div>
 <div class="callout-content">
-<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood and let <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})</span> the <span class="orange">restricted</span> maximum likelihood estimate. Moreover, let <span class="math display">
-\ell_B(\beta;\phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
+<p>Let <span class="math inline">\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)</span> be the <span class="blue">unrestricted</span> maximum likelihood estimate and let <span class="math inline">\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})</span> be the <span class="orange">restricted</span> maximum likelihood estimate. Moreover, let <span class="math display">
+\ell_B(\beta, \phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
 </span> namely the <span class="grey">block</span> of the score function associated with <span class="math inline">\beta_B</span>. The quantity <span class="math display">
-W_u = \ell_B(\hat{\beta}_0; \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0; \hat{\phi}),
+W_u = \ell_B(\hat{\beta}_0, \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0, \hat{\phi}),
 </span> is called <span class="blue">Rao-score test</span>. Here <span class="math inline">\widetilde{\text{var}}(\hat{\beta}_B)</span> is the appropriate <span class="grey">block</span> of <span class="math inline">(\bm{X}^T\tilde{\bm{W}}\bm{X})^{-1}</span> where <span class="math inline">\tilde{\bm{W}}</span> is estimated using the <span class="orange">restricted</span> <span class="math inline">\hat{\beta}_0</span>. Under <span class="math inline">H_0</span> this quantity is <span class="orange">approximately</span> distributed as <span class="math display">
 W_u \: \dot{\sim} \; \chi^2_q,
 </span> a <span class="math inline">\chi^2</span> distribution with <span class="math inline">q</span> <span class="blue">degrees of freedom</span>. The <span class="blue">p-value</span> is <span class="math inline">\texttt{Pr(&gt;Chi)} =\mathbb{P}(W_u &gt; w_\text{u, obs})</span>.</p>
@@ -1898,7 +1898,7 @@ W_u \: \dot{\sim} \; \chi^2_q,
 <h2>A graphical representation when <span class="math inline">p = 1</span></h2>
 
 <img data-src="img/tests.png" class="quarto-figure quarto-figure-center r-stretch" style="width:4in"><ul>
-<li>Figure taken from Azzalini (1996). This is also the <span class="grey">cover</span> of the <span class="orange">book</span>!</li>
+<li>Figure taken from <span class="citation" data-cites="Azzalini2008">Azzalini (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span>. This is also the <span class="grey">cover</span> of the <span class="orange">book</span>!</li>
 </ul>
 </section>
 <section id="three-asymptotically-equivalent-tests" class="slide level2 center">
@@ -1923,15 +1923,15 @@ W_e = W + o_p(1), \qquad W_u = W + o_p(1),
 <li><p>On the other hand, both the LRT and the score are <span class="blue">invariant</span>, and therefore we can simply <span class="orange">transform</span> the <span class="orange">extremes</span> of the <span class="orange">original interval</span> without further corrections.</p></li>
 </ul>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Transforming the extremes of Wald confidence interval “works” in the sense that it produces a valid confidence interval, but it is <span class="orange">not</span> the Wald interval in the trasformed scale.</p></li></ol></aside></section>
-<section id="comparison-with-the-gaussian-linear-model-1" class="slide level2 center">
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Transforming the extremes of the Wald confidence interval “works” in the sense that it produces a valid confidence interval, but it is <span class="orange">not</span> the Wald interval in the transformed scale.</p></li></ol></aside></section>
+<section id="gaussian-comparison-tests" class="slide level2 center">
 <h2>Comparison with the Gaussian linear model</h2>
 <div class="callout callout-warning no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
 <p>In the Gaussian linear model all tests are <span class="blue">equivalent</span> if <span class="math inline">\phi = \sigma^2</span> is <span class="orange">known</span>. We have <span class="math display">
 W = W_e = W_u =  \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
-</span> The <span class="math inline">\chi^2_q</span> distribution is <span class="orange">exact</span> and not an approximation thanks to Cochran theorem.</p>
+</span> The <span class="math inline">\chi^2_q</span> distribution is <span class="orange">exact</span> and not an approximation thanks to Cochran’s theorem.</p>
 </div>
 </div>
 </div>
@@ -1939,7 +1939,7 @@ W = W_e = W_u =  \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\ha
 <ul>
 <li>Consider the <span class="blue">log-likelihood ratio</span> for testing <span class="math inline">H_0: \beta_B = \beta_0</span>. Suppose <span class="math inline">\sigma^2</span> is <span class="orange">unknown</span>, then: <span class="math display">
 \begin{aligned}
-W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{Y}\hat{\beta}||^2)/q}{||\bm{y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
+W &amp;= 2 [\ell(\hat{\beta}, \hat{\phi}) - \ell(\hat{\beta}_0, \hat{\phi})] = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2)/q}{||\bm{Y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
 &amp; = q F,
 \end{aligned}
 </span> where <span class="math inline">F \sim F_{q, n - p}</span> is the usual <span class="orange">Snedecor</span>’s F. Indeed <span class="math inline">qF</span> is <span class="orange">approximately</span> distributed as <span class="math inline">\chi^2_q</span> for large values of <span class="math inline">n</span>.</li>
@@ -1952,7 +1952,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </ul>
 </div>
 </section>
-<section id="example-beetles-data-4" class="slide level2 center">
+<section id="beetles-three-tests" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 <ul>
 <li>We would like to use the <span class="blue">Wald</span>, the <span class="orange">Rao-score</span> and the <span class="grey">log-likelihood ratio</span> tests to verify the hypothesis <span class="math inline">H_0: \beta_2 = 0</span>, that is the relevance of <code>logdose</code> in predicting the response.</li>
@@ -2008,7 +2008,7 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </ul>
 </div>
 </section>
-<section id="example-beetles-data-5" class="slide level2 center">
+<section id="beetles-confidence-intervals" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 <ul>
 <li>Any statistical test can be <span class="orange">inverted</span>, namely we find all the values <span class="math inline">\beta_0</span> such that we do <span class="blue">not reject the null hypothesis</span>. This generates a <span class="blue">confidence interval</span>.</li>
@@ -2046,12 +2046,12 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </tbody>
 </table>
 <ul>
-<li><p>Wald interval was also computed before. The three tests produce <span class="blue">nearly identical</span> intervals.</p></li>
+<li><p>The Wald interval was also computed before. The three tests produce <span class="blue">nearly identical</span> intervals.</p></li>
 <li><p>Wald is always symmetric around <span class="math inline">\hat{\beta}_j</span>, whereas Rao and the log-likelihood ratio are typically <span class="orange">asymmetric</span>, depending on the shape of the likelihood function.</p></li>
 </ul>
 </div>
 </section>
-<section id="example-aids-data-4" class="slide level2 center">
+<section id="aids-three-tests" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
 <li>Let us now perform the same analysis for the <code>Aids</code> data. Again, we test the null hypothesis <span class="math inline">H_0 : \beta_2 = 0</span>, which is the relevance of <code>period</code> in predicting the response.</li>
@@ -2122,11 +2122,11 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </tbody>
 </table>
 </section>
-<section id="example-aids-data-5" class="slide level2 center">
+<section id="aids-transformed-intervals" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
 <li><p>We are actually interested in a confidence interval for the quantity <span class="math inline">100\times(\exp(\beta_2) - 1)</span>, which is the <span class="blue">percentage increase</span> of <code>deaths</code> after each period.</p></li>
-<li><p>Thanks to <span class="blue">invariance property</span> of the Rao-score and the log-likelihood ratio tests, we can simply <span class="orange">transform</span> the <span class="blue">original intervals</span> for <span class="math inline">\beta_2</span>.</p></li>
+<li><p>Thanks to the <span class="blue">invariance property</span> of the Rao-score and the log-likelihood ratio tests, we can simply <span class="orange">transform</span> the <span class="blue">original intervals</span> for <span class="math inline">\beta_2</span>.</p></li>
 <li><p>If the extremes of the log-likelihood ratio interval are <span class="math inline">C_\text{low}, C_\text{high}</span>, then the new interval is <span class="math display">
 [100\times(\exp(C_\text{low}) - 1), \:100\times(\exp(C_\text{high}) - 1)].
 </span> and similarly for the Rao-score case. These are reported below.</p></li>
@@ -2164,10 +2164,10 @@ W &amp;= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \
 </ul>
 </div>
 </section>
-<section id="example-aids-data-6" class="slide level2 center">
+<section id="aids-delta-method" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 <ul>
-<li><p>In the Wald case, we cannot simply transform the extremes of the intervals. Indeed, that would lead to a <span class="blue">valid</span> confidence interval that is not anymore of Wald type (<em>Lo sbagliato</em> 🥃).</p></li>
+<li><p>In the Wald case, we cannot simply transform the extremes of the intervals. Indeed, that would lead to a <span class="blue">valid</span> confidence interval that is no longer of Wald type (<em>Lo sbagliato</em> 🥃).</p></li>
 <li><p>Instead, we first need to <span class="orange">adjust</span> the <span class="orange">variance</span> according to the <span class="blue">delta method</span>, obtaining <span class="math display">
 \widehat{\text{var}}\{100[\exp(\hat{\beta}_2)-1]\} = 100^2\exp(2 \hat{\beta}_2) \text{var}(\hat{\beta}_2) = 8.301184.
 </span></p></li>
@@ -2319,22 +2319,22 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_0) - D(\bm{Y}; \hat{\bm{\mu}})}{\sigma^2} = \
 </tbody>
 </table>
 <ul>
-<li>The <span class="orange">empirical proportions</span> <span class="math inline">s_i / m_i</span> can be seen as <span class="blue">estimates</span> of the <span class="blue">most flexible model</span>, in which every observation <span class="math inline">Y_i</span> has its own mean <span class="math inline">\mu_i</span>. We call it <span class="orange">saturated model</span> because <span class="math inline">p = n</span>.</li>
+<li>The <span class="orange">empirical proportions</span> <span class="math inline">s_i / m_i</span> can be seen as <span class="blue">estimates</span> of the <span class="blue">most flexible model</span>, in which every observation <span class="math inline">Y_i</span> has its own mean <span class="math inline">\mu_i</span>. We call it the <span class="orange">saturated model</span> because <span class="math inline">p = n</span>.</li>
 </ul>
 </section>
 <section id="saturated-model" class="slide level2 center">
 <h2>Saturated model</h2>
 <ul>
-<li><p>Let us express the <span class="orange">log-likelihood</span> of a GLM as a function of the mean <span class="math inline">\bm{\mu} = (\mu_1,\dots,\mu_n)</span>.</p></li>
+<li><p>Let us express the <span class="orange">log-likelihood</span> of a GLM as a function of the mean <span class="math inline">\bm{\mu} = (\mu_1,\dots,\mu_n)^T</span>.</p></li>
 <li><p>When evaluated in the maximum likelihood, this gives: <span class="math display">
-\ell_\mathcal{M}(\hat{\bm{\mu}},\phi) = \sum_{i=1}^n\omega_i\frac{y_i\theta(\hat{\mu}_i) - b(\theta(\hat{\mu}_i))}{\phi} + c(y_i, \phi).
-</span> The maximum likelihood for each <span class="math inline">\mu_i</span> is <span class="orange">restricted</span>, in the sense that depends on the <span class="math inline">p</span> parameters of the <span class="blue">linear predictor</span> <span class="math inline">\bm{x}_i^T\beta</span> through the link function <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span>.</p></li>
+\ell_\mathcal{M}(\hat{\bm{\mu}},\phi) = \sum_{i=1}^n\left\{\omega_i\frac{y_i\theta(\hat{\mu}_i) - b(\theta(\hat{\mu}_i))}{\phi} + c(y_i, \phi)\right\}.
+</span> The maximum likelihood for each <span class="math inline">\mu_i</span> is <span class="orange">restricted</span>, in the sense that it depends on the <span class="math inline">p</span> parameters of the <span class="blue">linear predictor</span> <span class="math inline">\bm{x}_i^T\beta</span> through the link function <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>In the <span class="blue">saturated model</span> the means <span class="math inline">\mu_i</span> are <span class="orange">unrestricted</span>: each parameter is estimated separately, giving the maximum likelihood estimate <span class="math inline">\hat{\mu}_{i, \text{sat}} = y_i</span>. This happens whenever <span class="math inline">p = n</span>.</p></li>
 <li><p>When evaluated in the maximum, the log-likelihood of the saturated model is <span class="math display">
-\ell_\mathcal{M}(\bm{y},\phi) = \sum_{i=1}^n\omega_i\frac{y_i\theta(y_i) - b(\theta(y_i))}{\phi} + c(y_i, \phi).
+\ell_\mathcal{M}(\bm{y},\phi) = \sum_{i=1}^n\left\{\omega_i\frac{y_i\theta(y_i) - b(\theta(y_i))}{\phi} + c(y_i, \phi)\right\}.
 </span></p></li>
 <li><p>The saturated model is the <span class="blue">most complex model</span> we can think of.</p></li>
 </ul>
@@ -2384,7 +2384,7 @@ W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm
 </div>
 <ul>
 <li><p>The log-likelihood ratio can be interpreted as a difference of scaled deviances. This explains why it is popular in GLMs for comparing nested models.</p></li>
-<li><p>This is also strong parallelism with the Gaussian linear model.</p></li>
+<li><p>There is also a strong parallelism with the Gaussian linear model.</p></li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>More formally, we should say that we are testing the hypothesis <span class="math inline">H_0: \beta_B = \bm{0}</span> against the alternative <span class="math inline">H_1: \beta_B \neq \bm{0}</span>. I hope you can tolerate this slight linguistic abuse.</p></li></ol></aside></section>
 <section id="the-null-model" class="slide level2 center">
@@ -2392,8 +2392,8 @@ W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm
 <div class="callout callout-note no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Let us consider a model <span class="math inline">M_\text{null}</span> with <span class="blue">no covariates</span> and one parameter (<span class="math inline">p =1</span>), i.e.&nbsp;the <span class="blue">intercept</span>. The predicted values are all equals to <span class="math display">
-\hat{\bm{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
+<p>Let us consider a model <span class="math inline">M_\text{null}</span> with <span class="blue">no covariates</span> and one parameter (<span class="math inline">p =1</span>), i.e.&nbsp;the <span class="blue">intercept</span>. The predicted values are all equal to <span class="math display">
+\hat{\bm{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1))^T.
 </span> We call <span class="math inline">M_\text{null}</span> the <span class="blue">null model</span> and <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}_\text{null})</span> the <span class="orange">null deviance</span>.</p>
 </div>
 </div>
@@ -2405,7 +2405,7 @@ W = 2 [\ell_\mathcal{M}(\hat{\bm{\mu}}, \hat{\phi})  - \ell_\mathcal{M}(\hat{\bm
 </span></p></li>
 <li><p>It is sometimes useful to test the current model against the null model: <span class="math display">
 W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_\text{null}) - D(\bm{Y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
-</span> If the <span class="math inline">H_0</span> is not rejected, it means all the <span class="orange">covariates</span> are regarded as <span class="orange">irrelevant</span>.</p></li>
+</span> If <span class="math inline">H_0</span> is not rejected, it means that all the <span class="orange">covariates</span> are regarded as <span class="orange">irrelevant</span>.</p></li>
 </ul>
 </section>
 <section id="pearson-x2-statistic" class="slide level2 center">
@@ -2433,14 +2433,14 @@ W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_\text{null}) - D(\bm{Y}; \hat{\bm{\mu}})}{\ha
 <section id="deviance-of-a-gaussian-linear-model" class="slide level2 center">
 <h2>Deviance of a Gaussian linear model</h2>
 <ul>
-<li>In the classical <span class="blue">Gaussian linear model</span>, we have that <span class="math inline">\theta_i = \mu_i</span> and <span class="math inline">b(\theta_i) = \theta_i^2/2</span>. Thus <span class="math inline">\theta(y_i) = y_i</span> and <span class="math display">
+<li>In the classical <span class="blue">Gaussian linear model</span>, we have that <span class="math inline">\theta_i = \mu_i</span>, <span class="math inline">b(\theta_i) = \theta_i^2/2</span> and <span class="math inline">\omega_i = 1</span>. Thus <span class="math inline">\theta(y_i) = y_i</span> and <span class="math display">
 \begin{aligned}
 D(\bm{y}; \hat{\bm{\mu}}) &amp;=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\} \\
 &amp;=2\sum_{i=1}^n\{y_i(y_i - \hat{\mu}_i) - y_i^2/2 + \hat{\mu}_i^2/2\}\\
-&amp;= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu_i} + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
+&amp;= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu}_i + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
 \end{aligned}
 </span></li>
-<li>In the Gaussian case, the deviance is the <span class="orange">residuals sum of squares</span> and <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = X^2</span>.</li>
+<li>In the Gaussian case, the deviance is the <span class="orange">residual sum of squares</span> and <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = X^2</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -2467,7 +2467,7 @@ X^2 = \sum_{i=1}^n \frac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i} = \sum_{i=1}^n\frac
 <section id="deviance-of-a-binomial-model-i" class="slide level2 center">
 <h2>Deviance of a binomial model I</h2>
 <ul>
-<li><p>Let us consider a <span class="blue">Binomial regression</span> model <span class="math inline">m_i Y_i = S_i \sim \text{Binomial}(m_i, \pi_i)</span> with <span class="math inline">\mu_i = \pi_i</span>. Then <span class="math display">
+<li><p>Let us consider a <span class="blue">Binomial regression</span> model <span class="math inline">m_i Y_i = S_i \sim \text{Binomial}(m_i, \pi_i)</span> with <span class="math inline">\mu_i = \pi_i</span>. Then, up to an <span class="grey">additive constant</span> not depending on <span class="math inline">\bm{\mu}</span>, <span class="math display">
 \ell_\mathcal{M}(\bm{\hat{\mu}}) = \sum_{i=1}^n\{m_i y_i \log{(\hat{\mu}_i)} + m_i(1 - y_i)\log{(1-\hat{\mu}_i)}\}.
 </span> Therefore, under the convention <span class="math inline">x\log(x) = 0</span> as before, the deviance is <span class="math display">
 \begin{aligned}
@@ -2498,18 +2498,18 @@ X^2 = \sum_{j=1}^{2n} \frac{(\textsf{observed}_j - \textsf{fitted}_j)^2}{\textsf
 <section id="deviance-as-goodness-of-fit-measure-i" class="slide level2 center">
 <h2>Deviance as goodness of fit measure I</h2>
 <ul>
-<li><p>The deviance is useful a <span class="orange">descriptive measure</span> for the <span class="blue">goodness of fit</span>.</p></li>
+<li><p>The deviance is a useful <span class="orange">descriptive measure</span> of the <span class="blue">goodness of fit</span>.</p></li>
 <li><p>It is <span class="orange">tempting</span> to use the deviance as a formal <span class="blue">statistical test</span>, to verify if the current model is adequate compared to the saturated model.</p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p>Suppose <span class="math inline">\phi</span> were <span class="blue">known</span>, then in the Gaussian case we would have <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\phi \sim \chi^2_{n-p}</span>, which would allow us to check the adequacy of the model.</p></li>
-<li><p>Unfortunately, whenever <span class="math inline">\hat{\phi}</span> is <span class="orange">estimated</span> we obtain <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\hat{\phi} \approx n - p</span>, and exactly <span class="math inline">n-p</span> in the Gaussian case, so this strategy can not be used.</p></li>
+<li><p>Unfortunately, whenever <span class="math inline">\hat{\phi}</span> is <span class="orange">estimated</span> we obtain <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})/\hat{\phi} \approx n - p</span>, and exactly <span class="math inline">n-p</span> in the Gaussian case, so this strategy cannot be used.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><p>On the other hand, for example in Poisson e binomial regression, we have <span class="math inline">\phi = 1</span>. Hence, the intuition tells us that, at least approximately, we should have <span class="math display">
+<li><p>On the other hand, for example in Poisson and binomial regression, we have <span class="math inline">\phi = 1</span>. Hence, intuition tells us that, at least approximately, we should have <span class="math display">
 D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 </span></p></li>
 <li><p>Unfortunately, this is <span class="orange">not</span> the <span class="orange">case</span>: the saturated model is an “irregular case” in that the number of parameters <span class="math inline">p = n</span> grows with the sample size.</p></li>
@@ -2520,12 +2520,12 @@ D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 <section id="deviance-as-goodness-of-fit-measure-ii" class="slide level2 center">
 <h2>Deviance as goodness of fit measure II</h2>
 <ul>
-<li>Despite these bad news, it turns out that in some special cases, the <span class="math inline">\chi^2_{n-p}</span> approximation is still valid even for fixed values of <span class="math inline">n</span>.</li>
+<li>Despite this bad news, it turns out that in some special cases, the <span class="math inline">\chi^2_{n-p}</span> approximation is still valid even for fixed values of <span class="math inline">n</span>.</li>
 </ul>
 <div class="callout callout-warning no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Then the <span class="blue">deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span> and the <span class="math inline">X^2</span> <span class="blue">Pearson statistic</span> are approximately distributed as a <span class="math inline">\chi^2_{n-p}</span> in the following cases:</p>
+<p>The <span class="blue">deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span> and the <span class="math inline">X^2</span> <span class="blue">Pearson statistic</span> are approximately distributed as a <span class="math inline">\chi^2_{n-p}</span> in the following cases:</p>
 <ul>
 <li>In binomial regression, for large values of <span class="math inline">m_i</span> (small-dispersion asymptotics);</li>
 <li>In Poisson regression, for large values of the estimated means <span class="math inline">\hat{\mu}_i</span> (say <span class="math inline">\hat{\mu}_i \ge 5</span>);</li>
@@ -2544,26 +2544,26 @@ D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 <h2>On pseudo-<span class="math inline">R^2</span></h2>
 <ul>
 <li><p>There exist several generalizations of the <span class="math inline">R^2</span> statistic for linear models, called <span class="blue">pseudo-<span class="math inline">R^2</span></span> (e.g.&nbsp;McFadden, Cox &amp; Snell, Nagelkerke, Tjur, etc.).</p></li>
-<li><p>These indices are <span class="orange">difficult to interpret</span> and could mislead those accustomed with standard <span class="math inline">R^2.</span> A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (i.e.&nbsp;<code>Beetles</code> data), which is confusing.</p></li>
-<li><p>On top of this, these pseudo-<span class="math inline">R^2</span> produce different answers depending on the <span class="blue">aggregation</span> of the data.</p></li>
+<li><p>These indices are <span class="orange">difficult to interpret</span> and could mislead those accustomed to the standard <span class="math inline">R^2</span>. A pseudo-<span class="math inline">R^2 \approx 0.4</span> may indicate a nearly perfect fit (e.g.&nbsp;the <code>Beetles</code> data), which is confusing.</p></li>
+<li><p>On top of this, these pseudo-<span class="math inline">R^2</span> measures produce different answers depending on the <span class="blue">aggregation</span> of the data.</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>The recommendation is to rely on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between <span class="math inline">\bm{y}</span> and <span class="math inline">\hat{\bm{\mu}}</span>.</p></li>
+<li><p>The recommendation is to rely on indices tailored to the data at hand, such as the ROC curve for binary data, or the correlation between <span class="math inline">\bm{y}</span> and <span class="math inline">\hat{\bm{\mu}}</span>.</p></li>
 <li><p>The residual <span class="blue">deviance</span> is also a useful tool, especially for comparing models.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <!-- - It is not a coincidence that none of our textbooks @Agresti2015, @Salvan2020, @Azzalini2008, @McCullagh1989, nor the `glm` R function, even mention pseudo-$R^2$.  -->
 <ul>
-<li>Pseudo-<span class="math inline">R^2</span> are often shown by default in other software, such as SAS or SPSS.</li>
+<li>Pseudo-<span class="math inline">R^2</span> measures are often shown by default in other software, such as SAS or SPSS.</li>
 </ul>
 </div>
 </section>
 <section id="example-beetles-data-output-of-summary" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data, output of <code>summary</code></h2>
 <ul>
-<li>This is how the <code>summary</code> of a GLM looks like. It is very similar to the <code>summary</code> of <code>lm</code>. At this stage of the course, you should be able to understand almost everything.</li>
+<li>This is what the <code>summary</code> of a GLM looks like. It is very similar to the <code>summary</code> of <code>lm</code>. At this stage of the course, you should be able to understand almost everything.</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -2596,7 +2596,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <section id="example-beetles-data-output-of-anova" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data, output of <code>anova</code></h2>
 <ul>
-<li><code>anova(model0, model1)</code> computes <span class="blue">log-likelihood ratio test</span> comparing two nested models: the <span class="orange">reduced</span> model <span class="math inline">M_0</span> with <span class="math inline">p_0</span> parameters and the <span class="blue">full</span> model <span class="math inline">M_1</span> with <span class="math inline">p</span> parameters.</li>
+<li><code>anova(model0, model1)</code> computes the <span class="blue">log-likelihood ratio test</span> comparing two nested models: the <span class="orange">reduced</span> model <span class="math inline">M_0</span> with <span class="math inline">p_0</span> parameters and the <span class="blue">full</span> model <span class="math inline">M_1</span> with <span class="math inline">p</span> parameters.</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -2626,13 +2626,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1200"><ul>
 <li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 11.232</span>, with <span class="math inline">n - p = 8 - 2 = 6</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">10.027</span>.</p></li>
-<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">6</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 10.027) = 0.124</span>, as pictured above, which can be interpreted as a <span class="orange">slight</span> lack of fit.</p></li>
+<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">6</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(\chi^2_6 &gt; 10.027) = 0.124</span>, as pictured above. There is therefore <span class="blue">no evidence</span> of lack of fit: this model is <span class="blue">compatible</span> with the saturated one.</p></li>
 </ul>
 </section>
 <section id="example-aids-data-output-of-summary" class="slide level2 center">
 <h2>Example: <code>Aids</code> data, output of <code>summary</code></h2>
 <ul>
-<li>Below is shown the <code>summary</code> of the Poisson regression model with the <code>Aids</code> data.</li>
+<li>The <code>summary</code> of the Poisson regression model for the <code>Aids</code> data is shown below.</li>
 </ul>
 <div class="cell styled-output">
 <div class="cell-output cell-output-stdout">
@@ -2697,7 +2697,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2>Example: <code>Aids</code> data, goodness of fit</h2>
 <ul>
 <li><p>The <span class="blue">deviance</span> equals <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) = 30.203</span>, with <span class="math inline">n - p = 14 - 2 = 12</span> degrees of freedom. The observed <span class="math inline">X^2</span> <span class="orange">Pearson statistic</span> equals <span class="math inline">29.92</span>.</p></li>
-<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">12</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(X^2 &gt; 29.92) = 0.0028</span>, therefore <span class="orange">rejecting</span> the hypothesis that this model has a comparable fit with the saturated model.</p></li>
+<li><p>Using the <span class="math inline">X^2</span> statistic with <span class="math inline">12</span> degrees of freedom, we obtain the p-value <span class="math inline">\mathbb{P}(\chi^2_{12} &gt; 29.92) = 0.0028</span>, therefore <span class="orange">rejecting</span> the hypothesis that this model has a fit comparable to the saturated one.</p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -2726,13 +2726,13 @@ r_i = y_i - \hat{\mu}_i.
 </ul>
 <div class="fragment">
 <ul>
-<li><p>GLMs do not have an additive decomposition, therefore we need define a good <span class="orange">generalization</span> of <span class="orange">residuals</span>. There are at least <span class="math inline">2</span> alternatives: Pearson and deviance residuals.</p></li>
+<li><p>GLMs do not have an additive decomposition, therefore we need to define a good <span class="orange">generalization</span> of <span class="orange">residuals</span>. There are at least two alternatives: Pearson and deviance residuals.</p></li>
 <li><p>Ideally, we would like residuals to have approximately <span class="math inline">0</span> mean and unitary variance, but these properties will not hold exactly.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>The analysis of the residuals is very helpful for identifying any misspecification as well as hinting the solution. In particular, it is useful for instance to:
+<li>The analysis of the residuals is very helpful for identifying any misspecification, as well as for hinting at the solution. In particular, it is useful for instance for:
 <ol type="a">
 <li>Choosing the correct variance function <span class="math inline">v(\mu_i)</span>, i.e.&nbsp;the correct response distribution;</li>
 <li>Choosing the correct link function;</li>
@@ -2755,8 +2755,8 @@ r_{i, P} = \frac{y_i - \hat{\mu}_i}{\sqrt{v(\hat{\mu}_i)/\omega_i}}, \qquad i=1,
 </div>
 <ul>
 <li><p>Pearson residuals rescale the response residuals, accounting for <span class="orange">heteroscedasticity</span>.</p></li>
-<li><p>Pearson residuals own their name to the fact that the <span class="math inline">X^2</span> statistic is obtained as <span class="math display">
-X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\mu_i)}.
+<li><p>Pearson residuals owe their name to the fact that the <span class="math inline">X^2</span> statistic is obtained as <span class="math display">
+X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}.
 </span> Moreover, the dispersion parameter, when present, can be estimated as <span class="math display">
 \hat{\phi} = \frac{1}{n - p}\sum_{i=1}^n r_{i, P}^2.
 </span></p></li>
@@ -2780,7 +2780,7 @@ r_{i, D} = \text{sign}(y_i - \hat{\mu}_i) \sqrt{d_i}, \qquad i=1,\dots,n.
 D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n r_{i, D}^2.
 </span></p></li>
 <li><p>Deviance residuals are the <span class="orange">default</span> choice in the <code>residuals</code> <strong>R</strong> function.</p></li>
-<li><p>Pearson residuals are an asymptotic approximation of deviance residuals, therefore these two quantities are often very similar in practice.</p></li>
+<li><p>Pearson and deviance residuals are <span class="blue">asymptotically equivalent</span>, therefore these two quantities are often very similar in practice.</p></li>
 </ul>
 </section>
 <section id="a-weighted-projection-matrix" class="slide level2 center">
@@ -2791,11 +2791,11 @@ D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n r_{i, D}^2.
 <div class="fragment">
 <ul>
 <li><p>Several arguments can be invoked to justify the following <span class="blue">weighted hat matrix</span> in GLMs <span class="math display">
-\bm{H}_W = \bm{W}^{1/2}\bm{X}(\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}\bm{W}^{1/2}.
+\bm{H}_W = \bm{W}^{1/2}\bm{X}(\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}^T\bm{W}^{1/2}.
 </span> This matrix is <span class="blue">symmetric</span> <span class="math inline">(\bm{H}_W = \bm{H}_W^T)</span> and <span class="orange">idempotent</span> (<span class="math inline">\bm{H}_W^2 = \bm{H}_W</span>), i.e.&nbsp;a projection matrix.</p></li>
 <li><p>We denote with <span class="math inline">h_{i,W}</span> the diagonal elements of <span class="math inline">\bm{H}_W</span>, which are the <span class="blue">leverages</span> of a GLM. In practice <span class="math inline">\bm{W}</span> is estimated from the data, therefore the leverages will depend on the <span class="orange">response</span>.</p></li>
 <li><p>It can be shown, as in <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, Section 4.4.5, that <span class="math display">
-\text{var}(y_i - \hat{\mu}_i) \approx \phi/\omega_i v(\mu_i)(1 - h_{i, W}) \quad \Longrightarrow \quad \text{var}(r_{i,P}) \approx \phi(1 - h_{i, W}).
+\text{var}(y_i - \hat{\mu}_i) \approx (\phi/\omega_i) v(\mu_i)(1 - h_{i, W}) \quad \Longrightarrow \quad \text{var}(r_{i,P}) \approx \phi(1 - h_{i, W}).
 </span></p></li>
 </ul>
 </div>
@@ -2810,7 +2810,7 @@ D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n r_{i, D}^2.
 <ul>
 <li><p>In analogy with what has been done for linear models, we can consider the <span class="blue">standardized</span> version of Pearson and deviance residuals.</p></li>
 <li><p><span class="blue">Standardized Pearson residuals</span> are defined as <span class="math display">
-\tilde{r}_{i, P} = \frac{r_{i,P}}{\sqrt{\hat{\phi}(1 - \hat{h}_{i, W})}} = \frac{y_i - \hat{\mu_i}}{\sqrt{\hat{\phi}/\omega_iv(\hat{\mu}_i)(1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n,
+\tilde{r}_{i, P} = \frac{r_{i,P}}{\sqrt{\hat{\phi}(1 - \hat{h}_{i, W})}} = \frac{y_i - \hat{\mu}_i}{\sqrt{(\hat{\phi}/\omega_i)v(\hat{\mu}_i)(1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n,
 </span> where <span class="math inline">\hat{\phi}</span> is an estimate of <span class="math inline">\phi</span> (if unknown) and <span class="math inline">\hat{h}_{i, W}</span> is an estimate of the leverages.</p></li>
 <li><p><span class="blue">Standardized deviance residuals</span> are defined as <span class="math display">
 \tilde{r}_{i, D} = \frac{r_{i, D}}{\sqrt{\hat{\phi} (1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n.
@@ -2824,12 +2824,12 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <h2>On Q-Q plots and other practicalities</h2>
 <ul>
 <li><p>It is sometimes recommended to check the normality of the Pearson/deviance residuals using Q-Q plots. Such a plot is also provided in <strong>R</strong>.</p></li>
-<li><p>Indeed, for example under small dispersion asymptotics or other specific, Pearson residuals are <span class="orange">approximately</span> Gaussian.</p></li>
+<li><p>Indeed, for example under small dispersion asymptotics or other specific conditions, Pearson residuals are <span class="orange">approximately</span> Gaussian.</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>However, these conditions are often not met. For example, in binary data the response <span class="math inline">y_i \in \{0, 1\}</span> can only assume two values and the residuals will not be Gaussian distributed, even for large <span class="math inline">n</span>.</p></li>
-<li><p>Actually, the analysis for the residuals in <span class="blue">binary data</span> do <span class="orange">not provide useful information</span>; see e.g. <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, Section 3.6.</p></li>
+<li><p>However, these conditions are often not met. For example, in binary data the response <span class="math inline">y_i \in \{0, 1\}</span> can only assume two values and the residuals will not be normally distributed, even for large <span class="math inline">n</span>.</p></li>
+<li><p>Actually, the analysis of the residuals in <span class="blue">binary data</span> does <span class="orange">not provide useful information</span>; see e.g. <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, Section 3.6.</p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -2846,9 +2846,9 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <section id="on-identifying-and-removing-outliers" class="slide level2 center">
 <h2>On identifying and removing outliers</h2>
 <ul>
-<li><p>The analysis of the residuals can also help in identifying outliers and influence points. However, we must be careful in drawing conclusions.</p></li>
-<li><p>An outlier might be detected as such simply as the consequence of <span class="orange">model misspecification</span>, e.g.&nbsp;an omitted variable.</p></li>
-<li><p>In the vast majority of cases, the presence of outliers should be carefully dealt with by carefully modifying the model.</p></li>
+<li><p>The analysis of the residuals can also help in identifying outliers and influential points. However, we must be careful in drawing conclusions.</p></li>
+<li><p>An outlier might be detected as such simply as a consequence of <span class="orange">model misspecification</span>, e.g.&nbsp;an omitted variable.</p></li>
+<li><p>In the vast majority of cases, the presence of outliers should be dealt with by carefully modifying the model.</p></li>
 <li><p>There are instances in which outliers are actually <span class="blue">contaminated data points</span> (e.g.&nbsp;<code>age = -3</code>). If there is strong and contextual evidence that this might be the case, then these points should be <span class="orange">removed</span>. Otherwise, removing data points is a <span class="orange">bad practice</span>.</p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -2860,30 +2860,30 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 </div>
 </div>
 </section>
-<section id="example-beetles-data-6" class="slide level2 center">
+<section id="beetles-residuals" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1500"><ul>
-<li><p>A formal test already confirmed that there are <span class="orange">no</span> noticeable <span class="orange">differences</span> between this model and the saturated model. The analysis of the residuals confirms it.</p></li>
+<li><p>The goodness of fit test did not detect any <span class="orange">noticeable difference</span> between this model and the saturated one. The analysis of the residuals confirms it.</p></li>
 <li><p>Deviance residuals and Pearson residuals are very similar, as expected.</p></li>
 </ul>
 </section>
-<section id="example-beetles-data-7" class="slide level2 center">
+<section id="beetles-cook-distance" class="slide level2 center">
 <h2>Example: <code>Beetles</code> data</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1200"><ul>
-<li>The Cook’s distance also confirms that there are not strong influence points.</li>
+<li>The Cook’s distance also confirms that there are no strong influential points.</li>
 </ul>
 </section>
-<section id="example-aids-data-7" class="slide level2 center">
+<section id="aids-residuals" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-35-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1500"><ul>
-<li><p>From both residuals plots it is evident that three observations are highly underestimated, while the others are slightly underestimated.</p></li>
-<li><p>The lack of fit can be solved, in this case, by using a different link function.</p></li>
+<li><p>From both residual plots it is evident that three observations are severely underestimated, while the others are slightly overestimated.</p></li>
+<li><p>The lack of fit can be remedied, in this case, by using a different link function.</p></li>
 </ul>
 </section>
-<section id="example-aids-data-8" class="slide level2 center">
+<section id="aids-residuals-sqrt-link" class="slide level2 center">
 <h2>Example: <code>Aids</code> data</h2>
 
 <img data-src="un_B_files/figure-revealjs/unnamed-chunk-36-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1500"><ul>
@@ -2923,7 +2923,7 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <h2>Automatic model selection</h2>
 <ul>
 <li><p>With <span class="math inline">p</span> <span class="blue">explanatory variables</span>, the number of potential models is the huge number <span class="math display">
-\sum_{k=1}^p \binom{p}{k} = 2^p.
+\sum_{k=0}^p \binom{p}{k} = 2^p.
 </span></p></li>
 <li><p><span class="blue">Best subset selection</span> identifies the model that optimizes an <span class="blue">information criterion</span> e.g.&nbsp;AIC or BIC, which are defined as <span class="math display">
 \textsf{AIC} = - 2\ell(\hat{\beta}) + 2k, \qquad\textsf{BIC} = - 2\ell(\hat{\beta}) + k\log{n},
@@ -2933,7 +2933,7 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <div class="fragment">
 <ul>
 <li><p>In <span class="blue">exploratory studies</span>, these methods are useful if applied <span class="blue">cautiously</span>.</p></li>
-<li><p>As we shall discuss, an excess of automatism may lead to good predictive performance, but it may fail in making the model simple or interpretable.</p></li>
+<li><p>As we shall discuss, an excess of automatism may lead to good predictive performance, but it may fail to make the model simple or interpretable.</p></li>
 </ul>
 </div>
 </section>
@@ -2941,19 +2941,19 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <h2>Stepwise procedures: forward and backward selection</h2>
 <ul>
 <li><p><span class="blue">Forward selection</span> adds terms sequentially. At each stage it selects the term giving the greatest improvement in terms of <span class="orange">deviance</span> or other goodness of fit measures.</p></li>
-<li><p>The process stops when further additions do not improve the it, according to statistical significance (i.e.&nbsp;a log-likelihood ratio test) or a criterion for judging the model fit (such as the AIC or BIC).</p></li>
+<li><p>The process stops when further additions do not improve the fit, according to statistical significance (i.e.&nbsp;a log-likelihood ratio test) or a criterion for judging the model fit (such as the AIC or BIC).</p></li>
 <li><p>A stepwise variation of this procedure rechecks, at each stage, whether terms added at previous stages are still needed.</p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p><span class="orange">Backward elimination</span> begins with a complex model and sequentially removes terms.</p></li>
 <li><p>At each stage, it selects the term whose removal has the least damaging effect on the model, such as the largest p-value in a test or the least deterioration in a criterion for judging the model fit.</p></li>
-<li><p>The process stops when any further deletion leads to a poorer it.</p></li>
+<li><p>The process stops when any further deletion leads to a poorer fit.</p></li>
 </ul>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Whenever possible, i.e.&nbsp;when <span class="math inline">p</span> is not too large, we recommend <span class="blue">manually</span> performing each stage of forward or backward procedures and <span class="orange">avoid fully automatic procedures</span>.</p>
+<p>Whenever possible, i.e.&nbsp;when <span class="math inline">p</span> is not too large, we recommend <span class="blue">manually</span> performing each stage of forward or backward procedures and <span class="orange">avoiding fully automatic procedures</span>.</p>
 </div>
 </div>
 </div>
@@ -2979,12 +2979,12 @@ c_i = \tilde{r}_{i,P}^2 \frac{\hat{h}_{i, W}}{p(1 - \hat{h}_{i,W})}, \qquad i=1,
 <div class="fragment">
 <ul>
 <li><p>Neither backward nor forward strategies guarantee a <span class="blue">meaningful model</span>.</p></li>
-<li><p>Evaluating many terms increases risk of <span class="blue">chance findings</span>. If true effects are <span class="orange">weak</span>, the largest sample effect likely <span class="blue">overestimates</span> the truth.</p></li>
+<li><p>Evaluating many terms increases the risk of <span class="blue">chance findings</span>. If true effects are <span class="orange">weak</span>, the largest sample effect likely <span class="blue">overestimates</span> the truth.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Use of standard significance tests in selection lacks <span class="orange">theoretical justification</span>. Distribution of minimum or maximum <span class="math inline">p</span>-values at each stage is not the same as the distribution of a <span class="blue">pre-selected variable</span>. This issue is called <span class="blue">multiple testing</span> and leads to <span class="orange">overconfident</span> conclusions.</li>
+<li>Use of standard significance tests in selection lacks <span class="orange">theoretical justification</span>. The distribution of the minimum or maximum <span class="math inline">p</span>-value at each stage is not the same as the distribution of a <span class="blue">pre-selected variable</span>. This issue is called <span class="blue">multiple testing</span> and leads to <span class="orange">overconfident</span> conclusions.</li>
 </ul>
 </div>
 </section>
@@ -3025,6 +3025,9 @@ Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generaliz
 </div>
 <div id="ref-Azzalini2008" class="csl-entry" role="listitem">
 Azzalini, A. (2008), <em>Inferenza statistica</em>, Springer Verlag.
+</div>
+<div id="ref-Bliss1935" class="csl-entry" role="listitem">
+Bliss, C. I. (1935), <span>“<span class="nocase">The calculation of the dosage-mortality curve</span>,”</span> <em>Annals of Applied Biology</em>, 22, 134–167.
 </div>
 <div id="ref-Efron2023" class="csl-entry" role="listitem">
 Efron, B. (2023), <em><span class="nocase">Exponential Families in Theory and Practice</span></em>, Cambridge University Press.

@@ -110,9 +110,9 @@ The content of this Unit is covered in [Chapter 2]{.orange} of @Salvan2020. Alte
 
 - We assume that $\bm{X}$ has [full rank]{.orange}, that is, $\text{rk}(\bm{X}) = p$ with $p \le n$.  
 
-## `Beetles` data, from Bliss (1935) 
+## `Beetles` data, from @Bliss1935 
 
-- The `Beetles` dataset originates from Bliss (1935). It records the number of adult flour beetles that died after a 5-hour exposure to gaseous carbon disulphide.
+- The `Beetles` dataset originates from @Bliss1935. It records the number of adult flour beetles that died after a 5-hour exposure to gaseous carbon disulphide.
 
 ```{r}
 data("Beetles")
@@ -137,7 +137,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
   ylab("Proportion of deaths")
 ```
 
-- There is a clear [positive]{.orange} and [non-linear]{.blue} pattern between the [proportion of deaths]{.orange} as a function of the logdose. The response variable take values in $[0, 1]$. 
+- There is a clear [positive]{.orange} and [non-linear]{.blue} relationship between the [proportion of deaths]{.orange} and the logdose. The response variable takes values in $[0, 1]$. 
 
 ## Modelling the `Beetles` data
 
@@ -158,7 +158,7 @@ g(\pi_i) = \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \qua
 $$
 for some parameters $\beta_1, \beta_2 \in \mathbb{R}$. [Note]{.orange} that $\pi_i \in (0, 1)$ by construction.  
 
-## `Beetles` data, fitted model
+## `Beetles` data, fitted model {#beetles-data-fitted-model}
 
 ```{r}
 #| fig-width: 7.8
@@ -178,7 +178,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
 - The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = -60.72$ and $\hat{\beta}_2 = 34.3$. This yields the [predictive curve]{.blue} $\hat{\pi}(x) = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean proportion $\mathbb{E}(S_i / m_i)$.  
 
 
-## A comparison with old tools I
+## A comparison with old tools I {#beetles-old-tools-i}
 
 :::callout-tip
 Let $Y_i = S_i / m_i$ be the proportion of deaths. A direct application of linear models implies:
@@ -198,7 +198,7 @@ The coefficients $\beta_1$ and $\beta_2$ are then estimated using OLS using $Y_i
 This approach is sometimes called the [linear probability model]{.blue}. Before GLMs, it was considered acceptable despite its issues, but by modern standards it should [not be used]{.orange}.
 :::
 
-## A comparison with old tools II
+## A comparison with old tools II {#beetles-old-tools-ii}
 
 :::callout-tip
 We consider the [empirical logit]{.blue} variable transformation of $Y_i = S_i / m_i$, obtaining  
@@ -207,8 +207,8 @@ $$
 $$
 A correction term is necessary because otherwise $g(\cdot) = \text{logit}(\cdot)$ is undefined. The predictions belong to $(0, 1)$, since
 $$
-\hat{\pi}_i = g^{-1}[\mathbb{E}\{g(\tilde{Y}_i)\}] = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},$$ 
-in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text{logit}(\tilde{Z}_i)$ as response. 
+\hat{\pi}_i = g^{-1}(\hat{\beta}_1 + \hat{\beta}_2 x_i) = \frac{\exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)}{1 + \exp(\hat{\beta}_1 + \hat{\beta}_2 x_i)},$$ 
+in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text{logit}(\tilde{Y}_i)$ as response. 
 :::
 
 - The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\text{logit}(\tilde{Y}_i)$ instead of $\mathbb{E}(Y_i)$.
@@ -219,7 +219,7 @@ in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\text
 
 - This approach is [not compatible]{.orange} with the reasonable assumption $S_i \sim \text{Binomial}(m_i, \pi_i)$.
 
-## A comparison with old tools III
+## A comparison with old tools III {#beetles-old-tools-iii}
 
 ```{r}
 #| fig-width: 7.8
@@ -244,13 +244,13 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
 
 ## `Aids` data
 
-- Number of AIDS `deaths` in Australia in a sequence of three-months periods between 1983 and 1986.
+- Number of AIDS `deaths` in Australia in a sequence of three-month periods between 1983 and 1986.
 
 :::{.smaller}
 ```{r}
 data(Aids)
 colnames(Aids) <- c("deaths", "period")
-rownames(Aids) <- paste(1983:1986, rep(1:4, each = 4), sep = "-")[-c(15:16)]
+rownames(Aids) <- paste(rep(1983:1986, each = 4), rep(1:4, times = 4), sep = "-")[-c(15:16)]
 knitr::kable(t(Aids[1:7, ]))
 knitr::kable(t(Aids[8:14, ]))
 ```
@@ -300,7 +300,7 @@ $$
 which increases with $x$, as desired. This implies that $Y_1,\dots,Y_n$ are [heteroscedastic]{.orange}, but this is not an issue in GLMs, as this aspect is [automatically accounted]{.blue} for.
 
 
-## `Aids` data, fitted model
+## `Aids` data, fitted model {#aids-data-fitted-model}
 
 ```{r}
 #| fig-width: 7.8
@@ -319,7 +319,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 - The [maximum likelihood]{.orange} estimates are $\hat{\beta}_1 = 0.304$ and $\hat{\beta}_2 = 0.259$. This yields the [predictive curve]{.blue} $\hat{\mu}(x) = \exp(\hat{\beta}_1 + \hat{\beta}_2 x),$  which estimates the mean $\mathbb{E}(Y_i)$.  
 
 
-## A comparison with old tools I
+## A comparison with old tools I {#aids-old-tools-i}
 
 
 :::callout-tip
@@ -327,15 +327,15 @@ We consider the [variance-stabilizing]{.blue} transformation $S_i = \sqrt{Y_i}$,
 $$
 \sqrt{Y_i} = \beta_1 + \beta_2 x_i + \epsilon_i.
 $$
-The predictions belong to $(0, \infty)$, since
+The predictions belong to $[0, \infty)$, since
 $$
-\hat{\mu}_i = \mathbb{E}(\sqrt{Y_i})^2 = (\hat{\beta}_1 + \hat{\beta}_2 x_i)^2,$$ 
+\hat{\mu}_i = (\hat{\beta}_1 + \hat{\beta}_2 x_i)^2,$$ 
 in which $\hat{\beta}_1$ and $\hat{\beta}_2$ are estimated with OLS using $\sqrt{Y_i}$ as response. 
 :::
 
 - The [interpretation]{.blue} of $\hat{\beta}$ is less clear, as they refer to the mean of $\sqrt{Y}_i$ instead of $\mathbb{E}(Y_i)$.
 
-- This approach is [not compatible]{.orange} with the reasonable assumption $Y_i \sim \text{Poisson}(\mu_i)$ and it only valid as an [asymptotic approximation]{.blue}. 
+- This approach is [not compatible]{.orange} with the reasonable assumption $Y_i \sim \text{Poisson}(\mu_i)$ and it is only valid as an [asymptotic approximation]{.blue}. 
 
 :::{.callout-tip}
 To compare such a model with a similar specification, we also fit another Poisson GLM in which
@@ -344,7 +344,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \sqrt{\mu_i} = \bet
 $$
 :::
 
-## A comparison with old tools II
+## A comparison with old tools II {#aids-old-tools-ii}
 
 ```{r}
 #| fig-width: 7.8
@@ -373,7 +373,7 @@ ggplot(data = Aids, aes(x = period, y = deaths)) +
 
 . . .
 
-- [Linear predictor]{.blue}. For a parameter vector $\bm{\beta} = (\beta_1,\dots,\beta_p)^T$ and an $n \times p$ design matrix $\bm{X}$, the linear predictor is $\bm{\eta} = \bm{X}\beta$. We will also write
+- [Linear predictor]{.blue}. For a parameter vector $\beta = (\beta_1,\dots,\beta_p)^T$ and an $n \times p$ design matrix $\bm{X}$, the linear predictor is $\bm{\eta} = \bm{X}\beta$. We will also write
 $$
 \eta_i = \bm{x}_i^T\beta = x_{i1}\beta_1 + \cdots + x_{ip}\beta_p, \qquad i=1,\dots,n.
 $$
@@ -404,7 +404,7 @@ Note that, in general, we [cannot]{.orange} express the response in an additive 
 . . .
 
 :::callout-tip
-In a GLMs the observations are independent draws from a distribution $\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$:
+In a GLM the observations are independent draws from a distribution $\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$:
 $$
 Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i)), \qquad \mathbb{E}(Y_i) = \mu_i, \qquad g(\mu_i) = \bm{x}_i^T\beta,
 $$
@@ -437,7 +437,7 @@ We have $a_i(\phi) = 1/m_i$ and $v(\mu) = \mu(1-\mu)$. There is [no dispersion]{
 :::{.callout-tip}
 In [Poisson regression]{.blue} with [logarithmic link]{.blue} $g(\mu) = \log(\mu)$ we let
 $$
-Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu), \qquad \log(\mu_i) =  \bm{x}_i^T\beta.
+Y_i \overset{\text{ind}}{\sim}\text{Poisson}(\mu_i), \qquad \log(\mu_i) =  \bm{x}_i^T\beta.
 $$
 We have $a_i(\phi) = 1$ and $v(\mu) = \mu$. There is [no dispersion]{.orange} parameter.
 :::
@@ -486,7 +486,7 @@ $$
 $$
 If you prefer, this is the log-likelihood when the sample size $n = 1$ and we only observe $Y_i$. 
 
-- The [score]{.blue} and [hessian]{.orange} functions, namely the first and second derivative over $\theta_i$ are
+- The [score]{.blue} and [Hessian]{.orange} functions, namely the first and second derivatives with respect to $\theta_i$, are
 $$
 \frac{\partial}{\partial \theta_i} \ell(\theta_i, \phi; y_i) = \frac{y_i - b'(\theta_i)}{a_i(\phi)}, \qquad \frac{\partial^2}{\partial \theta_i^2}\ell(\theta_i, \phi; y_i) = \frac{-b''(\theta_i)}{a_i(\phi)}.
 $$
@@ -522,7 +522,7 @@ $$
 - Moreover, the function $b'(\theta)$ is [continuous]{.orange} and [monotone increasing]{.orange} and hence [invertible]{.orange}. 
 
 :::aside
-The function $b(\cdot)$ is related to the moment generating function of $Y_i$. Thus, higher order derivatives of $b(\cdot)$ allows the calculations of skewness, kurtosis, etc. 
+The function $b(\cdot)$ is related to the moment generating function of $Y_i$. Thus, higher order derivatives of $b(\cdot)$ allow the calculation of skewness, kurtosis, etc. 
 :::
 
 ## Mean parametrization, variance function
@@ -609,7 +609,7 @@ p(y_i; \alpha, \lambda_i) &= \frac{\lambda_i^\alpha y_i^{\alpha-1} e^{-\lambda_i
 \\
 &=\exp\left\{\alpha\log{\lambda_i} - \lambda_i y_i + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
 &=\exp\left\{\alpha\left(\log{\lambda_i} - \frac{\lambda_i}{\alpha} y_i\right) + (\alpha-1)\log{y_i}  - \log{\Gamma}(\alpha)\right\} \\
-&=\exp\left\{\frac{\theta_i y_i + \log(-\theta_i)}{\phi} - (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi)\right\}, \qquad y > 0,\\
+&=\exp\left\{\frac{\theta_i y_i + \log(-\theta_i)}{\phi} - (1/\phi)\log{\phi}+ (1/\phi - 1)\log{y_i}  - \log{\Gamma}(1/\phi)\right\}, \qquad y_i > 0,\\
 \end{aligned}
 $$
 having defined the [dispersion]{.blue} $\phi = 1/\alpha$ and the [natural parameter]{.orange} $\theta_i = -\lambda_i/\alpha$. 
@@ -650,18 +650,18 @@ p(y_i; m_i, \pi_i) &= \binom{m_i}{m_i y_i}\pi_i^{m_i y_i}(1 - \pi_i)^{m_i - m_i 
 &=\exp\left\{m_iy_i\log\left(\frac{\pi_i}{1 - \pi_i}\right) + m_i\log(1 - \pi_i) + \log\binom{m_i}{m_i y_i}\right\},
 \end{aligned}
 $$
-for $y_i \in \{0, 1/m_i, 2/m_i, \dots, m_i/m_i\}$. This can be written as
+for $y_i \in \{0, 1/m_i, 2/m_i, \dots, 1\}$. This can be written as
 $$
 p(y_i; m_i, \pi_i) =\exp\left\{\frac{y_i\theta_i - \log\{1 + \exp(\theta_i)\}}{1/m_i}+ \log\binom{m_i}{m_i y_i}\right\},
 $$
-where the [natural parameter]{.orange} is $\theta_i = \text{logit}(\pi_i) = \log\{\pi/(1-\pi_i)\}$. 
+where the [natural parameter]{.orange} is $\theta_i = \text{logit}(\pi_i) = \log\{\pi_i/(1-\pi_i)\}$. 
 
 
 
 
 ## Binomial distribution II 📖
 
-- Note that $\mathbb{E}(Y_i) = \mathbb{E}(Z_i / m_i) = \pi_i = \mu_i$. This means there [no dispersion]{.orange} parameter $\phi$ and
+- Note that $\mathbb{E}(Y_i) = \mathbb{E}(S_i / m_i) = \pi_i = \mu_i$. This means there is [no dispersion]{.orange} parameter $\phi$ and
 $$
 \theta_i = \text{logit}(\mu_i), \quad a_i(\phi) = \frac{1}{m_i}, \quad b(\theta_i) = \log\{1 + \exp(\theta_i)\}, \quad c(y_i) = \log\binom{m_i}{m_i y_i}. 
 $$
@@ -673,7 +673,7 @@ $$
 \text{var}(Y_i) &= a_i(\phi)b''(\theta_i) = \frac{1}{m_i}\frac{\exp(\theta_i)}{[1 + \exp(\theta_i)]^2} = \frac{\mu_i (1 - \mu_i)}{m_i},
 \end{aligned}
 $$
-from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-\mu_i)$ is quadratic. 
+from which we obtain that the [variance function]{.blue} $v(\mu_i) = \mu_i(1-\mu_i)$ is quadratic. 
 
 - We will write $Y_i \sim \text{ED}(\mu_i, \mu_i(1-\mu_i)/m_i)$ with $\mu_i \in \mathcal{M} = (0, 1)$. 
 
@@ -681,9 +681,9 @@ from which we obtain that the [variance function]{.blue} is $v(\mu_i) = \mu_i(1-
 
 | Model | $\text{N}(\mu_i, \sigma^2)$ | $\text{Gamma}(\alpha, \alpha/\mu_i)$ | $\frac{1}{m_i}\text{Binomial}(m_i, \mu_i)$ | $\text{Poisson}(\mu_i)$ |
 |--------------------|---------------|---------------|---------------|---------------|
-| [Support]{.blue} $\mathcal{Y}$ |  $\mathbb{R}$| $[0, \infty)$ | $\{0, 1/m_i,\dots, 1\}$ | $\mathbb{N}$ |
+| [Support]{.blue} $\mathcal{Y}$ |  $\mathbb{R}$| $(0, \infty)$ | $\{0, 1/m_i,\dots, 1\}$ | $\{0, 1, 2, \dots\}$ |
 | $\theta_i = \theta(\mu_i)$ | $\mu_i$ | $- 1/\mu_i$ | $\log\left(\frac{\mu_i}{1 - \mu_i}\right)$ | $\log{\mu_i}$ |
-| [Parametric space]{.orange} $\Theta$ | $\mathbb{R}$ | $(-\infty, 0)$ | $\mathbb{R}$ | $\mathbb{R}$ | 
+| [Parameter space]{.orange} $\Theta$ | $\mathbb{R}$ | $(-\infty, 0)$ | $\mathbb{R}$ | $\mathbb{R}$ | 
 | $b(\theta_i)$ | $\theta_i^2/2$ | $-\log(-\theta_i)$ | $\log\{1 + \exp(\theta_i)\}$| $\exp(\theta_i)$ |
 | $\phi$ | $\sigma^2$ | $1/\alpha$ | $1$ | $1$ |
 | $a_i(\phi)$ | $\sigma^2$ | $1/\alpha$ | $1/m_i$ | $1$ |
@@ -706,7 +706,7 @@ $$
 \mathbb{E}(Y_i) = g^{-1}(\bm{x}_i^T\beta) \in \mathcal{M}.
 $$
 
-- For example, in [binary regression]{.blue} any continuous [cumulative distribution function]{.orange} for $g^{-1}(\cdot)$ leads to a good link function, such as $g(\cdot) = \Phi(\cdot)$ (probit) or $g^{-1}(\eta_i) = e^{\eta_i}/(1 + e^{\eta_i})$ (logistic). 
+- For example, in [binary regression]{.blue} any continuous [cumulative distribution function]{.orange} for $g^{-1}(\cdot)$ leads to a good link function, such as $g^{-1}(\cdot) = \Phi(\cdot)$ (probit) or $g^{-1}(\eta_i) = e^{\eta_i}/(1 + e^{\eta_i})$ (logistic). 
 
 . . .
 
@@ -725,7 +725,7 @@ $$
 
 ## Likelihood function
 
-- Let $Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$ be the response variable of a GLM, with $g(\mu_i) = \bm{x}_i^T\beta$. The [joint distribution]{.blue} of the responses $\bm{Y} = (Y_1,\dots,Y_n)$ is
+- Let $Y_i \overset{\text{ind}}{\sim}\text{ED}(\mu_i, a_i(\phi)v(\mu_i))$ be the response variable of a GLM, with $g(\mu_i) = \bm{x}_i^T\beta$. The [joint distribution]{.blue} of the responses $\bm{Y} = (Y_1,\dots,Y_n)^T$ is
 $$
 p(\bm{y}; \beta, \phi) = \prod_{i=1}^np(y_i; \beta, \phi) = \prod_{i=1}^n \exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
 $$
@@ -733,7 +733,7 @@ with $\theta_i = \theta(\mu_i) = \theta(g^{-1}(\bm{x}_i^T\beta))$.
 
 - The [log-likelihood]{.orange} function therefore is
 $$
-\ell(\beta, \phi) = \sum_{i=1}^n\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi).
+\ell(\beta, \phi) = \sum_{i=1}^n\left\{\frac{y_i\theta_i - b(\theta_i)}{a_i(\phi)} + c(y_i, \phi)\right\}.
 $$
 
 . . .
@@ -764,7 +764,7 @@ $$
 
 - To conduct inference using the [classical theory]{.orange} (as in _Statistica II_), we need to consider the first and second derivative of the log-likelihood, that is, the [score function]{.blue}
 $$
-\ell_*(\beta;\phi) := \frac{\partial}{\partial \beta}\ell(\beta, \phi),
+\ell_*(\beta, \phi) := \frac{\partial}{\partial \beta}\ell(\beta, \phi),
 $$
 and the [observed information matrix]{.orange} $\bm{J}$, whose elements are
 $$
@@ -785,7 +785,7 @@ This assumption is not restrictive, even when $\phi$ is actually unknown. In fac
 
 - Let us begin by noting that
 $$
-\ell_r(\beta;\phi) = \frac{\partial}{\partial \beta_r}\ell(\beta, \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
+\ell_r(\beta, \phi) = \frac{\partial}{\partial \beta_r}\ell(\beta, \phi) =  \sum_{i=1}^n\frac{1}{a_i(\phi)} \left(y_i \frac{\partial \theta_i}{\partial \beta_r} - \frac{\partial b(\theta_i)}{\partial \beta_r} \right), \qquad r = 1,\dots,p.
 $$
 Such an expression can be [simplified]{.blue} because
 $$
@@ -818,7 +818,7 @@ Moreover, since $\mu_i = g^{-1}(\eta_i)$ we obtain
 $$
 \frac{\partial \mu_i}{\partial \eta_i} = \frac{1}{g'(g^{-1}(\eta_i))} = \frac{1}{g'(\mu_i)}.
 $$
-- Summing up, the [chain rule of derivation]{.orange} for [composite functions]{.blue} gives:
+- Summing up, the [chain rule of differentiation]{.orange} for [composite functions]{.blue} gives:
 $$
 \frac{\partial \theta_i}{\partial \beta_r} = \frac{\partial \theta_i}{\partial \mu_i} \frac{\partial \mu_i}{\partial \eta_i} \frac{\partial \eta_i}{\partial\beta_r} = \frac{1}{v(\mu_i)}\frac{1}{g'(\mu_i)}x_{ir}, \qquad r=1,\dots,p.
 $$
@@ -846,13 +846,13 @@ d_{ir} = \frac{\partial \mu_i}{\partial \beta_r} =\frac{\partial \mu_i}{\partial
 $$
 :::
 
-## Canonical link: simplifications 📖
+## Canonical link: simplifications 📖 {#canonical-link-score}
 
 - When using the [canonical link]{.orange} $\theta(\mu_i) = g(\mu_i)$ significant simplifications arise, because
 $$
 \frac{\partial \theta_i}{\partial \mu_i}= \frac{1}{v(\mu_i)} = g'(\mu_i) \quad \Longrightarrow\quad v(\mu_i)g'(\mu_i) = 1.
 $$
-Thus, plugging-in this equality in the former equations, gives:
+Thus, plugging this equality into the previous equations gives:
 $$
 \frac{\partial \theta_i}{\partial \beta_r} = x_{ir}, \qquad r=1,\dots,p,
 $$
@@ -881,17 +881,17 @@ Let $Y_i \sim \text{ED}(\mu_i, \phi/\omega_i)$ with $g(\mu_i) = \mu_i$, namely t
 $$
 \bm{X}^T\bm{\Omega}(\bm{y} - \bm{X}\beta) = \bm{0},
 $$
-Their solution over $\beta$ is the weighted least square estimator $\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}$. 
+Their solution over $\beta$ is the weighted least squares estimator $\hat{\beta}_\text{wls} = (\bm{X}^T\bm{\Omega}\bm{X})^{-1}\bm{X}^T\bm{\Omega}\bm{y}$. 
 :::
 
 :::callout-tip
 Let $Y_i \sim \text{ED}(\mu_i, \mu_i)$ with $g(\mu_i) = \log{\mu_i}$, namely a [Poisson]{.orange} regression model with the [logarithmic]{.grey} (canonical) link. The likelihood equations can be solved [numerically]{.orange}
 $$
-\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}, \qquad \bm{\mu} = (e^{\bm{x}_1^T\beta}, \dots,  e^{\bm{x}_n^T\beta}). 
+\bm{X}^T(\bm{y} - \bm{\mu}) = \bm{0}, \qquad \bm{\mu} = (e^{\bm{x}_1^T\beta}, \dots,  e^{\bm{x}_n^T\beta})^T. 
 $$
 :::
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-likelihood-equations}
 
 - Using the `Beetles` data, we specified a [binomial logistic]{.blue} regression model for the counts $m_i Y_i \sim \text{Binomial}(m_i, \pi_i)$ with mean $\mathbb{E}(Y_i) = \pi_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))$.
 
@@ -909,12 +909,12 @@ $$
 
 - With these values, we can use the [numerical]{.orange} algorithm IRLS to solve the above system, obtaining
 $$
-\hat{\beta} = (\hat{\beta}_1, \hat{\beta_2}) = (-60.717, 34.270).
+\hat{\beta} = (\hat{\beta}_1, \hat{\beta}_2) = (-60.717, 34.270).
 $$
 
 
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-predictions}
 
 - The [predicted response]{.blue} can be computed by using the formula
 $$
@@ -940,19 +940,19 @@ Beetles$predictions <- predict(fit_Beetles, type = "response")
 | 62|     61|   1.861|       0.984|       0.955|
 | 60|     60|   1.884|       1.000|       0.979|
 
-- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](/un_B_slides.html#/beetles-data-fitted-model).
+- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](#beetles-data-fitted-model).
 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-likelihood-equations}
 
 - In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$. 
 
-- The maximum likelihood estimate $(\hat{\beta}_1, \hat{\beta}_2)$ [solve]{.orange} simultaneously:
+- The maximum likelihood estimate $(\hat{\beta}_1, \hat{\beta}_2)$ [solves]{.orange} simultaneously:
 $$
 \sum_{i=1}^n y_i =  \sum_{i=1}^n \exp(\beta_1 + \beta_2x_i), \quad
 \text{and}\quad \sum_{i=1}^n x_i y_i =  \sum_{i=1}^n x_i\exp(\beta_1 + \beta_2 x_i).
 $$
-- This system does [not]{.orange} always admits a [solution]{.orange}. This happens, for example, in the [extreme case]{.blue} $\sum_{i=1}^ny_i = 0$, occurring when all counts equal zero.
+- This system does [not]{.orange} always admit a [solution]{.orange}. This happens, for example, in the [extreme case]{.blue} $\sum_{i=1}^ny_i = 0$, occurring when all counts equal zero.
 
 . . .
 
@@ -962,7 +962,7 @@ $$
 $$
 \hat{\mu}_{i+1} = \exp(0.304 + 0.259 (x_i +1)) = \exp(0.259) \hat{\mu}_i = 1.296 \hat{\mu}_i.
 $$
-In other words, the estimated number of deaths increases by about $30\%$ every trimester.
+In other words, the estimated number of deaths increases by about $30\%$ every quarter.
 
 ```{r}
 #| echo: false
@@ -971,7 +971,7 @@ sum(Aids$deaths)
 sum(Aids$period * Aids$deaths)
 ```
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-predictions}
 
 ```{r}
 Aids$predictions <- predict(fit_Aids, type = "response")
@@ -983,24 +983,24 @@ Aids$predictions <- predict(fit_Aids, type = "response")
 |       | `deaths` ($Y_i$) | `period` ($x_i$)| $\hat{\mu}_i$ |
 |:------|------:|------:|-----------:|
 |1983-1 |      0|      1|       1.755|
-|1984-1 |      1|      2|       2.274|
-|1985-1 |      2|      3|       2.946|
-|1986-1 |      3|      4|       3.817|
-|1983-2 |      1|      5|       4.945|
+|1983-2 |      1|      2|       2.274|
+|1983-3 |      2|      3|       2.946|
+|1983-4 |      3|      4|       3.817|
+|1984-1 |      1|      5|       4.945|
 |1984-2 |      4|      6|       6.407|
-|1985-2 |      8|      7|       8.301|
-|1986-2 |     17|      8|      10.755|
-|1983-3 |     23|      9|      13.934|
-|1984-3 |     32|     10|      18.052|
+|1984-3 |      8|      7|       8.301|
+|1984-4 |     17|      8|      10.755|
+|1985-1 |     23|      9|      13.934|
+|1985-2 |     32|     10|      18.052|
 |1985-3 |     20|     11|      23.389|
-|1986-3 |     24|     12|      30.302|
-|1983-4 |     37|     13|      39.259|
-|1984-4 |     45|     14|      50.863|
+|1985-4 |     24|     12|      30.302|
+|1986-1 |     37|     13|      39.259|
+|1986-2 |     45|     14|      50.863|
 
 :::
 
 
-- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](/un_B_slides.html#/aids-data-fitted-model).
+- The predicted values and the data $Y_i$ were also shown in a [plot]{.blue} at the [beginning of this unit](#aids-data-fitted-model).
 
 ## Observed and expected information I 📖
 
@@ -1025,7 +1025,7 @@ $$
 ## Observed and expected information II 📖
 
 - In the previous slides we already computed the explicit values of these derivatives: $$
-\frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{is}}{v(\mu_i) g'(\mu_i)}.
+\frac{\partial\mu_i}{\partial \beta_s} = \frac{x_{is}}{g'(\mu_i)}, \qquad \frac{\partial\theta_i}{\partial \beta_r} = \frac{x_{ir}}{v(\mu_i) g'(\mu_i)}.
 $$
 
 ::: callout-note
@@ -1044,7 +1044,7 @@ w_i = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2} = \frac{1}{\text{var}(
 $$
 :::
 
-## Canonical link: simplifications 📖
+## Canonical link: simplifications 📖 {#canonical-link-information}
 
 :::callout-note
 Under the [canonical link]{.orange} we have that $\theta_i = x_{i1}\beta_1 + \cdots +\beta_p x_{ip}$, which means that
@@ -1085,11 +1085,11 @@ $$
 
 - The Fisher information matrix could be computed exploiting [Bartlett identity]{.grey}, namely $$
 i_{rs} = \mathbb{E}\left[\left(\frac{\partial}{\partial \beta_r}\ell(\beta, \phi)\right)\left(\frac{\partial}{\partial \beta_s}\ell(\beta, \phi)\right)\right], \qquad r,s = 1,\dots,p.$$
-as in @Agresti2015. Of course, the final result [coincide]{.orange} with ours. 
+as in @Agresti2015. Of course, the final result [coincides]{.orange} with ours. 
 
 
 
-## ☠️ - Orthogonality of $\beta$ and $\psi$
+## ☠️ - Orthogonality of $\beta$ and $\phi$
 
 - Let us now consider the case in which $\phi$ is [unknown]{.blue} so that $a_i(\phi) = \phi/\omega_i$. We obtain:
 $$
@@ -1118,7 +1118,7 @@ where $[\bm{I}]_{rs} = i_{rs}$ are the elements associated to $\beta$ as before.
 :::callout-note
 The parameters $\beta$ and $\phi$ are [orthogonal]{.orange} and their estimates are [asymptotically independent]{.blue}.
 
-Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are sufficient for inference on $\beta$ and there is no need to compute $i_{\phi \phi}$. Moreover, the maximum likelihood $\hat{\beta}$ can also be computed without knowing $\phi$. 
+Moreover, the matrices $\bm{I}$ and $\bm{I}^{-1}$ are all that is needed for inference on $\beta$, so there is no need to compute $i_{\phi \phi}$. Moreover, the maximum likelihood $\hat{\beta}$ can also be computed without knowing $\phi$. 
 :::
 
 <!-- - In a GLM with $p = 2$ the Fisher information matrix, evaluated on a given $\beta,\phi$, looks like: -->
@@ -1167,7 +1167,7 @@ $$
 \beta^{(t+1)} = \texttt{update}(\beta^{(t)}), \qquad t=1,2,\dots
 $$
 
-- The algorithm [stops]{.orange} whenever a certain criteria is met, e.g. when $||\beta^{(t+1)} - \beta^{(t)}|| < \epsilon$, where $\epsilon$ is sometimes called [tolerance]{.grey}. We say it reached [convergence]{.blue}. 
+- The algorithm [stops]{.orange} whenever a certain criterion is met, e.g. when $||\beta^{(t+1)} - \beta^{(t)}|| < \epsilon$, where $\epsilon$ is sometimes called [tolerance]{.grey}. We say it reached [convergence]{.blue}. 
 
 . . .
 
@@ -1192,11 +1192,11 @@ $$
 
 - Solving the equation above gives the following [updates]{.orange}:
 $$
-\beta^{(t+1)} = \hat{\beta}^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
+\beta^{(t+1)} = \beta^{(t)} + (\bm{J}^{(t)})^{-1}\ell_*(\beta^{(t)}), \qquad t=1,2,\dots
 $$
 
 :::callout-tip
-The Netwon-Raphson method essentially considers a series of [parabolic approximations]{.orange} to the log-likelihood, each time evaluating the [point of maximum]{.blue}.
+The Newton-Raphson method essentially considers a series of [parabolic approximations]{.orange} to the log-likelihood, each time evaluating the [point of maximum]{.blue}.
 :::
 
 
@@ -1226,7 +1226,7 @@ where the [weights]{.orange} were defined as $w_i = \omega_i / (\phi v(\mu_i) g'
 $$
 \ell_*(\beta^{(t)}) = \bm{X}^T\bm{W}^{(t)}\bm{u}^{(t)}, \qquad \bm{I}^{(t)} = \bm{X}^T\bm{W}^{(t)}\bm{X},
 $$
-where $\bm{u}^{(t)} =(u_1^{t},\dots,u_n^{(t)})^T$ and  $u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})$ for $i=1,\dots,n$. 
+where $\bm{u}^{(t)} =(u_1^{(t)},\dots,u_n^{(t)})^T$ and  $u_i^{(t)} = (y_i - \mu_i^{(t)})g'(\mu_i^{(t)})$ for $i=1,\dots,n$. 
 
 ## Iteratively re-weighted least squares II 📖
 
@@ -1242,11 +1242,11 @@ In the [iteratively re-weighted least squares]{.blue} (IRLS) algorithm, we consi
 $$
 \beta^{(t+1)} = (\bm{X}^T\bm{W}^{(t)}\bm{X})^{-1}\bm{X}^T\bm{W}^{(t)}\bm{z}^{(t)}, \qquad t=1,2,\dots,
 $$
-where $\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})$ is called [pseudo-response]{.orange} whose elements are defined as
+where $\bm{z}^{(t)} = (z_1^{(t)}, \dots, z_n^{(t)})^T$ is called [pseudo-response]{.orange} whose elements are defined as
 $$
-z_i^{(t)} = \bm{x}_i^T\hat{\beta}^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\hat{\beta}^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
+z_i^{(t)} = \bm{x}_i^T\beta^{(t)} + u_i^{(t)}  =  \bm{x}_i^T\beta^{(t)} + (y_i - \mu_i^{(t)})g'(\mu_i^{(t)}),\qquad i=1,\dots,n.
 $$
-Hence, each update can be interpreted as the solution of a [weighted least square]{.grey} problem:
+Hence, each update can be interpreted as the solution of a [weighted least squares]{.grey} problem:
 $$
 \beta^{(t+1)} = \arg\min_{\beta \in \mathbb{R}^p} \: (\bm{z}^{(t)} - \bm{X}\beta)^T\bm{W}^{(t)}(\bm{z}^{(t)} - \bm{X}\beta).
 $$
@@ -1254,7 +1254,7 @@ $$
 
 ## Iteratively re-weighted least squares III 📖
 
-- The IRLS updates does not depend on the choice of $\phi$, because it [cancels]{.orange} in the multiplications, as we would expect. 
+- The IRLS update does not depend on the choice of $\phi$, because it [cancels]{.orange} in the multiplications, as we would expect. 
 
 . . .
 
@@ -1263,11 +1263,11 @@ $$
 g(y_i) \approx g(\mu_i) + (y_i - \mu_i)g'(\mu_i) = \eta_i + (y_i - \mu_i)g'(\mu_i) = z_i.
 $$
 
-- Based on this approximation, a good [initialization]{.blue} is
+- Based on this approximation, a good [initialization]{.blue} is obtained by setting $\bm{W} = I_n$ and $z_i = g(y_i)$, which gives
 $$
-\bm{W}^{(1)} = I_n, \qquad z_i^{(1)} = g(y_i), \qquad \Longrightarrow \qquad \beta^{(2)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
+\beta^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^Tg(\bm{y}),
 $$
-the [least square]{.orange} solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in Binomial regression. 
+namely the [least squares]{.orange} solution for the transformed data. To avoid boundary issues, sometimes the data are perturbed, as we did in binomial regression. 
 
 ## Example: IRLS for logistic regression
 
@@ -1276,7 +1276,7 @@ the [least square]{.orange} solution for the transformed data. To avoid boundary
 :::callout-tip
 #### IRLS algorithm for logistic regression
 
--  [Initialize]{.grey} $\bm{\beta}^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{logit}(\tilde{\bm{y}})$ where $\text{logit}(\tilde{\bm{y}})$ is the [empirical logit]{.orange} transform.
+-  [Initialize]{.grey} $\beta^{(1)} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\text{logit}(\tilde{\bm{y}})$ where $\text{logit}(\tilde{\bm{y}})$ is the [empirical logit]{.orange} transform.
   
 - For $t=1,2, \dots$ until [convergence]{.orange} compute:
   $$
@@ -1293,7 +1293,7 @@ the [least square]{.orange} solution for the transformed data. To avoid boundary
 
 - In some GLMs, such as the Gaussian and the Gamma, there is a [dispersion parameter]{.orange} $\phi$ that we need to estimate.
 
-- Instead of the maximum likelihood, because of [numerical instabilities]{.orange} and [lack of robustness]{.blue} it is typically preferred a [method of moments]{.orange} estimator. If $\mu_i$ were known, the estimator
+- Because of [numerical instabilities]{.orange} and [lack of robustness]{.blue}, a [method of moments]{.orange} estimator is typically preferred to the maximum likelihood one. If $\mu_i$ were known, the estimator
 $$
 \frac{1}{n}\sum_{i=1}^n\omega_i\frac{(y_i - \mu_i)^2}{v(\mu_i)}
 $$
@@ -1336,7 +1336,7 @@ $$
 
 <!-- - Note that the asymptotic variance implicitly takes into account [heteroscedasticity]{.orange}.  -->
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-standard-errors}
 
 - Using the `Beetles` data, we specified a [binomial logistic]{.blue} regression model for the counts $m_i Y_i \sim \text{Binomial}(m_i, \pi_i)$ with mean $\mu_i = \exp(\beta_1 + \beta_2 x_i)/(1 + \exp(\beta_1 + \beta_2 x_i))$. 
 
@@ -1373,7 +1373,7 @@ $$
 
 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-standard-errors}
 
 - In the `Aids` data, we specified a [Poisson]{.blue} regression model with $\mathbb{E}(Y_i) = \exp(\beta_1 + \beta_2 x_i)$ and estimated $\hat{\beta} = (0.304, 0.259)$.
 
@@ -1418,20 +1418,20 @@ which is [approximately]{.orange} distributed as a [standard normal]{.blue} unde
 
 - The [p-value]{.blue} is defined in the usual way, namely
 $$
-\alpha_\text{obs} = \mathbb{P}(Z \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
+\alpha_\text{obs} = \mathbb{P}(|Z| \ge |z_j|) = 2 (1 - \Phi(|z_j|)), \qquad Z \sim \text{N}(0, 1).
 $$
 
 . . .
 
-- By inverting the the Wald test, we obtain the associated [confidence interval]{.blue}
+- By inverting the Wald test, we obtain the associated [confidence interval]{.blue}
 $$
 \hat{\beta}_j \pm z_{1 - \alpha/2} \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
 $$
 of [approximate]{.orange} level $1-\alpha$, where $z_{1-\alpha/2}$ is the quantile of a standard Gaussian.
 
-## Comparison with the Gaussian linear model
+## Comparison with the Gaussian linear model {#gaussian-comparison-wald}
 
-- In a classical [Gaussian linear model]{.blue} the weight matrix is $\bm{W} = \sigma^2 I_n$, therefore
+- In a classical [Gaussian linear model]{.blue} the weight matrix is $\bm{W} = I_n/\sigma^2$, therefore
 $$
 \hat{\beta} \sim \text{N}_p\left(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}\right).
 $$
@@ -1439,13 +1439,13 @@ $$
 z_j = \frac{\hat{\beta}_j - \beta_0}{[\widehat{\text{se}}(\hat{\beta})]_j} = \frac{\hat{\beta}_j - \beta_0}{s \sqrt{[(\bm{X}^T\bm{X})^{-1}]_{jj}}},
 $$ which is the usual test statistic considered, e.g., in the output of `lm` in **R**. 
 
-- However, in the Gaussian case there is [no need]{.orange} of [approximations]{.orange}. The distribution of $z_j$ is a [Student]{.grey}' $t_{n-p}$ under $H_0$, which indeed converges to a $\text{N}(0, 1)$ for large values of $n$.
+- However, in the Gaussian case there is [no need]{.orange} of [approximations]{.orange}. The distribution of $z_j$ is a [Student]{.grey}'s $t_{n-p}$ under $H_0$, which indeed converges to a $\text{N}(0, 1)$ for large values of $n$.
 
 :::callout-tip
 In GLMs we use procedures that are [approximate]{.orange} rather than [exact]{.blue}. Of course, whenever an exact result is known, we should use it. 
 :::
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-wald-test}
 
 - The Wald test is the [default]{.orange} choice in **R** for checking the hypotheses $H_0 : \beta_j = 0$. In the `Beetles` data we get the following familiar summary:
 
@@ -1468,7 +1468,7 @@ lmtest::coefci(fit_Beetles)
 ```
 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-wald-test}
 
 - The Wald tests for checking the hypotheses $H_0 : \beta_j = 0$ in the `Aids` data are provided below. 
 
@@ -1516,7 +1516,7 @@ The case $q = 1$, that is $\beta_B = \beta_p$ with $H_0: \beta_p = 0$ correspond
 :::callout-note
 #### Wald test (general case)
 
-Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood, the quantity
+Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood estimate; the quantity
 $$
 W_e = (\hat{\beta}_B - \beta_0)^T \:\widehat{\text{var}}(\hat{\beta}_B)^{-1} \:(\hat{\beta}_B - \beta_0),
 $$
@@ -1537,9 +1537,9 @@ a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blu
 :::callout-note
 #### Log-likelihood ratio test (LRT)
 
-Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ the [restricted]{.orange} maximum likelihood estimate. The quantity
+Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood estimate and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ be the [restricted]{.orange} maximum likelihood estimate. The quantity
 $$
-W = 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})],
+W = 2 [\ell(\hat{\beta}, \hat{\phi}) - \ell(\hat{\beta}_0, \hat{\phi})],
 $$
 is called [log-likelihood ratio]{.blue} test (LRT). Under $H_0$ this quantity is [approximately]{.orange} distributed as
 $$
@@ -1548,7 +1548,7 @@ $$
 a $\chi^2$ distribution with $q$ [degrees of freedom]{.blue}. The [p-value]{.blue} is $\texttt{Pr(>Chi)} =\mathbb{P}(W > w_\text{obs})$.
 :::
 
-- When testing $H_0 : \beta_B = 0$, we separately fit the [full model]{.blue}, obtaining $\hat{\beta}$, and the [reduced model]{.orange}, obtaining $\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)$. Then, we compare their log-likelihoods: $\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})$. 
+- When testing $H_0 : \beta_B = 0$, we separately fit the [full model]{.blue}, obtaining $\hat{\beta}$, and the [reduced model]{.orange}, obtaining $\hat{\beta}_0 = (\hat{\beta}_{A,0}, 0)$. Then, we compare their log-likelihoods: $\ell(\hat{\beta}, \hat{\phi}) - \ell(\hat{\beta}_0, \hat{\phi})$. 
 
 - The LRT is the [default]{.orange} in **R** for comparing [nested models]{.blue}. 
 
@@ -1560,13 +1560,13 @@ When the dispersion parameter $\phi$ is unknown, a [variant]{.orange} uses [sepa
 
 :::callout-note
 #### Rao-score test
-Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ the [restricted]{.orange} maximum likelihood estimate. Moreover, let
+Let $\hat{\beta} = (\hat{\beta}_A, \hat{\beta}_B)$ be the [unrestricted]{.blue} maximum likelihood estimate and let $\hat{\beta}_0 = (\hat{\beta}_{A,0}, \textcolor{red}{\beta_0})$ be the [restricted]{.orange} maximum likelihood estimate. Moreover, let
 $$
-\ell_B(\beta;\phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
+\ell_B(\beta, \phi) = \frac{\partial}{\partial \beta_B}\ell(\beta, \phi),
 $$ 
 namely the [block]{.grey} of the score function associated with $\beta_B$. The quantity
 $$
-W_u = \ell_B(\hat{\beta}_0; \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0; \hat{\phi}), 
+W_u = \ell_B(\hat{\beta}_0, \hat{\phi})^T\: \widetilde{\text{var}}(\hat{\beta}_B) \: \ell_B(\hat{\beta}_0, \hat{\phi}), 
 $$
 is called [Rao-score test]{.blue}. Here $\widetilde{\text{var}}(\hat{\beta}_B)$ is the appropriate [block]{.grey} of $(\bm{X}^T\tilde{\bm{W}}\bm{X})^{-1}$ where $\tilde{\bm{W}}$ is estimated using the [restricted]{.orange} $\hat{\beta}_0$. Under $H_0$ this quantity is [approximately]{.orange} distributed as
 $$
@@ -1585,7 +1585,7 @@ The Rao-score test is arguably the [least common]{.orange}. When $\phi$ is unkno
 
 ![](img/tests.png){width=4in fig-align="center"}
 
-- Figure taken from Azzalini (1996). This is also the [cover]{.grey} of the [book]{.orange}!
+- Figure taken from @Azzalini2008. This is also the [cover]{.grey} of the [book]{.orange}!
 
 
 ## Three asymptotically equivalent tests
@@ -1608,16 +1608,16 @@ where $o_p(1)$ is a quantity that goes to $0$ in probability as $n \to \infty$.
 
 - On the other hand, both the LRT and the score are [invariant]{.blue}, and therefore we can simply [transform]{.orange} the [extremes]{.orange} of the [original interval]{.orange} without further corrections.
 
-[^wald_delta]: Transforming the extremes of Wald confidence interval "works" in the sense that it produces a valid confidence interval, but it is [not]{.orange} the Wald interval in the trasformed scale. 
+[^wald_delta]: Transforming the extremes of the Wald confidence interval "works" in the sense that it produces a valid confidence interval, but it is [not]{.orange} the Wald interval in the transformed scale. 
 
-## Comparison with the Gaussian linear model
+## Comparison with the Gaussian linear model {#gaussian-comparison-tests}
 
 :::callout-warning
 In the Gaussian linear model all tests are [equivalent]{.blue} if $\phi = \sigma^2$ is [known]{.orange}. We have
 $$
 W = W_e = W_u =  \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\sigma^2} \sim \chi^2_q.
 $$
-The $\chi^2_q$ distribution is [exact]{.orange} and not an approximation thanks to Cochran theorem. 
+The $\chi^2_q$ distribution is [exact]{.orange} and not an approximation thanks to Cochran's theorem. 
 :::
 
 . . .
@@ -1625,7 +1625,7 @@ The $\chi^2_q$ distribution is [exact]{.orange} and not an approximation thanks 
 - Consider the [log-likelihood ratio]{.blue} for testing $H_0: \beta_B = \beta_0$. Suppose $\sigma^2$ is [unknown]{.orange}, then:
 $$
 \begin{aligned}
-W &= 2 [\ell(\hat{\beta}; \hat{\phi}) - \ell(\hat{\beta}_0; \hat{\phi})] = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{y} - \bm{Y}\hat{\beta}||^2)/q}{||\bm{y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
+W &= 2 [\ell(\hat{\beta}, \hat{\phi}) - \ell(\hat{\beta}_0, \hat{\phi})] = \frac{||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2}{\hat{\phi}} = q \frac{(||\bm{Y} - \bm{X}\hat{\beta}_0||^2 - ||\bm{Y} - \bm{X}\hat{\beta}||^2)/q}{||\bm{Y} - \bm{X}\hat{\beta}||^2/(n - p)} \\
 & = q F,
 \end{aligned}
 $$
@@ -1638,7 +1638,7 @@ where $F \sim F_{q, n - p}$ is the usual [Snedecor]{.orange}'s F. Indeed $qF$ is
 - The quantities $W_e, W_u$, and $W$ are the natural extension of the F-statistic for GLMs. They are [approximately]{.orange} distributed as $\chi^2_q$ with $q$ [degrees of freedom]{.blue}. 
 
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-three-tests}
 
 - We would like to use the [Wald]{.blue}, the [Rao-score]{.orange} and the [log-likelihood ratio]{.grey} tests to verify the hypothesis $H_0: \beta_2 = 0$, that is the relevance of `logdose` in predicting the response.  
 
@@ -1680,7 +1680,7 @@ rownames(tests) <- c("Wald test", "Rao-score test", "Log-likelihood ratio test")
 - We previously obtained the [Wald statistic]{.blue} $z_j$ and indeed $z_j^2 = 11.76811^2 = 138.488 = W_e$.
 
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-confidence-intervals}
 
 ```{r}
 CI_Wald <- lmtest::coefci(fit_Beetles)[2, ]
@@ -1707,11 +1707,11 @@ CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
 | $W_u$ - [Rao-score test]{.orange} | 28.588| 39.957|
 | $W$ - [Log-likelihood ratio test]{.grey} | 28.854| 40.301|
 
-- Wald interval was also computed before. The three tests produce [nearly identical]{.blue} intervals.  
+- The Wald interval was also computed before. The three tests produce [nearly identical]{.blue} intervals.  
 
 - Wald is always symmetric around $\hat{\beta}_j$, whereas Rao and the log-likelihood ratio are typically [asymmetric]{.orange}, depending on the shape of the likelihood function. 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-three-tests}
 
 ```{r}
 fit_Aids0 <- glm(deaths ~ 1, family = "poisson", data = Aids)
@@ -1758,11 +1758,11 @@ CIs <- rbind(CI_Wald, CI_Rao, CI_LRT)
 
 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-transformed-intervals}
 
 - We are actually interested in a confidence interval for the quantity $100\times(\exp(\beta_2) - 1)$, which is the [percentage increase]{.blue} of `deaths` after each period. 
 
-- Thanks to [invariance property]{.blue} of the Rao-score and the log-likelihood ratio tests, we can simply [transform]{.orange} the [original intervals]{.blue} for $\beta_2$.
+- Thanks to the [invariance property]{.blue} of the Rao-score and the log-likelihood ratio tests, we can simply [transform]{.orange} the [original intervals]{.blue} for $\beta_2$.
 
 - If the extremes of the log-likelihood ratio interval are $C_\text{low}, C_\text{high}$, then the new interval is
 $$
@@ -1787,9 +1787,9 @@ CIs <- rbind(100 * (exp(CI_Rao) - 1), 100 * (exp(CI_LRT) - 1))
 
 - These confidence intervals are always [positive]{.orange}, which is desirable because they are percentages. 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-delta-method}
 
-- In the Wald case, we cannot simply transform the extremes of the intervals. Indeed, that would lead to a [valid]{.blue} confidence interval that is not anymore of Wald type (*Lo sbagliato* 🥃).
+- In the Wald case, we cannot simply transform the extremes of the intervals. Indeed, that would lead to a [valid]{.blue} confidence interval that is no longer of Wald type (*Lo sbagliato* 🥃).
 
 - Instead, we first need to [adjust]{.orange} the [variance]{.orange} according to the [delta method]{.blue}, obtaining
 $$
@@ -1861,17 +1861,17 @@ $$
 | 62|     61|   1.861|       0.984|       0.955|
 | 60|     60|   1.884|       1.000|       0.979|
 
-- The [empirical proportions]{.orange} $s_i / m_i$ can be seen as [estimates]{.blue} of the [most flexible model]{.blue}, in which every observation $Y_i$ has its own mean $\mu_i$. We call it [saturated model]{.orange} because $p = n$.
+- The [empirical proportions]{.orange} $s_i / m_i$ can be seen as [estimates]{.blue} of the [most flexible model]{.blue}, in which every observation $Y_i$ has its own mean $\mu_i$. We call it the [saturated model]{.orange} because $p = n$.
 
 ## Saturated model
 
-- Let us express the [log-likelihood]{.orange} of a GLM as a function of the mean $\bm{\mu} = (\mu_1,\dots,\mu_n)$.
+- Let us express the [log-likelihood]{.orange} of a GLM as a function of the mean $\bm{\mu} = (\mu_1,\dots,\mu_n)^T$.
 
 - When evaluated in the maximum likelihood, this gives:
 $$
-\ell_\mathcal{M}(\hat{\bm{\mu}},\phi) = \sum_{i=1}^n\omega_i\frac{y_i\theta(\hat{\mu}_i) - b(\theta(\hat{\mu}_i))}{\phi} + c(y_i, \phi).
+\ell_\mathcal{M}(\hat{\bm{\mu}},\phi) = \sum_{i=1}^n\left\{\omega_i\frac{y_i\theta(\hat{\mu}_i) - b(\theta(\hat{\mu}_i))}{\phi} + c(y_i, \phi)\right\}.
 $$
-The maximum likelihood for each $\mu_i$ is [restricted]{.orange}, in the sense that depends on the $p$ parameters of the [linear predictor]{.blue} $\bm{x}_i^T\beta$ through the link function $g(\mu_i) = \bm{x}_i^T\beta$. 
+The maximum likelihood for each $\mu_i$ is [restricted]{.orange}, in the sense that it depends on the $p$ parameters of the [linear predictor]{.blue} $\bm{x}_i^T\beta$ through the link function $g(\mu_i) = \bm{x}_i^T\beta$. 
 
 . . .
 
@@ -1879,7 +1879,7 @@ The maximum likelihood for each $\mu_i$ is [restricted]{.orange}, in the sense t
 
 - When evaluated in the maximum, the log-likelihood of the saturated model is
 $$
-\ell_\mathcal{M}(\bm{y},\phi) = \sum_{i=1}^n\omega_i\frac{y_i\theta(y_i) - b(\theta(y_i))}{\phi} + c(y_i, \phi).
+\ell_\mathcal{M}(\bm{y},\phi) = \sum_{i=1}^n\left\{\omega_i\frac{y_i\theta(y_i) - b(\theta(y_i))}{\phi} + c(y_i, \phi)\right\}.
 $$
 
 - The saturated model is the [most complex model]{.blue} we can think of.
@@ -1926,16 +1926,16 @@ where $q = p - p_0$ are the degrees of freedom.
 
 - The log-likelihood ratio can be interpreted as a difference of scaled deviances. This explains why it is popular in GLMs for comparing nested models. 
 
-- This is also strong parallelism with the Gaussian linear model.
+- There is also a strong parallelism with the Gaussian linear model.
 
 [^testing]: More formally, we should say that we are testing the hypothesis $H_0: \beta_B = \bm{0}$ against the alternative $H_1: \beta_B \neq \bm{0}$. I hope you can tolerate this slight linguistic abuse. 
 
 ## The null model
 
 :::{.callout-note}
-Let us consider a model $M_\text{null}$ with [no covariates]{.blue} and one parameter ($p =1$), i.e. the [intercept]{.blue}. The predicted values are all equals to
+Let us consider a model $M_\text{null}$ with [no covariates]{.blue} and one parameter ($p =1$), i.e. the [intercept]{.blue}. The predicted values are all equal to
 $$
-\hat{\bm{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1)).
+\hat{\bm{\mu}}_\text{null} = (g^{-1}(\hat{\beta}_1), \dots, g^{-1}(\hat{\beta}_1))^T.
 $$
 We call $M_\text{null}$ the [null model]{.blue} and $D(\bm{y}; \hat{\bm{\mu}}_\text{null})$ the [null deviance]{.orange}.
 :::
@@ -1951,7 +1951,7 @@ $$
 $$
 W = \frac{D(\bm{Y}; \hat{\bm{\mu}}_\text{null}) - D(\bm{Y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_{p-1}.
 $$
-If the $H_0$ is not rejected, it means all the [covariates]{.orange} are regarded as [irrelevant]{.orange}. 
+If $H_0$ is not rejected, it means that all the [covariates]{.orange} are regarded as [irrelevant]{.orange}. 
 
 ## Pearson $X^2$ statistic
 
@@ -1975,15 +1975,15 @@ which is known as generalized [Pearson chi-squared statistic]{.blue}.
 
 ## Deviance of a Gaussian linear model
 
-- In the classical [Gaussian linear model]{.blue}, we have that $\theta_i = \mu_i$ and $b(\theta_i) = \theta_i^2/2$. Thus $\theta(y_i) = y_i$ and
+- In the classical [Gaussian linear model]{.blue}, we have that $\theta_i = \mu_i$, $b(\theta_i) = \theta_i^2/2$ and $\omega_i = 1$. Thus $\theta(y_i) = y_i$ and
 $$
 \begin{aligned}
 D(\bm{y}; \hat{\bm{\mu}}) &=2\sum_{i=1}^n\omega_i\left\{y_i [\theta(y_i) - \theta(\hat{\mu}_i)] - [b(\theta(y_i)) - b(\theta(\hat{\mu}_i))]\right\} \\
 &=2\sum_{i=1}^n\{y_i(y_i - \hat{\mu}_i) - y_i^2/2 + \hat{\mu}_i^2/2\}\\
-&= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu_i} + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
+&= \sum_{i=1}^n(y_i^2 - 2y_i\hat{\mu}_i + \hat{\mu}_i^2)= \sum_{i=1}^n(y_i - \hat{\mu}_i)^2.
 \end{aligned}
 $$
-- In the Gaussian case, the deviance is the [residuals sum of squares]{.orange} and $D(\bm{y}; \hat{\bm{\mu}}) = X^2$. 
+- In the Gaussian case, the deviance is the [residual sum of squares]{.orange} and $D(\bm{y}; \hat{\bm{\mu}}) = X^2$. 
 
 . . .
 
@@ -2012,7 +2012,7 @@ As discussed in @Salvan2020, Example 2.12, this can be seen as a [quadratic appr
 
 ## Deviance of a binomial model I
 
-- Let us consider a [Binomial regression]{.blue} model $m_i Y_i = S_i \sim \text{Binomial}(m_i, \pi_i)$ with $\mu_i = \pi_i$. Then
+- Let us consider a [Binomial regression]{.blue} model $m_i Y_i = S_i \sim \text{Binomial}(m_i, \pi_i)$ with $\mu_i = \pi_i$. Then, up to an [additive constant]{.grey} not depending on $\bm{\mu}$,
 $$
 \ell_\mathcal{M}(\bm{\hat{\mu}}) = \sum_{i=1}^n\{m_i y_i \log{(\hat{\mu}_i)} + m_i(1 - y_i)\log{(1-\hat{\mu}_i)}\}.
 $$
@@ -2049,7 +2049,7 @@ $$
 
 ## Deviance as goodness of fit measure I
 
-- The deviance is useful a [descriptive measure]{.orange} for the [goodness of fit]{.blue}. 
+- The deviance is a useful [descriptive measure]{.orange} of the [goodness of fit]{.blue}. 
 
 - It is [tempting]{.orange} to use the deviance as a formal [statistical test]{.blue}, to verify if the current model is adequate compared to the saturated model. 
 
@@ -2058,11 +2058,11 @@ $$
 - Suppose $\phi$ were [known]{.blue}, then in the Gaussian case we would have
 $D(\bm{y}; \hat{\bm{\mu}})/\phi \sim \chi^2_{n-p}$, which would allow us to check the adequacy of the model. 
 
-- Unfortunately, whenever $\hat{\phi}$ is [estimated]{.orange} we obtain $D(\bm{y}; \hat{\bm{\mu}})/\hat{\phi} \approx n - p$, and exactly $n-p$ in the Gaussian case, so this strategy can not be used.
+- Unfortunately, whenever $\hat{\phi}$ is [estimated]{.orange} we obtain $D(\bm{y}; \hat{\bm{\mu}})/\hat{\phi} \approx n - p$, and exactly $n-p$ in the Gaussian case, so this strategy cannot be used.
 
 . . .
 
-- On the other hand, for example in Poisson e binomial regression, we have $\phi = 1$. Hence, the intuition tells us that, at least approximately, we should have
+- On the other hand, for example in Poisson and binomial regression, we have $\phi = 1$. Hence, intuition tells us that, at least approximately, we should have
 $$
 D(\bm{y}; \hat{\bm{\mu}}) \; \dot \sim \; \chi^2_{n-p}.
 $$
@@ -2073,10 +2073,10 @@ $$
 
 ## Deviance as goodness of fit measure II
 
-- Despite these bad news, it turns out that in some special cases, the $\chi^2_{n-p}$ approximation is still valid even for fixed values of $n$.
+- Despite this bad news, it turns out that in some special cases, the $\chi^2_{n-p}$ approximation is still valid even for fixed values of $n$.
 
 :::callout-warning
-Then the [deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$ and the $X^2$ [Pearson statistic]{.blue} are approximately distributed as a $\chi^2_{n-p}$ in the following cases:
+The [deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$ and the $X^2$ [Pearson statistic]{.blue} are approximately distributed as a $\chi^2_{n-p}$ in the following cases:
 
   - In binomial regression, for large values of $m_i$ (small-dispersion asymptotics);
   - In Poisson regression, for large values of the estimated means $\hat{\mu}_i$ (say $\hat{\mu}_i \ge 5$);
@@ -2093,13 +2093,13 @@ Then the [deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$ and the $X^2$ [Pearson st
 
 - There exist several generalizations of the $R^2$ statistic for linear models, called [pseudo-$R^2$]{.blue} (e.g. McFadden, Cox \& Snell, Nagelkerke, Tjur, etc.).
 
-- These indices are [difficult to interpret]{.orange} and could mislead those accustomed with standard $R^2.$ A pseudo-$R^2 \approx 0.4$ may indicate a nearly perfect fit (i.e. `Beetles` data), which is confusing. 
+- These indices are [difficult to interpret]{.orange} and could mislead those accustomed to the standard $R^2$. A pseudo-$R^2 \approx 0.4$ may indicate a nearly perfect fit (e.g. the `Beetles` data), which is confusing. 
 
-- On top of this, these pseudo-$R^2$ produce different answers depending on the [aggregation]{.blue} of the data. 
+- On top of this, these pseudo-$R^2$ measures produce different answers depending on the [aggregation]{.blue} of the data. 
 
 . . .
 
-- The recommendation is to rely on indices tailored for the data at hand, such as the ROC curve for binary data, or the correlation between $\bm{y}$ and $\hat{\bm{\mu}}$.
+- The recommendation is to rely on indices tailored to the data at hand, such as the ROC curve for binary data, or the correlation between $\bm{y}$ and $\hat{\bm{\mu}}$.
 
 - The residual [deviance]{.blue} is also a useful tool, especially for comparing models.
 
@@ -2107,11 +2107,11 @@ Then the [deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$ and the $X^2$ [Pearson st
 
 <!-- - It is not a coincidence that none of our textbooks @Agresti2015, @Salvan2020, @Azzalini2008, @McCullagh1989, nor the `glm` R function, even mention pseudo-$R^2$.  -->
 
-- Pseudo-$R^2$ are often shown by default in other software, such as SAS or SPSS. 
+- Pseudo-$R^2$ measures are often shown by default in other software, such as SAS or SPSS. 
 
 ## Example: `Beetles` data, output of `summary`
 
-- This is how the `summary` of a GLM looks like. It is very similar to the `summary` of `lm`. At this stage of the course, you should be able to understand almost everything.
+- This is what the `summary` of a GLM looks like. It is very similar to the `summary` of `lm`. At this stage of the course, you should be able to understand almost everything.
 
 ```{r}
 #| classes: styled-output
@@ -2124,7 +2124,7 @@ summary(fit_Beetles)
 
 ## Example: `Beetles` data, output of `anova`
 
-- `anova(model0, model1)` computes [log-likelihood ratio test]{.blue} comparing two nested models: the [reduced]{.orange} model $M_0$ with $p_0$ parameters and the [full]{.blue} model $M_1$ with $p$ parameters.
+- `anova(model0, model1)` computes the [log-likelihood ratio test]{.blue} comparing two nested models: the [reduced]{.orange} model $M_0$ with $p_0$ parameters and the [full]{.blue} model $M_1$ with $p$ parameters.
 
 
 ```{r}
@@ -2168,12 +2168,12 @@ abline(v = X_Beetles, lty = "dotted")
 
 - The [deviance]{.blue} equals $D(\bm{y}; \hat{\bm{\mu}}) = 11.232$, with $n - p = 8 - 2 = 6$ degrees of freedom. The observed $X^2$ [Pearson statistic]{.orange} equals $10.027$. 
 
-- Using the $X^2$ statistic with $6$ degrees of freedom, we obtain the p-value $\mathbb{P}(X^2 > 10.027) = 0.124$, as pictured above, which can be interpreted as a [slight]{.orange} lack of fit. 
+- Using the $X^2$ statistic with $6$ degrees of freedom, we obtain the p-value $\mathbb{P}(\chi^2_6 > 10.027) = 0.124$, as pictured above. There is therefore [no evidence]{.blue} of lack of fit: this model is [compatible]{.blue} with the saturated one. 
 
 
 ## Example: `Aids` data, output of `summary`
 
-- Below is shown the `summary` of the Poisson regression model with the `Aids` data.
+- The `summary` of the Poisson regression model for the `Aids` data is shown below.
  
 ```{r}
 #| classes: styled-output
@@ -2204,7 +2204,7 @@ X_Aids <- sum(residuals(fit_Aids, type = "pearson")^2)
 
 - The [deviance]{.blue} equals $D(\bm{y}; \hat{\bm{\mu}}) = 30.203$, with $n - p = 14 - 2 = 12$ degrees of freedom. The observed $X^2$ [Pearson statistic]{.orange} equals $29.92$.
 
-- Using the $X^2$ statistic with $12$ degrees of freedom, we obtain the p-value $\mathbb{P}(X^2 > 29.92) = 0.0028$, therefore [rejecting]{.orange} the hypothesis that this model has a comparable fit with the saturated model.
+- Using the $X^2$ statistic with $12$ degrees of freedom, we obtain the p-value $\mathbb{P}(\chi^2_{12} > 29.92) = 0.0028$, therefore [rejecting]{.orange} the hypothesis that this model has a fit comparable to the saturated one.
 
 . . .
 
@@ -2215,7 +2215,7 @@ X_Aids <- sum(residuals(fit_Aids, type = "pearson")^2)
   a. Choosing a different [link function]{.orange};
   b. Including an [additional covariate]{.blue} (if available), and/or considering non-linear [transformations]{.orange} of the available ones;
   c. Choosing a different [distribution]{.orange} instead of the Poisson, such as the negative binomial;
-  c. Accounting for [overdispersion]{.blue} using quasi-likelihoods, that is, estimating $\phi$ from the data rather than fixing it to $\phi = 1$.
+  d. Accounting for [overdispersion]{.blue} using quasi-likelihoods, that is, estimating $\phi$ from the data rather than fixing it to $\phi = 1$.
   
 . . .
 
@@ -2231,13 +2231,13 @@ We call these the [response residuals]{.blue}.
 
 . . .
 
-- GLMs do not have an additive decomposition, therefore we need define a good [generalization]{.orange} of [residuals]{.orange}. There are at least $2$ alternatives: Pearson and deviance residuals.
+- GLMs do not have an additive decomposition, therefore we need to define a good [generalization]{.orange} of [residuals]{.orange}. There are at least two alternatives: Pearson and deviance residuals.
 
 - Ideally, we would like residuals to have approximately $0$ mean and unitary variance, but these properties will not hold exactly. 
 
 . . .
 
-- The analysis of the residuals is very helpful for identifying any misspecification as well as hinting the solution. In particular, it is useful for instance to:
+- The analysis of the residuals is very helpful for identifying any misspecification, as well as for hinting at the solution. In particular, it is useful for instance for:
   a. Choosing the correct variance function $v(\mu_i)$, i.e. the correct response distribution;
   b. Choosing the correct link function;
   c. Identifying latent patterns, often an indication of an omitted variable;
@@ -2256,9 +2256,9 @@ $$
 
 - Pearson residuals rescale the response residuals, accounting for [heteroscedasticity]{.orange}. 
 
-- Pearson residuals own their name to the fact that the $X^2$ statistic is obtained as
+- Pearson residuals owe their name to the fact that the $X^2$ statistic is obtained as
 $$
-X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\mu_i)}.
+X^2 = \sum_{i=1}^n r_{i, P}^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}.
 $$
 Moreover, the dispersion parameter, when present, can be estimated as
 $$
@@ -2285,7 +2285,7 @@ D(\bm{y}; \hat{\bm{\mu}}) = \sum_{i=1}^n r_{i, D}^2.
 $$
 - Deviance residuals are the [default]{.orange} choice in the `residuals` **R** function. 
 
-- Pearson residuals are an asymptotic approximation of deviance residuals, therefore these two quantities are often very similar in practice. 
+- Pearson and deviance residuals are [asymptotically equivalent]{.blue}, therefore these two quantities are often very similar in practice. 
 
 
 ## A weighted projection matrix
@@ -2296,7 +2296,7 @@ $$
 
 - Several arguments can be invoked to justify the following [weighted hat matrix]{.blue} in GLMs
 $$
-\bm{H}_W = \bm{W}^{1/2}\bm{X}(\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}\bm{W}^{1/2}.
+\bm{H}_W = \bm{W}^{1/2}\bm{X}(\bm{X}^T\bm{W}\bm{X})^{-1}\bm{X}^T\bm{W}^{1/2}.
 $$
 This matrix is [symmetric]{.blue} $(\bm{H}_W = \bm{H}_W^T)$ and [idempotent]{.orange} ($\bm{H}_W^2 = \bm{H}_W$), i.e. a projection matrix. 
 
@@ -2304,7 +2304,7 @@ This matrix is [symmetric]{.blue} $(\bm{H}_W = \bm{H}_W^T)$ and [idempotent]{.or
 
 - It can be shown, as in @Agresti2015, Section 4.4.5, that 
 $$
-\text{var}(y_i - \hat{\mu}_i) \approx \phi/\omega_i v(\mu_i)(1 - h_{i, W}) \quad \Longrightarrow \quad \text{var}(r_{i,P}) \approx \phi(1 - h_{i, W}).
+\text{var}(y_i - \hat{\mu}_i) \approx (\phi/\omega_i) v(\mu_i)(1 - h_{i, W}) \quad \Longrightarrow \quad \text{var}(r_{i,P}) \approx \phi(1 - h_{i, W}).
 $$
 
 . . .
@@ -2317,7 +2317,7 @@ $$
 
 - [Standardized Pearson residuals]{.blue} are defined as
 $$
-\tilde{r}_{i, P} = \frac{r_{i,P}}{\sqrt{\hat{\phi}(1 - \hat{h}_{i, W})}} = \frac{y_i - \hat{\mu_i}}{\sqrt{\hat{\phi}/\omega_iv(\hat{\mu}_i)(1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n,
+\tilde{r}_{i, P} = \frac{r_{i,P}}{\sqrt{\hat{\phi}(1 - \hat{h}_{i, W})}} = \frac{y_i - \hat{\mu}_i}{\sqrt{(\hat{\phi}/\omega_i)v(\hat{\mu}_i)(1 - \hat{h}_{i, W})}}, \qquad i=1,\dots,n,
 $$
 where $\hat{\phi}$ is an estimate of $\phi$ (if unknown) and $\hat{h}_{i, W}$ is an estimate of the leverages. 
 
@@ -2335,13 +2335,13 @@ $$
 
 - It is sometimes recommended to check the normality of the Pearson/deviance residuals using Q-Q plots. Such a plot is also provided in **R**.
 
-- Indeed, for example under small dispersion asymptotics or other specific, Pearson residuals are [approximately]{.orange} Gaussian. 
+- Indeed, for example under small dispersion asymptotics or other specific conditions, Pearson residuals are [approximately]{.orange} Gaussian. 
 
 . . .
 
-- However, these conditions are often not met. For example, in binary data the response $y_i \in \{0, 1\}$ can only assume two values and the residuals will not be Gaussian distributed, even for large $n$. 
+- However, these conditions are often not met. For example, in binary data the response $y_i \in \{0, 1\}$ can only assume two values and the residuals will not be normally distributed, even for large $n$. 
 
-- Actually, the analysis for the residuals in [binary data]{.blue} do [not provide useful information]{.orange}; see e.g. @Salvan2020, Section 3.6. 
+- Actually, the analysis of the residuals in [binary data]{.blue} does [not provide useful information]{.orange}; see e.g. @Salvan2020, Section 3.6. 
 
 . . .
 
@@ -2353,11 +2353,11 @@ Overreliance on residual analysis can encourage automatic decisions rather than 
 
 ## On identifying and removing outliers
 
-- The analysis of the residuals can also help in identifying outliers and influence points. However, we must be careful in drawing conclusions.
+- The analysis of the residuals can also help in identifying outliers and influential points. However, we must be careful in drawing conclusions.
 
-- An outlier might be detected as such simply as the consequence of [model misspecification]{.orange}, e.g. an omitted variable.  
+- An outlier might be detected as such simply as a consequence of [model misspecification]{.orange}, e.g. an omitted variable.  
 
-- In the vast majority of cases, the presence of outliers should be carefully dealt with by carefully modifying the model.
+- In the vast majority of cases, the presence of outliers should be dealt with by carefully modifying the model.
 
 - There are instances in which outliers are actually [contaminated data points]{.blue} (e.g. `age = -3`). If there is strong and contextual evidence that this might be the case, then these points should be [removed]{.orange}. Otherwise, removing data points is a [bad practice]{.orange}.
 
@@ -2367,7 +2367,7 @@ In statistical modelling, we wish to find a model that fits our data, not a data
 Discarding observations until the hypotheses are reasonable skews the overall analysis and does not answer any meaningful scientific or business question. 
 :::
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-residuals}
 
 ```{r}
 #| fig-width: 10
@@ -2382,11 +2382,11 @@ plot(predict(fit_Beetles, type = "response"), rstandard(fit_Beetles, type = "pea
 par(mfrow = c(1, 1))
 ```
 
-- A formal test already confirmed that there are [no]{.orange} noticeable [differences]{.orange} between this model and the saturated model. The analysis of the residuals confirms it.
+- The goodness of fit test did not detect any [noticeable difference]{.orange} between this model and the saturated one. The analysis of the residuals confirms it.
 
 - Deviance residuals and Pearson residuals are very similar, as expected. 
 
-## Example: `Beetles` data
+## Example: `Beetles` data {#beetles-cook-distance}
 
 ```{r}
 #| fig-width: 8
@@ -2395,9 +2395,9 @@ par(mfrow = c(1, 1))
 plot(fit_Beetles, 4) 
 ```
 
-- The Cook's distance also confirms that there are not strong influence points. 
+- The Cook's distance also confirms that there are no strong influential points. 
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-residuals}
 
 ```{r}
 #| fig-width: 10
@@ -2412,11 +2412,11 @@ plot(predict(fit_Aids, type = "response"), rstandard(fit_Aids, type = "pearson")
 par(mfrow = c(1, 1))
 ```
 
-- From both residuals plots it is evident that three observations are highly underestimated, while the others are slightly underestimated. 
+- From both residual plots it is evident that three observations are severely underestimated, while the others are slightly overestimated. 
 
-- The lack of fit can be solved, in this case, by using a different link function.
+- The lack of fit can be remedied, in this case, by using a different link function.
 
-## Example: `Aids` data
+## Example: `Aids` data {#aids-residuals-sqrt-link}
 
 ```{r}
 #| fig-width: 10
@@ -2428,6 +2428,7 @@ plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = 
      pch = 16, xlab = expression(mu), ylab = "Standardized deviance residuals"); abline(h = 0, lty = "dotted")
 plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = "pearson"), 
      pch = 16, xlab = expression(mu), ylab = "Standardized Pearson residuals"); abline(h = 0, lty = "dotted")
+par(mfrow = c(1, 1))
 ```
 
 - We estimated a Poisson regression model with a [non-canonical link]{.blue} function $g(\mu_i) = \sqrt{\mu_i}$.
@@ -2463,7 +2464,7 @@ plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = 
 
 - With $p$ [explanatory variables]{.blue}, the number of potential models is the huge number
 $$
-\sum_{k=1}^p \binom{p}{k} = 2^p.
+\sum_{k=0}^p \binom{p}{k} = 2^p.
 $$
 - [Best subset selection]{.blue} identifies the model that optimizes an [information criterion]{.blue} e.g. AIC or BIC, which are defined as
 $$
@@ -2477,14 +2478,14 @@ where $k$ is the number of parameters in the model.
 
 - In [exploratory studies]{.blue}, these methods are useful if applied [cautiously]{.blue}. 
 
-- As we shall discuss, an excess of automatism may lead to good predictive performance, but it may fail in making the model simple or interpretable. 
+- As we shall discuss, an excess of automatism may lead to good predictive performance, but it may fail to make the model simple or interpretable. 
 
 
 ## Stepwise procedures: forward and backward selection
 
 - [Forward selection]{.blue} adds terms sequentially. At each stage it selects the term giving the greatest improvement in terms of [deviance]{.orange} or other goodness of fit measures. 
 
-- The process stops when further additions do not improve the it, according to statistical significance (i.e. a log-likelihood ratio test) or a criterion for judging the model fit (such as the AIC or BIC).
+- The process stops when further additions do not improve the fit, according to statistical significance (i.e. a log-likelihood ratio test) or a criterion for judging the model fit (such as the AIC or BIC).
 
 - A stepwise variation of this procedure rechecks, at each stage, whether terms added at previous stages are still needed.
 
@@ -2494,10 +2495,10 @@ where $k$ is the number of parameters in the model.
 
 - At each stage, it selects the term whose removal has the least damaging effect on the model, such as the largest p-value in a test or the least deterioration in a criterion for judging the model fit. 
 
-- The process stops when any further deletion leads to a poorer it.
+- The process stops when any further deletion leads to a poorer fit.
 
 :::callout-tip
-Whenever possible, i.e. when $p$ is not too large, we recommend [manually]{.blue} performing each stage of forward or backward procedures and [avoid fully automatic procedures]{.orange}. 
+Whenever possible, i.e. when $p$ is not too large, we recommend [manually]{.blue} performing each stage of forward or backward procedures and [avoiding fully automatic procedures]{.orange}. 
 :::
 
 
@@ -2519,11 +2520,11 @@ Whenever possible, i.e. when $p$ is not too large, we recommend [manually]{.blue
 
 - Neither backward nor forward strategies guarantee a [meaningful model]{.blue}.  
 
-- Evaluating many terms increases risk of [chance findings]{.blue}. If true effects are [weak]{.orange}, the largest sample effect likely [overestimates]{.blue} the truth.  
+- Evaluating many terms increases the risk of [chance findings]{.blue}. If true effects are [weak]{.orange}, the largest sample effect likely [overestimates]{.blue} the truth.  
 
 . . .
 
-- Use of standard significance tests in selection lacks [theoretical justification]{.orange}. Distribution of minimum or maximum $p$-values at each stage is not the same as the distribution of a [pre-selected variable]{.blue}. This issue is called [multiple testing]{.blue} and leads to [overconfident]{.orange} conclusions.
+- Use of standard significance tests in selection lacks [theoretical justification]{.orange}. The distribution of the minimum or maximum $p$-value at each stage is not the same as the distribution of a [pre-selected variable]{.blue}. This issue is called [multiple testing]{.blue} and leads to [overconfident]{.orange} conclusions.
 
 
 ## Comments on forward/backward selection II

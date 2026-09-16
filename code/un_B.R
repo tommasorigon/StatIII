@@ -32,7 +32,7 @@ ggplot(data = Beetles, aes(x = logdose, y = deaths / m)) +
 
 data(Aids)
 colnames(Aids) <- c("deaths", "period")
-rownames(Aids) <- paste(1983:1986, rep(1:4, each = 4), sep = "-")[-c(15:16)]
+rownames(Aids) <- paste(rep(1983:1986, each = 4), rep(1:4, times = 4), sep = "-")[-c(15:16)]
 knitr::kable(t(Aids[1:7, ]))
 knitr::kable(t(Aids[8:14, ]))
 
@@ -199,3 +199,4 @@ plot(predict(fit_Aids_sqrt, type = "response"), rstandard(fit_Aids_sqrt, type = 
   pch = 16, xlab = expression(mu), ylab = "Standardized Pearson residuals"
 )
 abline(h = 0, lty = "dotted")
+par(mfrow = c(1, 1))
