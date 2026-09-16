@@ -50,7 +50,7 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 
 The dataset `Abrasion`, available in the `MLGdata` R package, comes from an experiment designed to evaluate how the abrasion resistance of a certain type of rubber is affected by its hardness and tensile strength. The original data are described in
 
-> Davies, O.L. and Goldsmith, P.L. (eds.) (1972) *Statistical Methods in Research and Production*, 4th Edition, Edinburgh: Oliverand Boyd, 239.
+> Davies, O.L. and Goldsmith, P.L. (eds.) (1972) *Statistical Methods in Research and Production*, 4th Edition, Edinburgh: Oliver and Boyd, 239.
 
 Thirty rubber samples were subjected to constant abrasion for a fixed duration, and the resulting weight loss (`perdita`, in grams per hour) was recorded. For each sample, the following variables were also measured:  
 
@@ -67,9 +67,9 @@ Thirty rubber samples were subjected to constant abrasion for a fixed duration, 
 
 (e) Report the estimates and 95% confidence intervals for the coefficients. Interpret the estimated values.
 
-(f) For each element of the R  `summary` output of the `lm` object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.
+(f) For each element of the R `summary` output of the `lm` object, indicate what quantity is being calculated and match it to the formulas in the slides/textbooks.
 
-(g) Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment the results. See also [Exercise D]{.orange} (below) for a refined and alternative diagnostic plot. 
+(g) Evaluate the goodness of fit of the model from (c). In particular, check if the variable omitted in the model specification is correlated with the residuals of the estimated model; comment on the results. See also [Exercise D]{.orange} (below) for a refined and alternative diagnostic plot. 
 
 (h) Fit a multiple regression model in **R** including [both explanatory variables]{.blue}. Interpret the estimated coefficients.
 
@@ -78,7 +78,7 @@ Thirty rubber samples were subjected to constant abrasion for a fixed duration, 
 (j) Obtain a 95% [confidence interval]{.orange} for the mean weight loss when hardness is 70 Shore degrees and tensile strength is 180 kg/cm². For the same values, compute a 95% [prediction interval]{.blue} for the response.
 :::
 
-::: {.callout-note collapse=true}
+:::{.callout-note collapse=true}
 #### `FEV` dataset - Partial solution: [`FEV.R`](../code/FEV.R)
 
 Littell et al. (2000) reported a pharmaceutical clinical trial involving $n = 72$ patients, randomly assigned to three treatment groups (drug A, drug B, and placebo), with 24 patients per group. The outcome of interest was respiratory function, measured as FEV1 (forced expiratory volume in one second, in liters). The source of the data is
@@ -92,19 +92,13 @@ The dataset `FEV.dat` is [available here](../data/FEV.dat). In this analysis, le
 
 Import the data and then:
 
-(a) Fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$
+(a) Fit linear models for $y$ using the following sets of predictors: (i) $x_1$ only, (ii) $x_2$ only, (iii) both $x_1$ and $x_2$.
 
 (b) Test to see whether the interaction terms are needed. 
 
 (c) Check the underlying assumptions of the fitted models. If they are violated, propose a solution. 
 
-(d) For each model, [interpret]{.blue} the estimated parameters. 
-
-
-```{r}
-# FAV <- read.table("../data/FEV.dat", header = TRUE)
-# knitr::kable(head(FAV))
-```
+(d) For each model, [interpret]{.blue} the estimated parameters.
 
 :::
 
@@ -133,52 +127,46 @@ Import the data and
 
 (d) Test whether family therapy is effective in increasing weight.
 
-(e) Convert all weight measurements to kilograms (using the conversion factor $1\,\text{lb} = 0.453592 \text{kg}$), repeat the analysis, and discuss whether and why the results change.
-
-
-```{r}
-#Anorexia <- read.table("../data/Anorexia.dat", header = TRUE)
-#knitr::kable(head(Anorexia))
-```
+(e) Convert all weight measurements to kilograms (using the conversion factor $1\,\text{lb} = 0.453592\,\text{kg}$), repeat the analysis, and discuss whether and why the results change.
 
 :::
 
 ## Theoretical
 
 :::{.callout-note collapse=true}
-#### Exercise A - Solution: [`notes.pdf`](exe_A_A.pdf)
+#### Exercise A - Solution: [`exe_A_A.pdf`](exe_A_A.pdf)
 
-Prove that the [variance-stabilizing]{.blue} transform for [gamma random variables]{.orange} $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, is the logarithm $g(Y_i) = \log(Y_i)$. 
+Prove that the [variance-stabilizing]{.blue} transform for [gamma random variables]{.orange} $Y_i\sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$ is the logarithm $g(Y_i) = \log(Y_i)$. 
 
-[Hint]{.blue}: use the fact that if $Y_i \sim \text{Gamma}(\alpha, \beta_i)$ with mean $\mu_i = \alpha/\beta_i$ and variance $\alpha/\beta_i^2$, then for large values of $\alpha$ we have the approximation $Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)$.
+[Hint]{.blue}: use the fact that for large values of $\alpha$ we have the approximation $Y_i \; \dot{\sim}\;\text{N}(\alpha/\beta_i, \alpha/\beta_i^2)$.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise B - Solution: [`notes.pdf`](exe_A_B.pdf)
+#### Exercise B - Solution: [`exe_A_B.pdf`](exe_A_B.pdf)
 
-In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $u_i$ is independent of $x_i$ for all $i$, with $\mathbb{E}(u_i) = \mu_u$ and $\text{var}(u_i) = \sigma^2_u$. 
+In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $x_i^*$ is [deterministic]{.blue}, and therefore independent of $u_i$, with $\mathbb{E}(u_i) = \mu_u$ and $\text{var}(u_i) = \sigma^2_u$. 
 
-Analyze the expected impact of this [measurement error]{.blue} on $\hat{\beta}_1$ and the residuals $\bm{r}$. What does it happen in the special case $\mu_u = 0$?
+Analyze the expected impact of this [measurement error]{.blue} on $\hat{\beta}_1$ and the residuals $\bm{r}$. What happens in the special case $\mu_u = 0$?
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise C - Solution: [`notes.pdf`](exe_A_C.pdf)
+#### Exercise C - Solution: [`exe_A_C.pdf`](exe_A_C.pdf)
 
-In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta_1 x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
+In some applications, such as regressing annual income on the number of years of education, the variance of $Y_i$ tends to be larger at higher values of $x_i > 0$. Consider the model $\mathbb{E}(Y_i) = \beta x_i$, assuming $\text{var}(Y_i) = \sigma^2 x_i$ for unknown $\sigma^2$. 
 
-(a) Show that the weighted least squares estimator minimizes $\sum_{i=1}^n(y_i - \beta x_i)^2/x_i$ (i.e., giving more weight to observation with smaller $x_i$) and has $\hat{\beta}_\text{wls} = \bar{y}/\bar{x}$, with $\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i$.
+(a) Show that the weighted least squares estimator minimizes $\sum_{i=1}^n(y_i - \beta x_i)^2/x_i$ (i.e., giving more weight to observations with smaller $x_i$) and has $\hat{\beta}_\text{wls} = \bar{y}/\bar{x}$, with $\text{var}(\hat{\beta}_\text{wls}) = \sigma^2 / \sum_{i=1}^n x_i$.
 
-(b) Show that the ordinary least squares estimator is $\hat{\beta} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2$ and has $\text{var}(\hat{\beta}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2$. 
+(b) Show that the ordinary least squares estimator is $\hat{\beta}_\text{ols} = (\sum_{i=1}^n x_i y_i) / \sum_{i=1}^n x_i^2$ and has $\text{var}(\hat{\beta}_\text{ols}) = \sigma^2 (\sum_{i=1}^n x_i^3) /(\sum_{i=1}^n x_i^2)^2$. 
 
-(c) Show that $\text{var}(\hat{\beta}) \ge \text{var}(\hat{\beta}_\text{wls})$. 
+(c) Show that $\text{var}(\hat{\beta}_\text{ols}) \ge \text{var}(\hat{\beta}_\text{wls})$. 
 
 [Hint]{.blue}: part (c) is not easy, but it can be solved in two ways: (i) by applying the Cauchy–Schwarz inequality to a suitable transformation of the $x_i$, or (ii) by relying on the Gauss–Markov theorem.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise D - Solution: [`notes.pdf`](exe_A_D.pdf)
+#### Exercise D - Solution: [`exe_A_D.pdf`](exe_A_D.pdf)
 
-Suppose the normal linear model $\bm{Y} = \bm{X}\beta + z\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
+Suppose the normal linear model $\bm{Y} = \bm{X}\beta + \bm{z}\gamma + \bm{\epsilon}$,  with $\bm{X}$ an $n \times p$ matrix (rank $p<n$), $\bm{z}$ an $n \times 1$ vector, and $\bm{\epsilon} \sim \text{N}_n(0,\sigma^2 I_n)$. We instead fit $\bm{Y} = \bm{X}\beta + \bm{\varepsilon}$, with 
 $$
 \hat{\beta} = (\bm{X}^T \bm{X})^{-1}\bm{X}^T \bm{y}, \qquad \bm{r} = (I_n - \bm{H})\bm{y}.
 $$
