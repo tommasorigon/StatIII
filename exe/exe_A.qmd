@@ -144,7 +144,7 @@ Prove that the [variance-stabilizing]{.blue} transform for [gamma random variabl
 :::{.callout-note collapse=true}
 #### Exercise B - Solution: [`exe_A_B.pdf`](exe_A_B.pdf)
 
-In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^*$, with $x_i = x_i^* + u_i$, where $x_i^*$ is [deterministic]{.blue}, and therefore independent of $u_i$, with $\mathbb{E}(u_i) = \mu_u$ and $\text{var}(u_i) = \sigma^2_u$. 
+In the linear model $\mathbb{E}(Y_i) = \beta_1 + \beta_2 x_i$, suppose that instead of observing $x_i$ we observe $x_i^* = x_i + u_i$, where $x_i^*$ is [deterministic]{.blue}, and therefore independent of $u_i$, with $\mathbb{E}(u_i) = \mu_u$ and $\text{var}(u_i) = \sigma^2_u$. 
 
 Analyze the expected impact of this [measurement error]{.blue} on $\hat{\beta}_1$ and the residuals $\bm{r}$. What happens in the special case $\mu_u = 0$?
 :::
