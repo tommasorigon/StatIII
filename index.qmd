@@ -90,7 +90,7 @@ The slides are meant to be used in HTML.
 | Lab 5 | [`lab5.R`](code/lab5.R) |  |  |
 | *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
 |  | **ADVANCED TOPICS** |  |  |
-| **Quasi-likelihoods** | \[Unit E\] | \[Slides Unit E\] |  |
+| **Quasi-likelihoods** | [Unit E]() | [Slides Unit E]() ([pdf version](s)) |  |
 | Lab 6 | [`lab6.R`](code/lab6.R) |  |  |
 | *Exercises* | [Exercises E](exe/exe_E.html) |  |  |
 
@@ -101,6 +101,7 @@ have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------------------|------------------|------------------|------------------|
+| 16 Settembre 2026 | [`case2001`](https://search.r-project.org/CRAN/refmans/Sleuth3/html/case2001.html) | [Exam](exams/2026_09_16.html) |  |
 | 22 Luglio 2026 | [`worldcup`](data/worldcup.csv) | [Exam](exams/2026_07_22.html) | [Soluzione](exams/sol_2026_07_22.html) |
 | 25 Giugno 2026 | [`warpbreaks`](https://search.r-project.org/R/refmans/datasets/html/warpbreaks.html) | [Exam](exams/2026_06_25.html) | [Soluzione] |
 | 10 Febbraio 2026 | [`Default`](https://search.r-project.org/CRAN/refmans/ISLR2/html/Default.html) | [Exam](exams/2026_02_10.html) | [Soluzione](exams/sol_2026_02_10.html) |

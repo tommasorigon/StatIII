@@ -1,0 +1,114 @@
+---
+title: "Esame del 16 Settembre 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  eval: false
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: false
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor: 
+  markdown: 
+    wrap: 72
+editor_options: 
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+Il tempo a disposizione per lo svolgimento della prova è di **2 ore e 30 minuti**. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.
+
+Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.
+
+## Parte I: analisi dei dati
+
+```{r}
+#| message: false
+rm(list = ls())
+```
+
+Si considerino i dati `case2001` della libreria `Sleuth3`, relativi alla spedizione Donner (*Donner party*). Nel 1846 un gruppo di pionieri partito dall'Illinois e diretto in California tentò una scorciatoia mai percorsa prima e rimase bloccato dalla neve sulla Sierra Nevada per tutto l'inverno. Quando, nell'aprile del 1847, si concluse l'ultima spedizione di soccorso, circa quaranta membri del gruppo erano morti di fame e di freddo. Il dataset contiene informazioni sui $n = 45$ membri adulti della spedizione (età pari o superiore a 15 anni). Le variabili presenti sono:
+
+- `Age`: età in anni;
+- `Sex`: sesso (`Female` oppure `Male`);
+- `Status`: esito finale (`Died` oppure `Survived`).
+
+Prima di procedere con le analisi, si eseguano i comandi seguenti, che creano la variabile binaria `survived`, pari a $1$ se la persona è sopravvissuta e $0$ altrimenti:
+
+```{r}
+#| echo: true
+library(Sleuth3)
+donner <- case2001
+donner$survived <- ifelse(donner$Status == "Survived", 1, 0)
+```
+
+Facendo uso del software **R**, si risponda alle seguenti domande.
+
+(a) Si riportino la tabella di contingenza tra `Sex` e `Status` e la proporzione di sopravvissuti per ciascun sesso. Si costruisca inoltre un boxplot della variabile `Age` raggruppata rispetto a `Status` (senza riportarlo). Si commentino i risultati ottenuti.
+
+(b) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `survived` e come variabili esplicative `Age` e `Sex`. Si indichi tale modello con `m1`. Si riportino:
+    i. la componente casuale, la componente sistematica e la funzione legame del modello;
+    ii. l'equazione che esprime la probabilità stimata di sopravvivenza in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza;
+    iii. il valore delle statistiche test e i *p-value* dei test di Wald, test di Rao (score) e di log-rapporto di verosimiglianza per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test. I tre test forniscono valori sensibilmente diversi? Si commenti questo aspetto;
+    iv. un'interpretazione dei coefficienti stimati in termini di **rapporti di quote** (*odds ratio*). In particolare, si quantifichi di quanto cambiano le quote di sopravvivenza di un uomo rispetto a una donna della stessa età, e l'effetto di un aumento di $10$ anni di età a parità di sesso.
+
+(c) Si modifichi il modello `m1` aggiungendo un effetto di interazione tra `Age` e `Sex`. Si indichi tale modello con `m2`. Si riportino:
+    i. l'equazione del predittore lineare stimato, scritta separatamente per le donne e per gli uomini;
+    ii. un'interpretazione di tutti i coefficienti stimati. In particolare, come cambia l'effetto dell'età sulla probabilità di sopravvivenza tra uomini e donne, rispetto a quanto emerso nel modello `m1`?
+    iii. il grafico delle probabilità di sopravvivenza stimate da `m2` in funzione di `Age`, con una curva per ciascun sesso, sovrapposte ai dati osservati (si abbozzi un grafico approssimativo con carta e penna). Il *range* della variabile esplicativa deve essere $(15, 65)$. Si commentino i risultati.
+
+(d) Il modello `m2` è preferibile rispetto al modello `m1`? Si risponda confrontando i due modelli mediante il test di Wald e il test di log-rapporto di verosimiglianza, riportando il sistema di ipotesi, il valore delle statistiche test, i gradi di libertà e i *p-value*. Si confrontino inoltre i due modelli mediante AIC e BIC. Si commentino le eventuali discordanze tra i diversi criteri.
+
+(e) Si riporti la previsione della probabilità di sopravvivenza per una donna di $50$ anni, sulla base del modello `m1` e sulla base del modello `m2`. Per entrambe le previsioni si fornisca un intervallo di confidenza di livello $0.95$, spiegando come è stato costruito. Si commentino le differenze tra le due previsioni e tra le ampiezze dei due intervalli.
+
+(f) È possibile verificare la presenza di sovradispersione nel modello `m1` sulla base della devianza residua o della statistica $X^2$ di Pearson? Si motivi la risposta.
+
+(g) Si discutano criticamente i risultati ottenuti.
+    i. Sulla base dei modelli stimati è lecito concludere che le donne abbiano una maggiore capacità di resistere a condizioni estreme? Si discuta il possibile ruolo di variabili non osservate, come ad esempio il fatto di viaggiare insieme alla propria famiglia oppure da soli.
+    ii. Sarebbe ragionevole utilizzare il modello `m1` per prevedere la probabilità di sopravvivenza di un bambino di $8$ anni? Si motivi la risposta.
+
+## Parte II: teoria ed esercizi
+
+#### Problema 1
+
+Si consideri la famiglia di trasformazioni di Box-Cox
+$$
+y^{(\lambda)} = \begin{cases} \displaystyle\frac{y^{\lambda} - 1}{\lambda}, & \lambda \neq 0, \\[2mm] \log{y}, & \lambda = 0,\end{cases} \qquad y > 0,
+$$
+e si assuma che, per un opportuno valore di $\lambda$, valga il modello lineare $Y_i^{(\lambda)} \sim \text{N}(\boldsymbol{x}_i^T\beta, \sigma^2)$, per $i = 1,\dots,n$ osservazioni indipendenti.
+
+Si scriva la log-verosimiglianza per $(\lambda, \beta, \sigma^2)$, prestando particolare attenzione al termine jacobiano della trasformazione: da dove nasce e cosa comporterebbe la sua omissione? Si spieghi quindi come si ottiene la log-verosimiglianza profilo per $\lambda$ e come viene utilizzata nella scelta della trasformazione. Si discutano infine i limiti di questo approccio.
+
+#### Problema 2
+
+Si consideri una regressione logistica per dati binari, in cui $Y_{ij} \sim \text{Bernoulli}(\pi_i)$ sono variabili aleatorie indipendenti, con $j = 1,\dots,m_i$ e $i = 1,\dots,n$, e in cui le unità che condividono lo stesso valore delle covariate $\boldsymbol{x}_i$ possono essere raggruppate, ottenendo le variabili $S_i = \sum_{j=1}^{m_i}Y_{ij} \sim \text{Binomiale}(m_i, \pi_i)$.
+
+Si confrontino l'analisi condotta sui dati non raggruppati e quella condotta sui dati raggruppati. In particolare, si mostri che le stime di massima verosimiglianza di $\beta$ e i relativi errori standard coincidono, mentre i valori della devianza sono diversi. Si spieghi il motivo di tale differenza, facendo riferimento al modello saturo nei due casi, e se ne discutano le conseguenze sull'utilizzo della devianza come misura della bontà di adattamento.
+
+#### Problema 3
+
+Si supponga di specificare soltanto i primi due momenti della variabile risposta, ossia
+$$
+\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = \phi \, v(\mu_i), \qquad g(\mu_i) = \boldsymbol{x}_i^T\beta, \qquad i = 1,\dots,n,
+$$
+senza assumere una specifica distribuzione di probabilità per $Y_i$.
+
+Si illustri il concetto di quasi-verosimiglianza. In particolare, si scriva la funzione quasi-score e si verifichi che il suo valore atteso è nullo. Si chiarisca in che senso tale approccio generalizza la stima di massima verosimiglianza nei GLM e in quali casi le equazioni di stima coincidono. Si descriva infine come viene stimato il parametro di dispersione $\phi$ e quali sono le conseguenze della sua introduzione sugli errori standard e sui test.
