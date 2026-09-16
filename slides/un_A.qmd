@@ -57,7 +57,7 @@ editor_options:
 
 # Please ignore this chunk
 knitr::purl("un_A.qmd", output = "../code/un_A.R", documentation = 0)
-styler:::style_file("../code/un_A.R")
+styler::style_file("../code/un_A.R")
 ```
 
 ::: columns
@@ -236,8 +236,8 @@ corresponding vector of [coefficients]{.orange}.
     vector $\boldsymbol{Y} = (Y_1,\dots,Y_n)^T$, whose [observed
     realization]{.blue} is $\boldsymbol{y} = (y_1,\dots,y_n)^T$.
 
--   The [design matrix]{.blue} is a $n \times p$ matrix, comprising the
-    covariate's values, defined by $$
+-   The [design matrix]{.blue} is an $n \times p$ matrix, comprising the
+    covariate values, defined by $$
     \boldsymbol{X} = 
     \begin{bmatrix} 
     x_{11} & \cdots & x_{1p}\\
@@ -264,7 +264,7 @@ corresponding vector of [coefficients]{.orange}.
 ## Linear regression: estimation I
 
 -   The optimal set of coefficients $\hat{\beta}$ is the minimizer of
-    the [least squared criterion]{.orange} $$
+    the [least squares criterion]{.orange} $$
     D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol{X}\beta) = ||\boldsymbol{y} - \boldsymbol{X}\beta||^2,
     $$ also known as [residual sum of squares (RSS)]{.orange}, where $$
     ||\boldsymbol{y}|| = \sqrt{y_1^2 + \cdots + y_n^2},$$ denotes the [Euclidean
@@ -273,10 +273,10 @@ corresponding vector of [coefficients]{.orange}.
 . . .
 
 ::: callout-note
-#### Least square estimate (OLS)
+#### Least squares estimate (OLS)
 
 If the design matrix has [full rank]{.blue}, that is, if
-$\text{rk}(\boldsymbol{X}^T\boldsymbol{X}) = p$, then the [least square
+$\text{rk}(\boldsymbol{X}^T\boldsymbol{X}) = p$, then the [least squares
 estimate]{.orange} has an explicit solution: $$
     \hat{\beta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y}.
     $$
@@ -287,7 +287,7 @@ estimate]{.orange} has an explicit solution: $$
 -   In matrix notation, the predicted values can be obtained as $$
     \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
     $$
-where $\boldsymbol{H}$ is a $n \times n$ [projection matrix]{.orange}
+where $\boldsymbol{H}$ is an $n \times n$ [projection matrix]{.orange}
     sometimes called [hat matrix]{.blue}. The matrix is idempotent, meaning that $\boldsymbol{H} = \boldsymbol{H}^T$ and $\boldsymbol{H}^2 = \boldsymbol{H}$.
 
 
@@ -332,12 +332,12 @@ where $\boldsymbol{H}$ is a $n \times n$ [projection matrix]{.orange}
     \hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\boldsymbol{X}^T\boldsymbol{X})^{-1}).
     $$
 
--   Confidence interval and Wald's tests can be obtained through
+-   Confidence intervals and Wald tests can be obtained through
     classical inferential theory.
 
 
 
-## Linear regression: diagnostic
+## Linear regression: diagnostics
 
 - The diagonal elements $h_i \in [0, 1]$ of the matrix $\boldsymbol{H}$ are called [leverages]{.blue} and it holds
 $$
@@ -574,7 +574,7 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m2)[c(1, 3, 10)
     size and the consumption is monotone.
 
 -   Yet, there is still some heteroscedasticity in the residuals --- is
-    this is due to a missing covariate that has not been included in the
+    this due to a missing covariate that has not been included in the
     model?
 
 ## A third model: additional variables
@@ -652,11 +652,11 @@ kable(data.frame(r.squared.original = r.squared.original, glance(m3)[c(1, 3, 10)
 
 - **(A.1)** [Linear structure]{.blue}, namely $\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon}$ with $\mathbb{E}(\boldsymbol{\epsilon}) = 0$, implying $\mathbb{E}(\boldsymbol{Y}) = \boldsymbol{X}\beta$. [^err1] 
 
-- **(A.2)** [Homoscedasticity]{.orange} and [uncorrelation]{.orange} of the errors, namely $\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n$.
+- **(A.2)** [Homoscedasticity]{.orange} and [lack of correlation]{.orange} of the errors, namely $\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n$.
 
 - **(A.3)** [Gaussianity]{.grey}, namely $\boldsymbol{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)$. In other words, the errors $\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)$ are iid Gaussian random variables with zero mean and variance $\sigma^2$.
 
-It is also commonly asked that $\text{rk}(\boldsymbol{X}) = p$, otherwise the model is not identifiable.
+It is also commonly assumed that $\text{rk}(\boldsymbol{X}) = p$, otherwise the model is not identifiable.
 :::
 
 - If one of the above assumptions is violated, it is not necessarily a huge problem, because
@@ -666,7 +666,7 @@ It is also commonly asked that $\text{rk}(\boldsymbol{X}) = p$, otherwise the mo
 <!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
 
 
-<!-- - Even if the data are [heroschedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
+<!-- - Even if the data are [heteroscedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
 
 [^err1]: If the intercept is included in $\boldsymbol{X}$, the errors automatically satisfy the property $\mathbb{E}(\boldsymbol{\epsilon}) = 0$.
 
@@ -688,7 +688,7 @@ It is also commonly asked that $\text{rk}(\boldsymbol{X}) = p$, otherwise the mo
 
 . . .
 
-- The OLS estimate $\hat{\beta}$ is [not]{.orange} anymore the [maximum likelihood]{.orange} estimator, but it [preserves]{.blue} most of its [properties]{.blue} and a [geometric interpretation]{.blue}. 
+- The OLS estimate $\hat{\beta}$ is [no longer]{.orange} the [maximum likelihood]{.orange} estimator, but it [preserves]{.blue} most of its [properties]{.blue} and a [geometric interpretation]{.blue}. 
 
 :::callout-tip
 Under **(A.1)**-**(A.2)**, even without requiring normality of the errors **(A.3)**, we obtain the usual formulas:
@@ -704,7 +704,7 @@ Moreover, because of [Gauss-Markov]{.blue} theorem, the OLS estimator $\hat{\bet
 
 ## Non-normality of the errors II
 
-- When the errors are non Gaussian the [exact inferential results]{.blue} are not valid. In particular $\hat{\beta}$ does not follow anymore a Gaussian distribution.
+- When the errors are non-Gaussian the [exact inferential results]{.blue} are not valid. In particular $\hat{\beta}$ no longer follows a Gaussian distribution.
 
 - However, a [central limit theorem]{.orange} can be invoked under very mild conditions on the design matrix $\boldsymbol{X}$.
 
@@ -722,7 +722,7 @@ from which [confidence intervals]{.blue} and [test statistics]{.blue} can be obt
 There is often an [over-emphasis]{.orange} on testing whether the residuals are Gaussian. However, even if normality is rejected, the practical implications are minimal.
 :::
 
-## Heteroschedasticity of the errors I 📖
+## Heteroscedasticity of the errors I 📖
 
 - Suppose now that the linearity assumption **(A.1)** is valid but [homoscedasticity]{.orange} of the errors **(A.2)** is [not]{.orange}. Instead, we consider [heteroscedastic errors]{.blue}:
 $$
@@ -743,7 +743,7 @@ Under suitable but mild conditions on $\boldsymbol{X}$ and $\boldsymbol{\Sigma}$
 
 [^diagonal]: These results are valid even when the matrix $\boldsymbol{\Sigma}$ is non-diagonal. This is useful to model correlated responses. 
 
-## Heteroschedasticity of the errors II
+## Heteroscedasticity of the errors II
 
 :::callout-tip
 The OLS estimator in presence of heteroscedasticity still gives a [good point estimate]{.blue}. However, the OLS estimator is [not efficient]{.orange} and the classical [standard errors]{.orange} are [wrong]{.orange}. 
@@ -779,17 +779,17 @@ where $\boldsymbol{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)$ are positive 
 $$
 \boldsymbol{Y}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{Y}, \qquad \boldsymbol{X}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{X}. 
 $$
-This is equivalent to say that $Y_i^* = \sqrt{\omega_i} Y_i$ and $x_{ij}^* = \sqrt{\omega_i} x_{ij}$. Then, it is easy to show that
+This is equivalent to saying that $Y_i^* = \sqrt{\omega_i} Y_i$ and $x_{ij}^* = \sqrt{\omega_i} x_{ij}$. Then, it is easy to show that
 $$
 \mathbb{E}(\boldsymbol{Y}^*) = \boldsymbol{X}^*\beta, \qquad \text{var}(\boldsymbol{Y}^*) = \sigma^2\boldsymbol{\Omega}^{1/2}\boldsymbol{\Omega}^{-1}\boldsymbol{\Omega}^{1/2}= \sigma^2 I_n,
 $$
 namely the [assumptions]{.orange} **(A.1)** and **(A.2)** are valid in the [transformed scale]{.blue}.
 
-- In other words, [after]{.orange} a suitable [transformation]{.orange}, we reconducted the problem to a [standard linear model]{.blue}. 
+- In other words, [after]{.orange} a suitable [transformation]{.orange}, we have reduced the problem to a [standard linear model]{.blue}. 
 
 ## Weighted least squares II 📖
 
-- Thus an estimator for $\beta$, based on the transformed data, is obtained minimizing the deviance
+- Thus an estimator for $\beta$, based on the transformed data, is obtained by minimizing the deviance
 $$
 \begin{aligned}
 D_\text{wls}(\beta) &= (\boldsymbol{y}^* - \boldsymbol{X}^*\beta)^T(\boldsymbol{y}^* - \boldsymbol{X}^*\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T\boldsymbol{\Omega}(\boldsymbol{y} - \boldsymbol{X}\beta) \\
@@ -798,7 +798,7 @@ D_\text{wls}(\beta) &= (\boldsymbol{y}^* - \boldsymbol{X}^*\beta)^T(\boldsymbol{
 $$
 which is a [weighted]{.orange} version of the original [quadratic loss]{.blue}, with [high weight = low variance]{.orange}.
 
-- The resulting OLS estimate minimizing $D_\text{wls}(\beta)$ in the transformed and original scales is
+- The resulting estimate minimizing $D_\text{wls}(\beta)$ in the transformed and original scales is
 $$
 \hat{\beta}_\text{wls} = [(\boldsymbol{X}^*)^T\boldsymbol{X}^*]^{-1}(\boldsymbol{X}^*)^T\boldsymbol{y}^* = (\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{y} 
 $$
@@ -846,7 +846,7 @@ g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 $$
 and $g_\lambda(y) = \log{y}$ when $\lambda = 0$. This is the celebrated [Box-Cox transform]{.blue}.
 
-The case $\lambda = 1$ corresponds to no transformation, $\lambda= 1/2$ to the square root, $\lambda = 0$ to the logarithm, and $\lambda= −1$ to the reciprocal.
+The case $\lambda = 1$ corresponds to no transformation, $\lambda= 1/2$ to the square root, $\lambda = 0$ to the logarithm, and $\lambda= -1$ to the reciprocal.
 :::
 
 . . .
@@ -1001,7 +1001,7 @@ Thus, the coefficient $\beta_j$ can [no longer]{.orange} be [interpreted]{.orang
 
 - In the case of transformations of the [response]{.orange} variable we let $\mathbb{E}(g(Y_i)) = \boldsymbol{x}_i^T\beta$. However:  
 $$
-  g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\boldsymbol{x}_i^T\beta).
+  g(\mathbb{E}(Y_i)) \neq \mathbb{E}(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\boldsymbol{x}_i^T\beta).
 $$
 Thus $\hat{y}_i = g^{-1}(\boldsymbol{x}_i^T\hat{\beta})$ is a [reasonable prediction]{.blue} for $Y_i$ and [not an estimate]{.orange} for its [mean]{.orange}.
 

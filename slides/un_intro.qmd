@@ -71,9 +71,9 @@ editor_options:
   
 - In _Statistica III_ we extend linear models within a unified and elegant framework. 
 
-- Regression is such an important topic that the [tour]{.orange} will [continue]{.orange} at the [M.Sc. at CLAMSES]{.blue}. In [Data Mining](https://tommasorigon.github.io/datamining/) I will cover penalized methods and nonparametric regression.
+- Regression is such an important topic that the [tour]{.orange} will [continue]{.orange} in the [M.Sc. at CLAMSES]{.blue}. In [Data Mining](https://tommasorigon.github.io/datamining/) I will cover penalized methods and nonparametric regression.
 
-- Indeed, GLMs can be arguably regarded one of the most influential statistical ideas of the XX century.
+- Indeed, GLMs can arguably be regarded as one of the most influential statistical ideas of the 20th century.
 :::
 :::
 
@@ -115,7 +115,7 @@ $$
 $$
 \mathbb{E}(S_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
 $$
-where $\Phi(x)$ is the cumulative distribution function of a Gaussian distribution. 
+where $\Phi(x)$ is the cumulative distribution function of a standard Gaussian distribution. 
 
 . . .
 
@@ -149,7 +149,7 @@ In fact, this approach is currently known as [logistic regression]{.blue}.
 ## The content of this course
 
 - [General theory]{.blue}
-  - Linear models and misspecification	
+  - Linear models and misspecification
   - Generalized Linear Models (GLMs)
 
 - [Notable models]{.orange}

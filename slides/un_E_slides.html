@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="un_E_files/libs/clipboard/clipboard.min.js"></script>
+<script src="un_E_files/libs/quarto-html/tabby.min.js"></script>
+<script src="un_E_files/libs/quarto-html/popper.min.js"></script>
+<script src="un_E_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="un_E_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="un_E_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="un_E_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
+
+  <meta name="author" content="Tommaso Rigon">
+  <title>Quasi-likelihoods</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/theme/quarto-8fd9a32a7a1f1c24c97cc70db42e1276.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="un_E_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="un_E_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="un_E_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="un_E_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Quasi-likelihoods</h1>
+  <p class="subtitle">Statistics III - CdL SSE</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<span class="orange">Tommaso Rigon</span> 
+</div>
+        <p class="quarto-title-affiliation">
+            <em>Università degli Studi di Milano-Bicocca</em>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="homepage" class="slide level2 center">
+<h2><a href="../index.html">Homepage</a></h2>
+<!-- TODO: add a portrait of R. W. M. Wedderburn (1947-1975) in img/ and restore the
+     two-column layout used in the other units, e.g.
+::: columns
+::: {.column width="30%"}
+![](img/wedderburn.jpg){width="100%"}
+
+[Robert Wedderburn](https://en.wikipedia.org/wiki/Robert_Wedderburn_(statistician))
+
+Rothamsted Experimental Station
+:::
+::: {.column width="70%"}
+-->
+<ul>
+<li><p>In <a href="un_C.html">Unit C</a> and <a href="un_D.html">Unit D</a> we encountered <span class="orange">overdispersion</span> as a common failure mode of binomial and Poisson regression.</p></li>
+<li><p>This unit presents <span class="blue">quasi-likelihoods</span>, which handle overdispersion <span class="orange">without</span> specifying a parametric distribution for the response.</p></li>
+<li><p>Only the <span class="blue">first two moments</span> of <span class="math inline">Y_i</span> are specified, together with the <span class="grey">link function</span>.</p></li>
+<li><p>This yields estimators that are <span class="orange">robust</span> to misspecification, in the same spirit of <a href="un_A.html">Unit A</a>.</p></li>
+<li><p>Quasi-likelihoods were introduced by <span class="citation" data-cites="Wedderburn1974">Wedderburn (<a href="#/references" role="doc-biblioref" onclick="">1974</a>)</span>, extending the GLM framework of <span class="citation" data-cites="Nelder1972">Nelder and Wedderburn (<a href="#/references" role="doc-biblioref" onclick="">1972</a>)</span>.</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The content of this Unit is covered in <span class="orange">Chapter 6</span> of <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>. Alternatively, see <span class="blue">Chapter 8</span> of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span> and the original paper <span class="citation" data-cites="Wedderburn1974">Wedderburn (<a href="#/references" role="doc-biblioref" onclick="">1974</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<section id="overdispersion" class="title-slide slide level1 center">
+<h1>Overdispersion</h1>
+
+</section>
+<section id="overdispersion-recap" class="slide level2 center">
+<h2>Overdispersion: recap</h2>
+<ul>
+<li><p>Recall that in a GLM the response is <span class="math inline">Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span>, with <span class="math inline">g(\mu_i) = \eta_i = \bm{x}_i^T\beta</span>, so that <span class="math display">
+\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = a_i(\phi)v(\mu_i) = \frac{\phi}{\omega_i}v(\mu_i),
+</span> where <span class="math inline">v(\cdot)</span> is the <span class="blue">variance function</span>, <span class="math inline">\phi</span> the <span class="orange">dispersion</span> and <span class="math inline">\omega_i</span> are <span class="grey">known weights</span>.</p></li>
+<li><p>In <span class="orange">Poisson regression</span> we have <span class="math inline">\omega_i = 1</span>, <span class="math inline">v(\mu_i) = \mu_i</span> and <span class="math inline">\phi = 1</span> is <span class="orange">fixed by the model</span>.</p></li>
+<li><p>In <span class="orange">binomial regression</span> we have <span class="math inline">\omega_i = m_i</span>, <span class="math inline">v(\mu_i) = \mu_i(1 - \mu_i)</span> and again <span class="math inline">\phi = 1</span> is <span class="orange">fixed</span>.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>We say that the data present <span class="blue">overdispersion</span> when the actual variability of the observations is <span class="orange">larger</span> than the one implied by the model, namely when <span class="math display">
+\text{var}(Y_i) = \textcolor{red}{\phi}\frac{v(\mu_i)}{\omega_i}, \qquad \text{with} \quad \phi &gt; 1.
+</span> In such a case the Poisson or the binomial model is <span class="orange">misspecified</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="where-does-overdispersion-come-from" class="slide level2 center">
+<h2>Where does overdispersion come from?</h2>
+<ul>
+<li><p><span class="blue">Unobserved heterogeneity</span>. Subjects sharing the same covariate values may still differ because of variables that were not recorded. If <span class="math inline">Y_i \mid U_i \sim \text{Poisson}(U_i\mu_i)</span> with <span class="math inline">\mathbb{E}(U_i) = 1</span> and <span class="math inline">\text{var}(U_i) = \sigma^2</span>, then <span class="math display">
+\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = \mu_i + \sigma^2\mu_i^2 &gt; \mu_i.
+</span> Note that this mechanism produces a <span class="grey">quadratic</span> variance function, not <span class="math inline">\phi\mu_i</span>.</p></li>
+<li><p><span class="orange">Positive dependence</span>. The <span class="math inline">m_i</span> Bernoulli trials forming a binomial observation may be <span class="orange">correlated</span>, e.g.&nbsp;littermates, pupils in the same class, members of the same household; see <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, Section 8.2.1.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="grey">Misspecification of the mean</span>. A large <span class="math inline">X^2</span> may simply be due to an <span class="blue">omitted covariate</span>, a missing <span class="blue">interaction</span> or a <span class="blue">wrong link</span>: in this case correcting for overdispersion is <span class="orange">not</span> the right remedy.</li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Adjusting the standard errors is appropriate <span class="orange">only if</span> the structural part of the model, that is <span class="math inline">\mathbb{E}(Y_i) = g^{-1}(\bm{x}_i^T\beta)</span>, is <span class="blue">correctly specified</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="detecting-overdispersion" class="slide level2 center">
+<h2>Detecting overdispersion</h2>
+<ul>
+<li><p>The natural diagnostic is the generalized <span class="blue">Pearson statistic</span> introduced in <a href="un_B.html">Unit B</a>: <span class="math display">
+X^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)} = \sum_{i=1}^n r_{i, P}^2.
+</span></p></li>
+<li><p>When <span class="math inline">\phi = 1</span> and the model is correct, under <span class="grey">small-dispersion asymptotics</span> we have <span class="math inline">X^2 \: \dot{\sim} \: \chi^2_{n-p}</span>, therefore <span class="math inline">\mathbb{E}(X^2) \approx n - p</span>. A value <span class="math inline">X^2 \gg n-p</span> is <span class="orange">evidence of overdispersion</span>.</p></li>
+<li><p>The same reasoning applies to the <span class="blue">residual deviance</span> <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span>, since <span class="math inline">X^2</span> and <span class="math inline">D(\bm{y}; \hat{\bm{\mu}})</span> are asymptotically equivalent.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="orange">method of moments</span> estimator of <a href="un_B.html">Unit B</a> summarizes the amount of overdispersion: <span class="math display">
+\hat{\phi} = \frac{X^2}{n-p} = \frac{1}{n-p}\sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>Values <span class="math inline">\hat{\phi} \gg 1</span> indicate overdispersion; <span class="math inline">\hat{\phi} &lt; 1</span> indicates the (rarer) <span class="grey">underdispersion</span>.</li>
+</ul>
+</div>
+</section>
+<section id="a-common-mistake-marginal-versus-conditional-variance" class="slide level2 center">
+<h2>A common mistake: marginal versus conditional variance</h2>
+<ul>
+<li><p>A frequent shortcut is to compare the <span class="blue">sample mean</span> and the <span class="orange">sample variance</span> of the response, and to declare overdispersion whenever <span class="math inline">\text{var}(y) \gg \bar{y}</span>. This is <span class="orange">wrong</span>.</p></li>
+<li><p>The Poisson assumption concerns the <span class="blue">conditional</span> distribution of <span class="math inline">Y_i</span> <span class="orange">given the covariates</span>: nothing forces the <span class="grey">marginal</span> distribution of the response to satisfy <span class="math inline">\text{var}(Y) = \mathbb{E}(Y)</span>.</p></li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href=""></a>n_sim <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb1-3"><a href=""></a>x_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="co"># binary covariate</span></span>
+<span id="cb1-4"><a href=""></a>y_sim <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, <span class="at">lambda =</span> <span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x_sim)) <span class="co"># no overdispersion at all</span></span>
+<span id="cb1-5"><a href=""></a></span>
+<span id="cb1-6"><a href=""></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(y_sim), <span class="at">variance =</span> <span class="fu">var</span>(y_sim))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    mean variance 
+ 28.2105 691.1528 </code></pre>
+</div>
+</div>
+<ul>
+<li>The data were generated by a <span class="blue">Poisson regression model</span>, hence there is <span class="orange">no overdispersion</span>, and yet the marginal variance is more than <span class="math inline">20</span> times the marginal mean.</li>
+</ul>
+</section>
+<section id="a-common-mistake-marginal-versus-conditional-variance-1" class="slide level2 center">
+<h2>A common mistake: marginal versus conditional variance</h2>
+
+<img data-src="un_E_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"><ul>
+<li>The marginal distribution is <span class="orange">bimodal</span>: the excess variability is entirely explained by the covariate.</li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>m_sim <span class="ot">&lt;-</span> <span class="fu">glm</span>(y_sim <span class="sc">~</span> x_sim, <span class="at">family =</span> poisson)</span>
+<span id="cb3-2"><a href=""></a><span class="fu">sum</span>(<span class="fu">residuals</span>(m_sim, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> m_sim<span class="sc">$</span>df.residual <span class="co"># phi_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.009118</code></pre>
+</div>
+</div>
+<ul>
+<li>The correct diagnostic, <span class="math inline">\hat{\phi} = X^2/(n-p)</span>, is <span class="blue">close to one</span>, as it should be.</li>
+</ul>
+</section>
+<section id="two-remedies" class="slide level2 center">
+<h2>Two remedies</h2>
+<ul>
+<li><p><strong>(i)</strong> <span class="blue">Quasi-likelihoods</span>. Keep the mean structure <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span> and the variance function <span class="math inline">v(\mu_i)</span>, but treat <span class="math inline">\phi</span> as an <span class="orange">unknown parameter</span> to be estimated. No parametric distribution is assumed.</p></li>
+<li><p><strong>(ii)</strong> <span class="orange">Parametric overdispersed models</span>. Replace the Poisson with a <span class="blue">negative binomial</span> (<a href="un_D.html">Unit D</a>), or the binomial with a <span class="blue">beta-binomial</span> (<a href="un_C.html">Unit C</a>).</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">quasi-likelihood</span> approach is simpler and more <span class="orange">flexible</span>: it requires weaker assumptions and it is obtained at essentially <span class="blue">no computational cost</span>.</p>
+<p>The <span class="orange">parametric</span> approach allows fully <span class="blue">likelihood-based</span> inference (AIC, log-likelihood ratio tests, prediction of the whole distribution), at the price of a <span class="orange">stronger assumption</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The two approaches are <span class="orange">not</span> equivalent: they give the <span class="blue">same</span> point estimates only in special cases, since e.g.&nbsp;the negative binomial implies the <span class="grey">quadratic</span> variance function <span class="math inline">v(\mu_i) = \mu_i + \mu_i^2/\alpha</span>.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="the-quasi-likelihood-model" class="title-slide slide level1 center">
+<h1>The quasi-likelihood model</h1>
+
+</section>
+<section id="a-motivating-remark" class="slide level2 center">
+<h2>A motivating remark</h2>
+<ul>
+<li><p>Recall the <span class="blue">Gaussian linear model</span> of <a href="un_A.html">Unit A</a>, whose maximum likelihood estimator solves the <span class="orange">normal equations</span> <span class="math inline">\bm{X}^T(\bm{y} - \bm{X}\beta) = \bm{0}</span>, giving <span class="math inline">\hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}</span>.</p></li>
+<li><p>Under the full Gaussian assumption <span class="math inline">\bm{\epsilon} \sim \text{N}_n(\bm{0}, \sigma^2 I_n)</span> the <span class="blue">exact</span> distribution <span class="math inline">\hat{\beta} \sim \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1})</span> is available.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>However, we saw that under the much weaker <span class="orange">second-order assumptions</span> <span class="math inline">\mathbb{E}(\bm{\epsilon}) = \bm{0}</span> and <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2I_n</span>, the estimator <span class="math inline">\hat{\beta}</span> remains <span class="blue">unbiased</span>, <span class="blue">efficient</span> (Gauss-Markov) and <span class="blue">asymptotically normal</span>.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="orange">normality assumption</span> is therefore used to obtain the <span class="blue">exact</span> distribution of <span class="math inline">\hat{\beta}</span>, but it is <span class="orange">not needed</span> for its fundamental properties. If the normal model is <span class="orange">misspecified</span> but the second-order assumptions hold, the inference remains valid for <span class="math inline">n</span> large enough.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The natural question is whether the same happens for the <span class="blue">maximum likelihood estimator of a GLM</span>. The answer, as we shall see, is <span class="orange">yes</span>.</li>
+</ul>
+</div>
+</section>
+<section id="second-order-assumptions" class="slide level2 center">
+<h2>Second-order assumptions</h2>
+<ul>
+<li>The starting point of <span class="citation" data-cites="Wedderburn1974">Wedderburn (<a href="#/references" role="doc-biblioref" onclick="">1974</a>)</span> is the following remark. The <span class="blue">likelihood equations</span> of a GLM, derived in <a href="un_B.html">Unit B</a>, <span class="math display">
+\sum_{i=1}^n \omega_i\frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r}= 0, \qquad r=1,\dots,p,
+</span> depend on the distribution of <span class="math inline">Y_i</span> <span class="orange">only</span> through <span class="math inline">\mathbb{E}(Y_i) = \mu_i</span> and <span class="math inline">\text{var}(Y_i) = a_i(\phi)v(\mu_i)</span>.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>The quasi-likelihood model</strong></p>
+</div>
+<div class="callout-content">
+<p>We only assume the following <span class="blue">second-order</span> conditions, for <span class="math inline">i=1,\dots,n</span>:</p>
+<ul>
+<li><p><strong>(E.1)</strong> <span class="blue">Mean structure</span>: <span class="math inline">\quad\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta)</span>;</p></li>
+<li><p><strong>(E.2)</strong> <span class="orange">Mean-variance relationship</span>: <span class="math inline">\quad \text{var}(Y_i) = \dfrac{\phi}{\omega_i}v(\mu_i)</span>, with <span class="math inline">\phi &gt; 0</span> <span class="orange">unknown</span>;</p></li>
+<li><p><strong>(E.3)</strong> <span class="grey">Independence</span>: <span class="math inline">\quad Y_i</span> and <span class="math inline">Y_j</span> are independent for <span class="math inline">i \neq j</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li>This is a <span class="blue">semiparametric</span> model: the family of all distributions satisfying <strong>(E.1)</strong>-<strong>(E.3)</strong> cannot be indexed by a <span class="orange">finite number of parameters</span>, yet the assumptions on the <span class="blue">first two moments</span> are fully parametric.</li>
+</ul>
+</div>
+</section>
+<section id="second-order-assumptions-of-notable-models" class="slide level2 center">
+<h2>Second-order assumptions of notable models</h2>
+<ul>
+<li>It is instructive to make <strong>(E.1)</strong>-<strong>(E.3)</strong> explicit for the models of <a href="un_B.html">Unit B</a>. The <span class="orange">dispersion</span> <span class="math inline">\phi</span> is now <span class="blue">free</span>, whereas <span class="math inline">\omega_i</span> and <span class="math inline">v(\cdot)</span> are inherited from the parametric model.</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: center;"><span class="math inline">\omega_i</span></th>
+<th style="text-align: center;"><span class="math inline">v(\mu_i)</span></th>
+<th style="text-align: center;"><span class="math inline">\text{var}(Y_i)</span> under <strong>(E.2)</strong></th>
+<th style="text-align: center;">canonical <span class="math inline">g(\mu_i)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\text{N}(\mu_i, \sigma^2)</span></td>
+<td style="text-align: center;"><span class="math inline">1</span></td>
+<td style="text-align: center;"><span class="math inline">1</span></td>
+<td style="text-align: center;"><span class="math inline">\phi</span></td>
+<td style="text-align: center;"><span class="math inline">\mu_i</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\text{Poisson}(\mu_i)</span></td>
+<td style="text-align: center;"><span class="math inline">1</span></td>
+<td style="text-align: center;"><span class="math inline">\mu_i</span></td>
+<td style="text-align: center;"><span class="math inline">\phi\,\mu_i</span></td>
+<td style="text-align: center;"><span class="math inline">\log{\mu_i}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\frac{1}{m_i}\text{Binomial}(m_i,\mu_i)</span></td>
+<td style="text-align: center;"><span class="math inline">m_i</span></td>
+<td style="text-align: center;"><span class="math inline">\mu_i(1-\mu_i)</span></td>
+<td style="text-align: center;"><span class="math inline">\phi\,\dfrac{\mu_i(1-\mu_i)}{m_i}</span></td>
+<td style="text-align: center;"><span class="math inline">\text{logit}(\mu_i)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\text{Gamma}(\alpha, \alpha/\mu_i)</span></td>
+<td style="text-align: center;"><span class="math inline">1</span></td>
+<td style="text-align: center;"><span class="math inline">\mu_i^2</span></td>
+<td style="text-align: center;"><span class="math inline">\phi\,\mu_i^2</span></td>
+<td style="text-align: center;"><span class="math inline">-1/\mu_i</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>For the <span class="blue">Gaussian</span> and the <span class="blue">Gamma</span> models nothing changes: <span class="math inline">\phi</span> was already an unknown parameter. The gain in flexibility concerns the <span class="orange">discrete</span> responses — <span class="orange">counts</span> and <span class="orange">proportions</span> — for which the parametric model imposes <span class="math inline">\phi = 1</span> and the variance is entirely determined by the mean.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-quasi-score-function" class="slide level2 center">
+<h2>The quasi-score function</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Under <strong>(E.1)</strong>-<strong>(E.3)</strong> we define the <span class="blue">quasi-score</span> function <span class="math inline">\bm{q}(\bm{y};\beta) = (q_1(\bm{y};\beta),\dots,q_p(\bm{y};\beta))^T</span> as <span class="math display">
+q_r(\bm{y};\beta) = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r} = \frac{1}{\phi}\sum_{i=1}^n \omega_i\frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r = 1,\dots,p.
+</span> In <span class="blue">matrix notation</span>, exactly as in <a href="un_B.html">Unit B</a>, <span class="math display">
+\bm{q}(\bm{y};\beta) = \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{X}^T\bm{W}_0(\bm{y} - \bm{\mu}),
+</span> where <span class="math inline">\bm{V} = \text{var}(\bm{Y}) = \phi \,\text{diag}(v(\mu_1)/\omega_1,\dots,v(\mu_n)/\omega_n)</span>, the matrix <span class="math inline">\bm{D}</span> has elements <span class="math inline">d_{ir} = x_{ir}/g'(\mu_i)</span>, and <span class="math inline">\bm{W}_0 = \text{diag}(w_{0,1},\dots,w_{0,n})</span> with <span class="math display">
+w_{0,i} = \frac{\omega_i}{\phi\, v(\mu_i) g'(\mu_i)}, \qquad i=1,\dots,n.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>The <span class="orange">quasi-likelihood estimator</span> <span class="math inline">\hat{\beta}</span> is the solution of <span class="math inline">\bm{q}(\bm{y};\beta) = \bm{0}</span>, which <span class="blue">does not depend</span> on <span class="math inline">\phi</span>.</li>
+</ul>
+</section>
+<section id="the-quasi-score-is-a-score-in-disguise" class="slide level2 center">
+<h2>The quasi-score is a score in disguise</h2>
+<ul>
+<li>Whenever the response really belongs to an exponential dispersion family, <span class="math inline">\bm{q}(\bm{y};\beta)</span> is <span class="orange">exactly</span> the score function <span class="math inline">\ell_*(\beta;\phi)</span> of <a href="un_B.html">Unit B</a>. In general, it is <span class="orange">not</span> the derivative of a log-likelihood.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Nevertheless, under <strong>(E.1)</strong>-<strong>(E.3)</strong> alone, the quasi-score retains the two <span class="grey">Bartlett identities</span>: 📖 <span class="math display">
+\mathbb{E}\{q_r(\bm{Y};\beta)\} = 0, \qquad \mathbb{E}\{q_r(\bm{Y};\beta) q_s(\bm{Y};\beta)\} = -\mathbb{E}\left\{\frac{\partial}{\partial \beta_s} q_r(\bm{Y};\beta)\right\}.
+</span></p></li>
+<li><p>The first identity only requires <strong>(E.1)</strong>, since <span class="math inline">\mathbb{E}(Y_i - \mu_i) = 0</span>. The second requires <strong>(E.2)</strong>-<strong>(E.3)</strong> and follows from <span class="math inline">\mathbb{E}\{(Y_i - \mu_i)(Y_j - \mu_j)\} = 0</span> for <span class="math inline">i \neq j</span>.</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>It is precisely this <span class="blue">analogy</span> with the score function that motivates the name <span class="orange">quasi-likelihood</span>: the quantity <span class="math inline">\bm{q}(\bm{y};\beta)</span> behaves like a score, <span class="orange">even though</span> no distribution has been specified.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>As we shall see, this is enough to recover <span class="blue">consistency</span>, <span class="blue">asymptotic normality</span> and a notion of <span class="blue">optimality</span> for <span class="math inline">\hat{\beta}</span>.</li>
+</ul>
+</div>
+</section>
+<section id="quasi-likelihoods-in-practice" class="slide level2 center">
+<h2>Quasi-likelihoods in practice</h2>
+<ul>
+<li>Before developing the theory, it is worth stating how simple the resulting <span class="blue">recipe</span> is, for the Poisson and binomial cases.</li>
+</ul>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>The quasi-likelihood recipe</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>Fit the <span class="orange">ordinary GLM</span> and keep its maximum likelihood estimate <span class="math inline">\hat{\beta}</span>: the estimating equations are <span class="blue">unchanged</span>, hence so are the <span class="blue">point estimates</span> and the IRLS algorithm.</p></li>
+<li><p>Estimate the dispersion through <span class="math inline">\hat{\phi} = X^2/(n-p)</span> and <span class="orange">multiply</span> all the standard errors of the ordinary GLM by <span class="math inline">\sqrt{\hat{\phi}}</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<ul>
+<li><p><span class="blue">Overdispersed Poisson</span> model: <span class="math inline">\text{var}(Y_i) = \phi\mu_i</span> and <span class="math inline">\quad\hat{\phi} = \dfrac{1}{n-p}\sum_{i=1}^n\dfrac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i}</span>.</p></li>
+<li><p><span class="orange">Overdispersed binomial</span> model: <span class="math inline">\text{var}(Y_i) = \phi\dfrac{\mu_i(1-\mu_i)}{m_i}</span> and <span class="math inline">\quad\hat{\phi} = \dfrac{1}{n-p}\sum_{i=1}^n m_i\dfrac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i(1-\hat{\mu}_i)}</span>.</p></li>
+<li><p>In <strong>R</strong>, the whole procedure amounts to changing the <code>family</code> argument of <code>glm</code>.</p></li>
+</ul>
+</section></section>
+<section>
+<section id="unbiased-estimating-equations" class="title-slide slide level1 center">
+<h1>Unbiased estimating equations</h1>
+
+</section>
+<section id="estimating-equations" class="slide level2 center">
+<h2>Estimating equations</h2>
+<ul>
+<li>Let us take a short detour and consider a general parameter <span class="math inline">\vartheta \in \Theta \subseteq \mathbb{R}^d</span>.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>A function <span class="math inline">\bm{q}(\bm{y};\vartheta) = (q_1(\bm{y};\vartheta),\dots,q_d(\bm{y};\vartheta))^T</span> provides an <span class="blue">unbiased estimating equation</span> for <span class="math inline">\vartheta</span> if <span class="math display">
+\mathbb{E}_\vartheta\{\bm{q}(\bm{Y};\vartheta)\} = \bm{0}, \qquad \text{for every } \vartheta \in \Theta.
+</span> The resulting <span class="orange">estimator</span> <span class="math inline">\tilde{\vartheta}</span> is defined as the solution of <span class="math inline">\bm{q}(\bm{y};\vartheta) = \bm{0}</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The <span class="blue">score function</span> of a regular model is the leading example, because of the first <span class="grey">Bartlett identity</span> <span class="math inline">\mathbb{E}\{\ell_*(\vartheta)\} = \bm{0}</span>. Maximum likelihood is therefore a <span class="orange">special case</span>.</p></li>
+<li><p>The distribution of <span class="math inline">\bm{Y}</span> may depend on <span class="grey">additional aspects</span> beyond <span class="math inline">\vartheta</span>, which are left unspecified. This is exactly what happens in the quasi-likelihood model.</p></li>
+</ul>
+
+<aside><div>
+<p>The systematic study of estimating equations dates back to <span class="citation" data-cites="Godambe1960">Godambe (<a href="#/references" role="doc-biblioref" onclick="">1960</a>)</span>. A modern account is given in Chapter 7 of <span class="citation" data-cites="Davison2003">Davison (<a href="#/references" role="doc-biblioref" onclick="">2003</a>)</span>.</p>
+</div></aside></section>
+<section id="consistency-and-asymptotic-normality" class="slide level2 center">
+<h2>Consistency and asymptotic normality 📖</h2>
+<ul>
+<li>Suppose that <span class="math inline">n^{-1}\bm{q}(\bm{Y};\vartheta) \overset{p}{\to} \bm{0}</span> by a <span class="grey">law of large numbers</span> at the true <span class="math inline">\vartheta</span>, and that <span class="math inline">\bm{q}(\bm{y};\cdot)</span> is continuous and one-to-one in a neighborhood of it. Then <span class="math inline">\tilde{\vartheta}</span> is <span class="blue">consistent</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>For the <span class="orange">distribution</span> of <span class="math inline">\tilde{\vartheta}</span>, define the two <span class="math inline">d \times d</span> matrices <span class="math display">
+\bm{J}(\vartheta) = \mathbb{E}\{\bm{q}(\bm{Y};\vartheta)\bm{q}(\bm{Y};\vartheta)^T\}, \qquad \bm{H}(\vartheta) = -\mathbb{E}\left\{\frac{\partial}{\partial \vartheta^T}\bm{q}(\bm{Y};\vartheta)\right\}.
+</span></p></li>
+<li><p>A <span class="grey">local linearization</span> of <span class="math inline">\bm{q}(\bm{y};\tilde{\vartheta}) = \bm{0}</span> around the true value gives <span class="math inline">\tilde{\vartheta} - \vartheta \approx \bm{H}(\vartheta)^{-1}\bm{q}(\bm{y};\vartheta)</span>.</p></li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Under regularity conditions analogous to those required for the score function, <span class="math display">
+\tilde{\vartheta} \: \dot{\sim} \: \text{N}_d\left(\vartheta, \: \bm{H}(\vartheta)^{-1}\bm{J}(\vartheta)\bm{H}(\vartheta)^{-1}\right).
+</span> The covariance matrix has the so-called <span class="orange">sandwich</span> form.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>If <span class="math inline">\bm{q}(\bm{y};\vartheta)</span> is the <span class="blue">score</span> of a correctly specified regular model, the second Bartlett identity gives <span class="math inline">\bm{J}(\vartheta) = \bm{H}(\vartheta) = \bm{I}(\vartheta)</span>, and the sandwich <span class="orange">collapses</span> to the usual <span class="math inline">\bm{I}(\vartheta)^{-1}</span>.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="properties-of-the-estimator" class="title-slide slide level1 center">
+<h1>Properties of the estimator</h1>
+
+</section>
+<section id="consistency-and-asymptotic-normality-of-hatbeta" class="slide level2 center">
+<h2>Consistency and asymptotic normality of <span class="math inline">\hat{\beta}</span> 📖</h2>
+<ul>
+<li><p>Let us go back to the quasi-likelihood model and compute <span class="math inline">\bm{H}(\beta)</span> and <span class="math inline">\bm{J}(\beta)</span> for <span class="math inline">\bm{q}(\bm{y};\beta) = \bm{X}^T\bm{W}_0(\bm{y}-\bm{\mu})</span>.</p></li>
+<li><p>Since <span class="math inline">\mathbb{E}(\bm{Y} - \bm{\mu}) = \bm{0}</span> and <span class="math inline">\partial \bm{\mu} / \partial \beta^T = \bm{D}</span>, only one term survives: 📖 <span class="math display">
+\bm{H}(\beta) = \bm{X}^T\bm{W}_0\bm{D} = \bm{X}^T\bm{W}\bm{X}, \qquad \bm{J}(\beta) = \bm{X}^T\bm{W}_0\text{var}(\bm{Y})\bm{W}_0\bm{X},
+</span> where <span class="math inline">\bm{W} = \text{diag}(w_1,\dots,w_n)</span> collects the <span class="blue">usual GLM weights</span> of <a href="un_B.html">Unit B</a>, namely <span class="math display">
+w_i = \frac{w_{0,i}}{g'(\mu_i)}=\frac{1}{\phi}\frac{\omega_i}{v(\mu_i)g'(\mu_i)^2} = \frac{1}{\text{var}(Y_i)g'(\mu_i)^2}, \qquad i=1,\dots,n.
+</span></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Under <strong>(E.2)</strong> we have <span class="math inline">\text{var}(\bm{Y}) = \bm{V}</span> and therefore <span class="math inline">\bm{W}_0\bm{V}\bm{W}_0 = \bm{W}</span>, that is <span class="math inline">\bm{J}(\beta) = \bm{H}(\beta)</span>.</li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Under <strong>(E.1)</strong>-<strong>(E.3)</strong> the estimator <span class="math inline">\hat{\beta}</span> is <span class="blue">consistent</span> and <span class="math display">
+\hat{\beta} \: \dot{\sim} \: \text{N}_p\left(\beta, (\bm{X}^T\bm{W}\bm{X})^{-1}\right),
+</span> which is <span class="orange">formally identical</span> to the result obtained in <a href="un_B.html">Unit B</a> for the maximum likelihood estimator.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="robustness-of-hatbeta" class="slide level2 center">
+<h2>Robustness of <span class="math inline">\hat{\beta}</span></h2>
+<ul>
+<li>The assumption <span class="math inline">Y_i \sim \text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span> may well be <span class="orange">false</span>: what is <span class="blue">essential</span> is the assumption <strong>(E.1)</strong> on the mean.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The estimator <span class="math inline">\hat{\beta}</span> is <span class="blue">consistent</span> even when the <span class="orange">variance function</span> <span class="math inline">v(\mu_i)</span> is <span class="orange">misspecified</span>, provided that the <span class="blue">link function</span> and the <span class="blue">linear predictor</span> are correct.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The heuristic argument is simple: if <span class="math inline">\mu_i = g^{-1}(\bm{x}_i^T\beta)</span> then <span class="math inline">\mathbb{E}\{\bm{q}(\bm{Y};\beta)\} = \bm{0}</span> <span class="orange">whatever</span> <span class="math inline">\text{var}(Y_i)</span> is. Hence <span class="math inline">n^{-1}\bm{q}(\bm{Y};\beta)</span>, a vector of sample means, converges to <span class="math inline">\bm{0}</span>; the <span class="grey">continuous mapping theorem</span> does the rest.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Misspecifying <span class="math inline">v(\mu_i)</span> has two consequences: a <span class="orange">loss of efficiency</span>, and — more seriously — <span class="orange">wrong standard errors</span>, because <span class="math inline">\bm{J}(\beta) \neq \bm{H}(\beta)</span>.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>This is the exact analogue of what happens in <a href="un_A.html">Unit A</a> with <span class="blue">heteroscedastic</span> linear models: the OLS estimator remains a good point estimate, but the classical standard errors are wrong and a <span class="orange">sandwich</span> correction is required.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="an-optimality-property" class="slide level2 center">
+<h2>An optimality property</h2>
+<ul>
+<li>In the Gaussian linear model of <a href="un_A.html">Unit A</a>, the <span class="blue">Gauss-Markov</span> theorem states that OLS is the most efficient estimator among the linear and unbiased ones, <span class="orange">without</span> requiring normality.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><span class="citation" data-cites="McCullagh1983">McCullagh (<a href="#/references" role="doc-biblioref" onclick="">1983</a>)</span> proved the following <span class="orange">asymptotic</span> version of the Gauss-Markov theorem. Under <strong>(E.1)</strong>-<strong>(E.3)</strong>, among all the estimators based on <span class="blue">unbiased estimating equations</span> that are <span class="orange">linear</span> in <span class="math inline">\bm{y}</span>, the solution <span class="math inline">\hat{\beta}</span> of <span class="math inline">\bm{q}(\bm{y};\beta) = \bm{0}</span> has <span class="blue">maximum asymptotic precision</span>: for any <span class="math inline">\bm{a} \in \mathbb{R}^p</span>, the estimator <span class="math inline">\bm{a}^T\hat{\beta}</span> has minimum asymptotic variance.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Note that <span class="math inline">\hat{\beta}</span> does <span class="orange">not</span> minimize the quadratic form <span class="math inline">(\bm{y} - \bm{\mu})^T\text{var}(\bm{Y})^{-1}(\bm{y}-\bm{\mu})</span>, because <span class="math inline">\bm{\mu}</span> appears in both factors. In this sense <span class="math inline">\hat{\beta}</span> — and not generalized least squares — is the <span class="blue">correct generalization</span> of OLS under <strong>(E.1)</strong>-<strong>(E.3)</strong>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Since the estimating equations are <span class="orange">unchanged</span>, the <span class="blue">IRLS</span> algorithm of <a href="un_B.html">Unit B</a> applies <span class="orange">verbatim</span>.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="estimation-and-standard-errors" class="title-slide slide level1 center">
+<h1>Estimation and standard errors</h1>
+
+</section>
+<section id="estimation-of-the-dispersion-phi" class="slide level2 center">
+<h2>Estimation of the dispersion <span class="math inline">\phi</span></h2>
+<ul>
+<li>The estimating equations do not involve <span class="math inline">\phi</span>, but <span class="math inline">\phi</span> <span class="orange">does</span> enter the covariance matrix of <span class="math inline">\hat{\beta}</span> and must therefore be estimated.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">method of moments</span> estimator introduced in <a href="un_B.html">Unit B</a>, <span class="math display">
+\hat{\phi} = \frac{X^2}{n - p} = \frac{1}{n - p}\sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)},
+</span> remains <span class="orange">consistent</span> under the assumptions <strong>(E.1)</strong>-<strong>(E.3)</strong>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>An asymptotically equivalent alternative is based on the <span class="blue">deviance</span>, namely <span class="math inline">\hat{\phi}_D = D(\bm{y}; \hat{\bm{\mu}})/(n-p)</span>.</p></li>
+<li><p>The <span class="blue">Pearson</span> version <span class="math inline">\hat{\phi}</span> is generally <span class="orange">preferred</span> and is the one reported by <strong>R</strong>.</p></li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The divisor <span class="math inline">n-p</span> plays the same role as in the estimator <span class="math inline">s^2</span> of <span class="math inline">\sigma^2</span> in a Gaussian linear model: it is a <span class="blue">bias correction</span> accounting for the <span class="math inline">p</span> estimated regression coefficients.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="model-based-standard-errors" class="slide level2 center">
+<h2>Model-based standard errors</h2>
+<ul>
+<li><p>Plugging <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span> into <span class="math inline">\bm{W}</span> we get <span class="math inline">\hat{\bm{W}}</span> and therefore <span class="math display">
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}, \qquad [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
+</span></p></li>
+<li><p>The weights <span class="math inline">w_i</span> are <span class="blue">inversely proportional</span> to <span class="math inline">\phi</span>, therefore <span class="math inline">\hat{\bm{W}} = \hat{\phi}^{-1}\hat{\bm{W}}_{\phi = 1}</span> and</p></li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>In Poisson and binomial regression, the quasi-likelihood <span class="blue">point estimates</span> <span class="math inline">\hat{\beta}</span> coincide with the maximum likelihood ones, whereas <span class="orange">all</span> the standard errors are inflated by the <span class="orange">same factor</span> <span class="math inline">\sqrt{\hat{\phi}}</span>: <span class="math display">
+[\widehat{\text{se}}_\text{quasi}(\hat{\beta})]_j = \sqrt{\hat{\phi}}\:[\widehat{\text{se}}_\text{glm}(\hat{\beta})]_j, \qquad j=1,\dots,p.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>If <span class="math inline">\hat{\phi} &gt; 1</span>, ignoring overdispersion produces <span class="orange">too narrow</span> confidence intervals and <span class="orange">too large</span> test statistics, i.e.&nbsp;<span class="orange">overconfident</span> conclusions.</p></li>
+<li><p>This estimate is consistent <span class="blue">provided</span> that the variance function <span class="math inline">v(\mu_i)</span> is correctly specified.</p></li>
+</ul>
+</section>
+<section id="the-sandwich-estimator" class="slide level2 center">
+<h2>The sandwich estimator 📖</h2>
+<ul>
+<li>What if we are not willing to assume <strong>(E.2)</strong> either? We go back to the <span class="orange">general</span> sandwich form <span class="math display">
+\text{var}(\hat{\beta}) \: \dot= \: (\bm{X}^T\bm{W}\bm{X})^{-1}\:\bm{X}^T\bm{W}_0\text{var}(\bm{Y})\bm{W}_0\bm{X}\:(\bm{X}^T\bm{W}\bm{X})^{-1},
+</span> and <span class="blue">estimate</span> the unknown <span class="math inline">\text{var}(\bm{Y})</span> by <span class="math inline">\text{diag}\{(y_i - \hat{\mu}_i)^2\}</span>.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">sandwich</span> (or <span class="orange">robust</span>) estimator of the covariance matrix of <span class="math inline">\hat{\beta}</span> is <span class="math display">
+\widehat{\text{var}}_R(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}\:\bm{X}^T\hat{\bm{W}}_0\text{diag}\{(y_i - \hat{\mu}_i)^2\}\hat{\bm{W}}_0\bm{X}\:(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>It is <span class="orange">consistent</span> irrespective of the correctness of the variance function, but it requires a <span class="blue">large <span class="math inline">n</span></span> and it is <span class="orange">less efficient</span> when <span class="math inline">v(\mu_i)</span> is in fact correct.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>This is the GLM counterpart of <span class="blue">White’s</span> heteroscedasticity-consistent standard errors of <a href="un_A.html">Unit A</a>; see <span class="citation" data-cites="Huber1967">Huber (<a href="#/references" role="doc-biblioref" onclick="">1967</a>)</span> and <span class="citation" data-cites="White1980">White (<a href="#/references" role="doc-biblioref" onclick="">1980</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sandwich-estimator-a-simple-example" class="slide level2 center">
+<h2>Sandwich estimator: a simple example 📖</h2>
+<ul>
+<li><p>Consider the <span class="blue">null</span> Poisson-type model with the <span class="orange">identity link</span>, that is <span class="math inline">\mathbb{E}(Y_i) = \beta_1</span> and <span class="math inline">v(\mu_i) = \mu_i</span>, with <span class="math inline">\omega_i = 1</span> and <span class="math inline">g'(\mu_i) = 1</span>.</p></li>
+<li><p>Since <span class="math inline">\hat{\mu}_i = \hat{\beta}_1 = \bar{y}</span>, straightforward computations give <span class="math display">
+(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \frac{\hat{\phi}\bar{y}}{n}, \qquad \bm{X}^T\hat{\bm{W}}_0 = \frac{1}{\hat{\phi}\bar{y}}\bm{1}_n^T.
+</span></p></li>
+<li><p>Therefore the two estimators of <span class="math inline">\text{var}(\hat{\beta}_1)</span> are <span class="math display">
+\widehat{\text{var}}(\hat{\beta}_1) = \frac{\hat{\phi}\bar{y}}{n}, \qquad \widehat{\text{var}}_R(\hat{\beta}_1) = \frac{1}{n^2}\sum_{i=1}^n(y_i - \bar{y})^2.
+</span></p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">model-based</span> estimator relies on the relationship <span class="math inline">\text{var}(Y_i) = \phi\mu_i</span>, whereas the <span class="orange">robust</span> one is essentially the <span class="blue">sample variance</span> of the data divided by <span class="math inline">n</span>, and makes no use of the mean-variance relationship.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-quasi-log-likelihood" class="title-slide slide level1 center">
+<h1>The quasi-log-likelihood</h1>
+
+</section>
+<section id="definition" class="slide level2 center">
+<h2>Definition</h2>
+<ul>
+<li>So far we only used <span class="math inline">\bm{q}(\bm{y};\beta)</span>. It is however possible to <span class="blue">integrate</span> it and obtain a function playing the role of a log-likelihood.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">quasi-log-likelihood</span> function is defined, up to additive constants, as <span class="math display">
+Q(\bm{\mu}; \bm{y}) = \sum_{i=1}^n Q_i(\mu_i; y_i), \qquad Q_i(\mu_i; y_i) = \int_{y_i}^{\mu_i} \frac{\omega_i(y_i - t)}{\phi\,v(t)}\,\mathrm{d}t.
+</span> By the chain rule, <span class="math inline">\partial Q(\bm{\mu};\bm{y}) / \partial \beta_r = q_r(\bm{y};\beta)</span> for <span class="math inline">r=1,\dots,p</span>. 📖</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Indeed, if <span class="math inline">F(\cdot)</span> is a primitive of <span class="math inline">t \mapsto \omega_i(y_i - t)/\{\phi v(t)\}</span>, then <span class="math inline">Q_i(\mu_i;y_i) = F(\mu_i) - F(y_i)</span> and <span class="math display">
+\frac{\partial}{\partial \beta_r} \{F(\mu_i) - F(y_i)\} = F'(\mu_i)\frac{\partial \mu_i}{\partial \beta_r} = \frac{\omega_i(y_i - \mu_i)}{\phi\,v(\mu_i)}\frac{\partial\mu_i}{\partial \beta_r}.
+</span></p></li>
+<li><p>The integrand is the quasi-score of a <span class="orange">single observation</span>, for which <span class="math display">
+\mathbb{E}\left\{\frac{\omega_i(Y_i - \mu_i)}{\phi\,v(\mu_i)}\right\} = 0, \qquad \text{var}\left\{\frac{\omega_i(Y_i - \mu_i)}{\phi\,v(\mu_i)}\right\} = \frac{\omega_i}{\phi\,v(\mu_i)},
+</span> again in perfect analogy with a genuine score contribution.</p></li>
+</ul>
+</section>
+<section id="quasi-deviance" class="slide level2 center">
+<h2>Quasi-deviance</h2>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">quasi-deviance</span> is defined as <span class="math inline">D(\bm{y};\hat{\bm{\mu}}) = 2\phi\{Q(\bm{y};\bm{y}) - Q(\hat{\bm{\mu}};\bm{y})\}</span>, that is <span class="math display">
+D(\bm{y}; \hat{\bm{\mu}}) = 2\sum_{i=1}^n \omega_i\int_{\hat{\mu}_i}^{y_i}\frac{y_i - t}{v(t)}\,\mathrm{d}t \; \ge \; 0.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>As the ordinary deviance, it does <span class="orange">not</span> depend on <span class="math inline">\phi</span> nor on the link function, and it <span class="blue">vanishes</span> at the saturated model <span class="math inline">\hat{\bm{\mu}} = \bm{y}</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>For <span class="math inline">v(\mu) = \mu</span> and <span class="math inline">\omega_i = 1</span> we recover the <span class="orange">Poisson deviance</span> of <a href="un_B.html">Unit B</a>: <span class="math display">
+D(\bm{y}; \hat{\bm{\mu}}) = 2\sum_{i=1}^n\left\{y_i\log(y_i/\hat{\mu}_i) - y_i + \hat{\mu}_i\right\}.
+</span></p></li>
+<li><p>For <span class="math inline">v(\mu) = \mu(1-\mu)</span> and <span class="math inline">\omega_i = m_i</span> we recover the <span class="orange">binomial deviance</span>. In general the quasi-deviance associated with <span class="math inline">v(\cdot)</span> <span class="blue">coincides</span> with the deviance of the corresponding exponential dispersion family, when one exists.</p></li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Consequently, <strong>R</strong> reports for a quasi-likelihood model <span class="orange">exactly the same</span> null and residual deviances of the corresponding Poisson or binomial GLM. They must <span class="orange">not</span> be used as goodness-of-fit statistics, since here <span class="math inline">\phi \ne 1</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="inference" class="title-slide slide level1 center">
+<h1>Inference</h1>
+
+</section>
+<section id="hypothesis-testing" class="slide level2 center">
+<h2>Hypothesis testing</h2>
+<ul>
+<li>Consider, as in <a href="un_B.html">Unit B</a>, two <span class="grey">nested models</span> <span class="math inline">M_0 \subset M_1</span> with <span class="math inline">p_0</span> and <span class="math inline">p</span> parameters, and let <span class="math inline">q = p - p_0</span>.</li>
+</ul>
+<div class="callout callout-note no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The <span class="blue">quasi-log-likelihood ratio</span> statistic for testing <span class="math inline">H_0: \beta_B = \bm{0}</span> is <span class="math display">
+W = 2\{Q(\hat{\bm{\mu}};\bm{y}) - Q(\hat{\bm{\mu}}_0;\bm{y})\} = \frac{D(\bm{y};\hat{\bm{\mu}}_0) - D(\bm{y};\hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q,
+</span> which is <span class="orange">formally the same</span> expression obtained in <a href="un_B.html">Unit B</a>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Similarly, the <span class="blue">Wald</span> statistic for <span class="math inline">H_0 : \beta_j = 0</span> is <span class="math inline">\hat{\beta}_j/[\widehat{\text{se}}(\hat{\beta})]_j</span>, and the <span class="grey">Rao-score</span> statistic <span class="math inline">W_u</span> is obtained from the quasi-score evaluated at the restricted estimate. The three tests remain <span class="blue">asymptotically equivalent</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The <span class="orange">robust</span> version of the Wald test replaces <span class="math inline">\widehat{\text{var}}(\hat{\beta})</span> with the sandwich <span class="math inline">\widehat{\text{var}}_R(\hat{\beta})</span>.</li>
+</ul>
+</div>
+</section>
+<section id="t-and-f-instead-of-z-and-chi2" class="slide level2 center">
+<h2><span class="math inline">t</span> and <span class="math inline">F</span>, instead of <span class="math inline">z</span> and <span class="math inline">\chi^2</span></h2>
+<ul>
+<li><p>There is one <span class="orange">practical difference</span> with respect to <a href="un_B.html">Unit B</a>: here <span class="math inline">\phi</span> is <span class="blue">always estimated</span>, exactly as <span class="math inline">\sigma^2</span> in a Gaussian linear model.</p></li>
+<li><p>Accordingly, <strong>R</strong> reports for quasi families a <span class="math inline">\texttt{t value}</span> rather than a <span class="math inline">\texttt{z value}</span>, and refers the statistics to <span class="math display">
+T_j = \frac{\hat{\beta}_j}{[\widehat{\text{se}}(\hat{\beta})]_j} \: \dot{\sim} \: t_{n-p}, \qquad \frac{W}{q} = \frac{D(\bm{y};\hat{\bm{\mu}}_0) - D(\bm{y};\hat{\bm{\mu}})}{q\,\hat{\phi}} \: \dot{\sim} \: F_{q, \,n-p}.
+</span></p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Both distributions are <span class="orange">approximations</span>, motivated by the analogy with the Gaussian linear model, in which they would be <span class="blue">exact</span>. They are more <span class="blue">conservative</span> than the <span class="math inline">\text{N}(0,1)</span> and <span class="math inline">\chi^2_q</span> approximations, with which they coincide for large <span class="math inline">n - p</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>In <strong>R</strong>, use <code>anova(m0, m1, test = "F")</code> — or <code>test = "Chisq"</code> for the <span class="math inline">\chi^2_q</span> version — and <code>drop1(m, test = "F")</code>.</li>
+</ul>
+</section>
+<section id="model-selection" class="slide level2 center">
+<h2>Model selection</h2>
+<ul>
+<li><p>The quasi-log-likelihood is <span class="orange">not</span> a log-likelihood, hence the <span class="blue">AIC</span> and the <span class="blue">BIC</span> of <a href="un_B.html">Unit B</a> are <span class="orange">not available</span>: <strong>R</strong> returns <code>AIC: NA</code>.</p></li>
+<li><p>Nested models can still be compared through the <span class="math inline">F</span> (or <span class="math inline">\chi^2</span>) tests described above, which is the <span class="blue">recommended</span> strategy for this course.</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>A commonly used surrogate is the <span class="orange">quasi-AIC</span> of <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#/references" role="doc-biblioref" onclick="">1989</a>)</span>, <span class="math display">
+\text{QAIC} = \frac{D(\bm{y};\hat{\bm{\mu}})}{\hat{\phi}} + 2p,
+</span> in which the scaled quasi-deviance replaces <span class="math inline">-2\ell(\hat{\beta})</span>.</li>
+</ul>
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The QAIC must be used with <span class="orange">care</span>: the <span class="blue">same</span> <span class="math inline">\hat{\phi}</span>, estimated from the <span class="orange">most complex</span> model under consideration, has to be used for all the candidate models, otherwise the comparison is meaningless.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="notable-quasi-likelihood-models" class="title-slide slide level1 center">
+<h1>Notable quasi-likelihood models</h1>
+
+</section>
+<section id="quasi-poisson" class="slide level2 center">
+<h2>Quasi-Poisson</h2>
+<ul>
+<li><p>The <span class="blue">quasi-Poisson</span> model keeps the Poisson mean structure and variance function, but frees the dispersion: <span class="math display">
+\mathbb{E}(Y_i) = \mu_i = \exp(\bm{x}_i^T\beta), \qquad \text{var}(Y_i) = \phi\,\mu_i, \qquad \omega_i = 1, \quad v(\mu_i) = \mu_i.
+</span></p></li>
+<li><p>The estimate <span class="math inline">\hat{\beta}</span> <span class="orange">coincides</span> with the Poisson maximum likelihood estimate; the standard errors are multiplied by <span class="math inline">\sqrt{\hat{\phi}}</span>.</p></li>
+<li><p>In <strong>R</strong> the model is fitted with <code>family = quasipoisson</code>, or equivalently with <code>family = quasi(link = "log", variance = "mu")</code>.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Compare with the <span class="orange">negative binomial</span> model of <a href="un_D.html">Unit D</a>, where <span class="math inline">\text{var}(Y_i) = \mu_i + \mu_i^2/\alpha</span>. The two models make <span class="blue">different assumptions</span> on how the variance grows with the mean, hence they weight the observations differently and give <span class="orange">different</span> estimates <span class="math inline">\hat{\beta}</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="quasi-binomial" class="slide level2 center">
+<h2>Quasi-binomial</h2>
+<ul>
+<li><p>The <span class="blue">quasi-binomial</span> model is specified for the proportions <span class="math inline">Y_i = S_i/m_i</span> as <span class="math display">
+\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta), \qquad \text{var}(Y_i) = \phi\,\frac{\mu_i(1-\mu_i)}{m_i}, \qquad \omega_i = m_i.
+</span></p></li>
+<li><p>Again <span class="math inline">\hat{\beta}</span> coincides with the binomial maximum likelihood estimate, and the standard errors are inflated by <span class="math inline">\sqrt{\hat{\phi}}</span>. In <strong>R</strong>: <code>family = quasibinomial</code>.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-warning no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>For <span class="orange">binary data</span>, that is when <span class="math inline">m_i = 1</span>, the quasi-binomial model is <span class="orange">meaningless</span>: since <span class="math inline">Y_i \in \{0,1\}</span> we necessarily have <span class="math inline">\mathbb{E}(Y_i^2) = \mathbb{E}(Y_i) = \mu_i</span> and therefore <span class="math display">
+\text{var}(Y_i) = \mu_i(1-\mu_i),
+</span> so that <span class="orange">only</span> <span class="math inline">\phi = 1</span> is possible. Overdispersion simply <span class="blue">cannot occur</span> with ungrouped binary data.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-variance-functions" class="slide level2 center">
+<h2>Other variance functions</h2>
+<ul>
+<li>Nothing forces <span class="math inline">v(\cdot)</span> to be the variance function of an exponential dispersion family. In <strong>R</strong> the <code>quasi</code> family accepts several combinations of link and variance:</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><code>variance</code></th>
+<th style="text-align: left;"><span class="math inline">v(\mu)</span></th>
+<th style="text-align: left;">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>"constant"</code></td>
+<td style="text-align: left;"><span class="math inline">1</span></td>
+<td style="text-align: left;">Gaussian-like, homoscedastic</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>"mu"</code></td>
+<td style="text-align: left;"><span class="math inline">\mu</span></td>
+<td style="text-align: left;">Poisson-like, counts</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>"mu^2"</code></td>
+<td style="text-align: left;"><span class="math inline">\mu^2</span></td>
+<td style="text-align: left;">Gamma-like, constant coefficient of variation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>"mu^3"</code></td>
+<td style="text-align: left;"><span class="math inline">\mu^3</span></td>
+<td style="text-align: left;">inverse-Gaussian-like</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>"mu(1-mu)"</code></td>
+<td style="text-align: left;"><span class="math inline">\mu(1-\mu)</span></td>
+<td style="text-align: left;">binomial-like, proportions</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>For instance, <code>quasi(link = "log", variance = "mu^2")</code> specifies <span class="math inline">\text{var}(Y_i) = \phi\mu_i^2</span>, that is a <span class="blue">constant coefficient of variation</span>, an assumption often more realistic than <span class="math inline">\text{var}(Y_i) = \phi\mu_i</span> for heavily overdispersed counts.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Another useful choice for proportions is the <span class="orange">beta-binomial</span> variance function <span class="math display">
+\text{var}(Y_i) = \frac{\mu_i(1-\mu_i)}{m_i}\{1 + \rho(m_i - 1)\},
+</span> implemented by the <code>quasibin</code> function of the <code>aod</code> library. The inflation factor now <span class="blue">depends on <span class="math inline">m_i</span></span>, which is more sensible than a constant <span class="math inline">\phi</span> when the group sizes vary a lot.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-the-variance-function" class="slide level2 center">
+<h2>Choosing the variance function</h2>
+<ul>
+<li><p>Selecting <span class="math inline">v(\cdot)</span> is a <span class="orange">diagnostic</span> problem: the <span class="blue">standardized Pearson residuals</span> <span class="math inline">\tilde{r}_{i,P}</span> of <a href="un_B.html">Unit B</a> should display no systematic pattern in their <span class="orange">spread</span> when plotted against <span class="math inline">\hat{\mu}_i</span>.</p></li>
+<li><p>A useful check is <span class="math inline">\text{var}(\tilde{r}_{i,P}) \approx 1</span>: a variance much larger than one signals that the assumed <span class="math inline">v(\mu_i)</span> grows <span class="orange">too slowly</span> with the mean.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>A <span class="orange">systematic discrepancy</span> between the model-based standard errors and the <span class="blue">sandwich</span> ones is another warning sign that the assumed mean-variance relationship is inadequate.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Remember that <span class="math inline">\hat{\beta}</span> remains <span class="blue">consistent</span> whatever <span class="math inline">v(\cdot)</span> we choose: the choice affects <span class="orange">efficiency</span> and <span class="orange">standard errors</span>, not the validity of the point estimate.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="counts-the-ants-data" class="title-slide slide level1 center">
+<h1>Counts: the <code>Ants</code> data</h1>
+
+</section>
+<section id="the-ants-dataset" class="slide level2 center">
+<h2>The <code>Ants</code> dataset</h2>
+<ul>
+<li><p>The <code>Ants</code> dataset of the <code>MLGdata</code> library comes from an experiment run by students of an Australian university, see <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, Section 5.7.4. The aim is to assess the preferences of <span class="orange">meat ants</span> (<em>Iridomyrmex purpureus</em>) for different types of sandwich.</p></li>
+<li><p>The <span class="blue">experimental factors</span> are all categorical:</p>
+<ul>
+<li><code>Bread</code> (<span class="math inline">4</span> types): rye, wholemeal, multigrain, white;</li>
+<li><code>Filling</code> (<span class="math inline">3</span> types): Vegemite, peanut butter, ham and pickles;</li>
+<li><code>Butter</code> (<span class="math inline">2</span> levels): present (<span class="math inline">1</span>) or absent (<span class="math inline">-1</span>).</li>
+</ul></li>
+<li><p>For each of the <span class="math inline">4 \times 3 \times 2 = 24</span> combinations, <span class="orange">two</span> pieces of sandwich were placed at random near the entrance of an ant nest, for a total of <span class="math inline">n = 48</span> observations.</p></li>
+<li><p>The <span class="blue">response</span> <code>Ant_count</code> is the number of ants attracted after <span class="math inline">5</span> minutes.</p></li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">data</span>(Ants)</span>
+<span id="cb5-2"><a href=""></a>Ants<span class="sc">$</span>Bread <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Bread)</span>
+<span id="cb5-3"><a href=""></a>Ants<span class="sc">$</span>Filling <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Filling)</span>
+<span id="cb5-4"><a href=""></a>Ants<span class="sc">$</span>Butter <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Butter)</span>
+<span id="cb5-5"><a href=""></a><span class="fu">head</span>(Ants[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Bread Filling Butter Ant_count
+1     1       1      1        22
+2     1       1     -1        18
+3     1       2      1        27
+4     1       2     -1        43
+5     1       3      1        68
+6     1       3     -1        44</code></pre>
+</div>
+</div>
+</section>
+<section id="exploratory-analysis" class="slide level2 center">
+<h2>Exploratory analysis</h2>
+
+<img data-src="un_E_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1350"><ul>
+<li><p><code>Filling</code> and <code>Butter</code> appear to matter, <code>Bread</code> much less so. The within-group <span class="orange">variability</span> is large compared with the group means, which is <span class="blue">suggestive</span> — but, as discussed, not conclusive — of overdispersion.</p></li>
+<li><p>We consider a <span class="blue">Poisson regression</span> model with the canonical link, the main effects and the <code>Filling</code>-<code>Butter</code> <span class="orange">interaction</span>, so that <span class="math inline">n = 48</span> and <span class="math inline">p = 9</span>.</p></li>
+</ul>
+</section>
+<section id="the-poisson-fit" class="slide level2 center">
+<h2>The Poisson fit</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>m_pois <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
+<span id="cb7-2"><a href=""></a>  <span class="at">family =</span> poisson, <span class="at">data =</span> Ants</span>
+<span id="cb7-3"><a href=""></a>)</span>
+<span id="cb7-4"><a href=""></a><span class="fu">summary</span>(m_pois)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Ant_count ~ Bread + Filling * Butter, family = poisson, 
+    data = Ants)
+
+Coefficients:
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       3.38594    0.07467  45.346  &lt; 2e-16 ***
+Bread2            0.15443    0.06076   2.542   0.0110 *  
+Bread3            0.02552    0.06266   0.407   0.6838    
+Bread4           -0.03027    0.06354  -0.476   0.6337    
+Filling2          0.09679    0.08806   1.099   0.2717    
+Filling3          0.46848    0.08130   5.762 8.29e-09 ***
+Butter1           0.06301    0.08878   0.710   0.4778    
+Filling2:Butter1  0.24837    0.11948   2.079   0.0376 *  
+Filling3:Butter1  0.27673    0.11062   2.501   0.0124 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 377.15  on 47  degrees of freedom
+Residual deviance: 183.05  on 39  degrees of freedom
+AIC: 465
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+</section>
+<section id="assessing-overdispersion" class="slide level2 center">
+<h2>Assessing overdispersion</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m_pois, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb9-2"><a href=""></a><span class="fu">c</span>(<span class="at">X2 =</span> X2, <span class="at">df =</span> m_pois<span class="sc">$</span>df.residual, <span class="at">pvalue =</span> <span class="fu">pchisq</span>(X2, m_pois<span class="sc">$</span>df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          X2           df       pvalue 
+1.630666e+02 3.900000e+01 4.141843e-17 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>phi_hat <span class="ot">&lt;-</span> X2 <span class="sc">/</span> m_pois<span class="sc">$</span>df.residual</span>
+<span id="cb11-2"><a href=""></a>phi_hat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.181196</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The <span class="math inline">X^2</span> statistic is far larger than its degrees of freedom <span class="math inline">n - p = 39</span>, with a p-value of essentially zero: there is <span class="orange">strong evidence</span> of lack of fit.</p></li>
+<li><p>The estimated dispersion is <span class="math inline">\hat{\phi} \approx</span> 4.18, so that the Poisson standard errors are too small by a factor of about <span class="math inline">\sqrt{\hat{\phi}} \approx</span> 2.04.</p></li>
+</ul>
+</section>
+<section id="the-quasi-poisson-fit" class="slide level2 center">
+<h2>The quasi-Poisson fit</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>m_quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
+<span id="cb13-2"><a href=""></a>  <span class="at">family =</span> <span class="fu">quasi</span>(<span class="at">link =</span> <span class="st">"log"</span>, <span class="at">variance =</span> <span class="st">"mu"</span>), <span class="at">data =</span> Ants</span>
+<span id="cb13-3"><a href=""></a>)</span>
+<span id="cb13-4"><a href=""></a><span class="fu">summary</span>(m_quasi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Ant_count ~ Bread + Filling * Butter, family = quasi(link = "log", 
+    variance = "mu"), data = Ants)
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       3.38594    0.15269  22.176  &lt; 2e-16 ***
+Bread2            0.15443    0.12424   1.243  0.22128    
+Bread3            0.02552    0.12812   0.199  0.84318    
+Bread4           -0.03027    0.12993  -0.233  0.81697    
+Filling2          0.09679    0.18007   0.537  0.59398    
+Filling3          0.46848    0.16624   2.818  0.00755 ** 
+Butter1           0.06301    0.18154   0.347  0.73037    
+Filling2:Butter1  0.24837    0.24430   1.017  0.31559    
+Filling3:Butter1  0.27673    0.22621   1.223  0.22854    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasi family taken to be 4.181253)
+
+    Null deviance: 377.15  on 47  degrees of freedom
+Residual deviance: 183.05  on 39  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-the-two-fits" class="slide level2 center">
+<h2>Comparing the two fits</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Point estimates are identical</span></span>
+<span id="cb15-2"><a href=""></a><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">coef</span>(m_pois) <span class="sc">-</span> <span class="fu">coef</span>(m_quasi)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.653014e-11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># Standard errors are inflated by the same factor</span></span>
+<span id="cb17-2"><a href=""></a>se_ratio <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_quasi)<span class="sc">$</span>coefficients[, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">summary</span>(m_pois)<span class="sc">$</span>coefficients[, <span class="dv">2</span>]</span>
+<span id="cb17-3"><a href=""></a><span class="fu">round</span>(se_ratio, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     (Intercept)           Bread2           Bread3           Bread4 
+          2.0448           2.0448           2.0448           2.0448 
+        Filling2         Filling3          Butter1 Filling2:Butter1 
+          2.0448           2.0448           2.0448           2.0448 
+Filling3:Butter1 
+          2.0448 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">sqrt</span>(<span class="fu">summary</span>(m_quasi)<span class="sc">$</span>dispersion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.044811</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The <span class="blue">regression coefficients</span> are numerically identical, as expected.</p></li>
+<li><p><span class="orange">All</span> the standard errors are multiplied by <span class="math inline">\sqrt{\hat{\phi}}</span>, and the <span class="blue">inferential conclusions</span> change: several effects that looked significant under the Poisson model are no longer so.</p></li>
+<li><p>The null and residual <span class="grey">deviances</span> reported by <code>summary</code> are the <span class="orange">same</span> as those of the Poisson fit, and <code>AIC</code> is <code>NA</code>.</p></li>
+</ul>
+</section>
+<section id="robust-standard-errors" class="slide level2 center">
+<h2>Robust standard errors</h2>
+<ul>
+<li>The <code>gee</code> library computes the <span class="orange">sandwich</span> standard errors of the previous section. The option <code>scale.fix = TRUE</code> keeps the naive standard errors equal to the Poisson ones.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">library</span>(gee)</span>
+<span id="cb21-2"><a href=""></a>obs <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Ants) <span class="co"># the gee function requires an id for each observation</span></span>
+<span id="cb21-3"><a href=""></a><span class="fu">summary</span>(<span class="fu">gee</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
+<span id="cb21-4"><a href=""></a>  <span class="at">id =</span> obs, <span class="at">family =</span> poisson, <span class="at">data =</span> Ants, <span class="at">scale.fix =</span> <span class="cn">TRUE</span></span>
+<span id="cb21-5"><a href=""></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>In this example the <span class="orange">robust</span> standard errors are comparable with the <span class="blue">quasi-likelihood</span> ones, which is reassuring: it suggests that the variance function <span class="math inline">v(\mu_i) = \mu_i</span> is a <span class="blue">reasonable</span> description of the data.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Note the <span class="grey">terminology</span> used by <code>gee</code>: the standard errors computed under <strong>(E.1)</strong>-<strong>(E.3)</strong> are called <span class="blue">naive</span>, whereas the sandwich ones are called <span class="orange">robust</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="model-simplification" class="slide level2 center">
+<h2>Model simplification</h2>
+<ul>
+<li>The inflation of the standard errors suggests that the model can be <span class="blue">simplified</span>. Nested models are compared through the quasi-likelihood ratio statistic <span class="math inline">W</span>.</li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">drop1</span>(m_quasi, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+Ant_count ~ Bread + Filling * Butter
+               Df Deviance F value Pr(&gt;F)
+&lt;none&gt;              183.05               
+Bread           3   193.85  0.7666 0.5197
+Filling:Butter  2   189.83  0.7222 0.4921</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>m_quasi1 <span class="ot">&lt;-</span> <span class="fu">update</span>(m_quasi, . <span class="sc">~</span> . <span class="sc">-</span> Bread)</span>
+<span id="cb24-2"><a href=""></a><span class="fu">drop1</span>(m_quasi1, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+Ant_count ~ Filling + Butter + Filling:Butter
+               Df Deviance F value Pr(&gt;F)
+&lt;none&gt;              193.85               
+Filling:Butter  2   200.63  0.7345 0.4858</code></pre>
+</div>
+</div>
+<ul>
+<li>Neither <code>Bread</code> nor the <code>Filling:Butter</code> interaction is supported by the data, once overdispersion has been taken into account.</li>
+</ul>
+</div>
+</section>
+<section id="the-final-model" class="slide level2 center">
+<h2>The final model</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>m_quasi2 <span class="ot">&lt;-</span> <span class="fu">update</span>(m_quasi1, . <span class="sc">~</span> . <span class="sc">-</span> Filling<span class="sc">:</span>Butter)</span>
+<span id="cb26-2"><a href=""></a><span class="fu">summary</span>(m_quasi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = Ant_count ~ Filling + Butter, family = quasi(link = "log", 
+    variance = "mu"), data = Ants)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  3.31765    0.10265  32.320  &lt; 2e-16 ***
+Filling2     0.23255    0.11982   1.941  0.05870 .  
+Filling3     0.62070    0.11097   5.593 1.33e-06 ***
+Butter1      0.26321    0.08892   2.960  0.00494 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasi family taken to be 4.068611)
+
+    Null deviance: 377.15  on 47  degrees of freedom
+Residual deviance: 200.63  on 44  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+</section>
+<section id="confidence-and-prediction-intervals" class="slide level2 center">
+<h2>Confidence and prediction intervals</h2>
+<ul>
+<li>Let us predict the number of ants attracted by a specific sandwich. As usual, we work on the scale of the <span class="blue">linear predictor</span> and then transform.</li>
+</ul>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Filling =</span> <span class="st">"3"</span>, <span class="at">Butter =</span> <span class="st">"1"</span>)</span>
+<span id="cb28-2"><a href=""></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_quasi2, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"link"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-3"><a href=""></a></span>
+<span id="cb28-4"><a href=""></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb28-5"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb28-6"><a href=""></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(pred<span class="sc">$</span>fit)</span>
+<span id="cb28-7"><a href=""></a>phi_tilde <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_quasi2)<span class="sc">$</span>dispersion</span>
+<span id="cb28-8"><a href=""></a></span>
+<span id="cb28-9"><a href=""></a><span class="co"># Confidence interval for the mean mu</span></span>
+<span id="cb28-10"><a href=""></a>ci_mean <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">c</span>(pred<span class="sc">$</span>fit <span class="sc">-</span> z <span class="sc">*</span> pred<span class="sc">$</span>se.fit, pred<span class="sc">$</span>fit <span class="sc">+</span> z <span class="sc">*</span> pred<span class="sc">$</span>se.fit))</span>
+<span id="cb28-11"><a href=""></a></span>
+<span id="cb28-12"><a href=""></a><span class="co"># Approximate prediction interval for a new observation</span></span>
+<span id="cb28-13"><a href=""></a>ci_pred <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>), <span class="at">mean =</span> mu_hat, <span class="at">sd =</span> <span class="fu">sqrt</span>(phi_tilde <span class="sc">*</span> mu_hat))</span>
+<span id="cb28-14"><a href=""></a><span class="fu">round</span>(<span class="fu">rbind</span>(ci_mean, ci_pred), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            1     1
+ci_mean 57.53 77.54
+ci_pred 34.48 99.10</code></pre>
+</div>
+</div>
+<ul>
+<li>The <span class="orange">prediction interval</span> relies on the Gaussian approximation <span class="math inline">Y_\text{new} \: \dot{\sim} \: \text{N}(\hat{\mu}_\text{new}, \hat{\phi}\hat{\mu}_\text{new})</span>, whereas under the Poisson model we would use the <span class="blue">exact quantiles</span> <code>qpois(c(0.025, 0.975), mu_hat)</code>.</li>
+</ul>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>This is a genuine <span class="orange">limitation</span> of quasi-likelihoods: without a distribution we cannot compute <span class="math inline">\mathbb{P}(Y_\text{new} = y)</span>, nor exact quantiles. If the whole predictive distribution matters, a <span class="blue">parametric</span> overdispersed model is preferable.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="proportions-the-rats-data" class="title-slide slide level1 center">
+<h1>Proportions: the <code>Rats</code> data</h1>
+
+</section>
+<section id="a-teratology-study" class="slide level2 center">
+<h2>A teratology study</h2>
+<ul>
+<li><p>The <code>Rats</code> dataset of the <code>MLGdata</code> library comes from Moore and Tsiatis (1991); see also <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, Section 6.4.2, and <span class="citation" data-cites="Agresti2015">Agresti (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span>, Section 8.2.4.</p></li>
+<li><p>The purpose is to assess the effect of an <span class="blue">iron supplement</span> on the fetal development of rats:</p>
+<ul>
+<li><span class="math inline">58</span> female rats on an <span class="orange">iron-deficient diet</span> were randomly assigned to four groups: placebo (group <span class="math inline">1</span>), iron on days <span class="math inline">7</span> and <span class="math inline">10</span>, iron on days <span class="math inline">0</span> and <span class="math inline">7</span>, iron weekly;</li>
+<li>the females were made pregnant and, after three weeks, the number of <span class="orange">dead fetuses</span> <span class="math inline">S_i = m_iY_i</span> out of a litter of size <span class="math inline">m_i</span> was recorded, together with the mother’s <span class="blue">haemoglobin level</span> <span class="math inline">h_i</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>The <span class="orange">response</span> is the proportion of dead fetuses <span class="math inline">Y_i = S_i/m_i</span>, so <span class="math inline">\omega_i = m_i</span> and <span class="math inline">v(\mu_i) = \mu_i(1-\mu_i)</span>.</p></li>
+<li><p>The probability of death may <span class="blue">vary across litters</span>, even within the same group and at the same haemoglobin level, because of unrecorded genetic variability: a natural source of <span class="orange">overdispersion</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="the-rats-dataset" class="slide level2 center">
+<h2>The <code>Rats</code> dataset</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">data</span>(Rats)</span>
+<span id="cb30-2"><a href=""></a><span class="fu">head</span>(Rats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  litter group   h  n  s
+1      1     1 4.1 10  1
+2      2     1 3.2 11  4
+3      3     1 4.7 12  9
+4      4     1 3.5  4  4
+5      5     1 3.2 10 10
+6      6     1 5.9 11  9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="co"># Mortality rate within each group</span></span>
+<span id="cb32-2"><a href=""></a><span class="fu">with</span>(Rats, <span class="fu">tapply</span>(s, group, sum) <span class="sc">/</span> <span class="fu">tapply</span>(n, group, sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1          2          3          4 
+0.75840979 0.10169492 0.03448276 0.04807692 </code></pre>
+</div>
+</div>
+<ul>
+<li><p>The mortality rate in the <span class="orange">placebo group</span> is dramatically higher than in the three treated groups, which look similar to each other.</p></li>
+<li><p>We therefore <span class="blue">dichotomize</span> the group variable, distinguishing placebo from treated.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>Rats<span class="sc">$</span>placebo <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Rats<span class="sc">$</span>group <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="logistic-regression" class="slide level2 center">
+<h2>Logistic regression</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>m_bin <span class="ot">&lt;-</span> <span class="fu">glm</span>(s <span class="sc">/</span> n <span class="sc">~</span> placebo <span class="sc">+</span> h, <span class="at">weights =</span> n, <span class="at">family =</span> binomial, <span class="at">data =</span> Rats)</span>
+<span id="cb35-2"><a href=""></a><span class="fu">summary</span>(m_bin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = s/n ~ placebo + h, family = binomial, data = Rats, 
+    weights = n)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.62391    0.78996  -0.790   0.4296    
+placebo      2.65088    0.48238   5.495  3.9e-08 ***
+h           -0.18713    0.07428  -2.519   0.0118 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 509.43  on 57  degrees of freedom
+Residual deviance: 170.57  on 55  degrees of freedom
+AIC: 248.04
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+</section>
+<section id="assessing-overdispersion-1" class="slide level2 center">
+<h2>Assessing overdispersion</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>X2_rats <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m_bin, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb37-2"><a href=""></a><span class="fu">c</span>(<span class="at">X2 =</span> X2_rats, <span class="at">df =</span> m_bin<span class="sc">$</span>df.residual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     X2      df 
+159.815  55.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>phi_rats <span class="ot">&lt;-</span> X2_rats <span class="sc">/</span> m_bin<span class="sc">$</span>df.residual</span>
+<span id="cb39-2"><a href=""></a>phi_rats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.905728</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Here <span class="math inline">X^2 \approx 160</span> against <span class="math inline">n - p = 55</span> degrees of freedom: there is <span class="orange">clear evidence</span> of overdispersion, with <span class="math inline">\hat{\phi} \approx</span> 2.91.</p></li>
+<li><p>Since the responses are <span class="blue">grouped</span> proportions with <span class="math inline">m_i &gt; 1</span>, the quasi-binomial model is <span class="orange">legitimate</span> here.</p></li>
+<li><p>The standard errors of the logistic regression will be inflated by <span class="math inline">\sqrt{\hat{\phi}} \approx</span> 1.7.</p></li>
+</ul>
+</section>
+<section id="the-quasi-binomial-fit" class="slide level2 center">
+<h2>The quasi-binomial fit</h2>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>m_bin_q <span class="ot">&lt;-</span> <span class="fu">glm</span>(s <span class="sc">/</span> n <span class="sc">~</span> placebo <span class="sc">+</span> h,</span>
+<span id="cb41-2"><a href=""></a>  <span class="at">weights =</span> n, <span class="at">data =</span> Rats,</span>
+<span id="cb41-3"><a href=""></a>  <span class="at">family =</span> <span class="fu">quasi</span>(<span class="at">link =</span> <span class="st">"logit"</span>, <span class="at">variance =</span> <span class="st">"mu(1-mu)"</span>)</span>
+<span id="cb41-4"><a href=""></a>)</span>
+<span id="cb41-5"><a href=""></a><span class="fu">summary</span>(m_bin_q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = s/n ~ placebo + h, family = quasi(link = "logit", 
+    variance = "mu(1-mu)"), data = Rats, weights = n)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  -0.6239     1.3466  -0.463  0.64495   
+placebo       2.6509     0.8223   3.224  0.00213 **
+h            -0.1871     0.1266  -1.478  0.14514   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for quasi family taken to be 2.905728)
+
+    Null deviance: 509.43  on 57  degrees of freedom
+Residual deviance: 170.57  on 55  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+</section>
+<section id="comments" class="slide level2 center">
+<h2>Comments</h2>
+<ul>
+<li><p>The point estimates are <span class="blue">unchanged</span>. In particular <span class="math inline">\exp(\hat{\beta}_2) = \exp(2.651) \approx 14.2</span> is the <span class="orange">odds ratio</span> comparing the placebo and the treated group, at a fixed haemoglobin level.</p></li>
+<li><p>The evidence of a <span class="orange">higher mortality</span> in the placebo group survives the correction, whereas <span class="blue">haemoglobin</span> is no longer significant once overdispersion is taken into account.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>This is a <span class="blue">typical</span> pattern: correcting for overdispersion does not change what the data say about <span class="orange">large effects</span>, but it often removes the apparent significance of the <span class="blue">borderline</span> ones. Ignoring overdispersion is a recipe for <span class="orange">over-interpretation</span>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>As anticipated, the <span class="orange">parametric alternative</span> here is the beta-binomial model of <a href="un_C.html">Unit C</a>, which can be fitted with <code>VGAM::vglm(..., betabinomial())</code>. A quasi-likelihood version, with the beta-binomial variance function, is available through <code>aod::quasibin</code>.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="summary" class="title-slide slide level1 center">
+<h1>Summary</h1>
+
+</section>
+<section id="summary-1" class="slide level2 center">
+<h2>Summary</h2>
+<ul>
+<li><p>The <span class="blue">quasi-likelihood model</span> replaces the distributional assumption of a GLM with the <span class="orange">second-order</span> assumptions <strong>(E.1)</strong>-<strong>(E.3)</strong>: a mean structure, a mean-variance relationship <span class="math inline">\text{var}(Y_i) = (\phi/\omega_i)v(\mu_i)</span> and independence.</p></li>
+<li><p>The <span class="blue">quasi-score</span> <span class="math inline">\bm{q}(\bm{y};\beta)</span> coincides with the GLM score function, so <span class="math inline">\hat{\beta}</span> is computed with the same <span class="orange">IRLS</span> algorithm: in <strong>R</strong> one just changes the <code>family</code> argument.</p></li>
+<li><p><span class="math inline">\hat{\beta}</span> is <span class="blue">consistent</span>, <span class="blue">asymptotically normal</span> and <span class="blue">asymptotically optimal</span> among linear unbiased estimating equations, generalizing the <span class="orange">Gauss-Markov</span> theorem.</p></li>
+<li><p>Consistency survives a <span class="orange">misspecified variance function</span>; the standard errors do not, and can be protected with the <span class="blue">sandwich</span> estimator.</p></li>
+<li><p>The dispersion is estimated by <span class="math inline">\hat{\phi} = X^2/(n-p)</span> and <span class="orange">inflates all standard errors</span> by <span class="math inline">\sqrt{\hat{\phi}}</span>.</p></li>
+<li><p>Inference relies on <span class="blue">quasi-<span class="math inline">t</span></span> and <span class="blue">quasi-<span class="math inline">F</span></span> statistics; the <span class="orange">AIC</span> is not available and nested models are compared through the <span class="blue">quasi-deviance</span>.</p></li>
+<li><p>The most common instances are the <span class="blue">quasi-Poisson</span> and the <span class="orange">quasi-binomial</span> models. The latter is <span class="orange">meaningless</span> for ungrouped binary data.</p></li>
+</ul>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Agresti2015" class="csl-entry" role="listitem">
+Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
+</div>
+<div id="ref-Davison2003" class="csl-entry" role="listitem">
+Davison, A. C. (2003), <em><span>Statistical Models</span></em>, Cambridge University Press.
+</div>
+<div id="ref-Godambe1960" class="csl-entry" role="listitem">
+Godambe, V. P. (1960), <span>“<span class="nocase">An optimum property of regular maximum likelihood estimation</span>,”</span> <em>Annals of Mathematical Statistics</em>, 31, 1208–1211.
+</div>
+<div id="ref-Huber1967" class="csl-entry" role="listitem">
+Huber, P. J. (1967), <span>“The behavior of maximum likelihood estimates under nonstandard conditions,”</span> in <em>Proceedings of the fifth berkeley symposium on mathematical statistics and probability</em>.
+</div>
+<div id="ref-McCullagh1983" class="csl-entry" role="listitem">
+McCullagh, P. (1983), <span>“Quasi-likelihood functions,”</span> <em>The Annals of Statistics</em>, 11, 59–67.
+</div>
+<div id="ref-McCullagh1989" class="csl-entry" role="listitem">
+McCullagh, P., and Nelder, J. A. (1989), <em>Generalized linear models</em>, Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-Nelder1972" class="csl-entry" role="listitem">
+Nelder, J. A., and Wedderburn, R. W. M. (1972), <span>“<span class="nocase">Generalized linear models</span>,”</span> <em>Journal of the Royal Statistical Society. Series A: Statistics in Society</em>, 135, 370–384.
+</div>
+<div id="ref-Salvan2020" class="csl-entry" role="listitem">
+Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.
+</div>
+<div id="ref-Wedderburn1974" class="csl-entry" role="listitem">
+Wedderburn, R. W. M. (1974), <span>“Quasi-likelihood functions, generalized linear models, and the gauss-newton method,”</span> <em>Biometrika</em>, 61, 439–447.
+</div>
+<div id="ref-White1980" class="csl-entry" role="listitem">
+White, H. (1980), <span>“<span class="nocase">A heteroskedasticity-consistent covariance matrix estimator and a direct test for heteroskedasticity</span>,”</span> <em>Econometrica</em>, 4, 817–838.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="img/logoB.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p><a href="https://tommasorigon.github.io/StatIII">Home page</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="un_E_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="un_E_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="un_E_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="un_E_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="un_E_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="un_E_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="un_E_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="un_E_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="un_E_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

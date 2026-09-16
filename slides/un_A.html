@@ -122,7 +122,7 @@ window.Quarto = {
   <li><a href="#linear-regression-estimation-i" id="toc-linear-regression-estimation-i" class="nav-link" data-scroll-target="#linear-regression-estimation-i">Linear regression: estimation I</a></li>
   <li><a href="#linear-regression-estimation-ii" id="toc-linear-regression-estimation-ii" class="nav-link" data-scroll-target="#linear-regression-estimation-ii">Linear regression: estimation II</a></li>
   <li><a href="#linear-regression-inference" id="toc-linear-regression-inference" class="nav-link" data-scroll-target="#linear-regression-inference">Linear regression: inference</a></li>
-  <li><a href="#linear-regression-diagnostic" id="toc-linear-regression-diagnostic" class="nav-link" data-scroll-target="#linear-regression-diagnostic">Linear regression: diagnostic</a></li>
+  <li><a href="#linear-regression-diagnostics" id="toc-linear-regression-diagnostics" class="nav-link" data-scroll-target="#linear-regression-diagnostics">Linear regression: diagnostics</a></li>
   <li><a href="#leverages-outliers-and-influence-points" id="toc-leverages-outliers-and-influence-points" class="nav-link" data-scroll-target="#leverages-outliers-and-influence-points">Leverages, outliers and influence points</a></li>
   <li><a href="#a-first-model-estimated-coefficients" id="toc-a-first-model-estimated-coefficients" class="nav-link" data-scroll-target="#a-first-model-estimated-coefficients">A first model: estimated coefficients</a></li>
   <li><a href="#a-first-model-fitted-values" id="toc-a-first-model-fitted-values" class="nav-link" data-scroll-target="#a-first-model-fitted-values">A first model: fitted values</a></li>
@@ -142,8 +142,8 @@ window.Quarto = {
   <li><a href="#robust-estimation-and-assumptions" id="toc-robust-estimation-and-assumptions" class="nav-link" data-scroll-target="#robust-estimation-and-assumptions">Robust estimation and assumptions</a></li>
   <li><a href="#non-normality-of-the-errors-i" id="toc-non-normality-of-the-errors-i" class="nav-link" data-scroll-target="#non-normality-of-the-errors-i">Non-normality of the errors I 📖</a></li>
   <li><a href="#non-normality-of-the-errors-ii" id="toc-non-normality-of-the-errors-ii" class="nav-link" data-scroll-target="#non-normality-of-the-errors-ii">Non-normality of the errors II</a></li>
-  <li><a href="#heteroschedasticity-of-the-errors-i" id="toc-heteroschedasticity-of-the-errors-i" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors-i">Heteroschedasticity of the errors I 📖</a></li>
-  <li><a href="#heteroschedasticity-of-the-errors-ii" id="toc-heteroschedasticity-of-the-errors-ii" class="nav-link" data-scroll-target="#heteroschedasticity-of-the-errors-ii">Heteroschedasticity of the errors II</a></li>
+  <li><a href="#heteroscedasticity-of-the-errors-i" id="toc-heteroscedasticity-of-the-errors-i" class="nav-link" data-scroll-target="#heteroscedasticity-of-the-errors-i">Heteroscedasticity of the errors I 📖</a></li>
+  <li><a href="#heteroscedasticity-of-the-errors-ii" id="toc-heteroscedasticity-of-the-errors-ii" class="nav-link" data-scroll-target="#heteroscedasticity-of-the-errors-ii">Heteroscedasticity of the errors II</a></li>
   <li><a href="#weighted-least-squares-i" id="toc-weighted-least-squares-i" class="nav-link" data-scroll-target="#weighted-least-squares-i">Weighted least squares I 📖</a></li>
   <li><a href="#weighted-least-squares-ii" id="toc-weighted-least-squares-ii" class="nav-link" data-scroll-target="#weighted-least-squares-ii">Weighted least squares II 📖</a></li>
   <li><a href="#variable-transformations" id="toc-variable-transformations" class="nav-link" data-scroll-target="#variable-transformations">Variable transformations</a></li>
@@ -340,7 +340,7 @@ Linear model
 <h2 class="anchored" data-anchor-id="matrix-notation">Matrix notation</h2>
 <ul>
 <li><p>The <span class="orange">response random variables</span> are collected in the random vector <span class="math inline">\boldsymbol{Y} = (Y_1,\dots,Y_n)^T</span>, whose <span class="blue">observed realization</span> is <span class="math inline">\boldsymbol{y} = (y_1,\dots,y_n)^T</span>.</p></li>
-<li><p>The <span class="blue">design matrix</span> is a <span class="math inline">n \times p</span> matrix, comprising the covariate’s values, defined by <span class="math display">
+<li><p>The <span class="blue">design matrix</span> is an <span class="math inline">n \times p</span> matrix, comprising the covariate values, defined by <span class="math display">
 \boldsymbol{X} =
 \begin{bmatrix}
 x_{11} &amp; \cdots &amp; x_{1p}\\
@@ -363,7 +363,7 @@ x_{n1} &amp; \cdots &amp; x_{np}
 <section id="linear-regression-estimation-i" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-estimation-i">Linear regression: estimation I</h2>
 <ul>
-<li>The optimal set of coefficients <span class="math inline">\hat{\beta}</span> is the minimizer of the <span class="orange">least squared criterion</span> <span class="math display">
+<li>The optimal set of coefficients <span class="math inline">\hat{\beta}</span> is the minimizer of the <span class="orange">least squares criterion</span> <span class="math display">
 D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol{X}\beta) = ||\boldsymbol{y} - \boldsymbol{X}\beta||^2,
 </span> also known as <span class="orange">residual sum of squares (RSS)</span>, where <span class="math display">
 ||\boldsymbol{y}|| = \sqrt{y_1^2 + \cdots + y_n^2},</span> denotes the <span class="blue">Euclidean norm</span>.</li>
@@ -374,11 +374,11 @@ D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Least square estimate (OLS)
+Least squares estimate (OLS)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the design matrix has <span class="blue">full rank</span>, that is, if <span class="math inline">\text{rk}(\boldsymbol{X}^T\boldsymbol{X}) = p</span>, then the <span class="orange">least square estimate</span> has an explicit solution: <span class="math display">
+<p>If the design matrix has <span class="blue">full rank</span>, that is, if <span class="math inline">\text{rk}(\boldsymbol{X}^T\boldsymbol{X}) = p</span>, then the <span class="orange">least squares estimate</span> has an explicit solution: <span class="math display">
     \hat{\beta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y}.
     </span></p>
 </div>
@@ -389,7 +389,7 @@ Least square estimate (OLS)
 <ul>
 <li>In matrix notation, the predicted values can be obtained as <span class="math display">
 \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
-</span> where <span class="math inline">\boldsymbol{H}</span> is a <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
+</span> where <span class="math inline">\boldsymbol{H}</span> is an <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
 </ul>
 <ul>
 <li><p>The quantity <span class="math inline">D(\hat{\beta})</span> is the so-called <span class="blue">deviance</span>, which is equal to <span class="math display">
@@ -417,11 +417,11 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 <li><p>This implies that the <span class="orange">distribution</span> of the <span class="orange">estimator</span> <span class="math inline">\hat{\beta}</span> is <span class="math display">
 \hat{\beta} \sim \text{N}_p(\beta, \sigma^2 (\boldsymbol{X}^T\boldsymbol{X})^{-1}).
 </span></p></li>
-<li><p>Confidence interval and Wald’s tests can be obtained through classical inferential theory.</p></li>
+<li><p>Confidence intervals and Wald tests can be obtained through classical inferential theory.</p></li>
 </ul>
 </section>
-<section id="linear-regression-diagnostic" class="level2">
-<h2 class="anchored" data-anchor-id="linear-regression-diagnostic">Linear regression: diagnostic</h2>
+<section id="linear-regression-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-diagnostics">Linear regression: diagnostics</h2>
 <ul>
 <li><p>The diagonal elements <span class="math inline">h_i \in [0, 1]</span> of the matrix <span class="math inline">\boldsymbol{H}</span> are called <span class="blue">leverages</span> and it holds <span class="math display">
 \text{var}(\hat{Y}_i) = \sigma^2 h_i, \qquad \text{var}(Y_i - \hat{Y}_i) = \sigma^2 (1 - h_i), \qquad \text{cor}(Y_i, \hat{Y}_i) = \sqrt{h_i}.
@@ -678,7 +678,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <ul>
 <li><p>This second model is <span class="blue">more parsimonious</span>, and yet it reaches satisfactory predictive performance.</p></li>
 <li><p>It is also more coherent with the nature of the data: the predictions cannot be negative, and the relationship between engine size and the consumption is monotone.</p></li>
-<li><p>Yet, there is still some heteroscedasticity in the residuals — is this is due to a missing covariate that has not been included in the model?</p></li>
+<li><p>Yet, there is still some heteroscedasticity in the residuals — is this due to a missing covariate that has not been included in the model?</p></li>
 </ul>
 </section>
 <section id="a-third-model-additional-variables" class="level2">
@@ -805,10 +805,10 @@ Classical assumptions of linear models
 <div class="callout-body-container callout-body">
 <ul>
 <li><p><strong>(A.1)</strong> <span class="blue">Linear structure</span>, namely <span class="math inline">\boldsymbol{Y} = \boldsymbol{X}\beta + \boldsymbol{\epsilon}</span> with <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>, implying <span class="math inline">\mathbb{E}(\boldsymbol{Y}) = \boldsymbol{X}\beta</span>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p><strong>(A.2)</strong> <span class="orange">Homoscedasticity</span> and <span class="orange">uncorrelation</span> of the errors, namely <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n</span>.</p></li>
+<li><p><strong>(A.2)</strong> <span class="orange">Homoscedasticity</span> and <span class="orange">lack of correlation</span> of the errors, namely <span class="math inline">\text{var}(\boldsymbol{\epsilon}) = \sigma^2 I_n</span>.</p></li>
 <li><p><strong>(A.3)</strong> <span class="grey">Gaussianity</span>, namely <span class="math inline">\boldsymbol{\epsilon} \sim \text{N}_n(0, \sigma^2 I_n)</span>. In other words, the errors <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim}N(0, \sigma^2)</span> are iid Gaussian random variables with zero mean and variance <span class="math inline">\sigma^2</span>.</p></li>
 </ul>
-<p>It is also commonly asked that <span class="math inline">\text{rk}(\boldsymbol{X}) = p</span>, otherwise the model is not identifiable.</p>
+<p>It is also commonly assumed that <span class="math inline">\text{rk}(\boldsymbol{X}) = p</span>, otherwise the model is not identifiable.</p>
 </div>
 </div>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;If the intercept is included in <span class="math inline">\boldsymbol{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>.</p></div></div><ul>
@@ -819,7 +819,7 @@ Classical assumptions of linear models
 </ul></li>
 </ul>
 <!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
-<!-- - Even if the data are [heroschedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
+<!-- - Even if the data are [heteroscedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
 </section>
 <section id="robust-estimation-and-assumptions" class="level2">
 <h2 class="anchored" data-anchor-id="robust-estimation-and-assumptions">Robust estimation and assumptions</h2>
@@ -840,7 +840,7 @@ Classical assumptions of linear models
 <li><p>For example, <span class="math inline">\epsilon_i</span> may follow a Laplace distribution, a skew-Normal, a logistic distribution, a Student’s t distribution, etc.</p></li>
 </ul>
 <ul>
-<li>The OLS estimate <span class="math inline">\hat{\beta}</span> is <span class="orange">not</span> anymore the <span class="orange">maximum likelihood</span> estimator, but it <span class="blue">preserves</span> most of its <span class="blue">properties</span> and a <span class="blue">geometric interpretation</span>.</li>
+<li>The OLS estimate <span class="math inline">\hat{\beta}</span> is <span class="orange">no longer</span> the <span class="orange">maximum likelihood</span> estimator, but it <span class="blue">preserves</span> most of its <span class="blue">properties</span> and a <span class="blue">geometric interpretation</span>.</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
@@ -861,7 +861,7 @@ Classical assumptions of linear models
 <section id="non-normality-of-the-errors-ii" class="level2">
 <h2 class="anchored" data-anchor-id="non-normality-of-the-errors-ii">Non-normality of the errors II</h2>
 <ul>
-<li><p>When the errors are non Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> does not follow anymore a Gaussian distribution.</p></li>
+<li><p>When the errors are non-Gaussian the <span class="blue">exact inferential results</span> are not valid. In particular <span class="math inline">\hat{\beta}</span> no longer follows a Gaussian distribution.</p></li>
 <li><p>However, a <span class="orange">central limit theorem</span> can be invoked under very mild conditions on the design matrix <span class="math inline">\boldsymbol{X}</span>.</p></li>
 <li><p>Thus, when the sample size <span class="math inline">n</span> is large enough, then the following <span class="orange">approximation</span> holds <span class="math display">
 \hat{\beta} \:\dot{\sim}\: \text{N}_p(\beta, \sigma^2(\boldsymbol{X}^T\boldsymbol{X})^{-1}),
@@ -879,8 +879,8 @@ Classical assumptions of linear models
 </div>
 </div>
 </section>
-<section id="heteroschedasticity-of-the-errors-i" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="heteroschedasticity-of-the-errors-i">Heteroschedasticity of the errors I 📖</h2>
+<section id="heteroscedasticity-of-the-errors-i" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="heteroscedasticity-of-the-errors-i">Heteroscedasticity of the errors I 📖</h2>
 <ul>
 <li><p>Suppose now that the linearity assumption <strong>(A.1)</strong> is valid but <span class="orange">homoscedasticity</span> of the errors <strong>(A.2)</strong> is <span class="orange">not</span>. Instead, we consider <span class="blue">heteroscedastic errors</span>: <span class="math display">
 \text{var}(\boldsymbol{\epsilon}) = \boldsymbol{\Sigma},\quad \text{or equivalently} \quad \text{var}(Y_i) = \sigma^2_i, \quad i=1,\dots,n
@@ -892,8 +892,8 @@ Classical assumptions of linear models
 </span> Under suitable but mild conditions on <span class="math inline">\boldsymbol{X}</span> and <span class="math inline">\boldsymbol{\Sigma}</span>, the estimator is also <span class="orange">consistent</span>.</p></li>
 </ul>
 <div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;These results are valid even when the matrix <span class="math inline">\boldsymbol{\Sigma}</span> is non-diagonal. This is useful to model correlated responses.</p></div></div></section>
-<section id="heteroschedasticity-of-the-errors-ii" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="heteroschedasticity-of-the-errors-ii">Heteroschedasticity of the errors II</h2>
+<section id="heteroscedasticity-of-the-errors-ii" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="heteroscedasticity-of-the-errors-ii">Heteroscedasticity of the errors II</h2>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -923,22 +923,22 @@ Classical assumptions of linear models
 </span> where <span class="math inline">\boldsymbol{\Omega} = \text{diag}(\omega_1,\dots,\omega_n)</span> are positive <span class="orange">weights</span>. However, here we assume that the weights <span class="math inline">\omega_1,\dots,\omega_n</span> are <span class="blue">known</span>, a common situation in survey design.</p></li>
 <li><p>Let us define the <span class="orange">standardized</span> quantities: <span class="math display">
 \boldsymbol{Y}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{Y}, \qquad \boldsymbol{X}^* = \boldsymbol{\Omega}^{1/2}\boldsymbol{X}.
-</span> This is equivalent to say that <span class="math inline">Y_i^* = \sqrt{\omega_i} Y_i</span> and <span class="math inline">x_{ij}^* = \sqrt{\omega_i} x_{ij}</span>. Then, it is easy to show that <span class="math display">
+</span> This is equivalent to saying that <span class="math inline">Y_i^* = \sqrt{\omega_i} Y_i</span> and <span class="math inline">x_{ij}^* = \sqrt{\omega_i} x_{ij}</span>. Then, it is easy to show that <span class="math display">
 \mathbb{E}(\boldsymbol{Y}^*) = \boldsymbol{X}^*\beta, \qquad \text{var}(\boldsymbol{Y}^*) = \sigma^2\boldsymbol{\Omega}^{1/2}\boldsymbol{\Omega}^{-1}\boldsymbol{\Omega}^{1/2}= \sigma^2 I_n,
 </span> namely the <span class="orange">assumptions</span> <strong>(A.1)</strong> and <strong>(A.2)</strong> are valid in the <span class="blue">transformed scale</span>.</p></li>
-<li><p>In other words, <span class="orange">after</span> a suitable <span class="orange">transformation</span>, we reconducted the problem to a <span class="blue">standard linear model</span>.</p></li>
+<li><p>In other words, <span class="orange">after</span> a suitable <span class="orange">transformation</span>, we have reduced the problem to a <span class="blue">standard linear model</span>.</p></li>
 </ul>
 </section>
 <section id="weighted-least-squares-ii" class="level2">
 <h2 class="anchored" data-anchor-id="weighted-least-squares-ii">Weighted least squares II 📖</h2>
 <ul>
-<li><p>Thus an estimator for <span class="math inline">\beta</span>, based on the transformed data, is obtained minimizing the deviance <span class="math display">
+<li><p>Thus an estimator for <span class="math inline">\beta</span>, based on the transformed data, is obtained by minimizing the deviance <span class="math display">
 \begin{aligned}
 D_\text{wls}(\beta) &amp;= (\boldsymbol{y}^* - \boldsymbol{X}^*\beta)^T(\boldsymbol{y}^* - \boldsymbol{X}^*\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T\boldsymbol{\Omega}(\boldsymbol{y} - \boldsymbol{X}\beta) \\
 &amp;=\sum_{i=1}^n \omega_i (y_i - \boldsymbol{x}_i^T\beta)^2.
 \end{aligned}
 </span> which is a <span class="orange">weighted</span> version of the original <span class="blue">quadratic loss</span>, with <span class="orange">high weight = low variance</span>.</p></li>
-<li><p>The resulting OLS estimate minimizing <span class="math inline">D_\text{wls}(\beta)</span> in the transformed and original scales is <span class="math display">
+<li><p>The resulting estimate minimizing <span class="math inline">D_\text{wls}(\beta)</span> in the transformed and original scales is <span class="math display">
 \hat{\beta}_\text{wls} = [(\boldsymbol{X}^*)^T\boldsymbol{X}^*]^{-1}(\boldsymbol{X}^*)^T\boldsymbol{y}^* = (\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\Omega}\boldsymbol{y}
 </span> and it is referred to as <span class="blue">weighted least squares</span> estimator of <span class="math inline">\beta</span>.</p></li>
 <li><p>Such an estimator is <span class="orange">unbiased</span> and <span class="orange">efficient</span> (<span class="blue">BLUE</span>), with <span class="math display">
@@ -987,7 +987,7 @@ Box-Cox transform
 <p>If the data <span class="math inline">y_i</span> are <span class="orange">positive</span>, we may consider a <span class="blue">parametric class</span> of transformations: <span class="math display">
 g_\lambda(y) = \frac{y^\lambda - 1}{\lambda}, \qquad \lambda \neq 0.
 </span> and <span class="math inline">g_\lambda(y) = \log{y}</span> when <span class="math inline">\lambda = 0</span>. This is the celebrated <span class="blue">Box-Cox transform</span>.</p>
-<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= −1</span> to the reciprocal.</p>
+<p>The case <span class="math inline">\lambda = 1</span> corresponds to no transformation, <span class="math inline">\lambda= 1/2</span> to the square root, <span class="math inline">\lambda = 0</span> to the logarithm, and <span class="math inline">\lambda= -1</span> to the reciprocal.</p>
 </div>
 </div>
 <ul>
@@ -1110,7 +1110,7 @@ Y_i = h_1(\boldsymbol{x}_i)\beta_1 + \cdots + h_p(\boldsymbol{x}_i)\beta_p + \ep
 <ul>
 <li><p>In the case of transformations of the <span class="orange">response</span> variable we let <span class="math inline">\mathbb{E}(g(Y_i)) = \boldsymbol{x}_i^T\beta</span>. However:<br>
 <span class="math display">
-g(\mathbb{E}(Y_i)) \neq E(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\boldsymbol{x}_i^T\beta).
+g(\mathbb{E}(Y_i)) \neq \mathbb{E}(g(Y_i)) \quad \Longrightarrow \quad \mathbb{E}(Y_i) \neq g^{-1}(\boldsymbol{x}_i^T\beta).
 </span> Thus <span class="math inline">\hat{y}_i = g^{-1}(\boldsymbol{x}_i^T\hat{\beta})</span> is a <span class="blue">reasonable prediction</span> for <span class="math inline">Y_i</span> and <span class="orange">not an estimate</span> for its <span class="orange">mean</span>.</p></li>
 <li><p>When <span class="math inline">g(y) = \log{y}</span> this distinction can be made explicit, because we have <span class="math display">
 g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\boldsymbol{x}_i^T\beta) = \exp(\boldsymbol{x}_i^T\beta), \qquad \mathbb{E}(Y_i) = \exp(\boldsymbol{x}_i^T\beta + \sigma^2/2),

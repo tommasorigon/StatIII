@@ -66,389 +66,921 @@ library(ggthemes)
 library(MLGdata)
 ```
 
+<!-- TODO: add a portrait of R. W. M. Wedderburn (1947-1975) in img/ and restore the
+     two-column layout used in the other units, e.g.
 ::: columns
 ::: {.column width="30%"}
-![](img/NR.png){width="100%"}
+![](img/wedderburn.jpg){width="100%"}
 
-[John A. Nelder](https://en.wikipedia.org/wiki/John_Nelder) and [Robert Wedderburn](https://en.wikipedia.org/wiki/Robert_Wedderburn_(statistician))
+[Robert Wedderburn](https://en.wikipedia.org/wiki/Robert_Wedderburn_(statistician))
 
-Imperial College, London
+Rothamsted Experimental Station
 :::
-
 ::: {.column width="70%"}
+-->
 
-- In [Unit D](un_D.html), we encountered [overdispersion]{.orange} as a key failure mode of Poisson (and binomial) regression.
+- In [Unit C](un_C.html) and [Unit D](un_D.html) we encountered [overdispersion]{.orange} as a common failure mode of binomial and Poisson regression.
 
-- This unit introduces [quasi-likelihoods]{.blue}, a flexible framework for handling overdispersion without fully specifying a parametric distribution.
+- This unit presents [quasi-likelihoods]{.blue}, which handle overdispersion [without]{.orange} specifying a parametric distribution for the response.
 
-- We only need to specify a [mean-variance relationship]{.orange}, not the full distribution.
+- Only the [first two moments]{.blue} of $Y_i$ are specified, together with the [link function]{.grey}.
 
-- [Wedderburn (1974)]{.grey} introduced quasi-likelihoods, extending the GLM framework of @Nelder1972.
-:::
+- This yields estimators that are [robust]{.orange} to misspecification, in the same spirit of [Unit A](un_A.html).
 
-:::
+- Quasi-likelihoods were introduced by @Wedderburn1974, extending the GLM framework of @Nelder1972.
 
 :::callout-tip
-The content of this Unit is covered in [Chapter 5]{.orange} of @Salvan2020. Alternatively, see [Chapter 4]{.blue} of @Agresti2015 and the original paper @Wedderburn1974.
+The content of this Unit is covered in [Chapter 6]{.orange} of @Salvan2020. Alternatively, see [Chapter 8]{.blue} of @Agresti2015 and the original paper @Wedderburn1974.
 :::
 
 # Overdispersion
 
 ## Overdispersion: recap
 
-- Recall that for a GLM from the [exponential dispersion family]{.blue}, the variance of $Y_i$ satisfies
+- Recall that in a GLM the response is $Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i))$, with $g(\mu_i) = \eta_i = \bm{x}_i^T\beta$, so that
 $$
-\text{var}(Y_i) = \phi \, V(\mu_i),
+\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = a_i(\phi)v(\mu_i) = \frac{\phi}{\omega_i}v(\mu_i),
 $$
-where $V(\mu_i)$ is the [variance function]{.orange} and $\phi$ is the [dispersion parameter]{.blue}.
+where $v(\cdot)$ is the [variance function]{.blue}, $\phi$ the [dispersion]{.orange} and $\omega_i$ are [known weights]{.grey}.
 
-- For [Poisson regression]{.orange}, $\phi = 1$ is fixed and $V(\mu) = \mu$, so $\text{var}(Y_i) = \mu_i$.
+- In [Poisson regression]{.orange} we have $\omega_i = 1$, $v(\mu_i) = \mu_i$ and $\phi = 1$ is [fixed by the model]{.orange}.
 
-- For [binomial regression]{.orange}, $\phi = 1$ is fixed and $V(\mu) = \mu(1 - \mu)/m_i$.
+- In [binomial regression]{.orange} we have $\omega_i = m_i$, $v(\mu_i) = \mu_i(1 - \mu_i)$ and again $\phi = 1$ is [fixed]{.orange}.
 
-- [Overdispersion]{.blue} occurs when the observed variance [exceeds]{.orange} what the model predicts, i.e., when the true $\phi > 1$.
+. . .
 
-- Ignoring overdispersion leads to [underestimated standard errors]{.orange}, artificially narrow confidence intervals, and inflated test statistics.
+:::callout-warning
+We say that the data present [overdispersion]{.blue} when the actual variability of the observations is [larger]{.orange} than the one implied by the model, namely when
+$$
+\text{var}(Y_i) = \textcolor{red}{\phi}\frac{v(\mu_i)}{\omega_i}, \qquad \text{with} \quad \phi > 1.
+$$
+In such a case the Poisson or the binomial model is [misspecified]{.orange}.
+:::
+
+## Where does overdispersion come from?
+
+- [Unobserved heterogeneity]{.blue}. Subjects sharing the same covariate values may still differ because of variables that were not recorded. If $Y_i \mid U_i \sim \text{Poisson}(U_i\mu_i)$ with $\mathbb{E}(U_i) = 1$ and $\text{var}(U_i) = \sigma^2$, then
+$$
+\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = \mu_i + \sigma^2\mu_i^2 > \mu_i.
+$$
+Note that this mechanism produces a [quadratic]{.grey} variance function, not $\phi\mu_i$.
+
+- [Positive dependence]{.orange}. The $m_i$ Bernoulli trials forming a binomial observation may be [correlated]{.orange}, e.g. littermates, pupils in the same class, members of the same household; see @Agresti2015, Section 8.2.1.
+
+. . .
+
+- [Misspecification of the mean]{.grey}. A large $X^2$ may simply be due to an [omitted covariate]{.blue}, a missing [interaction]{.blue} or a [wrong link]{.blue}: in this case correcting for overdispersion is [not]{.orange} the right remedy.
+
+:::callout-warning
+Adjusting the standard errors is appropriate [only if]{.orange} the structural part of the model, that is $\mathbb{E}(Y_i) = g^{-1}(\bm{x}_i^T\beta)$, is [correctly specified]{.blue}.
+:::
 
 ## Detecting overdispersion
 
-- A simple diagnostic is the [Pearson statistic]{.blue}
+- The natural diagnostic is the generalized [Pearson statistic]{.blue} introduced in [Unit B](un_B.html):
 $$
-X^2 = \sum_{i=1}^n \frac{(y_i - \hat\mu_i)^2}{V(\hat\mu_i)},
+X^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)} = \sum_{i=1}^n r_{i, P}^2.
 $$
-where $\hat\mu_i$ is the estimated mean under the fitted GLM.
 
-- Under the correct model, $X^2 \approx \phi(n - p)$, so the ratio
-$$
-\hat\phi = \frac{X^2}{n - p}
-$$
-estimates $\phi$. If $\hat\phi \gg 1$, [overdispersion is present]{.orange}.
+- When $\phi = 1$ and the model is correct, under [small-dispersion asymptotics]{.grey} we have $X^2 \: \dot{\sim} \: \chi^2_{n-p}$, therefore $\mathbb{E}(X^2) \approx n - p$. A value $X^2 \gg n-p$ is [evidence of overdispersion]{.orange}.
 
-- Equivalently, one can examine the [residual deviance]{.blue}: if $D / (n - p) \gg 1$, the model is overdispersed.
+- The same reasoning applies to the [residual deviance]{.blue} $D(\bm{y}; \hat{\bm{\mu}})$, since $X^2$ and $D(\bm{y}; \hat{\bm{\mu}})$ are asymptotically equivalent.
 
-- Overdispersion can arise from [unobserved heterogeneity]{.blue}, [clustering]{.orange}, or a [misspecified mean structure]{.grey}.
-
-## Two remedies for overdispersion
-
-The two most common approaches to handle overdispersion are:
-
-1. [Quasi-likelihoods]{.blue} (Wedderburn, 1974): relax the distributional assumption by specifying only the [mean-variance relationship]{.orange}. The dispersion parameter $\phi$ is treated as a free parameter to be estimated.
-
-2. [Parametric overdispersed models]{.orange}: replace the Poisson with a [negative-binomial]{.blue} distribution, or the binomial with a [beta-binomial]{.grey}.
-
-- The quasi-likelihood approach is simpler and more flexible, as it does not require specifying a full distribution.
-
-- The parametric approach allows [likelihood-based inference]{.blue} (AIC, likelihood ratio tests) but requires a stronger modeling assumption.
-
-# Quasi-likelihoods
-
-## The quasi-likelihood function
-
-- @Wedderburn1974 proposed extending GLMs by working with a [quasi-likelihood]{.blue} function defined by its [score]{.orange} rather than by a density.
-
-- Suppose we specify only that $\mathbb{E}(Y_i) = \mu_i$ and $\text{var}(Y_i) = \phi \, V(\mu_i)$, where $V(\cdot)$ is a given [variance function]{.blue}.
-
-- The [quasi-score]{.orange} for a single observation $y_i$ is defined as
-$$
-U_i(\mu_i) = \frac{y_i - \mu_i}{\phi \, V(\mu_i)},
-$$
-which mimics the score of an exponential dispersion family.
-
-- The [quasi-likelihood]{.blue} for a single observation is then obtained by integration:
-$$
-Q(\mu_i; y_i) = \int_{y_i}^{\mu_i} \frac{y_i - t}{\phi \, V(t)} \, dt.
-$$
-Note that $Q$ depends on $y_i$ and $\mu_i$, but [not on a specific distribution]{.orange}.
-
-## Properties of the quasi-score
-
-- The quasi-score satisfies properties analogous to those of a genuine score function. Specifically, it satisfies:
-
-$$
-\mathbb{E}\left[U_i(\mu_i)\right] = 0, \qquad \text{var}\left[U_i(\mu_i)\right] = \frac{1}{\phi \, V(\mu_i)}.
-$$
+. . .
 
 :::callout-tip
-These two properties are the [only]{.blue} requirements for $U_i$ to behave like a score. No full distributional assumption is needed.
+The [method of moments]{.orange} estimator of [Unit B](un_B.html) summarizes the amount of overdispersion:
+$$
+\hat{\phi} = \frac{X^2}{n-p} = \frac{1}{n-p}\sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}.
+$$
 :::
 
-- The [total quasi-score]{.blue} is
-$$
-U(\beta) = \sum_{i=1}^n U_i(\mu_i) \cdot \frac{\partial \mu_i}{\partial \beta} = \frac{1}{\phi}\sum_{i=1}^n \frac{(y_i - \mu_i)}{V(\mu_i)} \cdot \frac{1}{g'(\mu_i)}\bm{x}_i,
-$$
-where $g$ is the link function.
+- Values $\hat{\phi} \gg 1$ indicate overdispersion; $\hat{\phi} < 1$ indicates the (rarer) [underdispersion]{.grey}.
 
-- Setting $U(\beta) = 0$ gives the [quasi-likelihood equations]{.orange}, which are identical to the likelihood equations of a GLM with variance function $V(\mu)$.
+## A common mistake: marginal versus conditional variance
 
-## Quasi-maximum likelihood estimation
+- A frequent shortcut is to compare the [sample mean]{.blue} and the [sample variance]{.orange} of the response, and to declare overdispersion whenever $\text{var}(y) \gg \bar{y}$. This is [wrong]{.orange}.
 
-- The [quasi-maximum likelihood estimator]{.blue} (QMLE) $\hat\beta$ solves $U(\beta) = 0$, i.e.,
-$$
-\sum_{i=1}^n \frac{(y_i - \hat\mu_i)}{V(\hat\mu_i) \, g'(\hat\mu_i)}\bm{x}_i = 0.
-$$
+- The Poisson assumption concerns the [conditional]{.blue} distribution of $Y_i$ [given the covariates]{.orange}: nothing forces the [marginal]{.grey} distribution of the response to satisfy $\text{var}(Y) = \mathbb{E}(Y)$.
 
-- These are exactly the [IWLS equations]{.orange} of a GLM with variance function $V(\mu)$. Therefore, the QMLE can be computed with the same [iteratively reweighted least squares]{.blue} algorithm:
-$$
-\hat\beta^{(k+1)} = \left(\bm{X}^T \hat{\bm{W}}^{(k)} \bm{X}\right)^{-1} \bm{X}^T \hat{\bm{W}}^{(k)} \bm{z}^{(k)},
-$$
-where $\hat{W}_{ii}^{(k)} = \{V(\hat\mu_i^{(k)}) \, [g'(\hat\mu_i^{(k)})]^2\}^{-1}$ and $z_i^{(k)} = \hat\eta_i^{(k)} + (y_i - \hat\mu_i^{(k)})g'(\hat\mu_i^{(k)})$.
+```{r}
+#| echo: true
+#| classes: styled-output
+set.seed(123)
+n_sim <- 2000
+x_sim <- rbinom(n_sim, size = 1, prob = 0.5) # binary covariate
+y_sim <- rpois(n_sim, lambda = exp(1 + 3 * x_sim)) # no overdispersion at all
+
+c(mean = mean(y_sim), variance = var(y_sim))
+```
+
+- The data were generated by a [Poisson regression model]{.blue}, hence there is [no overdispersion]{.orange}, and yet the marginal variance is more than $20$ times the marginal mean.
+
+## A common mistake: marginal versus conditional variance
+
+```{r}
+#| fig-width: 7.8
+#| fig-height: 4
+#| fig-align: center
+ggplot(data.frame(y = y_sim, x = factor(x_sim)), aes(x = y, fill = x)) +
+  geom_histogram(binwidth = 2, position = "identity", alpha = 0.6) +
+  theme_light() +
+  scale_fill_tableau(palette = "Color Blind") +
+  xlab("y") +
+  ylab("Frequency") +
+  labs(fill = "x")
+```
+
+- The marginal distribution is [bimodal]{.orange}: the excess variability is entirely explained by the covariate.
+
+```{r}
+#| echo: true
+#| classes: styled-output
+m_sim <- glm(y_sim ~ x_sim, family = poisson)
+sum(residuals(m_sim, type = "pearson")^2) / m_sim$df.residual # phi_hat
+```
+
+- The correct diagnostic, $\hat{\phi} = X^2/(n-p)$, is [close to one]{.blue}, as it should be.
+
+## Two remedies
+
+- **(i)** [Quasi-likelihoods]{.blue}. Keep the mean structure $g(\mu_i) = \bm{x}_i^T\beta$ and the variance function $v(\mu_i)$, but treat $\phi$ as an [unknown parameter]{.orange} to be estimated. No parametric distribution is assumed.
+
+- **(ii)** [Parametric overdispersed models]{.orange}. Replace the Poisson with a [negative binomial]{.blue} ([Unit D](un_D.html)), or the binomial with a [beta-binomial]{.blue} ([Unit C](un_C.html)).
+
+. . .
 
 :::callout-tip
-In practice, fitting a quasi-likelihood model in **R** is as simple as changing the `family` argument in `glm()`. The point estimates $\hat\beta$ are [identical]{.orange} to those of the corresponding GLM; only the standard errors change.
+The [quasi-likelihood]{.blue} approach is simpler and more [flexible]{.orange}: it requires weaker assumptions and it is obtained at essentially [no computational cost]{.blue}.
+
+The [parametric]{.orange} approach allows fully [likelihood-based]{.blue} inference (AIC, log-likelihood ratio tests, prediction of the whole distribution), at the price of a [stronger assumption]{.orange}.
 :::
 
-## Asymptotic properties of the QMLE
+- The two approaches are [not]{.orange} equivalent: they give the [same]{.blue} point estimates only in special cases, since e.g. the negative binomial implies the [quadratic]{.grey} variance function $v(\mu_i) = \mu_i + \mu_i^2/\alpha$.
 
-- Under mild regularity conditions, $\hat\beta$ is [consistent]{.blue} and [asymptotically normal]{.orange}:
+# The quasi-likelihood model
+
+## A motivating remark
+
+- Recall the [Gaussian linear model]{.blue} of [Unit A](un_A.html), whose maximum likelihood estimator solves the [normal equations]{.orange} $\bm{X}^T(\bm{y} - \bm{X}\beta) = \bm{0}$, giving $\hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}$.
+
+- Under the full Gaussian assumption $\bm{\epsilon} \sim \text{N}_n(\bm{0}, \sigma^2 I_n)$ the [exact]{.blue} distribution $\hat{\beta} \sim \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1})$ is available.
+
+. . .
+
+- However, we saw that under the much weaker [second-order assumptions]{.orange} $\mathbb{E}(\bm{\epsilon}) = \bm{0}$ and $\text{var}(\bm{\epsilon}) = \sigma^2I_n$, the estimator $\hat{\beta}$ remains [unbiased]{.blue}, [efficient]{.blue} (Gauss-Markov) and [asymptotically normal]{.blue}.
+
+:::callout-tip
+The [normality assumption]{.orange} is therefore used to obtain the [exact]{.blue} distribution of $\hat{\beta}$, but it is [not needed]{.orange} for its fundamental properties. If the normal model is [misspecified]{.orange} but the second-order assumptions hold, the inference remains valid for $n$ large enough.
+:::
+
+- The natural question is whether the same happens for the [maximum likelihood estimator of a GLM]{.blue}. The answer, as we shall see, is [yes]{.orange}.
+
+## Second-order assumptions
+
+- The starting point of @Wedderburn1974 is the following remark. The [likelihood equations]{.blue} of a GLM, derived in [Unit B](un_B.html),
 $$
-\hat\beta \overset{a}{\sim} \mathrm{N}\!\left(\beta,\, \phi\left(\bm{X}^T \bm{W} \bm{X}\right)^{-1}\right),
+\sum_{i=1}^n \omega_i\frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r}= 0, \qquad r=1,\dots,p,
 $$
-where $\bm{W} = \mathrm{diag}\!\left\{[V(\mu_i)\,g'(\mu_i)^2]^{-1}\right\}$.
+depend on the distribution of $Y_i$ [only]{.orange} through $\mathbb{E}(Y_i) = \mu_i$ and $\text{var}(Y_i) = a_i(\phi)v(\mu_i)$.
 
-- Compared to the GLM with $\phi = 1$, the variance is [inflated by $\phi$]{.orange}. Therefore, the standard errors of $\hat\beta_j$ are:
+. . .
+
+:::callout-note
+#### The quasi-likelihood model
+
+We only assume the following [second-order]{.blue} conditions, for $i=1,\dots,n$:
+
+- **(E.1)** [Mean structure]{.blue}: $\quad\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta)$;
+
+- **(E.2)** [Mean-variance relationship]{.orange}: $\quad \text{var}(Y_i) = \dfrac{\phi}{\omega_i}v(\mu_i)$, with $\phi > 0$ [unknown]{.orange};
+
+- **(E.3)** [Independence]{.grey}: $\quad Y_i$ and $Y_j$ are independent for $i \neq j$.
+:::
+
+- This is a [semiparametric]{.blue} model: the family of all distributions satisfying **(E.1)**-**(E.3)** cannot be indexed by a [finite number of parameters]{.orange}, yet the assumptions on the [first two moments]{.blue} are fully parametric.
+
+## Second-order assumptions of notable models
+
+- It is instructive to make **(E.1)**-**(E.3)** explicit for the models of [Unit B](un_B.html). The [dispersion]{.orange} $\phi$ is now [free]{.blue}, whereas $\omega_i$ and $v(\cdot)$ are inherited from the parametric model.
+
+| Model | $\omega_i$ | $v(\mu_i)$ | $\text{var}(Y_i)$ under **(E.2)** | canonical $g(\mu_i)$ |
+|:------|:--:|:--:|:--:|:--:|
+| $\text{N}(\mu_i, \sigma^2)$ | $1$ | $1$ | $\phi$ | $\mu_i$ |
+| $\text{Poisson}(\mu_i)$ | $1$ | $\mu_i$ | $\phi\,\mu_i$ | $\log{\mu_i}$ |
+| $\frac{1}{m_i}\text{Binomial}(m_i,\mu_i)$ | $m_i$ | $\mu_i(1-\mu_i)$ | $\phi\,\dfrac{\mu_i(1-\mu_i)}{m_i}$ | $\text{logit}(\mu_i)$ |
+| $\text{Gamma}(\alpha, \alpha/\mu_i)$ | $1$ | $\mu_i^2$ | $\phi\,\mu_i^2$ | $-1/\mu_i$ |
+
+:::callout-tip
+For the [Gaussian]{.blue} and the [Gamma]{.blue} models nothing changes: $\phi$ was already an unknown parameter. The gain in flexibility concerns the [discrete]{.orange} responses — [counts]{.orange} and [proportions]{.orange} — for which the parametric model imposes $\phi = 1$ and the variance is entirely determined by the mean.
+:::
+
+## The quasi-score function
+
+:::callout-note
+Under **(E.1)**-**(E.3)** we define the [quasi-score]{.blue} function $\bm{q}(\bm{y};\beta) = (q_1(\bm{y};\beta),\dots,q_p(\bm{y};\beta))^T$ as
 $$
-\widehat{\mathrm{se}}(\hat\beta_j) = \sqrt{\hat\phi\,\left[\left(\bm{X}^T \hat{\bm{W}} \bm{X}\right)^{-1}\right]_{jj}}.
+q_r(\bm{y};\beta) = \sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r} = \frac{1}{\phi}\sum_{i=1}^n \omega_i\frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)}, \qquad r = 1,\dots,p.
+$$
+In [matrix notation]{.blue}, exactly as in [Unit B](un_B.html),
+$$
+\bm{q}(\bm{y};\beta) = \bm{D}^T \bm{V}^{-1}(\bm{y} - \bm{\mu}) = \bm{X}^T\bm{W}_0(\bm{y} - \bm{\mu}),
+$$
+where $\bm{V} = \text{var}(\bm{Y}) = \phi \,\text{diag}(v(\mu_1)/\omega_1,\dots,v(\mu_n)/\omega_n)$, the matrix $\bm{D}$ has elements $d_{ir} = x_{ir}/g'(\mu_i)$, and $\bm{W}_0 = \text{diag}(w_{0,1},\dots,w_{0,n})$ with
+$$
+w_{0,i} = \frac{\omega_i}{\phi\, v(\mu_i) g'(\mu_i)}, \qquad i=1,\dots,n.
+$$
+:::
+
+- The [quasi-likelihood estimator]{.orange} $\hat{\beta}$ is the solution of $\bm{q}(\bm{y};\beta) = \bm{0}$, which [does not depend]{.blue} on $\phi$.
+
+## The quasi-score is a score in disguise
+
+- Whenever the response really belongs to an exponential dispersion family, $\bm{q}(\bm{y};\beta)$ is [exactly]{.orange} the score function $\ell_*(\beta;\phi)$ of [Unit B](un_B.html). In general, it is [not]{.orange} the derivative of a log-likelihood.
+
+. . .
+
+- Nevertheless, under **(E.1)**-**(E.3)** alone, the quasi-score retains the two [Bartlett identities]{.grey}: 📖
+$$
+\mathbb{E}\{q_r(\bm{Y};\beta)\} = 0, \qquad \mathbb{E}\{q_r(\bm{Y};\beta) q_s(\bm{Y};\beta)\} = -\mathbb{E}\left\{\frac{\partial}{\partial \beta_s} q_r(\bm{Y};\beta)\right\}.
 $$
 
-- The inflation factor $\sqrt{\hat\phi}$ reflects the additional uncertainty due to overdispersion.
+- The first identity only requires **(E.1)**, since $\mathbb{E}(Y_i - \mu_i) = 0$. The second requires **(E.2)**-**(E.3)** and follows from $\mathbb{E}\{(Y_i - \mu_i)(Y_j - \mu_j)\} = 0$ for $i \neq j$.
 
-- Consistency holds even if the [variance function is misspecified]{.blue}, as long as the mean model $\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta)$ is correct. 📖
+:::callout-tip
+It is precisely this [analogy]{.blue} with the score function that motivates the name [quasi-likelihood]{.orange}: the quantity $\bm{q}(\bm{y};\beta)$ behaves like a score, [even though]{.orange} no distribution has been specified.
+:::
 
-# Estimation of the dispersion
+- As we shall see, this is enough to recover [consistency]{.blue}, [asymptotic normality]{.blue} and a notion of [optimality]{.blue} for $\hat{\beta}$.
 
-## Estimation of $\phi$
+## Quasi-likelihoods in practice
 
-- Since $\phi$ is unknown, it must be estimated from the data. The standard estimator is the [Pearson estimator]{.blue}:
+- Before developing the theory, it is worth stating how simple the resulting [recipe]{.blue} is, for the Poisson and binomial cases.
+
+:::callout-note
+#### The quasi-likelihood recipe
+
+1. Fit the [ordinary GLM]{.orange} and keep its maximum likelihood estimate $\hat{\beta}$: the estimating equations are [unchanged]{.blue}, hence so are the [point estimates]{.blue} and the IRLS algorithm.
+
+2. Estimate the dispersion through $\hat{\phi} = X^2/(n-p)$ and [multiply]{.orange} all the standard errors of the ordinary GLM by $\sqrt{\hat{\phi}}$.
+:::
+
+- [Overdispersed Poisson]{.blue} model: $\text{var}(Y_i) = \phi\mu_i$ and $\quad\hat{\phi} = \dfrac{1}{n-p}\sum_{i=1}^n\dfrac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i}$.
+
+- [Overdispersed binomial]{.orange} model: $\text{var}(Y_i) = \phi\dfrac{\mu_i(1-\mu_i)}{m_i}$ and $\quad\hat{\phi} = \dfrac{1}{n-p}\sum_{i=1}^n m_i\dfrac{(y_i - \hat{\mu}_i)^2}{\hat{\mu}_i(1-\hat{\mu}_i)}$.
+
+- In **R**, the whole procedure amounts to changing the `family` argument of `glm`.
+
+# Unbiased estimating equations
+
+## Estimating equations
+
+- Let us take a short detour and consider a general parameter $\vartheta \in \Theta \subseteq \mathbb{R}^d$.
+
+:::callout-note
+A function $\bm{q}(\bm{y};\vartheta) = (q_1(\bm{y};\vartheta),\dots,q_d(\bm{y};\vartheta))^T$ provides an [unbiased estimating equation]{.blue} for $\vartheta$ if
 $$
-\hat\phi_P = \frac{X^2}{n - p} = \frac{1}{n - p}\sum_{i=1}^n \frac{(y_i - \hat\mu_i)^2}{V(\hat\mu_i)},
+\mathbb{E}_\vartheta\{\bm{q}(\bm{Y};\vartheta)\} = \bm{0}, \qquad \text{for every } \vartheta \in \Theta.
 $$
-where $p$ is the number of estimated regression coefficients.
+The resulting [estimator]{.orange} $\tilde{\vartheta}$ is defined as the solution of $\bm{q}(\bm{y};\vartheta) = \bm{0}$.
+:::
 
-- An alternative estimator is based on the [deviance]{.orange}:
+- The [score function]{.blue} of a regular model is the leading example, because of the first [Bartlett identity]{.grey} $\mathbb{E}\{\ell_*(\vartheta)\} = \bm{0}$. Maximum likelihood is therefore a [special case]{.orange}.
+
+- The distribution of $\bm{Y}$ may depend on [additional aspects]{.grey} beyond $\vartheta$, which are left unspecified. This is exactly what happens in the quasi-likelihood model.
+
+:::aside
+The systematic study of estimating equations dates back to @Godambe1960. A modern account is given in Chapter 7 of @Davison2003.
+:::
+
+## Consistency and asymptotic normality 📖
+
+- Suppose that $n^{-1}\bm{q}(\bm{Y};\vartheta) \overset{p}{\to} \bm{0}$ by a [law of large numbers]{.grey} at the true $\vartheta$, and that $\bm{q}(\bm{y};\cdot)$ is continuous and one-to-one in a neighborhood of it. Then $\tilde{\vartheta}$ is [consistent]{.blue}.
+
+. . .
+
+- For the [distribution]{.orange} of $\tilde{\vartheta}$, define the two $d \times d$ matrices
 $$
-\hat\phi_D = \frac{D(\hat\mu; y)}{n - p}.
+\bm{J}(\vartheta) = \mathbb{E}\{\bm{q}(\bm{Y};\vartheta)\bm{q}(\bm{Y};\vartheta)^T\}, \qquad \bm{H}(\vartheta) = -\mathbb{E}\left\{\frac{\partial}{\partial \vartheta^T}\bm{q}(\bm{Y};\vartheta)\right\}.
 $$
 
-- In large samples, both estimators are consistent under the quasi-likelihood model.
+- A [local linearization]{.grey} of $\bm{q}(\bm{y};\tilde{\vartheta}) = \bm{0}$ around the true value gives $\tilde{\vartheta} - \vartheta \approx \bm{H}(\vartheta)^{-1}\bm{q}(\bm{y};\vartheta)$.
 
-- The [Pearson estimator]{.blue} $\hat\phi_P$ is generally preferred in practice and is used by default in **R**.
+:::callout-note
+Under regularity conditions analogous to those required for the score function,
+$$
+\tilde{\vartheta} \: \dot{\sim} \: \text{N}_d\left(\vartheta, \: \bm{H}(\vartheta)^{-1}\bm{J}(\vartheta)\bm{H}(\vartheta)^{-1}\right).
+$$
+The covariance matrix has the so-called [sandwich]{.orange} form.
+:::
+
+- If $\bm{q}(\bm{y};\vartheta)$ is the [score]{.blue} of a correctly specified regular model, the second Bartlett identity gives $\bm{J}(\vartheta) = \bm{H}(\vartheta) = \bm{I}(\vartheta)$, and the sandwich [collapses]{.orange} to the usual $\bm{I}(\vartheta)^{-1}$.
+
+# Properties of the estimator
+
+## Consistency and asymptotic normality of $\hat{\beta}$ 📖
+
+- Let us go back to the quasi-likelihood model and compute $\bm{H}(\beta)$ and $\bm{J}(\beta)$ for $\bm{q}(\bm{y};\beta) = \bm{X}^T\bm{W}_0(\bm{y}-\bm{\mu})$.
+
+- Since $\mathbb{E}(\bm{Y} - \bm{\mu}) = \bm{0}$ and $\partial \bm{\mu} / \partial \beta^T = \bm{D}$, only one term survives: 📖
+$$
+\bm{H}(\beta) = \bm{X}^T\bm{W}_0\bm{D} = \bm{X}^T\bm{W}\bm{X}, \qquad \bm{J}(\beta) = \bm{X}^T\bm{W}_0\text{var}(\bm{Y})\bm{W}_0\bm{X},
+$$
+where $\bm{W} = \text{diag}(w_1,\dots,w_n)$ collects the [usual GLM weights]{.blue} of [Unit B](un_B.html), namely
+$$
+w_i = \frac{w_{0,i}}{g'(\mu_i)}=\frac{1}{\phi}\frac{\omega_i}{v(\mu_i)g'(\mu_i)^2} = \frac{1}{\text{var}(Y_i)g'(\mu_i)^2}, \qquad i=1,\dots,n.
+$$
+
+. . .
+
+- Under **(E.2)** we have $\text{var}(\bm{Y}) = \bm{V}$ and therefore $\bm{W}_0\bm{V}\bm{W}_0 = \bm{W}$, that is $\bm{J}(\beta) = \bm{H}(\beta)$.
 
 :::callout-warning
-The divisor $n - p$ reflects the [degrees of freedom]{.orange}: we lose one degree of freedom for each estimated parameter. This is analogous to dividing by $n - p$ when estimating $\sigma^2$ in linear regression.
+Under **(E.1)**-**(E.3)** the estimator $\hat{\beta}$ is [consistent]{.blue} and
+$$
+\hat{\beta} \: \dot{\sim} \: \text{N}_p\left(\beta, (\bm{X}^T\bm{W}\bm{X})^{-1}\right),
+$$
+which is [formally identical]{.orange} to the result obtained in [Unit B](un_B.html) for the maximum likelihood estimator.
 :::
 
-# Specific models
+## Robustness of $\hat{\beta}$
 
-## Quasi-Poisson
-
-- In [quasi-Poisson regression]{.blue}, we retain the Poisson mean model $\mu_i = \exp(\bm{x}_i^T\beta)$ and the variance function $V(\mu) = \mu$, but allow $\phi \ne 1$:
-$$
-\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = \phi \, \mu_i.
-$$
-
-- The QMLE $\hat\beta$ coincides with the Poisson MLE. Only the standard errors differ:
-$$
-\widehat{\mathrm{se}}_{\text{quasi}}(\hat\beta_j) = \sqrt{\hat\phi_P} \cdot \widehat{\mathrm{se}}_{\text{Poisson}}(\hat\beta_j).
-$$
-
-- In **R**, fit with `family = quasipoisson` (or equivalently `family = quasi(link = "log", variance = "mu")`):
-
-```{r}
-#| echo: true
-library(MLGdata)
-data(Ants)
-Ants$Bread <- as.factor(Ants$Bread)
-Ants$Filling <- as.factor(Ants$Filling)
-Ants$Butter <- as.factor(Ants$Butter)
-
-m_pois <- glm(Ant_count ~ Bread + Filling + Butter,
-  family = poisson, data = Ants
-)
-m_qpois <- glm(Ant_count ~ Bread + Filling + Butter,
-  family = quasipoisson, data = Ants
-)
-```
-
-## Quasi-Poisson: dispersion and standard errors
-
-```{r}
-#| echo: true
-# Estimated dispersion parameter
-phi_hat <- summary(m_qpois)$dispersion
-phi_hat
-
-# Ratio of standard errors: quasi vs Poisson
-se_ratio <- summary(m_qpois)$coefficients[, 2] /
-  summary(m_pois)$coefficients[, 2]
-round(se_ratio, 4)
-```
-
-- All standard errors are inflated by the same factor $\sqrt{\hat\phi_P}$.
-
-- The [point estimates]{.orange} $\hat\beta$ are identical in both models.
-
-## Quasi-binomial
-
-- In [quasi-binomial regression]{.blue}, the mean model remains $\mu_i = g^{-1}(\bm{x}_i^T\beta)$ with variance function $V(\mu) = \mu(1 - \mu)/m_i$, but $\phi$ is free:
-$$
-\mathbb{E}(Y_i) = \pi_i, \qquad \text{var}(Y_i) = \phi \, \frac{\pi_i(1 - \pi_i)}{m_i}.
-$$
-
-- As before, the QMLE coincides with the binomial MLE; only the standard errors are rescaled.
-
-- In **R**, fit with `family = quasibinomial`.
-
-- The quasi-binomial is commonly used when the [effective sample size]{.orange} within each binomial group is smaller than $m_i$ (e.g., due to clustering), leading to extra-binomial variation.
+- The assumption $Y_i \sim \text{ED}(\mu_i, a_i(\phi)v(\mu_i))$ may well be [false]{.orange}: what is [essential]{.blue} is the assumption **(E.1)** on the mean.
 
 :::callout-tip
-More general variance functions are possible. For instance, `family = quasi(link = "log", variance = "mu^2")` specifies $V(\mu) = \mu^2$, corresponding to a [constant coefficient of variation]{.blue}, which is appropriate for Gamma-like data.
+The estimator $\hat{\beta}$ is [consistent]{.blue} even when the [variance function]{.orange} $v(\mu_i)$ is [misspecified]{.orange}, provided that the [link function]{.blue} and the [linear predictor]{.blue} are correct.
+:::
+
+- The heuristic argument is simple: if $\mu_i = g^{-1}(\bm{x}_i^T\beta)$ then $\mathbb{E}\{\bm{q}(\bm{Y};\beta)\} = \bm{0}$ [whatever]{.orange} $\text{var}(Y_i)$ is. Hence $n^{-1}\bm{q}(\bm{Y};\beta)$, a vector of sample means, converges to $\bm{0}$; the [continuous mapping theorem]{.grey} does the rest.
+
+. . .
+
+- Misspecifying $v(\mu_i)$ has two consequences: a [loss of efficiency]{.orange}, and — more seriously — [wrong standard errors]{.orange}, because $\bm{J}(\beta) \neq \bm{H}(\beta)$.
+
+:::callout-tip
+This is the exact analogue of what happens in [Unit A](un_A.html) with [heteroscedastic]{.blue} linear models: the OLS estimator remains a good point estimate, but the classical standard errors are wrong and a [sandwich]{.orange} correction is required.
+:::
+
+## An optimality property
+
+- In the Gaussian linear model of [Unit A](un_A.html), the [Gauss-Markov]{.blue} theorem states that OLS is the most efficient estimator among the linear and unbiased ones, [without]{.orange} requiring normality.
+
+. . .
+
+:::callout-note
+@McCullagh1983 proved the following [asymptotic]{.orange} version of the Gauss-Markov theorem. Under **(E.1)**-**(E.3)**, among all the estimators based on [unbiased estimating equations]{.blue} that are [linear]{.orange} in $\bm{y}$, the solution $\hat{\beta}$ of $\bm{q}(\bm{y};\beta) = \bm{0}$ has [maximum asymptotic precision]{.blue}: for any $\bm{a} \in \mathbb{R}^p$, the estimator $\bm{a}^T\hat{\beta}$ has minimum asymptotic variance.
+:::
+
+- Note that $\hat{\beta}$ does [not]{.orange} minimize the quadratic form $(\bm{y} - \bm{\mu})^T\text{var}(\bm{Y})^{-1}(\bm{y}-\bm{\mu})$, because $\bm{\mu}$ appears in both factors. In this sense $\hat{\beta}$ — and not generalized least squares — is the [correct generalization]{.blue} of OLS under **(E.1)**-**(E.3)**.
+
+. . .
+
+- Since the estimating equations are [unchanged]{.orange}, the [IRLS]{.blue} algorithm of [Unit B](un_B.html) applies [verbatim]{.orange}.
+
+# Estimation and standard errors
+
+## Estimation of the dispersion $\phi$
+
+- The estimating equations do not involve $\phi$, but $\phi$ [does]{.orange} enter the covariance matrix of $\hat{\beta}$ and must therefore be estimated.
+
+:::callout-note
+The [method of moments]{.blue} estimator introduced in [Unit B](un_B.html),
+$$
+\hat{\phi} = \frac{X^2}{n - p} = \frac{1}{n - p}\sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)},
+$$
+remains [consistent]{.orange} under the assumptions **(E.1)**-**(E.3)**.
+:::
+
+- An asymptotically equivalent alternative is based on the [deviance]{.blue}, namely $\hat{\phi}_D = D(\bm{y}; \hat{\bm{\mu}})/(n-p)$.
+
+- The [Pearson]{.blue} version $\hat{\phi}$ is generally [preferred]{.orange} and is the one reported by **R**.
+
+:::callout-warning
+The divisor $n-p$ plays the same role as in the estimator $s^2$ of $\sigma^2$ in a Gaussian linear model: it is a [bias correction]{.blue} accounting for the $p$ estimated regression coefficients.
+:::
+
+## Model-based standard errors
+
+- Plugging $\hat{\beta}$ and $\hat{\phi}$ into $\bm{W}$ we get $\hat{\bm{W}}$ and therefore
+$$
+\widehat{\text{var}}(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}, \qquad [\widehat{\text{se}}(\hat{\beta})]_j = \sqrt{[(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}]_{jj}}.
+$$
+
+- The weights $w_i$ are [inversely proportional]{.blue} to $\phi$, therefore $\hat{\bm{W}} = \hat{\phi}^{-1}\hat{\bm{W}}_{\phi = 1}$ and
+
+:::callout-warning
+In Poisson and binomial regression, the quasi-likelihood [point estimates]{.blue} $\hat{\beta}$ coincide with the maximum likelihood ones, whereas [all]{.orange} the standard errors are inflated by the [same factor]{.orange} $\sqrt{\hat{\phi}}$:
+$$
+[\widehat{\text{se}}_\text{quasi}(\hat{\beta})]_j = \sqrt{\hat{\phi}}\:[\widehat{\text{se}}_\text{glm}(\hat{\beta})]_j, \qquad j=1,\dots,p.
+$$
+:::
+
+- If $\hat{\phi} > 1$, ignoring overdispersion produces [too narrow]{.orange} confidence intervals and [too large]{.orange} test statistics, i.e. [overconfident]{.orange} conclusions.
+
+- This estimate is consistent [provided]{.blue} that the variance function $v(\mu_i)$ is correctly specified.
+
+## The sandwich estimator 📖
+
+- What if we are not willing to assume **(E.2)** either? We go back to the [general]{.orange} sandwich form
+$$
+\text{var}(\hat{\beta}) \: \dot= \: (\bm{X}^T\bm{W}\bm{X})^{-1}\:\bm{X}^T\bm{W}_0\text{var}(\bm{Y})\bm{W}_0\bm{X}\:(\bm{X}^T\bm{W}\bm{X})^{-1},
+$$
+and [estimate]{.blue} the unknown $\text{var}(\bm{Y})$ by $\text{diag}\{(y_i - \hat{\mu}_i)^2\}$.
+
+:::callout-note
+The [sandwich]{.blue} (or [robust]{.orange}) estimator of the covariance matrix of $\hat{\beta}$ is
+$$
+\widehat{\text{var}}_R(\hat{\beta}) = (\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}\:\bm{X}^T\hat{\bm{W}}_0\text{diag}\{(y_i - \hat{\mu}_i)^2\}\hat{\bm{W}}_0\bm{X}\:(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}.
+$$
+:::
+
+- It is [consistent]{.orange} irrespective of the correctness of the variance function, but it requires a [large $n$]{.blue} and it is [less efficient]{.orange} when $v(\mu_i)$ is in fact correct.
+
+:::callout-tip
+This is the GLM counterpart of [White's]{.blue} heteroscedasticity-consistent standard errors of [Unit A](un_A.html); see @Huber1967 and @White1980.
+:::
+
+## Sandwich estimator: a simple example 📖
+
+- Consider the [null]{.blue} Poisson-type model with the [identity link]{.orange}, that is $\mathbb{E}(Y_i) = \beta_1$ and $v(\mu_i) = \mu_i$, with $\omega_i = 1$ and $g'(\mu_i) = 1$.
+
+- Since $\hat{\mu}_i = \hat{\beta}_1 = \bar{y}$, straightforward computations give
+$$
+(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1} = \frac{\hat{\phi}\bar{y}}{n}, \qquad \bm{X}^T\hat{\bm{W}}_0 = \frac{1}{\hat{\phi}\bar{y}}\bm{1}_n^T.
+$$
+
+- Therefore the two estimators of $\text{var}(\hat{\beta}_1)$ are
+$$
+\widehat{\text{var}}(\hat{\beta}_1) = \frac{\hat{\phi}\bar{y}}{n}, \qquad \widehat{\text{var}}_R(\hat{\beta}_1) = \frac{1}{n^2}\sum_{i=1}^n(y_i - \bar{y})^2.
+$$
+
+:::callout-tip
+The [model-based]{.blue} estimator relies on the relationship $\text{var}(Y_i) = \phi\mu_i$, whereas the [robust]{.orange} one is essentially the [sample variance]{.blue} of the data divided by $n$, and makes no use of the mean-variance relationship.
+:::
+
+# The quasi-log-likelihood
+
+## Definition
+
+- So far we only used $\bm{q}(\bm{y};\beta)$. It is however possible to [integrate]{.blue} it and obtain a function playing the role of a log-likelihood.
+
+:::callout-note
+The [quasi-log-likelihood]{.blue} function is defined, up to additive constants, as
+$$
+Q(\bm{\mu}; \bm{y}) = \sum_{i=1}^n Q_i(\mu_i; y_i), \qquad Q_i(\mu_i; y_i) = \int_{y_i}^{\mu_i} \frac{\omega_i(y_i - t)}{\phi\,v(t)}\,\mathrm{d}t.
+$$
+By the chain rule, $\partial Q(\bm{\mu};\bm{y}) / \partial \beta_r = q_r(\bm{y};\beta)$ for $r=1,\dots,p$. 📖
+:::
+
+- Indeed, if $F(\cdot)$ is a primitive of $t \mapsto \omega_i(y_i - t)/\{\phi v(t)\}$, then $Q_i(\mu_i;y_i) = F(\mu_i) - F(y_i)$ and
+$$
+\frac{\partial}{\partial \beta_r} \{F(\mu_i) - F(y_i)\} = F'(\mu_i)\frac{\partial \mu_i}{\partial \beta_r} = \frac{\omega_i(y_i - \mu_i)}{\phi\,v(\mu_i)}\frac{\partial\mu_i}{\partial \beta_r}.
+$$
+
+- The integrand is the quasi-score of a [single observation]{.orange}, for which
+$$
+\mathbb{E}\left\{\frac{\omega_i(Y_i - \mu_i)}{\phi\,v(\mu_i)}\right\} = 0, \qquad \text{var}\left\{\frac{\omega_i(Y_i - \mu_i)}{\phi\,v(\mu_i)}\right\} = \frac{\omega_i}{\phi\,v(\mu_i)},
+$$
+again in perfect analogy with a genuine score contribution.
+
+## Quasi-deviance
+
+:::callout-note
+The [quasi-deviance]{.blue} is defined as $D(\bm{y};\hat{\bm{\mu}}) = 2\phi\{Q(\bm{y};\bm{y}) - Q(\hat{\bm{\mu}};\bm{y})\}$, that is
+$$
+D(\bm{y}; \hat{\bm{\mu}}) = 2\sum_{i=1}^n \omega_i\int_{\hat{\mu}_i}^{y_i}\frac{y_i - t}{v(t)}\,\mathrm{d}t \; \ge \; 0.
+$$
+:::
+
+- As the ordinary deviance, it does [not]{.orange} depend on $\phi$ nor on the link function, and it [vanishes]{.blue} at the saturated model $\hat{\bm{\mu}} = \bm{y}$.
+
+. . .
+
+- For $v(\mu) = \mu$ and $\omega_i = 1$ we recover the [Poisson deviance]{.orange} of [Unit B](un_B.html):
+$$
+D(\bm{y}; \hat{\bm{\mu}}) = 2\sum_{i=1}^n\left\{y_i\log(y_i/\hat{\mu}_i) - y_i + \hat{\mu}_i\right\}.
+$$
+
+- For $v(\mu) = \mu(1-\mu)$ and $\omega_i = m_i$ we recover the [binomial deviance]{.orange}. In general the quasi-deviance associated with $v(\cdot)$ [coincides]{.blue} with the deviance of the corresponding exponential dispersion family, when one exists.
+
+:::callout-warning
+Consequently, **R** reports for a quasi-likelihood model [exactly the same]{.orange} null and residual deviances of the corresponding Poisson or binomial GLM. They must [not]{.orange} be used as goodness-of-fit statistics, since here $\phi \ne 1$.
 :::
 
 # Inference
 
 ## Hypothesis testing
 
-- For testing $H_0: \beta_j = 0$, use the [quasi-$t$ statistic]{.blue}:
-$$
-T_j = \frac{\hat\beta_j}{\widehat{\mathrm{se}}(\hat\beta_j)} \overset{a}{\sim} t(n - p).
-$$
+- Consider, as in [Unit B](un_B.html), two [nested models]{.grey} $M_0 \subset M_1$ with $p_0$ and $p$ parameters, and let $q = p - p_0$.
 
-- For testing a set of $q$ linear restrictions $H_0: C\beta = 0$, use the [quasi-$F$ statistic]{.blue}:
+:::callout-note
+The [quasi-log-likelihood ratio]{.blue} statistic for testing $H_0: \beta_B = \bm{0}$ is
 $$
-F = \frac{(D_0 - D_1)/q}{\hat\phi} \overset{a}{\sim} F(q,\, n - p),
+W = 2\{Q(\hat{\bm{\mu}};\bm{y}) - Q(\hat{\bm{\mu}}_0;\bm{y})\} = \frac{D(\bm{y};\hat{\bm{\mu}}_0) - D(\bm{y};\hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q,
 $$
-where $D_0$ and $D_1$ are the deviances of the restricted and unrestricted models.
-
-- The $F$-test [replaces]{.orange} the likelihood ratio test (chi-squared) used in standard GLMs, because quasi-likelihoods do not yield a proper likelihood ratio statistic.
-
-```{r}
-#| echo: true
-m_reduced <- glm(Ant_count ~ Bread + Filling,
-  family = quasipoisson, data = Ants
-)
-anova(m_reduced, m_qpois, test = "F")
-```
-
-## Model selection: quasi-AIC
-
-- The standard [AIC]{.orange} requires a proper log-likelihood, which is not available under quasi-likelihood.
-
-- A natural analog is the [quasi-AIC (QAIC)]{.blue}, proposed by @McCullagh1989:
-$$
-\text{QAIC} = \frac{-2 Q(\hat\mu; y)}{\hat\phi} + 2p,
-$$
-where $Q(\hat\mu; y) = \sum_i Q(\hat\mu_i; y_i)$ is the total quasi-log-likelihood evaluated at $\hat\mu$.
-
-- Equivalently, since the quasi-score equations are identical to the GLM score equations, one can compute the AIC from the [Poisson/binomial log-likelihood]{.orange} and then divide by $\hat\phi$:
-$$
-\text{QAIC} \approx \frac{\text{AIC}_\text{Poisson}}{\hat\phi} + 2p\left(1 - \frac{1}{\hat\phi}\right).
-$$
-
-:::callout-warning
-The QAIC [cannot]{.orange} be compared across models fitted with different estimated $\hat\phi$. Compare models using the same $\hat\phi$, estimated from the most complex model considered.
+which is [formally the same]{.orange} expression obtained in [Unit B](un_B.html).
 :::
 
-## Model selection in R
+- Similarly, the [Wald]{.blue} statistic for $H_0 : \beta_j = 0$ is $\hat{\beta}_j/[\widehat{\text{se}}(\hat{\beta})]_j$, and the [Rao-score]{.grey} statistic $W_u$ is obtained from the quasi-score evaluated at the restricted estimate. The three tests remain [asymptotically equivalent]{.blue}.
 
-- In **R**, `AIC()` and `BIC()` return `NA` for quasi-likelihood models. Use `anova(..., test = "F")` for comparing nested models.
+. . .
 
-```{r}
-#| echo: true
-# F-test for nested models (quasi-likelihood)
-anova(m_reduced, m_qpois, test = "F")
-```
+- The [robust]{.orange} version of the Wald test replaces $\widehat{\text{var}}(\hat{\beta})$ with the sandwich $\widehat{\text{var}}_R(\hat{\beta})$.
 
-- For [non-nested models]{.orange} or model selection across many candidates, one approach is to fit the Poisson model, obtain $\hat\phi$ from the full model, and then compute QAIC manually.
+## $t$ and $F$, instead of $z$ and $\chi^2$
 
-# A complete example
+- There is one [practical difference]{.orange} with respect to [Unit B](un_B.html): here $\phi$ is [always estimated]{.blue}, exactly as $\sigma^2$ in a Gaussian linear model.
+
+- Accordingly, **R** reports for quasi families a $\texttt{t value}$ rather than a $\texttt{z value}$, and refers the statistics to
+$$
+T_j = \frac{\hat{\beta}_j}{[\widehat{\text{se}}(\hat{\beta})]_j} \: \dot{\sim} \: t_{n-p}, \qquad \frac{W}{q} = \frac{D(\bm{y};\hat{\bm{\mu}}_0) - D(\bm{y};\hat{\bm{\mu}})}{q\,\hat{\phi}} \: \dot{\sim} \: F_{q, \,n-p}.
+$$
+
+:::callout-tip
+Both distributions are [approximations]{.orange}, motivated by the analogy with the Gaussian linear model, in which they would be [exact]{.blue}. They are more [conservative]{.blue} than the $\text{N}(0,1)$ and $\chi^2_q$ approximations, with which they coincide for large $n - p$.
+:::
+
+- In **R**, use `anova(m0, m1, test = "F")` — or `test = "Chisq"` for the $\chi^2_q$ version — and `drop1(m, test = "F")`.
+
+## Model selection
+
+- The quasi-log-likelihood is [not]{.orange} a log-likelihood, hence the [AIC]{.blue} and the [BIC]{.blue} of [Unit B](un_B.html) are [not available]{.orange}: **R** returns `AIC: NA`.
+
+- Nested models can still be compared through the $F$ (or $\chi^2$) tests described above, which is the [recommended]{.blue} strategy for this course.
+
+. . .
+
+- A commonly used surrogate is the [quasi-AIC]{.orange} of @McCullagh1989,
+$$
+\text{QAIC} = \frac{D(\bm{y};\hat{\bm{\mu}})}{\hat{\phi}} + 2p,
+$$
+in which the scaled quasi-deviance replaces $-2\ell(\hat{\beta})$.
+
+:::callout-warning
+The QAIC must be used with [care]{.orange}: the [same]{.blue} $\hat{\phi}$, estimated from the [most complex]{.orange} model under consideration, has to be used for all the candidate models, otherwise the comparison is meaningless.
+:::
+
+# Notable quasi-likelihood models
+
+## Quasi-Poisson
+
+- The [quasi-Poisson]{.blue} model keeps the Poisson mean structure and variance function, but frees the dispersion:
+$$
+\mathbb{E}(Y_i) = \mu_i = \exp(\bm{x}_i^T\beta), \qquad \text{var}(Y_i) = \phi\,\mu_i, \qquad \omega_i = 1, \quad v(\mu_i) = \mu_i.
+$$
+
+- The estimate $\hat{\beta}$ [coincides]{.orange} with the Poisson maximum likelihood estimate; the standard errors are multiplied by $\sqrt{\hat{\phi}}$.
+
+- In **R** the model is fitted with `family = quasipoisson`, or equivalently with `family = quasi(link = "log", variance = "mu")`.
+
+. . .
+
+:::callout-tip
+Compare with the [negative binomial]{.orange} model of [Unit D](un_D.html), where $\text{var}(Y_i) = \mu_i + \mu_i^2/\alpha$. The two models make [different assumptions]{.blue} on how the variance grows with the mean, hence they weight the observations differently and give [different]{.orange} estimates $\hat{\beta}$.
+:::
+
+## Quasi-binomial
+
+- The [quasi-binomial]{.blue} model is specified for the proportions $Y_i = S_i/m_i$ as
+$$
+\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta), \qquad \text{var}(Y_i) = \phi\,\frac{\mu_i(1-\mu_i)}{m_i}, \qquad \omega_i = m_i.
+$$
+
+- Again $\hat{\beta}$ coincides with the binomial maximum likelihood estimate, and the standard errors are inflated by $\sqrt{\hat{\phi}}$. In **R**: `family = quasibinomial`.
+
+. . .
+
+:::callout-warning
+For [binary data]{.orange}, that is when $m_i = 1$, the quasi-binomial model is [meaningless]{.orange}: since $Y_i \in \{0,1\}$ we necessarily have $\mathbb{E}(Y_i^2) = \mathbb{E}(Y_i) = \mu_i$ and therefore
+$$
+\text{var}(Y_i) = \mu_i(1-\mu_i),
+$$
+so that [only]{.orange} $\phi = 1$ is possible. Overdispersion simply [cannot occur]{.blue} with ungrouped binary data.
+:::
+
+## Other variance functions
+
+- Nothing forces $v(\cdot)$ to be the variance function of an exponential dispersion family. In **R** the `quasi` family accepts several combinations of link and variance:
+
+| `variance` | $v(\mu)$ | Comment |
+|:-----------|:---------|:--------|
+| `"constant"` | $1$ | Gaussian-like, homoscedastic |
+| `"mu"` | $\mu$ | Poisson-like, counts |
+| `"mu^2"` | $\mu^2$ | Gamma-like, constant coefficient of variation |
+| `"mu^3"` | $\mu^3$ | inverse-Gaussian-like |
+| `"mu(1-mu)"` | $\mu(1-\mu)$ | binomial-like, proportions |
+
+- For instance, `quasi(link = "log", variance = "mu^2")` specifies $\text{var}(Y_i) = \phi\mu_i^2$, that is a [constant coefficient of variation]{.blue}, an assumption often more realistic than $\text{var}(Y_i) = \phi\mu_i$ for heavily overdispersed counts.
+
+:::callout-tip
+Another useful choice for proportions is the [beta-binomial]{.orange} variance function
+$$
+\text{var}(Y_i) = \frac{\mu_i(1-\mu_i)}{m_i}\{1 + \rho(m_i - 1)\},
+$$
+implemented by the `quasibin` function of the `aod` library. The inflation factor now [depends on $m_i$]{.blue}, which is more sensible than a constant $\phi$ when the group sizes vary a lot.
+:::
+
+## Choosing the variance function
+
+- Selecting $v(\cdot)$ is a [diagnostic]{.orange} problem: the [standardized Pearson residuals]{.blue} $\tilde{r}_{i,P}$ of [Unit B](un_B.html) should display no systematic pattern in their [spread]{.orange} when plotted against $\hat{\mu}_i$.
+
+- A useful check is $\text{var}(\tilde{r}_{i,P}) \approx 1$: a variance much larger than one signals that the assumed $v(\mu_i)$ grows [too slowly]{.orange} with the mean.
+
+. . .
+
+:::callout-tip
+A [systematic discrepancy]{.orange} between the model-based standard errors and the [sandwich]{.blue} ones is another warning sign that the assumed mean-variance relationship is inadequate.
+:::
+
+- Remember that $\hat{\beta}$ remains [consistent]{.blue} whatever $v(\cdot)$ we choose: the choice affects [efficiency]{.orange} and [standard errors]{.orange}, not the validity of the point estimate.
+
+# Counts: the `Ants` data
 
 ## The `Ants` dataset
 
-- The `Ants` dataset (from the `MLGdata` library) records the [number of ants]{.blue} ($Y_i$) attracted to different types of sandwiches in an experiment.
+- The `Ants` dataset of the `MLGdata` library comes from an experiment run by students of an Australian university, see @Salvan2020, Section 5.7.4. The aim is to assess the preferences of [meat ants]{.orange} (*Iridomyrmex purpureus*) for different types of sandwich.
 
-- The [explanatory variables]{.orange} are categorical: type of `Bread` (2 levels), `Filling` (3 levels), and `Butter` (2 levels).
+- The [experimental factors]{.blue} are all categorical:
 
-- We fit a [Poisson]{.blue} and a [quasi-Poisson]{.orange} model and compare inference.
+  - `Bread` ($4$ types): rye, wholemeal, multigrain, white;
+  - `Filling` ($3$ types): Vegemite, peanut butter, ham and pickles;
+  - `Butter` ($2$ levels): present ($1$) or absent ($-1$).
+
+- For each of the $4 \times 3 \times 2 = 24$ combinations, [two]{.orange} pieces of sandwich were placed at random near the entrance of an ant nest, for a total of $n = 48$ observations.
+
+- The [response]{.blue} `Ant_count` is the number of ants attracted after $5$ minutes.
 
 ```{r}
 #| echo: true
+#| classes: styled-output
+data(Ants)
+Ants$Bread <- as.factor(Ants$Bread)
+Ants$Filling <- as.factor(Ants$Filling)
+Ants$Butter <- as.factor(Ants$Butter)
 head(Ants[, 1:4], 6)
 ```
 
-## Fitting and comparing models
+## Exploratory analysis
 
 ```{r}
-#| echo: true
-summary(m_qpois)$coefficients
+#| fig-width: 9
+#| fig-height: 4.2
+#| fig-align: center
+par(mfrow = c(1, 3))
+boxplot(Ant_count ~ Bread, data = Ants, col = "grey85")
+boxplot(Ant_count ~ Filling, data = Ants, col = "grey85")
+boxplot(Ant_count ~ Butter, data = Ants, col = "grey85")
+par(mfrow = c(1, 1))
 ```
 
-- The estimated dispersion is $\hat\phi_P \approx$ `r round(phi_hat, 2)`, indicating [moderate overdispersion]{.orange}.
+- `Filling` and `Butter` appear to matter, `Bread` much less so. The within-group [variability]{.orange} is large compared with the group means, which is [suggestive]{.blue} — but, as discussed, not conclusive — of overdispersion.
 
-- Standard errors under the quasi-Poisson are larger by a factor of $\sqrt{\hat\phi_P} \approx$ `r round(sqrt(phi_hat), 2)`.
+- We consider a [Poisson regression]{.blue} model with the canonical link, the main effects and the `Filling`-`Butter` [interaction]{.orange}, so that $n = 48$ and $p = 9$.
 
-## Confidence intervals
+## The Poisson fit
 
 ```{r}
 #| echo: true
-# 95% confidence intervals: Poisson vs quasi-Poisson
-ci_pois <- confint.default(m_pois)
-ci_qpois <- confint.default(m_qpois)
-
-# Width ratio (quasi-Poisson / Poisson)
-round(
-  (ci_qpois[, 2] - ci_qpois[, 1]) / (ci_pois[, 2] - ci_pois[, 1]),
-  3
+#| classes: styled-output
+m_pois <- glm(Ant_count ~ Bread + Filling * Butter,
+  family = poisson, data = Ants
 )
+summary(m_pois)
 ```
 
-- All confidence intervals under the quasi-Poisson are wider by the factor $\sqrt{\hat\phi_P}$.
-
-- The [point estimates]{.blue} are unchanged, but the [inferential conclusions]{.orange} may differ: some terms that appear significant under Poisson may no longer be significant after correcting for overdispersion.
-
-## Prediction intervals
-
-- Under quasi-Poisson, a [prediction interval]{.blue} for a new observation $Y_\text{new}$ with covariate $\bm{x}_\text{new}$ is based on the approximation
-$$
-Y_\text{new} \overset{a}{\sim} \mathrm{N}(\hat\mu_\text{new},\, \hat\phi \, \hat\mu_\text{new}).
-$$
+## Assessing overdispersion
 
 ```{r}
 #| echo: true
-# Prediction for a specific sandwich
-newdata <- data.frame(Bread = "2", Filling = "3", Butter = "1")
-pred <- predict(m_qpois, newdata = newdata, type = "link", se.fit = TRUE)
+#| classes: styled-output
+X2 <- sum(residuals(m_pois, type = "pearson")^2)
+c(X2 = X2, df = m_pois$df.residual, pvalue = pchisq(X2, m_pois$df.residual, lower.tail = FALSE))
+
+phi_hat <- X2 / m_pois$df.residual
+phi_hat
+```
+
+- The $X^2$ statistic is far larger than its degrees of freedom $n - p = 39$, with a p-value of essentially zero: there is [strong evidence]{.orange} of lack of fit.
+
+- The estimated dispersion is $\hat{\phi} \approx$ `r round(phi_hat, 2)`, so that the Poisson standard errors are too small by a factor of about $\sqrt{\hat{\phi}} \approx$ `r round(sqrt(phi_hat), 2)`.
+
+## The quasi-Poisson fit
+
+```{r}
+#| echo: true
+#| classes: styled-output
+m_quasi <- glm(Ant_count ~ Bread + Filling * Butter,
+  family = quasi(link = "log", variance = "mu"), data = Ants
+)
+summary(m_quasi)
+```
+
+## Comparing the two fits
+
+```{r}
+#| echo: true
+#| classes: styled-output
+# Point estimates are identical
+max(abs(coef(m_pois) - coef(m_quasi)))
+
+# Standard errors are inflated by the same factor
+se_ratio <- summary(m_quasi)$coefficients[, 2] / summary(m_pois)$coefficients[, 2]
+round(se_ratio, 4)
+sqrt(summary(m_quasi)$dispersion)
+```
+
+- The [regression coefficients]{.blue} are numerically identical, as expected.
+
+- [All]{.orange} the standard errors are multiplied by $\sqrt{\hat{\phi}}$, and the [inferential conclusions]{.blue} change: several effects that looked significant under the Poisson model are no longer so.
+
+- The null and residual [deviances]{.grey} reported by `summary` are the [same]{.orange} as those of the Poisson fit, and `AIC` is `NA`.
+
+## Robust standard errors
+
+- The `gee` library computes the [sandwich]{.orange} standard errors of the previous section. The option `scale.fix = TRUE` keeps the naive standard errors equal to the Poisson ones.
+
+```{r}
+#| echo: true
+#| eval: false
+library(gee)
+obs <- 1:nrow(Ants) # the gee function requires an id for each observation
+summary(gee(Ant_count ~ Bread + Filling * Butter,
+  id = obs, family = poisson, data = Ants, scale.fix = TRUE
+))
+```
+
+- In this example the [robust]{.orange} standard errors are comparable with the [quasi-likelihood]{.blue} ones, which is reassuring: it suggests that the variance function $v(\mu_i) = \mu_i$ is a [reasonable]{.blue} description of the data.
+
+:::callout-tip
+Note the [terminology]{.grey} used by `gee`: the standard errors computed under **(E.1)**-**(E.3)** are called [naive]{.blue}, whereas the sandwich ones are called [robust]{.orange}.
+:::
+
+## Model simplification
+
+- The inflation of the standard errors suggests that the model can be [simplified]{.blue}. Nested models are compared through the quasi-likelihood ratio statistic $W$.
+
+```{r}
+#| echo: true
+#| classes: styled-output
+drop1(m_quasi, test = "F")
+```
+
+. . .
+
+```{r}
+#| echo: true
+#| classes: styled-output
+m_quasi1 <- update(m_quasi, . ~ . - Bread)
+drop1(m_quasi1, test = "F")
+```
+
+- Neither `Bread` nor the `Filling:Butter` interaction is supported by the data, once overdispersion has been taken into account.
+
+## The final model
+
+```{r}
+#| echo: true
+#| classes: styled-output
+m_quasi2 <- update(m_quasi1, . ~ . - Filling:Butter)
+summary(m_quasi2)
+```
+
+## Confidence and prediction intervals
+
+- Let us predict the number of ants attracted by a specific sandwich. As usual, we work on the scale of the [linear predictor]{.blue} and then transform.
+
+```{r}
+#| echo: true
+#| classes: styled-output
+newdata <- data.frame(Filling = "3", Butter = "1")
+pred <- predict(m_quasi2, newdata = newdata, type = "link", se.fit = TRUE)
 
 alpha <- 0.05
 z <- qnorm(1 - alpha / 2)
 mu_hat <- exp(pred$fit)
+phi_tilde <- summary(m_quasi2)$dispersion
 
-# Confidence interval for the mean
+# Confidence interval for the mean mu
 ci_mean <- exp(c(pred$fit - z * pred$se.fit, pred$fit + z * pred$se.fit))
 
-# Approximate prediction interval for Y_new
-ci_pred <- qnorm(
-  c(alpha / 2, 1 - alpha / 2),
-  mean = mu_hat,
-  sd = sqrt(phi_hat * mu_hat)
-)
-
+# Approximate prediction interval for a new observation
+ci_pred <- qnorm(c(alpha / 2, 1 - alpha / 2), mean = mu_hat, sd = sqrt(phi_tilde * mu_hat))
 round(rbind(ci_mean, ci_pred), 2)
 ```
+
+- The [prediction interval]{.orange} relies on the Gaussian approximation $Y_\text{new} \: \dot{\sim} \: \text{N}(\hat{\mu}_\text{new}, \hat{\phi}\hat{\mu}_\text{new})$, whereas under the Poisson model we would use the [exact quantiles]{.blue} `qpois(c(0.025, 0.975), mu_hat)`.
+
+:::callout-tip
+This is a genuine [limitation]{.orange} of quasi-likelihoods: without a distribution we cannot compute $\mathbb{P}(Y_\text{new} = y)$, nor exact quantiles. If the whole predictive distribution matters, a [parametric]{.blue} overdispersed model is preferable.
+:::
+
+# Proportions: the `Rats` data
+
+## A teratology study
+
+- The `Rats` dataset of the `MLGdata` library comes from Moore and Tsiatis (1991); see also @Salvan2020, Section 6.4.2, and @Agresti2015, Section 8.2.4.
+
+- The purpose is to assess the effect of an [iron supplement]{.blue} on the fetal development of rats:
+
+  - $58$ female rats on an [iron-deficient diet]{.orange} were randomly assigned to four groups: placebo (group $1$), iron on days $7$ and $10$, iron on days $0$ and $7$, iron weekly;
+  - the females were made pregnant and, after three weeks, the number of [dead fetuses]{.orange} $S_i = m_iY_i$ out of a litter of size $m_i$ was recorded, together with the mother's [haemoglobin level]{.blue} $h_i$.
+
+. . .
+
+- The [response]{.orange} is the proportion of dead fetuses $Y_i = S_i/m_i$, so $\omega_i = m_i$ and $v(\mu_i) = \mu_i(1-\mu_i)$.
+
+- The probability of death may [vary across litters]{.blue}, even within the same group and at the same haemoglobin level, because of unrecorded genetic variability: a natural source of [overdispersion]{.orange}.
+
+## The `Rats` dataset
+
+```{r}
+#| echo: true
+#| classes: styled-output
+data(Rats)
+head(Rats)
+
+# Mortality rate within each group
+with(Rats, tapply(s, group, sum) / tapply(n, group, sum))
+```
+
+- The mortality rate in the [placebo group]{.orange} is dramatically higher than in the three treated groups, which look similar to each other.
+
+- We therefore [dichotomize]{.blue} the group variable, distinguishing placebo from treated.
+
+```{r}
+#| echo: true
+Rats$placebo <- ifelse(Rats$group == 1, 1, 0)
+```
+
+## Logistic regression
+
+```{r}
+#| echo: true
+#| classes: styled-output
+m_bin <- glm(s / n ~ placebo + h, weights = n, family = binomial, data = Rats)
+summary(m_bin)
+```
+
+## Assessing overdispersion
+
+```{r}
+#| echo: true
+#| classes: styled-output
+X2_rats <- sum(residuals(m_bin, type = "pearson")^2)
+c(X2 = X2_rats, df = m_bin$df.residual)
+
+phi_rats <- X2_rats / m_bin$df.residual
+phi_rats
+```
+
+- Here $X^2 \approx 160$ against $n - p = 55$ degrees of freedom: there is [clear evidence]{.orange} of overdispersion, with $\hat{\phi} \approx$ `r round(phi_rats, 2)`.
+
+- Since the responses are [grouped]{.blue} proportions with $m_i > 1$, the quasi-binomial model is [legitimate]{.orange} here.
+
+- The standard errors of the logistic regression will be inflated by $\sqrt{\hat{\phi}} \approx$ `r round(sqrt(phi_rats), 2)`.
+
+## The quasi-binomial fit
+
+```{r}
+#| echo: true
+#| classes: styled-output
+m_bin_q <- glm(s / n ~ placebo + h,
+  weights = n, data = Rats,
+  family = quasi(link = "logit", variance = "mu(1-mu)")
+)
+summary(m_bin_q)
+```
+
+## Comments
+
+- The point estimates are [unchanged]{.blue}. In particular $\exp(\hat{\beta}_2) = \exp(2.651) \approx 14.2$ is the [odds ratio]{.orange} comparing the placebo and the treated group, at a fixed haemoglobin level.
+
+- The evidence of a [higher mortality]{.orange} in the placebo group survives the correction, whereas [haemoglobin]{.blue} is no longer significant once overdispersion is taken into account.
+
+. . .
+
+:::callout-tip
+This is a [typical]{.blue} pattern: correcting for overdispersion does not change what the data say about [large effects]{.orange}, but it often removes the apparent significance of the [borderline]{.blue} ones. Ignoring overdispersion is a recipe for [over-interpretation]{.orange}.
+:::
+
+- As anticipated, the [parametric alternative]{.orange} here is the beta-binomial model of [Unit C](un_C.html), which can be fitted with `VGAM::vglm(..., betabinomial())`. A quasi-likelihood version, with the beta-binomial variance function, is available through `aod::quasibin`.
 
 # Summary
 
 ## Summary
 
-- [Quasi-likelihoods]{.blue} extend GLMs by requiring only the specification of a [mean-variance relationship]{.orange} $\text{var}(Y_i) = \phi \, V(\mu_i)$, without assuming a full parametric distribution.
+- The [quasi-likelihood model]{.blue} replaces the distributional assumption of a GLM with the [second-order]{.orange} assumptions **(E.1)**-**(E.3)**: a mean structure, a mean-variance relationship $\text{var}(Y_i) = (\phi/\omega_i)v(\mu_i)$ and independence.
 
-- The [QMLE]{.blue} is computed via [IWLS]{.orange}, yielding the [same point estimates]{.grey} as the corresponding GLM. Only the standard errors are affected.
+- The [quasi-score]{.blue} $\bm{q}(\bm{y};\beta)$ coincides with the GLM score function, so $\hat{\beta}$ is computed with the same [IRLS]{.orange} algorithm: in **R** one just changes the `family` argument.
 
-- The [dispersion parameter]{.orange} $\phi$ is estimated by $\hat\phi_P = X^2/(n-p)$ and inflates all standard errors by $\sqrt{\hat\phi_P}$.
+- $\hat{\beta}$ is [consistent]{.blue}, [asymptotically normal]{.blue} and [asymptotically optimal]{.blue} among linear unbiased estimating equations, generalizing the [Gauss-Markov]{.orange} theorem.
 
-- Inference is based on [quasi-$t$]{.blue} and [quasi-$F$]{.orange} statistics instead of $z$ and chi-squared statistics.
+- Consistency survives a [misspecified variance function]{.orange}; the standard errors do not, and can be protected with the [sandwich]{.blue} estimator.
 
-- [Model selection]{.blue} uses $F$-tests for nested models; QAIC is available but requires care.
+- The dispersion is estimated by $\hat{\phi} = X^2/(n-p)$ and [inflates all standard errors]{.orange} by $\sqrt{\hat{\phi}}$.
 
-- The most commonly used quasi-likelihood models are [quasi-Poisson]{.blue} and [quasi-binomial]{.orange}.
+- Inference relies on [quasi-$t$]{.blue} and [quasi-$F$]{.blue} statistics; the [AIC]{.orange} is not available and nested models are compared through the [quasi-deviance]{.blue}.
+
+- The most common instances are the [quasi-Poisson]{.blue} and the [quasi-binomial]{.orange} models. The latter is [meaningless]{.orange} for ungrouped binary data.
 
 ## References
