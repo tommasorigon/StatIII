@@ -1,5 +1,5 @@
 ---
-title: "Esame del 26 Giugno 2026"
+title: "Esame del 25 Giugno 2026"
 subtitle: "Statistics III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"

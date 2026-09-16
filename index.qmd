@@ -43,20 +43,20 @@ prerequisites: it is assumed that you have already been exposed to:
     Multivariata*](https://tommasorigon.github.io/introR/).
 
 Regression is such an important topic that the [tour]{.orange} will
-[continue]{.orange} at [Data
+[continue]{.orange} in [Data
 Mining](https://tommasorigon.github.io/datamining/).
 
 ## Teaching material
 
 #### Recommended textbooks (ITA)
 
--   Salvan, A., Sartori, N. and L. Pace. 2020. [*Modelli Lineari
-    Generalizzati*](https://link.springer.com/chapter/10.1007/978-88-470-4002-1_2).
+-   Salvan, A., Sartori, N. and Pace, L. 2020. [*Modelli Lineari
+    Generalizzati*](https://link.springer.com/book/10.1007/978-88-470-4002-1).
     Springer.
 -   Azzalini, A. 2008. [*Inferenza Statistica: Una Presentazione Basata
     sul Concetto di
     Verosimiglianza*](https://link.springer.com/book/9788847001305).
-    Springer
+    Springer.
 
 #### Recommended textbooks (ENG)
 
@@ -65,7 +65,7 @@ Mining](https://tommasorigon.github.io/datamining/).
     Wiley.
 -   McCullagh, P., and J. A. Nelder. 1989. [*Generalized Linear
     Models*](https://www.taylorfrancis.com/books/mono/10.1201/9780203753736/generalized-linear-models-mccullagh).
-    Second Edition. Springer.
+    Second Edition. Chapman & Hall/CRC.
 
 #### Slides and lecture notes
 
@@ -96,22 +96,22 @@ The slides are meant to be used in HTML.
 
 ## Previous exams (ITA)
 
-Example of previous exams are provided below. During the exam, you will
+Examples of previous exams are provided below. During the exam, you will
 have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------------------|------------------|------------------|------------------|
-| 16 Settembre 2026 | [`case2001`](https://search.r-project.org/CRAN/refmans/Sleuth3/html/case2001.html) | [Exam](exams/2026_09_16.html) |  |
-| 22 Luglio 2026 | [`worldcup`](data/worldcup.csv) | [Exam](exams/2026_07_22.html) | [Soluzione](exams/sol_2026_07_22.html) |
-| 25 Giugno 2026 | [`warpbreaks`](https://search.r-project.org/R/refmans/datasets/html/warpbreaks.html) | [Exam](exams/2026_06_25.html) | [Soluzione] |
-| 10 Febbraio 2026 | [`Default`](https://search.r-project.org/CRAN/refmans/ISLR2/html/Default.html) | [Exam](exams/2026_02_10.html) | [Soluzione](exams/sol_2026_02_10.html) |
-| 27 Gennaio 2026 | [`anaesthetic`](https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html) | [Exam](exams/2026_01_27.html) |  [Soluzione](exams/sol_2026_01_27.html) |
-| 11 November 2025 | [`beetle`](https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html) | [Exam](exams/2025_11_18.html) | [Soluzione](exams/sol_2025_11_18.html) |
+| 2026-09-16 | [`case2001`](https://search.r-project.org/CRAN/refmans/Sleuth3/html/case2001.html) | [Exam](exams/2026_09_16.html) |  |
+| 2026-07-22 | [`worldcup`](data/worldcup.csv) | [Exam](exams/2026_07_22.html) | [Solution](exams/sol_2026_07_22.html) |
+| 2026-06-25 | [`warpbreaks`](https://search.r-project.org/R/refmans/datasets/html/warpbreaks.html) | [Exam](exams/2026_06_25.html) |  |
+| 2026-02-10 | [`Default`](https://search.r-project.org/CRAN/refmans/ISLR2/html/Default.html) | [Exam](exams/2026_02_10.html) | [Solution](exams/sol_2026_02_10.html) |
+| 2026-01-27 | [`anaesthetic`](https://search.r-project.org/CRAN/refmans/faraway/html/anaesthetic.html) | [Exam](exams/2026_01_27.html) |  [Solution](exams/sol_2026_01_27.html) |
+| 2025-11-18 | [`beetle`](https://search.r-project.org/CRAN/refmans/faraway/html/beetle.html) | [Exam](exams/2025_11_18.html) | [Solution](exams/sol_2025_11_18.html) |
 | **Old exams (prof. Migliorati)** |  |  |  |
-| 13 July 2016 | `awards` | [Exam](exams/2016_07_13.html) |  |
-| 29 Giugno 2016 | `berk` | [Exam](exams/2016_06_29.html) |  |
-| 29 April 2015 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) |  |
-| 9 July 2014 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
+| 2016-07-13 | `awards` | [Exam](exams/2016_07_13.html) |  |
+| 2016-06-29 | `berk` | [Exam](exams/2016_06_29.html) |  |
+| 2015-04-29 | [`ships`](https://search.r-project.org/CRAN/refmans/MASS/html/ships.html) | [Exam](exams/2015_04_29.html) |  |
+| 2014-07-09 | [`orings`](https://search.r-project.org/CRAN/refmans/faraway/html/orings.html) | [Exam](exams/2014_07_09.html) |  |
 
 ## Acknowledgments
 

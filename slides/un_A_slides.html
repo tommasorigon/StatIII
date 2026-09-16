@@ -367,7 +367,7 @@ D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol
 <ul>
 <li>In matrix notation, the predicted values can be obtained as <span class="math display">
 \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
-</span> where <span class="math inline">\boldsymbol{H}</span> is an <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
+</span> where <span class="math inline">\boldsymbol{H}</span> is an <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is symmetric and idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -415,7 +415,7 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 <div class="fragment">
 <ul>
 <li>An observation is <span class="blue">influential</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">c_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
-p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
+c_i = \frac{1}{p}(\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
 </span> Cook’s distance is considered relatively large when <span class="math inline">c_i \ge 1</span>.</li>
 </ul>
 </div>
@@ -484,7 +484,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </tbody>
 </table>
 <ul>
-<li>Moreover, the coefficient <span class="math inline">R^2</span> and the residual standard deviation <span class="math inline">s</span> are:</li>
+<li>Moreover, the coefficient of determination <span class="math inline">R^2</span>, the residual standard deviation <span class="math inline">s</span>, and the deviance <span class="math inline">D(\hat{\beta})</span> are:</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -515,8 +515,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <h2>A first model: graphical diagnostics</h2>
 
 <img data-src="un_A_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"></section>
-<section id="comments-and-criticisms" class="slide level2 center">
-<h2>Comments and criticisms</h2>
+<section id="a-first-model-comments-and-criticisms" class="slide level2 center">
+<h2>A first model: comments and criticisms</h2>
 <ul>
 <li><p>Is this a good model?</p></li>
 <li><p>The overall fit <span class="blue">seems satisfactory</span> at first glance, especially if we aim at predicting the urban distance of cars with average engine size (i.e., between <span class="math inline">1.5L</span> and <span class="math inline">3L</span>).</p></li>
@@ -591,16 +591,16 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </table>
 </div>
 </section>
-<section id="second-model-fitted-values" class="slide level2 center">
-<h2>Second model: fitted values</h2>
+<section id="a-second-model-fitted-values" class="slide level2 center">
+<h2>A second model: fitted values</h2>
 
 <img data-src="un_A_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"></section>
-<section id="second-model-graphical-diagnostics" class="slide level2 center">
-<h2>Second model: graphical diagnostics</h2>
+<section id="a-second-model-graphical-diagnostics" class="slide level2 center">
+<h2>A second model: graphical diagnostics</h2>
 
 <img data-src="un_A_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"></section>
-<section id="comments-and-criticisms-1" class="slide level2 center">
-<h2>Comments and criticisms</h2>
+<section id="a-second-model-comments-and-criticisms" class="slide level2 center">
+<h2>A second model: comments and criticisms</h2>
 <ul>
 <li>The <span class="blue">goodness of fit</span> indices are the following:</li>
 </ul>
@@ -700,8 +700,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <h2>A third model: graphical diagnostics</h2>
 
 <img data-src="un_A_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1170"></section>
-<section id="comments-and-criticisms-2" class="slide level2 center">
-<h2>Comments and criticisms</h2>
+<section id="a-third-model-comments-and-criticisms" class="slide level2 center">
+<h2>A third model: comments and criticisms</h2>
 <ul>
 <li>The goodness of fit greatly <span class="blue">improved</span>:</li>
 </ul>
@@ -769,7 +769,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </ul>
 <!-- - Here we review the [implications]{.blue} of each [assumption]{.orange}, and a few  [solutions]{.blue}. -->
 <!-- - Even if the data are [heteroscedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
-<aside><ol class="aside-footnotes"><li id="fn1"><p>If the intercept is included in <span class="math inline">\boldsymbol{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>.</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>The assumption <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span> is not restrictive when the intercept is included in <span class="math inline">\boldsymbol{X}</span>: a non-zero mean of the errors would simply be absorbed by <span class="math inline">\beta_1</span>.</p></li></ol></aside></section>
 <section id="robust-estimation-and-assumptions" class="slide level2 center">
 <h2>Robust estimation and assumptions</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -851,11 +851,11 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 <ul>
 <li><p>A potential approach is to <span class="orange">accept the inefficiency</span> of the OLS estimator in this scenario and <span class="blue">correct</span> the standard errors.</p></li>
 <li><p>The elements of <span class="math inline">\boldsymbol{\Sigma}</span> are <span class="orange">unknown</span>, but we can estimate them from the data. Note that <span class="math display">
-\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
+\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) \approx \sigma^2_i(1 - h_i),
 </span> suggesting the <span class="blue">estimate</span> <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>This leads to the so-called <span class="orange">sandwich estimator</span> of the covariance matrix: <span class="math display">
 \widehat{\text{var}}(\hat{\beta}) = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\hat{\boldsymbol{\Sigma}}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1},
-</span> where <span class="math inline">\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)</span> and <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)</span>.</p></li>
+</span> where <span class="math inline">\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{\sigma}^2_1,\dots,\hat{\sigma}^2_n)</span>, using the above estimates <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>These are known as <span class="blue">White’s</span> heteroscedasticity-consistent <span class="blue">standard errors</span>. <sup>1</sup></p></li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn3"><p>White originally proposed the simpler version <span class="math inline">\hat{\sigma}^2_i = r_i^2</span>. Another variant is <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)^2</span>.</p></li></ol></aside></section>
@@ -1015,7 +1015,7 @@ g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\q
 <h2>Variance stabilizing transformations II 📖</h2>
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 <ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\boldsymbol{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
+<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>, with <span class="blue">trials</span> <span class="math inline">m_i</span> and <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\boldsymbol{x}_i; \beta)</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
 </span> However, the data are <span class="orange">heteroscedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
 <li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
@@ -1059,7 +1059,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\boldsymbol{x}_i^T\beta) = \exp(\boldsymbo
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(\pi, m_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
+<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
 <ul>
 <li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
 <li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">m_i \rightarrow \infty</span>.</li>

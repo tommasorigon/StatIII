@@ -1,5 +1,5 @@
 ---
-title: "Esame del 9 Luglio 2014"
+title: "Esame del 13 Luglio 2016"
 subtitle: "Statistics III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"

@@ -138,7 +138,7 @@ p0
 :::
 :::
 
-:::{.callout-tip}
+:::callout-tip
 We assume you are already familiar with linear models. The following is a brief recap rather than a full discussion.
 :::
 
@@ -219,7 +219,7 @@ ggplot(data = auto, aes(x = engine.size, y = city.distance, col = fuel)) +
 
 . . .
 
-::: callout-note
+:::callout-note
 #### Linear model
 
 In a [linear model]{.blue} the response variable $Y_i$ is related to the
@@ -272,7 +272,7 @@ corresponding vector of [coefficients]{.orange}.
 
 . . .
 
-::: callout-note
+:::callout-note
 #### Least squares estimate (OLS)
 
 If the design matrix has [full rank]{.blue}, that is, if
@@ -288,7 +288,7 @@ estimate]{.orange} has an explicit solution: $$
     \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
     $$
 where $\boldsymbol{H}$ is an $n \times n$ [projection matrix]{.orange}
-    sometimes called [hat matrix]{.blue}. The matrix is idempotent, meaning that $\boldsymbol{H} = \boldsymbol{H}^T$ and $\boldsymbol{H}^2 = \boldsymbol{H}$.
+    sometimes called [hat matrix]{.blue}. The matrix is symmetric and idempotent, meaning that $\boldsymbol{H} = \boldsymbol{H}^T$ and $\boldsymbol{H}^2 = \boldsymbol{H}$.
 
 
 . . .
@@ -355,7 +355,7 @@ where $r_i = y_i - \boldsymbol{x}_i^T\hat{\beta}$ are the (raw) [residuals]{.ora
  
 - An observation is [influential]{.blue} if it has high leverage and high squared residual. [Cook’s distance]{.orange} $c_i$ is based on the change in $\hat{\beta}$ when the observation is removed:
 $$
-p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
+c_i = \frac{1}{p}(\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
 $$
 Cook's distance is considered relatively large when $c_i \ge 1$. 
 
@@ -419,8 +419,8 @@ m1 <- lm(city.distance ~ engine.size + I(engine.size^2) + I(engine.size^3) + fue
 | `engine.size^3` |   -0.131 |     0.139 |    -0.939 |   0.349 |
 | `fuel_gas`      |   -3.214 |     0.427 |    -7.523 |   0.000 |
 
--   Moreover, the coefficient $R^2$ and the residual standard deviation
-    $s$ are:
+-   Moreover, the coefficient of determination $R^2$, the residual
+    standard deviation $s$, and the deviance $D(\hat{\beta})$ are:
 
 ```{r}
 kable(glance(m1)[c(1, 3, 10)])
@@ -459,7 +459,7 @@ ggplot(data = augmented_m1, aes(x = .fitted, y = .resid, col = fuel)) +
   ylab("Residuals")
 ```
 
-## Comments and criticisms
+## A first model: comments and criticisms
 
 -   Is this a good model?
 
@@ -519,7 +519,7 @@ kable(tidy(m2, conf.int = FALSE), digits = 3)
 | `log(engine.size)` |   -0.682 |     0.040 |   -17.129 |       0 |
 | `fuel_gas`         |   -0.278 |     0.038 |    -7.344 |       0 |
 
-## Second model: fitted values
+## A second model: fitted values
 
 ```{r}
 #| fig-width: 7.8
@@ -536,7 +536,7 @@ ggplot(data = augmented_m2, aes(x = engine.size, y = city.distance, col = fuel))
   ylab("Urban distance (km/L)")
 ```
 
-## Second model: graphical diagnostics
+## A second model: graphical diagnostics
 
 ```{r}
 #| fig-width: 7.8
@@ -552,7 +552,7 @@ ggplot(data = augmented_m2, aes(x = .fitted, y = .resid, col = fuel)) +
   ylab("Residuals")
 ```
 
-## Comments and criticisms
+## A second model: comments and criticisms
 
 -   The [goodness of fit]{.blue} indices are the following:
 
@@ -620,7 +620,7 @@ ggplot(data = augmented_m3, aes(x = .fitted, y = .resid, col = fuel)) +
   ylab("Residuals")
 ```
 
-## Comments and criticisms
+## A third model: comments and criticisms
 
 -   The goodness of fit greatly [improved]{.blue}:
 
@@ -668,7 +668,7 @@ It is also commonly assumed that $\text{rk}(\boldsymbol{X}) = p$, otherwise the 
 
 <!-- - Even if the data are [heteroscedastic]{.orange} the OLS estimator is still a very reasonable choice, but we need to "correct" the standard errors to account for that.  -->
 
-[^err1]: If the intercept is included in $\boldsymbol{X}$, the errors automatically satisfy the property $\mathbb{E}(\boldsymbol{\epsilon}) = 0$.
+[^err1]: The assumption $\mathbb{E}(\boldsymbol{\epsilon}) = 0$ is not restrictive when the intercept is included in $\boldsymbol{X}$: a non-zero mean of the errors would simply be absorbed by $\beta_1$.
 
 
 ## Robust estimation and assumptions
@@ -753,7 +753,7 @@ The OLS estimator in presence of heteroscedasticity still gives a [good point es
 
 - The elements of $\boldsymbol{\Sigma}$ are [unknown]{.orange}, but we can estimate them from the data. Note that
 $$
-\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
+\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) \approx \sigma^2_i(1 - h_i),
 $$
 suggesting the [estimate]{.blue} $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)$. 
 
@@ -761,7 +761,7 @@ suggesting the [estimate]{.blue} $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)$.
 $$
 \widehat{\text{var}}(\hat{\beta}) = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\hat{\boldsymbol{\Sigma}}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1},
 $$
-where $\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)$ and $\hat{w}_i = r_i^2 / (1 - h_i)$. 
+where $\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{\sigma}^2_1,\dots,\hat{\sigma}^2_n)$, using the above estimates $\hat{\sigma}^2_i = r_i^2 / (1 - h_i)$. 
 
 - These are known as [White's]{.blue} heteroscedasticity-consistent [standard errors]{.blue}. [^white]
 
@@ -965,7 +965,7 @@ $$
 
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 
-- Let $Y_i \sim \text{Binomial}(\pi_i, m_i)$, with [success probability]{.blue} $\pi_i = f(\boldsymbol{x}_i; \beta)$ and [trials]{.blue} $m_i$. For large values of $m_i$, the [Gaussian approximation]{.orange} holds 
+- Let $Y_i \sim \text{Binomial}(m_i, \pi_i)$, with [trials]{.blue} $m_i$ and [success probability]{.blue} $\pi_i = f(\boldsymbol{x}_i; \beta)$. For large values of $m_i$, the [Gaussian approximation]{.orange} holds 
 $$
 Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
 $$
@@ -1015,7 +1015,7 @@ the former being the [geometric mean]{.orange} of $Y_i$, whereas the latter is t
 ## Limitations of variable transformations II
 
 :::callout-tip
-Suppose $Y_i \sim \text{Binomial}(\pi, m_i)$. The variance stabilizing transformation is not fully satisfactory:
+Suppose $Y_i \sim \text{Binomial}(m_i, \pi_i)$. The variance stabilizing transformation is not fully satisfactory:
 
   - It [complicates]{.orange} the [interpretation]{.orange}, because it models $\mathbb{E}\{g(Y_i)\}$ instead of $\mathbb{E}(Y_i)$;
   - It is an [asymptotic approximation]{.blue}, and is only valid for $m_i \rightarrow \infty$.

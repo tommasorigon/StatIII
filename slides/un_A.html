@@ -127,14 +127,14 @@ window.Quarto = {
   <li><a href="#a-first-model-estimated-coefficients" id="toc-a-first-model-estimated-coefficients" class="nav-link" data-scroll-target="#a-first-model-estimated-coefficients">A first model: estimated coefficients</a></li>
   <li><a href="#a-first-model-fitted-values" id="toc-a-first-model-fitted-values" class="nav-link" data-scroll-target="#a-first-model-fitted-values">A first model: fitted values</a></li>
   <li><a href="#a-first-model-graphical-diagnostics" id="toc-a-first-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-first-model-graphical-diagnostics">A first model: graphical diagnostics</a></li>
-  <li><a href="#comments-and-criticisms" id="toc-comments-and-criticisms" class="nav-link" data-scroll-target="#comments-and-criticisms">Comments and criticisms</a></li>
+  <li><a href="#a-first-model-comments-and-criticisms" id="toc-a-first-model-comments-and-criticisms" class="nav-link" data-scroll-target="#a-first-model-comments-and-criticisms">A first model: comments and criticisms</a></li>
   <li><a href="#linear-models-and-non-linear-patterns" id="toc-linear-models-and-non-linear-patterns" class="nav-link" data-scroll-target="#linear-models-and-non-linear-patterns">Linear models and non-linear patterns</a></li>
-  <li><a href="#second-model-fitted-values" id="toc-second-model-fitted-values" class="nav-link" data-scroll-target="#second-model-fitted-values">Second model: fitted values</a></li>
-  <li><a href="#second-model-graphical-diagnostics" id="toc-second-model-graphical-diagnostics" class="nav-link" data-scroll-target="#second-model-graphical-diagnostics">Second model: graphical diagnostics</a></li>
-  <li><a href="#comments-and-criticisms-1" id="toc-comments-and-criticisms-1" class="nav-link" data-scroll-target="#comments-and-criticisms-1">Comments and criticisms</a></li>
+  <li><a href="#a-second-model-fitted-values" id="toc-a-second-model-fitted-values" class="nav-link" data-scroll-target="#a-second-model-fitted-values">A second model: fitted values</a></li>
+  <li><a href="#a-second-model-graphical-diagnostics" id="toc-a-second-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-second-model-graphical-diagnostics">A second model: graphical diagnostics</a></li>
+  <li><a href="#a-second-model-comments-and-criticisms" id="toc-a-second-model-comments-and-criticisms" class="nav-link" data-scroll-target="#a-second-model-comments-and-criticisms">A second model: comments and criticisms</a></li>
   <li><a href="#a-third-model-additional-variables" id="toc-a-third-model-additional-variables" class="nav-link" data-scroll-target="#a-third-model-additional-variables">A third model: additional variables</a></li>
   <li><a href="#a-third-model-graphical-diagnostics" id="toc-a-third-model-graphical-diagnostics" class="nav-link" data-scroll-target="#a-third-model-graphical-diagnostics">A third model: graphical diagnostics</a></li>
-  <li><a href="#comments-and-criticisms-2" id="toc-comments-and-criticisms-2" class="nav-link" data-scroll-target="#comments-and-criticisms-2">Comments and criticisms</a></li>
+  <li><a href="#a-third-model-comments-and-criticisms" id="toc-a-third-model-comments-and-criticisms" class="nav-link" data-scroll-target="#a-third-model-comments-and-criticisms">A third model: comments and criticisms</a></li>
   </ul></li>
   <li><a href="#misspecification-and-remedies" id="toc-misspecification-and-remedies" class="nav-link" data-scroll-target="#misspecification-and-remedies">Misspecification and remedies</a>
   <ul class="collapse">
@@ -389,7 +389,7 @@ Least squares estimate (OLS)
 <ul>
 <li>In matrix notation, the predicted values can be obtained as <span class="math display">
 \hat{\boldsymbol{y}} = \boldsymbol{X}\hat{\beta} = \boldsymbol{H}\boldsymbol{y}, \qquad \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T,
-</span> where <span class="math inline">\boldsymbol{H}</span> is an <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
+</span> where <span class="math inline">\boldsymbol{H}</span> is an <span class="math inline">n \times n</span> <span class="orange">projection matrix</span> sometimes called <span class="blue">hat matrix</span>. The matrix is symmetric and idempotent, meaning that <span class="math inline">\boldsymbol{H} = \boldsymbol{H}^T</span> and <span class="math inline">\boldsymbol{H}^2 = \boldsymbol{H}</span>.</li>
 </ul>
 <ul>
 <li><p>The quantity <span class="math inline">D(\hat{\beta})</span> is the so-called <span class="blue">deviance</span>, which is equal to <span class="math display">
@@ -432,7 +432,7 @@ R^2 = 1 - \frac{\textsf{(``Residual deviance'')}}{\textsf{(``Total deviance'')}}
 </ul>
 <ul>
 <li>An observation is <span class="blue">influential</span> if it has high leverage and high squared residual. <span class="orange">Cook’s distance</span> <span class="math inline">c_i</span> is based on the change in <span class="math inline">\hat{\beta}</span> when the observation is removed: <span class="math display">
-p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
+c_i = \frac{1}{p}(\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta})^{-1}(\hat{\beta} - \hat{\beta}_{-i}) = \tilde{r}_i^2 \frac{h_i}{p(1 - h_i)}.
 </span> Cook’s distance is considered relatively large when <span class="math inline">c_i \ge 1</span>.</li>
 </ul>
 </section>
@@ -508,7 +508,7 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </tbody>
 </table>
 <ul>
-<li>Moreover, the coefficient <span class="math inline">R^2</span> and the residual standard deviation <span class="math inline">s</span> are:</li>
+<li>Moreover, the coefficient of determination <span class="math inline">R^2</span>, the residual standard deviation <span class="math inline">s</span>, and the deviance <span class="math inline">D(\hat{\beta})</span> are:</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -555,8 +555,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 </div>
 </section>
-<section id="comments-and-criticisms" class="level2">
-<h2 class="anchored" data-anchor-id="comments-and-criticisms">Comments and criticisms</h2>
+<section id="a-first-model-comments-and-criticisms" class="level2">
+<h2 class="anchored" data-anchor-id="a-first-model-comments-and-criticisms">A first model: comments and criticisms</h2>
 <ul>
 <li><p>Is this a good model?</p></li>
 <li><p>The overall fit <span class="blue">seems satisfactory</span> at first glance, especially if we aim at predicting the urban distance of cars with average engine size (i.e., between <span class="math inline">1.5L</span> and <span class="math inline">3L</span>).</p></li>
@@ -621,8 +621,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </tbody>
 </table>
 </section>
-<section id="second-model-fitted-values" class="level2">
-<h2 class="anchored" data-anchor-id="second-model-fitted-values">Second model: fitted values</h2>
+<section id="a-second-model-fitted-values" class="level2">
+<h2 class="anchored" data-anchor-id="a-second-model-fitted-values">A second model: fitted values</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -633,8 +633,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 </div>
 </section>
-<section id="second-model-graphical-diagnostics" class="level2">
-<h2 class="anchored" data-anchor-id="second-model-graphical-diagnostics">Second model: graphical diagnostics</h2>
+<section id="a-second-model-graphical-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="a-second-model-graphical-diagnostics">A second model: graphical diagnostics</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -645,8 +645,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 </div>
 </section>
-<section id="comments-and-criticisms-1" class="level2">
-<h2 class="anchored" data-anchor-id="comments-and-criticisms-1">Comments and criticisms</h2>
+<section id="a-second-model-comments-and-criticisms" class="level2">
+<h2 class="anchored" data-anchor-id="a-second-model-comments-and-criticisms">A second model: comments and criticisms</h2>
 <ul>
 <li>The <span class="blue">goodness of fit</span> indices are the following:</li>
 </ul>
@@ -750,8 +750,8 @@ p \cdot c_i = (\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\beta}
 </div>
 </div>
 </section>
-<section id="comments-and-criticisms-2" class="level2">
-<h2 class="anchored" data-anchor-id="comments-and-criticisms-2">Comments and criticisms</h2>
+<section id="a-third-model-comments-and-criticisms" class="level2">
+<h2 class="anchored" data-anchor-id="a-third-model-comments-and-criticisms">A third model: comments and criticisms</h2>
 <ul>
 <li>The goodness of fit greatly <span class="blue">improved</span>:</li>
 </ul>
@@ -811,7 +811,7 @@ Classical assumptions of linear models
 <p>It is also commonly assumed that <span class="math inline">\text{rk}(\boldsymbol{X}) = p</span>, otherwise the model is not identifiable.</p>
 </div>
 </div>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;If the intercept is included in <span class="math inline">\boldsymbol{X}</span>, the errors automatically satisfy the property <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span>.</p></div></div><ul>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;The assumption <span class="math inline">\mathbb{E}(\boldsymbol{\epsilon}) = 0</span> is not restrictive when the intercept is included in <span class="math inline">\boldsymbol{X}</span>: a non-zero mean of the errors would simply be absorbed by <span class="math inline">\beta_1</span>.</p></div></div><ul>
 <li>If one of the above assumptions is violated, it is not necessarily a huge problem, because
 <ul>
 <li>the OLS estimator <span class="math inline">\hat{\beta}</span> is fairly <span class="orange">robust</span> to misspecification;</li>
@@ -907,11 +907,11 @@ Classical assumptions of linear models
 <ul>
 <li><p>A potential approach is to <span class="orange">accept the inefficiency</span> of the OLS estimator in this scenario and <span class="blue">correct</span> the standard errors.</p></li>
 <li><p>The elements of <span class="math inline">\boldsymbol{\Sigma}</span> are <span class="orange">unknown</span>, but we can estimate them from the data. Note that <span class="math display">
-\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) = \sigma^2_i(1 - h_i),
+\text{var}(r_i) = \text{var}(y_i - \boldsymbol{x}_i^T\hat{\beta}) \approx \sigma^2_i(1 - h_i),
 </span> suggesting the <span class="blue">estimate</span> <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>This leads to the so-called <span class="orange">sandwich estimator</span> of the covariance matrix: <span class="math display">
 \widehat{\text{var}}(\hat{\beta}) = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\hat{\boldsymbol{\Sigma}}\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1},
-</span> where <span class="math inline">\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{w}_1,\dots,\hat{w}_n)</span> and <span class="math inline">\hat{w}_i = r_i^2 / (1 - h_i)</span>.</p></li>
+</span> where <span class="math inline">\hat{\boldsymbol{\Sigma}} = \text{diag}(\hat{\sigma}^2_1,\dots,\hat{\sigma}^2_n)</span>, using the above estimates <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)</span>.</p></li>
 <li><p>These are known as <span class="blue">White’s</span> heteroscedasticity-consistent <span class="blue">standard errors</span>. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p></li>
 </ul>
 <div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;White originally proposed the simpler version <span class="math inline">\hat{\sigma}^2_i = r_i^2</span>. Another variant is <span class="math inline">\hat{\sigma}^2_i = r_i^2 / (1 - h_i)^2</span>.</p></div></div></section>
@@ -1084,7 +1084,7 @@ g(Y_i) - g(\mu_i) \approx (Y_i - \mu_i)g'(\mu_i), \quad \text{ which implies }\q
 <h2 class="anchored" data-anchor-id="variance-stabilizing-transformations-ii">Variance stabilizing transformations II 📖</h2>
 <!-- - The variance stabilizing transformation is [broadly applicable]{.blue} to several distributions.  -->
 <ul>
-<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(\pi_i, m_i)</span>, with <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\boldsymbol{x}_i; \beta)</span> and <span class="blue">trials</span> <span class="math inline">m_i</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
+<li><p>Let <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>, with <span class="blue">trials</span> <span class="math inline">m_i</span> and <span class="blue">success probability</span> <span class="math inline">\pi_i = f(\boldsymbol{x}_i; \beta)</span>. For large values of <span class="math inline">m_i</span>, the <span class="orange">Gaussian approximation</span> holds <span class="math display">
 Y_i \,\dot{\sim}\, \text{N}(m_i \pi_i, m_i\pi_i(1 - \pi_i)).
 </span> However, the data are <span class="orange">heteroscedastic</span>, because <span class="math inline">\text{var}(Y_i) = m_i \pi_i(1- \pi_i)</span>.</p></li>
 <li><p>Thus, a <span class="blue">variance stabilizing</span> transformation in this case is <span class="math display">
@@ -1125,7 +1125,7 @@ g^{-1}(\mathbb{E}\{g(Y_i)\}) = g^{-1}(\boldsymbol{x}_i^T\beta) = \exp(\boldsymbo
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(\pi, m_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
+<p>Suppose <span class="math inline">Y_i \sim \text{Binomial}(m_i, \pi_i)</span>. The variance stabilizing transformation is not fully satisfactory:</p>
 <ul>
 <li>It <span class="orange">complicates</span> the <span class="orange">interpretation</span>, because it models <span class="math inline">\mathbb{E}\{g(Y_i)\}</span> instead of <span class="math inline">\mathbb{E}(Y_i)</span>;</li>
 <li>It is an <span class="blue">asymptotic approximation</span>, and is only valid for <span class="math inline">m_i \rightarrow \infty</span>.</li>

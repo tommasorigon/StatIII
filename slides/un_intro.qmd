@@ -94,7 +94,7 @@ $$
 
 . . .
 
-- As early as Fisher (1922), a more advanced non-linear model was introduced, designed to handle [proportion data]{.blue} of the form $S_i / m$.
+- As early as @Fisher1922, a more advanced non-linear model was introduced, designed to handle [proportion data]{.blue} of the form $S_i / m$.
 
 - Through some modeling and calculus, Fisher derived a [binomial]{.blue} model for $S_i$, with
 $$
@@ -111,7 +111,7 @@ $$
 
 ## Early ideas II
 
-- In the [probit model]{.blue}, developed by Bliss (1935), a [Binomial]{.blue} model for $S_i$ is specified with
+- In the [probit model]{.blue}, developed by @Bliss1935, a [Binomial]{.blue} model for $S_i$ is specified with
 $$
 \mathbb{E}(S_i/m) = \pi_i = \Phi(\beta_1 + \beta_2 x_i),\qquad i = 1, \dots, n.
 $$
@@ -119,7 +119,7 @@ where $\Phi(x)$ is the cumulative distribution function of a standard Gaussian d
 
 . . .
 
-- Dyke and Patterson (1952) also considered the case of modelling proportions, but specified
+- @Dyke1952 also considered the case of modelling proportions, but specified
 $$
 \mathbb{E}(S_i/m) = \pi_i = \frac{\exp(\beta_1 + \beta_2 x_i)}{1 + \exp(\beta_1 + \beta_2 x_i)}, \qquad i = 1, \dots, n.
 $$
