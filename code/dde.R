@@ -11,8 +11,8 @@
 
 rm(list = ls())
 
-dde <- read.csv("../data/dde.csv")
-dde <- read.csv("https://tommasorigon.github.io/StatIII/data/dde.csv") # Alternatively
+# dde <- read.csv("../data/dde.csv") # Alternatively, use the local file
+dde <- read.csv("https://tommasorigon.github.io/StatIII/data/dde.csv")
 
 # (a) ---------------------------------------------------------------------
 
@@ -70,13 +70,13 @@ deviance(m_gamma_log)
 
 # (b) ---------------------------------------------------------------------
 
-# COMMENT: Yes, the DDT does have an impact of the delivery date: in all considered models, after adjustments, the p-value associated to beta_2 and DDE is highly significant. The impact of DDE on GAD is modest, but definitely present. The interpretation is the following
+# COMMENT: Yes, DDE is associated with gestational age at delivery: in all considered models, the p-value associated with beta_2 is highly significant. The association between DDE and GAD is modest, but clearly present. The interpretation is the following.
 
-# In models m_linear and m_gamma_lin, each 100 mg/L dose of DDE implies a change in GAD
+# In models m_linear and m_gamma_lin, an increase of 100 micrograms/L in DDE is associated with a change in GAD
 100 * coef(m_linear)[2] # About 11 days less compared to no exposure
 100 * coef(m_gamma_lin)[2] # About 11 days less compared to no exposure
 
-# When using the logarithmic link, each 100 mg/L dose of DDE implies a relative change in GAD
+# When using the logarithmic link, an increase of 100 micrograms/L in DDE is associated with a relative change in GAD
 100 * (exp(100 * coef(m_gamma_log)[2]) - 1) # About -3.92% change compared to no exposure
 
 # (c) ---------------------------------------------------------------------
@@ -92,13 +92,11 @@ predict(m_gamma_log, newdata = data.frame(DDE = c(0, 100)), type = "response")
 
 # (d) ---------------------------------------------------------------------
 
-# Compute the parameters a gamma distribution (see slides and ? dgamma documentation)
+# Compute the parameters of a Gamma distribution (see slides and ?dgamma documentation)
 alpha_lin <- 1 / summary(m_gamma_lin)$dispersion
-lambda_lin <- alpha_lin / fit_gamma_lin
 
-# Gamma model with log-ling
+# Gamma model with log-link
 alpha_log <- 1 / summary(m_gamma_log)$dispersion
-lambda_log <- alpha_log / fit_gamma_log
 
 # Psi under normal model
 probs_linear <- pnorm(259, fitted(m_linear), sd = summary(m_linear)$sigma)
@@ -118,17 +116,21 @@ pnorm(259, predict(m_linear, newdata = data.frame(DDE = c(0, 100))), sd = summar
 # Gamma model, identity link
 pgamma(259, shape = alpha_lin, rate = alpha_lin / predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response"))
 # Gamma model, log-link
-pgamma(259, shape = alpha_log, rate = alpha_log / predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response"))
+pgamma(259, shape = alpha_log, rate = alpha_log / predict(m_gamma_log, newdata = data.frame(DDE = c(0, 100)), type = "response"))
 
 # (f) OPTIONAL ---------------------------------------------------------------------
 
 # Linear model
 predict(m_linear, newdata = data.frame(DDE = c(0, 100)), interval = "prediction")
 
+# The Gamma intervals below are plug-in intervals and do not account for
+# uncertainty in the estimated parameters.
+
 # Gamma model, identity link
 fit_gamma_lin <- predict(m_gamma_lin, newdata = data.frame(DDE = c(0, 100)), type = "response")
+lambda_lin <- alpha_lin / fit_gamma_lin
 
-# Compute a prediction intervals based on quantiles
+# Compute prediction intervals based on quantiles
 tab_lin <- rbind(
   c(fit_gamma_lin[1], qgamma(p = c(0.025, 0.975), shape = alpha_lin, rate = lambda_lin[1])),
   c(fit_gamma_lin[2], qgamma(p = c(0.025, 0.975), shape = alpha_lin, rate = lambda_lin[2]))
@@ -138,8 +140,9 @@ tab_lin
 
 # Gamma model, log link
 fit_gamma_log <- predict(m_gamma_log, newdata = data.frame(DDE = c(0, 100)), type = "response")
+lambda_log <- alpha_log / fit_gamma_log
 
-# Compute a prediction intervals based on quantiles
+# Compute prediction intervals based on quantiles
 tab_log <- rbind(
   c(fit_gamma_log[1], qgamma(p = c(0.025, 0.975), shape = alpha_log, rate = lambda_log[1])),
   c(fit_gamma_log[2], qgamma(p = c(0.025, 0.975), shape = alpha_log, rate = lambda_log[2]))

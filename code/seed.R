@@ -38,12 +38,12 @@ summary(m1)
 coef(m1)      # Maximum likelihood estimates (same as in the summary)
 confint(m1)   # Likelihood ratio-based confidence intervals
 
-# The value of the intercept (\beta_1), once transformed back to the probability scale, represents the probability of germination when no fertilizer is used. This probability is about 3%, and can be computed as follows:
+# The value of the intercept (\beta_1), once transformed back to the probability scale, represents the probability of germination when no fertilizer is used. This probability is about 3.80%, and can be computed as follows:
 plogis(coef(m1)[1])
 
 # The coefficient \beta_2 is positive and significantly different from 0 at a 5% level (see the corresponding p-value in the summary), indicating that fertilizer increases the probability of germination. Moreover, the quantity
 exp(coef(m1)[2])
-# represents the odds ratio associated with a one-unit increase in fertilizer, which turns out to be extremely large. Another way appreciating this is computing the probabilities when fert = 0 and fert = 1, namely
+# represents the odds ratio associated with a one-unit increase in fertilizer, which turns out to be extremely large. Another way of appreciating this is computing the probabilities when fert = 0 and fert = 1, namely
 plogis(coef(m1)[1])
 plogis(coef(m1)[1] + coef(m1)[2])
 # The difference is very high. 

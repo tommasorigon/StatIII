@@ -34,12 +34,17 @@ editor_options:
 
 # [Homepage](../index.html)
 
-The theoretical exercises described below are quite [difficult]{.orange}. At the [exam]{.blue}, you can expect a [simplified version]{.blue} of them; otherwise, they would represent a formidable challenge for most of you.
+The theoretical exercises below are quite [difficult]{.orange}. In the
+[exam]{.blue}, you can expect [simplified versions]{.blue}; in their present
+form, most of them would be too challenging.
 
-On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.
+The data-analysis exercises, on the other hand, are broadly representative of
+what you may encounter in the final examination.
 
 :::callout-tip
-The vast majority of these exercises are taken from the textbooks @Salvan2020 and @Agresti2015, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.
+Most of these exercises are adapted, sometimes with minor modifications, from
+the textbooks @Salvan2020 and @Agresti2015. You may consult these textbooks for
+additional exercises.
 :::
 
 
@@ -48,52 +53,77 @@ The vast majority of these exercises are taken from the textbooks @Salvan2020 an
 ::: {.callout-note collapse=true}
 #### `Seed` dataset - Partial solution: [`seed.R`](../code/seed.R)
 
-The dataset `Seed` of the `MLGdata` library was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:  
+The `Seed` dataset in the `MLGdata` package comes from an experiment designed
+to assess whether, and to what extent, the amount of fertilizer affects seed
+germination. Twenty seeds were used, and the following variables were recorded
+for each seed:
 
 - `fert` indicates the amount of fertilizer,  
 - `x` is a binary variable equal to `1` if the seed germinated, and `0` otherwise.  
 
 Import the data and then:
 
-(a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).  
+(a) Identify the statistical units, the response variable, and the covariate,
+specifying the type of each variable (continuous quantitative, discrete
+quantitative, nominal qualitative, or ordinal qualitative).
 
-(b) Conduct an exploratory analysis to assess the relationship between the response and the covariates.  
+(b) Conduct an exploratory analysis to assess the relationship between the
+response and the covariate.
 
-(c) Using pen and paper, specify an appropriate GLM adopting the canonical link function. 
+(c) Using pen and paper, specify an appropriate GLM with the canonical link
+function.
 
 (d) Fit the GLM specified in (c) using **R**.  
 
 (e) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
 
-(f) For each element in the `summary` output of the fitted `glm` object in R, indicate what quantity is being computed, providing the correspondence with the formulas in the slides.
+(f) For each element in the output of `summary()` for the fitted `glm` object,
+indicate which quantity is being computed and match it to the corresponding
+formula in the slides.
 :::
 
 :::{.callout-note collapse=true}
-#### `Wool` dataset  - Partial solution: [`Wool.R`](../code/Wool.R)
+#### `Wool` dataset - Partial solution: [`Wool.R`](../code/Wool.R)
 
-The dataset `Wool` contained in the `MLGdata` library were obtained from an experiment  aimed at evaluating the effect of three variables, length (`x1`), width (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.  The data were originally analyzed in the famous paper Box and Cox (1964) paper:
+The `Wool` dataset in the `MLGdata` package comes from a $3^3$ factorial
+experiment on worsted yarn. The response `y` is the number of loading cycles
+until failure, and the three experimental factors are specimen length (`x1`),
+loading-cycle amplitude (`x2`), and load (`x3`). The data were analyzed in the
+classic paper by Box and Cox (1964):
 
-> Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations (with discussion). *Journal of the Royal Statistical Society, Series A*, **143**, 383-430.
+> Box, G. E. P. and Cox, D. R. (1964). An analysis of transformations
+> (with discussion). *Journal of the Royal Statistical Society, Series B*,
+> **26**(2), 211--252.
 
 For each of the three variables `x1`, `x2`, and `x3`, three levels were fixed:  
 
 - Length: 250, 300, 350 mm (coded as `-1`, `0`, `1`)  
-- Width: 8, 9, 10 mm (coded as `-1`, `0`, `1`)  
+- Loading-cycle amplitude: 8, 9, 10 mm (coded as `-1`, `0`, `1`)
 - Load: 40, 45, 50 g (coded as `-1`, `0`, `1`)  
 
 Import the data and then:
 
-(a) Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).  
+(a) Identify the statistical units, the response variable, and the covariates,
+specifying the type of each variable (continuous quantitative, discrete
+quantitative, nominal qualitative, or ordinal qualitative).
 
 (b) Using pen and paper, specify a [normal linear model]{.blue} for the logarithmic transformation of the response.  
 
 (c) Fit in **R** the linear model from the previous point.  
 
-(d) Assess the goodness of fit of the model, compare the usual standard errors with the robust ones. Discuss whether a transformation of the response other than the logarithmic one may be more appropriate. 
+(d) Assess the goodness of fit of the model and compare the usual standard
+errors with heteroskedasticity-robust standard errors. Discuss whether a
+transformation of the response other than the logarithm might be more
+appropriate.
 
 (e) Write down the expression of the estimated curve.  
 
-(f) Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.  
+(f) For a test with length = 300 mm, loading-cycle amplitude = 10 mm, and
+load = 40 g, obtain a 95% confidence interval for the conditional mean of the
+log-response. Transform the interval back to the original scale and explain
+which feature of the conditional response distribution it estimates. For the
+same experimental conditions, obtain a 95% prediction interval for the
+response.
 
 (g) For the same data, considering the untransformed response and using pen and paper, specify a [generalized linear model]{.orange} with [Gamma response]{.blue} and logarithmic link function.  
 
@@ -103,11 +133,15 @@ Import the data and then:
 
 (j) Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.  
 
-(k) For each element of the `summary` output of the `glm` object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.  
+(k) For each element in the output of `summary()` for the fitted `glm` object,
+indicate which quantity is being computed and match it to the corresponding
+formula in the slides.
 
 (l) Evaluate the goodness of fit of the Gamma model.
 
-(m) Obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, width = 10 mm, and load = 40 g, using the fitted Gamma model.  
+(m) Using the fitted Gamma model, obtain a 95% confidence interval for the mean
+response in an experiment with length = 300 mm, loading-cycle amplitude =
+10 mm, and load = 40 g.
 
 (n) Compare the results of the analysis based on the normal linear model with those of the analysis based on the Gamma model.  
 :::
@@ -115,33 +149,55 @@ Import the data and then:
 :::{.callout-note collapse=true}
 #### `dde` dataset - Partial solution: [`dde.R`](../code/dde.R)
 
-The dataset `dde` dataset collect data from a sample of $n = 2312$ pregnant women and can be [downloaded here](https://tommasorigon.github.io/StatIII/data/dde.csv). This dataset was also analyzed in [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_B.pdf). The original data are described in [this study](https://www.sciencedirect.com/science/article/pii/S0140673601053296):
+The `dde` dataset contains observations on a sample of $n = 2312$ pregnant
+women and can be [downloaded here](../data/dde.csv). The dataset was also
+analyzed in [Statistica I](https://tommasorigon.github.io/StatI/slides/sl_B.pdf).
+The original data are described in
+[this study](https://www.sciencedirect.com/science/article/pii/S0140673601053296):
 
-> Longnecker, M. P., Klebanoff, M. A., Zhou, H., J. W. Brock (2001).  Association between maternal serum concentration of the DDT metabolite DDE and preterm and small-for-gestational-age babies at birth. *Lancet*, **358** (9276), 110-114.
+> Longnecker, M. P., Klebanoff, M. A., Zhou, H., and Brock, J. W. (2001).
+> Association between maternal serum concentration of the DDT metabolite DDE
+> and preterm and small-for-gestational-age babies at birth. *The Lancet*,
+> **358**(9276), 110--114.
 
-The `DDE` is measured, i.e., a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable `GAD` (Gestational Age at Delivery) measures the day of pregnancy on which delivery occurred.
+The variable `DDE` measures the concentration of DDE, a metabolite of DDT, in
+maternal serum during the third trimester of pregnancy (in
+$\mu\mathrm{g}/\mathrm{L}$). The variable `GAD` (gestational age at delivery)
+records the day of pregnancy on which delivery occurred.
 
 DDT is extremely effective against malaria mosquitoes and is therefore widely used in areas where malaria is endemic. At the same time, DDT may pose a health risk, especially for pregnant women.
 
-[Research question]{.blue}. We are interested in understanding the impact of `DDE` on the `GAD`, and in particular in estimating the pre-term delivery (< 37th week, i.e. < 259 days).
+[Research question]{.blue}. We are interested in the association between `DDE`
+and `GAD`, particularly in estimating the probability of preterm delivery
+(before 37 completed weeks, i.e., before day 259).
 
 Import the data and then:
 
-(a)  Specify a several "reasonable" models for the main research question. Decide which model is the most appropriate, based on predictive accuracy and diagnostic tools.
+(a) Specify several reasonable models for the main research question. Select
+the most appropriate one using predictive accuracy and diagnostic tools.
 
-(b) Does the DDT impact the gestational age at delivery?
+(b) Is DDE concentration associated with gestational age at delivery?
 
-(c) Provide a prediction for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the prediction for a mother not being exposed to `DDE`. 
+(c) Predict `GAD` for a woman with a `DDE` concentration of
+$100\ \mu\mathrm{g}/\mathrm{L}$ and compare it with the prediction at
+$0\ \mu\mathrm{g}/\mathrm{L}$. Note that the latter value lies
+just outside the observed range and therefore entails slight extrapolation.
 
-(d) Compute the probabilities of pre-term birth for all the observed values, namely
+(d) Compute the probabilities of preterm birth for all the observed values,
+namely
 $$
-\psi_i = \mathbb{P}(Y_i < 259; \bm{x}_i), \qquad i=1,\dots,n.
+\psi_i = \mathbb{P}(Y_i < 259 ; \bm{x}_i), \qquad i=1,\dots,n.
 $$
-Do they differ across models? [Hint]{.blue}: use the function `pnorm` if you considered a normal model and `pgamma` if you considered a gamma GLM. Be careful with the parametrization!
+Do they differ across models? [Hint]{.blue}: use `pnorm()` for a normal model
+and `pgamma()` for a Gamma GLM. Pay attention to the parametrization.
 
-(e) Provide an estimate for the probability of pre-term delivery $\psi$ for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the probability for a mother not being exposed to `DDE`. 
+(e) Estimate the probability of preterm delivery, $\psi$, at a `DDE`
+concentration of $100\ \mu\mathrm{g}/\mathrm{L}$ and compare it with the
+estimated probability at $0\ \mu\mathrm{g}/\mathrm{L}$.
 
-(f) ☠️ - [Optional]{.orange}. Provide a [prediction interval]{.blue}  for the `GAD` for a mother being exposed to a dose of $100$ (mg/L) of `DDE` and compare it with the prediction for a mother not being exposed to `DDE`. 
+(f) ☠️ [Optional]{.orange}. Obtain a [prediction interval]{.blue} for
+`GAD` at a `DDE` concentration of $100\ \mu\mathrm{g}/\mathrm{L}$ and compare it
+with the interval at $0\ \mu\mathrm{g}/\mathrm{L}$.
 :::
 
 :::{.callout-note collapse=true}
@@ -153,13 +209,20 @@ Variables listed are selling price (in thousands of dollars, `price`), size of h
 
 > Agresti, A. (2015). *Foundations of Linear and Generalized Linear Models*. Wiley.
 
-Since these $100$ observations are from one city alone, we cannot use them to make inferences about the relationships in general. But for illustrative purposes, we treat them as a random sample of a conceptual population of home sales in this market and analyze how selling price seems to relate to these characteristics. The goal is the [predict the sale price]{.blue} as a function of other characteristics
+Because all $100$ observations come from a single city, they do not support
+general conclusions about housing markets. For illustrative purposes, however,
+we treat them as a random sample from a conceptual population of home sales in
+this market and analyze how selling price is related to the recorded
+characteristics. The goal is to [predict the sale price]{.blue} from the other
+variables.
 
-Import the data and then
+Import the data and then:
 
 (a) Summarize the data with descriptive statistics and plots. 
 
-(b) Using a forward/stepwise/backward selection procedures with all five predictors together with judgments about practical significance, select and interpret a (generalized) linear model for selling price.
+(b) Using forward, backward, or stepwise selection with all five predictors,
+together with judgments about practical significance, select and interpret a
+(generalized) linear model for selling price.
 
 (c) Check whether results depend on any influential observations.
 
@@ -173,41 +236,51 @@ This exercise is intentionally left without strict instructions, so you can free
 ## Theoretical
 
 :::{.callout-note collapse=true}
-#### Exercise A - Solution: [`notes.pdf`](exe_B_A.pdf)
+#### Exercise A - Solution: [`exe_B_A.pdf`](exe_B_A.pdf)
 
-Let $Y$ be a random variable with an [inverse Gaussian distribution]{.blue}, with support $[0, \infty)$ and probability density function
+Let $Y$ be a random variable with an [inverse Gaussian distribution]{.blue},
+with support $(0, \infty)$ and probability density function
 
 $$
 p(y ; \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt{\lambda\xi}}\exp\left\{-\frac{1}{2}\left(\frac{\lambda}{y} + \xi y\right)\right\}, 
-\qquad y > 0, \; \xi \ge 0, \; \lambda > 0.
+\qquad y > 0, \; \xi > 0, \; \lambda > 0.
 $$
-Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, $a_i(\cdot), b(\cdot), c(\cdot)$ functions, dispersion parameter, variance function).  
+Show that this distribution belongs to the exponential-dispersion family and
+identify its characteristic elements: the canonical parameter, the functions
+$a_i(\cdot)$, $b(\cdot)$, and $c(\cdot)$, the dispersion parameter, and the
+variance function.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise B - Solution: [`notes.pdf`](exe_B_B.pdf)
+#### Exercise B - Solution: [`exe_B_B.pdf`](exe_B_B.pdf)
 
-Let $Y$ be a random variable with a [negative binomial]{.blue} distribution, representing the number of independent Bernoulli trials with constant success probability $\pi \in (0,1)$ required to obtain $k$ successes. The support is $S = \{k, k+1, \dots\}$ and the probability mass function is
+Let $Y$ have a [negative binomial]{.blue} distribution, representing the number
+of independent Bernoulli trials with constant success probability
+$\pi \in (0,1)$ required to obtain $k$ successes. Its support is
+$S = \{k, k+1, \dots\}$, and its probability mass function is
 $$
 p(y; \pi) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 $$
 
-
-i. Verify that, assuming $k$ is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements: canonical parameter, $a_i(\cdot), b(\cdot), c(\cdot)$ functions, dispersion parameter, and variance function.
+i. Assuming that $k$ is known, verify that this distribution belongs to the
+exponential-dispersion family and identify its characteristic elements: the
+canonical parameter, the functions $a_i(\cdot)$, $b(\cdot)$, and $c(\cdot)$,
+the dispersion parameter, and the variance function.
 
 ii. Using the properties of exponential families, recover the well-known relations  
    $$
    \mathbb{E}(Y) = \frac{k}{\pi}, 
    \qquad 
-   \text{var}(Y) = \frac{k(1-\pi)}{\pi^2}.
+   \operatorname{Var}(Y) = \frac{k(1-\pi)}{\pi^2}.
    $$  
 iii. Show that the variance function is quadratic in $\mu$.  
 
-iv. Does the distribution still form an exponential-dispersion family if $k$ is treated as unknown?
+iv. Does the distribution still constitute an exponential-dispersion family if
+$k$ is treated as unknown?
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise C - Solution: [`notes.pdf`](exe_B_C.pdf)
+#### Exercise C - Solution: [`exe_B_C.pdf`](exe_B_C.pdf)
 
 Consider the general likelihood equations for a GLM:
 
@@ -215,72 +288,104 @@ i. Specialize the general formulas and re-obtain the likelihood equations for th
 
 ii. Specialize the general formulas and re-obtain the likelihood equations for the Poisson regression model (`Aids` data with $p = 2$) presented in the slides, using the canonical link function.
 
-iii. Obtain the likelihood equations for a binomial regression model (`Beetles` data with $p = 2$), using the [Cauchy link]{.blue}, which is defined as $g(\mu) = \tan(\pi(\mu - 1/2))$. This link indeed is such that $g(\mu):(0, 1)\to \mathbb{R}$. 
+iii. Obtain the likelihood equations for a binomial regression model (`Beetles`
+data with $p = 2$) using the [Cauchy link]{.blue}, defined as
+$g(\mu) = \tan\{\pi(\mu - 1/2)\}$. This link maps $(0,1)$ onto $\mathbb{R}$.
 
-[Hint]{.blue}: there are almost no calculations to do at points i. and ii., only substitutions. This exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is $g'(\mu) = \pi /\sin^2(\pi \mu)$.
+[Hint]{.blue}: Parts i. and ii. require almost no calculations, only
+substitutions. They are intended to familiarize you with the notation and the
+general formulas. Part iii. is more involved; use the derivative of the Cauchy
+link, $g'(\mu) = \pi/\sin^2(\pi\mu)$.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise D - Solution: [`notes.pdf`](exe_B_D.pdf)
+#### Exercise D - Solution: [`exe_B_D.pdf`](exe_B_D.pdf)
 
-Explicitly derive the contribution of a single observation to the deviance (i.e. $d_i$) for a Gamma generalized linear model. Then, write down the expression of the deviance $D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
+Explicitly derive the contribution $d_i$ of a single observation to the
+deviance of a Gamma generalized linear model. Then write down the deviance
+$D(\hat{\bm{\mu}}; \boldsymbol{y})$ for a sample of size $n$.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise E - Solution: [`notes.pdf`](exe_B_E.pdf)
+#### Exercise E - Solution: [`exe_B_E.pdf`](exe_B_E.pdf)
 
-Let $Y_i$ be independent random variables, with corresponding values $x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLM with [no intercept]{.blue} and $p=1$, i.e.
+Let $Y_1,\dots,Y_n$ be independent random variables, with corresponding values
+$x_1,\dots,x_n$ of a [univariate]{.blue} quantitative covariate. Consider a GLM
+with [no intercept]{.blue} and $p=1$, i.e.,
 $$
 \eta_i = \beta x_i, \qquad i=1,\dots,n,
 $$
-under each of the following exponential–dispersion models (mean–variance pairs):
+under each of the following exponential-dispersion models, specified through
+their mean-variance pairs:
   
-1. $Y_i \sim \text{ED}(\mu_i, \phi)$ and $\mu_i \in \mathbb{R}$, with $\phi > 0$ known.  
-2. $Y_i \sim \text{ED}(\mu_i, \mu_i)$ and $\mu_i \in (0, \infty)$.
-3. $Y_i \sim \text{ED}(\mu_i,\mu_i(1 - \mu_i))$ and $\mu_i \in (0, 1)$.  
+1. $\mathbb{E}(Y_i)=\mu_i$ and $\operatorname{Var}(Y_i)=\phi$, where
+   $\mu_i \in \mathbb{R}$ and the constant $\phi>0$ is known.
+2. $\mathbb{E}(Y_i)=\operatorname{Var}(Y_i)=\mu_i$, where
+   $\mu_i \in (0,\infty)$.
+3. $\mathbb{E}(Y_i)=\mu_i$ and
+   $\operatorname{Var}(Y_i)=\mu_i(1-\mu_i)$, where $\mu_i \in (0,1)$.
 
-For each model consider the [canonical link]{.orange} and:
+For each model, use the [canonical link]{.orange} and:
 
 i. Specify the statistical model in terms of the "standard" probability distribution and write the log-likelihood as a function of $\beta$.
 
-ii. Derive the score function $\ell_*(\beta)$ and the observed/expected Fisher information $I$.
+ii. Derive the score function $\ell_*(\beta)$ and both the observed and expected
+Fisher information.
 
-iii. Obtain the maximum likelihood estimator $\hat\beta$ and provide an approximation to its sampling distribution. 
+iii. Derive the equation that characterizes the maximum likelihood estimator
+$\hat\beta$, obtain a closed-form expression when possible, and give an
+approximation to its sampling distribution.
 
-iv. For a fixed covariate value $x_i$, construct an approximate $1-\alpha$ confidence interval for the linear predictor $\eta_i = \beta x_i$. Then derive the corresponding confidence interval for $\mu_i$.  Indicate in which of the four cases these intervals are also [exact]{.blue} $1-\alpha$ intervals.
+iv. For a fixed covariate value $x_i$, construct an approximate $1-\alpha$
+confidence interval for the linear predictor $\eta_i = \beta x_i$. Then derive
+the corresponding confidence interval for $\mu_i$. Indicate in which of the
+three cases these intervals are also [exact]{.blue} $1-\alpha$ intervals.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise F - Solution: [`notes.pdf`](exe_B_F.pdf)
+#### Exercise F - Solution: [`exe_B_F.pdf`](exe_B_F.pdf)
 
-Suppose $Y_i$ has a Poisson distribution with
+Suppose that $Y_1,\dots,Y_{n_A+n_B}$ are independent Poisson random variables
+whose means satisfy
 $$
 g(\mu_i) = \beta_1 + \beta_2 x_i,
 $$
-where $x_i = 1$ for $i = 1, \dots, n_A$ (group A) and $x_i = 0$ for $i = n_A + 1, \dots, n_A + n_B$ (group B), i.e. a [dummy variable]{.blue}. Assume all observations are independent.  
+where $x_i = 1$ for $i = 1, \dots, n_A$ (group A) and $x_i = 0$ for
+$i = n_A + 1, \dots, n_A + n_B$ (group B); thus, $x_i$ is a
+[dummy variable]{.blue}.
 
-i. Show that, for the log-link function $g(x) = \log{x}$, the GLM likelihood equations imply that the fitted means $\hat\mu_A$ and $\hat\mu_B$ equal the respective sample means.
+i. Show that, for the log link $g(\mu)=\log(\mu)$, the GLM likelihood equations
+imply that the fitted group means $\hat\mu_A$ and $\hat\mu_B$ equal the
+corresponding sample means.
 
-ii. Using the likelihood equations, show that the same result holds for any link function for this Poisson model, 
+ii. Using the likelihood equations, show that the same result holds for any
+differentiable link function for this Poisson model, provided that an interior
+maximum likelihood estimate exists.
 
-iii. Using the likelihood equations, show that the same result holds for any GLM of the form $g(\mu_i) = \beta_1 + \beta_2 x_i$ with a binary indicator predictor. [Note]{.orange}: if the weights $\omega_i$ are non-constant, then $\hat\mu_A$ and $\hat\mu_B$ equal the respective weighted means.
+iii. Using the likelihood equations, show that the same result holds for any
+GLM of the form $g(\mu_i) = \beta_1 + \beta_2 x_i$ with a binary indicator
+predictor, under the same regularity condition. [Note]{.orange}: If the weights
+$\omega_i$ are not constant, then $\hat\mu_A$ and $\hat\mu_B$ equal the
+corresponding weighted sample means.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise G - Solution: [`notes.pdf`](exe_B_G.pdf)
+#### Exercise G - Solution: [`exe_B_G.pdf`](exe_B_G.pdf)
 
 In a generalized linear model that uses a [non-canonical link function]{.blue}, explain why it need not be true that  
 $$
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
 $$
-Hence, the response residuals need not have a mean of $0$. 
+Consequently, the response residuals need not have mean zero.
 
-Then, explain why a GLM with a [canonical link]{.orange} function and constant weights $\omega_i$ requires the inclusion of an intercept term in order to ensure that this equality holds.
+Then explain why, in a GLM with a [canonical link]{.orange} and constant weights
+$\omega_i$, an intercept must be included for this equality to be guaranteed.
 :::
 
 :::{.callout-note collapse=true}
-#### Exercise H - Solution: [`notes.pdf`](exe_B_H.pdf)
+#### Exercise H - Solution: [`exe_B_H.pdf`](exe_B_H.pdf)
 
-In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest $R^2$ in linear models)?
+When selecting explanatory variables for a model, why is it inadequate to
+choose the model with the smallest deviance (or, for a linear model, the
+largest $R^2$)?
 :::
-

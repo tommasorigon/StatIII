@@ -156,15 +156,15 @@ window.Quarto = {
 
 <section id="homepage" class="level1">
 <h1><a href="../index.html">Homepage</a></h1>
-<p>The theoretical exercises described below are quite <span class="orange">difficult</span>. At the <span class="blue">exam</span>, you can expect a <span class="blue">simplified version</span> of them; otherwise, they would represent a formidable challenge for most of you.</p>
-<p>On the other hand, the data analyses are more or less aligned with what you may encounter in the final examination.</p>
+<p>The theoretical exercises below are quite <span class="orange">difficult</span>. In the <span class="blue">exam</span>, you can expect <span class="blue">simplified versions</span>; in their present form, most of them would be too challenging.</p>
+<p>The data-analysis exercises, on the other hand, are broadly representative of what you may encounter in the final examination.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The vast majority of these exercises are taken from the textbooks <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span> and <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>, possibly with a few minor modifications. You can consult these textbooks if you need additional exercises.</p>
+<p>Most of these exercises are adapted, sometimes with minor modifications, from the textbooks <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span> and <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>. You may consult these textbooks for additional exercises.</p>
 </div>
 </div>
 </div>
@@ -182,7 +182,7 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The dataset <code>Seed</code> of the <code>MLGdata</code> library was obtained from an experiment designed to evaluate whether, and to what extent, the amount of fertilizer influences the germination of a seed. Twenty seeds were used, and for each seed:</p>
+<p>The <code>Seed</code> dataset in the <code>MLGdata</code> package comes from an experiment designed to assess whether, and to what extent, the amount of fertilizer affects seed germination. Twenty seeds were used, and the following variables were recorded for each seed:</p>
 <ul>
 <li><code>fert</code> indicates the amount of fertilizer,<br>
 </li>
@@ -190,12 +190,12 @@ window.Quarto = {
 </ul>
 <p>Import the data and then:</p>
 <ol type="a">
-<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, ordinal qualitative).</p></li>
-<li><p>Conduct an exploratory analysis to assess the relationship between the response and the covariates.</p></li>
-<li><p>Using pen and paper, specify an appropriate GLM adopting the canonical link function.</p></li>
+<li><p>Identify the statistical units, the response variable, and the covariate, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, or ordinal qualitative).</p></li>
+<li><p>Conduct an exploratory analysis to assess the relationship between the response and the covariate.</p></li>
+<li><p>Using pen and paper, specify an appropriate GLM with the canonical link function.</p></li>
 <li><p>Fit the GLM specified in (c) using <strong>R</strong>.</p></li>
 <li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.</p></li>
-<li><p>For each element in the <code>summary</code> output of the fitted <code>glm</code> object in R, indicate what quantity is being computed, providing the correspondence with the formulas in the slides.</p></li>
+<li><p>For each element in the output of <code>summary()</code> for the fitted <code>glm</code> object, indicate which quantity is being computed and match it to the corresponding formula in the slides.</p></li>
 </ol>
 </div>
 </div>
@@ -212,33 +212,32 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The dataset <code>Wool</code> contained in the <code>MLGdata</code> library were obtained from an experiment aimed at evaluating the effect of three variables, length (<code>x1</code>), width (<code>x2</code>), and load (<code>x3</code>), on the number of test cycles until rupture (<code>y</code>) of a wool yarn. The data were originally analyzed in the famous paper Box and Cox (1964) paper:</p>
+<p>The <code>Wool</code> dataset in the <code>MLGdata</code> package comes from a <span class="math inline">3^3</span> factorial experiment on worsted yarn. The response <code>y</code> is the number of loading cycles until failure, and the three experimental factors are specimen length (<code>x1</code>), loading-cycle amplitude (<code>x2</code>), and load (<code>x3</code>). The data were analyzed in the classic paper by Box and Cox (1964):</p>
 <blockquote class="blockquote">
-<p>Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations (with discussion). <em>Journal of the Royal Statistical Society, Series A</em>, <strong>143</strong>, 383-430.</p>
+<p>Box, G. E. P. and Cox, D. R. (1964). An analysis of transformations (with discussion). <em>Journal of the Royal Statistical Society, Series B</em>, <strong>26</strong>(2), 211–252.</p>
 </blockquote>
 <p>For each of the three variables <code>x1</code>, <code>x2</code>, and <code>x3</code>, three levels were fixed:</p>
 <ul>
 <li>Length: 250, 300, 350 mm (coded as <code>-1</code>, <code>0</code>, <code>1</code>)<br>
 </li>
-<li>Width: 8, 9, 10 mm (coded as <code>-1</code>, <code>0</code>, <code>1</code>)<br>
-</li>
+<li>Loading-cycle amplitude: 8, 9, 10 mm (coded as <code>-1</code>, <code>0</code>, <code>1</code>)</li>
 <li>Load: 40, 45, 50 g (coded as <code>-1</code>, <code>0</code>, <code>1</code>)</li>
 </ul>
 <p>Import the data and then:</p>
 <ol type="a">
-<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, qualitative nominal, qualitative ordinal).</p></li>
+<li><p>Identify the statistical units, the response variable, and the covariates, specifying the type of each variable (continuous quantitative, discrete quantitative, nominal qualitative, or ordinal qualitative).</p></li>
 <li><p>Using pen and paper, specify a <span class="blue">normal linear model</span> for the logarithmic transformation of the response.</p></li>
 <li><p>Fit in <strong>R</strong> the linear model from the previous point.</p></li>
-<li><p>Assess the goodness of fit of the model, compare the usual standard errors with the robust ones. Discuss whether a transformation of the response other than the logarithmic one may be more appropriate.</p></li>
+<li><p>Assess the goodness of fit of the model and compare the usual standard errors with heteroskedasticity-robust standard errors. Discuss whether a transformation of the response other than the logarithm might be more appropriate.</p></li>
 <li><p>Write down the expression of the estimated curve.</p></li>
-<li><p>Obtain a 95% confidence interval for the mean number of cycles to rupture for a test with length = 300 mm, width = 10 mm, and load = 40 g. For the same values of length, width, and load, obtain a prediction interval for the response.</p></li>
+<li><p>For a test with length = 300 mm, loading-cycle amplitude = 10 mm, and load = 40 g, obtain a 95% confidence interval for the conditional mean of the log-response. Transform the interval back to the original scale and explain which feature of the conditional response distribution it estimates. For the same experimental conditions, obtain a 95% prediction interval for the response.</p></li>
 <li><p>For the same data, considering the untransformed response and using pen and paper, specify a <span class="orange">generalized linear model</span> with <span class="blue">Gamma response</span> and logarithmic link function.</p></li>
 <li><p>Fit in <strong>R</strong> the generalized linear model from the previous point.</p></li>
 <li><p>Write down the expression of the estimated curve.</p></li>
 <li><p>Report the estimates and confidence intervals for the coefficients. Provide an interpretation of the obtained values.</p></li>
-<li><p>For each element of the <code>summary</code> output of the <code>glm</code> object in R, indicate which quantity is being calculated, matching them with the formulas in the slides.</p></li>
+<li><p>For each element in the output of <code>summary()</code> for the fitted <code>glm</code> object, indicate which quantity is being computed and match it to the corresponding formula in the slides.</p></li>
 <li><p>Evaluate the goodness of fit of the Gamma model.</p></li>
-<li><p>Obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, width = 10 mm, and load = 40 g, using the fitted Gamma model.</p></li>
+<li><p>Using the fitted Gamma model, obtain a 95% confidence interval for the mean response in an experiment with length = 300 mm, loading-cycle amplitude = 10 mm, and load = 40 g.</p></li>
 <li><p>Compare the results of the analysis based on the normal linear model with those of the analysis based on the Gamma model.<br>
 </p></li>
 </ol>
@@ -257,23 +256,23 @@ window.Quarto = {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The dataset <code>dde</code> dataset collect data from a sample of <span class="math inline">n = 2312</span> pregnant women and can be <a href="https://tommasorigon.github.io/StatIII/data/dde.csv">downloaded here</a>. This dataset was also analyzed in <a href="https://tommasorigon.github.io/StatI/slides/sl_B.pdf">Statistica I</a>. The original data are described in <a href="https://www.sciencedirect.com/science/article/pii/S0140673601053296">this study</a>:</p>
+<p>The <code>dde</code> dataset contains observations on a sample of <span class="math inline">n = 2312</span> pregnant women and can be <a href="../data/dde.csv">downloaded here</a>. The dataset was also analyzed in <a href="https://tommasorigon.github.io/StatI/slides/sl_B.pdf">Statistica I</a>. The original data are described in <a href="https://www.sciencedirect.com/science/article/pii/S0140673601053296">this study</a>:</p>
 <blockquote class="blockquote">
-<p>Longnecker, M. P., Klebanoff, M. A., Zhou, H., J. W. Brock (2001). Association between maternal serum concentration of the DDT metabolite DDE and preterm and small-for-gestational-age babies at birth. <em>Lancet</em>, <strong>358</strong> (9276), 110-114.</p>
+<p>Longnecker, M. P., Klebanoff, M. A., Zhou, H., and Brock, J. W. (2001). Association between maternal serum concentration of the DDT metabolite DDE and preterm and small-for-gestational-age babies at birth. <em>The Lancet</em>, <strong>358</strong>(9276), 110–114.</p>
 </blockquote>
-<p>The <code>DDE</code> is measured, i.e., a substance related to DDT, present in maternal serum during the third trimester of pregnancy. The variable <code>GAD</code> (Gestational Age at Delivery) measures the day of pregnancy on which delivery occurred.</p>
+<p>The variable <code>DDE</code> measures the concentration of DDE, a metabolite of DDT, in maternal serum during the third trimester of pregnancy (in <span class="math inline">\mu\mathrm{g}/\mathrm{L}</span>). The variable <code>GAD</code> (gestational age at delivery) records the day of pregnancy on which delivery occurred.</p>
 <p>DDT is extremely effective against malaria mosquitoes and is therefore widely used in areas where malaria is endemic. At the same time, DDT may pose a health risk, especially for pregnant women.</p>
-<p><span class="blue">Research question</span>. We are interested in understanding the impact of <code>DDE</code> on the <code>GAD</code>, and in particular in estimating the pre-term delivery (&lt; 37th week, i.e.&nbsp;&lt; 259 days).</p>
+<p><span class="blue">Research question</span>. We are interested in the association between <code>DDE</code> and <code>GAD</code>, particularly in estimating the probability of preterm delivery (before 37 completed weeks, i.e., before day 259).</p>
 <p>Import the data and then:</p>
 <ol type="a">
-<li><p>Specify a several “reasonable” models for the main research question. Decide which model is the most appropriate, based on predictive accuracy and diagnostic tools.</p></li>
-<li><p>Does the DDT impact the gestational age at delivery?</p></li>
-<li><p>Provide a prediction for the <code>GAD</code> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code> and compare it with the prediction for a mother not being exposed to <code>DDE</code>.</p></li>
-<li><p>Compute the probabilities of pre-term birth for all the observed values, namely <span class="math display">
-\psi_i = \mathbb{P}(Y_i &lt; 259; \bm{x}_i), \qquad i=1,\dots,n.
-</span> Do they differ across models? <span class="blue">Hint</span>: use the function <code>pnorm</code> if you considered a normal model and <code>pgamma</code> if you considered a gamma GLM. Be careful with the parametrization!</p></li>
-<li><p>Provide an estimate for the probability of pre-term delivery <span class="math inline">\psi</span> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code> and compare it with the probability for a mother not being exposed to <code>DDE</code>.</p></li>
-<li><p>☠️ - <span class="orange">Optional</span>. Provide a <span class="blue">prediction interval</span> for the <code>GAD</code> for a mother being exposed to a dose of <span class="math inline">100</span> (mg/L) of <code>DDE</code> and compare it with the prediction for a mother not being exposed to <code>DDE</code>.</p></li>
+<li><p>Specify several reasonable models for the main research question. Select the most appropriate one using predictive accuracy and diagnostic tools.</p></li>
+<li><p>Is DDE concentration associated with gestational age at delivery?</p></li>
+<li><p>Predict <code>GAD</code> for a woman with a <code>DDE</code> concentration of <span class="math inline">100\ \mu\mathrm{g}/\mathrm{L}</span> and compare it with the prediction at <span class="math inline">0\ \mu\mathrm{g}/\mathrm{L}</span>. Note that the latter value lies just outside the observed range and therefore entails slight extrapolation.</p></li>
+<li><p>Compute the probabilities of preterm birth for all the observed values, namely <span class="math display">
+\psi_i = \mathbb{P}(Y_i &lt; 259 ; \bm{x}_i), \qquad i=1,\dots,n.
+</span> Do they differ across models? <span class="blue">Hint</span>: use <code>pnorm()</code> for a normal model and <code>pgamma()</code> for a Gamma GLM. Pay attention to the parametrization.</p></li>
+<li><p>Estimate the probability of preterm delivery, <span class="math inline">\psi</span>, at a <code>DDE</code> concentration of <span class="math inline">100\ \mu\mathrm{g}/\mathrm{L}</span> and compare it with the estimated probability at <span class="math inline">0\ \mu\mathrm{g}/\mathrm{L}</span>.</p></li>
+<li><p>☠️ <span class="orange">Optional</span>. Obtain a <span class="blue">prediction interval</span> for <code>GAD</code> at a <code>DDE</code> concentration of <span class="math inline">100\ \mu\mathrm{g}/\mathrm{L}</span> and compare it with the interval at <span class="math inline">0\ \mu\mathrm{g}/\mathrm{L}</span>.</p></li>
 </ol>
 </div>
 </div>
@@ -295,11 +294,11 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>Agresti, A. (2015). <em>Foundations of Linear and Generalized Linear Models</em>. Wiley.</p>
 </blockquote>
-<p>Since these <span class="math inline">100</span> observations are from one city alone, we cannot use them to make inferences about the relationships in general. But for illustrative purposes, we treat them as a random sample of a conceptual population of home sales in this market and analyze how selling price seems to relate to these characteristics. The goal is the <span class="blue">predict the sale price</span> as a function of other characteristics</p>
-<p>Import the data and then</p>
+<p>Because all <span class="math inline">100</span> observations come from a single city, they do not support general conclusions about housing markets. For illustrative purposes, however, we treat them as a random sample from a conceptual population of home sales in this market and analyze how selling price is related to the recorded characteristics. The goal is to <span class="blue">predict the sale price</span> from the other variables.</p>
+<p>Import the data and then:</p>
 <ol type="a">
 <li><p>Summarize the data with descriptive statistics and plots.</p></li>
-<li><p>Using a forward/stepwise/backward selection procedures with all five predictors together with judgments about practical significance, select and interpret a (generalized) linear model for selling price.</p></li>
+<li><p>Using forward, backward, or stepwise selection with all five predictors, together with judgments about practical significance, select and interpret a (generalized) linear model for selling price.</p></li>
 <li><p>Check whether results depend on any influential observations.</p></li>
 </ol>
 <p>This exercise is intentionally left without strict instructions, so you can freely explore the data and develop your own modeling strategy. As is often the case, multiple approaches can yield reasonable results.</p>
@@ -315,17 +314,17 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise A - Solution: <a href="exe_B_A.pdf"><code>notes.pdf</code></a>
+Exercise A - Solution: <a href="exe_B_A.pdf"><code>exe_B_A.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">Y</span> be a random variable with an <span class="blue">inverse Gaussian distribution</span>, with support <span class="math inline">[0, \infty)</span> and probability density function</p>
+<p>Let <span class="math inline">Y</span> be a random variable with an <span class="blue">inverse Gaussian distribution</span>, with support <span class="math inline">(0, \infty)</span> and probability density function</p>
 <p><span class="math display">
 p(y ; \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt{\lambda\xi}}\exp\left\{-\frac{1}{2}\left(\frac{\lambda}{y} + \xi y\right)\right\},
-\qquad y &gt; 0, \; \xi \ge 0, \; \lambda &gt; 0.
-</span> Show that this distribution belongs to the exponential dispersion family, and identify its characteristic elements (canonical parameter, <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span> functions, dispersion parameter, variance function).</p>
+\qquad y &gt; 0, \; \xi &gt; 0, \; \lambda &gt; 0.
+</span> Show that this distribution belongs to the exponential-dispersion family and identify its characteristic elements: the canonical parameter, the functions <span class="math inline">a_i(\cdot)</span>, <span class="math inline">b(\cdot)</span>, and <span class="math inline">c(\cdot)</span>, the dispersion parameter, and the variance function.</p>
 </div>
 </div>
 </div>
@@ -335,26 +334,26 @@ p(y ; \xi, \lambda) = \left( \frac{\lambda}{2 \pi} \right)^{1/2}y^{-3/2}e^{\sqrt
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise B - Solution: <a href="exe_B_B.pdf"><code>notes.pdf</code></a>
+Exercise B - Solution: <a href="exe_B_B.pdf"><code>exe_B_B.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">Y</span> be a random variable with a <span class="blue">negative binomial</span> distribution, representing the number of independent Bernoulli trials with constant success probability <span class="math inline">\pi \in (0,1)</span> required to obtain <span class="math inline">k</span> successes. The support is <span class="math inline">S = \{k, k+1, \dots\}</span> and the probability mass function is <span class="math display">
+<p>Let <span class="math inline">Y</span> have a <span class="blue">negative binomial</span> distribution, representing the number of independent Bernoulli trials with constant success probability <span class="math inline">\pi \in (0,1)</span> required to obtain <span class="math inline">k</span> successes. Its support is <span class="math inline">S = \{k, k+1, \dots\}</span>, and its probability mass function is <span class="math display">
 p(y; \pi) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 </span></p>
 <ol type="i">
-<li><p>Verify that, assuming <span class="math inline">k</span> is known, this distribution belongs to the exponential-dispersion family and identify its characteristic elements: canonical parameter, <span class="math inline">a_i(\cdot), b(\cdot), c(\cdot)</span> functions, dispersion parameter, and variance function.</p></li>
+<li><p>Assuming that <span class="math inline">k</span> is known, verify that this distribution belongs to the exponential-dispersion family and identify its characteristic elements: the canonical parameter, the functions <span class="math inline">a_i(\cdot)</span>, <span class="math inline">b(\cdot)</span>, and <span class="math inline">c(\cdot)</span>, the dispersion parameter, and the variance function.</p></li>
 <li><p>Using the properties of exponential families, recover the well-known relations<br>
 <span class="math display">
    \mathbb{E}(Y) = \frac{k}{\pi},
    \qquad
-   \text{var}(Y) = \frac{k(1-\pi)}{\pi^2}.
+   \operatorname{Var}(Y) = \frac{k(1-\pi)}{\pi^2}.
    </span><br>
 </p></li>
 <li><p>Show that the variance function is quadratic in <span class="math inline">\mu</span>.</p></li>
-<li><p>Does the distribution still form an exponential-dispersion family if <span class="math inline">k</span> is treated as unknown?</p></li>
+<li><p>Does the distribution still constitute an exponential-dispersion family if <span class="math inline">k</span> is treated as unknown?</p></li>
 </ol>
 </div>
 </div>
@@ -365,7 +364,7 @@ p(y; \pi) = \binom{y-1}{k-1} \pi^k (1-\pi)^{\,y-k}, \qquad y \in S.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise C - Solution: <a href="exe_B_C.pdf"><code>notes.pdf</code></a>
+Exercise C - Solution: <a href="exe_B_C.pdf"><code>exe_B_C.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -375,9 +374,9 @@ Exercise C - Solution: <a href="exe_B_C.pdf"><code>notes.pdf</code></a>
 <ol type="i">
 <li><p>Specialize the general formulas and re-obtain the likelihood equations for the binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>) presented in the slides, using the canonical link function.</p></li>
 <li><p>Specialize the general formulas and re-obtain the likelihood equations for the Poisson regression model (<code>Aids</code> data with <span class="math inline">p = 2</span>) presented in the slides, using the canonical link function.</p></li>
-<li><p>Obtain the likelihood equations for a binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>), using the <span class="blue">Cauchy link</span>, which is defined as <span class="math inline">g(\mu) = \tan(\pi(\mu - 1/2))</span>. This link indeed is such that <span class="math inline">g(\mu):(0, 1)\to \mathbb{R}</span>.</p></li>
+<li><p>Obtain the likelihood equations for a binomial regression model (<code>Beetles</code> data with <span class="math inline">p = 2</span>) using the <span class="blue">Cauchy link</span>, defined as <span class="math inline">g(\mu) = \tan\{\pi(\mu - 1/2)\}</span>. This link maps <span class="math inline">(0,1)</span> onto <span class="math inline">\mathbb{R}</span>.</p></li>
 </ol>
-<p><span class="blue">Hint</span>: there are almost no calculations to do at points i. and ii., only substitutions. This exercise is designed to make you familiar with the notation and the general formulas. Point iii. is more elaborate and you will need to use the derivative of the Cauchy link, which is <span class="math inline">g'(\mu) = \pi /\sin^2(\pi \mu)</span>.</p>
+<p><span class="blue">Hint</span>: Parts i. and ii. require almost no calculations, only substitutions. They are intended to familiarize you with the notation and the general formulas. Part iii. is more involved; use the derivative of the Cauchy link, <span class="math inline">g'(\mu) = \pi/\sin^2(\pi\mu)</span>.</p>
 </div>
 </div>
 </div>
@@ -387,13 +386,13 @@ Exercise C - Solution: <a href="exe_B_C.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise D - Solution: <a href="exe_B_D.pdf"><code>notes.pdf</code></a>
+Exercise D - Solution: <a href="exe_B_D.pdf"><code>exe_B_D.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Explicitly derive the contribution of a single observation to the deviance (i.e.&nbsp;<span class="math inline">d_i</span>) for a Gamma generalized linear model. Then, write down the expression of the deviance <span class="math inline">D(\hat{\bm{\mu}}; \boldsymbol{y})</span> for a sample of size <span class="math inline">n</span>.</p>
+<p>Explicitly derive the contribution <span class="math inline">d_i</span> of a single observation to the deviance of a Gamma generalized linear model. Then write down the deviance <span class="math inline">D(\hat{\bm{\mu}}; \boldsymbol{y})</span> for a sample of size <span class="math inline">n</span>.</p>
 </div>
 </div>
 </div>
@@ -403,27 +402,26 @@ Exercise D - Solution: <a href="exe_B_D.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise E - Solution: <a href="exe_B_E.pdf"><code>notes.pdf</code></a>
+Exercise E - Solution: <a href="exe_B_E.pdf"><code>exe_B_E.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">Y_i</span> be independent random variables, with corresponding values <span class="math inline">x_1,\dots,x_n</span> of a <span class="blue">univariate</span> quantitative covariate. Consider a GLM with <span class="blue">no intercept</span> and <span class="math inline">p=1</span>, i.e. <span class="math display">
+<p>Let <span class="math inline">Y_1,\dots,Y_n</span> be independent random variables, with corresponding values <span class="math inline">x_1,\dots,x_n</span> of a <span class="blue">univariate</span> quantitative covariate. Consider a GLM with <span class="blue">no intercept</span> and <span class="math inline">p=1</span>, i.e., <span class="math display">
 \eta_i = \beta x_i, \qquad i=1,\dots,n,
-</span> under each of the following exponential–dispersion models (mean–variance pairs):</p>
+</span> under each of the following exponential-dispersion models, specified through their mean-variance pairs:</p>
 <ol type="1">
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i, \phi)</span> and <span class="math inline">\mu_i \in \mathbb{R}</span>, with <span class="math inline">\phi &gt; 0</span> known.<br>
-</li>
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i, \mu_i)</span> and <span class="math inline">\mu_i \in (0, \infty)</span>.</li>
-<li><span class="math inline">Y_i \sim \text{ED}(\mu_i,\mu_i(1 - \mu_i))</span> and <span class="math inline">\mu_i \in (0, 1)</span>.</li>
+<li><span class="math inline">\mathbb{E}(Y_i)=\mu_i</span> and <span class="math inline">\operatorname{Var}(Y_i)=\phi</span>, where <span class="math inline">\mu_i \in \mathbb{R}</span> and the constant <span class="math inline">\phi&gt;0</span> is known.</li>
+<li><span class="math inline">\mathbb{E}(Y_i)=\operatorname{Var}(Y_i)=\mu_i</span>, where <span class="math inline">\mu_i \in (0,\infty)</span>.</li>
+<li><span class="math inline">\mathbb{E}(Y_i)=\mu_i</span> and <span class="math inline">\operatorname{Var}(Y_i)=\mu_i(1-\mu_i)</span>, where <span class="math inline">\mu_i \in (0,1)</span>.</li>
 </ol>
-<p>For each model consider the <span class="orange">canonical link</span> and:</p>
+<p>For each model, use the <span class="orange">canonical link</span> and:</p>
 <ol type="i">
 <li><p>Specify the statistical model in terms of the “standard” probability distribution and write the log-likelihood as a function of <span class="math inline">\beta</span>.</p></li>
-<li><p>Derive the score function <span class="math inline">\ell_*(\beta)</span> and the observed/expected Fisher information <span class="math inline">I</span>.</p></li>
-<li><p>Obtain the maximum likelihood estimator <span class="math inline">\hat\beta</span> and provide an approximation to its sampling distribution.</p></li>
-<li><p>For a fixed covariate value <span class="math inline">x_i</span>, construct an approximate <span class="math inline">1-\alpha</span> confidence interval for the linear predictor <span class="math inline">\eta_i = \beta x_i</span>. Then derive the corresponding confidence interval for <span class="math inline">\mu_i</span>. Indicate in which of the four cases these intervals are also <span class="blue">exact</span> <span class="math inline">1-\alpha</span> intervals.</p></li>
+<li><p>Derive the score function <span class="math inline">\ell_*(\beta)</span> and both the observed and expected Fisher information.</p></li>
+<li><p>Derive the equation that characterizes the maximum likelihood estimator <span class="math inline">\hat\beta</span>, obtain a closed-form expression when possible, and give an approximation to its sampling distribution.</p></li>
+<li><p>For a fixed covariate value <span class="math inline">x_i</span>, construct an approximate <span class="math inline">1-\alpha</span> confidence interval for the linear predictor <span class="math inline">\eta_i = \beta x_i</span>. Then derive the corresponding confidence interval for <span class="math inline">\mu_i</span>. Indicate in which of the three cases these intervals are also <span class="blue">exact</span> <span class="math inline">1-\alpha</span> intervals.</p></li>
 </ol>
 </div>
 </div>
@@ -434,19 +432,19 @@ Exercise E - Solution: <a href="exe_B_E.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise F - Solution: <a href="exe_B_F.pdf"><code>notes.pdf</code></a>
+Exercise F - Solution: <a href="exe_B_F.pdf"><code>exe_B_F.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">Y_i</span> has a Poisson distribution with <span class="math display">
+<p>Suppose that <span class="math inline">Y_1,\dots,Y_{n_A+n_B}</span> are independent Poisson random variables whose means satisfy <span class="math display">
 g(\mu_i) = \beta_1 + \beta_2 x_i,
-</span> where <span class="math inline">x_i = 1</span> for <span class="math inline">i = 1, \dots, n_A</span> (group A) and <span class="math inline">x_i = 0</span> for <span class="math inline">i = n_A + 1, \dots, n_A + n_B</span> (group B), i.e.&nbsp;a <span class="blue">dummy variable</span>. Assume all observations are independent.</p>
+</span> where <span class="math inline">x_i = 1</span> for <span class="math inline">i = 1, \dots, n_A</span> (group A) and <span class="math inline">x_i = 0</span> for <span class="math inline">i = n_A + 1, \dots, n_A + n_B</span> (group B); thus, <span class="math inline">x_i</span> is a <span class="blue">dummy variable</span>.</p>
 <ol type="i">
-<li><p>Show that, for the log-link function <span class="math inline">g(x) = \log{x}</span>, the GLM likelihood equations imply that the fitted means <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the respective sample means.</p></li>
-<li><p>Using the likelihood equations, show that the same result holds for any link function for this Poisson model,</p></li>
-<li><p>Using the likelihood equations, show that the same result holds for any GLM of the form <span class="math inline">g(\mu_i) = \beta_1 + \beta_2 x_i</span> with a binary indicator predictor. <span class="orange">Note</span>: if the weights <span class="math inline">\omega_i</span> are non-constant, then <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the respective weighted means.</p></li>
+<li><p>Show that, for the log link <span class="math inline">g(\mu)=\log(\mu)</span>, the GLM likelihood equations imply that the fitted group means <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the corresponding sample means.</p></li>
+<li><p>Using the likelihood equations, show that the same result holds for any differentiable link function for this Poisson model, provided that an interior maximum likelihood estimate exists.</p></li>
+<li><p>Using the likelihood equations, show that the same result holds for any GLM of the form <span class="math inline">g(\mu_i) = \beta_1 + \beta_2 x_i</span> with a binary indicator predictor, under the same regularity condition. <span class="orange">Note</span>: If the weights <span class="math inline">\omega_i</span> are not constant, then <span class="math inline">\hat\mu_A</span> and <span class="math inline">\hat\mu_B</span> equal the corresponding weighted sample means.</p></li>
 </ol>
 </div>
 </div>
@@ -457,7 +455,7 @@ g(\mu_i) = \beta_1 + \beta_2 x_i,
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise G - Solution: <a href="exe_B_G.pdf"><code>notes.pdf</code></a>
+Exercise G - Solution: <a href="exe_B_G.pdf"><code>exe_B_G.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -466,8 +464,8 @@ Exercise G - Solution: <a href="exe_B_G.pdf"><code>notes.pdf</code></a>
 <p>In a generalized linear model that uses a <span class="blue">non-canonical link function</span>, explain why it need not be true that<br>
 <span class="math display">
 \sum_{i=1}^n \hat{\mu}_i = \sum_{i=1}^n y_i.
-</span> Hence, the response residuals need not have a mean of <span class="math inline">0</span>.</p>
-<p>Then, explain why a GLM with a <span class="orange">canonical link</span> function and constant weights <span class="math inline">\omega_i</span> requires the inclusion of an intercept term in order to ensure that this equality holds.</p>
+</span> Consequently, the response residuals need not have mean zero.</p>
+<p>Then explain why, in a GLM with a <span class="orange">canonical link</span> and constant weights <span class="math inline">\omega_i</span>, an intercept must be included for this equality to be guaranteed.</p>
 </div>
 </div>
 </div>
@@ -477,13 +475,13 @@ Exercise G - Solution: <a href="exe_B_G.pdf"><code>notes.pdf</code></a>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Exercise H - Solution: <a href="exe_B_H.pdf"><code>notes.pdf</code></a>
+Exercise H - Solution: <a href="exe_B_H.pdf"><code>exe_B_H.pdf</code></a>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In selecting explanatory variables for a linear model, what is inadequate about the strategy of selecting the model with lowest deviance (or the highest <span class="math inline">R^2</span> in linear models)?</p>
+<p>When selecting explanatory variables for a model, why is it inadequate to choose the model with the smallest deviance (or, for a linear model, the largest <span class="math inline">R^2</span>)?</p>
 </div>
 </div>
 </div>

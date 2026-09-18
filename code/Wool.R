@@ -3,12 +3,12 @@
 # DISCLAIMER: This solution is provided in a partial form. Certain steps, justifications, and details have been omitted for clarity and brevity.
 # ---------------------------------------------------------------------
 
-# The dataset `Wool` (Hand et al., 1994, p. 328) contained in the `MLGdata` library were obtained from an experiment  aimed at evaluating the effect of three variables, length (`x1`), width (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.
+# The dataset `Wool` (Hand et al., 1994, p. 328) contained in the `MLGdata` library was obtained from an experiment aimed at evaluating the effect of three variables, length (`x1`), loading-cycle amplitude (`x2`), and load (`x3`), on the number of test cycles until rupture (`y`) of a wool yarn.
 
 # For each of the three variables `x1`, `x2`, and `x3`, three levels were fixed:
 
 # - Length: 250, 300, 350 mm (coded as `-1`, `0`, `1`)
-# - Width: 8, 9, 10 mm (coded as `-1`, `0`, `1`)
+# - Loading-cycle amplitude: 8, 9, 10 mm (coded as `-1`, `0`, `1`)
 # - Load: 40, 45, 50 g (coded as `-1`, `0`, `1`)
 
 library(MLGdata)
@@ -50,13 +50,13 @@ library(lmtest)
 coeftest(m_log)
 coeftest(m_log, vcov. = vcovHC(m_log))
 
-# COMMENT: The diagnostic plots appear generally satisfactory, with no major issues. There may be some (very) mild heteroskedasticity, but overdispersion is clearly negligible: the conventional and robust standard errors are nearly identical, and the inferential conclusions remain unchanged.
+# COMMENT: The diagnostic plots appear generally satisfactory, with no major issues. There may be some (very) mild heteroskedasticity, but the conventional and robust standard errors are nearly identical, and the inferential conclusions remain unchanged.
 
 m_lin <- lm(y ~ x1 + x2 + x3, data = Wool)
 library(MASS)
 boxcox(m_lin)
 
-# COMMENT: the Box-Cox transform actually support the log-transformation.
+# COMMENT: the Box-Cox transform actually supports the log-transformation.
 
 # (e) ---------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ boxcox(m_lin)
 
 # (f) ---------------------------------------------------------------------
 
-newdata <- data.frame(x1 = 0, x2 = -1, x3 = -1)
+newdata <- data.frame(x1 = 0, x2 = 1, x3 = -1)
 
 # Confidence interval - This is NOT a Wald confidence interval, but it is a valid confidence interval
 exp(predict(m_log, newdata = newdata, interval = "confidence"))
@@ -104,9 +104,9 @@ exp(coef(m_gamma)[1]) # 571.874
 
 # Interpretation of \beta3 (x2). The value
 100 * (exp(coef(m_gamma)[3]) - 1) # -46.8%
-# represents the percentage decrease in the average number of test cycles until rupture when x_2 increases by one unit (i.e., from −1 to 0, or from 0 to 1). This indicates that wider wool yarns tend to withstand, on average, a lower number of test cycles before rupture.
+# represents the percentage decrease in the average number of test cycles until rupture when x_2 increases by one unit (i.e., from −1 to 0, or from 0 to 1). This indicates that larger loading-cycle amplitudes are associated with, on average, a lower number of test cycles before rupture.
 
-# Interpretation of \beta4 (x2). The value
+# Interpretation of \beta4 (x3). The value
 100 * (exp(coef(m_gamma)[4]) - 1) # -31.9%
 # represents the percentage decrease in the average number of test cycles until rupture when x_3 increases by one unit (i.e., from −1 to 0, or from 0 to 1). This indicates that more loaded wool yarns tend to withstand, on average, a lower number of test cycles before rupture.
 
@@ -146,7 +146,7 @@ abline(c(0, 1))
 coeftest(m_log)
 coeftest(m_gamma)
 
-# The correlation with the response are also extremely similar
+# The correlations with the response are also extremely similar
 cor(fit_log, Wool$y)
 cor(fit_gamma, Wool$y)
 
