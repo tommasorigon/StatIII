@@ -35,7 +35,7 @@ cor(Abrasion)
 # (c) ---------------------------------------------------------------------
 
 # perdita_i = \beta_1 + \beta_2 D_i + \epsilon_i,     i = 1, ... , 30
-# eps_i ~ N(0, sigma2)
+# \epsilon_i ~ N(0, \sigma^2)
 
 # COMMENT: D_i is chosen because it is the most correlated variable.
 
@@ -49,7 +49,7 @@ summary(m_D)
 coef(m_D)
 confint(m_D, level = 0.95)
 
-# COMMENT: A unitary increase in hardness implies a decrease in weight loss of about 7 grams per hour. The coefficient is significantly different from zero. 
+# COMMENT: A unitary increase in hardness implies a decrease in weight loss of about 5.34 grams per hour. The coefficient is significantly different from zero.
 
 # (f) ---------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ plot(residuals(lm(Re ~ D, data = Abrasion)), residuals(m_D), xlab = "Residuals o
 m_full <- lm(perdita ~ D + Re, data = Abrasion)
 summary(m_full)
 
-# COMMENT: A unitary increase in hardness/resistance implies a decrease in weight loss of about 6 grams per hour and 1.37 grams per hour, respectively. Both coefficients are significantly different from zero. 
+# COMMENT: A unitary increase in hardness/tensile strength implies a decrease in weight loss of about 6.57 grams per hour and 1.37 grams per hour, respectively. Both coefficients are significantly different from zero.
 
 # (i) ---------------------------------------------------------------------
 

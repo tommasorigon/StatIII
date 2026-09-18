@@ -4,7 +4,7 @@
 # Author: Tommaso Rigon
 # ---------------------------------------------------------------------
 
-# The dataset records the body weights (in lbs), before and after an experimental treatment period, of n = 72 young girls diagnosed with anorexia. 
+# The dataset records the body weights (in lbs) of n = 72 young girls diagnosed with anorexia, before and after an experimental treatment period.
 
 # During the study, the participants were randomly assigned to one of three therapy groups:  
 # Control group: received the standard therapy (label c),  

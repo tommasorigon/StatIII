@@ -117,7 +117,7 @@ During the study, the participants were randomly assigned to one of three `thera
 - Family therapy (label `f`),  
 - Cognitive behavioral therapy (label `b`).  
 
-Import the data and 
+Import the data and:
 
 (a) Fit a linear model where the outcome is the [difference]{.orange} between the post-treatment weight and the baseline weight, and the predictor is the therapy group.
 
@@ -194,4 +194,3 @@ plot(z, residuals(lm(y ~ x1 + x2)), pch = 16)
 plot(residuals(lm(z ~ x1 + x2)), residuals(lm(y ~ x1 + x2)), pch = 16)
 ```
 :::
-

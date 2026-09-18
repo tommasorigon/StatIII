@@ -20,7 +20,7 @@ head(FEV)
 plot(FEV$base, FEV$fev1, pch = 16, col = as.numeric(as.factor(FEV$drug)))
 boxplot(fev1 ~ drug, data = FEV)
 
-# COMMENT: The points are roughly aligned along a line, although slight curvature may be present. Moreover, both variables appear to be important. Drug A and B seem to have similar effects, and both differ from P (placebo).
+# COMMENT: The points are roughly aligned along a line, although slight curvature may be present. Moreover, both variables appear to be important. Drugs A and B seem to have similar effects, and both differ from P (placebo).
 
 m1 <- lm(fev1 ~ base, data = FEV)
 summary(m1)
