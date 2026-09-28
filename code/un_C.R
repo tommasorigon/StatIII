@@ -1,6 +1,3 @@
-library(ggplot2)
-library(ggthemes)
-
 mu <- seq(0.001, 0.999, length.out = 400)
 
 # Compute probabilities for each link
@@ -21,7 +18,7 @@ df_long <- reshape2::melt(df,
 
 # Plot
 ggplot(df_long, aes(x = mu, y = eta, color = Link)) +
-  geom_line(size = 1.1) +
+  geom_line(linewidth = 1.1) +
   theme_bw() +
   labs(
     x = expression(mu),
@@ -31,9 +28,6 @@ ggplot(df_long, aes(x = mu, y = eta, color = Link)) +
   scale_color_tableau(palette = "Color Blind") +
   theme(legend.position = "top") +
   ylim(c(-4, 4))
-
-library(ggplot2)
-library(ggthemes)
 
 eta <- seq(-4, 4, length.out = 400)
 
@@ -55,7 +49,7 @@ df_long <- reshape2::melt(df,
 
 # Plot
 ggplot(df_long, aes(x = eta, y = Probability, color = Link)) +
-  geom_line(size = 1.1) +
+  geom_line(linewidth = 1.1) +
   theme_bw() +
   labs(
     x = expression(eta),
