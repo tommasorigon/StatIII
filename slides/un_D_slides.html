@@ -184,15 +184,14 @@
 <div class="column" style="width:30%;">
 <p><img data-src="img/agresti.jpg" style="width:100.0%"></p>
 <p><a href="https://en.wikipedia.org/wiki/Alan_Agresti">Alan Agresti</a></p>
-<p>Distinguished Professor Emeritus, University of Florida <!-- *"Pluralitas non est ponenda sine necessitate."* --></p>
-<!-- [William of Ockham]{.grey} -->
+<p>Distinguished Professor Emeritus, University of Florida</p>
 </div><div class="column" style="width:70%;">
 <ul>
 <li><p>GLMs for <span class="blue">count data</span> are very common and have theoretical connections with binary and binomial models.</p></li>
 <li><p>This unit focuses on <span class="blue">Poisson regression models</span>.</p></li>
 <li><p>I will not cover the analysis of <span class="orange">contingency tables</span>.</p></li>
 <li><p>Such a topic is nonetheless discussed in the textbook but is not part of the exam.</p></li>
-<li><p>The most important aspects have been already covered in <a href="un_B.html">Unit B</a>.</p></li>
+<li><p>The most important aspects have already been covered in <a href="un_B.html">Unit B</a>.</p></li>
 </ul>
 </div></div>
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -247,10 +246,10 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <li><p>Often the expected value of a response count <span class="math inline">Y_i</span> is proportional to an index <span class="math inline">t_i</span>, the <span class="orange">exposure</span>.</p></li>
 <li><p>For instance, <span class="math inline">t_i</span> might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species.</p></li>
 <li><p>In these cases, the <span class="blue">sample rate</span> is <span class="math inline">Y_i / t_i</span>, with expected value <span class="math inline">\mu_i / t_i</span>. With explanatory variables, a model for the expected rate under a <span class="orange">logarithmic link</span> has the form <span class="math display">
-\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta, \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i},
+\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i}.
 </span> Because <span class="math inline">\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}</span>, the model makes the adjustment <span class="math inline">\log{t_i}</span> to the linear predictor. This adjustment term is called an <span class="orange">offset</span>, implemented in <strong>R</strong> using the <code>offset</code> option.</p></li>
 <li><p>The fit corresponds to using <span class="math inline">\log{t_i}</span> as an <span class="blue">explanatory variable</span> in the linear predictor for <span class="math inline">\log(\mu_i)</span> and <span class="orange">forcing its coefficient</span> to equal <span class="math inline">1</span>.</p></li>
-<li><p>Summarising, for this model, the response counts <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> satisfy <span class="math display">
+<li><p>Summarizing, for this model, the response counts <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> satisfy <span class="math display">
 \mu_i = t_i \exp(\bm{x}_i^T\beta).
 </span> The mean has a proportionality constant for <span class="math inline">t_i</span> that depends on the values of the covariates.</p></li>
 </ul>
@@ -266,8 +265,8 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 </span> with <span class="math inline">\phi &gt; 1</span>. This implies that the Poisson regression model is <span class="orange">misspecified</span>.</p></li>
 <li><p>The two most common solutions to overdispersion are the following:</p>
 <ol type="i">
-<li>the usage of <span class="blue">quasi-likelihoods</span>;</li>
-<li>using another parametric distribution; a typical choice is the <span class="orange">negative-binomial</span>.</li>
+<li>the use of <span class="blue">quasi-likelihoods</span>;</li>
+<li>the use of another parametric distribution; a typical choice is the <span class="orange">negative binomial</span>.</li>
 </ol></li>
 </ul>
 </section>
@@ -288,12 +287,12 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 </li>
 <li>some exercise occasionally but not in the past week (a random zero),<br>
 </li>
-<li>others never exercise (a structural zero),</li>
+<li>others never exercise (a structural zero).</li>
 </ul></li>
 <li><p>The two most common solutions to zero-inflation are the following:</p>
 <ol type="i">
-<li>Zero-inflated Poisson (ZIP) model, a <span class="blue">mixture model</span>;</li>
-<li>Hurdle models (model zero vs nonzero first, then model the remaining data).</li>
+<li>the zero-inflated Poisson (ZIP) model, a <span class="blue">mixture model</span>;</li>
+<li>hurdle models (model zero vs nonzero first, then model the remaining data).</li>
 </ol></li>
 </ul>
 </section>

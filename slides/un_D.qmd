@@ -72,9 +72,6 @@ library(ggthemes)
 [Alan Agresti](https://en.wikipedia.org/wiki/Alan_Agresti)
 
 Distinguished Professor Emeritus, University of Florida
-<!-- *"Pluralitas non est ponenda sine necessitate."* -->
-
-<!-- [William of Ockham]{.grey} -->
 :::
 
 ::: {.column width="70%"}
@@ -87,7 +84,7 @@ Distinguished Professor Emeritus, University of Florida
 
 - Such a topic is nonetheless discussed in the textbook but is not part of the exam.
 
-- The most important aspects have been already covered in [Unit B](un_B.html).
+- The most important aspects have already been covered in [Unit B](un_B.html).
 :::
 
 :::
@@ -148,13 +145,13 @@ The interpretation in terms of relative changes is a consequence of the [logarit
 
 - In these cases, the [sample rate]{.blue} is $Y_i / t_i$, with expected value $\mu_i / t_i$. With explanatory variables, a model for the expected rate under a [logarithmic link]{.orange} has the form
 $$
-\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta, \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i},
+\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i}.
 $$
 Because $\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}$, the model makes the adjustment $\log{t_i}$ to the linear predictor. This adjustment term is called an [offset]{.orange}, implemented in **R** using the `offset` option. 
 
 - The fit corresponds to using $\log{t_i}$ as an [explanatory variable]{.blue} in the linear predictor for $\log(\mu_i)$ and [forcing its coefficient]{.orange} to equal $1$. 
 
-- Summarising, for this model, the response counts $Y_i \sim \text{Poisson}(\mu_i)$ satisfy
+- Summarizing, for this model, the response counts $Y_i \sim \text{Poisson}(\mu_i)$ satisfy
 $$
 \mu_i = t_i \exp(\bm{x}_i^T\beta). 
 $$
@@ -175,8 +172,8 @@ $$
 with $\phi > 1$. This implies that the Poisson regression model is [misspecified]{.orange}. 
 
 - The two most common solutions to overdispersion are the following: 
-  (i) the usage of [quasi-likelihoods]{.blue};
-  (ii) using another parametric distribution; a typical choice is the [negative-binomial]{.orange}.
+  (i) the use of [quasi-likelihoods]{.blue};
+  (ii) the use of another parametric distribution; a typical choice is the [negative binomial]{.orange}.
 
 ## Zero-inflation
 
@@ -191,10 +188,10 @@ with $\phi > 1$. This implies that the Poisson regression model is [misspecified
 - Example: the number of times individuals report exercising (e.g., going to a gym) in the past week:
   - some people exercise frequently,  
   - some exercise occasionally but not in the past week (a random zero),  
-  - others never exercise (a structural zero),  
+  - others never exercise (a structural zero).
 
 - The two most common solutions to zero-inflation are the following: 
-  (i) Zero-inflated Poisson (ZIP) model, a [mixture model]{.blue};
-  (ii) Hurdle models (model zero vs nonzero first, then model the remaining data).
+  (i) the zero-inflated Poisson (ZIP) model, a [mixture model]{.blue};
+  (ii) hurdle models (model zero vs nonzero first, then model the remaining data).
 
 ## References
