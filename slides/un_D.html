@@ -117,7 +117,19 @@ window.Quarto = {
   <li><a href="#exposure-rate" id="toc-exposure-rate" class="nav-link" data-scroll-target="#exposure-rate">Exposure rate</a></li>
   <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion">Overdispersion</a></li>
   <li><a href="#zero-inflation" id="toc-zero-inflation" class="nav-link" data-scroll-target="#zero-inflation">Zero-inflation</a></li>
+  <li><a href="#case-study-the-ships-data" id="toc-case-study-the-ships-data" class="nav-link" data-scroll-target="#case-study-the-ships-data">Case study: the <code>ships</code> data</a>
+  <ul class="collapse">
+  <li><a href="#the-ships-dataset" id="toc-the-ships-dataset" class="nav-link" data-scroll-target="#the-ships-dataset">The <code>ships</code> dataset</a></li>
+  <li><a href="#ships-that-never-sailed" id="toc-ships-that-never-sailed" class="nav-link" data-scroll-target="#ships-that-never-sailed">Ships that never sailed</a></li>
+  <li><a href="#exploratory-analysis" id="toc-exploratory-analysis" class="nav-link" data-scroll-target="#exploratory-analysis">Exploratory analysis</a></li>
+  <li><a href="#modelling-the-ships-data" id="toc-modelling-the-ships-data" class="nav-link" data-scroll-target="#modelling-the-ships-data">Modelling the <code>ships</code> data</a></li>
+  <li><a href="#the-rate-model" id="toc-the-rate-model" class="nav-link" data-scroll-target="#the-rate-model">The rate model</a></li>
+  <li><a href="#is-the-offset-appropriate" id="toc-is-the-offset-appropriate" class="nav-link" data-scroll-target="#is-the-offset-appropriate">Is the offset appropriate?</a></li>
+  <li><a href="#interpretation-of-the-coefficients" id="toc-interpretation-of-the-coefficients" class="nav-link" data-scroll-target="#interpretation-of-the-coefficients">Interpretation of the coefficients</a></li>
+  <li><a href="#goodness-of-fit-and-overdispersion" id="toc-goodness-of-fit-and-overdispersion" class="nav-link" data-scroll-target="#goodness-of-fit-and-overdispersion">Goodness of fit and overdispersion</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_D_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
 </div>
@@ -190,9 +202,7 @@ window.Quarto = {
 <li><p>In a <span class="blue">Poisson regression</span> model, we observe <span class="math inline">Y_i</span> independent Poisson random variables, so that <span class="math display">
 Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i = \bm{x}_i^T \beta, \qquad i=1,\dots,n.
 </span></p></li>
-<li><p>The <span class="orange">canonical link</span> is <span class="math inline">g(\cdot) = \log(\cdot)</span>, which implies a <span class="blue">multiplicative structure</span> <span class="math display">
-\mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
-</span></p></li>
+<li><p>The <span class="orange">canonical link</span> is <span class="math inline">g(\cdot) = \log(\cdot)</span>, which implies a <span class="blue">multiplicative structure</span> for the mean.</p></li>
 <li><p>Under the canonical link, the <span class="blue">likelihood equations</span> are <span class="math display">
 \sum_{i=1}^n(y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
 </span> The solution therefore has a nice interpretation as a <span class="blue">method of moments</span> estimator, in that <span class="math display">
@@ -206,7 +216,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <li><p>Under the <span class="orange">logarithmic link</span>, the mean has a multiplicative structure, namely <span class="math display">
 \mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
 </span></p></li>
-<li><p>As a result, a <span class="blue">unit increase</span> of the <span class="math inline">j</span>th covariate from <span class="math inline">x_{ij}</span> to <span class="math inline">x_{ij} + 1</span> has the following impact on the new mean, say <span class="math inline">\mu_\text{new}</span> <span class="math display">
+<li><p>As a result, a <span class="blue">unit increase</span> of the <span class="math inline">j</span>th covariate from <span class="math inline">x_{ij}</span> to <span class="math inline">x_{ij} + 1</span>, keeping the other covariates fixed, has the following impact on the new mean, say <span class="math inline">\mu_\text{new}</span> <span class="math display">
 \mu_\text{new} = \alpha_1^{x_{i1}} \times \cdots \times \alpha_j^{x_{ij} + 1} \times \cdots \times \alpha_p^{x_{ip}}
 = \alpha_j \left( \alpha_1^{x_{i1}} \times \cdots \times \alpha_p^{x_{ip}} \right)
 = \alpha_j \mu_i.
@@ -220,7 +230,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The interpretation in terms of relative changes is a consequence of the <span class="blue">logarithmic link</span> function. Therefore, the same interpretation applies whenever this link is used, including the Gamma GLM.</p>
+<p>The interpretation in terms of relative changes is a consequence of the <span class="blue">logarithmic link</span> function. Therefore, the same interpretation applies whenever this link is used.</p>
 </div>
 </div>
 </div>
@@ -228,15 +238,13 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <section id="exposure-rate" class="level2">
 <h2 class="anchored" data-anchor-id="exposure-rate">Exposure rate</h2>
 <ul>
-<li><p>Often the expected value of a response count <span class="math inline">Y_i</span> is proportional to an index <span class="math inline">t_i</span>, the <span class="orange">exposure</span>.</p></li>
-<li><p>For instance, <span class="math inline">t_i</span> might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species.</p></li>
+<li><p>Often the expected value of a response count <span class="math inline">Y_i</span> is proportional to an index <span class="math inline">t_i</span>, the <span class="orange">exposure</span>. For instance, <span class="math inline">t_i</span> might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species.</p></li>
 <li><p>In these cases, the <span class="blue">sample rate</span> is <span class="math inline">Y_i / t_i</span>, with expected value <span class="math inline">\mu_i / t_i</span>. With explanatory variables, a model for the expected rate under a <span class="orange">logarithmic link</span> has the form <span class="math display">
-\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i}.
-</span> Because <span class="math inline">\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}</span>, the model makes the adjustment <span class="math inline">\log{t_i}</span> to the linear predictor. This adjustment term is called an <span class="orange">offset</span>, implemented in <strong>R</strong> using the <code>offset</code> option.</p></li>
-<li><p>The fit corresponds to using <span class="math inline">\log{t_i}</span> as an <span class="blue">explanatory variable</span> in the linear predictor for <span class="math inline">\log(\mu_i)</span> and <span class="orange">forcing its coefficient</span> to equal <span class="math inline">1</span>.</p></li>
-<li><p>Summarizing, for this model, the response counts <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span> satisfy <span class="math display">
-\mu_i = t_i \exp(\bm{x}_i^T\beta).
-</span> The mean has a proportionality constant for <span class="math inline">t_i</span> that depends on the values of the covariates.</p></li>
+\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i} \qquad \implies \qquad \mu_i = t_i \exp(\bm{x}_i^T\beta).
+</span></p></li>
+<li><p>The adjustment term <span class="math inline">\log{t_i}</span> is called an <span class="orange">offset</span>. The fit corresponds to using <span class="math inline">\log{t_i}</span> as an <span class="blue">explanatory variable</span> and <span class="orange">forcing its coefficient</span> to equal <span class="math inline">1</span>. In <strong>R</strong>, it is specified as <code>offset(log(t))</code> in the model formula.</p></li>
+<li><p>The mean is proportional to <span class="math inline">t_i</span>, with a proportionality constant <span class="math inline">\exp(\bm{x}_i^T\beta)</span> that depends on the covariates. The quantities <span class="math inline">\exp(\beta_j)</span> are interpreted as <span class="blue">relative changes</span> of the <span class="orange">rate</span>.</p></li>
+<li><p>Whether the coefficient of <span class="math inline">\log{t_i}</span> is indeed equal to <span class="math inline">1</span> can be checked by estimating it as a free parameter, as in the <code>ships</code> case study below.</p></li>
 </ul>
 </section>
 <section id="overdispersion" class="level2">
@@ -245,12 +253,12 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <li><p>In Poisson regression the main <span class="blue">assumption</span> is that <span class="math inline">Y_i \sim \text{Poisson}(\mu_i)</span>, implying that <span class="math display">
 \text{var}(Y_i) = \mu_i,
 </span> where implicitly we have set <span class="math inline">\phi = 1</span>.</p></li>
-<li><p>However, from the analysis of the residuals or by computing the <span class="math inline">X^2</span> statistic we may realize that the data present <span class="orange">overdispersion</span>, namely the <span class="blue">correct model</span> is such that <span class="math display">
+<li><p>However, from the analysis of the residuals or by comparing the Pearson <span class="math inline">X^2</span> statistic with <span class="math inline">n - p</span>, we may realize that the data present <span class="orange">overdispersion</span>, namely that <span class="math inline">\text{var}(Y_i) &gt; \mu_i</span>. A <span class="blue">common specification</span> is <span class="math display">
 \text{var}(Y_i) = \textcolor{red}{\phi} \mu_i,
-</span> with <span class="math inline">\phi &gt; 1</span>. This implies that the Poisson regression model is <span class="orange">misspecified</span>.</p></li>
+</span> with <span class="math inline">\phi &gt; 1</span>. In either case, the Poisson regression model is <span class="orange">misspecified</span>.</p></li>
 <li><p>The two most common solutions to overdispersion are the following:</p>
 <ol type="i">
-<li>the use of <span class="blue">quasi-likelihoods</span>;</li>
+<li>the use of <span class="blue">quasi-likelihoods</span>, discussed in <a href="un_E.html">Unit E</a>;</li>
 <li>the use of another parametric distribution; a typical choice is the <span class="orange">negative binomial</span>.</li>
 </ol></li>
 </ul>
@@ -258,37 +266,278 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 <section id="zero-inflation" class="level2">
 <h2 class="anchored" data-anchor-id="zero-inflation">Zero-inflation</h2>
 <ul>
-<li><p>In practice, the frequency of <span class="orange">zero outcomes</span> is often <span class="orange">larger than expected</span> under a Poisson regression.</p></li>
-<li><p>Because the <span class="orange">mode</span> of a Poisson distribution is the integer part of its mean, a Poisson GLM can be inadequate when the mean is relatively large but the modal response is 0.</p></li>
-<li><p>Such data are called <span class="blue">zero-inflated</span>. This often occurs when:</p>
-<ul>
-<li>many subjects have a true zero response (structural zeros), and<br>
-</li>
-<li>many others have positive counts, so the overall mean is not near zero.</li>
-</ul></li>
-<li><p>Example: the number of times individuals report exercising (e.g., going to a gym) in the past week:</p>
-<ul>
-<li>some people exercise frequently,<br>
-</li>
-<li>some exercise occasionally but not in the past week (a random zero),<br>
-</li>
-<li>others never exercise (a structural zero).</li>
-</ul></li>
+<li><p>The frequency of <span class="orange">zero outcomes</span> is often <span class="orange">larger than expected</span> under a Poisson model. Since the Poisson <span class="orange">mode</span> is <span class="math inline">\lfloor \mu \rfloor</span> (for non-integer <span class="math inline">\mu</span>), a Poisson GLM is inadequate when the mean is large but the modal response is 0.</p></li>
+<li><p>Such data are called <span class="blue">zero-inflated</span>: some subjects have a <span class="blue">structural zero</span>, while the others have positive counts or <span class="blue">random zeros</span>.</p></li>
+<li><p>Example: weekly gym visits. Some people never exercise (structural zero), others exercise occasionally but not in the past week (random zero).</p></li>
 <li><p>The two most common solutions to zero-inflation are the following:</p>
 <ol type="i">
-<li>the zero-inflated Poisson (ZIP) model, a <span class="blue">mixture model</span>;</li>
-<li>hurdle models (model zero vs nonzero first, then model the remaining data).</li>
+<li>the <span class="blue">zero-inflated Poisson</span> (ZIP) model, a mixture of a point mass at zero, with weight <span class="math inline">\pi_i</span>, and a <span class="math inline">\text{Poisson}(\mu_i)</span>, so that <span class="math inline">\mathbb{P}(Y_i = 0) = \pi_i + (1 - \pi_i)e^{-\mu_i}</span>;</li>
+<li><span class="blue">hurdle models</span>, which model zero vs.&nbsp;nonzero outcomes and then the positive counts through a zero-truncated distribution.</li>
 </ol></li>
+</ul>
+</section>
+<section id="case-study-the-ships-data" class="level1">
+<h1>Case study: the <code>ships</code> data</h1>
+<section id="the-ships-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-ships-dataset">The <code>ships</code> dataset</h2>
+<ul>
+<li><p>The <code>ships</code> dataset of the <code>MASS</code> library, analysed in <span class="citation" data-cites="McCullagh1989">McCullagh and Nelder (<a href="#ref-McCullagh1989" role="doc-biblioref">1989</a>)</span> (Section 6.3.2), concerns a type of <span class="orange">damage</span> caused by waves to the forward section of cargo ships.</p></li>
+<li><p>The data are grouped into <span class="math inline">40</span> cells. The variables are:</p>
+<ul>
+<li><code>type</code>: ship type, A to E;</li>
+<li><code>year</code>: year of construction, 1960–64, 1965–69, 1970–74, 1975–79 (coded as <span class="math inline">60</span>, <span class="math inline">65</span>, <span class="math inline">70</span>, <span class="math inline">75</span>);</li>
+<li><code>period</code>: period of operation, 1960–74 or 1975–79 (coded as <span class="math inline">60</span>, <span class="math inline">75</span>);</li>
+<li><code>service</code>: aggregate <span class="blue">months of service</span>;</li>
+<li><code>incidents</code>: <span class="orange">number of damage incidents</span>.</li>
+</ul></li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>  type year period service incidents
+1    A   60     60     127         0
+2    A   60     75      63         0
+3    A   65     60    1095         3
+4    A   65     75    1095         4
+5    A   70     60    1512         6
+6    A   70     75    3353        18</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This case study is based on the <a href="../exams/2015_04_29.html">exam of 29 April 2015</a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ships-that-never-sailed" class="level2">
+<h2 class="anchored" data-anchor-id="ships-that-never-sailed">Ships that never sailed</h2>
+<ul>
+<li>There are <span class="math inline">6</span> cells with <code>service</code> <span class="math inline">= 0</span> and therefore, necessarily, <code>incidents</code> <span class="math inline">= 0</span>:</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>   type year period service incidents
+7     A   75     60       0         0
+15    B   75     60       0         0
+23    C   75     60       0         0
+31    D   75     60       0         0
+34    E   60     75       0         0
+39    E   75     60       0         0</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Five of them are ships built in 1975–79 that would have operated in 1960–74, which is <span class="orange">impossible</span>.</p></li>
+<li><p>These cells carry <span class="blue">no information</span>: if <span class="math inline">t_i = 0</span>, then <span class="math inline">\mu_i = t_i \exp(\bm{x}_i^T\beta) = 0</span> whatever the value of <span class="math inline">\beta</span>. We <span class="orange">remove</span> them, leaving <span class="math inline">n = 34</span> cells.</p></li>
+</ul>
+</section>
+<section id="exploratory-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-analysis">Exploratory analysis</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_D_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="810"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>The <code>service</code> ranges from 45 to 44,882 months: the counts are not comparable, and the <span class="blue">rates</span> must be considered instead.</p></li>
+<li><p>Rates tend to be higher for ships <span class="orange">built after 1964</span> and in the <span class="orange">period 1975–79</span>, and they vary across types. Cells with little service, mostly of types D and E, give very <span class="blue">noisy</span> rates, often equal to zero.</p></li>
+</ul>
+</section>
+<section id="modelling-the-ships-data" class="level2">
+<h2 class="anchored" data-anchor-id="modelling-the-ships-data">Modelling the <code>ships</code> data</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i</span> be the number of incidents and <span class="math inline">t_i</span> the months of service of the <span class="math inline">i</span>th cell. A linear model would be inappropriate: the <span class="math inline">Y_i</span> are <span class="blue">counts</span> whose variability grows with the mean, and they depend on the <span class="orange">exposure</span> <span class="math inline">t_i</span>.</p></li>
+<li><p>We consider the Poisson <span class="blue">rate model</span> <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \log{\mu_i} = \log{t_i} + \bm{x}_i^T\beta, \qquad i = 1,\dots,34,
+</span> where <span class="math inline">\bm{x}_i</span> contains the intercept and the dummy variables of <code>type</code>, <code>year</code> and <code>period</code>, so that <span class="math inline">p = 9</span>.</p></li>
+<li><p>The <span class="blue">baseline</span> is a ship of type A, built in 1960–64 and operated in 1960–74.</p></li>
+<li><p>Hence, <span class="math inline">\exp(\bm{x}_i^T\beta) = \mu_i / t_i</span> is the expected number of incidents <span class="orange">per month of service</span>.</p></li>
+</ul>
+</section>
+<section id="the-rate-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-rate-model">The rate model</h2>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = incidents ~ type + year + period + offset(log(service)), 
+    family = poisson, data = ships)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -6.40590    0.21744 -29.460  &lt; 2e-16 ***
+typeB       -0.54334    0.17759  -3.060  0.00222 ** 
+typeC       -0.68740    0.32904  -2.089  0.03670 *  
+typeD       -0.07596    0.29058  -0.261  0.79377    
+typeE        0.32558    0.23588   1.380  0.16750    
+year65       0.69714    0.14964   4.659 3.18e-06 ***
+year70       0.81843    0.16977   4.821 1.43e-06 ***
+year75       0.45343    0.23317   1.945  0.05182 .  
+period75     0.38447    0.11827   3.251  0.00115 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 146.328  on 33  degrees of freedom
+Residual deviance:  38.695  on 25  degrees of freedom
+AIC: 154.56
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<ul>
+<li>The <span class="blue">likelihood ratio test</span> against the null model gives 107.63 on <span class="math inline">8</span> degrees of freedom: the covariates are <span class="orange">jointly significant</span>.</li>
+</ul>
+</section>
+<section id="is-the-offset-appropriate" class="level2">
+<h2 class="anchored" data-anchor-id="is-the-offset-appropriate">Is the offset appropriate?</h2>
+<ul>
+<li>We estimate the coefficient of <span class="math inline">\log{t_i}</span> as a <span class="blue">free parameter</span>, instead of fixing it to <span class="math inline">1</span>:</li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>  Estimate Std. Error 
+     0.903      0.102 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: incidents ~ type + year + period + offset(log(service))
+Model 2: incidents ~ type + year + period + log(service)
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1        25     38.695                     
+2        24     37.804  1  0.89079   0.3453</code></pre>
+</div>
+</div>
+<ul>
+<li>The estimate is close to <span class="math inline">1</span> and the likelihood ratio test does not reject <span class="math inline">H_0</span>: the coefficient equals <span class="math inline">1</span>. The <span class="orange">rate model</span> is supported by the data.</li>
+</ul>
+</section>
+<section id="interpretation-of-the-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-of-the-coefficients">Interpretation of the coefficients</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;"><span class="math inline">\exp(\hat{\beta}_j)</span></th>
+<th style="text-align: right;">Lower 95%</th>
+<th style="text-align: right;">Upper 95%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">typeB</td>
+<td style="text-align: right;">0.581</td>
+<td style="text-align: right;">0.410</td>
+<td style="text-align: right;">0.823</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">typeC</td>
+<td style="text-align: right;">0.503</td>
+<td style="text-align: right;">0.264</td>
+<td style="text-align: right;">0.958</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">typeD</td>
+<td style="text-align: right;">0.927</td>
+<td style="text-align: right;">0.524</td>
+<td style="text-align: right;">1.638</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">typeE</td>
+<td style="text-align: right;">1.385</td>
+<td style="text-align: right;">0.872</td>
+<td style="text-align: right;">2.199</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year65</td>
+<td style="text-align: right;">2.008</td>
+<td style="text-align: right;">1.498</td>
+<td style="text-align: right;">2.692</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year70</td>
+<td style="text-align: right;">2.267</td>
+<td style="text-align: right;">1.625</td>
+<td style="text-align: right;">3.162</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year75</td>
+<td style="text-align: right;">1.574</td>
+<td style="text-align: right;">0.996</td>
+<td style="text-align: right;">2.485</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">period75</td>
+<td style="text-align: right;">1.469</td>
+<td style="text-align: right;">1.165</td>
+<td style="text-align: right;">1.852</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>The estimated rate for the baseline is <span class="math inline">1000 \exp(\hat{\beta}_1) =</span> 1.65 incidents per <span class="math inline">1000</span> months.</p></li>
+<li><p>For a ship of <span class="blue">type B</span>, the rate is multiplied by 0.581, i.e.&nbsp;it is 41.9% <span class="orange">lower</span> than for type A, the other covariates being equal.</p></li>
+<li><p>In the <span class="blue">period 1975–79</span>, the rate is 46.9% <span class="orange">higher</span> than in 1960–74. Ships <span class="blue">built in 1965–74</span> have about <span class="orange">twice</span> the rate of those built in 1960–64.</p></li>
+</ul>
+</section>
+<section id="goodness-of-fit-and-overdispersion" class="level2">
+<h2 class="anchored" data-anchor-id="goodness-of-fit-and-overdispersion">Goodness of fit and overdispersion</h2>
+<ul>
+<li><p>The deviance is 38.7 on <span class="math inline">25</span> degrees of freedom (p-value 0.04) and <span class="math inline">X^2 =</span> 42.28, so that <span class="math inline">\hat{\phi} =</span> 1.69: there is a <span class="orange">moderate overdispersion</span>.</p></li>
+<li><p>Using a <span class="blue">quasi-Poisson</span> model (<a href="un_E.html">Unit E</a>), the estimates are unchanged, while the standard errors are multiplied by <span class="math inline">\sqrt{\hat{\phi}} =</span> 1.3:</p></li>
+</ul>
+<div class="cell styled-output">
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+incidents ~ type + year + period + offset(log(service))
+       Df Deviance F value   Pr(&gt;F)   
+&lt;none&gt;      38.695                    
+type    4   62.365  3.8232 0.014728 * 
+year    3   70.103  6.7640 0.001706 **
+period  1   49.355  6.8873 0.014590 * 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li><code>type</code>, <code>year</code> and <code>period</code> remain <span class="blue">significant</span> at the 5% level.</li>
+</ul>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<ul>
+<li><p>The number of incidents must be modeled relative to the <span class="blue">months of service</span>: the offset <span class="math inline">\log{t_i}</span> is supported by the data.</p></li>
+<li><p>The incident rate depends on the <span class="orange">type</span> of ship, its <span class="orange">year of construction</span> and the <span class="orange">period of operation</span>.</p></li>
+<li><p>There is a <span class="orange">moderate overdispersion</span>. Accounting for it widens the confidence intervals, but the conclusions do not change.</p></li>
 </ul>
 </section>
 <section id="references" class="level2 unnumbered">
 
 
 </section>
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Agresti2015" class="csl-entry" role="listitem">
 Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
+</div>
+<div id="ref-McCullagh1989" class="csl-entry" role="listitem">
+McCullagh, P., and Nelder, J. A. (1989), <em>Generalized linear models</em>, Chapman &amp; Hall/CRC.
 </div>
 <div id="ref-Salvan2020" class="csl-entry" role="listitem">
 Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.

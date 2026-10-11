@@ -25,6 +25,8 @@ format:
     theme: [default, ../template.css] # alternative themes (subset): default, night, dark
     embed-resources: false
     echo: false
+    warning: false
+    message: false
     fig-dpi: 150
     # incremental: true  # Remove comment if you like incremental bullet points
     logo: img/logoB.png
@@ -102,10 +104,8 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad g(\mu_i) = \eta_i =
 $$
 
 
-- The [canonical link]{.orange} is $g(\cdot) = \log(\cdot)$, which implies a [multiplicative structure]{.blue}
-$$
-\mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
-$$
+- The [canonical link]{.orange} is $g(\cdot) = \log(\cdot)$, which implies a [multiplicative structure]{.blue} for the mean.
+
 - Under the canonical link, the [likelihood equations]{.blue} are
 $$
 \sum_{i=1}^n(y_i - \mu_i)x_{ir} = 0, \qquad r=1,\dots,p.
@@ -122,7 +122,7 @@ $$
 \mu_i = \exp(\bm{x}_i^T \beta) = \exp(\beta_1)^{x_{i1}} \times \cdots \times \exp(\beta_p)^{x_{ip}} = \prod_{j=1}^p \alpha_j^{x_{ij}}, \qquad \alpha_j = \exp(\beta_j).
 $$
 
-- As a result, a [unit increase]{.blue} of the $j$th covariate from $x_{ij}$ to $x_{ij} + 1$ has the following impact on the new mean, say $\mu_\text{new}$
+- As a result, a [unit increase]{.blue} of the $j$th covariate from $x_{ij}$ to $x_{ij} + 1$, keeping the other covariates fixed, has the following impact on the new mean, say $\mu_\text{new}$
 $$
 \mu_\text{new} = \alpha_1^{x_{i1}} \times \cdots \times \alpha_j^{x_{ij} + 1} \times \cdots \times \alpha_p^{x_{ip}} 
 = \alpha_j \left( \alpha_1^{x_{i1}} \times \cdots \times \alpha_p^{x_{ip}} \right) 
@@ -134,28 +134,23 @@ $$
 $$
 
 :::callout-tip
-The interpretation in terms of relative changes is a consequence of the [logarithmic link]{.blue} function. Therefore, the same interpretation applies whenever this link is used, including the Gamma GLM.
+The interpretation in terms of relative changes is a consequence of the [logarithmic link]{.blue} function. Therefore, the same interpretation applies whenever this link is used.
 :::
 
 ## Exposure rate
 
-- Often the expected value of a response count $Y_i$ is proportional to an index $t_i$, the [exposure]{.orange}. 
-
-- For instance, $t_i$ might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species. 
+- Often the expected value of a response count $Y_i$ is proportional to an index $t_i$, the [exposure]{.orange}. For instance, $t_i$ might be an amount of time and/or a population size, such as in modeling crime counts for various cities. Or, it might be a spatial area, such as in modeling counts of plant species.
 
 - In these cases, the [sample rate]{.blue} is $Y_i / t_i$, with expected value $\mu_i / t_i$. With explanatory variables, a model for the expected rate under a [logarithmic link]{.orange} has the form
 $$
-\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i}.
+\log\left(\frac{\mu_i}{t_i}\right) = \bm{x}_i^T\beta \qquad \implies \qquad \log{\mu_i} = \bm{x}_i^T\beta + \log{t_i} \qquad \implies \qquad \mu_i = t_i \exp(\bm{x}_i^T\beta).
 $$
-Because $\log(\mu_i / t_i) = \log{\mu_i} - \log{t_i}$, the model makes the adjustment $\log{t_i}$ to the linear predictor. This adjustment term is called an [offset]{.orange}, implemented in **R** using the `offset` option. 
 
-- The fit corresponds to using $\log{t_i}$ as an [explanatory variable]{.blue} in the linear predictor for $\log(\mu_i)$ and [forcing its coefficient]{.orange} to equal $1$. 
+- The adjustment term $\log{t_i}$ is called an [offset]{.orange}. The fit corresponds to using $\log{t_i}$ as an [explanatory variable]{.blue} and [forcing its coefficient]{.orange} to equal $1$. In **R**, it is specified as `offset(log(t))` in the model formula.
 
-- Summarizing, for this model, the response counts $Y_i \sim \text{Poisson}(\mu_i)$ satisfy
-$$
-\mu_i = t_i \exp(\bm{x}_i^T\beta). 
-$$
-The mean has a proportionality constant for $t_i$ that depends on the values of the covariates. 
+- The mean is proportional to $t_i$, with a proportionality constant $\exp(\bm{x}_i^T\beta)$ that depends on the covariates. The quantities $\exp(\beta_j)$ are interpreted as [relative changes]{.blue} of the [rate]{.orange}.
+
+- Whether the coefficient of $\log{t_i}$ is indeed equal to $1$ can be checked by estimating it as a free parameter, as in the `ships` case study below.
 
 ## Overdispersion
 
@@ -165,33 +160,179 @@ $$
 $$
 where implicitly we have set $\phi = 1$. 
 
-- However, from the analysis of the residuals or by computing the $X^2$ statistic we may realize that the data present [overdispersion]{.orange}, namely the [correct model]{.blue} is such that
+- However, from the analysis of the residuals or by comparing the Pearson $X^2$ statistic with $n - p$, we may realize that the data present [overdispersion]{.orange}, namely that $\text{var}(Y_i) > \mu_i$. A [common specification]{.blue} is
 $$
 \text{var}(Y_i) = \textcolor{red}{\phi} \mu_i,
 $$
-with $\phi > 1$. This implies that the Poisson regression model is [misspecified]{.orange}. 
+with $\phi > 1$. In either case, the Poisson regression model is [misspecified]{.orange}. 
 
 - The two most common solutions to overdispersion are the following: 
-  (i) the use of [quasi-likelihoods]{.blue};
+  (i) the use of [quasi-likelihoods]{.blue}, discussed in [Unit E](un_E.html);
   (ii) the use of another parametric distribution; a typical choice is the [negative binomial]{.orange}.
 
 ## Zero-inflation
 
-- In practice, the frequency of [zero outcomes]{.orange} is often [larger than expected]{.orange} under a Poisson regression. 
+- The frequency of [zero outcomes]{.orange} is often [larger than expected]{.orange} under a Poisson model. Since the Poisson [mode]{.orange} is $\lfloor \mu \rfloor$ (for non-integer $\mu$), a Poisson GLM is inadequate when the mean is large but the modal response is 0.
 
-- Because the [mode]{.orange} of a Poisson distribution is the integer part of its mean, a Poisson GLM can be inadequate when the mean is relatively large but the modal response is 0.
+- Such data are called [zero-inflated]{.blue}: some subjects have a [structural zero]{.blue}, while the others have positive counts or [random zeros]{.blue}.
 
-- Such data are called [zero-inflated]{.blue}. This often occurs when:
-  - many subjects have a true zero response (structural zeros), and  
-  - many others have positive counts, so the overall mean is not near zero.
-
-- Example: the number of times individuals report exercising (e.g., going to a gym) in the past week:
-  - some people exercise frequently,  
-  - some exercise occasionally but not in the past week (a random zero),  
-  - others never exercise (a structural zero).
+- Example: weekly gym visits. Some people never exercise (structural zero), others exercise occasionally but not in the past week (random zero).
 
 - The two most common solutions to zero-inflation are the following: 
-  (i) the zero-inflated Poisson (ZIP) model, a [mixture model]{.blue};
-  (ii) hurdle models (model zero vs nonzero first, then model the remaining data).
+  (i) the [zero-inflated Poisson]{.blue} (ZIP) model, a mixture of a point mass at zero, with weight $\pi_i$, and a $\text{Poisson}(\mu_i)$, so that $\mathbb{P}(Y_i = 0) = \pi_i + (1 - \pi_i)e^{-\mu_i}$;
+  (ii) [hurdle models]{.blue}, which model zero vs. nonzero outcomes and then the positive counts through a zero-truncated distribution.
+
+# Case study: the `ships` data
+
+## The `ships` dataset
+
+- The `ships` dataset of the `MASS` library, analysed in @McCullagh1989 (Section 6.3.2), concerns a type of [damage]{.orange} caused by waves to the forward section of cargo ships.
+
+- The data are grouped into $40$ cells. The variables are:
+  - `type`: ship type, A to E;
+  - `year`: year of construction, 1960–64, 1965–69, 1970–74, 1975–79 (coded as $60$, $65$, $70$, $75$);
+  - `period`: period of operation, 1960–74 or 1975–79 (coded as $60$, $75$);
+  - `service`: aggregate [months of service]{.blue};
+  - `incidents`: [number of damage incidents]{.orange}.
+
+```{r}
+#| classes: styled-output
+data("ships", package = "MASS")
+head(ships)
+```
+
+:::callout-tip
+This case study is based on the [exam of 29 April 2015](../exams/2015_04_29.html).
+:::
+
+## Ships that never sailed
+
+- There are $6$ cells with `service` $= 0$ and therefore, necessarily, `incidents` $= 0$:
+
+```{r}
+#| classes: styled-output
+ships[ships$service == 0, ]
+```
+
+- Five of them are ships built in 1975–79 that would have operated in 1960–74, which is [impossible]{.orange}.
+
+- These cells carry [no information]{.blue}: if $t_i = 0$, then $\mu_i = t_i \exp(\bm{x}_i^T\beta) = 0$ whatever the value of $\beta$. We [remove]{.orange} them, leaving $n = 34$ cells.
+
+```{r}
+ships <- subset(ships, service > 0)
+ships$year <- factor(ships$year)
+ships$period <- factor(ships$period)
+```
+
+## Exploratory analysis
+
+```{r}
+#| fig-width: 9
+#| fig-height: 3.6
+#| fig-align: center
+ships$rate <- 1000 * ships$incidents / ships$service # Incidents per 1000 months of service
+levels_period <- c("60" = "Operated in 1960-74", "75" = "Operated in 1975-79")
+
+ggplot(ships, aes(x = year, y = rate, color = type, group = type)) +
+  geom_point(size = 2) +
+  geom_line() +
+  facet_wrap(~period, labeller = labeller(period = levels_period)) +
+  scale_color_tableau(palette = "Color Blind") +
+  theme_bw() +
+  labs(color = "Type") +
+  xlab("Year of construction") +
+  ylab("Incidents per 1000 months")
+```
+
+- The `service` ranges from `r min(ships$service)` to `r format(max(ships$service), big.mark = ",")` months: the counts are not comparable, and the [rates]{.blue} must be considered instead.
+
+- Rates tend to be higher for ships [built after 1964]{.orange} and in the [period 1975–79]{.orange}, and they vary across types. Cells with little service, mostly of types D and E, give very [noisy]{.blue} rates, often equal to zero.
+
+## Modelling the `ships` data
+
+- Let $Y_i$ be the number of incidents and $t_i$ the months of service of the $i$th cell. A linear model would be inappropriate: the $Y_i$ are [counts]{.blue} whose variability grows with the mean, and they depend on the [exposure]{.orange} $t_i$.
+
+- We consider the Poisson [rate model]{.blue}
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \log{\mu_i} = \log{t_i} + \bm{x}_i^T\beta, \qquad i = 1,\dots,34,
+$$
+where $\bm{x}_i$ contains the intercept and the dummy variables of `type`, `year` and `period`, so that $p = 9$.
+
+- The [baseline]{.blue} is a ship of type A, built in 1960–64 and operated in 1960–74.
+
+- Hence, $\exp(\bm{x}_i^T\beta) = \mu_i / t_i$ is the expected number of incidents [per month of service]{.orange}.
+
+## The rate model
+
+```{r}
+#| classes: styled-output
+fit_rate <- glm(incidents ~ type + year + period + offset(log(service)),
+  family = poisson, data = ships
+)
+summary(fit_rate)
+```
+
+```{r}
+fit_null <- update(fit_rate, . ~ 1 + offset(log(service)))
+lrt_null <- deviance(fit_null) - deviance(fit_rate)
+```
+
+- The [likelihood ratio test]{.blue} against the null model gives `r round(lrt_null, 2)` on $8$ degrees of freedom: the covariates are [jointly significant]{.orange}.
+
+## Is the offset appropriate?
+
+- We estimate the coefficient of $\log{t_i}$ as a [free parameter]{.blue}, instead of fixing it to $1$:
+
+```{r}
+#| classes: styled-output
+fit_free <- glm(incidents ~ type + year + period + log(service),
+  family = poisson, data = ships
+)
+round(summary(fit_free)$coefficients["log(service)", 1:2], 3)
+anova(fit_rate, fit_free, test = "Chisq")
+```
+
+- The estimate is close to $1$ and the likelihood ratio test does not reject $H_0$: the coefficient equals $1$. The [rate model]{.orange} is supported by the data.
+
+## Interpretation of the coefficients
+
+```{r}
+tab_coef <- exp(cbind(coef(fit_rate), confint.default(fit_rate)))[-1, ]
+colnames(tab_coef) <- c("$\\exp(\\hat{\\beta}_j)$", "Lower 95%", "Upper 95%")
+knitr::kable(tab_coef, digits = 3)
+```
+
+- The estimated rate for the baseline is $1000 \exp(\hat{\beta}_1) =$ `r round(1000 * exp(coef(fit_rate)[1]), 2)` incidents per $1000$ months.
+
+- For a ship of [type B]{.blue}, the rate is multiplied by `r round(exp(coef(fit_rate)["typeB"]), 3)`, i.e. it is `r round(100 * (1 - exp(coef(fit_rate)["typeB"])), 1)`% [lower]{.orange} than for type A, the other covariates being equal.
+
+- In the [period 1975–79]{.blue}, the rate is `r round(100 * (exp(coef(fit_rate)["period75"]) - 1), 1)`% [higher]{.orange} than in 1960–74. Ships [built in 1965–74]{.blue} have about [twice]{.orange} the rate of those built in 1960–64.
+
+## Goodness of fit and overdispersion
+
+```{r}
+X2 <- sum(residuals(fit_rate, type = "pearson")^2)
+phi_hat <- X2 / df.residual(fit_rate)
+```
+
+- The deviance is `r round(deviance(fit_rate), 2)` on $25$ degrees of freedom (p-value `r round(pchisq(deviance(fit_rate), 25, lower.tail = FALSE), 3)`) and $X^2 =$ `r round(X2, 2)`, so that $\hat{\phi} =$ `r round(phi_hat, 2)`: there is a [moderate overdispersion]{.orange}.
+
+- Using a [quasi-Poisson]{.blue} model ([Unit E](un_E.html)), the estimates are unchanged, while the standard errors are multiplied by $\sqrt{\hat{\phi}} =$ `r round(sqrt(phi_hat), 2)`:
+
+```{r}
+#| classes: styled-output
+fit_quasi <- update(fit_rate, family = quasipoisson)
+drop1(fit_quasi, test = "F")
+```
+
+- `type`, `year` and `period` remain [significant]{.blue} at the 5% level.
+
+## Conclusions
+
+- The number of incidents must be modeled relative to the [months of service]{.blue}: the offset $\log{t_i}$ is supported by the data.
+
+- The incident rate depends on the [type]{.orange} of ship, its [year of construction]{.orange} and the [period of operation]{.orange}.
+
+- There is a [moderate overdispersion]{.orange}. Accounting for it widens the confidence intervals, but the conclusions do not change.
 
 ## References

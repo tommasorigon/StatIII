@@ -206,7 +206,7 @@ sum(residuals(m_sim, type = "pearson")^2) / m_sim$df.residual # phi_hat
 
 - **(i)** [Quasi-likelihoods]{.blue}. Keep the mean structure $g(\mu_i) = \bm{x}_i^T\beta$ and the variance function $v(\mu_i)$, but treat $\phi$ as an [unknown parameter]{.orange} to be estimated. No parametric distribution is assumed.
 
-- **(ii)** [Parametric overdispersed models]{.orange}. Replace the Poisson with a [negative binomial]{.blue} ([Unit D](un_D.html)), or the binomial with a [beta-binomial]{.blue} ([Unit C](un_C.html)).
+- **(ii)** [Parametric overdispersed models]{.orange}. Replace the Poisson with a [negative binomial]{.blue}, or the binomial with a [beta-binomial]{.blue} ([Unit C](un_C.html)).
 
 . . .
 
@@ -636,7 +636,7 @@ $$
 . . .
 
 :::callout-tip
-Compare with the [negative binomial]{.orange} model of [Unit D](un_D.html), where $\text{var}(Y_i) = \mu_i + \mu_i^2/\alpha$. The two models make [different assumptions]{.blue} on how the variance grows with the mean, hence they weight the observations differently and give [different]{.orange} estimates $\hat{\beta}$.
+Compare with the [negative binomial]{.orange} model, where $\text{var}(Y_i) = \mu_i + \mu_i^2/\alpha$. The two models make [different assumptions]{.blue} on how the variance grows with the mean, hence they weight the observations differently and give [different]{.orange} estimates $\hat{\beta}$.
 :::
 
 ## Quasi-binomial
