@@ -101,7 +101,7 @@ newdata <- data.frame(DDE = c(0, 20, 80, 100))
 fit <- predict(m1, newdata = newdata, type = "response")
 fit
 
-# Absolute risks, they depend on the baseline
+# Risk differences, they depend on the baseline
 fit[2] - fit[1] # From 0 to 10, absolute risk increase of 3%
 fit[4] - fit[3] # From 100 to 110, absolute risk increase of 6%
 
