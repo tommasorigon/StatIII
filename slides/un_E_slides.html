@@ -6,8 +6,8 @@
 <script src="un_E_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="un_E_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="un_E_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="un_E_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="un_E_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Tommaso Rigon">
   <title>Quasi-likelihoods</title>
@@ -17,10 +17,16 @@
   <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/reveal.css">
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -115,7 +121,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/theme/quarto-8fd9a32a7a1f1c24c97cc70db42e1276.css">
+  <link rel="stylesheet" href="un_E_files/libs/revealjs/dist/theme/quarto-c7c014b7e19c48511d270b89b7902e39.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -235,7 +241,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<span class="orange">Tommaso Rigon</span> 
+<span class="orange">Tommaso Rigon</span>
 </div>
         <p class="quarto-title-affiliation">
             <em>Università degli Studi di Milano-Bicocca</em>
@@ -351,12 +357,12 @@ X^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)} = \sum_
 <li><p>The Poisson assumption concerns the <span class="blue">conditional</span> distribution of <span class="math inline">Y_i</span> <span class="orange">given the covariates</span>: nothing forces the <span class="grey">marginal</span> distribution of the response to satisfy <span class="math inline">\text{var}(Y) = \mathbb{E}(Y)</span>.</p></li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb1-2"><a href=""></a>n_sim <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
-<span id="cb1-3"><a href=""></a>x_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="co"># binary covariate</span></span>
-<span id="cb1-4"><a href=""></a>y_sim <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, <span class="at">lambda =</span> <span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x_sim)) <span class="co"># no overdispersion at all</span></span>
-<span id="cb1-5"><a href=""></a></span>
-<span id="cb1-6"><a href=""></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(y_sim), <span class="at">variance =</span> <span class="fu">var</span>(y_sim))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="" aria-label="2"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb1-3"><a href="" aria-label="3"></a>x_sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_sim, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="co"># binary covariate</span></span>
+<span id="cb1-4"><a href="" aria-label="4"></a>y_sim <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n_sim, <span class="at">lambda =</span> <span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x_sim)) <span class="co"># no overdispersion at all</span></span>
+<span id="cb1-5"><a href="" aria-label="5"></a></span>
+<span id="cb1-6"><a href="" aria-label="6"></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(y_sim), <span class="at">variance =</span> <span class="fu">var</span>(y_sim))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    mean variance 
  28.2105 691.1528 </code></pre>
@@ -373,8 +379,8 @@ X^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)} = \sum_
 <li>The marginal distribution is <span class="orange">bimodal</span>: the excess variability is entirely explained by the covariate.</li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>m_sim <span class="ot">&lt;-</span> <span class="fu">glm</span>(y_sim <span class="sc">~</span> x_sim, <span class="at">family =</span> poisson)</span>
-<span id="cb3-2"><a href=""></a><span class="fu">sum</span>(<span class="fu">residuals</span>(m_sim, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> m_sim<span class="sc">$</span>df.residual <span class="co"># phi_hat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a>m_sim <span class="ot">&lt;-</span> <span class="fu">glm</span>(y_sim <span class="sc">~</span> x_sim, <span class="at">family =</span> poisson)</span>
+<span id="cb3-2"><a href="" aria-label="2"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(m_sim, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> m_sim<span class="sc">$</span>df.residual <span class="co"># phi_hat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.009118</code></pre>
 </div>
@@ -387,7 +393,7 @@ X^2 = \sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)} = \sum_
 <h2>Two remedies</h2>
 <ul>
 <li><p><strong>(i)</strong> <span class="blue">Quasi-likelihoods</span>. Keep the mean structure <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span> and the variance function <span class="math inline">v(\mu_i)</span>, but treat <span class="math inline">\phi</span> as an <span class="orange">unknown parameter</span> to be estimated. No parametric distribution is assumed.</p></li>
-<li><p><strong>(ii)</strong> <span class="orange">Parametric overdispersed models</span>. Replace the Poisson with a <span class="blue">negative binomial</span> (<a href="un_D.html">Unit D</a>), or the binomial with a <span class="blue">beta-binomial</span> (<a href="un_C.html">Unit C</a>).</p></li>
+<li><p><strong>(ii)</strong> <span class="orange">Parametric overdispersed models</span>. Replace the Poisson with a <span class="blue">negative binomial</span>, or the binomial with a <span class="blue">beta-binomial</span> (<a href="un_C.html">Unit C</a>).</p></li>
 </ul>
 <div class="fragment">
 <div class="callout callout-tip no-icon callout-style-simple">
@@ -963,7 +969,7 @@ T_j = \frac{\hat{\beta}_j}{[\widehat{\text{se}}(\hat{\beta})]_j} \: \dot{\sim} \
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Compare with the <span class="orange">negative binomial</span> model of <a href="un_D.html">Unit D</a>, where <span class="math inline">\text{var}(Y_i) = \mu_i + \mu_i^2/\alpha</span>. The two models make <span class="blue">different assumptions</span> on how the variance grows with the mean, hence they weight the observations differently and give <span class="orange">different</span> estimates <span class="math inline">\hat{\beta}</span>.</p>
+<p>Compare with the <span class="orange">negative binomial</span> model, where <span class="math inline">\text{var}(Y_i) = \mu_i + \mu_i^2/\alpha</span>. The two models make <span class="blue">different assumptions</span> on how the variance grows with the mean, hence they weight the observations differently and give <span class="orange">different</span> estimates <span class="math inline">\hat{\beta}</span>.</p>
 </div>
 </div>
 </div>
@@ -1081,11 +1087,11 @@ T_j = \frac{\hat{\beta}_j}{[\widehat{\text{se}}(\hat{\beta})]_j} \: \dot{\sim} \
 <li><p>The <span class="blue">response</span> <code>Ant_count</code> is the number of ants attracted after <span class="math inline">5</span> minutes.</p></li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">data</span>(Ants)</span>
-<span id="cb5-2"><a href=""></a>Ants<span class="sc">$</span>Bread <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Bread)</span>
-<span id="cb5-3"><a href=""></a>Ants<span class="sc">$</span>Filling <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Filling)</span>
-<span id="cb5-4"><a href=""></a>Ants<span class="sc">$</span>Butter <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Butter)</span>
-<span id="cb5-5"><a href=""></a><span class="fu">head</span>(Ants[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a><span class="fu">data</span>(Ants)</span>
+<span id="cb5-2"><a href="" aria-label="2"></a>Ants<span class="sc">$</span>Bread <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Bread)</span>
+<span id="cb5-3"><a href="" aria-label="3"></a>Ants<span class="sc">$</span>Filling <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Filling)</span>
+<span id="cb5-4"><a href="" aria-label="4"></a>Ants<span class="sc">$</span>Butter <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Ants<span class="sc">$</span>Butter)</span>
+<span id="cb5-5"><a href="" aria-label="5"></a><span class="fu">head</span>(Ants[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Bread Filling Butter Ant_count
 1     1       1      1        22
@@ -1108,10 +1114,10 @@ T_j = \frac{\hat{\beta}_j}{[\widehat{\text{se}}(\hat{\beta})]_j} \: \dot{\sim} \
 <section id="the-poisson-fit" class="slide level2 center">
 <h2>The Poisson fit</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>m_pois <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
-<span id="cb7-2"><a href=""></a>  <span class="at">family =</span> poisson, <span class="at">data =</span> Ants</span>
-<span id="cb7-3"><a href=""></a>)</span>
-<span id="cb7-4"><a href=""></a><span class="fu">summary</span>(m_pois)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a>m_pois <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
+<span id="cb7-2"><a href="" aria-label="2"></a>  <span class="at">family =</span> poisson, <span class="at">data =</span> Ants</span>
+<span id="cb7-3"><a href="" aria-label="3"></a>)</span>
+<span id="cb7-4"><a href="" aria-label="4"></a><span class="fu">summary</span>(m_pois)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1145,14 +1151,14 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <section id="assessing-overdispersion" class="slide level2 center">
 <h2>Assessing overdispersion</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m_pois, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb9-2"><a href=""></a><span class="fu">c</span>(<span class="at">X2 =</span> X2, <span class="at">df =</span> m_pois<span class="sc">$</span>df.residual, <span class="at">pvalue =</span> <span class="fu">pchisq</span>(X2, m_pois<span class="sc">$</span>df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m_pois, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb9-2"><a href="" aria-label="2"></a><span class="fu">c</span>(<span class="at">X2 =</span> X2, <span class="at">df =</span> m_pois<span class="sc">$</span>df.residual, <span class="at">pvalue =</span> <span class="fu">pchisq</span>(X2, m_pois<span class="sc">$</span>df.residual, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          X2           df       pvalue 
 1.630666e+02 3.900000e+01 4.141843e-17 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>phi_hat <span class="ot">&lt;-</span> X2 <span class="sc">/</span> m_pois<span class="sc">$</span>df.residual</span>
-<span id="cb11-2"><a href=""></a>phi_hat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a>phi_hat <span class="ot">&lt;-</span> X2 <span class="sc">/</span> m_pois<span class="sc">$</span>df.residual</span>
+<span id="cb11-2"><a href="" aria-label="2"></a>phi_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.181196</code></pre>
 </div>
@@ -1165,10 +1171,10 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <section id="the-quasi-poisson-fit" class="slide level2 center">
 <h2>The quasi-Poisson fit</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>m_quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
-<span id="cb13-2"><a href=""></a>  <span class="at">family =</span> <span class="fu">quasi</span>(<span class="at">link =</span> <span class="st">"log"</span>, <span class="at">variance =</span> <span class="st">"mu"</span>), <span class="at">data =</span> Ants</span>
-<span id="cb13-3"><a href=""></a>)</span>
-<span id="cb13-4"><a href=""></a><span class="fu">summary</span>(m_quasi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a>m_quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
+<span id="cb13-2"><a href="" aria-label="2"></a>  <span class="at">family =</span> <span class="fu">quasi</span>(<span class="at">link =</span> <span class="st">"log"</span>, <span class="at">variance =</span> <span class="st">"mu"</span>), <span class="at">data =</span> Ants</span>
+<span id="cb13-3"><a href="" aria-label="3"></a>)</span>
+<span id="cb13-4"><a href="" aria-label="4"></a><span class="fu">summary</span>(m_quasi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1202,14 +1208,14 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <section id="comparing-the-two-fits" class="slide level2 center">
 <h2>Comparing the two fits</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Point estimates are identical</span></span>
-<span id="cb15-2"><a href=""></a><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">coef</span>(m_pois) <span class="sc">-</span> <span class="fu">coef</span>(m_quasi)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a><span class="co"># Point estimates are identical</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a><span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">coef</span>(m_pois) <span class="sc">-</span> <span class="fu">coef</span>(m_quasi)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.653014e-11</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># Standard errors are inflated by the same factor</span></span>
-<span id="cb17-2"><a href=""></a>se_ratio <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_quasi)<span class="sc">$</span>coefficients[, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">summary</span>(m_pois)<span class="sc">$</span>coefficients[, <span class="dv">2</span>]</span>
-<span id="cb17-3"><a href=""></a><span class="fu">round</span>(se_ratio, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="co"># Standard errors are inflated by the same factor</span></span>
+<span id="cb17-2"><a href="" aria-label="2"></a>se_ratio <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_quasi)<span class="sc">$</span>coefficients[, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">summary</span>(m_pois)<span class="sc">$</span>coefficients[, <span class="dv">2</span>]</span>
+<span id="cb17-3"><a href="" aria-label="3"></a><span class="fu">round</span>(se_ratio, <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     (Intercept)           Bread2           Bread3           Bread4 
           2.0448           2.0448           2.0448           2.0448 
@@ -1218,7 +1224,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 Filling3:Butter1 
           2.0448 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">sqrt</span>(<span class="fu">summary</span>(m_quasi)<span class="sc">$</span>dispersion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a><span class="fu">sqrt</span>(<span class="fu">summary</span>(m_quasi)<span class="sc">$</span>dispersion)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.044811</code></pre>
 </div>
@@ -1235,11 +1241,11 @@ Filling3:Butter1
 <li>The <code>gee</code> library computes the <span class="orange">sandwich</span> standard errors of the previous section. The option <code>scale.fix = TRUE</code> keeps the naive standard errors equal to the Poisson ones.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">library</span>(gee)</span>
-<span id="cb21-2"><a href=""></a>obs <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Ants) <span class="co"># the gee function requires an id for each observation</span></span>
-<span id="cb21-3"><a href=""></a><span class="fu">summary</span>(<span class="fu">gee</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
-<span id="cb21-4"><a href=""></a>  <span class="at">id =</span> obs, <span class="at">family =</span> poisson, <span class="at">data =</span> Ants, <span class="at">scale.fix =</span> <span class="cn">TRUE</span></span>
-<span id="cb21-5"><a href=""></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a><span class="fu">library</span>(gee)</span>
+<span id="cb21-2"><a href="" aria-label="2"></a>obs <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Ants) <span class="co"># the gee function requires an id for each observation</span></span>
+<span id="cb21-3"><a href="" aria-label="3"></a><span class="fu">summary</span>(<span class="fu">gee</span>(Ant_count <span class="sc">~</span> Bread <span class="sc">+</span> Filling <span class="sc">*</span> Butter,</span>
+<span id="cb21-4"><a href="" aria-label="4"></a>  <span class="at">id =</span> obs, <span class="at">family =</span> poisson, <span class="at">data =</span> Ants, <span class="at">scale.fix =</span> <span class="cn">TRUE</span></span>
+<span id="cb21-5"><a href="" aria-label="5"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>In this example the <span class="orange">robust</span> standard errors are comparable with the <span class="blue">quasi-likelihood</span> ones, which is reassuring: it suggests that the variance function <span class="math inline">v(\mu_i) = \mu_i</span> is a <span class="blue">reasonable</span> description of the data.</li>
@@ -1258,7 +1264,7 @@ Filling3:Butter1
 <li>The inflation of the standard errors suggests that the model can be <span class="blue">simplified</span>. Nested models are compared through the quasi-likelihood ratio statistic <span class="math inline">W</span>.</li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">drop1</span>(m_quasi, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-label="1"></a><span class="fu">drop1</span>(m_quasi, <span class="at">test =</span> <span class="st">"F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Single term deletions
 
@@ -1272,8 +1278,8 @@ Filling:Butter  2   189.83  0.7222 0.4921</code></pre>
 </div>
 <div class="fragment">
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>m_quasi1 <span class="ot">&lt;-</span> <span class="fu">update</span>(m_quasi, . <span class="sc">~</span> . <span class="sc">-</span> Bread)</span>
-<span id="cb24-2"><a href=""></a><span class="fu">drop1</span>(m_quasi1, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-label="1"></a>m_quasi1 <span class="ot">&lt;-</span> <span class="fu">update</span>(m_quasi, . <span class="sc">~</span> . <span class="sc">-</span> Bread)</span>
+<span id="cb24-2"><a href="" aria-label="2"></a><span class="fu">drop1</span>(m_quasi1, <span class="at">test =</span> <span class="st">"F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Single term deletions
 
@@ -1292,8 +1298,8 @@ Filling:Butter  2   200.63  0.7345 0.4858</code></pre>
 <section id="the-final-model" class="slide level2 center">
 <h2>The final model</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>m_quasi2 <span class="ot">&lt;-</span> <span class="fu">update</span>(m_quasi1, . <span class="sc">~</span> . <span class="sc">-</span> Filling<span class="sc">:</span>Butter)</span>
-<span id="cb26-2"><a href=""></a><span class="fu">summary</span>(m_quasi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-label="1"></a>m_quasi2 <span class="ot">&lt;-</span> <span class="fu">update</span>(m_quasi1, . <span class="sc">~</span> . <span class="sc">-</span> Filling<span class="sc">:</span>Butter)</span>
+<span id="cb26-2"><a href="" aria-label="2"></a><span class="fu">summary</span>(m_quasi2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1325,20 +1331,20 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <li>Let us predict the number of ants attracted by a specific sandwich. As usual, we work on the scale of the <span class="blue">linear predictor</span> and then transform.</li>
 </ul>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Filling =</span> <span class="st">"3"</span>, <span class="at">Butter =</span> <span class="st">"1"</span>)</span>
-<span id="cb28-2"><a href=""></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_quasi2, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"link"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb28-3"><a href=""></a></span>
-<span id="cb28-4"><a href=""></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb28-5"><a href=""></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb28-6"><a href=""></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(pred<span class="sc">$</span>fit)</span>
-<span id="cb28-7"><a href=""></a>phi_tilde <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_quasi2)<span class="sc">$</span>dispersion</span>
-<span id="cb28-8"><a href=""></a></span>
-<span id="cb28-9"><a href=""></a><span class="co"># Confidence interval for the mean mu</span></span>
-<span id="cb28-10"><a href=""></a>ci_mean <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">c</span>(pred<span class="sc">$</span>fit <span class="sc">-</span> z <span class="sc">*</span> pred<span class="sc">$</span>se.fit, pred<span class="sc">$</span>fit <span class="sc">+</span> z <span class="sc">*</span> pred<span class="sc">$</span>se.fit))</span>
-<span id="cb28-11"><a href=""></a></span>
-<span id="cb28-12"><a href=""></a><span class="co"># Approximate prediction interval for a new observation</span></span>
-<span id="cb28-13"><a href=""></a>ci_pred <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>), <span class="at">mean =</span> mu_hat, <span class="at">sd =</span> <span class="fu">sqrt</span>(phi_tilde <span class="sc">*</span> mu_hat))</span>
-<span id="cb28-14"><a href=""></a><span class="fu">round</span>(<span class="fu">rbind</span>(ci_mean, ci_pred), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-label="1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Filling =</span> <span class="st">"3"</span>, <span class="at">Butter =</span> <span class="st">"1"</span>)</span>
+<span id="cb28-2"><a href="" aria-label="2"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_quasi2, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"link"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-3"><a href="" aria-label="3"></a></span>
+<span id="cb28-4"><a href="" aria-label="4"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb28-5"><a href="" aria-label="5"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb28-6"><a href="" aria-label="6"></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(pred<span class="sc">$</span>fit)</span>
+<span id="cb28-7"><a href="" aria-label="7"></a>phi_tilde <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_quasi2)<span class="sc">$</span>dispersion</span>
+<span id="cb28-8"><a href="" aria-label="8"></a></span>
+<span id="cb28-9"><a href="" aria-label="9"></a><span class="co"># Confidence interval for the mean mu</span></span>
+<span id="cb28-10"><a href="" aria-label="10"></a>ci_mean <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">c</span>(pred<span class="sc">$</span>fit <span class="sc">-</span> z <span class="sc">*</span> pred<span class="sc">$</span>se.fit, pred<span class="sc">$</span>fit <span class="sc">+</span> z <span class="sc">*</span> pred<span class="sc">$</span>se.fit))</span>
+<span id="cb28-11"><a href="" aria-label="11"></a></span>
+<span id="cb28-12"><a href="" aria-label="12"></a><span class="co"># Approximate prediction interval for a new observation</span></span>
+<span id="cb28-13"><a href="" aria-label="13"></a>ci_pred <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>), <span class="at">mean =</span> mu_hat, <span class="at">sd =</span> <span class="fu">sqrt</span>(phi_tilde <span class="sc">*</span> mu_hat))</span>
+<span id="cb28-14"><a href="" aria-label="14"></a><span class="fu">round</span>(<span class="fu">rbind</span>(ci_mean, ci_pred), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            1     1
 ci_mean 57.53 77.54
@@ -1381,8 +1387,8 @@ ci_pred 34.48 99.10</code></pre>
 <section id="the-rats-dataset" class="slide level2 center">
 <h2>The <code>Rats</code> dataset</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">data</span>(Rats)</span>
-<span id="cb30-2"><a href=""></a><span class="fu">head</span>(Rats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="" aria-label="1"></a><span class="fu">data</span>(Rats)</span>
+<span id="cb30-2"><a href="" aria-label="2"></a><span class="fu">head</span>(Rats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  litter group   h  n  s
 1      1     1 4.1 10  1
@@ -1392,8 +1398,8 @@ ci_pred 34.48 99.10</code></pre>
 5      5     1 3.2 10 10
 6      6     1 5.9 11  9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="co"># Mortality rate within each group</span></span>
-<span id="cb32-2"><a href=""></a><span class="fu">with</span>(Rats, <span class="fu">tapply</span>(s, group, sum) <span class="sc">/</span> <span class="fu">tapply</span>(n, group, sum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="" aria-label="1"></a><span class="co"># Mortality rate within each group</span></span>
+<span id="cb32-2"><a href="" aria-label="2"></a><span class="fu">with</span>(Rats, <span class="fu">tapply</span>(s, group, sum) <span class="sc">/</span> <span class="fu">tapply</span>(n, group, sum))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         1          2          3          4 
 0.75840979 0.10169492 0.03448276 0.04807692 </code></pre>
@@ -1404,14 +1410,14 @@ ci_pred 34.48 99.10</code></pre>
 <li><p>We therefore <span class="blue">dichotomize</span> the group variable, distinguishing placebo from treated.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>Rats<span class="sc">$</span>placebo <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Rats<span class="sc">$</span>group <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="" aria-label="1"></a>Rats<span class="sc">$</span>placebo <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Rats<span class="sc">$</span>group <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="logistic-regression" class="slide level2 center">
 <h2>Logistic regression</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>m_bin <span class="ot">&lt;-</span> <span class="fu">glm</span>(s <span class="sc">/</span> n <span class="sc">~</span> placebo <span class="sc">+</span> h, <span class="at">weights =</span> n, <span class="at">family =</span> binomial, <span class="at">data =</span> Rats)</span>
-<span id="cb35-2"><a href=""></a><span class="fu">summary</span>(m_bin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-label="1"></a>m_bin <span class="ot">&lt;-</span> <span class="fu">glm</span>(s <span class="sc">/</span> n <span class="sc">~</span> placebo <span class="sc">+</span> h, <span class="at">weights =</span> n, <span class="at">family =</span> binomial, <span class="at">data =</span> Rats)</span>
+<span id="cb35-2"><a href="" aria-label="2"></a><span class="fu">summary</span>(m_bin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1439,14 +1445,14 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <section id="assessing-overdispersion-1" class="slide level2 center">
 <h2>Assessing overdispersion</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>X2_rats <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m_bin, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb37-2"><a href=""></a><span class="fu">c</span>(<span class="at">X2 =</span> X2_rats, <span class="at">df =</span> m_bin<span class="sc">$</span>df.residual)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-label="1"></a>X2_rats <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m_bin, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb37-2"><a href="" aria-label="2"></a><span class="fu">c</span>(<span class="at">X2 =</span> X2_rats, <span class="at">df =</span> m_bin<span class="sc">$</span>df.residual)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     X2      df 
 159.815  55.000 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>phi_rats <span class="ot">&lt;-</span> X2_rats <span class="sc">/</span> m_bin<span class="sc">$</span>df.residual</span>
-<span id="cb39-2"><a href=""></a>phi_rats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-label="1"></a>phi_rats <span class="ot">&lt;-</span> X2_rats <span class="sc">/</span> m_bin<span class="sc">$</span>df.residual</span>
+<span id="cb39-2"><a href="" aria-label="2"></a>phi_rats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.905728</code></pre>
 </div>
@@ -1460,11 +1466,11 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <section id="the-quasi-binomial-fit" class="slide level2 center">
 <h2>The quasi-binomial fit</h2>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>m_bin_q <span class="ot">&lt;-</span> <span class="fu">glm</span>(s <span class="sc">/</span> n <span class="sc">~</span> placebo <span class="sc">+</span> h,</span>
-<span id="cb41-2"><a href=""></a>  <span class="at">weights =</span> n, <span class="at">data =</span> Rats,</span>
-<span id="cb41-3"><a href=""></a>  <span class="at">family =</span> <span class="fu">quasi</span>(<span class="at">link =</span> <span class="st">"logit"</span>, <span class="at">variance =</span> <span class="st">"mu(1-mu)"</span>)</span>
-<span id="cb41-4"><a href=""></a>)</span>
-<span id="cb41-5"><a href=""></a><span class="fu">summary</span>(m_bin_q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-label="1"></a>m_bin_q <span class="ot">&lt;-</span> <span class="fu">glm</span>(s <span class="sc">/</span> n <span class="sc">~</span> placebo <span class="sc">+</span> h,</span>
+<span id="cb41-2"><a href="" aria-label="2"></a>  <span class="at">weights =</span> n, <span class="at">data =</span> Rats,</span>
+<span id="cb41-3"><a href="" aria-label="3"></a>  <span class="at">family =</span> <span class="fu">quasi</span>(<span class="at">link =</span> <span class="st">"logit"</span>, <span class="at">variance =</span> <span class="st">"mu(1-mu)"</span>)</span>
+<span id="cb41-4"><a href="" aria-label="4"></a>)</span>
+<span id="cb41-5"><a href="" aria-label="5"></a><span class="fu">summary</span>(m_bin_q)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1844,13 +1850,14 @@ White, H. (1980), <span>“<span class="nocase">A heteroskedasticity-consistent 
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
