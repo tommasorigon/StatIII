@@ -169,6 +169,4 @@ Let $Y_i$ follow a [zero-inflated Poisson]{.blue} (ZIP) distribution: $Y_i = 0$ 
 (b) Show that $\mathbb{E}(Y_i) = (1 - \pi_i)\mu_i$ and $\text{var}(Y_i) = (1 - \pi_i)\mu_i(1 + \pi_i\mu_i)$.
 
 (c) Conclude that the ZIP distribution is [overdispersed]{.orange}, i.e. $\text{var}(Y_i) > \mathbb{E}(Y_i)$, even though the non-zero component is Poisson.
-
-(d) Suppose now that $Y_i \sim \text{Poisson}(\mu_i)$ is a count observed over an exposure $t_i > 0$. Write a Poisson regression model with logarithmic link for the [rate]{.blue} $\mu_i / t_i$, showing that it leads to an [offset]{.orange} $\log t_i$ in the linear predictor. Interpret $\exp(\beta_j)$.
 :::

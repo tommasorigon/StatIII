@@ -232,5 +232,5 @@ Consider the latent variable threshold model $Y_i = \mathbb{I}(Y_i^* > 0)$, with
 
 (b) Suppose instead that $\epsilon_i$ has the cumulative distribution function $F(z) = \exp\{-\exp(-z)\}$, $z \in \mathbb{R}$ (Gumbel distribution for maxima). Show that the model for $Y_i$ is a binary regression model with [complementary log-log]{.orange} link. Why can't you use the symmetry argument of the slides in this case?
 
-(c) In a [logistic]{.blue} regression model, let $\bm{x}$ and $\bm{x}'$ differ only in the $j$th covariate, which increases by one unit. Show that the odds ratio equals $\exp(\beta_j)$, whereas the relative risk $\pi(\bm{x}')/\pi(\bm{x})$ depends on $\bm{x}$. Show also that the relative risk is approximately equal to the odds ratio when $\pi(\bm{x})$ and $\pi(\bm{x}')$ are small.
+(c) In a [logistic]{.blue} regression model, let $\bm{x}$ and $\bm{x}'$ differ only in the $j$th covariate, which increases by one unit. Show that the odds ratio equals $\exp(\beta_j)$, whereas the relative risk $\pi(\bm{x}')/\pi(\bm{x})$ depends on $\bm{x}$. 
 :::

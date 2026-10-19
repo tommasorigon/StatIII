@@ -491,6 +491,72 @@ g(\mu_i) = \beta_1 + \beta_2 x_i,
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise I
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Consider <span class="math inline">n = 3</span> independent Poisson observations with covariate values <span class="math inline">x = (0, 1, 2)</span> and responses <span class="math inline">y = (1, 2, 5)</span>, and the Poisson regression model <span class="math inline">\log \mu_i = \beta_1 + \beta_2 x_i</span>.</p>
+<ol type="i">
+<li><p>Write down the <span class="blue">weights</span> <span class="math inline">w_i</span> and the <span class="orange">pseudo-responses</span> <span class="math inline">z_i</span> of the IRLS algorithm for this model, as functions of the current value <span class="math inline">\beta^{(t)}</span>.</p></li>
+<li><p>Starting from <span class="math inline">\beta^{(1)} = (0, 0)</span>, perform <span class="blue">one step</span> of the IRLS algorithm by hand, obtaining <span class="math inline">\beta^{(2)}</span>.</p></li>
+<li><p>Check your answer in <strong>R</strong> using <code>glm(y ~ x, family = poisson, start = c(0, 0), control = glm.control(maxit = 1))</code>, and compare <span class="math inline">\beta^{(2)}</span> with the maximum likelihood estimate.</p></li>
+<li><p>Now consider a <span class="blue">Gamma</span> GLM with <span class="orange">logarithmic link</span>, <span class="math inline">\log \mu_i = \bm{x}_i^T\beta</span>. Derive the IRLS weights and pseudo-responses. Show that the weights do not depend on <span class="math inline">\mu_i</span>, so that each IRLS step reduces to an ordinary least squares fit of the pseudo-responses on <span class="math inline">\bm{X}</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise J
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A Poisson regression model <span class="math inline">\log \mu_i = \beta_1 + \beta_2 x_i</span> is fitted to <span class="math inline">n = 20</span> observations. The output reports the following estimates and standard errors:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>(Intercept)</code></td>
+<td style="text-align: right;">0.412</td>
+<td style="text-align: right;">0.215</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>x</code></td>
+<td style="text-align: right;">0.250</td>
+<td style="text-align: right;">0.080</td>
+</tr>
+</tbody>
+</table>
+<p>Moreover, the null deviance is <span class="math inline">34.20</span> on <span class="math inline">19</span> degrees of freedom and the residual deviance is <span class="math inline">24.61</span> on <span class="math inline">18</span> degrees of freedom.</p>
+<ol type="i">
+<li><p>Compute the Wald statistic <span class="math inline">z</span> and the associated p-value for <span class="math inline">H_0: \beta_2 = 0</span> against <span class="math inline">H_1: \beta_2 \neq 0</span>.</p></li>
+<li><p>Compute the log-likelihood ratio statistic for the same hypothesis using the two deviances. Specify its degrees of freedom and its p-value, and compare it with <span class="math inline">z^2</span>.</p></li>
+<li><p>Obtain a <span class="math inline">95\%</span> confidence interval for <span class="math inline">\exp(\beta_2)</span> in two ways: (a) using the delta method, and (b) transforming the extremes of the Wald interval for <span class="math inline">\beta_2</span>. Interpret the result as a <span class="blue">percentage change</span> of the mean.</p></li>
+<li><p>Which of the two intervals of point iii. would you prefer, and why?</p></li>
+</ol>
+</div>
+</div>
+</div>
 
 </section>
 </section>

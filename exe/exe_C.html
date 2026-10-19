@@ -484,6 +484,27 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Exercise F
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Consider the latent variable threshold model <span class="math inline">Y_i = \mathbb{I}(Y_i^* &gt; 0)</span>, with <span class="math inline">Y_i^* = \bm{x}_i^T\beta + \epsilon_i</span> and <span class="math inline">\epsilon_i</span> iid with cumulative distribution function <span class="math inline">F</span>.</p>
+<ol type="a">
+<li><p>Show that if <span class="math inline">\epsilon_i \sim \text{N}(0, 1)</span> the model for <span class="math inline">Y_i</span> is a <span class="blue">probit</span> regression model.</p></li>
+<li><p>Suppose instead that <span class="math inline">\epsilon_i</span> has the cumulative distribution function <span class="math inline">F(z) = \exp\{-\exp(-z)\}</span>, <span class="math inline">z \in \mathbb{R}</span> (Gumbel distribution for maxima). Show that the model for <span class="math inline">Y_i</span> is a binary regression model with <span class="orange">complementary log-log</span> link. Why can’t you use the symmetry argument of the slides in this case?</p></li>
+<li><p>In a <span class="blue">logistic</span> regression model, let <span class="math inline">\bm{x}</span> and <span class="math inline">\bm{x}'</span> differ only in the <span class="math inline">j</span>th covariate, which increases by one unit. Show that the odds ratio equals <span class="math inline">\exp(\beta_j)</span>, whereas the relative risk <span class="math inline">\pi(\bm{x}')/\pi(\bm{x})</span> depends on <span class="math inline">\bm{x}</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
 
 </section>
 </section>
