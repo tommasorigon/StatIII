@@ -75,7 +75,7 @@ Import the data and then:
 
 (a) Fit a binomial model with a probit link function. 
 
-(b) To check for possible overdispersion, consider a quasi-likelihood model. Compute the standard errors using a robust approach.
+(b) To check for possible overdispersion, consider a quasi-likelihood model. Compare its standard errors with those of the probit model.
 
 (c) Compute the variance of the standardized Pearson residuals for the probit model and the quasi-likelihood model. Comment the results.
 :::
@@ -85,7 +85,7 @@ Import the data and then:
 
 Reconsider the `Germination` dataset previously analyzed in [Exercises C](exe_C.html).
 
-Evaluate the possible presence of [overdispersion]{.orange}, and compare the results obtained from fitting the different models that account for it. Propose a [final model]{.blue} and interpret the results.
+Evaluate the possible presence of [overdispersion]{.orange} and, if needed, account for it using a [quasi-likelihood]{.blue} model. Compare the results with those of the binomial model, propose a [final model]{.blue} and interpret the results.
 :::
 
 :::{.callout-note collapse=true}
@@ -93,7 +93,7 @@ Evaluate the possible presence of [overdispersion]{.orange}, and compare the res
 
 Reconsider the `Heart` dataset previously analyzed in [Exercises C](exe_C.html).
 
-Evaluate the possible presence of [overdispersion]{.orange}, and compare the results obtained from fitting the different models that account for it. Propose a [final model]{.blue} and interpret the results.
+Evaluate the possible presence of [overdispersion]{.orange} and, if needed, account for it using a [quasi-likelihood]{.blue} model. Compare the results with those of the binomial model, propose a [final model]{.blue} and interpret the results.
 :::
 
 ## Theoretical

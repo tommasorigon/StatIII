@@ -90,7 +90,7 @@ The slides are meant to be used in HTML.
 | Lab 5 | [`lab5.R`](code/lab5.R) |  |  |
 | *Exercises* | [Exercises D](exe/exe_D.html) |  |  |
 |  | **ADVANCED TOPICS** |  |  |
-| **Quasi-likelihoods** | [Unit E]() | [Slides Unit E]() ([pdf version](s)) |  |
+| **Quasi-likelihoods** | [Unit E](slides/un_E.html) | [Slides Unit E](slides/un_E_slides.html) ([pdf version](slides/un_E_slides.pdf)) |  |
 | Lab 6 | [`lab6.R`](code/lab6.R) |  |  |
 | *Exercises* | [Exercises E](exe/exe_E.html) |  |  |
 

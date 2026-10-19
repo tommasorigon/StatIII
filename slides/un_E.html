@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tommaso Rigon">
+
+<title>Quasi-likelihoods</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="un_E_files/libs/clipboard/clipboard.min.js"></script>
+<script src="un_E_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="un_E_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="un_E_files/libs/quarto-html/popper.min.js"></script>
+<script src="un_E_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="un_E_files/libs/quarto-html/anchor.min.js"></script>
+<link href="un_E_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="un_E_files/libs/quarto-html/quarto-syntax-highlighting-5968cd3d4e70e451b59e061e3897736e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="un_E_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="un_E_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="un_E_files/libs/bootstrap/bootstrap-e006d876f2dc96f3fc252bf0f10742a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#homepage" id="toc-homepage" class="nav-link active" data-scroll-target="#homepage">Homepage</a></li>
+  <li><a href="#a-motivating-example" id="toc-a-motivating-example" class="nav-link" data-scroll-target="#a-motivating-example">A motivating example</a>
+  <ul class="collapse">
+  <li><a href="#the-ants-data" id="toc-the-ants-data" class="nav-link" data-scroll-target="#the-ants-data">The <code>Ants</code> data</a></li>
+  <li><a href="#exploratory-analysis" id="toc-exploratory-analysis" class="nav-link" data-scroll-target="#exploratory-analysis">Exploratory analysis</a></li>
+  <li><a href="#a-poisson-regression-model" id="toc-a-poisson-regression-model" class="nav-link" data-scroll-target="#a-poisson-regression-model">A Poisson regression model</a></li>
+  <li><a href="#is-there-overdispersion" id="toc-is-there-overdispersion" class="nav-link" data-scroll-target="#is-there-overdispersion">Is there overdispersion?</a></li>
+  <li><a href="#a-word-of-caution" id="toc-a-word-of-caution" class="nav-link" data-scroll-target="#a-word-of-caution">A word of caution</a></li>
+  </ul></li>
+  <li><a href="#quasi-likelihoods" id="toc-quasi-likelihoods" class="nav-link" data-scroll-target="#quasi-likelihoods">Quasi-likelihoods</a>
+  <ul class="collapse">
+  <li><a href="#a-motivating-remark-the-linear-model" id="toc-a-motivating-remark-the-linear-model" class="nav-link" data-scroll-target="#a-motivating-remark-the-linear-model">A motivating remark: the linear model</a></li>
+  <li><a href="#likelihood-equations-of-a-glm" id="toc-likelihood-equations-of-a-glm" class="nav-link" data-scroll-target="#likelihood-equations-of-a-glm">Likelihood equations of a GLM</a></li>
+  <li><a href="#the-quasi-likelihood-model" id="toc-the-quasi-likelihood-model" class="nav-link" data-scroll-target="#the-quasi-likelihood-model">The quasi-likelihood model</a></li>
+  <li><a href="#variance-inflation" id="toc-variance-inflation" class="nav-link" data-scroll-target="#variance-inflation">Variance inflation</a></li>
+  <li><a href="#where-does-overdispersion-come-from" id="toc-where-does-overdispersion-come-from" class="nav-link" data-scroll-target="#where-does-overdispersion-come-from">Where does overdispersion come from?</a></li>
+  <li><a href="#the-quasi-score" id="toc-the-quasi-score" class="nav-link" data-scroll-target="#the-quasi-score">The quasi-score</a></li>
+  <li><a href="#properties-of-hatbeta" id="toc-properties-of-hatbeta" class="nav-link" data-scroll-target="#properties-of-hatbeta">Properties of <span class="math inline">\hat{\beta}</span></a></li>
+  <li><a href="#estimation-of-phi-and-standard-errors" id="toc-estimation-of-phi-and-standard-errors" class="nav-link" data-scroll-target="#estimation-of-phi-and-standard-errors">Estimation of <span class="math inline">\phi</span> and standard errors</a></li>
+  <li><a href="#the-quasi-log-likelihood" id="toc-the-quasi-log-likelihood" class="nav-link" data-scroll-target="#the-quasi-log-likelihood">The quasi-log-likelihood</a></li>
+  <li><a href="#comparing-nested-models" id="toc-comparing-nested-models" class="nav-link" data-scroll-target="#comparing-nested-models">Comparing nested models</a></li>
+  </ul></li>
+  <li><a href="#the-ants-data-1" id="toc-the-ants-data-1" class="nav-link" data-scroll-target="#the-ants-data-1">The <code>Ants</code> data</a>
+  <ul class="collapse">
+  <li><a href="#the-quasi-poisson-model" id="toc-the-quasi-poisson-model" class="nav-link" data-scroll-target="#the-quasi-poisson-model">The quasi-Poisson model</a></li>
+  <li><a href="#model-simplification" id="toc-model-simplification" class="nav-link" data-scroll-target="#model-simplification">Model simplification</a></li>
+  <li><a href="#the-final-model" id="toc-the-final-model" class="nav-link" data-scroll-target="#the-final-model">The final model</a></li>
+  <li><a href="#confidence-and-prediction-intervals" id="toc-confidence-and-prediction-intervals" class="nav-link" data-scroll-target="#confidence-and-prediction-intervals">Confidence and prediction intervals</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="un_E_slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quasi-likelihoods</h1>
+<p class="subtitle lead">Statistics III - CdL SSE</p>
+</div>
+
+
+<div class="quarto-title-meta-author column-page-left">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><span class="orange">Tommaso Rigon</span> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <em>Università degli Studi di Milano-Bicocca</em>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta column-page-left">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="homepage" class="level2">
+<h2 class="anchored" data-anchor-id="homepage"><a href="../index.html">Homepage</a></h2>
+<ul>
+<li><p>In <a href="un_C.html">Unit C</a> and <a href="un_D.html">Unit D</a> we saw that binomial and Poisson regression may suffer from <span class="orange">overdispersion</span>: the data are more variable than the model allows.</p></li>
+<li><p>This unit presents <span class="blue">quasi-likelihoods</span> <span class="citation" data-cites="Wedderburn1974">(<a href="#ref-Wedderburn1974" role="doc-biblioref">Wedderburn 1974</a>)</span>, a simple way to handle overdispersion <span class="orange">without</span> specifying a distribution for <span class="math inline">Y_i</span>: we only specify its <span class="blue">mean</span> and its <span class="orange">variance</span>.</p></li>
+<li><p>The unit is organized in three parts:</p>
+<ul>
+<li>a <span class="blue">motivating example</span>, the <code>Ants</code> data;</li>
+<li>the <span class="orange">theory</span> of quasi-likelihood models;</li>
+<li>the <span class="grey">complete analysis</span> of the example.</li>
+</ul></li>
+<li><p>An alternative, <span class="grey">not covered</span> in this course, is to replace the Poisson or the binomial with a different parametric distribution, e.g.&nbsp;the negative binomial.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The content of this Unit is covered in <span class="orange">Chapter 6</span> of <span class="citation" data-cites="Salvan2020">Salvan et al. (<a href="#ref-Salvan2020" role="doc-biblioref">2020</a>)</span>. Alternatively, see <span class="blue">Sections 8.1 and 8.3</span> of <span class="citation" data-cites="Agresti2015">Agresti (<a href="#ref-Agresti2015" role="doc-biblioref">2015</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-motivating-example" class="level1">
+<h1>A motivating example</h1>
+<section id="the-ants-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-ants-data">The <code>Ants</code> data</h2>
+<ul>
+<li><p>The <code>Ants</code> dataset of the <code>MLGdata</code> library comes from an experiment run by students of an Australian university <span class="citation" data-cites="Salvan2020">(<a href="#ref-Salvan2020" role="doc-biblioref">Salvan et al. 2020</a>)</span>. The aim is to study which sandwiches <span class="orange">meat ants</span> prefer.</p></li>
+<li><p>The <span class="blue">explanatory variables</span> are three experimental factors:</p>
+<ul>
+<li><code>Bread</code> (<span class="math inline">4</span> types): rye, wholemeal, multigrain, white;</li>
+<li><code>Filling</code> (<span class="math inline">3</span> types): Vegemite, peanut butter, ham and pickles;</li>
+<li><code>Butter</code> (<span class="math inline">2</span> levels): present (<span class="math inline">1</span>) or absent (<span class="math inline">-1</span>).</li>
+</ul></li>
+<li><p>For each of the <span class="math inline">4 \times 3 \times 2 = 24</span> combinations, <span class="orange">two</span> pieces of sandwich were placed near the entrance of an ant nest, for a total of <span class="math inline">n = 48</span> observations.</p></li>
+<li><p>The <span class="blue">response</span> <code>Ant_count</code> is the number of ants on the sandwich after <span class="math inline">5</span> minutes.</p></li>
+</ul>
+</section>
+<section id="exploratory-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-analysis">Exploratory analysis</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="un_E_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="810"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p><code>Filling</code> and <code>Butter</code> seem to matter, whereas <code>Bread</code> has a weaker effect.</p></li>
+<li><p>The response is a <span class="blue">count</span>, therefore a natural starting point is a <span class="orange">Poisson regression</span> model with logarithmic link, including the <code>Filling</code>-<code>Butter</code> interaction (<span class="math inline">p = 9</span>).</p></li>
+</ul>
+</section>
+<section id="a-poisson-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="a-poisson-regression-model">A Poisson regression model</h2>
+<div class="small-table">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.386</td>
+<td style="text-align: right;">0.075</td>
+<td style="text-align: right;">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bread2</td>
+<td style="text-align: right;">0.154</td>
+<td style="text-align: right;">0.061</td>
+<td style="text-align: right;">0.011</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bread3</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">0.063</td>
+<td style="text-align: right;">0.684</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bread4</td>
+<td style="text-align: right;">-0.030</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">0.634</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Filling2</td>
+<td style="text-align: right;">0.097</td>
+<td style="text-align: right;">0.088</td>
+<td style="text-align: right;">0.272</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Filling3</td>
+<td style="text-align: right;">0.468</td>
+<td style="text-align: right;">0.081</td>
+<td style="text-align: right;">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Butter1</td>
+<td style="text-align: right;">0.063</td>
+<td style="text-align: right;">0.089</td>
+<td style="text-align: right;">0.478</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Filling2:Butter1</td>
+<td style="text-align: right;">0.248</td>
+<td style="text-align: right;">0.119</td>
+<td style="text-align: right;">0.038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Filling3:Butter1</td>
+<td style="text-align: right;">0.277</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">0.012</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li><p>According to the Wald tests, <code>Bread2</code>, <code>Filling3</code> and both <span class="orange">interaction</span> terms are significant at the <span class="math inline">5\%</span> level.</p></li>
+<li><p>But can we trust these standard errors?</p></li>
+</ul>
+</section>
+<section id="is-there-overdispersion" class="level2">
+<h2 class="anchored" data-anchor-id="is-there-overdispersion">Is there overdispersion?</h2>
+<ul>
+<li><p>The residual deviance is <span class="math inline">D(\bm{y}; \hat{\bm{\mu}}) =</span> 183.05 and the <span class="blue">Pearson statistic</span> of <a href="un_B.html">Unit B</a> is <span class="math inline">X^2 =</span> 163.07, both on <span class="math inline">n - p = 39</span> degrees of freedom. The p-value of the <span class="math inline">X^2</span> test is &lt;0.001.</p></li>
+<li><p>Both statistics are <span class="orange">more than four times</span> the degrees of freedom: the data are <span class="orange">much more variable</span> than implied by the Poisson model, in which <span class="math inline">\text{var}(Y_i) = \mu_i</span>.</p></li>
+<li><p>The Poisson model is <span class="orange">misspecified</span> and its standard errors are <span class="orange">too small</span>: the significant coefficients of the previous slide should not be trusted.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>A large <span class="math inline">X^2</span> may also be caused by a <span class="orange">misspecified mean</span>, e.g.&nbsp;an omitted covariate, a missing interaction or a wrong link function. Correcting the standard errors is appropriate <span class="blue">only if</span> the mean structure <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span> is correct.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-word-of-caution" class="level2">
+<h2 class="anchored" data-anchor-id="a-word-of-caution">A word of caution</h2>
+<ul>
+<li><p>A tempting shortcut is to compare the sample mean and variance of the response. In the <code>Ants</code> data they are 43.6 and 327. Is this enough to conclude that there is overdispersion? <span class="orange">No</span>.</p></li>
+<li><p>The Poisson assumption concerns <span class="math inline">Y_i</span> <span class="blue">given the covariates</span>. Consider <span class="math inline">n = 2000</span> observations from <span class="math display">
+Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \qquad \log{\mu_i} = 1 + 3 x_i, \qquad x_i \overset{\text{iid}}{\sim} \text{Bernoulli}(0.5),
+</span> which have <span class="orange">no overdispersion</span> by construction.</p></li>
+<li><p>The simulated data have mean 28.2 and variance 691.2, simply because the covariate shifts the mean. Once the covariate is accounted for, the Poisson fit gives <span class="math inline">X^2/(n-p) =</span> 1.009.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Back to the <code>Ants</code> data: how can we fix the standard errors, <span class="orange">without</span> having to choose a new distribution for the counts?</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="quasi-likelihoods" class="level1">
+<h1>Quasi-likelihoods</h1>
+<section id="a-motivating-remark-the-linear-model" class="level2">
+<h2 class="anchored" data-anchor-id="a-motivating-remark-the-linear-model">A motivating remark: the linear model</h2>
+<ul>
+<li><p>In the <span class="blue">Gaussian linear model</span> <span class="math inline">\bm{Y} = \bm{X}\beta + \bm{\epsilon}</span> with <span class="math inline">\epsilon_i \overset{\text{iid}}{\sim} \text{N}(0, \sigma^2)</span>, the maximum likelihood estimator <span class="math inline">\hat{\beta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}</span> has the <span class="blue">exact</span> distribution <span class="math display">
+\hat{\beta} \sim \text{N}_p(\beta, \sigma^2(\bm{X}^T\bm{X})^{-1}).
+</span></p></li>
+<li><p>In <a href="un_A.html">Unit A</a> we saw that under the much weaker <span class="orange">second-order assumptions</span> <span class="math inline">\mathbb{E}(\bm{\epsilon}) = \bm{0}</span> and <span class="math inline">\text{var}(\bm{\epsilon}) = \sigma^2 I_n</span>, the same estimator is still <span class="blue">unbiased</span>, with <span class="math inline">\text{var}(\hat{\beta}) = \sigma^2(\bm{X}^T\bm{X})^{-1}</span>, and <span class="blue">asymptotically normal</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If the normal model is misspecified but the second-order assumptions hold, the inference based on the normal model remains <span class="orange">valid for large <span class="math inline">n</span></span>. Gaussianity is only needed for <span class="blue">exact</span> results.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="blue">Question</span>: does the same happen for the maximum likelihood estimator of a <span class="orange">GLM</span>?</li>
+</ul>
+</section>
+<section id="likelihood-equations-of-a-glm" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-equations-of-a-glm">Likelihood equations of a GLM</h2>
+<ul>
+<li><p>Let <span class="math inline">Y_i \overset{\text{ind}}{\sim} \text{ED}(\mu_i, a_i(\phi)v(\mu_i))</span> with <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span> and <span class="math inline">a_i(\phi) = \phi/\omega_i</span>. Recall from <a href="un_B.html">Unit B</a> that the <span class="blue">likelihood equations</span> are <span class="math display">
+\sum_{i=1}^n \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r} = \frac{1}{\phi}\sum_{i=1}^n \omega_i\frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p.
+</span></p></li>
+<li><p>These equations depend on the distribution of <span class="math inline">Y_i</span> <span class="orange">only</span> through <span class="math display">
+\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta), \qquad \text{var}(Y_i) = \frac{\phi}{\omega_i}v(\mu_i).
+</span></p></li>
+<li><p>Higher-order moments, such as the skewness, have <span class="orange">no impact</span> on the equations: any distribution with the same first two moments leads to the <span class="blue">same</span> estimate <span class="math inline">\hat{\beta}</span>. They only affect the <span class="grey">distribution</span> of <span class="math inline">\hat{\beta}</span>, e.g.&nbsp;how quickly it approaches normality.</p></li>
+</ul>
+</section>
+<section id="the-quasi-likelihood-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-quasi-likelihood-model">The quasi-likelihood model</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <span class="blue">quasi-likelihood model</span> only assumes the following <span class="orange">second-order</span> conditions:</p>
+<ul>
+<li><p><strong>(E.1)</strong> <span class="math inline">\quad\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta)</span>;</p></li>
+<li><p><strong>(E.2)</strong> <span class="math inline">\quad\text{var}(Y_i) = \dfrac{\phi}{\omega_i}v(\mu_i)</span>, with <span class="math inline">\phi &gt; 0</span> <span class="orange">unknown</span>;</p></li>
+<li><p><strong>(E.3)</strong> <span class="math inline">\quad Y_i</span> and <span class="math inline">Y_j</span> are independent for <span class="math inline">i \neq j</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li><p>This is a <span class="blue">semiparametric</span> model: only the first two moments of <span class="math inline">Y_i</span> are specified.</p></li>
+<li><p>The estimate <span class="math inline">\hat{\beta}</span> is defined as the solution of the <span class="blue">estimating equations</span> <span class="math display">
+\sum_{i=1}^n \omega_i\frac{(y_i - \mu_i)}{v(\mu_i)}\frac{x_{ir}}{g'(\mu_i)} = 0, \qquad r=1,\dots,p,
+</span> which do not depend on <span class="math inline">\phi</span> and can be solved with the <span class="orange">IRLS</span> algorithm of <a href="un_B.html">Unit B</a>, <span class="orange">whatever</span> the choice of <span class="math inline">v(\cdot)</span>.</p></li>
+</ul>
+</section>
+<section id="variance-inflation" class="level2">
+<h2 class="anchored" data-anchor-id="variance-inflation">Variance inflation</h2>
+<ul>
+<li><p>For the <span class="grey">Gaussian</span> model, <strong>(E.2)</strong> is the usual homoscedasticity assumption, with <span class="math inline">\phi = \sigma^2</span>. The novelty concerns <span class="blue">counts</span> and <span class="blue">proportions</span>, for which the GLM imposes <span class="math inline">\phi = 1</span>.</p></li>
+<li><p>Keeping the variance function of a GLM, <strong>(E.2)</strong> <span class="orange">inflates</span> its variance by the factor <span class="math inline">\phi</span>. We have <span class="orange">overdispersion</span> if <span class="math inline">\phi &gt; 1</span> and <span class="blue">underdispersion</span> if <span class="math inline">\phi &lt; 1</span>, which is far less common.</p></li>
+<li><p>The two most common quasi-likelihood models are:</p>
+<ul>
+<li>the <span class="blue">quasi-Poisson</span> model, with <span class="math inline">\text{var}(Y_i) = \phi\,\mu_i</span>;</li>
+<li>the <span class="orange">quasi-binomial</span> model, with <span class="math inline">\text{var}(Y_i) = \phi\,\mu_i(1-\mu_i)/m_i</span>.</li>
+</ul></li>
+<li><p>In both cases the estimating equations are the likelihood equations of the Poisson or binomial GLM, hence <span class="math inline">\hat{\beta}</span> is the <span class="blue">maximum likelihood estimate</span> of the GLM.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>As noted in <a href="un_C.html">Unit C</a>, the quasi-binomial model makes sense only for <span class="orange">grouped</span> data. With binary data (<span class="math inline">m_i = 1</span>) we necessarily have <span class="math inline">\text{var}(Y_i) = \mu_i(1-\mu_i)</span>, hence <span class="math inline">\phi = 1</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="where-does-overdispersion-come-from" class="level2">
+<h2 class="anchored" data-anchor-id="where-does-overdispersion-come-from">Where does overdispersion come from?</h2>
+<ul>
+<li><p><span class="blue">Unobserved heterogeneity</span>. Units with the same covariates may differ because of unrecorded variables. If <span class="math inline">Y_i \mid U_i \sim \text{Poisson}(U_i\mu_i)</span>, with <span class="math inline">\mathbb{E}(U_i) = 1</span> and <span class="math inline">\text{var}(U_i) = \sigma^2</span>, then <span class="math display">
+\mathbb{E}(Y_i) = \mu_i, \qquad \text{var}(Y_i) = \mathbb{E}\{\text{var}(Y_i \mid U_i)\} + \text{var}\{\mathbb{E}(Y_i \mid U_i)\} = \mu_i + \sigma^2\mu_i^2.
+</span></p></li>
+<li><p><span class="orange">Correlated trials</span>. Let <span class="math inline">S_i = m_i Y_i = \sum_{j=1}^{m_i} Z_{ij}</span>, with <span class="math inline">Z_{ij} \sim \text{Bernoulli}(\mu_i)</span> having correlation <span class="math inline">\rho &gt; 0</span>, e.g.&nbsp;fetuses of the same litter. Then <span class="math display">
+\text{var}(Y_i) = \frac{\mu_i(1-\mu_i)}{m_i}\{1 + \rho(m_i - 1)\}.
+</span></p></li>
+<li><p>In both cases the inflation factor is <span class="orange">not constant</span>: variance inflation is only an <span class="blue">approximation</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Other variance functions are possible, e.g.&nbsp;<span class="math inline">v(\mu) = \mu^2</span> for counts, or <span class="math inline">v(\mu) = \mu^2(1-\mu)^2</span> for proportions <span class="citation" data-cites="Wedderburn1974">(<a href="#ref-Wedderburn1974" role="doc-biblioref">Wedderburn 1974</a>)</span>, which corresponds to <span class="orange">no likelihood</span>. A different <span class="math inline">v(\cdot)</span> also changes the estimate.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-quasi-score" class="level2">
+<h2 class="anchored" data-anchor-id="the-quasi-score">The quasi-score</h2>
+<ul>
+<li><p>The left-hand side of the estimating equations, divided by <span class="math inline">\phi</span>, is called <span class="blue">quasi-score</span>: <span class="math display">
+q_r(\beta) = \sum_{i=1}^n \frac{(Y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r}, \qquad r = 1,\dots,p.
+</span></p></li>
+<li><p>Under <strong>(E.1)</strong>-<strong>(E.3)</strong> alone, the quasi-score satisfies the <span class="orange">Bartlett identities</span> of a genuine score function, that is <span class="math inline">\mathbb{E}\{q_r(\beta)\} = 0</span> and <span class="math display">
+\mathbb{E}\{q_r(\beta)q_s(\beta)\} = -\mathbb{E}\left\{\frac{\partial q_r(\beta)}{\partial \beta_s}\right\} = \sum_{i=1}^n \frac{1}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r}\frac{\partial \mu_i}{\partial \beta_s} = [\bm{X}^T\bm{W}\bm{X}]_{rs},
+</span> where <span class="math inline">\bm{W} = \text{diag}(w_1,\dots,w_n)</span> are the weights of <a href="un_B.html">Unit B</a>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The quasi-score behaves like a genuine score, even though no distribution has been specified. This explains the name <span class="blue">quasi-likelihood</span>, and it is the key to the asymptotic results.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="properties-of-hatbeta" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-hatbeta">Properties of <span class="math inline">\hat{\beta}</span></h2>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Under the assumptions <strong>(E.1)</strong>-<strong>(E.3)</strong>, the estimator <span class="math inline">\hat{\beta}</span> is <span class="blue">consistent</span> and <span class="orange">asymptotically normal</span>: <span class="math display">
+\hat{\beta} \: \dot{\sim} \: \text{N}_p\left(\beta, (\bm{X}^T\bm{W}\bm{X})^{-1}\right), \qquad w_i = \frac{1}{\text{var}(Y_i)g'(\mu_i)^2} = \frac{1}{\phi}\frac{\omega_i}{v(\mu_i) g'(\mu_i)^2}.
+</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>This is <span class="orange">formally identical</span> to the result of <a href="un_B.html">Unit B</a>, but it now holds under much <span class="blue">weaker assumptions</span>.</p></li>
+<li><p>Does it make sense to talk about the <span class="blue">exact</span> distribution of <span class="math inline">\hat{\beta}</span>? <span class="orange">No</span>: it would require the distribution of <span class="math inline">Y_i</span>, which we deliberately left unspecified.</p></li>
+<li><p>Consistency only requires <strong>(E.1)</strong>: if the <span class="blue">mean</span> is correctly specified, <span class="math inline">\hat{\beta}</span> is consistent even when <span class="math inline">v(\mu_i)</span> is wrong. The <span class="orange">standard errors</span>, however, rely on <strong>(E.2)</strong>.</p></li>
+</ul>
+</section>
+<section id="estimation-of-phi-and-standard-errors" class="level2">
+<h2 class="anchored" data-anchor-id="estimation-of-phi-and-standard-errors">Estimation of <span class="math inline">\phi</span> and standard errors</h2>
+<ul>
+<li><p>The dispersion <span class="math inline">\phi</span> is estimated with the <span class="blue">method of moments</span> estimator of <a href="un_B.html">Unit B</a>, which is <span class="orange">consistent</span> under <strong>(E.1)</strong>-<strong>(E.3)</strong>: <span class="math display">
+\hat{\phi} = \frac{X^2}{n - p} = \frac{1}{n - p}\sum_{i=1}^n \omega_i \frac{(y_i - \hat{\mu}_i)^2}{v(\hat{\mu}_i)}.
+</span></p></li>
+<li><p>The standard errors are obtained from <span class="math inline">(\bm{X}^T\hat{\bm{W}}\bm{X})^{-1}</span>, plugging in <span class="math inline">\hat{\beta}</span> and <span class="math inline">\hat{\phi}</span>. The weights <span class="math inline">w_i</span> are <span class="orange">inversely proportional</span> to <span class="math inline">\phi</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Variance inflation in a nutshell
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When <span class="math inline">v(\cdot)</span> is the variance function of a GLM, as in the quasi-Poisson and quasi-binomial models:</p>
+<ol type="1">
+<li><p>Fit the <span class="blue">ordinary GLM</span> and keep its maximum likelihood estimate <span class="math inline">\hat{\beta}</span>.</p></li>
+<li><p>Multiply the <span class="orange">standard errors</span> of the GLM by <span class="math inline">\sqrt{\hat{\phi}}</span>, that is <span class="math inline">[\widehat{\text{se}}_\text{quasi}(\hat{\beta})]_j = \sqrt{\hat{\phi}}\,[\widehat{\text{se}}_\text{glm}(\hat{\beta})]_j</span>.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="the-quasi-log-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="the-quasi-log-likelihood">The quasi-log-likelihood</h2>
+<ul>
+<li><p>To compare nested models we need something like a log-likelihood. Under <strong>(E.1)</strong>-<strong>(E.3)</strong> we define the <span class="blue">quasi-log-likelihood</span> <span class="math display">
+\ell_Q(\beta, \phi) = \sum_{i=1}^n \int_{y_i}^{\mu_i} \frac{\omega_i(y_i - t)}{\phi\,v(t)}\,\mathrm{d}t, \qquad \mu_i = g^{-1}(\bm{x}_i^T\beta).
+</span></p></li>
+<li><p>Its derivatives are the <span class="orange">quasi-score</span> <span class="math inline">q_r(\beta)</span>. Indeed, if <span class="math inline">F(\cdot)</span> is a primitive of <span class="math inline">t \mapsto \omega_i(y_i - t)/\{\phi\,v(t)\}</span>, then <span class="math display">
+\frac{\partial}{\partial \beta_r}\{F(\mu_i) - F(y_i)\} = F'(\mu_i)\frac{\partial \mu_i}{\partial \beta_r} = \frac{(y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r}.
+</span></p></li>
+<li><p>In general <span class="math inline">\ell_Q(\beta, \phi)</span> is <span class="orange">not</span> a log-likelihood. However, in the Poisson case (<span class="math inline">\omega_i = 1</span>, <span class="math inline">v(t) = t</span>, <span class="math inline">\phi = 1</span>) we get <span class="math inline">\ell_Q(\beta, 1) = \sum_{i=1}^n(y_i \log{\mu_i} - \mu_i)</span>, up to constants, which is the <span class="blue">Poisson log-likelihood</span>.</p></li>
+</ul>
+</section>
+<section id="comparing-nested-models" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-nested-models">Comparing nested models</h2>
+<ul>
+<li><p>The quantity <span class="math inline">D(\bm{y}; \bm{\mu}) = -2\phi\,\ell_Q(\beta, \phi)</span> is called <span class="blue">quasi-deviance</span>. When <span class="math inline">v(\cdot)</span> is the variance function of a GLM, it coincides with the <span class="orange">deviance</span> of <a href="un_B.html">Unit B</a>, e.g.&nbsp;the Poisson or the binomial one.</p></li>
+<li><p>Let <span class="math inline">M_0 \subset M_1</span> be two <span class="grey">nested models</span>, with <span class="math inline">p_0</span> and <span class="math inline">p</span> parameters, and let <span class="math inline">q = p - p_0</span>. The <span class="blue">quasi-log-likelihood ratio</span> statistic is <span class="math display">
+W = 2[\ell_Q(\hat{\beta}, \hat{\phi}) - \ell_Q(\hat{\beta}_0, \hat{\phi})] = \frac{D(\bm{y}; \hat{\bm{\mu}}_0) - D(\bm{y}; \hat{\bm{\mu}})}{\hat{\phi}} \: \dot{\sim} \: \chi^2_q,
+</span> where <span class="math inline">\hat{\phi}</span> is estimated from the <span class="orange">larger</span> model.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><p>The (quasi-)deviances must <span class="orange">not</span> be used as goodness-of-fit statistics, since <span class="math inline">\phi</span> is unknown.</p></li>
+<li><p>There is no likelihood, therefore the <span class="orange">AIC</span> is <span class="orange">not available</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-ants-data-1" class="level1">
+<h1>The <code>Ants</code> data</h1>
+<section id="the-quasi-poisson-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-quasi-poisson-model">The quasi-Poisson model</h2>
+<ul>
+<li>With the same mean structure, we obtain <span class="math inline">\hat{\phi} =</span> 4.18: the standard errors are multiplied by <span class="math inline">\sqrt{\hat{\phi}} =</span> 2.04.</li>
+</ul>
+<div class="small-table">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 21%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">SE (Poisson)</th>
+<th style="text-align: right;">SE (quasi)</th>
+<th style="text-align: right;">p-value (Poisson)</th>
+<th style="text-align: right;">p-value (quasi)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.386</td>
+<td style="text-align: right;">0.075</td>
+<td style="text-align: right;">0.153</td>
+<td style="text-align: right;">&lt;0.001</td>
+<td style="text-align: right;">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bread2</td>
+<td style="text-align: right;">0.154</td>
+<td style="text-align: right;">0.061</td>
+<td style="text-align: right;">0.124</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">0.221</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bread3</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">0.063</td>
+<td style="text-align: right;">0.128</td>
+<td style="text-align: right;">0.684</td>
+<td style="text-align: right;">0.843</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bread4</td>
+<td style="text-align: right;">-0.030</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">0.130</td>
+<td style="text-align: right;">0.634</td>
+<td style="text-align: right;">0.817</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Filling2</td>
+<td style="text-align: right;">0.097</td>
+<td style="text-align: right;">0.088</td>
+<td style="text-align: right;">0.180</td>
+<td style="text-align: right;">0.272</td>
+<td style="text-align: right;">0.594</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Filling3</td>
+<td style="text-align: right;">0.468</td>
+<td style="text-align: right;">0.081</td>
+<td style="text-align: right;">0.166</td>
+<td style="text-align: right;">&lt;0.001</td>
+<td style="text-align: right;">0.008</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Butter1</td>
+<td style="text-align: right;">0.063</td>
+<td style="text-align: right;">0.089</td>
+<td style="text-align: right;">0.182</td>
+<td style="text-align: right;">0.478</td>
+<td style="text-align: right;">0.730</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Filling2:Butter1</td>
+<td style="text-align: right;">0.248</td>
+<td style="text-align: right;">0.119</td>
+<td style="text-align: right;">0.244</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">0.316</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Filling3:Butter1</td>
+<td style="text-align: right;">0.277</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">0.226</td>
+<td style="text-align: right;">0.012</td>
+<td style="text-align: right;">0.229</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>The <span class="blue">estimates</span> are identical. After the correction, only <code>Filling3</code> remains <span class="orange">significant</span>.</li>
+</ul>
+</section>
+<section id="model-simplification" class="level2">
+<h2 class="anchored" data-anchor-id="model-simplification">Model simplification</h2>
+<ul>
+<li>The larger standard errors suggest a <span class="blue">simpler</span> model. We remove one term at a time, using the quasi-log-likelihood ratio statistic <span class="math inline">W</span> and its <span class="math inline">\chi^2_q</span> approximation.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: left;">Removed term</th>
+<th style="text-align: right;">q</th>
+<th style="text-align: right;">W</th>
+<th style="text-align: right;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Full model</td>
+<td style="text-align: left;">Bread</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.581</td>
+<td style="text-align: right;">0.461</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Full model</td>
+<td style="text-align: left;">Filling:Butter</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.621</td>
+<td style="text-align: right;">0.445</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Without Bread</td>
+<td style="text-align: left;">Filling:Butter</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.614</td>
+<td style="text-align: right;">0.446</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>Neither <code>Bread</code> nor the <code>Filling</code>-<code>Butter</code> interaction is relevant, once overdispersion is accounted for.</p></li>
+<li><p>The final model only includes <code>Filling</code> and <code>Butter</code>, with <span class="math inline">p = 4</span> parameters.</p></li>
+</ul>
+</section>
+<section id="the-final-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-final-model">The final model</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">p-value</th>
+<th style="text-align: right;">exp(Estimate)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.318</td>
+<td style="text-align: right;">0.103</td>
+<td style="text-align: right;">&lt;0.001</td>
+<td style="text-align: right;">27.596</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Filling2</td>
+<td style="text-align: right;">0.233</td>
+<td style="text-align: right;">0.120</td>
+<td style="text-align: right;">0.059</td>
+<td style="text-align: right;">1.262</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Filling3</td>
+<td style="text-align: right;">0.621</td>
+<td style="text-align: right;">0.111</td>
+<td style="text-align: right;">&lt;0.001</td>
+<td style="text-align: right;">1.860</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Butter1</td>
+<td style="text-align: right;">0.263</td>
+<td style="text-align: right;">0.089</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">1.301</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>Under the logarithmic link, <span class="math inline">\exp(\beta_j)</span> is the <span class="blue">multiplicative change</span> of the mean number of ants (<a href="un_D.html">Unit D</a>). The estimated dispersion is <span class="math inline">\hat{\phi} =</span> 4.07.</p></li>
+<li><p>Compared to Vegemite, <span class="orange">ham and pickles</span> attract on average about 86% more ants, and peanut butter about 26% more (borderline significant).</p></li>
+<li><p>The presence of <span class="blue">butter</span> increases the mean number of ants by about 30%. The type of bread is irrelevant.</p></li>
+</ul>
+</section>
+<section id="confidence-and-prediction-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-and-prediction-intervals">Confidence and prediction intervals</h2>
+<ul>
+<li>Consider a sandwich with ham and pickles and butter, whose estimated mean is <span class="math inline">\hat{\mu}_\text{new} =</span> 66.8 ants. The <span class="math inline">95\%</span> intervals are:</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Lower</th>
+<th style="text-align: right;">Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Confidence interval for the mean</td>
+<td style="text-align: right;">57.5</td>
+<td style="text-align: right;">77.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Prediction interval (quasi-Poisson)</td>
+<td style="text-align: right;">34.5</td>
+<td style="text-align: right;">99.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Prediction interval (Poisson)</td>
+<td style="text-align: right;">51.0</td>
+<td style="text-align: right;">83.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>The <span class="blue">confidence interval</span> for <span class="math inline">\mu</span> is obtained on the linear predictor scale and then transformed.</p></li>
+<li><p>Without a distribution, the <span class="orange">prediction interval</span> relies on the approximation <span class="math inline">Y_\text{new} \: \dot{\sim} \: \text{N}(\hat{\mu}_\text{new}, \hat{\phi}\hat{\mu}_\text{new})</span>.</p></li>
+<li><p>The Poisson prediction interval, based on the Poisson quantiles, is <span class="orange">far too narrow</span>.</p></li>
+</ul>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><p>A <span class="blue">quasi-likelihood model</span> only specifies the mean <span class="math inline">g(\mu_i) = \bm{x}_i^T\beta</span> and the variance <span class="math inline">\text{var}(Y_i) = (\phi/\omega_i)v(\mu_i)</span> of independent responses.</p></li>
+<li><p>The estimate <span class="math inline">\hat{\beta}</span> solves the quasi-score equations via IRLS, and it is consistent and asymptotically normal under these weaker assumptions.</p></li>
+<li><p>The dispersion is estimated by <span class="math inline">\hat{\phi} = X^2/(n-p)</span>. In the quasi-Poisson and quasi-binomial models, <span class="math inline">\hat{\beta}</span> is the GLM estimate and <span class="orange">all</span> standard errors are multiplied by <span class="math inline">\sqrt{\hat{\phi}}</span>.</p></li>
+<li><p>Nested models are compared through the difference of deviances divided by <span class="math inline">\hat{\phi}</span>. The AIC is not available.</p></li>
+<li><p>In practice, overdispersion is <span class="orange">very common</span> with counts and grouped proportions. Ignoring it leads to <span class="orange">overconfident</span> conclusions, as in the <code>Ants</code> data.</p></li>
+</ul>
+</section>
+<section id="references" class="level2 unnumbered">
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Agresti2015" class="csl-entry" role="listitem">
+Agresti, A. (2015), <em><span class="nocase">Foundations of Linear and Generalized Linear Models</span></em>, Wiley.
+</div>
+<div id="ref-Salvan2020" class="csl-entry" role="listitem">
+Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati</em>, Springer.
+</div>
+<div id="ref-Wedderburn1974" class="csl-entry" role="listitem">
+Wedderburn, R. W. M. (1974), <span>“Quasi-likelihood functions, generalized linear models, and the gauss-newton method,”</span> <em>Biometrika</em>, 61, 439–447.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="un_E_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

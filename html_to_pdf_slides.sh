@@ -29,3 +29,9 @@ docker run --rm -t -v $(pwd):/slides ghcr.io/astefanutti/decktape \
   --progress \
   slides/un_D_slides.html \
   slides/un_D_slides.pdf
+  
+docker run --rm -t -v $(pwd):/slides ghcr.io/astefanutti/decktape \
+  reveal \
+  --progress \
+  slides/un_E_slides.html \
+  slides/un_E_slides.pdf

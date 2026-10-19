@@ -1,26 +1,49 @@
-set.seed(123)
-n_sim <- 2000
-x_sim <- rbinom(n_sim, size = 1, prob = 0.5) # binary covariate
-y_sim <- rpois(n_sim, lambda = exp(1 + 3 * x_sim)) # no overdispersion at all
-
-c(mean = mean(y_sim), variance = var(y_sim))
-
-ggplot(data.frame(y = y_sim, x = factor(x_sim)), aes(x = y, fill = x)) +
-  geom_histogram(binwidth = 2, position = "identity", alpha = 0.6) +
-  theme_light() +
-  scale_fill_tableau(palette = "Color Blind") +
-  xlab("y") +
-  ylab("Frequency") +
-  labs(fill = "x")
-
-m_sim <- glm(y_sim ~ x_sim, family = poisson)
-sum(residuals(m_sim, type = "pearson")^2) / m_sim$df.residual # phi_hat
-
+# Data preparation and all the fitted models used in this unit
 data(Ants)
 Ants$Bread <- as.factor(Ants$Bread)
 Ants$Filling <- as.factor(Ants$Filling)
 Ants$Butter <- as.factor(Ants$Butter)
-head(Ants[, 1:4], 6)
+
+pv <- function(p) ifelse(p < 0.001, "<0.001", sprintf("%.3f", p))
+
+# Poisson model
+m_pois <- glm(Ant_count ~ Bread + Filling * Butter, family = poisson, data = Ants)
+cf_pois <- summary(m_pois)$coefficients
+X2 <- sum(residuals(m_pois, type = "pearson")^2)
+X2_pvalue <- pchisq(X2, df = m_pois$df.residual, lower.tail = FALSE)
+
+# Quasi-Poisson model
+m_quasi <- glm(Ant_count ~ Bread + Filling * Butter,
+  family = quasi(link = "log", variance = "mu"), data = Ants
+)
+cf_quasi <- summary(m_quasi)$coefficients
+phi_hat <- summary(m_quasi)$dispersion
+
+# Model simplification
+d1 <- drop1(m_quasi, test = "Chisq")
+m_quasi1 <- update(m_quasi, . ~ . - Bread)
+d2 <- drop1(m_quasi1, test = "Chisq")
+
+# Final model
+m_final <- update(m_quasi1, . ~ . - Filling:Butter)
+cf_final <- summary(m_final)$coefficients
+phi_final <- summary(m_final)$dispersion
+rel_change <- round(100 * (exp(coef(m_final)) - 1))
+
+# Confidence and prediction intervals
+newdata <- data.frame(Filling = "3", Butter = "1")
+pred <- predict(m_final, newdata = newdata, type = "link", se.fit = TRUE)
+mu_new <- exp(pred$fit)
+ci_mean <- exp(pred$fit + c(-1, 1) * qnorm(0.975) * pred$se.fit)
+pi_quasi <- qnorm(c(0.025, 0.975), mean = mu_new, sd = sqrt(phi_final * mu_new))
+pi_pois <- qpois(c(0.025, 0.975), lambda = mu_new)
+
+# Simulated data without overdispersion
+set.seed(123)
+x_sim <- rbinom(2000, size = 1, prob = 0.5)
+y_sim <- rpois(2000, lambda = exp(1 + 3 * x_sim))
+m_sim <- glm(y_sim ~ x_sim, family = poisson)
+phi_sim <- sum(residuals(m_sim, type = "pearson")^2) / m_sim$df.residual
 
 par(mfrow = c(1, 3))
 boxplot(Ant_count ~ Bread, data = Ants, col = "grey85")
@@ -28,78 +51,46 @@ boxplot(Ant_count ~ Filling, data = Ants, col = "grey85")
 boxplot(Ant_count ~ Butter, data = Ants, col = "grey85")
 par(mfrow = c(1, 1))
 
-m_pois <- glm(Ant_count ~ Bread + Filling * Butter,
-  family = poisson, data = Ants
+knitr::kable(
+  data.frame(
+    Estimate = cf_pois[, 1], `Std. Error` = cf_pois[, 2], `p-value` = pv(cf_pois[, 4]),
+    check.names = FALSE
+  ),
+  digits = 3, align = "r"
 )
-summary(m_pois)
 
-X2 <- sum(residuals(m_pois, type = "pearson")^2)
-c(X2 = X2, df = m_pois$df.residual, pvalue = pchisq(X2, m_pois$df.residual, lower.tail = FALSE))
-
-phi_hat <- X2 / m_pois$df.residual
-phi_hat
-
-m_quasi <- glm(Ant_count ~ Bread + Filling * Butter,
-  family = quasi(link = "log", variance = "mu"), data = Ants
+knitr::kable(
+  data.frame(
+    Estimate = cf_quasi[, 1],
+    `SE (Poisson)` = cf_pois[, 2], `SE (quasi)` = cf_quasi[, 2],
+    `p-value (Poisson)` = pv(cf_pois[, 4]), `p-value (quasi)` = pv(cf_quasi[, 4]),
+    check.names = FALSE
+  ),
+  digits = 3, align = "r"
 )
-summary(m_quasi)
 
-# Point estimates are identical
-max(abs(coef(m_pois) - coef(m_quasi)))
-
-# Standard errors are inflated by the same factor
-se_ratio <- summary(m_quasi)$coefficients[, 2] / summary(m_pois)$coefficients[, 2]
-round(se_ratio, 4)
-sqrt(summary(m_quasi)$dispersion)
-
-# library(gee)
-# obs <- 1:nrow(Ants) # the gee function requires an id for each observation
-# summary(gee(Ant_count ~ Bread + Filling * Butter,
-#   id = obs, family = poisson, data = Ants, scale.fix = TRUE
-# ))
-
-drop1(m_quasi, test = "F")
-
-m_quasi1 <- update(m_quasi, . ~ . - Bread)
-drop1(m_quasi1, test = "F")
-
-m_quasi2 <- update(m_quasi1, . ~ . - Filling:Butter)
-summary(m_quasi2)
-
-newdata <- data.frame(Filling = "3", Butter = "1")
-pred <- predict(m_quasi2, newdata = newdata, type = "link", se.fit = TRUE)
-
-alpha <- 0.05
-z <- qnorm(1 - alpha / 2)
-mu_hat <- exp(pred$fit)
-phi_tilde <- summary(m_quasi2)$dispersion
-
-# Confidence interval for the mean mu
-ci_mean <- exp(c(pred$fit - z * pred$se.fit, pred$fit + z * pred$se.fit))
-
-# Approximate prediction interval for a new observation
-ci_pred <- qnorm(c(alpha / 2, 1 - alpha / 2), mean = mu_hat, sd = sqrt(phi_tilde * mu_hat))
-round(rbind(ci_mean, ci_pred), 2)
-
-data(Rats)
-head(Rats)
-
-# Mortality rate within each group
-with(Rats, tapply(s, group, sum) / tapply(n, group, sum))
-
-Rats$placebo <- ifelse(Rats$group == 1, 1, 0)
-
-m_bin <- glm(s / n ~ placebo + h, weights = n, family = binomial, data = Rats)
-summary(m_bin)
-
-X2_rats <- sum(residuals(m_bin, type = "pearson")^2)
-c(X2 = X2_rats, df = m_bin$df.residual)
-
-phi_rats <- X2_rats / m_bin$df.residual
-phi_rats
-
-m_bin_q <- glm(s / n ~ placebo + h,
-  weights = n, data = Rats,
-  family = quasi(link = "logit", variance = "mu(1-mu)")
+knitr::kable(
+  data.frame(
+    Model = c("Full model", "Full model", "Without Bread"),
+    `Removed term` = c("Bread", "Filling:Butter", "Filling:Butter"),
+    q = c(d1["Bread", "Df"], d1["Filling:Butter", "Df"], d2["Filling:Butter", "Df"]),
+    W = c(d1["Bread", "scaled dev."], d1["Filling:Butter", "scaled dev."], d2["Filling:Butter", "scaled dev."]),
+    `p-value` = pv(c(d1["Bread", "Pr(>Chi)"], d1["Filling:Butter", "Pr(>Chi)"], d2["Filling:Butter", "Pr(>Chi)"])),
+    check.names = FALSE
+  ),
+  digits = 3, align = "llrrr"
 )
-summary(m_bin_q)
+
+knitr::kable(
+  data.frame(
+    Estimate = cf_final[, 1], `Std. Error` = cf_final[, 2], `p-value` = pv(cf_final[, 4]),
+    `exp(Estimate)` = exp(cf_final[, 1]),
+    check.names = FALSE
+  ),
+  digits = 3, align = "r"
+)
+
+intervals <- rbind(ci_mean, pi_quasi, pi_pois)
+colnames(intervals) <- c("Lower", "Upper")
+rownames(intervals) <- c("Confidence interval for the mean", "Prediction interval (quasi-Poisson)", "Prediction interval (Poisson)")
+knitr::kable(intervals, digits = 1)
