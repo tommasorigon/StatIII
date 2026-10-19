@@ -81,7 +81,7 @@ Import the data and then:
 :::
 
 :::{.callout-note collapse=true}
-##### `Germination` dataset (continuation)
+#### `Germination` dataset (continuation)
 
 Reconsider the `Germination` dataset previously analyzed in [Exercises C](exe_C.html).
 
@@ -89,7 +89,7 @@ Evaluate the possible presence of [overdispersion]{.orange} and, if needed, acco
 :::
 
 :::{.callout-note collapse=true}
-##### `Heart` dataset (continuation)
+#### `Heart` dataset (continuation)
 
 Reconsider the `Heart` dataset previously analyzed in [Exercises C](exe_C.html).
 
@@ -119,3 +119,22 @@ Show that this is in the two-parameter exponential family and that the binomial 
 [Comment]{.blue}: Altham noted that overdispersion occurs when $\theta < 1$. Lindsey and Altham (1998) used this as the basis of an alternative model to the beta-binomial.
 :::
 
+:::{.callout-note collapse=true}
+#### Exercise C
+
+Consider the quasi-likelihood model of Unit E, which only assumes $\mathbb{E}(Y_i) = \mu_i = g^{-1}(\bm{x}_i^T\beta)$, $\text{var}(Y_i) = (\phi/\omega_i) v(\mu_i)$, and independence. Let
+$$
+q_r(\beta) = \sum_{i=1}^n \frac{(Y_i - \mu_i)}{\text{var}(Y_i)}\frac{\partial \mu_i}{\partial \beta_r}, \qquad r = 1,\dots,p,
+$$
+be the [quasi-score]{.blue} and let $\bm{q}(\beta) = (q_1(\beta), \dots, q_p(\beta))^T$.
+
+(a) Show that $\mathbb{E}\{\bm{q}(\beta)\} = \bm{0}$.
+
+(b) Show that $\mathbb{E}\{\bm{q}(\beta)\bm{q}(\beta)^T\} = \bm{X}^T\bm{W}\bm{X}$, where $\bm{W}$ are the GLM weights of Unit B, and that this matrix coincides with $-\mathbb{E}\{\partial \bm{q}(\beta)/\partial \beta^T\}$.
+
+(c) Let $S_i = m_i Y_i = \sum_{j=1}^{m_i} Z_{ij}$, where $Z_{ij} \sim \text{Bernoulli}(\mu_i)$ and any two trials of the same group have correlation $\rho > 0$. Show that
+$$
+\text{var}(Y_i) = \frac{\mu_i(1-\mu_i)}{m_i}\{1 + \rho(m_i - 1)\}.
+$$
+Is the variance inflation factor constant across observations? Comment on the use of a quasi-binomial model in this case.
+:::

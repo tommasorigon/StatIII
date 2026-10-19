@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Linear models and misspecification</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -51,10 +57,10 @@ div.csl-indent {
 <script src="un_A_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="un_A_files/libs/quarto-html/anchor.min.js"></script>
 <link href="un_A_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="un_A_files/libs/quarto-html/quarto-syntax-highlighting-2dd8675203c32411a5a6bac4cfca86ce.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="un_A_files/libs/quarto-html/quarto-syntax-highlighting-5968cd3d4e70e451b59e061e3897736e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="un_A_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="un_A_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="un_A_files/libs/bootstrap/bootstrap-f461a50d3c54b5bcd96bf8a6f9e0f9b8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="un_A_files/libs/bootstrap/bootstrap-e006d876f2dc96f3fc252bf0f10742a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -85,7 +91,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -326,7 +332,7 @@ f(x, z; \beta) = \beta_1 + \beta_2 x + \beta_3 x^2 + \beta_4 x^3 + \beta_5 I(z =
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Linear model
+<span class="screen-reader-only">Note</span>Linear model
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -374,7 +380,7 @@ D(\beta) = (\boldsymbol{y} - \boldsymbol{X}\beta)^T(\boldsymbol{y} - \boldsymbol
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Least squares estimate (OLS)
+<span class="screen-reader-only">Note</span>Least squares estimate (OLS)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -799,7 +805,7 @@ c_i = \frac{1}{p}(\hat{\beta} - \hat{\beta}_{-i})^T\widehat{\text{var}}(\hat{\be
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Classical assumptions of linear models
+<span class="screen-reader-only">Note</span>Classical assumptions of linear models
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -980,7 +986,7 @@ g(Y_i) = h_1(\boldsymbol{x}_i)\beta_1 + \cdots + h_p(\boldsymbol{x}_i)\beta_p + 
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Box-Cox transform
+<span class="screen-reader-only">Note</span>Box-Cox transform
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1213,13 +1219,14 @@ Salvan, A., Sartori, N., and Pace, L. (2020), <em>Modelli lineari generalizzati<
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

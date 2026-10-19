@@ -389,3 +389,38 @@ When selecting explanatory variables for a model, why is it inadequate to
 choose the model with the smallest deviance (or, for a linear model, the
 largest $R^2$)?
 :::
+
+:::{.callout-note collapse=true}
+#### Exercise I
+
+Consider $n = 3$ independent Poisson observations with covariate values $x = (0, 1, 2)$ and responses $y = (1, 2, 5)$, and the Poisson regression model $\log \mu_i = \beta_1 + \beta_2 x_i$.
+
+i. Write down the [weights]{.blue} $w_i$ and the [pseudo-responses]{.orange} $z_i$ of the IRLS algorithm for this model, as functions of the current value $\beta^{(t)}$.
+
+ii. Starting from $\beta^{(1)} = (0, 0)$, perform [one step]{.blue} of the IRLS algorithm by hand, obtaining $\beta^{(2)}$.
+
+iii. Check your answer in **R** using `glm(y ~ x, family = poisson, start = c(0, 0), control = glm.control(maxit = 1))`, and compare $\beta^{(2)}$ with the maximum likelihood estimate.
+
+iv. Now consider a [Gamma]{.blue} GLM with [logarithmic link]{.orange}, $\log \mu_i = \bm{x}_i^T\beta$. Derive the IRLS weights and pseudo-responses. Show that the weights do not depend on $\mu_i$, so that each IRLS step reduces to an ordinary least squares fit of the pseudo-responses on $\bm{X}$.
+:::
+
+:::{.callout-note collapse=true}
+#### Exercise J
+
+A Poisson regression model $\log \mu_i = \beta_1 + \beta_2 x_i$ is fitted to $n = 20$ observations. The output reports the following estimates and standard errors:
+
+| | Estimate | Std. Error |
+|:--|--:|--:|
+| `(Intercept)` | 0.412 | 0.215 |
+| `x` | 0.250 | 0.080 |
+
+Moreover, the null deviance is $34.20$ on $19$ degrees of freedom and the residual deviance is $24.61$ on $18$ degrees of freedom.
+
+i. Compute the Wald statistic $z$ and the associated p-value for $H_0: \beta_2 = 0$ against $H_1: \beta_2 \neq 0$.
+
+ii. Compute the log-likelihood ratio statistic for the same hypothesis using the two deviances. Specify its degrees of freedom and its p-value, and compare it with $z^2$.
+
+iii. Obtain a $95\%$ confidence interval for $\exp(\beta_2)$ in two ways: (a) using the delta method, and (b) transforming the extremes of the Wald interval for $\beta_2$. Interpret the result as a [percentage change]{.blue} of the mean.
+
+iv. Which of the two intervals of point iii. would you prefer, and why?
+:::

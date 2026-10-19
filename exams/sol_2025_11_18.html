@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Soluzione esame del 18 Novembre 2025</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -66,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="sol_2025_11_18_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="sol_2025_11_18_files/libs/quarto-html/anchor.min.js"></script>
 <link href="sol_2025_11_18_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="sol_2025_11_18_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="sol_2025_11_18_files/libs/quarto-html/quarto-syntax-highlighting-c915296437fc3289b1876e91952e1c63.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="sol_2025_11_18_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="sol_2025_11_18_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="sol_2025_11_18_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="sol_2025_11_18_files/libs/bootstrap/bootstrap-aac2af2466672defa16a04d85a034bea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -100,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -162,9 +168,9 @@ window.Quarto = {
 <section id="parte-i-analisi-dei-dati" class="level2">
 <h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(faraway)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">data</span>(beetle)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">head</span>(beetle, <span class="dv">4</span>) <span class="co"># Mostro le prime 4 osservazioni</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="fu">library</span>(faraway)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="fu">data</span>(beetle)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="fu">head</span>(beetle, <span class="dv">4</span>) <span class="co"># Mostro le prime 4 osservazioni</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  conc affected exposed
 1 24.8       23      30
@@ -174,14 +180,14 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Punto (a)</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>beetle<span class="sc">$</span>prop <span class="ot">&lt;-</span> beetle<span class="sc">$</span>affected <span class="sc">/</span> beetle<span class="sc">$</span>exposed <span class="co"># Proporzioni</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">"Concentrazione"</span>, <span class="at">ylab =</span> <span class="st">"Proporzione di decessi"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="co"># Punto (a)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>beetle<span class="sc">$</span>prop <span class="ot">&lt;-</span> beetle<span class="sc">$</span>affected <span class="sc">/</span> beetle<span class="sc">$</span>exposed <span class="co"># Proporzioni</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">"Concentrazione"</span>, <span class="at">ylab =</span> <span class="st">"Proporzione di decessi"</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Il grafico mostra una chiara dipendenza positiva tra la concentrazione di ossido di etilene e la proporzione di decessi. <strong>Nota</strong>: gli abbellimenti estetici, come ad esempio i nomi corretti negli assi o la creazione della nuova variabile prop, erano apprezzati ma non richiesti.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Punto (b)</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="co"># Punto (b)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>La scelta del GLM appropriato in questo caso era una regressione per dati <strong>binomiali</strong> per la variabile <code>affected</code> (<span class="math inline">S_i</span>), in cui <code>exposed</code> (<span class="math inline">m_i</span>) rappresenta il numero di tentativi e <code>conc</code> (<span class="math inline">x_i</span>) l’unica variabile esplicativa, per <span class="math inline">i = 1,\dots,10</span>. La variabile risposta <span class="math inline">Y_i</span> era pertanto pari alla proporzione <span class="math inline">Y_i = S_i / m_i</span>, la cui distribuzione è stata trattata a lezione.</p>
 <div class="callout callout-style-simple callout-warning no-icon">
@@ -195,8 +201,8 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Punto (b.i)</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="co"># Punto (b.i)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)        conc 
  -6.0104702   0.3412697 </code></pre>
@@ -206,34 +212,34 @@ window.Quarto = {
 \hat{\mathbb{E}}(Y_i) = \hat{\pi}_i = \frac{e^{-6.010 + 0.341 x_i}}{1 + e^{-6.010 + 0.341 x_i}}, \qquad i=1,\dots,10.
 </span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Punto (b.ii)</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)) <span class="co"># Modello nullo</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente conc. </span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="fu">summary</span>(m1) </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="co"># Punto (b.ii)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)) <span class="co"># Modello nullo</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-label="4"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-label="5"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-label="6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-label="7"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-label="8"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente conc. </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-label="9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-label="10"></a><span class="fu">summary</span>(m1) </span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono rispettivamente pari a: <span class="math inline">W_e = 67.522</span> (Wald) e <span class="math inline">W = 100.3 / \phi = 100.3</span> (log-rapporto di verosimiglianza), poichè <span class="math inline">\phi = 1</span> nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica test <code>z-value</code> presente nel <code>summary</code>, pari a <span class="math inline">8.217</span>, il cui quadrato coincide con <span class="math inline">W_e</span> a meno di piccole discrepanze numeriche.</p>
 <p>Come riportato nelle tabelle, i gradi di liberà di entrambi i test è <span class="math inline">q = 1</span>, perché è uno solo il parametro vincolato nel sistema d’ipotesi. Quest’ultimo è infatti pari a <span class="math inline">H_0: \beta_2 = 0</span> e <span class="math inline">H_1: \beta_2 \neq 0</span>.</p>
 <p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span> e <span class="math inline">W</span> e la loro distribuzione asintotica sotto <span class="math inline">H_0</span>, si ottiene in entrambi i casi un <em>p-value</em> quasi pari a <span class="math inline">0</span>. In altri termini, si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = 0</span>. Questo significa che la probabilità di decesso varia con la concentrazione di etilene (<code>conc</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Punto (c)</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">length =</span> <span class="dv">200</span>))</span>
-<span id="cb8-3"><a href="#cb8-3"></a>pred_m1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">"Concentrazione"</span>, <span class="at">ylab =</span> <span class="st">"Proporzione di decessi"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">lines</span>(newdata<span class="sc">$</span>conc, pred_m1)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Vi erano innumerevoli sintassi equivalenti per produrre lo stesso risultato. Ecco un'alternativa:</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> x), <span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">ylab =</span> <span class="st">"Estimated probability"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">points</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="co"># Punto (c)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">length =</span> <span class="dv">200</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>pred_m1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-label="4"></a><span class="fu">plot</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">"Concentrazione"</span>, <span class="at">ylab =</span> <span class="st">"Proporzione di decessi"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-label="5"></a><span class="fu">lines</span>(newdata<span class="sc">$</span>conc, pred_m1)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="co"># Vi erano innumerevoli sintassi equivalenti per produrre lo stesso risultato. Ecco un'alternativa:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> x), <span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">25</span>, <span class="at">ylab =</span> <span class="st">"Estimated probability"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-label="3"></a><span class="fu">points</span>(beetle<span class="sc">$</span>conc, beetle<span class="sc">$</span>prop, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Le probabilità previste dal modello sono compatibili con l’andamento medio dei dati, anche se si osserva una variabilità eccessiva rispetto alle aspettative. Questo è un primo segnale, informale, della possibile presenza di sovradispersione.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Punto (d)</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">cooks.distance</span>(m1) <span class="co"># Valori influenti (leva + anomali)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="co"># Punto (d)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a><span class="fu">cooks.distance</span>(m1) <span class="co"># Valori influenti (leva + anomali)</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         1          2          3          4          5          6          7 
 1.50778167 0.43184011 0.22981702 0.01590161 0.30091250 0.87479492 0.03666182 
@@ -255,8 +261,8 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Punto (e)</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>])</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="co"># Punto (e)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-label="2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>])</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    conc 
 1.406733 </code></pre>
@@ -264,40 +270,40 @@ window.Quarto = {
 </div>
 <p>Il valore <span class="math inline">\exp(\hat{\beta}_2) = 1.4067</span> si può interpretare come rapporto tra quote (<em>odds ratio</em>) relativo all’aumento unitario della concentrazione di etilene. Tale rapporto è maggiore di <span class="math inline">1</span> e abbastanza elevato, ad indicare un marcato aumento della probabilità di decesso al crescere della variabile <code>conc</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Punto (f)</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>new15 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="dv">15</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Probabilità prevista: 0.2908159 </span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="co"># Punto (f)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>new15 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">conc =</span> <span class="dv">15</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-label="3"></a><span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Probabilità prevista: 0.2908159 </span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Poichè il testo non lo specificava, per gli intervalli di confidenza c’erano due possibili soluzioni, entrambe corrette:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>fit15 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb15-3"><a href="#cb15-3"></a>fit15<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-label="2"></a>fit15 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb15-3"><a href="#cb15-3" aria-label="3"></a>fit15<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15<span class="sc">$</span>se.fit</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2086652 0.3729667</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>fit15_lin <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">plogis</span>(fit15_lin<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>fit15_lin <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-label="3"></a><span class="fu">plogis</span>(fit15_lin<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin<span class="sc">$</span>se.fit)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2158957 0.3791630</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Punto (g)</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m1, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb19-3"><a href="#cb19-3"></a>X2 <span class="co"># Statistica X2 di Pearson</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(X2, m1<span class="sc">$</span>df.residual) <span class="co"># p-value test bontà d'adattamento.</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>X2 <span class="sc">/</span> m1<span class="sc">$</span>df.residual <span class="co"># Stima del parametro di dispersione</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a><span class="co"># Punto (g)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">residuals</span>(m1, <span class="at">type =</span> <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-label="3"></a>X2 <span class="co"># Statistica X2 di Pearson</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-label="4"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(X2, m1<span class="sc">$</span>df.residual) <span class="co"># p-value test bontà d'adattamento.</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-label="5"></a>X2 <span class="sc">/</span> m1<span class="sc">$</span>df.residual <span class="co"># Stima del parametro di dispersione</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>È presente sovradispersione. Il valore di <span class="math inline">X^2 = 35.456</span> è elevato e al di fuori dei valori tipici, come confermato dal <em>p-value</em> associato, praticamente pari a <span class="math inline">0</span>. Si ottiene inoltre che <span class="math inline">\hat{\phi} = X^2 / (n - p) = 4.432</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>mquasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">quasibinomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">summary</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>mquasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="fu">cbind</span>(affected, exposed <span class="sc">-</span> affected) <span class="sc">~</span> conc, <span class="at">data =</span> beetle, <span class="at">family =</span> <span class="fu">quasibinomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-label="2"></a><span class="fu">summary</span>(mquasi)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Lo stimatore di quasi-verosimiglianza produce le medesime stime per <span class="math inline">\beta</span> ottenute in precedenza, ma corregge gli errori standard. Fortunatamente, questo non altera le conclusioni inferenziali a cui eravamo giunti allo step (b). Tuttavia, si noti che le osservazioni che in precedenza erano state registrate come “anomale” ed “influenti”, rientrano nella norma una volta che si tiene conto della sovradispersione:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">cooks.distance</span>(mquasi)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="fu">cooks.distance</span>(mquasi)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          1           2           3           4           5           6 
 0.340202840 0.097436676 0.051853929 0.003587901 0.067895298 0.197381176 
@@ -307,17 +313,17 @@ window.Quarto = {
 </div>
 <p>Non si trattava quindi di osservazioni influenti o anomale, bensì probabilmente di un modello non correttamente specificato.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Punto (h)</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>fit15_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb23-5"><a href="#cb23-5"></a>fit15_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_quasi<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="co"># Punto (h)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-label="2"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-label="3"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-label="4"></a>fit15_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb23-5"><a href="#cb23-5" aria-label="5"></a>fit15_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_quasi<span class="sc">$</span>se.fit</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1178694 0.4637624</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>fit15_lin_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="fu">plogis</span>(fit15_lin_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin_quasi<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>fit15_lin_quasi <span class="ot">&lt;-</span> <span class="fu">predict</span>(mquasi, <span class="at">newdata =</span> new15, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb25-3"><a href="#cb25-3" aria-label="3"></a><span class="fu">plogis</span>(fit15_lin_quasi<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit15_lin_quasi<span class="sc">$</span>se.fit)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1505894 0.4867872</code></pre>
 </div>
@@ -379,13 +385,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

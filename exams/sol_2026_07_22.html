@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Soluzione esame del 22 Luglio 2026</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -66,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="sol_2026_07_22_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="sol_2026_07_22_files/libs/quarto-html/anchor.min.js"></script>
 <link href="sol_2026_07_22_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="sol_2026_07_22_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="sol_2026_07_22_files/libs/quarto-html/quarto-syntax-highlighting-c915296437fc3289b1876e91952e1c63.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="sol_2026_07_22_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="sol_2026_07_22_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="sol_2026_07_22_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="sol_2026_07_22_files/libs/bootstrap/bootstrap-aac2af2466672defa16a04d85a034bea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -100,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -164,11 +170,11 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
 <p>Anzitutto, era necessario caricare in memoria il dataset ed escludere Panama (<code>PAN</code>) dal dataset, come indicato nel testo del problema.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Operazioni preliminari</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb1-3"><a href="#cb1-3"></a>worldcup <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/worldcup.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>worldcup <span class="ot">&lt;-</span> worldcup[worldcup<span class="sc">$</span>attack_team <span class="sc">!=</span> <span class="st">"PAN"</span>, ]</span>
-<span id="cb1-5"><a href="#cb1-5"></a>worldcup <span class="ot">&lt;-</span> worldcup[worldcup<span class="sc">$</span>defense_team <span class="sc">!=</span> <span class="st">"PAN"</span>, ]</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="co"># Operazioni preliminari</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>worldcup <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/worldcup.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>worldcup <span class="ot">&lt;-</span> worldcup[worldcup<span class="sc">$</span>attack_team <span class="sc">!=</span> <span class="st">"PAN"</span>, ]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a>worldcup <span class="ot">&lt;-</span> worldcup[worldcup<span class="sc">$</span>defense_team <span class="sc">!=</span> <span class="st">"PAN"</span>, ]</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- (a) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `goals` e come variabili esplicative `attack_ranking` e `defense_ranking`. Si indichi tale modello con `m1`. Si riportino: -->
 <!--     i. la componente casuale, la componente sistematica e la funzione legame del modello; -->
@@ -177,9 +183,9 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 </span> in cui la funzione legame è <span class="math inline">g(\cdot) = \log(\cdot)</span>, il legame canonico.</p>
 <!--     ii. l'equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza; -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Punto (a.ii)</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(goals <span class="sc">~</span> attack_ranking <span class="sc">+</span> defense_ranking, <span class="at">data =</span> worldcup, <span class="at">family =</span> poisson)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="co"># Punto (a.ii)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(goals <span class="sc">~</span> attack_ranking <span class="sc">+</span> defense_ranking, <span class="at">data =</span> worldcup, <span class="at">family =</span> poisson)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    (Intercept)  attack_ranking defense_ranking 
      0.41453134     -0.01526069      0.01132467 </code></pre>
@@ -190,25 +196,25 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 </span> dove <span class="math inline">x_{i1}</span> rappresenta la <span class="math inline">i</span>-esima osservazione di <code>attack_ranking</code> e <span class="math inline">x_{i2}</span> la <span class="math inline">i</span>-esima osservazione di <code>defense_ranking</code>.</p>
 <!--     iii. il valore delle statistiche test e i *p-value* dei test di Wald, test di Rao (score) e di log-rapporto di verosimiglianza per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test; -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Punto (a.iii)</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(goals <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> worldcup, <span class="at">family =</span> poisson)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"Rao"</span>) <span class="co"># Test di Rao</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="co"># Punto (a.iii)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(goals <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> worldcup, <span class="at">family =</span> poisson)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-label="4"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-label="5"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"Rao"</span>) <span class="co"># Test di Rao</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-label="6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I valori delle statistiche test per i test di Wald, Rao e log-rapporto di verosimiglianza sono rispettivamente pari a <span class="math inline">W_e = 55.205</span> (Wald), <span class="math inline">W_u = 57.207</span> (Rao/score) e <span class="math inline">W = 58.728 / \phi = 58.728</span> (log-rapporto di verosimiglianza), poiché <span class="math inline">\phi = 1</span> nel modello di Poisson.</p>
 <p>Come riportato nelle tabelle, i gradi di libertà (<code>Df</code>) di tutti i test sono <span class="math inline">q = 2</span>, perché sono appunto due i parametri coinvolti nel sistema d’ipotesi. Quest’ultimo è infatti pari a <span class="math inline">H_0: \beta_2 = \beta_3 = 0</span> contro <span class="math inline">H_1: \beta_2 \neq 0 \;\text{oppure}\; \beta_3 \neq 0</span>.</p>
 <p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span>, <span class="math inline">W_u</span> e <span class="math inline">W</span> e la loro distribuzione asintotica <span class="math inline">\chi^2_2</span> sotto <span class="math inline">H_0</span>, si ottiene in tutti e tre i casi un <em>p-value</em> prossimo a <span class="math inline">0</span>. In altri termini, si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = \beta_3 = 0</span>.</p>
 <!--     iv. si discuta in che modo il ranking della squadra in attacco (`attack_ranking`) e il ranking della squadra in difesa (`defense_ranking`) influenzano il numero medio di gol. Si quantifichi in particolare la variazione percentuale del numero medio di gol associata a un peggioramento di $10$ posizioni nel ranking della squadra attaccante. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Punto (a.iv)</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="dv">100</span> <span class="sc">*</span> (<span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="sc">-</span><span class="dv">1</span>]) <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Variazione percentuale del numero medio di gol al variare unitario delle covariate</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="co"># Punto (a.iv)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a><span class="dv">100</span> <span class="sc">*</span> (<span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="sc">-</span><span class="dv">1</span>]) <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Variazione percentuale del numero medio di gol al variare unitario delle covariate</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> attack_ranking defense_ranking 
       -1.514483        1.138904 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="dv">100</span> <span class="sc">*</span> (<span class="fu">exp</span>(<span class="dv">10</span> <span class="sc">*</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>]) <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Peggioramento di 10 posizioni nel ranking d'attacco</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="dv">100</span> <span class="sc">*</span> (<span class="fu">exp</span>(<span class="dv">10</span> <span class="sc">*</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>]) <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Peggioramento di 10 posizioni nel ranking d'attacco</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>attack_ranking 
      -14.15329 </code></pre>
@@ -230,9 +236,9 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 <!-- gli effetti specifici di squadra, ossia `goals ~ attack_team + defense_team`. -->
 <!-- Si riportino: -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Punto (b.i)</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(goals <span class="sc">~</span> attack_team <span class="sc">+</span> defense_team, <span class="at">data =</span> worldcup, <span class="at">family =</span> poisson)</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">summary</span>(m2)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="co"># Punto (b.i)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(goals <span class="sc">~</span> attack_team <span class="sc">+</span> defense_team, <span class="at">data =</span> worldcup, <span class="at">family =</span> poisson)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-label="3"></a><span class="fu">summary</span>(m2)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!--     i. l'interpretazione del coefficiente $\beta_j$ associato a `attack_team` per la $j$-esima squadra ed il coefficiente $\gamma_j$ associato a `defense_team` per la $j$-esima squadra, in cui $\beta_1 = \gamma_1 = 0$, per $j = 1,\dots, J$; -->
 <p>Il numero medio di gol segnati dalla squadra <span class="math inline">j</span> contro la squadra <span class="math inline">k</span> è <span class="math display">
@@ -247,15 +253,15 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Di conseguenza, i valori <span class="math inline">100 \times (e^{\beta_j} - 1)</span> e <span class="math inline">100 \times (e^{\gamma_j} - 1)</span> corrispondono alla variazione percentuale del numero medio di gol rispettivamente fatti e subiti rispetto all’Algeria. Ad esempio, nel caso dell’Argentina si ha <span class="math inline">100 \times (e^{\hat{\beta}_2} - 1) = 106.2\%</span>, cioè il numero medio di gol segnati è circa il doppio di quello dell’Algeria, a parità di squadra avversaria.</p>
 </div></div><div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Punto (b.ii)</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>betas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">coef</span>(m2)[<span class="dv">2</span><span class="sc">:</span><span class="dv">47</span>]) <span class="co"># Coefficienti relativi all'attacco</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>gammas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">coef</span>(m2)[<span class="dv">48</span><span class="sc">:</span><span class="dv">93</span>]) <span class="co"># Coefficienti relativi alla difesa</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">head</span>(<span class="fu">sort</span>(betas, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="co"># Punto (b.ii)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>betas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">coef</span>(m2)[<span class="dv">2</span><span class="sc">:</span><span class="dv">47</span>]) <span class="co"># Coefficienti relativi all'attacco</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-label="3"></a>gammas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">coef</span>(m2)[<span class="dv">48</span><span class="sc">:</span><span class="dv">93</span>]) <span class="co"># Coefficienti relativi alla difesa</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-label="4"></a><span class="fu">head</span>(<span class="fu">sort</span>(betas, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>attack_teamENG attack_teamCRO attack_teamARG 
      1.0391880      0.8976291      0.7236469 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(gammas), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="fu">head</span>(<span class="fu">sort</span>(gammas), <span class="dv">3</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>defense_teamESP defense_teamCOL defense_teamPOR 
       -3.021837       -2.124181       -1.432772 </code></pre>
@@ -263,9 +269,9 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 </div>
 <p>Le tre squadre con il <span class="blue">migliore attacco</span> sono quelle con i valori più elevati di <span class="math inline">\hat{\beta}_j</span>, ossia Inghilterra, Croazia e Argentina (<code>ENG</code>, <code>CRO</code> ed <code>ARG</code>); le tre con la <span class="orange">migliore difesa</span> sono quelle con i valori più bassi di <span class="math inline">\hat{\gamma}_j</span>, ossia Spagna, Colombia e Portogallo (<code>ESP</code>, <code>COL</code>, <code>POR</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Punto (b.iii)</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>deltas <span class="ot">&lt;-</span> betas <span class="sc">-</span> gammas</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">head</span>(<span class="fu">sort</span>(deltas, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="co"># Punto (b.iii)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>deltas <span class="ot">&lt;-</span> betas <span class="sc">-</span> gammas</span>
+<span id="cb14-3"><a href="#cb14-3" aria-label="3"></a><span class="fu">head</span>(<span class="fu">sort</span>(deltas, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>attack_teamESP attack_teamCOL attack_teamARG 
       3.607251       1.859500       1.788582 </code></pre>
@@ -283,7 +289,7 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 \frac{\mu_{jk}}{\mu_{kj}} = \exp\left\{\alpha + \beta_j + \gamma_k - (\alpha + \beta_k + \gamma_j)\right\} = \exp\left\{(\beta_j - \gamma_j) - (\beta_k - \gamma_k)\right\} = \exp(\delta_j - \delta_k).
 </span> I valori <span class="math inline">\delta_j</span> inducono dunque una graduatoria delle squadre e dipendono dalla squadra di riferimento (l’Algeria, <code>ALG</code>), per cui <span class="math inline">\delta_1 = 0</span>. In altri termini, i singoli <span class="math inline">e^{\delta_j}</span> rappresentano il rapporto atteso tra gol fatti e subiti della squadra <span class="math inline">j</span> in una partita <span class="orange">contro l’Algeria</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(<span class="fu">exp</span>(deltas), <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a><span class="fu">head</span>(<span class="fu">sort</span>(<span class="fu">exp</span>(deltas), <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>attack_teamESP attack_teamCOL attack_teamARG 
      36.864568       6.420526       5.980966 </code></pre>
@@ -295,10 +301,10 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 <p>Le tre squadre con il maggior valore di <span class="math inline">\hat{\delta}_j</span> sono Spagna, Colombia e Argentina (<code>ESP</code>, <code>COL</code> e <code>ARG</code>), i cui ranking FIFA pre-torneo sono rispettivamente <code>2</code>, <code>13</code> e <code>1</code>. La graduatoria è dunque solo parzialmente coerente con il ranking FIFA, soprattutto per la presenza della Colombia. Tale discrepanza non è sorprendente: ciascuna squadra disputa pochissime partite, per cui le stime <span class="math inline">\hat{\beta}_j</span> e <span class="math inline">\hat{\gamma}_j</span> sono affette da un’elevata variabilità e la graduatoria basata su <span class="math inline">\hat{\delta}_j</span> è poco stabile.</p>
 <!-- (c) Si giustifichi il fatto che il modello `m1` sia annidato nel modello `m2`, nonostante le variabili esplicative siano formalmente diverse. Si confrontino quindi i due modelli mediante un test di log-rapporto di verosimiglianza, riportando il sistema di ipotesi, il valore della statistica test, i gradi di libertà e la conclusione. Si confrontino inoltre i due modelli mediante AIC e BIC e si commentino eventuali discordanze. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Punto (c)</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">anova</span>(m1, m2, <span class="at">test =</span> <span class="st">"LRT"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">c</span>(<span class="fu">AIC</span>(m1), <span class="fu">AIC</span>(m2))</span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="fu">c</span>(<span class="fu">BIC</span>(m1), <span class="fu">BIC</span>(m2))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a><span class="co"># Punto (c)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-label="2"></a><span class="fu">anova</span>(m1, m2, <span class="at">test =</span> <span class="st">"LRT"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-label="3"></a><span class="fu">c</span>(<span class="fu">AIC</span>(m1), <span class="fu">AIC</span>(m2))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-label="4"></a><span class="fu">c</span>(<span class="fu">BIC</span>(m1), <span class="fu">BIC</span>(m2))</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Le variabili <code>attack_ranking</code> e <code>defense_ranking</code> sono costanti all’interno di ciascuna squadra: il ranking è infatti un attributo della squadra e non della singola partita. Di conseguenza, il ranking è ottenibile come combinazione lineare delle variabili indicatrici di squadra. Il modello <code>m1</code> è pertanto un sottomodello di <code>m2</code>.</p>
 <p>Il sistema d’ipotesi del test di log-rapporto di verosimiglianza è dunque <span class="math inline">H_0</span>: valgono i vincoli di linearità nel ranking (modello <code>m1</code>) contro <span class="math inline">H_1</span>: almeno uno di essi non è soddisfatto (modello <code>m2</code>). La statistica test coincide con la differenza tra le devianze residue dei due modelli, cioè <span class="math inline">W = 227.33 - 113.43 = 113.90</span>, con <span class="math inline">q = 199 - 109 = 90</span> gradi di libertà. Sotto <span class="math inline">H_0</span> si ha <span class="math inline">W \;\dot\sim\; \chi^2_{90}</span>, da cui un <em>p-value</em> pari a <span class="math inline">0.0452</span>: al livello di significatività del <span class="math inline">5\%</span> si rigetta l’ipotesi nulla, mentre al livello dell’<span class="math inline">1\%</span> non la si rigetta. L’evidenza contro <code>m1</code> è debole.</p>
@@ -309,18 +315,18 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Il modello <code>m2</code> risulterebbe probabilmente preferibile disponendo di un numero maggiore di dati, ad esempio quelli relativi alle qualificazioni del torneo.</p>
 </div></div><div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Punto (d.i)</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>sfida <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="at">attack_team =</span> <span class="fu">c</span>(<span class="st">"FRA"</span>, <span class="st">"ARG"</span>), <span class="at">defense_team =</span> <span class="fu">c</span>(<span class="st">"ARG"</span>, <span class="st">"FRA"</span>),</span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="at">attack_ranking =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">defense_ranking =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span>
-<span id="cb19-5"><a href="#cb19-5"></a>)</span>
-<span id="cb19-6"><a href="#cb19-6"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> sfida, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Modello m1</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2, <span class="at">newdata =</span> sfida, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Modello m2</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a><span class="co"># Punto (d.i)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>sfida <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-label="3"></a>  <span class="at">attack_team =</span> <span class="fu">c</span>(<span class="st">"FRA"</span>, <span class="st">"ARG"</span>), <span class="at">defense_team =</span> <span class="fu">c</span>(<span class="st">"ARG"</span>, <span class="st">"FRA"</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-label="4"></a>  <span class="at">attack_ranking =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">defense_ranking =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-label="5"></a>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-label="6"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> sfida, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Modello m1</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-label="7"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2, <span class="at">newdata =</span> sfida, <span class="at">type =</span> <span class="st">"response"</span>) <span class="co"># Modello m2</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Il modello <code>m1</code> prevede <span class="math inline">\hat{\mu}_{\text{FRA}, \text{ARG}} = 1.46</span> gol per la Francia e <span class="math inline">\hat{\mu}_{\text{ARG}, \text{FRA}} = 1.54</span> per l’Argentina, mentre il modello <code>m2</code> prevede rispettivamente <span class="math inline">1.16</span> e <span class="math inline">1.90</span>. Le previsioni di <code>m1</code> sono quasi identiche tra loro, perché le due squadre occupano posizioni contigue nel ranking (<code>3</code> e <code>1</code>) e nel modello <code>m1</code>. Il modello <code>m2</code> invece attribuisce a ciascuna squadra effetti offensivi e difensivi liberi, stimati sui gol effettivamente segnati e subiti nel torneo. Alla luce del punto (c), tuttavia, tali previsioni sono assai più variabili, essendo basate su pochissime partite per squadra.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Punto (d.ii)</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">c</span>(<span class="fu">qpois</span>(<span class="fl">0.025</span>, fit1[<span class="dv">1</span>]), <span class="fu">qpois</span>(<span class="fl">0.975</span>, fit1[<span class="dv">1</span>]))</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a><span class="co"># Punto (d.ii)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-label="2"></a><span class="fu">c</span>(<span class="fu">qpois</span>(<span class="fl">0.025</span>, fit1[<span class="dv">1</span>]), <span class="fu">qpois</span>(<span class="fl">0.975</span>, fit1[<span class="dv">1</span>]))</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 4</code></pre>
 </div>
@@ -387,13 +393,14 @@ Y_i \overset{\text{ind}}{\sim} \text{Poisson}(\mu_i), \quad (\text{componente ca
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

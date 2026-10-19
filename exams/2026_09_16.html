@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Esame del 16 Settembre 2026</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -66,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="2026_09_16_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="2026_09_16_files/libs/quarto-html/anchor.min.js"></script>
 <link href="2026_09_16_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="2026_09_16_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="2026_09_16_files/libs/quarto-html/quarto-syntax-highlighting-c915296437fc3289b1876e91952e1c63.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="2026_09_16_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="2026_09_16_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="2026_09_16_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="2026_09_16_files/libs/bootstrap/bootstrap-aac2af2466672defa16a04d85a034bea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -100,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -171,9 +177,9 @@ window.Quarto = {
 </ul>
 <p>Prima di procedere con le analisi, si eseguano i comandi seguenti, che creano la variabile binaria <code>survived</code>, pari a <span class="math inline">1</span> se la persona è sopravvissuta e <span class="math inline">0</span> altrimenti:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(Sleuth3)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>donner <span class="ot">&lt;-</span> case2001</span>
-<span id="cb1-3"><a href="#cb1-3"></a>donner<span class="sc">$</span>survived <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(donner<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"Survived"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="fu">library</span>(Sleuth3)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>donner <span class="ot">&lt;-</span> case2001</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>donner<span class="sc">$</span>survived <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(donner<span class="sc">$</span>Status <span class="sc">==</span> <span class="st">"Survived"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Facendo uso del software <strong>R</strong>, si risponda alle seguenti domande.</p>
 <ol type="a">
@@ -278,13 +284,14 @@ y^{(\lambda)} = \begin{cases} \displaystyle\frac{y^{\lambda} - 1}{\lambda}, &amp
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

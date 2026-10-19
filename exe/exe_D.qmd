@@ -122,7 +122,7 @@ Import the data and then:
 
 
 :::{.callout-note collapse=true}
-### `Homicide` dataset - Partial solution: [`Homicide.R`](../code/Homicide.R)
+#### `Homicide` dataset - Partial solution: [`Homicide.R`](../code/Homicide.R)
 
 The data contained in the data frame `Homicide`, available in the `MLGdata` R package, report the responses of $n = 1308$ individuals in the United States to the question:
 
@@ -159,3 +159,16 @@ Show that $Y_i$'s are iid with mean $\mathbb{E}(Y_i)=\mu$ and variance $\mathrm{
 
 :::
 
+:::{.callout-note collapse=true}
+#### Exercise B
+
+Let $Y_i$ follow a [zero-inflated Poisson]{.blue} (ZIP) distribution: $Y_i = 0$ with probability $\pi_i$, and $Y_i \sim \text{Poisson}(\mu_i)$ with probability $1 - \pi_i$, where $\pi_i \in (0, 1)$ and $\mu_i > 0$.
+
+(a) Obtain $\mathbb{P}(Y_i = 0)$ and compare it with the probability of a zero under a $\text{Poisson}(\mu_i)$ distribution.
+
+(b) Show that $\mathbb{E}(Y_i) = (1 - \pi_i)\mu_i$ and $\text{var}(Y_i) = (1 - \pi_i)\mu_i(1 + \pi_i\mu_i)$.
+
+(c) Conclude that the ZIP distribution is [overdispersed]{.orange}, i.e. $\text{var}(Y_i) > \mathbb{E}(Y_i)$, even though the non-zero component is Poisson.
+
+(d) Suppose now that $Y_i \sim \text{Poisson}(\mu_i)$ is a count observed over an exposure $t_i > 0$. Write a Poisson regression model with logarithmic link for the [rate]{.blue} $\mu_i / t_i$, showing that it leads to an [offset]{.orange} $\log t_i$ in the linear predictor. Interpret $\exp(\beta_j)$.
+:::

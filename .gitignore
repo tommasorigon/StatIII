@@ -8,3 +8,6 @@ exams/esiti.numbers
 .DS_Store
 CLAUDE.md
 .DS_Store
+
+/.quarto/
+**/*.quarto_ipynb

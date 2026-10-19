@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Soluzione esame del 10 Febbraio 2026</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -66,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="sol_2026_02_10_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="sol_2026_02_10_files/libs/quarto-html/anchor.min.js"></script>
 <link href="sol_2026_02_10_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="sol_2026_02_10_files/libs/quarto-html/quarto-syntax-highlighting-92eaa9f3cac64f6982a8a06e2ba947a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="sol_2026_02_10_files/libs/quarto-html/quarto-syntax-highlighting-c915296437fc3289b1876e91952e1c63.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="sol_2026_02_10_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="sol_2026_02_10_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="sol_2026_02_10_files/libs/bootstrap/bootstrap-6592efaa0f983b15af3ead25d4d882b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="sol_2026_02_10_files/libs/bootstrap/bootstrap-aac2af2466672defa16a04d85a034bea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -100,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -163,9 +169,9 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
 <!-- Si considerino i dati `Default` della libreria `ISLR2`, che contengono informazioni su 10 000 clienti di una banca, alcuni dei quali sono risultati insolventi (`default = "Yes"`). Le variabili presenti sono: -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">data</span>(Default)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">head</span>(Default, <span class="dv">4</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="fu">data</span>(Default)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="fu">head</span>(Default, <span class="dv">4</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  default student   balance   income
 1      No      No  729.5265 44361.63
@@ -176,19 +182,19 @@ window.Quarto = {
 </div>
 <!-- (a) Si costruiscano due boxplot: nel primo grafico, la variabile `balance` è raggruppata rispetto a `default`; nel secondo grafico, la variabile `balance` è raggruppata rispetto alla variabile `student`.  Si commentino i risultati ottenuti. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">boxplot</span>(Default<span class="sc">$</span>balance <span class="sc">~</span> Default<span class="sc">$</span>default)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">boxplot</span>(Default<span class="sc">$</span>balance <span class="sc">~</span> Default<span class="sc">$</span>student)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="fu">boxplot</span>(Default<span class="sc">$</span>balance <span class="sc">~</span> Default<span class="sc">$</span>default)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="fu">boxplot</span>(Default<span class="sc">$</span>balance <span class="sc">~</span> Default<span class="sc">$</span>student)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Sia <code>default</code> che <code>student</code> risultano essere “correlate” con la variabile <code>balance</code>. Sia gli studenti che i clienti insolventi hanno un maggior debito sulla carta di credito. In particolare, nel prevedere la variabile <code>default</code> tramite le restanti variabili, bisognerà tenere a mente della dipendenza esistente tra i predittori <code>balance</code> e <code>student</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Punto (b)</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="co"># Punto (b)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- (b) Si stimi un modello lineare generalizzato (GLM) opportuno, utilizzando il legame canonico, avente come variabile risposta `default` e come variabile esplicativa `student`. Si indichi tale modello con `m1`. Si riportino: -->
 <!--    i.  l’equazione che esprime la risposta media stimata in funzione delle variabili esplicative, riportando i valori delle stime di massima verosimiglianza; -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Punto (b.i)</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="co"># Punto (b.i)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a><span class="fu">coef</span>(m1) <span class="co"># In alternativa, anche summary(m1) mostrava le stime dei coefficienti</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)  studentYes 
  -3.5041278   0.4048871 </code></pre>
@@ -199,24 +205,24 @@ window.Quarto = {
 </span> dove <span class="math inline">d_i</span> è una variabile <em>dummy</em> che vale <span class="math inline">1</span> quando l’<span class="math inline">i</span>-esimo cliente è uno studente e <span class="math inline">0</span> altrimenti.</p>
 <!--    ii. il valore delle statistiche test e i *p-value* dei **test di Wald** e di **log-rapporto di verosimiglianza** per il confronto tra il modello stimato e il modello nullo. Si riportino il sistema di ipotesi e si giustifichino i gradi di libertà delle statistiche test. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Punto (b.ii)</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente studentYes. </span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="fu">summary</span>(m1) </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="co"># Punto (b.ii)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-label="3"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-label="4"></a><span class="co"># Statistiche test, p-value e gradi di libertà</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-label="5"></a>lmtest<span class="sc">::</span><span class="fu">waldtest</span>(m0, m1, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Test di Wald</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-label="6"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>) <span class="co"># Test log-rapporto di verosimiglianza</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-label="7"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-label="8"></a><span class="co"># Il test di Wald, più semplicemente, corrisponde allo z-value relativo al coefficiente studentYes. </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-label="9"></a><span class="co"># Si ricordi che z-value^2 = Chisq. </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-label="10"></a><span class="fu">summary</span>(m1) </span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Il valore delle statistiche test per i test di Wald e log-rapporto di verosimiglianza sono rispettivamente pari a: <span class="math inline">W_e = 12.392</span> (Wald) e <span class="math inline">W = 11.967 / \phi = 11.967</span> (log-rapporto di verosimiglianza), poichè <span class="math inline">\phi = 1</span> nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica test <code>z-value</code> presente nel <code>summary</code>, pari a <span class="math inline">3.52</span>, il cui quadrato coincide con <span class="math inline">W_e</span> a meno di piccole discrepanze numeriche.</p>
 <p>Come riportato nelle tabelle, i gradi di liberà di entrambi i test è <span class="math inline">q = 1</span>, perché è uno solo il parametro vincolato nel sistema d’ipotesi. Quest’ultimo è infatti pari a <span class="math inline">H_0: \beta_2 = 0</span> e <span class="math inline">H_1: \beta_2 \neq 0</span>.</p>
 <p>Considerati i gradi di libertà dei test <span class="math inline">W_e</span> e <span class="math inline">W</span> e la loro distribuzione asintotica sotto <span class="math inline">H_0</span>, si ottiene in entrambi i casi un <em>p-value</em> quasi pari a <span class="math inline">0</span>. In altri termini, si rigetta l’ipotesi nulla che <span class="math inline">\beta_2 = 0</span>.</p>
 <!--    iii. Si discuta se l’essere studenti aumenti o diminuisca la probabilità di insolvenza e di quanto, sulla base del modello `m1`. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Punto (b.iii)</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>]) <span class="co"># Rapporto tra quote (odds ratio)</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="co"># Punto (b.iii)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m1)[<span class="dv">2</span>]) <span class="co"># Rapporto tra quote (odds ratio)</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>studentYes 
   1.499133 </code></pre>
@@ -229,7 +235,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>)
+<span class="screen-reader-only">Avviso</span>Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -237,8 +243,8 @@ Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">plogis</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(m1))), <span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>])) <span class="co"># Alternativamente: predict(m1, data.frame(student = c("Yes", "No")), type = "response")</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>probs </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">plogis</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(m1))), <span class="fu">plogis</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>])) <span class="co"># Alternativamente: predict(m1, data.frame(student = c("Yes", "No")), type = "response")</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>probs </span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            (Intercept) 
  0.04313859  0.02919501 </code></pre>
@@ -247,8 +253,8 @@ Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>
 <p>È quindi chiaro che la probabilità di insolvenza di uno studente è maggiore di quella di un cliente non studente. Il rapporto tra probabilità (rischio relativo) è quindi pari a <code>probs[1] / probs[2] = 1.477601</code>, ovvero una variazione percentuale delle probabilità del <span class="math inline">47\%</span>.</p>
 <p>Se invece si considerano le quote:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>odds <span class="ot">&lt;-</span> probs <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> probs)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>odds </span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>odds <span class="ot">&lt;-</span> probs <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> probs)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-label="2"></a>odds </span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            (Intercept) 
  0.04508342  0.03007299 </code></pre>
@@ -266,12 +272,12 @@ Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Punto (c)</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student <span class="sc">+</span> income <span class="sc">+</span> balance, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="co"># Punto (c)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-label="2"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student <span class="sc">+</span> income <span class="sc">+</span> balance, <span class="at">data =</span> Default, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Punto (c.i)</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">round</span>(<span class="fu">coef</span>(m2), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a><span class="co"># Punto (c.i)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-label="2"></a><span class="fu">round</span>(<span class="fu">coef</span>(m2), <span class="dv">3</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)  studentYes      income     balance 
     -10.869      -0.647       0.000       0.006 </code></pre>
@@ -281,7 +287,7 @@ Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>
 \hat{\mathbb{E}}(Y_i) = \hat{\pi}_i =\frac{e^{-10.869  -0.647 d_i + 0.000 x_{i1} + 0.006 x_{i2}}}{1 + e^{-10.869  -0.647 d_i + 0.000 x_{i1} + 0.006 x_{i2}}}, \qquad i=1,\dots,10000,
 </span> dove <span class="math inline">x_{i1}</span> e <span class="math inline">x_{i2}</span> rappresentano i valori delle variabili <code>income</code> e <code>balance</code>, rispettivamente. L’esponenziale di ciascuno di questi coefficienti è interpretabile in termini di rapporti tra quote, tuttavia si rende necessaria una discussione dettagliata.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">round</span>(<span class="fu">exp</span>(<span class="fu">coef</span>(m2)[<span class="sc">-</span><span class="dv">1</span>]), <span class="dv">3</span>)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a><span class="fu">round</span>(<span class="fu">exp</span>(<span class="fu">coef</span>(m2)[<span class="sc">-</span><span class="dv">1</span>]), <span class="dv">3</span>)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>studentYes     income    balance 
      0.524      1.000      1.006 </code></pre>
@@ -299,8 +305,8 @@ Un errore ricorrente (che commettono anche i giornalisti del <em>Daily Mail</em>
 <!--     iii. Si discuta se l’interpretazione fornita al punto precedente sia coerente con quella ottenuta nel modello `m1`. Si commenti il risultato e se ne fornisca una giustificazione. -->
 <!-- (d) Il modello `m2` è preferibile rispetto al modello `m1`? Si motivi la risposta. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Punto (d)</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">anova</span>(m1, m2)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a><span class="co"># Punto (d)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-label="2"></a><span class="fu">anova</span>(m1, m2)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -316,39 +322,39 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Poichè si tratta di modelli annidati è possibile condurre un test statistico formale, il quale rigetta l’ipotesi nulla. Criteri di informazione quali AIC e BIC erano forse strumenti meno ortodossi ma comunque conducevano alla medesima conclusione.</p>
 <!-- (e) La variabile `income` può essere rimossa dal modello `m2`? Si motivi la risposta. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Punto (e)</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">summary</span>(m2)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a><span class="co"># Punto (e)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-label="2"></a><span class="fu">summary</span>(m2)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Come evidente dal <code>summary</code>, la variabile <code>income</code> è rimovibile dal modello senza perdita informativa. Il <em>p-value</em> risultava infatti pari a <span class="math inline">0.711</span>.</p>
 <!-- (f) Si riporti la previsione della probabilità di insolvenza in corrispondenza del valore medio della retribuzione (`income`), per uno studente con `balance = 100`. Si fornisca inoltre un intervallo di confidenza per tale previsione. -->
 <p>Poichè il testo non lo specificava, per gli intervalli di confidenza c’erano due possibili soluzioni, entrambe corrette:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Punto (f)</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">student =</span> <span class="st">"Yes"</span>, <span class="at">income =</span> <span class="fu">mean</span>(Default<span class="sc">$</span>income), <span class="at">balance =</span> <span class="dv">100</span>)</span>
-<span id="cb23-3"><a href="#cb23-3"></a></span>
-<span id="cb23-4"><a href="#cb23-4"></a>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb23-5"><a href="#cb23-5"></a>fit<span class="sc">$</span>fit <span class="co"># Previsione</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="co"># Punto (f)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">student =</span> <span class="st">"Yes"</span>, <span class="at">income =</span> <span class="fu">mean</span>(Default<span class="sc">$</span>income), <span class="at">balance =</span> <span class="dv">100</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-label="3"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-label="4"></a>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2, <span class="at">newdata =</span> newdata, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb23-5"><a href="#cb23-5" aria-label="5"></a>fit<span class="sc">$</span>fit <span class="co"># Previsione</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           1 
 1.958948e-05 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>fit<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit<span class="sc">$</span>se.fit</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a><span class="co"># Intervallo di confidenza alla Wald</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>fit<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit<span class="sc">$</span>se.fit</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.679883e-06 3.549907e-05</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>fit_lin <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2, <span class="at">newdata =</span> newdata, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">plogis</span>(fit_lin<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit_lin<span class="sc">$</span>se.fit)</span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="co"># Intervallo di confidenza "Wald trasformato"</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-label="2"></a>fit_lin <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2, <span class="at">newdata =</span> newdata, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb27-3"><a href="#cb27-3" aria-label="3"></a><span class="fu">plogis</span>(fit_lin<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> fit_lin<span class="sc">$</span>se.fit)</span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8.695777e-06 4.412974e-05</code></pre>
 </div>
 </div>
 <!-- (g) È possibile verificare la presenza di sovradispersione nel modello `m2`? In caso affermativo, si provi a trattarla mediante un modello a quasi-verosimiglianza e si commentino i risultati ottenuti. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Punto (g)</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="co"># NON BISOGNAVA FARE NULLA</span></span></code><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a><span class="co"># Punto (g)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-label="2"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-label="3"></a><span class="co"># NON BISOGNAVA FARE NULLA</span></span></code></pre></div><button title="Copia negli appunti" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>No, non ha senso verificare se nel modello <code>m2</code> è presente sovradispersione, perchè la variabile risposta è binaria e non può essere raggruppata in nessuna maniera a causa della presenza delle variabili continue <code>balance</code> e <code>income</code>.</p>
 </section>
@@ -407,13 +413,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
