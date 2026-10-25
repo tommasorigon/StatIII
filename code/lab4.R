@@ -1,5 +1,5 @@
 # LAB 4, Statistica III (Generalized Linear Models)
-# Title: "Binary and binomial regression". Datasets: Beetles, Credit scoring
+# Title: "Binary and binomial regression". Datasets: Beetles, Juice
 # Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
@@ -16,7 +16,7 @@ data("Beetles10")
 
 # QUESTION 2. Compare the predictions with the observed values. Perform a goodness of fit test against the saturated model.
 
-# QUESTION 3. Obtain a Wald confidence interval for the quantity \beta_1 + \beta_2 x, with x = 1.85. Compare you results with those obtained using the function "predict". Then, compute a confidence interval for the probability of dying when x = 1.85.
+# QUESTION 3. Obtain a Wald confidence interval for the quantity \beta_1 + \beta_2 x, with x = 1.85. Compare your results with those obtained using the function "predict". Then, compute a confidence interval for the probability of dying when x = 1.85.
 
 # QUESTION 4. Propose alternative link functions, compare the results with the logistic model in terms of predicted curves, diagnostics and goodness of fit.
 
@@ -150,7 +150,7 @@ str(juice)
 
 # QUESTION 1. We are interested in predicting the preference of customers towards CH and MM as a function of relevant covariates. What kind of model could be appropriate? What covariates do you think might be useful?
 
-# QUESTION 2: let us consider the following "wrong" approach, which causes an error. Why do you think it happens?
+# QUESTION 2: let us consider the following "wrong" approach, which causes problems (warnings and NA coefficients). Why do you think it happens?
 
 # A WRONG idea - the "automatic" data scientist
 m_wrong <- glm(choice ~ ., family = binomial, data = juice)
@@ -165,7 +165,7 @@ juice <- subset(juice, select = -c(buyCH))
 
 # loyaltyCH and loyaltyMM are collinear, we cannot use both.
 
-# id.cust is difficult to use, because there a lot of customers and very few observations per id
+# id.cust is difficult to use, because there are a lot of customers and very few observations per id
 juice <- subset(juice, select = -c(id.cust))
 
 # store, StoreID, store7 are referring to the same quantity
@@ -194,7 +194,7 @@ boxplot(loyaltyCH ~ choice, data = juice)
 boxplot(pricediff ~ choice, data = juice)
 boxplot(listpricediff ~ choice, data = juice)
 
-# QUESTION 4: identify a good model using a subset of the total number variables. Can we use all the available variables? Why not?
+# QUESTION 4: identify a good model using a subset of the total number of variables. Can we use all the available variables? Why not?
 
 # Let us consider a FORWARD approach for building this model. The backward does not work (!)
 m0 <- glm(choice ~ 1, family = binomial, data = juice)
@@ -203,10 +203,10 @@ summary(m0)
 # Variables we would like to POTENTIALLY consider
 scope <- choice ~ week + priceCH + priceMM + discountCH + discountMM + specialCH + specialMM + loyaltyCH + loyaltyMM + salepriceMM + salepriceCH + pricediff + pctdiscMM + pctdiscCH + listpricediff + store
 
-# Which variable is the most "relevant", meaning that reduced the deviance the most?
+# Which variable is the most "relevant", meaning the one that reduces the deviance the most?
 add1(m0, scope = scope, test = "LRT")
 
-# Loyalty is the most relevance variable. Let us include it (one of them, because they are obviously collinear)
+# Loyalty is the most relevant variable. Let us include it (one of them, because they are obviously collinear)
 m1 <- glm(choice ~ loyaltyMM, family = binomial, data = juice)
 summary(m1)
 
@@ -232,7 +232,7 @@ summary(m_step)
 
 # QUESTION 5: evaluate the goodness of fit of the estimated model.
 
-# Diagnostic plots are not usuful for binary data
+# Diagnostic plots are not useful for binary data
 par(mfrow = c(2, 2))
 plot(m3, which = 1:4) # As usual, these graphs are not particularly informative
 par(mfrow = c(1, 1))
@@ -241,9 +241,9 @@ pred_m3 <- predict(m3, type = "response")
 class_m3 <- as.factor(pred_m3 > 0.5)
 
 # Confusion matrix
-table(class_m3, juice$choice)
+table(juice$choice, class_m3)
 
-# Accuracy of the model is about 83%:
+# Accuracy of the model is about 84%:
 sum(diag(table(juice$choice, class_m3))) / nrow(juice)
 
 # Error is 1 - accuracy, is about 16%:
@@ -257,7 +257,7 @@ pred_avg <- tapply(pred_m3, class_m3, mean)
 prop <- tapply(as.numeric(juice$choice) - 1, class_m3, mean)
 
 plot(prop, pred_avg, pch = 16, xlab = "Empirical proportions (binned)", ylab = "Predicted proportions (binned)")
-rug(pred_m3)
+rug(pred_m3, side = 2)
 abline(c(0, 1), lty = "dotted")
 
 # There are also specialized approaches, such as the ROC curve and the lift curve. You will study them in other courses such as Data Mining.
