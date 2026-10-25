@@ -98,9 +98,10 @@ anova(m_quasi0, m_quasi_group, test = "Chisq")
 summary(m_quasi0)
 
 # Odds ratio between placebo and treated rats, with a 95% Wald confidence interval
-# NOTE: the odds ratio (about 43) is much larger than the one obtained adjusting for h (about 14). The iron supplement increases the haemoglobin level, which in turn reduces mortality: h is part of the mechanism through which the treatment acts. Hence, the model without h estimates the overall effect of the treatment.
 exp(coef(m_quasi0)[2])
 exp(confint.default(m_quasi0)[2, ])
+
+# NOTE: the odds ratio (about 43) is much larger than the one obtained adjusting for h (about 14). The iron supplement increases the haemoglobin level, which in turn reduces mortality: h is part of the mechanism through which the treatment acts. Hence, the model without h estimates the overall effect of the treatment.
 
 # Comparison with the confidence interval obtained by ignoring overdispersion (too narrow!)
 m_bin0 <- update(m_bin, . ~ . - h)
