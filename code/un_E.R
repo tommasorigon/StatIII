@@ -89,8 +89,3 @@ knitr::kable(
   ),
   digits = 3, align = "r"
 )
-
-intervals <- rbind(ci_mean, pi_quasi, pi_pois)
-colnames(intervals) <- c("Lower", "Upper")
-rownames(intervals) <- c("Confidence interval for the mean", "Prediction interval (quasi-Poisson)", "Prediction interval (Poisson)")
-knitr::kable(intervals, digits = 1)

@@ -1,5 +1,5 @@
 # LAB 6, Statistica III (Generalized Linear Models)
-# Title: "Quasi-likelihoods". Dataset: Rats
+# Title: "Quasi-likelihoods". Datasets: Rats, Leaf blotch
 # Author: Bernardo Nipoti, Tommaso Rigon
 
 # -------------------------------------------------------------------
@@ -117,3 +117,90 @@ cbind(
   lower = plogis(pred$fit - z * pred$se.fit),
   upper = plogis(pred$fit + z * pred$se.fit)
 )
+
+# -------------------------------------------------------------------
+# Dataset 2: Leaf blotch - APPLIED ANALYSIS
+# -------------------------------------------------------------------
+
+# Data refers to the incidence of leaf blotch (Rhynchosporium secalis) on 10 varieties of barley grown at 9 sites (Wedderburn, 1974; McCullagh and Nelder, 1989, Section 9.2.4). The response blotch is the proportion of leaf area affected, a continuous variable in [0, 1].
+
+# QUESTION 1: which varieties are the most resistant to leaf blotch?
+# QUESTION 2: is the binomial variance function adequate for these data?
+
+library(faraway)
+data(leafblotch)
+str(leafblotch)
+
+# Two-way table: varieties (rows) and sites (columns)
+round(xtabs(blotch ~ variety + site, data = leafblotch), 3)
+
+## Exploratory analysis -------------------------------------------------------------
+
+par(mfrow = c(1, 2))
+boxplot(blotch ~ site, data = leafblotch, xlab = "Site", ylab = "Proportion of leaf area affected")
+boxplot(blotch ~ variety, data = leafblotch, xlab = "Variety", ylab = "Proportion of leaf area affected")
+par(mfrow = c(1, 1))
+
+# Both the site and the variety strongly affect the incidence of the disease.
+
+## Quasi-binomial model -------------------------------------------------------------
+
+# The response is a continuous proportion, not a number of successes out of m trials: there is no binomial distribution here. However, a natural choice is var(Y_i) = phi * mu_i * (1 - mu_i), together with a logit link and an additive model in site and variety.
+
+m1 <- glm(blotch ~ site + variety, family = quasibinomial, data = leafblotch)
+summary(m1)
+
+X2 <- sum(residuals(m1, type = "pearson")^2)
+X2
+X2 / m1$df.residual
+
+# The estimate of phi is about 0.089. Since the data are not counts, there is no reason to expect phi to be close to 1: "underdispersion" is not meaningful here.
+
+# Is the variance function mu * (1 - mu) adequate? Let us look at the Pearson residuals.
+plot(predict(m1), residuals(m1, type = "pearson"),
+  pch = 16,
+  xlab = "Linear predictor", ylab = "Pearson residuals"
+)
+abline(h = 0, lty = "dotted")
+
+# The residuals are much less variable for small (and, to a lesser extent, large) values of the linear predictor: for extreme proportions, the variability is smaller than predicted by the variance function mu * (1 - mu).
+
+## A different variance function -------------------------------------------------------------
+
+# Following Wedderburn (1974), we consider the variance function v(mu) = mu^2 * (1 - mu)^2, which decreases faster at the extremes. This variance function does not correspond to any exponential dispersion family: we are outside the GLM world. We modify the quasi family accordingly.
+
+wedderburn <- quasi(link = "logit", variance = "mu(1-mu)")
+wedderburn$variance <- function(mu) mu^2 * (1 - mu)^2
+wedderburn$validmu <- function(mu) all(mu > 0 & mu < 1)
+
+m2 <- glm(blotch ~ site + variety, family = wedderburn, data = leafblotch)
+summary(m2)
+
+# The estimate of phi is now close to 1
+sum(residuals(m2, type = "pearson")^2) / m2$df.residual
+
+# NOTE: the quasi-likelihood associated with this variance function is not defined when y_i = 0 or y_i = 1. Since some proportions are equal to 0, the quasi-deviance cannot be computed and the "deviance" reported by summary must not be used.
+
+plot(predict(m2), residuals(m2, type = "pearson"),
+  pch = 16,
+  xlab = "Linear predictor", ylab = "Pearson residuals"
+)
+abline(h = 0, lty = "dotted")
+
+# The pattern is substantially reduced. The largest residuals are
+r2 <- residuals(m2, type = "pearson")
+head(leafblotch[order(r2, decreasing = TRUE), ], 3)
+head(sort(r2, decreasing = TRUE), 3)
+
+## Comparison of the two models -------------------------------------------------------------
+
+# Variety effects (contrasts with variety 1) and their standard errors
+idx <- grep("variety", names(coef(m1)))
+round(cbind(
+  binomial_est = coef(m1)[idx], binomial_se = summary(m1)$coefficients[idx, 2],
+  wedderburn_est = coef(m2)[idx], wedderburn_se = summary(m2)$coefficients[idx, 2]
+), 2)
+
+# 1) The estimates are different: unlike variance inflation, changing the variance function changes the estimating equations and therefore the estimates. The ordering of the varieties changes slightly as well.
+# 2) Under the second model, all the variety contrasts have the same standard error. Indeed, with the logit link g'(mu) = 1 / {mu (1 - mu)}, hence the weights w_i = 1 / {phi v(mu_i) g'(mu_i)^2} = 1 / phi are all equal.
+# 3) In both models, varieties 1-3 are the most resistant, whereas varieties 8-10 are the least resistant.
