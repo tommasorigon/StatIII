@@ -1,6 +1,6 @@
 # LAB 6, Statistica III (Generalized Linear Models)
 # Title: "Quasi-likelihoods". Datasets: Rats, Leaf blotch
-# Author: Bernardo Nipoti, Tommaso Rigon
+# Author: Tommaso Rigon
 
 # -------------------------------------------------------------------
 # Dataset 1: Rats - APPLIED ANALYSIS
@@ -19,7 +19,7 @@ head(Rats)
 ## Exploratory analysis -------------------------------------------------------------
 
 # Proportion of dead fetuses within each group
-with(Rats, tapply(s, group, sum) / tapply(n, group, sum))
+tapply(Rats$s, Rats$group, sum) / tapply(Rats$n, Rats$group, sum)
 
 # The placebo group is very different from the others, whereas the three treated groups are similar. We define a binary variable distinguishing placebo and treated rats.
 Rats$placebo <- ifelse(Rats$group == 1, 1, 0)
@@ -31,7 +31,7 @@ plot(Rats$h, Rats$s / Rats$n,
 legend("topright", legend = c("Treated", "Placebo"), col = c(1, 2), pch = 16)
 
 # The iron supplement affects the haemoglobin level of the mother: the mean is about 11.5 in the treated group and 4.6 in the placebo group. The two variables are strongly associated, and their effects are difficult to disentangle.
-with(Rats, tapply(h, placebo, mean))
+tapply(Rats$h, Rats$placebo, mean)
 
 ## Binomial regression -------------------------------------------------------------
 
