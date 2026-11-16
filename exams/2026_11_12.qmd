@@ -74,7 +74,7 @@ Usando **R**, si risponda alle seguenti domande.
     ii. È possibile confrontare `m1` e `m2` con un test del log-rapporto di verosimiglianza?
     iii. Quale modello si sceglierebbe tra `m1`, `m2` e `m3`?
 
-(e) Si stimi `m1` sui dati raggruppati per `errore_grave` e si confrontino stime, errori standard e devianza residua con quelli del punto (b). Usando la devianza residua del modello stimato sui dati raggruppati, è possibile verificare la presenza di sovradispersione?
+(e) Si ri-stimi `m1` sui dati raggruppati per `errore_grave` e si confrontino stime, errori standard e devianza residua con quelli del punto (b). Usando la devianza residua del modello stimato sui dati raggruppati, è possibile verificare la presenza di sovradispersione?
 
 ## Parte II: teoria ed esercizi
 
