@@ -127,8 +127,9 @@ window.Quarto = {
 <body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-
-<main class="content column-page" id="quarto-document-content">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -137,7 +138,7 @@ window.Quarto = {
 </div>
 
 
-<div class="quarto-title-meta-author column-page">
+<div class="quarto-title-meta-author column-page-left">
   <div class="quarto-title-meta-heading">Autore/Autrice</div>
   <div class="quarto-title-meta-heading">Affiliazione</div>
   
@@ -151,7 +152,7 @@ window.Quarto = {
       </div>
   </div>
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
       
   
@@ -163,11 +164,11 @@ window.Quarto = {
 </header>
 
 
-<section id="homepage" class="level1">
+<section id="homepage" class="level1 page-columns page-full">
 <h1><a href="../index.html">Homepage</a></h1>
 <p>Il tempo a disposizione per lo svolgimento della prova è di <strong>2 ore e 30 minuti</strong>. Si ricorda di firmare tutti i documenti che si intendono consegnare, indicando nome e numero di matricola.</p>
 <p>Il voto finale corrisponde alla media delle due parti, ciascuna valutata su 30 punti. La prova si considera superata solo se si raggiunge la sufficienza (18/30) in entrambe le parti.</p>
-<section id="parte-i-analisi-dei-dati" class="level2">
+<section id="parte-i-analisi-dei-dati" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="parte-i-analisi-dei-dati">Parte I: analisi dei dati</h2>
 <p>Durante un’esercitazione di Statistica I (a.a. 2024/2025), gli studenti hanno stimato il numero di biglie contenute in una bottiglia. Il valore vero è <span class="math inline">282</span>. Le stime sono state poi associate all’esito dell’esame di Statistica I.</p>
 <p>I dati <a href="../data/biglie2.csv"><code>biglie2.csv</code></a> riguardano <span class="math inline">n = 75</span> studenti e contengono le variabili:</p>
@@ -188,7 +189,7 @@ window.Quarto = {
 <ol type="i">
 <li>componente casuale, componente sistematica e funzione legame;</li>
 <li>le probabilità stimate di superare l’esame nei due gruppi, confrontandole con le proporzioni del punto (a);</li>
-<li>statistiche test e <em>p-value</em> dei test di Wald, di Rao e del log-rapporto di verosimiglianza per il confronto con il modello nullo, specificando ipotesi e gradi di libertà. Si confronti il test di Rao con il test <span class="math inline">X^2</span> di Pearson sulla tabella del punto (a);</li>
+<li>statistiche test e <em>p-value</em> dei test di Wald, di Rao e del log-rapporto di verosimiglianza per il confronto con il modello nullo, specificando ipotesi e gradi di libertà. Si confronti il test di Rao con il test <span class="math inline">X^2</span> di Pearson sulla tabella del punto (a);<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>un’interpretazione della stima dell’intercetta del modello nullo;</li>
 <li>l’<em>odds ratio</em> associato a <code>errore_grave</code>, con interpretazione e intervallo di confidenza al <span class="math inline">95\%</span>.</li>
 </ol></li>
@@ -201,7 +202,7 @@ window.Quarto = {
 </ol></li>
 <li><p>Si ri-stimi <code>m1</code> sui dati raggruppati per <code>errore_grave</code> e si confrontino stime, errori standard e devianza residua con quelli del punto (b). Usando la devianza residua del modello stimato sui dati raggruppati, è possibile verificare la presenza di sovradispersione?</p></li>
 </ol>
-</section>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;<strong>Suggerimento</strong>: per il test <span class="math inline">X^2</span> di Pearson si usi il comando <code>chisq.test</code>.</p></div></div></section>
 <section id="parte-ii-teoria-ed-esercizi" class="level2">
 <h2 class="anchored" data-anchor-id="parte-ii-teoria-ed-esercizi">Parte II: teoria ed esercizi</h2>
 <section id="problema-1" class="level4">
@@ -219,6 +220,7 @@ window.Quarto = {
 </section>
 </section>
 </section>
+
 
 </main>
 <!-- /main column -->
