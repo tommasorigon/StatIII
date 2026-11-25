@@ -1,0 +1,208 @@
+---
+title: "Soluzione esame del 12 Novembre 2026"
+subtitle: "Statistics III - CdL SSE"
+author: "[Tommaso Rigon]{.orange}"
+institute: "_Università degli Studi di Milano-Bicocca_"
+page-layout: full
+lang: it
+bibliography: ../biblio.bib
+citeproc: true
+csl: https://www.zotero.org/styles/journal-of-the-american-statistical-association
+reference-location: margin
+execute:
+  cache: false
+format:
+  html:
+    html-math-method: katex
+    echo: true
+    callout-appearance: minimal
+    theme: [simplex, ../template.css]
+    embed-resources: false
+    code-line-numbers: true
+    smooth-scroll: true
+    code-fold: false
+    code-summary: "Show the code"
+    fig-dpi: 150
+    highlight-style: github
+editor:
+  markdown:
+    wrap: 72
+editor_options:
+  chunk_output_type: console
+---
+
+# [Homepage](../index.html)
+
+## Parte I: analisi dei dati
+
+Anzitutto, era necessario caricare in memoria il dataset.
+
+```{r}
+# Operazioni preliminari
+rm(list = ls())
+biglie <- read.csv("../data/biglie2.csv", header = TRUE, stringsAsFactors = TRUE)
+```
+
+<!-- (a) Si riportino la tabella di contingenza tra `errore_grave` ed `esito` e la proporzione di promossi nei due gruppi. Si costruisca un boxplot di `tentativo` per `esito` (senza riportarlo). Si commentino i risultati. -->
+
+```{r}
+# Punto (a)
+table(biglie$errore_grave, biglie$esito) # Tabella di contingenza
+tapply(biglie$superato, biglie$errore_grave, mean) # Proporzione di promossi
+```
+
+Tra gli studenti che commettono un errore grave la proporzione di promossi è $13/31 = 0.419$, contro $30/44 = 0.682$ tra chi non lo commette: commettere un errore grave è quindi associato a una minore probabilità di superare l'esame.
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4.5
+#| out-width: "60%"
+#| fig-align: center
+boxplot(tentativo ~ esito, data = biglie)
+abline(h = 282, lty = "dotted") # Valore vero
+```
+
+Le mediane dei due gruppi sono entrambe vicine al valore vero ($275$ per i promossi, $280$ per i respinti). La differenza tra i due gruppi riguarda soprattutto la [variabilità]{.blue}: le stime dei promossi sono concentrate attorno a $282$, mentre quelle dei respinti sono molto più disperse, con valori estremi sia bassi sia molto alti (fino a $1096$). Ciò che conta è quindi la *distanza* dal valore vero, non la direzione dell'errore.
+
+<!-- (b) Si stimi un GLM con legame canonico, con risposta `superato` ed esplicativa `errore_grave` (modello `m1`). Si riportino: -->
+<!--     i. componente casuale, componente sistematica e funzione legame; -->
+
+La variabile risposta $Y_i$ (`superato`) è binaria, pertanto era ragionevole modellarla tramite una distribuzione di Bernoulli, in cui:
+$$
+Y_i \overset{\text{ind}}{\sim} \text{Bernoulli}(\pi_i), \quad (\text{componente casuale}), \qquad \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_1 + \beta_2 x_i \quad (\text{componente sistematica}),
+$$
+per $i = 1, \dots, 75$, dove $x_i$ rappresenta la $i$-esima osservazione di `errore_grave`. La funzione legame è $g(\pi) = \text{logit}(\pi) = \log\{\pi/(1 - \pi)\}$, il legame canonico.
+
+<!--     ii. le probabilità stimate di superare l'esame nei due gruppi, confrontandole con le proporzioni del punto (a); -->
+
+```{r}
+# Punto (b.ii)
+m1 <- glm(superato ~ errore_grave, data = biglie, family = binomial)
+predict(m1, newdata = data.frame(errore_grave = c(0, 1)), type = "response")
+```
+
+Le probabilità stimate, pari a $0.682$ e $0.419$, [coincidono]{.orange} con le proporzioni osservate al punto (a). Il motivo è che il modello ha due parametri e la variabile esplicativa individua due soli gruppi: il modello è quindi saturo rispetto ai gruppi, e le equazioni di verosimiglianza impongono che in ciascun gruppo il numero stimato di promossi coincida con quello osservato.
+
+<!--     iii. statistiche test e *p-value* dei test di Wald, di Rao e del log-rapporto di verosimiglianza per il confronto con il modello nullo, specificando ipotesi e gradi di libertà. Si confronti il test di Rao con il test $X^2$ di Pearson sulla tabella del punto (a); -->
+
+```{r}
+#| results: hide
+# Punto (b.iii)
+m0 <- glm(superato ~ 1, data = biglie, family = binomial)
+lmtest::waldtest(m0, m1, test = "Chisq") # Test di Wald
+anova(m0, m1, test = "Rao") # Test di Rao
+anova(m0, m1, test = "LRT") # Test log-rapporto di verosimiglianza
+chisq.test(table(biglie$errore_grave, biglie$esito), correct = FALSE) # Test X^2 di Pearson
+```
+
+Per confrontare `m1` con il modello nullo, il sistema d'ipotesi è $H_0: \beta_2 = 0$ contro $H_1: \beta_2 \neq 0$. I valori delle statistiche test sono pari a $W_e = 4.99$ (Wald), $W_u = 5.12$ (Rao/score) e $W = 5.14 / \phi = 5.14$ (log-rapporto di verosimiglianza), poiché $\phi = 1$ nel modello binomiale. Nel caso del test di Wald, era ugualmente corretto riportare la statistica `z value` presente nel `summary`, pari a $-2.233$, il cui quadrato coincide con $W_e$. I gradi di libertà sono $q = 1$, perché è uno solo il parametro coinvolto nel sistema d'ipotesi. Sotto $H_0$ le tre statistiche hanno distribuzione asintotica $\chi^2_1$, da cui *p-value* pari a $0.026$, $0.024$ e $0.023$: al livello del $5\%$ si rigetta l'ipotesi nulla.
+
+La statistica di Rao [coincide]{.blue} con il test $X^2$ di Pearson per l'indipendenza nella tabella $2 \times 2$ del punto (a): entrambe valgono $5.12$, con lo stesso *p-value*. Si tratta di un risultato generale: il test di Rao per $\beta_2 = 0$ in una regressione logistica con una sola esplicativa binaria è il test $X^2$ di Pearson.
+
+::: {.column-margin}
+Di default, il comando `chisq.test` applica la correzione di continuità di Yates, ottenendo $4.10$ (*p-value* $0.043$). L'uguaglianza con il test di Rao vale per la statistica [senza correzione]{.orange}, che si ottiene con l'opzione `correct = FALSE`.
+:::
+
+<!--     iv. un'interpretazione della stima dell'intercetta del modello nullo; -->
+
+```{r}
+# Punto (b.iv)
+coef(m0) # Intercetta del modello nullo
+plogis(coef(m0)) # Probabilità stimata
+```
+
+Nel modello nullo tutti gli studenti hanno la stessa probabilità di superare l'esame, la cui stima è la proporzione di promossi $43/75 = 0.573$. L'intercetta stimata è quindi il logit di tale proporzione, ossia $\hat{\beta}_1 = \log(43/32) = 0.296$. In altri termini, le quote di superamento stimate sono $e^{0.296} = 1.34$: circa $4$ promossi ogni $3$ respinti.
+
+<!--     v. l'*odds ratio* associato a `errore_grave`, con interpretazione e intervallo di confidenza al $95\%$. -->
+
+```{r}
+# Punto (b.v)
+exp(coef(m1)[2]) # Odds ratio
+exp(confint.default(m1)[2, ]) # Intervallo di confidenza (Wald)
+```
+
+Il rapporto tra quote (*odds ratio*) associato a `errore_grave` è $e^{\hat{\beta}_2} = 0.337$: le quote di superamento dell'esame di chi commette un errore grave sono circa il $34\%$ di quelle di chi non lo commette, ossia ridotte di circa il $66\%$. L'intervallo di confidenza di livello $0.95$ per il rapporto tra quote è $(0.130, 0.876)$, che non contiene il valore $1$, coerentemente con il test di Wald.
+
+::: {.column-margin}
+Il rapporto tra quote stimato coincide con quello empirico della tabella $2 \times 2$, ossia $(13 \times 14)/(18 \times 30) = 0.337$.
+:::
+
+<!-- (c) Sia `errore` $= |\texttt{tentativo} - 282|$ l'errore assoluto. Si stimi il modello `m2` con risposta `superato` ed esplicativa `errore`. Si interpreti il coefficiente di `errore`, indicando come variano le quote di superamento dell'esame quando l'errore aumenta di $10$ biglie. -->
+
+```{r}
+#| results: hide
+# Punto (c)
+biglie$errore <- abs(biglie$tentativo - 282)
+m2 <- glm(superato ~ errore, data = biglie, family = binomial)
+summary(m2)
+exp(10 * coef(m2)[2]) # Aumento dell'errore di 10 biglie
+```
+
+Nel modello `m2` il predittore lineare stimato è $\hat{\beta}_1 + \hat{\beta}_2 x_i = 0.747 - 0.0093 x_i$, dove $x_i$ è l'errore assoluto dell'$i$-esimo studente. Per interpretare il coefficiente di `errore`, si osservi che un aumento dell'errore di $10$ biglie moltiplica le quote di superamento dell'esame per
+$$
+e^{10 \hat{\beta}_2} = 0.911,
+$$
+cioè le riduce di circa il $9\%$. Il coefficiente è significativo al $5\%$ secondo il test di Wald, ma con un *p-value* ($0.048$) molto vicino alla soglia.
+
+<!-- (d) Si stimi il modello `m3` con esplicative `errore_grave` ed `errore`. -->
+<!--     i. Perché in `m3` nessuno dei due coefficienti è significativo, mentre lo erano in `m1` e `m2`? -->
+
+```{r}
+#| results: hide
+# Punto (d.i)
+m3 <- glm(superato ~ errore_grave + errore, data = biglie, family = binomial)
+summary(m3)
+```
+
+Nel modello `m3` le stime di entrambi i coefficienti si riducono in valore assoluto ($-0.600$ per `errore_grave` e $-0.0053$ per `errore`), gli errori standard aumentano e nessuno dei due test di Wald è significativo (*p-value* pari a $0.38$ e $0.37$).
+
+Nessuno dei due coefficienti è significativo in `m3` a causa della forte [dipendenza]{.orange} tra le due variabili esplicative: `errore_grave` è una funzione deterministica di `errore`, dato che vale $1$ se e solo se l'errore supera $30$ biglie. Le due variabili contengono quindi in larga parte la stessa informazione (collinearità). In `m3` ciascun coefficiente misura l'effetto di una variabile [a parità dell'altra]{.blue}, e i dati contengono poca informazione per separare i due effetti.
+
+<!--     ii. È possibile confrontare `m1` e `m2` con un test del log-rapporto di verosimiglianza? -->
+
+Non è possibile confrontare `m1` e `m2` mediante un test del log-rapporto di verosimiglianza, perché i due modelli [non sono annidati]{.orange}: nessuno dei due si ottiene dall'altro imponendo dei vincoli sui parametri. Entrambi sono invece annidati nel modello `m3`.
+
+<!--     iii. Quale modello si sceglierebbe tra `m1`, `m2` e `m3`? -->
+
+```{r}
+#| results: hide
+# Punto (d.iii)
+anova(m1, m3, test = "LRT")
+anova(m2, m3, test = "LRT")
+AIC(m1, m2, m3)
+BIC(m1, m2, m3)
+```
+
+Per scegliere tra `m1`, `m2` e `m3`, si confronta anzitutto `m3` con i due modelli in esso annidati mediante il test del log-rapporto di verosimiglianza. Si ottiene $W = 97.21 - 95.66 = 1.55$ per `m1` contro `m3` e $W = 96.36 - 95.66 = 0.71$ per `m2` contro `m3`, con $q = 1$ grado di libertà e *p-value* pari a $0.21$ e $0.40$. In entrambi i casi non si rigetta l'ipotesi nulla: il modello `m3` non è preferibile.
+
+Il confronto tra `m1` e `m2` richiede invece i criteri d'informazione:
+
+| Modello | AIC | BIC |
+|---|---|---|
+| `m1` | $101.21$ | $105.84$ |
+| `m2` | $100.36$ | $105.00$ |
+| `m3` | $101.66$ | $108.61$ |
+
+Entrambi i criteri selezionano il modello `m2`, anche se la differenza con `m1` è piccola. Il modello `m2` ha inoltre il vantaggio di non dipendere dalla scelta arbitraria della soglia di $30$ biglie.
+
+<!-- (e) Si ri-stimi `m1` sui dati raggruppati per `errore_grave` e si confrontino stime, errori standard e devianza residua con quelli del punto (b). Usando la devianza residua del modello stimato sui dati raggruppati, è possibile verificare la presenza di sovradispersione? -->
+
+```{r}
+# Punto (e)
+# Dati raggruppati, letti dalla tabella del punto (a)
+biglie_g <- data.frame(errore_grave = c(0, 1), promossi = c(30, 13), respinti = c(14, 18))
+biglie_g
+
+m1_g <- glm(cbind(promossi, respinti) ~ errore_grave, data = biglie_g, family = binomial)
+summary(m1)$coefficients # Dati non raggruppati
+summary(m1_g)$coefficients # Dati raggruppati
+c(deviance(m1), deviance(m1_g)) # Devianze residue
+```
+
+Ri-stimando `m1` sui dati raggruppati, le stime e gli errori standard sono [identici]{.blue} a quelli del punto (b), poiché le due log-verosimiglianze differiscono solo per una costante che non dipende dai parametri. Le devianze residue sono invece diverse: $97.21$ sui dati non raggruppati e [$0$, con $0$ gradi di libertà]{.orange}, sui dati raggruppati. Con due gruppi e due parametri, infatti, il modello stimato sui dati raggruppati coincide con il modello saturo.
+
+Usando la devianza residua del modello stimato sui dati raggruppati non è quindi possibile verificare la presenza di sovradispersione, perché la devianza è nulla e non ci sono gradi di libertà residui.
+
+::: {.column-margin}
+Del resto, con i dati non raggruppati la sovradispersione non può nemmeno verificarsi: quando $m_i = 1$, qualsiasi distribuzione su $\{0, 1\}$ ha varianza $\pi_i(1 - \pi_i)$, per cui necessariamente $\phi = 1$.
+:::

@@ -101,7 +101,7 @@ have access to the code from Labs 1-6.
 
 | Date | Dataset | Questions (ITA) | Solution (ITA) |
 |------------------|------------------|------------------|------------------|
-| 2026-11-12 | [`biglie2`](data/biglie2.csv) | [Exam](exams/2026_11_12.html) |  |
+| 2026-11-12 | [`biglie2`](data/biglie2.csv) | [Exam](exams/2026_11_12.html) | [Solution](exams/sol_2026_11_12.html) |
 | 2026-09-16 | [`case2001`](https://search.r-project.org/CRAN/refmans/Sleuth3/html/case2001.html) | [Exam](exams/2026_09_16.html) |  |
 | 2026-07-22 | [`worldcup`](data/worldcup.csv) | [Exam](exams/2026_07_22.html) | [Solution](exams/sol_2026_07_22.html) |
 | 2026-06-25 | [`warpbreaks`](https://search.r-project.org/R/refmans/datasets/html/warpbreaks.html) | [Exam](exams/2026_06_25.html) |  |
