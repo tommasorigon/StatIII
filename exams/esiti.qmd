@@ -1,5 +1,5 @@
 ---
-title: "Esiti esame del 22 Luglio 2026"
+title: "Esiti esame del 12 Novembre 2026"
 subtitle: "Statistica III - CdL SSE"
 author: "[Tommaso Rigon]{.orange}"
 institute: "_Università degli Studi di Milano-Bicocca_"
@@ -29,7 +29,7 @@ editor_options:
 #| echo: false
 outcome <- read.csv("esiti.csv", sep = ";", dec = ",")
 outcome <- subset(outcome, select=c(Matricola, Esito, Analisi.dati, Teoria))
-outcome <- outcome[outcome$Esito != "ASS" & outcome$Esito != "RIT", ]
+outcome <- outcome[outcome$Esito != "ASS" & outcome$Esito != "RIT" & outcome$Esito != "ORALE", ]
 outcome$Esito[outcome$Esito == "31"] <- "30 cum laude"
 outcome$Analisi.dati[outcome$Analisi.dati < 17.5] <- "INS"
 outcome$Teoria[outcome$Teoria < 17.5] <- "INS"
